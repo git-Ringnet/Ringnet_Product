@@ -17,6 +17,7 @@ use App\Models\User;
 use App\Models\userFlow;
 use App\Models\Workspace;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -289,8 +290,10 @@ class BillSaleController extends Controller
         if ($request->action == "action_1") {
             $billSale = BillSale::find($id);
             if ($billSale) {
+                $date_bill = isset($request->date_bill) ? Carbon::parse($request->date_bill) : Carbon::now();
                 $billSale->update([
                     'status' => 2,
+                    'created_at' => $date_bill,
                 ]);
                 $this->billSale->updateDetailExport($billSale->detailexport_id);
                 $arrCapNhatKH = [

@@ -349,7 +349,7 @@
                                                         value="{{ number_format($item_quote->price_import) }}">
                                                 </td> -->
                                                 <td
-                                                    class="border-right p-2 note text-13 align-top border-bottom border-top-0">
+                                                    class="p-2 note text-13 align-top border-bottom border-top-0">
                                                     <input type="text" class='border-0 py-1 w-100 height-32'
                                                         readonly name="product_note[]"
                                                         value="{{ $item_quote->product_note }}">

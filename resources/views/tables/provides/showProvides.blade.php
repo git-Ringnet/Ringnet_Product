@@ -249,13 +249,20 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                                            style="width: 18%;">Tổng số đơn đã mua</th>
-                                                        <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                                            style="width: 20%;">Tổng số tiền đã mua</th>
-                                                        <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                                            style="width: 20%;">Tổng số tiền thanh toán</th>
-                                                        <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                                            style="width: 20%;">Dư nợ</th>
+                                                            style="width: 18%;">
+                                                            <span class="mr-2">Tổng số đơn đã mua</span>
+                                                        </th>
+                                                        <th class="border-right text-13 px-0 py-2 padding-left35 height-52 text-right"
+                                                            style="width: 20%;"><span class="mr-2">Tổng số tiền đã
+                                                                mua</span>
+                                                        </th>
+                                                        <th class="border-right text-13 px-0 py-2 padding-left35 height-52 text-right"
+                                                            style="width: 20%;"><span class="mr-2">Tổng số tiền
+                                                                thanh toán</span>
+                                                        </th>
+                                                        <th class="border-right text-13 px-0 py-2 padding-left35 height-52 text-right"
+                                                            style="width: 20%;"><span class="mr-2">Dư nợ</span>
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

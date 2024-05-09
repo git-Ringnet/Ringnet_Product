@@ -150,7 +150,7 @@
                 </div>
             </div>
 
-            <section class="border-custom" style="height:50px">
+            <section class="border-top" style="height:50px">
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav nav nav-tabs margin-left32">
@@ -175,8 +175,7 @@
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div id="title--fixed"
-                            class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                        <div id="title--fixed" class="content-title--fixed top-111 text-center">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">
                                 THÔNG TIN SẢN PHẨM</p>
                         </div>
@@ -185,90 +184,52 @@
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:44px;">
-                                            <th class="border-right border-bottom"
-                                                style="width: 15%;padding-left:2rem;">
-                                                <span class="text-table text-secondary">Mã sản phẩm</span>
+                                            <th class="border-right p-2" style="width: 15%;">
+                                                <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox">
+                                                <span class="text-13 "> Mã sản phẩm</span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="created_at"
-                                                        data-sort-type="">
-                                                        <button class="btn-sort text-13" type="submit">Tên sản
-                                                            phẩm</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-created_at"></div>
-                                                </span>
+                                            <th class="border-right p-2" style="width: 16%;">
+                                                <span class="text-13">Tên sản phẩm</span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="created_at"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Đơn vị</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-created_at"></div>
-                                                </span>
+                                            <th class="border-right p-2" style="width: 10%;">
+                                                <span class="text-13"> Đơn vị</span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Số lượng</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
+                                            <th class="border-right p-2 text-right" style="width: 10%;">
+                                                <span class="text-13"> Số lượng</span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Đơn giá</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
+                                            <th class="border-right p-2 text-right" style="width: 15%;">
+                                                <span class="text-13">Đơn giá</span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex justify-content-center">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Thuế</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
+                                            <th class="border-right p-2 text-center" style="width: 10%;">
+                                                <span class="text-13">Thuế</span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Thành tiền</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
+                                            <th class="border-right p-2 text-right" style="width: 12%;">
+                                                <span class="text-13">Thành tiền</span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Ghi chú sản phẩm</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
+                                            <th class="note p-2">
+                                                <span class="text-13">Ghi chú</span>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($product as $item)
                                             <tr class="bg-white" style="height:80px;">
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0"
-                                                    style="width:5%;padding-left: 2rem !important;">
-                                                    <input readonly type="text" id=""
-                                                        class="border-0 py-1 w-75 searchProduct"
-                                                        value="{{ $item->product_code }}">
+                                                <td
+                                                    class="border border-left-0 border-top-0 p-2 align-top position-relative">
+                                                    <div
+                                                        class="d-flex w-100 justify-content-between align-items-center">
+                                                        <input class="checkall-btn ml-4 mr-1" id="checkall"
+                                                            type="checkbox">
+                                                        <input type="text" autocomplete="off" readonly
+                                                            value="{{ $item->product_code }}"
+                                                            class="height-32 border-0 px-2 py-1 w-75 product_code w-100 text-13-black "
+                                                            name="product_code[]">
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0"
-                                                    style="width:15%">
+                                                <td
+                                                    class="border-right p-2 text-13 align-top position-relative border-bottom border-top-0">
                                                     <div class="d-flex align-items-center">
                                                         <input type="text"
-                                                            class="searchProductName w-100 border-0 px-2 py-1"
+                                                            class="searchProductName w-100 border-0 px-2 py-1 height-32"
                                                             value="{{ $item->product_name }}" readonly
                                                             name="product_name[]">
                                                         <div class='info-product' data-toggle='modal'
@@ -297,27 +258,27 @@
                                                     </div>
                                                 </td>
                                                 <td
-                                                    class="bg-white align-top text-13-black border-right border-bottom border-top-0">
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item->product_unit }}"
-                                                        class="border-0 px-2 py-1 w-100 product_unit">
+                                                        class="border-0 px-2 py-1 w-100 product_unit height-32">
                                                 </td>
                                                 <td
-                                                    class="bg-white align-top text-13-black border-right border-bottom border-top-0">
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <input type="text"
-                                                            class="border-0 px-2 py-1 w-100 quantity-input text-right"
+                                                            class="border-0 px-2 py-1 w-100 quantity-input text-right height-32"
                                                             value="{{ number_format($item->product_qty) }}" readonly>
                                                     </div>
                                                     <div class="mt-3 text-13-blue inventory text-right">Tồn kho: <span
                                                             class="pl-1 soTonKho">{{ number_format($item->inventory) }}</span>
                                                     </div>
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0"
-                                                    style="width:12%">
+                                                <td
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div>
                                                         <input readonly type="text" name="price_export[]"
-                                                            class="border-0 px-2 py-1 w-100 price_export text-right"
+                                                            class="border-0 px-2 py-1 w-100 price_export text-right height-32"
                                                             value="{{ number_format($item->price_export) }}">
                                                     </div>
                                                     <div class='mt-3 text-13-blue transaction text-right'
@@ -325,23 +286,25 @@
                                                         data-target="#recentModal">Giao dịch gần
                                                         đây</div>
                                                 </td>
-                                                <td class="bg-white align-top border-right border-bottom border-top-0">
+                                                <td
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input readonly type="text"
-                                                        class="border-0 px-2 py-1 w-100 product_tax text-center"
+                                                        class="border-0 px-2 py-1 w-100 product_tax text-center height-32"
                                                         disabled
                                                         value="{{ $item->product_tax == 99 ? 'NOVAT' : $item->product_tax }} %">
                                                 </td>
                                                 <input type="hidden" class="product_tax1">
 
-                                                <td class="bg-white align-top text-13-black text-left border-right border-bottom border-top-0"
-                                                    style="width: 12%;">
+                                                <td
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input readonly type="text" name="" id=""
-                                                        class="border-0 px-2 py-1 w-100 total_price text-right"
+                                                        class="border-0 px-2 py-1 w-100 total_price text-right height-32"
                                                         value="{{ number_format($item->product_total) }}">
                                                 </td>
                                                 <td
-                                                    class="text-center bg-white align-top text-13-black border-right border-bottom border-top-0">
-                                                    <input readonly type="text" class="border-0 px-2 py-1 w-100"
+                                                    class="text-center bg-white align-top text-13-black border-bottom border-top-0">
+                                                    <input readonly type="text"
+                                                        class="border-0 px-2 py-1 w-100 height-32"
                                                         value="{{ $item->product_note }}" placeholder='Nhập ghi chú'>
                                                 </td>
                                             </tr>
@@ -364,7 +327,7 @@
                             <div class="outer container-fluided">
                                 <table class="table table-hover bg-white rounded" id="inputcontent">
                                     <thead>
-                                        <tr style="height:50px;">
+                                        <tr style="height:44px;">
                                             <th class="text-table text-secondary p-2 border-right border-bottom"
                                                 style="padding-left: 2rem !important;">Mã thanh toán</th>
                                             <th class="text-table text-secondary p-2 border-right border-bottom">Ngày
@@ -429,18 +392,18 @@
         <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border top-109">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-top-0 text-center border-custom">
+                    <div class="bg-filter-search border-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
                             CẤP</p>
                     </div>
 
-                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:49px;">
+                    <div class="d-flex justify-content-between py-2 px-3 border-top border-bottom align-items-center text-left text-nowrap position-relative"
+                        style="height:45px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">Đơn mua hàng</span>
                         <span class="mx-1 text-13" style="flex: 2;">
 
                             <input type="text" placeholder="Chọn thông tin" id="search_quotation"
-                                class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest search_quotation"
+                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest search_quotation"
                                 style="background-color:#F0F4FF; border-radius:4px;" name="quotation_number"
                                 autocomplete="off" readonly value="{{ $payment->getQuotation->quotation_number }}">
                         </span>
@@ -448,7 +411,7 @@
 
                     <div class="">
                         <ul class="p-0 m-0">
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
                                 <input type="text"
@@ -458,7 +421,7 @@
                                     placeholder="Chọn thông tin" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input type="text"
@@ -467,7 +430,7 @@
                                     @if ($nameRepresent) value="{{ $nameRepresent }}" @endif />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
                                 <input type="text" placeholder="Chọn thông tin" required
@@ -476,7 +439,7 @@
                                     value="{{ $payment->payment_code }}" name="payment_code" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh toán</span>
 
@@ -489,7 +452,7 @@
                                     value="{{ $payment->formatDate($payment->payment_date)->format('Y-m-d') }}">
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
 
@@ -502,7 +465,7 @@
                                     value="{{ $payment->formatDate($payment->payment_day)->format('Y-m-d') }}">
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap" style="flex: 1.5;">Hình thức t.toán</span>
                                 <select name="payment_type" id="" class="border-0 text-13"
@@ -516,7 +479,7 @@
                             </li>
 
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
                                 <input type="text" placeholder="Chọn thông tin" name="delivery_charges" readonly
@@ -524,7 +487,7 @@
                                     style="flex:2;" value="{{ number_format($payment->total) }}" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left bordr-top-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left bordr-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh toán</span>
                                 <input id="text" type="text" placeholder="Chọn thông tin"
@@ -532,7 +495,7 @@
                                     style="flex:2;" value="{{ number_format($payment->payment) }}" name="payment" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
                                 <input type="text" placeholder="Chọn thông tin" name="debt" required
@@ -540,19 +503,19 @@
                                     style="flex:2;" value="{{ number_format($payment->debt) }}" />
                             </li>
                             {{-- @dd($payment->debt) --}}
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left border-top-0"
                                 style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán trước</span>
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
                                 <input id="prepayment" type="text" placeholder="Chọn thông tin" name="payment"
                                     oninput="checkQty(this,{{ $payment->debt }})"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 payment_input"
-                                    style="flex:2; background-color:#F0F4FF;" />
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 payment_input bg-input-guest-blue"
+                                    style="flex:2;" />
                             </li>
 
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left border-top-0"
                                 style="height:44px;">
-                                <span class="mx-1 text-13" style="flex: 2;">
+                                <span class="mx-1 text-13 d-flex align-items-center" style="flex: 2;">
                                     <input type="checkbox" name="payment_all" onclick="cbPayment(this)"
                                         @if ($payment->debt == 0) disabled @endif>
                                     <span class="text-13 btn-click">Thanh toán đủ : <span

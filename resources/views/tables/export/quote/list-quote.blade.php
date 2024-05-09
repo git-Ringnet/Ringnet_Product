@@ -801,12 +801,12 @@
 
                                             <a href="#" data-type="delivery" onclick="getActionForm(this)" id="luuNhap">
                                                 <button name="action" value="1" type="button"
-                                                    class="custom-btn d-flex align-items-center h-100" style="margin-right:5px">
+                                                    class="btn-destroy mx-1 d-flex align-items-center h-100" style="margin-right:5px">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14"
                                                         viewBox="0 0 12 14" fill="none" class="mr-1">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                                             d="M4.75 0V5.75C4.75 6.5297 5.34489 7.17045 6.10554 7.24313L6.25 7.25H12V12C12 13.1046 11.1046 14 10 14H2C0.89543 14 0 13.1046 0 12V2C0 0.89543 0.89543 0 2 0H4.75ZM6 0L12 6.03022H7C6.44772 6.03022 6 5.5825 6 5.03022V0Z"
-                                                            fill="white"></path>
+                                                            fill="#919397"></path>
                                                     </svg>
                                                     <span class="ml-2">Lưu nháp</span>
                                                 </button>

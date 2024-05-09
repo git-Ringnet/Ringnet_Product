@@ -154,6 +154,9 @@ class Guest extends Model
             $exist = true;
         } else {
             $nameKey = null;
+            if ($data['key'] == null) {
+                $nameKey = "RN";
+            }
             $checkKey = Guest::where('workspace_id', Auth::user()->current_workspace)
                 ->where('key', $data['key'])
                 ->first();

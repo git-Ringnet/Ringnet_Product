@@ -86,49 +86,46 @@
                         @endif
 
                         <div class="dropdown">
-                            <button type="button"
-                                class="btn-destroy btn-light d-flex align-items-center h-100 mx-1 bg-click"
-                                id="btnCreateFast">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="4"
-                                        viewBox="0 0 18 4" fill="none">
+                            <button type="button" data-toggle="dropdown"
+                                class="btn-save-print border-0 rounded d-flex align-items-center h-100 dropdown-toggle px-2 bg-click">
+                                <span class="text-button">
+                                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 2C18 0.89543 17.1046 0 16 0C14.8954 0 14 0.89543 14 2C14 3.10457 14.8954 4 16 4C17.1046 4 18 3.10457 18 2Z"
+                                            d="M24 15C24 13.8954 23.1046 13 22 13C20.8954 13 20 13.8954 20 15C20 16.1046 20.8954 17 22 17C23.1046 17 24 16.1046 24 15Z"
                                             fill="#26273B" fill-opacity="0.8"></path>
                                         <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M11 2C11 0.89543 10.1046 0 9 0C7.89543 0 7 0.89543 7 2C7 3.10457 7.89543 4 9 4C10.1046 4 11 3.10457 11 2Z"
+                                            d="M17 15C17 13.8954 16.1046 13 15 13C13.8954 13 13 13.8954 13 15C13 16.1046 13.8954 17 15 17C16.1046 17 17 16.1046 17 15Z"
                                             fill="#26273B" fill-opacity="0.8"></path>
                                         <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M4 2C4 0.89543 3.10457 0 2 0C0.895431 0 0 0.89543 0 2C0 3.10457 0.895431 4 2 4C3.10457 4 4 3.10457 4 2Z"
+                                            d="M10 15C10 13.8954 9.10457 13 8 13C6.89543 13 6 13.8954 6 15C6 16.1046 6.89543 17 8 17C9.10457 17 10 16.1046 10 15Z"
                                             fill="#26273B" fill-opacity="0.8"></path>
                                     </svg>
                                 </span>
                             </button>
-                            <div class="bg-white position-absolute rounded shadow p-2 z-index-block"
-                                style="z-index:99;width: 160px;top: 20px;right: 4px; display:none;"
-                                id="listBtnCreateFast">
-                                <ul class="m-0 p-0 scroll-data">
-                                    <li class="p-1 align-items-left text-wrap w-100" style="border-radius:4px;">
-                                        <button type="submit" id="delete_reciept" class="border-0 w-100 text-left"
-                                            style="background: none;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                viewBox="0 0 16 16" fill="none">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M12.3687 6.5C12.6448 6.5 12.8687 6.72386 12.8687 7C12.8687 7.03856 12.8642 7.07699 12.8554 7.11452L11.3628 13.4581C11.1502 14.3615 10.3441 15 9.41597 15H6.58403C5.65593 15 4.84977 14.3615 4.6372 13.4581L3.14459 7.11452C3.08135 6.84572 3.24798 6.57654 3.51678 6.51329C3.55431 6.50446 3.59274 6.5 3.6313 6.5H12.3687ZM8.5 1C9.88071 1 11 2.11929 11 3.5H13C13.5523 3.5 14 3.94772 14 4.5V5C14 5.27614 13.7761 5.5 13.5 5.5H2.5C2.22386 5.5 2 5.27614 2 5V4.5C2 3.94772 2.44772 3.5 3 3.5H5C5 2.11929 6.11929 1 7.5 1H8.5ZM8.5 2.5H7.5C6.94772 2.5 6.5 2.94772 6.5 3.5H9.5C9.5 2.94772 9.05228 2.5 8.5 2.5Z"
-                                                    fill="#26273B" fill-opacity="0.8"></path>
-                                            </svg>
-                                            <span class="text-btnIner-primary ml-2"
-                                                style="font-weight: 600;color: #000; font-size:13px">Xóa</span>
-                                        </button>
-
-
+                            <div class="dropdown-menu mt-1 p-0" style="z-index: 9999;width:180px!important;">
+                                <ul class="m-0 p-0">
+                                    <li class="p-1 w-100" style="border-radius:4px;">
+                                        <a href="#">
+                                            <button type="submit" id="delete_reciept"
+                                                class="btn-save-print border-0 p-2 d-flex mx-1 align-items-center h-100 w-100"
+                                                style="background: none;">
+                                                <svg class="mr-2" width="16" height="16"
+                                                    viewBox="0 0 16 16" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M12.3687 6.5C12.6448 6.5 12.8687 6.72386 12.8687 7C12.8687 7.03856 12.8642 7.07699 12.8554 7.11452L11.3628 13.4581C11.1502 14.3615 10.3441 15 9.41597 15H6.58403C5.65593 15 4.84977 14.3615 4.6372 13.4581L3.14459 7.11452C3.08135 6.84572 3.24798 6.57654 3.51678 6.51329C3.55431 6.50446 3.59274 6.5 3.6313 6.5H12.3687ZM8.5 1C9.88071 1 11 2.11929 11 3.5H13C13.5523 3.5 14 3.94772 14 4.5V5C14 5.27614 13.7761 5.5 13.5 5.5H2.5C2.22386 5.5 2 5.27614 2 5V4.5C2 3.94772 2.44772 3.5 3 3.5H5C5 2.11929 6.11929 1 7.5 1H8.5ZM8.5 2.5H7.5C6.94772 2.5 6.5 2.94772 6.5 3.5H9.5C9.5 2.94772 9.05228 2.5 8.5 2.5Z"
+                                                        fill="#26273B" fill-opacity="0.8"></path>
+                                                </svg>
+                                                <span style="color: #282A30; font-size:14px">
+                                                    Xóa
+                                                </span>
+                                            </button>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-
-
-
 
                         {{-- <a href="#" id="delete_reciept">
                             <button type="submit" class="btn--remove d-flex align-items-center h-100 mx-1"
@@ -159,7 +156,7 @@
                 </div>
             </div>
 
-            <section class="border-custom" style="height:50px">
+            <section class="border-top" style="height:50px">
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav-1 nav nav-tabs margin-left32">
@@ -182,8 +179,7 @@
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div id="title--fixed"
-                            class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                        <div id="title--fixed" class="content-title--fixed top-111">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">
                                 THÔNG TIN SẢN PHẨM
                             </p>
@@ -252,7 +248,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -266,38 +262,42 @@
                                     <tbody>
                                         @foreach ($product as $item)
                                             <tr class="bg-white" style="height:80px;">
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0"
-                                                    style="width:5%;padding-left: 2rem !important;">
-                                                    <input readonly type="text" id=""
-                                                        class="border-0 py-1 w-75 searchProduct"
-                                                        value="{{ $item->product_code }}">
+                                                <td
+                                                    class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                    <div
+                                                        class="d-flex w-100 justify-content-between align-items-center">
+                                                        <input readonly type="text" id=""
+                                                            class="border-0 pl-0 pr-2 py-1 w-75 text-left height-32 searchProduct"
+                                                            value="{{ $item->product_code }}">
+                                                    </div>
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0"
-                                                    style="width:15%">
+                                                <td
+                                                    class="border-right border-top-0 border-bottom p-2 text-13 align-top position-relative">
                                                     <div class="d-flex align-items-center">
-                                                        <input type="text"
-                                                            class="searchProductName w-100 border-0 px-2 py-1"
-                                                            value="{{ $item->product_name }}" readonly
-                                                            name="product_name[]">
-                                                        <div class='info-product' data-toggle='modal'
-                                                            data-target='#productModal'>
-                                                            <svg xmlns='http://www.w3.org/2000/svg' width='14'
-                                                                height='14' viewBox='0 0 14 14' fill='none'>
-                                                                <g clip-path='url(#clip0_2559_39956)'>
+                                                        <input type="text" value="{{ $item->product_name }}"
+                                                            class="border-0 pl-0 pr-2 py-1 w-100 product_name text-left height-32 searchProductName"
+                                                            readonly="" autocomplete="off" name="product_name[]">
+                                                        <input type="hidden" class="product_id" value="15"
+                                                            autocomplete="off" name="product_id[]">
+                                                        <div class="info-product" data-toggle="modal"
+                                                            data-target="#productModal">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                height="14" viewBox="0 0 14 14" fill="none">
+                                                                <g clip-path="url(#clip0_2559_39956)">
                                                                     <path
-                                                                        d='M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z'
-                                                                        fill='#282A30' />
+                                                                        d="M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z"
+                                                                        fill="#282A30"></path>
                                                                     <path
-                                                                        d='M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z'
-                                                                        fill='#282A30' />
+                                                                        d="M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z"
+                                                                        fill="#282A30"></path>
                                                                     <path
-                                                                        d='M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z'
-                                                                        fill='#282A30' />
+                                                                        d="M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z"
+                                                                        fill="#282A30"></path>
                                                                 </g>
                                                                 <defs>
-                                                                    <clipPath id='clip0_2559_39956'>
-                                                                        <rect width='14' height='14'
-                                                                            fill='white' />
+                                                                    <clipPath id="clip0_2559_39956">
+                                                                        <rect width="14" height="14"
+                                                                            fill="white"></rect>
                                                                     </clipPath>
                                                                 </defs>
                                                             </svg>
@@ -305,27 +305,27 @@
                                                     </div>
                                                 </td>
                                                 <td
-                                                    class="bg-white align-top text-13-black border-right border-bottom border-top-0">
+                                                    class="border-right border-top-0 border-bottom p-2 text-13 align-top">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item->product_unit }}"
-                                                        class="border-0 px-2 py-1 w-100 product_unit">
+                                                        class="border-0 px-2 py-1 w-100 text-left height-32 product_unit">
                                                 </td>
                                                 <td
-                                                    class="bg-white align-top text-13-black border-right border-bottom border-top-0">
+                                                    class="border-right border-top-0 border-bottom p-2 text-13 align-top">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <input type="text"
-                                                            class="border-0 px-2 py-1 w-100 quantity-input text-right"
+                                                            class="text-right border-0 pl-2 pr-0 py-1 w-100 quantity-input height-32"
                                                             value="{{ number_format($item->product_qty) }}" readonly>
                                                     </div>
                                                     <div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span
                                                             class='pl-1 soTonKho'>{{ number_format($item->inventory) }}</span>
                                                     </div>
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0"
-                                                    style="width:12%">
+                                                <td
+                                                    class="border-right border-top-0 border-bottom p-2 text-13 align-top">
                                                     <div>
                                                         <input readonly type="text" name="price_export[]"
-                                                            class="border-0 px-2 py-1 w-100 price_export text-right"
+                                                            class="border-0 px-2 py-1 w-100 price_export text-right height-32"
                                                             value="{{ number_format($item->price_export) }}">
                                                     </div>
                                                     <div class='mt-3 text-13-blue transaction text-right'
@@ -333,24 +333,24 @@
                                                         data-target="#recentModal">Giao dịch gần
                                                         đây</div>
                                                 </td>
-                                                <td class="bg-white align-top border-right border-bottom border-top-0">
+                                                <td
+                                                    class="border-right border-top-0 p-2 border-bottom text-13 align-top text-center">
                                                     <input readonly type="text"
-                                                        class="border-0 px-2 py-1 w-100 product_tax text-center"
+                                                        class="border-0 px-2 py-1 w-100 product_tax text-center height-32"
                                                         disabled
                                                         value="{{ $item->product_tax == 99 ? 'NOVAT' : $item->product_tax }} %">
                                                 </td>
                                                 <input type="hidden" class="product_tax1">
-
                                                 <td
-                                                    class="bg-white align-top text-13-black text-left border-right border-bottom border-top-0">
+                                                    class="border-right border-top-0 p-2 border-bottom text-13 align-top text-right">
                                                     <input readonly type="text" name="" id=""
-                                                        class="border-0 px-2 py-1 w-100 total_price text-right"
+                                                        class="border-0 px-2 py-1 w-100 total_price text-right height-32"
                                                         value="{{ number_format($item->product_total) }}">
                                                 </td>
-                                                <td
-                                                    class="text-center bg-white align-top text-13-black border-right border-bottom border-top-0">
-                                                    <input readonly type="text" class="border-0 px-2 py-1 w-100"
-                                                        value="{{ $item->product_note }}" placeholder='Nhập ghi chú'>
+                                                <td class="border-top-0 border-bottom p-2 text-13 align-top">
+                                                    <input readonly type="text"
+                                                        class="border-0 py-1 w-100 text-left height-32"
+                                                        value="{{ $item->product_note }}">
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -374,14 +374,14 @@
             </div>
         </div>
         <div class="content">
-            <div id="mySidenav" class="sidenav border top-109">
+            <div id="mySidenav" class="sidenav border-left top-111">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-top-0 text-center border-custom">
+                    <div class="bg-filter-search border-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
                             CẤP</p>
                     </div>
 
-                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                    <div class="d-flex justify-content-between py-2 px-3 border-bottom border-top align-items-center text-left text-nowrap position-relative"
                         style="height:49px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">Đơn mua hàng</span>
                         <span class="mx-1 text-13" style="flex: 2;">
@@ -396,8 +396,8 @@
 
                     <div class="">
                         <ul class="p-0 m-0">
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:49px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
                                 <input type="text"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
@@ -406,8 +406,8 @@
                                     placeholder="Chọn thông tin" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:48px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input type="text"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
@@ -416,8 +416,8 @@
                                     @if ($nameRepresent) value="{{ $nameRepresent }}" @endif />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:48px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số hóa đơn</span>
                                 <input type="text" placeholder="Chọn thông tin" name="number_bill" required
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
@@ -426,8 +426,8 @@
                                     value="{{ $reciept->number_bill }}" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:48px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày hóa đơn</span>
                                 <input id="datePicker" type="text" placeholder="Chọn thông tin"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
@@ -656,6 +656,4 @@
             success: function(data) {}
         })
     })
-
-    toggleList($("#btnCreateFast"), $("#listBtnCreateFast"));
 </script>

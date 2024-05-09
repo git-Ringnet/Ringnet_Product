@@ -7,7 +7,7 @@
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">
         <input type="hidden" name="action" id="getAction">
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Mua hàng</span>
@@ -102,36 +102,36 @@
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                        <th class="border-right border-bottom px-2 p-0"
+                                        <th class="border-right border-bottom px-2 p-0 text-13"
                                             style="width: 15%;padding-left:2rem;">
                                             <input type='checkbox' class='checkall-btn ml-4 mr-1'id="checkall" />
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right border-bottom px-2 p-0" style="width: 16%;">
+                                        <th class="border-right border-bottom px-2 p-0 text-13" style="width: 15%;">
                                             <span class="text-table text-secondary">Tên sản phẩm</span>
                                         </th>
-                                        <th class="border-right border-bottom px-2 p-0" style="width: 8%;">
+                                        <th class="border-right border-bottom px-2 p-0 text-13" style="width: 7%;">
                                             <span class="text-table text-secondary">Đơn vị</span>
                                         </th>
-                                        <th class="border-right border-bottom px-2 p-0 text-right" style="width: 8%;">
+                                        <th class="border-right border-bottom px-2 p-0 text-right text-13" style="width: 10%;">
                                             <span class="text-table text-secondary">Số lượng</span>
                                         </th>
-                                        <th class="border-right border-bottom px-2 p-0 text-right"
-                                            style="width: 10%;">
+                                        <th class="border-right border-bottom px-2 p-0 text-right text-13"
+                                            style="width: 15%;">
                                             <span class="text-table text-secondary">Đơn giá</span>
                                         </th>
-                                        <th class="border-right border-bottom px-2 p-0 text-center"
-                                            style="width: 8%;">
+                                        <th class="border-right border-bottom px-2 p-0 text-center text-13"
+                                            style="width: 10%;">
                                             <span class="text-table text-secondary">Thuế</span>
                                         </th>
-                                        <th class="border-right border-bottom px-2 p-0 text-right"
+                                        <th class="border-right border-bottom px-1 p-0 text-right text-13"
                                             style="width: 12%;">
                                             <span class="text-table text-secondary">Thành tiền</span>
                                         </th>
-                                        <th class="border-right border-bottom note px-2 p-0" style="width: 15%;">
+                                        <th class="border-right border-bottom note px-2 p-0 text-13" style="width: 10%;">
                                             <span class="text-table text-secondary">Ghi chú</span>
                                         </th>
-                                        <th class="border-right border-bottom"></th>
+                                        <th class="border-bottom"></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -146,13 +146,13 @@
         <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-top-0 text-center border-custom">
+                    <div class="bg-filter-search border-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
                             CẤP</p>
                     </div>
 
-                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:48px;">
+                    <div class="d-flex justify-content-between py-2 px-3 border-bottom border-top align-items-center text-left text-nowrap position-relative"
+                        style="height:43px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">Đơn mua hàng
                         </span>
                         <span class="mx-1 text-13" style="flex: 2;">
@@ -192,8 +192,8 @@
 
                     <div id="more_info" style="display:none;">
                         <ul class="p-0 m-0">
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
-                                style="height:48px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left border-top-0"
+                                style="height:42px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
                                 <input type="text"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
@@ -202,8 +202,8 @@
                                     placeholder="Chọn thông tin" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
-                                style="height:48px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left border-top-0"
+                                style="height:42px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input type="text"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
@@ -211,16 +211,16 @@
                                     placeholder="Chọn thông tin" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
-                                style="height:48px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left border-top-0"
+                                style="height:42px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số hóa đơn</span>
                                 <input type="text" placeholder="Chọn thông tin" name="number_bill" required
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
-                                style="height:48px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left border-top-0"
+                                style="height:42px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày hóa đơn</span>
                                 <input id="datePicker" type="text" placeholder="Chọn thông tin"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
@@ -428,7 +428,7 @@
                                                     <input type="text" value="` + (element.product_code == null ? "" :
                                             element.product_code) + `" 
                                                             readonly autocomplete="off" 
-                                                            class="border-0 pl-0 pr-2 py-1 w-50 searchProduct" name="product_code[]">
+                                                            class="border-0 pl-0 pr-2 py-1 w-50 searchProduct height-32" name="product_code[]">
 
                                                     <input type="hidden" readonly value="` + element.id + `" name="listProduct[]">
 
@@ -440,7 +440,7 @@
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                 <div class='d-flex align-items-center'>
 
-                                                    <input type='text' class='border-0 px-2 py-1 w-100 searchProductName'
+                                                    <input type='text' class='border-0 px-2 py-1 w-100 searchProductName height-32'
                                                             value='` + element.product_name + `' readonly id="searchProductName"
                                                             autocomplete='off' name='product_name[]'>
 
@@ -464,7 +464,7 @@
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                 <input type="text" value="` + element.product_unit + `" 
                                                     readonly autocomplete="off" 
-                                                    class="border-0 px-2 py-1 w-100 product_unit" name="product_unit[]">
+                                                    class="border-0 px-2 py-1 w-100 product_unit height-32" name="product_unit[]">
                                             </td>
 
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
@@ -474,7 +474,7 @@
                                             .reciept_qty) + `)"
                                                             value="` + formatCurrency(element.product_qty - element
                                             .reciept_qty) + `"
-                                                            class='border-0 px-2 py-1 w-100 quantity-input text-right' autocomplete='off'
+                                                            class='border-0 px-2 py-1 w-100 quantity-input text-right height-32' autocomplete='off'
                                                             name='product_qty[]'>
                                                             <div class="mt-3 text-13-blue inventory text-right" tyle="top: 68%;">Tồn kho:
                                                             <span class="pl-1 soTonKho">
@@ -487,7 +487,7 @@
                                                             </div>
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                                    <input type='text' readonly class='text-right border-0 px-2 py-1 w-100 price_export' 
+                                                    <input type='text' readonly class='text-right border-0 px-2 py-1 w-100 price_export height-32' 
                                                         value="` + formatCurrency(element.price_export) + `"
                                                         autocomplete='off' name="price_export[]" required>
                                                         <div class="mt-3 text-13-blue text-right transaction" id="transaction" data-toggle="modal" data-target="#recentModal">Giao dịch
@@ -496,7 +496,7 @@
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                 <input readonly type="text" name="product_tax[]" 
-                                                    class="border-0 px-2 py-1 w-100 product_tax text-center" 
+                                                    class="border-0 px-2 py-1 w-100 product_tax text-center height-32" 
                                                     value="` + (element.product_tax == 99 ? "NOVAT" : element
                                             .product_tax + "%") + `">
                                             </td>
@@ -504,19 +504,19 @@
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                 <input type='text' name="total_price[]"
                                                         value="` + formatCurrency(element.product_total) + `" readonly 
-                                                        class="border-0 px-2 py-1 w-100 total_price text-right">
+                                                        class="border-0 px-2 py-1 w-100 total_price text-right height-32">
                                             </td>
                                             
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                                <input type="text" placeholder='Nhập ghi chú'
+                                                <input type="text"
                                                         readonly value="` + (element.product_note == null ? "" :
                                             element.product_note) + `"
-                                                        class="border-0 py-1 w-100" name="product_note[]">
+                                                        class="border-0 py-1 w-100 height-32" name="product_note[]">
                                             </td>
 
                                             <input type="hidden" name="" class="product_tax1">
 
-                                            <td class="border-right p-2 text-13 align-top border-bottom border-top-0 text-center deleteRow">
+                                            <td class="p-2 text-13 align-top border-bottom border-top-0 text-center deleteRow">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z" fill="#6B6F76">
                                                     </path>

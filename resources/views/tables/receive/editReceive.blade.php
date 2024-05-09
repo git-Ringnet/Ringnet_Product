@@ -141,7 +141,7 @@
                 </div>
             </div>
 
-            <section class="border-custom" style="height:50px">
+            <section class="border-top" style="height:50px">
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav-1 nav nav-tabs margin-left32">
@@ -164,7 +164,7 @@
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
                         <div id="title--fixed"
-                            class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                            class="content-title--fixed top-111 border-0">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
                                 PHẨM</p>
                         </div>
@@ -232,7 +232,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom"></th>
+                                            <th scope="col" class="border-bottom"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -374,7 +374,7 @@
                                                         value="{{ $item->product_note }}">
                                                 </td>
                                                 <td
-                                                    class="text-center bg-white align-top text-13-black @if ($receive->status == 3) deleteRow @endif border-top-0 border-bottom border-right">
+                                                    class="text-center bg-white align-top text-13-black @if ($receive->status == 3) deleteRow @endif border-top-0 border-bottom">
                                                     <svg width="17" height="17" viewBox="0 0 17 17"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -406,12 +406,13 @@
         <div class="content">
             <div id="mySidenav" class="sidenav border top-109">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-top-0 text-center border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
-                            CÂP</p>
+                    <div class="bg-filter-search text-center">
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                            THÔNG TIN NHÀ CUNG CÂP
+                        </p>
                     </div>
 
-                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
+                    <div class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left text-nowrap"
                         style="height:48px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">Đơn mua hàng
                         </span>
@@ -464,7 +465,7 @@
                     <div class="">
                         <div class="">
                             <ul class="p-0 m-0">
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
                                     <input type="text"
@@ -474,7 +475,7 @@
                                         value="@if ($receive->getQuotation) {{ $receive->getQuotation->provide_name }} @endif" />
                                 </li>
 
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                     <input type="text"
@@ -482,7 +483,7 @@
                                         style="flex:2;" id="represent" placeholder="Chọn thông tin" readonly
                                         @if ($nameRepresent) value="{{ $nameRepresent }}" @endif />
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận hàng</span>
                                     <input type="text" placeholder="Chọn thông tin" name="delivery_code" readonly
@@ -491,7 +492,7 @@
                                         value="{{ $receive->delivery_code }}" />
                                 </li>
 
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
                                     <input type="text" placeholder="Chọn thông tin"
@@ -500,7 +501,7 @@
                                         name="shipping_unit" value="{{ $receive->shipping_unit }}"
                                         @if ($receive->status == 2) readonly @endif />
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
                                     <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
@@ -509,7 +510,7 @@
                                         value="{{ number_format($receive->delivery_charges) }}"
                                         @if ($receive->status == 2) readonly @endif>
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận hàng</span>
                                     <input type="text" placeholder="Nhập thông tin"
