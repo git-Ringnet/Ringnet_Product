@@ -92,25 +92,24 @@ class Delivered extends Model
             // DB::table($this->table)->insert($dataDelivered);
             $delivered_id = DB::table($this->table)->insertGetId($dataDelivered);
 
-            // Add lịch sử giao dịch
-            $de = Delivered::where('delivery_id', $id)->get();
-            $history_import = HistoryImport::where('product_id', $data['product_id'][$i])->first();
-            // dd($history_import);
-            // Add lịch sử giao dịch
-            $history = new History();
-            $dataHistory = [
-                'detailexport_id' => $data['detailexport_id'],
-                'delivered_id' => $delivered_id,
-                'provide_id' => $history_import ? $history_import->provide_id : null,
-                'detailimport_id' => $history_import ? $history_import->detailImport_id : null,
-                'tax_import' => $history_import ? $history_import->product_tax : null,
-                'price_import' => $history_import ? $history_import->price_export : null,
-                'total_import' => $history_import ? $history_import->product_total : null,
-                'history_import' => $history_import ? $history_import->id : null,
-                'workspace_id' => Auth::user()->current_workspace,
-                'user_id' => Auth::user()->id,
-            ];
-            $history->addHistory($dataHistory);
+            // // Add lịch sử giao dịch
+            // $de = Delivered::where('delivery_id', $id)->get();
+            // $history_import = HistoryImport::where('product_id', $data['product_id'][$i])->first();
+            // // Add lịch sử giao dịch
+            // $history = new History();
+            // $dataHistory = [
+            //     'detailexport_id' => $data['detailexport_id'],
+            //     'delivered_id' => $delivered_id,
+            //     'provide_id' => $history_import ? $history_import->provide_id : null,
+            //     'detailimport_id' => $history_import ? $history_import->detailImport_id : null,
+            //     'tax_import' => $history_import ? $history_import->product_tax : null,
+            //     'price_import' => $history_import ? $history_import->price_export : null,
+            //     'total_import' => $history_import ? $history_import->product_total : null,
+            //     'history_import' => $history_import ? $history_import->id : null,
+            //     'workspace_id' => Auth::user()->current_workspace,
+            //     'user_id' => Auth::user()->id,
+            // ];
+            // $history->addHistory($dataHistory);
 
 
             //thêm sản phẩm từ đơn giao hàng

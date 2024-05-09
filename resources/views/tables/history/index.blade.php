@@ -770,7 +770,8 @@
                                                 <td>
                                                     @if ($item->getBillSale)
                                                         @foreach ($item->getBillSale as $value)
-                                                            <a href="#">
+                                                            <a
+                                                                href="{{ route('billSale.edit', ['workspace' => $workspacename, 'billSale' => $value->id]) }}">
                                                                 <p>{{ $value->number_bill }}</p>
                                                             </a>
                                                         @endforeach

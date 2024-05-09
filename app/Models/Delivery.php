@@ -295,8 +295,10 @@ class Delivery extends Model
                                     if ($va->product_qty == $getHtr) {
                                         continue;
                                     } else if ($va->product_qty > ($getHtr + $data['product_qty'][$i])) {
-                                        $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                        $qty += $data['product_qty'][$i];
+                                        // $dataHistory['qty_export'] = $data['product_qty'][$i];
+                                        // $qty += $data['product_qty'][$i];
+                                        $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
+                                        $qty += ($temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp);
                                     } else {
                                         if ($getHtr == 0 && $getHtr != null) {
                                             if ($va->product_qty == $data['product_qty'][$i]) {
@@ -815,7 +817,7 @@ class Delivery extends Model
                                     if ($va->product_qty == $getHtr) {
                                         continue;
                                     } else if ($va->product_qty > ($getHtr + $data['product_qty'][$i])) {
-                                        // var_dump("TH1");
+                                        var_dump("TH1");
                                         $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
                                         $qty += ($temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp);
                                     } else {
@@ -823,30 +825,30 @@ class Delivery extends Model
                                             if ($va->product_qty == $data['product_qty'][$i]) {
                                                 $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                 $qty += $data['product_qty'][$i];
-                                                // var_dump("TH2.1");
+                                                var_dump("TH2.1");
                                             } else if ($va->product_qty > $data['product_qty'][$i]) {
                                                 $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                 $qty += $data['product_qty'][$i];
-                                                // var_dump("TH2.1");
+                                                var_dump("TH2.1");
                                             } else {
                                                 if ($qty == 0) {
                                                     if ($va->product_qty == $data['product_qty'][$i]) {
                                                         $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                         $qty += $data['product_qty'][$i];
-                                                        // var_dump("TH3.1");
+                                                        var_dump("TH3.1");
                                                     } else if ($va->product_qty > $data['product_qty'][$i]) {
                                                         $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                         $qty += $data['product_qty'][$i];
-                                                        // var_dump("TH3.1");
+                                                        var_dump("TH3.2");
                                                     } else {
                                                         $dataHistory['qty_export'] = $va->product_qty;
                                                         $qty += $va->product_qty;
-                                                        // var_dump("TH3.3");
+                                                        var_dump("TH3.3");
                                                     }
                                                 } else {
                                                     $dataHistory['qty_export'] = $data['product_qty'][$i] - $qty;
                                                     $qty += $data['product_qty'][$i] - $qty;
-                                                    // var_dump("TH4");
+                                                    var_dump("TH4");
                                                 }
                                             }
                                         } else {
@@ -854,34 +856,38 @@ class Delivery extends Model
                                                 if ($va->product_qty - $temp == $data['product_qty'][$i]) {
                                                     $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                     $temp += $data['product_qty'][$i];
-                                                    // var_dump("TH5.1");
+                                                    var_dump("TH5.1");
                                                 } else if ($va->product_qty - $temp > $data['product_qty'][$i]) {
                                                     $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                     $temp += $data['product_qty'][$i];
-                                                    // var_dump("TH5.2");
+                                                    var_dump("TH5.2");
                                                 } else {
                                                     $dataHistory['qty_export'] = ($va->product_qty - $temp);
                                                     $temp += ($va->product_qty - $temp);
-                                                    // var_dump("TH5.3");
+                                                    var_dump("TH5.3");
                                                 }
                                             } else {
                                                 if ($va->product_qty - $getHtr == $data['product_qty'][$i]) {
                                                     $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
                                                     $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
                                                     $qty += $temp;
-                                                    // var_dump("TH6.1");
+                                                    var_dump("TH6.1");
                                                 } else if ($va->product_qty - $getHtr > $data['product_qty'][$i]) {
                                                     // $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                     // $temp += $data['product_qty'][$i];
                                                     $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
                                                     $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
                                                     $qty += $temp;
-                                                    // var_dump("TH6.2");
+                                                    var_dump("TH6.2");
                                                 } else {
                                                     $temp == 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
-                                                    $temp += $temp == 0 ? ($va->product_qty - $getHtr) : $data['product_qty'][$i] - $temp;
+                                                    $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $data['product_qty'][$i] - $temp);
                                                     $qty += $temp;
                                                     // var_dump("TH6.3");
+                                                    // var_dump("<br>");
+                                                    var_dump($dataHistory['qty_export']);
+                                                    // var_dump("<br>");
+                                                    // var_dump($qty);
                                                 }
                                             }
                                         }
@@ -931,6 +937,9 @@ class Delivery extends Model
                     }
                 }
             }
+
+            dd(1);
+
             //thêm sản phẩm từ đơn giao hàng
             $checkProduct = Products::where('product_name', $data['product_name'][$i])->first();
             if (!$checkProduct) {
