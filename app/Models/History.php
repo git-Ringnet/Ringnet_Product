@@ -91,38 +91,47 @@ class History extends Model
         //     )->distinct()->get();
         // // dd($history);
 
-        $history = History::where('workspace_id',Auth::user()->current_workspace)
-        ->orderBy('id','desc')->get();
+        $history = History::where('workspace_id', Auth::user()->current_workspace)
+            ->orderBy('id', 'desc')->get();
         // ->groupBy('detailexport_id');
         return $history;
     }
 
-    public function getProvideName(){
+    public function getProvideName()
+    {
         return $this->hasOne(Provides::class, 'id', 'provide_id');
     }
-    public function getDetailImport(){
+    public function getDetailImport()
+    {
         return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
     }
-    public function getDetailExport(){
+    public function getDetailExport()
+    {
         return $this->hasOne(DetailExport::class, 'id', 'detailexport_id');
     }
-    public function getQtyImport(){
+    public function getQtyImport()
+    {
         return $this->hasOne(HistoryImport::class, 'id', 'history_import');
     }
-    public function getProduct(){
+    public function getProduct()
+    {
         return $this->hasOne(Products::class, 'id', 'product_id');
     }
-    public function getReciept(){
+    public function getReciept()
+    {
         return $this->hasMany(Reciept::class, 'detailimport_id', 'detailimport_id');
     }
-    public function getBillSale(){
+    public function getBillSale()
+    {
         return $this->hasMany(BillSale::class, 'detailexport_id', 'detailexport_id');
     }
-    public function getProductImport(){
+    public function getProductImport()
+    {
         return $this->hasOne(ProductImport::class, 'detailimport_id', 'detailimport_id');
     }
-    public function getQuoteExport(){
-        return $this->hasOne(QuoteExport::class, 'deliver_id', 'delivered_id');
+    public function getQuoteExport()
+    {
+        return $this->hasOne(Delivered::class, 'id', 'delivered_id');
         // ->where('detailexport_id','detailexport_id')->first();
     }
     public function getProductToId($id_delivery, $idproduct)

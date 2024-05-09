@@ -305,7 +305,7 @@
                     <li class="d-flex align-baseline setting">
                         <a href="#" class="nav-link @if (!empty($activeName) && $activeName == '') active @endif"
                             style="">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            <svg width="30" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M11.8218 10.822C12.4663 10.7985 13.0767 10.5269 13.5259 10.0641C13.975 9.6013 14.2281 8.98293 14.2323 8.33803C14.2224 7.70844 13.9629 7.10854 13.5109 6.67017C13.0589 6.23181 12.4514 5.99086 11.8218 6.00028C11.1921 5.99065 10.5843 6.23152 10.1321 6.6699C9.67995 7.10829 9.42039 7.70831 9.41052 8.33803C9.41455 8.98311 9.66766 9.60169 10.117 10.0646C10.5663 10.5274 11.1771 10.7988 11.8218 10.822V10.822Z"
@@ -318,7 +318,7 @@
                             </svg>
                             <div class="d-flex align-items-center justify-content-between w-100" style="">
                                 <p class="text-nav"
-                                    style="font-family: Inter;font-size: 14px;font-weight: 500;line-height: 24px;text-align: left;pointer-events: none;">
+                                    style="font-size: 15px;font-weight: 500;line-height: 24px;text-align: left;pointer-events: none;">
                                     {{ Auth::user()->name }}</p>
                             </div>
                             <div class="cursor position-relative">

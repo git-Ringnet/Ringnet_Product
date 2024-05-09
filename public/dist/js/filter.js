@@ -30,21 +30,28 @@ $(document).on("click", function (event) {
         $(".btn-filter_search").prop("disabled", false);
     }
 });
+// Click show hide
+$(document).on("click", ".btndropdown", function (e) {
+    e.preventDefault();
+    var buttonName = $(this).data("button");
+    var absoluteItem = $("#" + buttonName + "-options");
+    $(".thienCo").append(absoluteItem);
+});
 
-// $(document).on("click", ".item-filter", function (e) {
-//     e.preventDefault();
-//     var buttonName = $(this).data("button");
-//     var absoluteItem = $("#" + buttonName + "-options");
-//     absoluteItem.appendTo($(this));
-//     if (
-//         !$(e.target).closest(
-//             "#cancel-" + buttonName + ",.block-options," + "#" + buttonName
-//         ).length
-//     ) {
-//         console.log("dsad213");
-//         $("#" + buttonName + "-options").toggle();
-//     }
-// });
+$(document).on("click", ".item-filter", function (e) {
+    e.preventDefault();
+    var buttonName = $(this).data("button");
+    var absoluteItem = $("#" + buttonName + "-options");
+    absoluteItem.appendTo($(this));
+    if (
+        !$(e.target).closest(
+            "#cancel-" + buttonName + ",.block-options," + "#" + buttonName
+        ).length
+    ) {
+        console.log("dsad213");
+        $("#" + buttonName + "-options").toggle();
+    }
+});
 
 $(".btn-filter_search").click(function () {
     $(".block-options").hide();

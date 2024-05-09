@@ -11,6 +11,7 @@ use App\Models\Serialnumber;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HistoryController extends Controller
 {
@@ -47,6 +48,18 @@ class HistoryController extends Controller
         return view('tables.history.index', compact('title', 'workspacename', 'history', 'guests', 'provides', 'products'));
     }
 
+    public function countProductDelivery($product_id, $delivered_id)
+    {
+        $data = History::where('product_id', $product_id)
+            ->where('delivered_id', $delivered_id)
+            ->get();
+
+        $count = $data->count();
+        return [
+            'count' => $count,
+            'data' => $data,
+        ];
+    }
     public function getSN(Request $request)
     {
         $data = $request->all();

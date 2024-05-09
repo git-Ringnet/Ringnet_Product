@@ -619,7 +619,29 @@
                                                 </tr>
                                             @endforeach
                                         @endisset --}}
+                                        @inject('historyController', 'App\Http\Controllers\HistoryController')
+                                        @php
+                                            $previousIds = [];
+                                        @endphp
                                         @foreach ($history as $key => $item)
+                                            @php
+                                                $productId = $item->product_id;
+                                                $deliveredId = $item->delivered_id;
+                                                $countData = $historyController->countProductDelivery(
+                                                    $productId,
+                                                    $deliveredId,
+                                                );
+                                                $count = $countData['count'];
+
+                                                // Nếu cặp product_id và delivered_id đã xuất hiện trước đó, không hiển thị count
+                                                if (in_array("$productId-$deliveredId", $previousIds)) {
+                                                    $countClass = 'hidden'; // Lớp CSS để ẩn count
+                                                } else {
+                                                    $countClass = ''; // Không có lớp CSS
+                                                    // Thêm cặp product_id và delivered_id vào mảng previousIds
+                                                    $previousIds[] = "$productId-$deliveredId";
+                                                }
+                                            @endphp
                                             <tr>
                                                 <td>
                                                     @if ($item->getDetailImport)
@@ -747,14 +769,15 @@
                                                         <span>{{ $item->getDetailImport->getPayOrder->payment_type }}</span>
                                                     @endif
                                                 </td>
-
                                                 {{-- Khách hàng --}}
-                                                <td class="border-left">
+                                                <td class="border-left {{ $countClass }}"
+                                                    rowspan="{{ $count }}">
                                                     @if ($item->getDetailExport)
-                                                        {{ $item->getDetailExport->guest_name }}
+                                                        <span class=" {{ $countClass }}">
+                                                            {{ $item->getDetailExport->guest_name }}</span>
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
                                                     @if ($item->getDetailExport)
                                                         <a
                                                             href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $item->getDetailExport->id]) }}">
@@ -762,25 +785,25 @@
                                                         </a>
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
                                                     {{ number_format($item->qty_export) }}
                                                 </td>
-                                                <td>
+                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
                                                     @if ($item->getQuoteExport)
                                                         {{ number_format($item->getQuoteExport->price_export * $item->qty_export) }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
                                                     @if ($item->getQuoteExport)
                                                         {{ number_format(($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
                                                     @if ($item->getQuoteExport)
                                                         {{ number_format($item->getQuoteExport->price_export * $item->qty_export + ($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
                                                     @if ($item->getBillSale)
                                                         @foreach ($item->getBillSale as $value)
                                                             <a
@@ -790,7 +813,7 @@
                                                         @endforeach
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
                                                     @if ($item->getBillSale)
                                                         @foreach ($item->getBillSale as $value)
                                                             <p>{{ date_format(new DateTime($value->created_at), 'd/m/Y') }}
@@ -798,7 +821,7 @@
                                                         @endforeach
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
                                                     @if (isset($item->getDetailExport))
                                                         @if ($item->getDetailExport->status_pay == 1)
                                                             <span>
@@ -841,22 +864,23 @@
                                                         @endif
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="{{ $countClass }}"rowspan="{{ $count }}">
                                                     @if (isset($item->getDetailExport->getPayExport) &&
                                                             $item->getDetailExport &&
                                                             isset($item->getDetailExport->getPayExport->getHistoryPay))
                                                         {{ date_format(new DateTime($item->getDetailExport->getPayExport->getHistoryPay->created_at), 'd/m/Y') }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
                                                     @if (isset($item->getDetailExport->getPayExport) && $item->getDetailExport)
                                                         {{ $item->getDetailExport->getPayExport->payment_type }}
                                                     @endif
                                                 </td>
                                                 <td data-toggle="modal" data-target="#snModal"
                                                     data-delivery-id="{{ $item->delivered_id }}"
-                                                    data-product-id="{{ $item->product_id }}" class="sn"><img
-                                                        src="../../dist/img/icon/list.png">
+                                                    data-product-id="{{ $item->product_id }}"
+                                                    class="sn {{ $countClass }}" rowspan="{{ $count }}">
+                                                    <img src="../../dist/img/icon/list.png">
                                                 </td>
                                             </tr>
                                         @endforeach
