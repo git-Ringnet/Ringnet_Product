@@ -383,7 +383,7 @@ class Delivery extends Model
                             }
                         }
                     } else {
-                        $history_import = HistoryImport::where('product_id', $data['product_id'][$i])->first();
+
                         if (isset($data['selected_serial_numbers'])) {
                             $selectedSerialNumbers = $data['selected_serial_numbers'];
                             $result = Serialnumber::whereIn('id', $selectedSerialNumbers)
@@ -391,6 +391,9 @@ class Delivery extends Model
                                 ->groupBy('detailimport_id')
                                 ->get();
                             foreach ($result as $value) {
+                                // $history_import = HistoryImport::where('product_id', $data['product_id'][$i])->first();
+                                $history_import = HistoryImport::where('detailImport_id', $value->detailimport_id)
+                                    ->where('product_name', $product->product_name)->first();
                                 $history = new History();
                                 $dataHistory = [
                                     'detailexport_id' => $data['detailexport_id'],
@@ -414,6 +417,8 @@ class Delivery extends Model
                 }
             }
         }
+
+
         if (isset($data['id_seri'])) {
             $id_seri = $data['id_seri'];
 
@@ -917,7 +922,7 @@ class Delivery extends Model
                             }
                         }
                     } else {
-                        $history_import = HistoryImport::where('product_id', $data['product_id'][$i])->first();
+
                         if (isset($data['selected_serial_numbers'])) {
                             $selectedSerialNumbers = $data['selected_serial_numbers'];
                             $result = Serialnumber::whereIn('id', $selectedSerialNumbers)
@@ -926,6 +931,9 @@ class Delivery extends Model
                                 ->get();
 
                             foreach ($result as $value) {
+                                // $history_import = HistoryImport::where('product_id', $data['product_id'][$i])->first();
+                                $history_import = HistoryImport::where('detailImport_id', $value->detailimport_id)
+                                    ->where('product_name', $product->product_name)->first();
                                 $history = new History();
                                 $dataHistory = [
                                     'detailexport_id' => $data['detailexport_id'],

@@ -794,6 +794,7 @@
                                                     @endif
                                                 </td>
                                                 <td class="{{ $countClass }}" rowspan="{{ $count }}">
+                                                   
                                                     @if ($item->getQuoteExport)
                                                         {{ number_format(($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }}
                                                     @endif
