@@ -720,10 +720,18 @@ class DashboardController extends Controller
     public function exportAccept(Request $request)
     {
         if ($request['selectedValue'] == 1) {
-            $countDetailExport = DetailExport::whereIn('status', [2, 3])->count();
-            $countDelivery = Delivery::whereIn('status', [2, 3])->count();
-            $countBillsale = BillSale::whereIn('status', [2, 3])->count();
-            $countPayExport = PayExport::where('payment', '>', 0)->count();
+            $countDetailExport = DetailExport::whereIn('status', [2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->count();
+            $countDelivery = Delivery::whereIn('status', [2, 3])
+                ->where('delivery.workspace_id', Auth::user()->current_workspace)
+                ->count();
+            $countBillsale = BillSale::whereIn('status', [2, 3])
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
+                ->count();
+            $countPayExport = PayExport::where('payment', '>', 0)
+                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                ->count();
             $minDate = min([
                 DetailExport::whereIn('status', [2, 3])
                     ->where('detailexport.workspace_id', Auth::user()->current_workspace)
@@ -1113,8 +1121,11 @@ class DashboardController extends Controller
     public function debtChart(Request $request)
     {
         if ($request['selectedValue'] == 1) {
-            $debtExport = DetailExport::where('status', 2)->sum('amount_owed');
-            $debtOrder = Provides::sum('provide_debt');
+            $debtExport = DetailExport::where('status', 2)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->sum('amount_owed');
+            $debtOrder = Provides::where('provides.workspace_id', Auth::user()->current_workspace)
+                ->sum('provide_debt');
             $minDateDetailExport = DetailExport::where('status', 2)
                 ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->min('created_at');

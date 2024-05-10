@@ -309,11 +309,15 @@
 <script>
     $(document).on('click', '#dichvu', function() {
         $('.option-radio').attr('style', 'display:none !important;');
-        $('select[name="product_tax"]').val(8)
+        $('select[name="product_tax"]').val(8);
+        $('input[name="product_unit"]').val("Gói");
+        $('input[name="product_unit"]').prop('readonly', true);
     })
     $(document).on('click', '#hanghoa', function() {
         $('.option-radio').removeAttr('style');
-        $('select[name="product_tax"]').val(10)
+        $('select[name="product_tax"]').val(10);
+        $('input[name="product_unit"]').val("");
+        $('input[name="product_unit"]').prop('readonly', false);
     })
 
     $('form').on('submit', function(e) {

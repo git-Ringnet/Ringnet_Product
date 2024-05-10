@@ -949,6 +949,7 @@
                                             .product_tax + `" name="product_tax[]">
                                                     <input type="hidden" value="` + productData.price_export + `" class="text-right border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="">
                                                 </td>
+                                                <td style="display:none;"><input type="text" class="type" value="` + productData.type + `"></td>
                                             </tr>`;
                                         $('#listProduct tbody').append(tr);
                                         //Ẩn/hiện button S/N
@@ -1925,7 +1926,7 @@
                                             </a>
                                         </div>
                                     </div>`;
-                                    $('#quickAction .modal-content .header-modal')
+                                    $('#quickAction #exampleModal .modal-content .header-modal')
                                         .append(header);
                                     var body = `
                                     <div class="content-left">
@@ -1973,7 +1974,7 @@
                                         </span>
                                         </div>
                                     </div>`;
-                                    $('#quickAction .modal-content .modal-body')
+                                    $('#quickAction #exampleModal .modal-content .modal-body')
                                         .append(body);
 
                                     $("input[name='quotation_number']").val(data

@@ -329,8 +329,6 @@ class BillSale extends Model
         }
         if (isset($data['number_bill'])) {
             $number_bill = $data['number_bill'];
-        } else {
-            $number_bill = now();
         }
         //add bill sale
         $dataBill = [

@@ -82,7 +82,8 @@
 
 
                         <a href="#">
-                            <button type="submit" class="custom-btn btn-light rounded mx-1 d-flex align-items-center h-100">
+                            <button type="submit"
+                                class="custom-btn btn-light rounded mx-1 d-flex align-items-center h-100">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                         viewBox="0 0 14 14" fill="none">
@@ -157,9 +158,10 @@
                                     <li class="p-1 w-100" style="border-radius:4px;">
                                         <a href="#">
                                             <button type="submit" id="delete_payment"
-                                                class="btn-save-print border-0 p-2 d-flex mx-1 align-items-center h-100 w-100" style="background: none;">
-                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
+                                                class="btn-save-print border-0 p-2 d-flex mx-1 align-items-center h-100 w-100"
+                                                style="background: none;">
+                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16"
+                                                    height="16" viewBox="0 0 16 16" fill="none">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                         d="M12.3687 6.5C12.6448 6.5 12.8687 6.72386 12.8687 7C12.8687 7.03856 12.8642 7.07699 12.8554 7.11452L11.3628 13.4581C11.1502 14.3615 10.3441 15 9.41597 15H6.58403C5.65593 15 4.84977 14.3615 4.6372 13.4581L3.14459 7.11452C3.08135 6.84572 3.24798 6.57654 3.51678 6.51329C3.55431 6.50446 3.59274 6.5 3.6313 6.5H12.3687ZM8.5 1C9.88071 1 11 2.11929 11 3.5H13C13.5523 3.5 14 3.94772 14 4.5V5C14 5.27614 13.7761 5.5 13.5 5.5H2.5C2.22386 5.5 2 5.27614 2 5V4.5C2 3.94772 2.44772 3.5 3 3.5H5C5 2.11929 6.11929 1 7.5 1H8.5ZM8.5 2.5H7.5C6.94772 2.5 6.5 2.94772 6.5 3.5H9.5C9.5 2.94772 9.05228 2.5 8.5 2.5Z"
                                                         fill="#26273B" fill-opacity="0.8"></path>
@@ -357,8 +359,7 @@
                     </div>
 
                     <div id="history" class="tab-pane fade">
-                        <div id="title--fixed"
-                            class="content-title--fixed top-111">
+                        <div id="title--fixed" class="content-title--fixed top-111">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">Lịch sử thanh
                                 toán</p>
                         </div>
@@ -417,8 +418,7 @@
                     </div>
 
                     <div id="files" class="tab-pane fade">
-                        <div
-                            class="content-title--fixed top-111">
+                        <div class="content-title--fixed top-111">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM
                             </p>
                         </div>
@@ -732,9 +732,12 @@
         dateFormat: "d/m/Y",
         onChange: function(selectedDates, dateStr, instance) {
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
-                "Y-m-d");
-        }
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+        },
     });
 
     flatpickr("#datePickerDay", {
@@ -742,10 +745,26 @@
         dateFormat: "d/m/Y",
         onChange: function(selectedDates, dateStr, instance) {
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            document.getElementById("hiddenDateInputDay").value = instance.formatDate(selectedDates[0],
-                "Y-m-d");
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInputDay");
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInputDay");
         }
     });
+
+    function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+        // Lấy thời gian hiện tại
+        var currentTime = new Date();
+
+        // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+        var selectedDateTime = new Date(selectedDate);
+        selectedDateTime.setHours(currentTime.getHours());
+        selectedDateTime.setMinutes(currentTime.getMinutes());
+        selectedDateTime.setSeconds(currentTime.getSeconds());
+
+        document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
+    }
 
     // Xóa đơn hàng
     deleteImport('#delete_payment',
