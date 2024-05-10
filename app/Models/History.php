@@ -16,7 +16,7 @@ class History extends Model
         'detailimport_id', 'detailexport_id', 'delivered_id', 'provide_id',
         'tax_import', 'price_import', 'total_import', 'history_import', 'workspace_id', 'hdv', 'hdr',
         'qty_export',
-        'product_id'
+        'product_id','user_id'
     ];
     use HasFactory;
     public function getAllHistory()

@@ -150,7 +150,6 @@ class Delivery extends Model
     }
     public function updateDetailExport($data, $detailexport_id)
     {
-        dd(1);
         if (isset($data['shipping_fee'])) {
             $shipping_fee = $data['shipping_fee'];
             if ($shipping_fee !== null) {
