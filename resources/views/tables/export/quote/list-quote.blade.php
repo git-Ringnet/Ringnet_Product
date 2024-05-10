@@ -800,7 +800,7 @@
                                             </a>
 
                                             <a href="#" data-type="delivery" onclick="getActionForm(this)" id="luuNhap">
-                                                <button name="action" value="1" type="button"
+                                                <button name="action" value="1" type="submit"
                                                     class="btn-destroy mx-1 d-flex align-items-center h-100" style="margin-right:5px">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14"
                                                         viewBox="0 0 12 14" fill="none" class="mr-1">
@@ -949,7 +949,8 @@
                                             .product_tax + `" name="product_tax[]">
                                                     <input type="hidden" value="` + productData.price_export + `" class="text-right border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="">
                                                 </td>
-                                                <td style="display:none;"><input type="text" class="type" value="` + productData.type + `"></td>
+                                                <td style="display:none;"><input type="text" class="type" value="` +
+                                            productData.type + `"></td>
                                             </tr>`;
                                         $('#listProduct tbody').append(tr);
                                         //Ẩn/hiện button S/N
@@ -1080,7 +1081,7 @@
                                                                         var checkbox =
                                                                             $(
                                                                                 this
-                                                                                )
+                                                                            )
                                                                             .find(
                                                                                 ".check-item"
                                                                             );
@@ -1090,7 +1091,7 @@
                                                                             )
                                                                             .is(
                                                                                 checkbox
-                                                                                )
+                                                                            )
                                                                         ) {
                                                                             // Đảo ngược trạng thái checked của checkbox
                                                                             checkbox
@@ -1109,7 +1110,7 @@
                                                                                 );
                                                                         }
                                                                     }
-                                                                    );
+                                                                );
                                                             //Thay đổi số lượng thì xóa s/n đã check
                                                             $(".quantity-input")
                                                                 .on("change",
@@ -1365,7 +1366,7 @@
                                                 var
                                                     invalidInventoryProducts = [];
                                                 var
-                                                    invalidInventorySN = [];
+                                            invalidInventorySN = [];
                                                 var sanPhamHetSN = [];
                                                 $(".bg-white.addProduct")
                                                     .each(
@@ -1383,7 +1384,7 @@
                                                             var checkbox =
                                                                 $(
                                                                     this
-                                                                )
+                                                                    )
                                                                 .find(
                                                                     ".check-add-sn"
                                                                 );
@@ -1391,23 +1392,21 @@
                                                             var quantity =
                                                                 parseFloat(
                                                                     $(
-                                                                        this
-                                                                    )
+                                                                        this)
                                                                     .find(
                                                                         ".quantity-input"
                                                                     )
                                                                     .val()
-                                                                );
+                                                                    );
                                                             var type =
                                                                 parseFloat(
                                                                     $(
-                                                                        this
-                                                                    )
+                                                                        this)
                                                                     .find(
                                                                         ".type"
                                                                     )
                                                                     .val()
-                                                                );
+                                                                    );
                                                             var productNameInventory =
                                                                 $(this)
                                                                 .find(
@@ -1447,16 +1446,14 @@
                                                                     );
                                                                 var productId =
                                                                     $(
-                                                                        this
-                                                                    )
+                                                                        this)
                                                                     .find(
                                                                         ".product_id"
                                                                     )
                                                                     .val();
                                                                 var productName =
                                                                     $(
-                                                                        this
-                                                                    )
+                                                                        this)
                                                                     .find(
                                                                         ".product_name"
                                                                     )
@@ -1520,17 +1517,6 @@
                                                         .val(0);
                                                     e.preventDefault();
                                                 } else {
-                                                    if (invalidInventorySN
-                                                        .length > 0) {
-                                                        showAutoToast(
-                                                            'warning',
-                                                            `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
-                                                        );
-                                                        $('#pdf_export')
-                                                            .val(0);
-                                                        e
-                                                            .preventDefault();
-                                                    }
                                                     // Hiển thị thông báo nếu không đủ số lượng tồn kho
                                                     if (invalidInventoryProducts
                                                         .length > 0) {
@@ -1544,70 +1530,91 @@
                                                         $('#pdf_export')
                                                             .val(0);
                                                         e
-                                                            .preventDefault();
+                                                    .preventDefault();
                                                     } else {
-                                                        // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
-                                                        var allFieldsFilled =
-                                                            true;
-
-                                                        $('.addProduct')
-                                                            .each(
-                                                                function() {
-                                                                    var productName =
-                                                                        $(
-                                                                            this
-                                                                        )
-                                                                        .find(
-                                                                            '.product_name'
-                                                                        )
-                                                                        .val();
-                                                                    var productUnit =
-                                                                        $(
-                                                                            this
-                                                                        )
-                                                                        .find(
-                                                                            '.product_unit'
-                                                                        )
-                                                                        .val();
-                                                                    var productQty =
-                                                                        $(
-                                                                            this
-                                                                        )
-                                                                        .find(
-                                                                            '.quantity-input'
-                                                                        )
-                                                                        .val();
-
-                                                                    if (productName ===
-                                                                        '' ||
-                                                                        productUnit ===
-                                                                        '' ||
-                                                                        productQty ===
-                                                                        ''
-                                                                    ) {
-                                                                        allFieldsFilled
-                                                                            =
-                                                                            false;
-                                                                        return false;
-                                                                    }
-                                                                });
-
-                                                        if (
-                                                            allFieldsFilled
-                                                        ) {
-                                                            $('.check-add-sn:checked[disabled]')
-                                                                .prop(
-                                                                    'disabled',
-                                                                    false
+                                                        if (invalidInventorySN
+                                                            .length > 0
+                                                            ) {
+                                                            showAutoToast
+                                                                (
+                                                                    'warning',
+                                                                    `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
                                                                 );
-                                                            // Gửi form bằng JavaScript
-                                                            $('#quickAction')
-                                                                .submit();
+                                                            $('#pdf_export')
+                                                                .val(0);
+                                                            e
+                                                                .preventDefault();
                                                         } else {
-                                                            console.log(
-                                                                'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
-                                                            );
+                                                            // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
+                                                            var allFieldsFilled =
+                                                                true;
+
+                                                            $('.addProduct')
+                                                                .each(
+                                                                    function() {
+                                                                        var productName =
+                                                                            $(
+                                                                                this
+                                                                            )
+                                                                            .find(
+                                                                                '.product_name'
+                                                                            )
+                                                                            .val();
+                                                                        var productUnit =
+                                                                            $(
+                                                                                this
+                                                                            )
+                                                                            .find(
+                                                                                '.product_unit'
+                                                                            )
+                                                                            .val();
+                                                                        var productQty =
+                                                                            $(
+                                                                                this
+                                                                            )
+                                                                            .find(
+                                                                                '.quantity-input'
+                                                                            )
+                                                                            .val();
+
+                                                                        if (productName ===
+                                                                            '' ||
+                                                                            productUnit ===
+                                                                            '' ||
+                                                                            productQty ===
+                                                                            ''
+                                                                        ) {
+                                                                            allFieldsFilled
+                                                                                =
+                                                                                false;
+                                                                            return false;
+                                                                        }
+                                                                    });
+
+                                                            if (
+                                                                allFieldsFilled
+                                                            ) {
+                                                                $('.check-add-sn:checked[disabled]')
+                                                                    .prop(
+                                                                        'disabled',
+                                                                        false
+                                                                    );
+                                                                // document
+                                                                //     .getElementById(
+                                                                //         'deliveryForm'
+                                                                //     )
+                                                                //     .submit();
+                                                            } else {
+                                                                showAutoToast
+                                                                    (
+                                                                        'warning',
+                                                                        'Vui lòng điền đủ thông tin sản phẩm'
+                                                                    );
+                                                                e
+                                                            .preventDefault();
+                                                            }
                                                         }
+
                                                     }
                                                 }
                                             });
@@ -1619,7 +1626,7 @@
                                                 var
                                                     invalidInventoryProducts = [];
                                                 var
-                                                    invalidInventorySN = [];
+                                            invalidInventorySN = [];
                                                 var sanPhamHetSN = [];
                                                 $(".bg-white.addProduct")
                                                     .each(
@@ -1637,7 +1644,7 @@
                                                             var checkbox =
                                                                 $(
                                                                     this
-                                                                )
+                                                                    )
                                                                 .find(
                                                                     ".check-add-sn"
                                                                 );
@@ -1645,23 +1652,21 @@
                                                             var quantity =
                                                                 parseFloat(
                                                                     $(
-                                                                        this
-                                                                    )
+                                                                        this)
                                                                     .find(
                                                                         ".quantity-input"
                                                                     )
                                                                     .val()
-                                                                );
+                                                                    );
                                                             var type =
                                                                 parseFloat(
                                                                     $(
-                                                                        this
-                                                                    )
+                                                                        this)
                                                                     .find(
                                                                         ".type"
                                                                     )
                                                                     .val()
-                                                                );
+                                                                    );
                                                             var productNameInventory =
                                                                 $(this)
                                                                 .find(
@@ -1701,16 +1706,14 @@
                                                                     );
                                                                 var productId =
                                                                     $(
-                                                                        this
-                                                                    )
+                                                                        this)
                                                                     .find(
                                                                         ".product_id"
                                                                     )
                                                                     .val();
                                                                 var productName =
                                                                     $(
-                                                                        this
-                                                                    )
+                                                                        this)
                                                                     .find(
                                                                         ".product_name"
                                                                     )
@@ -1774,17 +1777,6 @@
                                                         .val(0);
                                                     e.preventDefault();
                                                 } else {
-                                                    if (invalidInventorySN
-                                                        .length > 0) {
-                                                        showAutoToast(
-                                                            'warning',
-                                                            `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
-                                                        );
-                                                        $('#pdf_export')
-                                                            .val(0);
-                                                        e
-                                                            .preventDefault();
-                                                    }
                                                     // Hiển thị thông báo nếu không đủ số lượng tồn kho
                                                     if (invalidInventoryProducts
                                                         .length > 0) {
@@ -1798,69 +1790,91 @@
                                                         $('#pdf_export')
                                                             .val(0);
                                                         e
-                                                            .preventDefault();
+                                                    .preventDefault();
                                                     } else {
-                                                        // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
-                                                        var allFieldsFilled =
-                                                            true;
-
-                                                        $('.addProduct')
-                                                            .each(
-                                                                function() {
-                                                                    var productName =
-                                                                        $(
-                                                                            this
-                                                                        )
-                                                                        .find(
-                                                                            '.product_name'
-                                                                        )
-                                                                        .val();
-                                                                    var productUnit =
-                                                                        $(
-                                                                            this
-                                                                        )
-                                                                        .find(
-                                                                            '.product_unit'
-                                                                        )
-                                                                        .val();
-                                                                    var productQty =
-                                                                        $(
-                                                                            this
-                                                                        )
-                                                                        .find(
-                                                                            '.quantity-input'
-                                                                        )
-                                                                        .val();
-
-                                                                    if (productName ===
-                                                                        '' ||
-                                                                        productUnit ===
-                                                                        '' ||
-                                                                        productQty ===
-                                                                        ''
-                                                                    ) {
-                                                                        allFieldsFilled
-                                                                            =
-                                                                            false;
-                                                                        return false;
-                                                                    }
-                                                                });
-                                                        if (
-                                                            allFieldsFilled
-                                                        ) {
-                                                            $('.check-add-sn:checked[disabled]')
-                                                                .prop(
-                                                                    'disabled',
-                                                                    false
+                                                        if (invalidInventorySN
+                                                            .length > 0
+                                                            ) {
+                                                            showAutoToast
+                                                                (
+                                                                    'warning',
+                                                                    `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
                                                                 );
-                                                            // Gửi form bằng JavaScript
-                                                            $('#quickAction')
-                                                                .submit();
+                                                            $('#pdf_export')
+                                                                .val(0);
+                                                            e
+                                                                .preventDefault();
                                                         } else {
-                                                            console.log(
-                                                                'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
-                                                            );
+                                                            // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
+                                                            var allFieldsFilled =
+                                                                true;
+
+                                                            $('.addProduct')
+                                                                .each(
+                                                                    function() {
+                                                                        var productName =
+                                                                            $(
+                                                                                this
+                                                                            )
+                                                                            .find(
+                                                                                '.product_name'
+                                                                            )
+                                                                            .val();
+                                                                        var productUnit =
+                                                                            $(
+                                                                                this
+                                                                            )
+                                                                            .find(
+                                                                                '.product_unit'
+                                                                            )
+                                                                            .val();
+                                                                        var productQty =
+                                                                            $(
+                                                                                this
+                                                                            )
+                                                                            .find(
+                                                                                '.quantity-input'
+                                                                            )
+                                                                            .val();
+
+                                                                        if (productName ===
+                                                                            '' ||
+                                                                            productUnit ===
+                                                                            '' ||
+                                                                            productQty ===
+                                                                            ''
+                                                                        ) {
+                                                                            allFieldsFilled
+                                                                                =
+                                                                                false;
+                                                                            return false;
+                                                                        }
+                                                                    });
+
+                                                            if (
+                                                                allFieldsFilled
+                                                            ) {
+                                                                $('.check-add-sn:checked[disabled]')
+                                                                    .prop(
+                                                                        'disabled',
+                                                                        false
+                                                                    );
+                                                                // document
+                                                                //     .getElementById(
+                                                                //         'deliveryForm'
+                                                                //     )
+                                                                //     .submit();
+                                                            } else {
+                                                                showAutoToast
+                                                                    (
+                                                                        'warning',
+                                                                        'Vui lòng điền đủ thông tin sản phẩm'
+                                                                    );
+                                                                e
+                                                            .preventDefault();
+                                                            }
                                                         }
+
                                                     }
                                                 }
                                             });
