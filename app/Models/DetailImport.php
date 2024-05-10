@@ -198,7 +198,8 @@ class DetailImport extends Model
                     'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
                     'terms_pay' => $data['terms_pay'],
                     'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
-                    'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : ""
+                    'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
+                    'user_id' => Auth::user()->id,
                 ];
                 $result = DB::table($this->table)->where('id', $id)->update($dataImport);
             } else {
