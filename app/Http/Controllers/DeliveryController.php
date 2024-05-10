@@ -105,6 +105,7 @@ class DeliveryController extends Controller
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
             ->distinct()
+            ->orderby('detailexport.id','DESC')
             ->get();
         $product = $this->product->getAllProducts();
         return view('tables.export.delivery.create-delivery', compact('title', 'numberQuote', 'product', 'workspacename'));

@@ -77,6 +77,7 @@ class BillSaleController extends Controller
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
             ->distinct()
+            ->orderby('detailexport.id','DESC')
             ->get();
         $product = $this->product->getAllProducts();
         return view('tables.export.bill_sale.create-billSale', compact('title', 'numberQuote', 'product', 'workspacename'));

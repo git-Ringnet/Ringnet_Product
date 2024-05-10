@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="products" activeName="product"></x-navbar>
 <div class="content-wrapper min-height--none" style="background: none;">
-    <div class="content-header-fixed p-0 margin-250">
+    <div class="content-header-fixed p-0 margin-250 border-bottom-0">
         <div class="content__header--inner margin-left32">
             <div class="content__heading--left">
                 <span>Kho hàng</span>
@@ -106,7 +106,7 @@
             </ul>
         </section>
     </div>
-    <div class="tab-content editGuest margin-top-75">
+    <div class="tab-content editGuest" style="margin-top: 7.5rem;">
         <div id="info" class="content tab-pane in active">
             <section class="content">
                 <div class="container-fluided">
