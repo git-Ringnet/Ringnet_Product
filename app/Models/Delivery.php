@@ -150,6 +150,7 @@ class Delivery extends Model
     }
     public function updateDetailExport($data, $detailexport_id)
     {
+        dd(1);
         if (isset($data['shipping_fee'])) {
             $shipping_fee = $data['shipping_fee'];
             if ($shipping_fee !== null) {
@@ -263,7 +264,7 @@ class Delivery extends Model
                         $count_export = 0;
                         if ($htrImport) {
                             $check = false;
-                            foreach ($htrImport as $va) {
+                            foreach ($htrImport as $index => $va) {
                                 // Lấy sản phẩm đã bán 
                                 $getProductSell = History::where('history_import', $va->detailimport_id)
                                     ->where('workspace_id', Auth::user()->current_workspace)
@@ -296,8 +297,6 @@ class Delivery extends Model
                                     if ($va->product_qty == $getHtr) {
                                         continue;
                                     } else if ($va->product_qty > ($getHtr + $data['product_qty'][$i])) {
-                                        // $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                        // $qty += $data['product_qty'][$i];
                                         $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
                                         $qty += ($temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp);
                                     } else {
@@ -338,43 +337,48 @@ class Delivery extends Model
                                                     $temp += ($va->product_qty - $temp);
                                                 }
                                             } else {
-                                                // if ($va->product_qty - $getHtr == $data['product_qty'][$i]) {
-                                                //     $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
-                                                //     $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
-                                                //     $qty += $temp;
-                                                // } else if ($va->product_qty - $getHtr > $data['product_qty'][$i]) {
-                                                //     // $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                //     // $temp += $data['product_qty'][$i];
-                                                //     $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
-                                                //     $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
-                                                //     $qty += $temp;
-                                                // } else {
-                                                //     $temp == 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
-                                                //     $temp += $temp == 0 ? ($va->product_qty - $getHtr) : $data['product_qty'][$i] - $temp;
-                                                //     $qty += $temp;
-                                                // }
-                                                if ($va->product_qty == $data['product_qty'][$i] - $temp) {
-                                                    $count_export = ($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp);
-                                                    $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
-                                                    // $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : ($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp));
-
-                                                } else if ($va->product_qty > $data['product_qty'][$i] - $temp) {
-                                                    $count_export = ($va->product_qty > $data['product_qty'][$i] - $temp ? $data['product_qty'][$i] - $temp : $data['product_qty'][$i] - $temp);
-                                                    $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
+                                                if ($va->product_qty - $getHtr == $data['product_qty'][$i]) {
+                                                    $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
+                                                    $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
+                                                    $qty += $temp;
+                                                } else if ($va->product_qty - $getHtr > $data['product_qty'][$i]) {
+                                                    $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
+                                                    $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
+                                                    $qty += $temp;
                                                 } else {
-                                                    $count_export = ($va->product_qty < $data['product_qty'][$i] - $temp ? $va->product_qty : $data['product_qty'][$i] - $temp);
-                                                    $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
+                                                    // $temp == 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
+                                                    // $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $data['product_qty'][$i] - $temp);
+                                                    if ($va->product_qty == $data['product_qty'][$i] - $temp) {
+                                                        $count_export = $getHtr > 0 ? $data['product_qty'][$i] : (($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp));
+                                                        $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
+                                                        // $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : ($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp));
+                                                    } else if ($va->product_qty > $data['product_qty'][$i] - $temp) {
+                                                        $count_export = ($va->product_qty > $data['product_qty'][$i] - $temp ? $data['product_qty'][$i] - $temp : $data['product_qty'][$i] - $temp);
+                                                        $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
+                                                    } else {
+                                                        $count_export = ($va->product_qty < $data['product_qty'][$i] - $temp ? $va->product_qty : $data['product_qty'][$i] - $temp);
+                                                        $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
+                                                    }
+                                                    $getHtr > 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $count_export;
+                                                    $qty += $count_export;
                                                 }
-                                                $temp == 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $count_export;
-                                                $qty += $count_export;
                                             }
                                         }
                                     }
-                                    if (!$check || $qty < $data['product_qty'][$i]) {
-                                        $history->addHistory($dataHistory);
-                                    }
-                                    if ($qty >= $data['product_qty'][$i]) {
-                                        $check = true;
+                                    if ($getHtr > 0) {
+                                        if (!$check || $qty <= $data['product_qty'][$i]) {
+                                            $history->addHistory($dataHistory);
+                                        }
+                                        if ($qty > $data['product_qty'][$i]) {
+                                            $check = true;
+                                        }
+                                    } else {
+                                        if (!$check || $qty < $data['product_qty'][$i]) {
+                                            $history->addHistory($dataHistory);
+                                        }
+                                        if ($qty >= $data['product_qty'][$i]) {
+                                            $check = true;
+                                        }
                                     }
                                 }
                             }
@@ -701,7 +705,6 @@ class Delivery extends Model
         $deliveryId = $delivery->id;
         QuoteExport::where('detailexport_id', $data['detailexport_id'])
             ->update(['deliver_id' => $deliveryId]);
-
         //Thêm delivered
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
@@ -763,6 +766,7 @@ class Delivery extends Model
             $de = Delivered::where('delivery_id', $deliveryId)->first();
             $product = Products::where('product_name', $data['product_name'][$i])->first();
             if ($product) {
+
                 if ($product->type == 2) {
                     $history = new History();
                     $dataHistory = [
@@ -827,7 +831,6 @@ class Delivery extends Model
                                     if ($va->product_qty == $getHtr) {
                                         continue;
                                     } else if ($va->product_qty > ($getHtr + $data['product_qty'][$i])) {
-                                        var_dump("TH1");
                                         $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
                                         $qty += ($temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp);
                                     } else {
@@ -835,30 +838,24 @@ class Delivery extends Model
                                             if ($va->product_qty == $data['product_qty'][$i]) {
                                                 $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                 $qty += $data['product_qty'][$i];
-                                                // var_dump("TH2.1");
                                             } else if ($va->product_qty > $data['product_qty'][$i]) {
                                                 $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                 $qty += $data['product_qty'][$i];
-                                                // var_dump("TH2.1");
                                             } else {
                                                 if ($qty == 0) {
                                                     if ($va->product_qty == $data['product_qty'][$i]) {
                                                         $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                         $qty += $data['product_qty'][$i];
-                                                        // var_dump("TH3.1");
                                                     } else if ($va->product_qty > $data['product_qty'][$i]) {
                                                         $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                         $qty += $data['product_qty'][$i];
-                                                        // var_dump("TH3.2");
                                                     } else {
                                                         $dataHistory['qty_export'] = $va->product_qty;
                                                         $qty += $va->product_qty;
-                                                        // var_dump("TH3.3");
                                                     }
                                                 } else {
                                                     $dataHistory['qty_export'] = $data['product_qty'][$i] - $qty;
                                                     $qty += $data['product_qty'][$i] - $qty;
-                                                    // var_dump("TH4");
                                                 }
                                             }
                                         } else {
@@ -866,22 +863,18 @@ class Delivery extends Model
                                                 if ($va->product_qty - $temp == $data['product_qty'][$i]) {
                                                     $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                     $temp += $data['product_qty'][$i];
-                                                    // var_dump("TH5.1");
                                                 } else if ($va->product_qty - $temp > $data['product_qty'][$i]) {
                                                     $dataHistory['qty_export'] = $data['product_qty'][$i];
                                                     $temp += $data['product_qty'][$i];
-                                                    // var_dump("TH5.2");
                                                 } else {
                                                     $dataHistory['qty_export'] = ($va->product_qty - $temp);
                                                     $temp += ($va->product_qty - $temp);
-                                                    // var_dump("TH5.3");
                                                 }
                                             } else {
                                                 if ($va->product_qty - $getHtr == $data['product_qty'][$i]) {
                                                     $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
                                                     $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
                                                     $qty += $temp;
-                                                    // var_dump("TH6.1");
                                                 } else if ($va->product_qty - $getHtr > $data['product_qty'][$i]) {
                                                     $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
                                                     $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
@@ -890,10 +883,9 @@ class Delivery extends Model
                                                     // $temp == 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
                                                     // $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $data['product_qty'][$i] - $temp);
                                                     if ($va->product_qty == $data['product_qty'][$i] - $temp) {
-                                                        $count_export = ($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp);
+                                                        $count_export = $getHtr > 0 ? $data['product_qty'][$i] : (($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp));
                                                         $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
                                                         // $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : ($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp));
-
                                                     } else if ($va->product_qty > $data['product_qty'][$i] - $temp) {
                                                         $count_export = ($va->product_qty > $data['product_qty'][$i] - $temp ? $data['product_qty'][$i] - $temp : $data['product_qty'][$i] - $temp);
                                                         $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
@@ -901,17 +893,26 @@ class Delivery extends Model
                                                         $count_export = ($va->product_qty < $data['product_qty'][$i] - $temp ? $va->product_qty : $data['product_qty'][$i] - $temp);
                                                         $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
                                                     }
-                                                    $temp == 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $count_export;
+                                                    $getHtr > 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $count_export;
                                                     $qty += $count_export;
                                                 }
                                             }
                                         }
                                     }
-                                    if (!$check || $qty < $data['product_qty'][$i]) {
-                                        $history->addHistory($dataHistory);
-                                    }
-                                    if ($qty >= $data['product_qty'][$i]) {
-                                        $check = true;
+                                    if ($getHtr > 0) {
+                                        if (!$check || $qty <= $data['product_qty'][$i]) {
+                                            $history->addHistory($dataHistory);
+                                        }
+                                        if ($qty > $data['product_qty'][$i]) {
+                                            $check = true;
+                                        }
+                                    } else {
+                                        if (!$check || $qty < $data['product_qty'][$i]) {
+                                            $history->addHistory($dataHistory);
+                                        }
+                                        if ($qty >= $data['product_qty'][$i]) {
+                                            $check = true;
+                                        }
                                     }
                                 }
                             }
@@ -947,6 +948,7 @@ class Delivery extends Model
                     }
                 }
             }
+
 
             //thêm sản phẩm từ đơn giao hàng
             $checkProduct = Products::where('product_name', $data['product_name'][$i])->first();
@@ -985,6 +987,10 @@ class Delivery extends Model
                 }
             }
         }
+
+        // dd(1);
+
+
         if (isset($data['selected_serial_numbers'])) {
             $selectedSerialNumbers = $data['selected_serial_numbers'];
             foreach ($selectedSerialNumbers as $serialNumberId) {
