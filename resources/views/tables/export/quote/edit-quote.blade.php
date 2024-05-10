@@ -2223,6 +2223,7 @@
                     var productName = clickedRow.find('.product_name');
                     var productUnit = clickedRow.find('.product_unit');
                     var thue = clickedRow.find('.product_tax');
+                    var quantity_input = clickedRow.find('.quantity-input');
                     var product_id = clickedRow.find('.product_id');
                     var tonkho = clickedRow.find('.tonkho');
                     var idProduct = $(this).attr('id');
@@ -2254,11 +2255,13 @@
                             if (data.type == 2) {
                                 soTonKho.text('');
                                 inventory.hide();
+                                quantity_input.val(1);
                             } else {
                                 soTonKho.text(parseFloat(data
                                     .product_inventory == null ? 0 :
                                     data.product_inventory));
                                 inventory.show();
+                                quantity_input.val("");
                             }
                             infoProduct.show();
                             $('.recentModal').show();

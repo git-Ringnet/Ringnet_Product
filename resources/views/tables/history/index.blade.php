@@ -642,7 +642,9 @@
                                                     $previousIds[] = "$productId-$deliveredId";
                                                 }
                                             @endphp
-                                            <tr>
+                                            <tr class="position-relative history-info height-52 {{ $item->id }}">
+                                                <input type="hidden" name="id-history" class="id-history"
+                                                    id="id-history" value="{{ $item->id }}">
                                                 <td>
                                                     @if ($item->getDetailImport)
                                                         {{ $item->getDetailImport->provide_name }}
@@ -786,22 +788,26 @@
                                                     @endif
                                                 </td>
                                                 <td class="{{ $countClass }}" rowspan="{{ $count }}">
-                                                    {{ number_format($item->qty_export) }}
+                                                    {{-- {{ number_format($item->qty_export) }} --}}
+                                                    {{ number_format($item->slxuat) }}
                                                 </td>
                                                 <td class="{{ $countClass }}" rowspan="{{ $count }}">
                                                     @if ($item->getQuoteExport)
-                                                        {{ number_format($item->getQuoteExport->price_export * $item->qty_export) }}
+                                                        {{-- {{ number_format($item->getQuoteExport->price_export * $item->qty_export) }} --}}
+                                                        {{ number_format($item->giaban) }}
                                                     @endif
                                                 </td>
                                                 <td class="{{ $countClass }}" rowspan="{{ $count }}">
                                                    
                                                     @if ($item->getQuoteExport)
-                                                        {{ number_format(($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }}
+                                                        {{-- {{ number_format(($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }} --}}
+                                                        {{ number_format($item->thueXuatCalculated) }}
                                                     @endif
                                                 </td>
                                                 <td class="{{ $countClass }}" rowspan="{{ $count }}">
                                                     @if ($item->getQuoteExport)
-                                                        {{ number_format($item->getQuoteExport->price_export * $item->qty_export + ($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }}
+                                                        {{ number_format($item->thanhtienxuat) }}
+                                                        {{-- {{ number_format($item->getQuoteExport->price_export * $item->qty_export + ($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }} --}}
                                                     @endif
                                                 </td>
                                                 <td class="{{ $countClass }}" rowspan="{{ $count }}">

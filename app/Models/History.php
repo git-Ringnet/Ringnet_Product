@@ -91,9 +91,33 @@ class History extends Model
         //     )->distinct()->get();
         // // dd($history);
 
-        $history = History::where('workspace_id', Auth::user()->current_workspace)
+        $history = History::where('history.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('delivered', 'history.delivered_id', 'delivered.id')
+            ->leftJoin('history_import', 'history_import.id', 'history.history_import')
+            ->select(
+                DB::raw('delivered.price_export * delivered.deliver_qty as giaban'),
+                'delivered.deliver_qty as slxuat',
+                DB::raw('CASE 
+                    WHEN history.tax_import = 99 THEN delivered.price_export * delivered.deliver_qty 
+                    ELSE (history.tax_import * delivered.price_export * delivered.deliver_qty) / 100 
+                END as thueXuatCalculated'),
+                DB::raw('delivered.price_export * delivered.deliver_qty + CASE 
+                    WHEN history.tax_import = 99 THEN delivered.price_export * delivered.deliver_qty 
+                    ELSE (history.tax_import * delivered.price_export * delivered.deliver_qty) / 100 
+                END as thanhtienxuat'),
+                DB::raw('history_import.product_qty * history.price_import as tienThue'),
+                DB::raw('CASE 
+                    WHEN history.tax_import = 99 THEN history.price_import * history_import.product_qty 
+                    ELSE (history.tax_import * history.price_import * history_import.product_qty) / 100 
+                END as thueNhapCalculated'),
+                DB::raw('history.price_import * history_import.product_qty + CASE 
+                    WHEN history.tax_import = 99 THEN history.price_import * history_import.product_qty 
+                    ELSE (history.tax_import * history.price_import * history_import.product_qty) / 100 
+                END as thanhtiennhap'),
+                'history.*'
+            )
             ->orderBy('id', 'desc')->get();
-        // ->groupBy('detailexport_id');
+        // dd($history);
         return $history;
     }
 
@@ -227,74 +251,99 @@ class History extends Model
     }
     public function ajax($data)
     {
-        $history = History::leftJoin('delivered', 'history.delivered_id', 'delivered.id')
-            ->leftJoin('delivery', 'delivery.id', 'delivered.delivery_id')
-            ->leftJoin('products', 'products.id', 'delivered.product_id')
+        // $history = History::leftJoin('delivered', 'history.delivered_id', 'delivered.id')
+        //     ->leftJoin('delivery', 'delivery.id', 'delivered.delivery_id')
+        //     ->leftJoin('products', 'products.id', 'delivered.product_id')
+        //     ->leftJoin('history_import', 'history_import.id', 'history.history_import')
+        //     ->leftJoin('detailexport', 'history.detailexport_id', 'detailexport.id')
+        //     ->leftJoin('bill_sale', 'bill_sale.detailexport_id', 'history.detailexport_id')
+        //     ->leftJoin('detailimport', 'detailimport.id', 'history.detailimport_id')
+        //     ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
+        //     // ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
+        //     ->leftJoin('pay_order', 'pay_order.detailimport_id', 'history.detailimport_id')
+        //     ->leftJoin('provides', 'provides.id', 'history.provide_id')
+        //     ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+        //     ->where('delivery.status', 2)
+        //     ->where('history.workspace_id', Auth::user()->current_workspace)
+        //     ->select(
+        //         'delivered.*',
+        //         'delivery.*',
+        //         // 'delivered.price_export as giaban',
+        //         'delivered.created_at as time',
+        //         'delivered.deliver_qty as slXuat',
+        //         'products.product_name as tensp',
+        //         'history_import.*',
+        //         'history_import.price_export as gianhap',
+        //         'history_import.product_qty as slNhap',
+        //         'detailexport.reference_number as POxuat',
+        //         'detailexport.total_price as giaXuat',
+        //         'detailexport.total_tax as VATXuat',
+        //         'detailexport.quotation_number as HDXuat',
+        //         'products.product_tax as thueXuat',
+        //         'detailexport.*',
+        //         'history.hdr as hdra',
+        //         'history.hdv as hdvao',
+        //         'history.price_import as trcVat',
+        //         DB::raw('delivered.price_export * delivered.deliver_qty as giaban'),
+        //         DB::raw('CASE 
+        //             WHEN products.product_tax = 99 THEN delivered.price_export * delivered.deliver_qty 
+        //             ELSE (products.product_tax * delivered.price_export * delivered.deliver_qty) / 100 
+        //         END as thueXuatCalculated'),
+        //         DB::raw('delivered.price_export * delivered.deliver_qty + CASE 
+        //             WHEN products.product_tax = 99 THEN delivered.price_export * delivered.deliver_qty 
+        //             ELSE (products.product_tax * delivered.price_export * delivered.deliver_qty) / 100 
+        //         END as thanhtienxuat'),
+        //         DB::raw('history_import.product_qty * history.price_import as tienThue'),
+        //         DB::raw('CASE 
+        //             WHEN products.product_tax = 99 THEN history.price_import * history_import.product_qty 
+        //             ELSE (products.product_tax * history.price_import * history_import.product_qty) / 100 
+        //         END as thueNhapCalculated'),
+        //         DB::raw('history.price_import * history_import.product_qty + CASE 
+        //             WHEN products.product_tax = 99 THEN history.price_import * history_import.product_qty 
+        //             ELSE (products.product_tax * history.price_import * history_import.product_qty) / 100 
+        //         END as thanhtiennhap'),
+        //         'history.total_import as sauVat',
+        //         'bill_sale.created_at as ngayHDxuat',
+        //         'pay_export.payment_day as ngayTTxuat',
+        //         'pay_export.payment_type as HTTTxuat',
+        //         'detailexport.status_pay as status_pay',
+        //         'guest.guest_name_display as tenKhach',
+        //         'provides.provide_name_display as tenNCC',
+        //         'products.product_guarantee as baoHanh',
+        //         'detailimport.reference_number as POnhap',
+        //         'detailimport.created_at as ngayHDnhap',
+        //         'detailimport.status_pay as TTnhap',
+        //         'pay_order.payment_day as ngayTT',
+        //         'pay_order.payment_type as HTTT',
+        //         'history.*',
+        //         'history.id',
+        //         DB::raw('delivered.deliver_qty * delivered.price_export AS tongban'),
+        //     )->distinct();
+        $history = History::where('history.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('delivered', 'history.delivered_id', 'delivered.id')
             ->leftJoin('history_import', 'history_import.id', 'history.history_import')
-            ->leftJoin('detailexport', 'history.detailexport_id', 'detailexport.id')
-            ->leftJoin('bill_sale', 'bill_sale.detailexport_id', 'history.detailexport_id')
-            ->leftJoin('detailimport', 'detailimport.id', 'history.detailimport_id')
-            ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
-            // ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
-            ->leftJoin('pay_order', 'pay_order.detailimport_id', 'history.detailimport_id')
-            ->leftJoin('provides', 'provides.id', 'history.provide_id')
-            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
-            ->where('delivery.status', 2)
-            ->where('history.workspace_id', Auth::user()->current_workspace)
             ->select(
-                'delivered.*',
-                'delivery.*',
-                // 'delivered.price_export as giaban',
-                'delivered.created_at as time',
-                'delivered.deliver_qty as slXuat',
-                'products.product_name as tensp',
-                'history_import.*',
-                'history_import.price_export as gianhap',
-                'history_import.product_qty as slNhap',
-                'detailexport.reference_number as POxuat',
-                'detailexport.total_price as giaXuat',
-                'detailexport.total_tax as VATXuat',
-                'detailexport.quotation_number as HDXuat',
-                'products.product_tax as thueXuat',
-                'detailexport.*',
-                'history.hdr as hdra',
-                'history.hdv as hdvao',
-                'history.price_import as trcVat',
                 DB::raw('delivered.price_export * delivered.deliver_qty as giaban'),
+                'delivered.deliver_qty as slxuat',
                 DB::raw('CASE 
-                    WHEN products.product_tax = 99 THEN delivered.price_export * delivered.deliver_qty 
-                    ELSE (products.product_tax * delivered.price_export * delivered.deliver_qty) / 100 
+                    WHEN history.tax_import = 99 THEN delivered.price_export * delivered.deliver_qty 
+                    ELSE (history.tax_import * delivered.price_export * delivered.deliver_qty) / 100 
                 END as thueXuatCalculated'),
                 DB::raw('delivered.price_export * delivered.deliver_qty + CASE 
-                    WHEN products.product_tax = 99 THEN delivered.price_export * delivered.deliver_qty 
-                    ELSE (products.product_tax * delivered.price_export * delivered.deliver_qty) / 100 
+                    WHEN history.tax_import = 99 THEN delivered.price_export * delivered.deliver_qty 
+                    ELSE (history.tax_import * delivered.price_export * delivered.deliver_qty) / 100 
                 END as thanhtienxuat'),
                 DB::raw('history_import.product_qty * history.price_import as tienThue'),
                 DB::raw('CASE 
-                    WHEN products.product_tax = 99 THEN history.price_import * history_import.product_qty 
-                    ELSE (products.product_tax * history.price_import * history_import.product_qty) / 100 
+                    WHEN history.tax_import = 99 THEN history.price_import * history_import.product_qty 
+                    ELSE (history.tax_import * history.price_import * history_import.product_qty) / 100 
                 END as thueNhapCalculated'),
                 DB::raw('history.price_import * history_import.product_qty + CASE 
-                    WHEN products.product_tax = 99 THEN history.price_import * history_import.product_qty 
-                    ELSE (products.product_tax * history.price_import * history_import.product_qty) / 100 
+                    WHEN history.tax_import = 99 THEN history.price_import * history_import.product_qty 
+                    ELSE (history.tax_import * history.price_import * history_import.product_qty) / 100 
                 END as thanhtiennhap'),
-                'history.total_import as sauVat',
-                'bill_sale.created_at as ngayHDxuat',
-                'pay_export.payment_day as ngayTTxuat',
-                'pay_export.payment_type as HTTTxuat',
-                'detailexport.status_pay as status_pay',
-                'guest.guest_name_display as tenKhach',
-                'provides.provide_name_display as tenNCC',
-                'products.product_guarantee as baoHanh',
-                'detailimport.reference_number as POnhap',
-                'detailimport.created_at as ngayHDnhap',
-                'detailimport.status_pay as TTnhap',
-                'pay_order.payment_day as ngayTT',
-                'pay_order.payment_type as HTTT',
-                'history.*',
-                'history.id',
-                DB::raw('delivered.deliver_qty * delivered.price_export AS tongban'),
-            )->distinct();
+                'history.*'
+            );
 
         if (isset($data['search'])) {
             $seri = new Serialnumber();
@@ -303,7 +352,7 @@ class History extends Model
             // dd($product);
             $history = $history->where(function ($query) use ($data, $product) {
                 $query->orWhere('products.product_name', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+                // $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('detailimport.reference_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('detailexport.reference_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('provides.provide_name_display', 'like', '%' . $data['search'] . '%');
