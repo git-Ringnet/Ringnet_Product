@@ -16,7 +16,7 @@ class History extends Model
         'detailimport_id', 'detailexport_id', 'delivered_id', 'provide_id',
         'tax_import', 'price_import', 'total_import', 'history_import', 'workspace_id', 'hdv', 'hdr',
         'qty_export',
-        'product_id','user_id'
+        'product_id', 'user_id', 'delivery_id'
     ];
     use HasFactory;
     public function getAllHistory()
@@ -93,9 +93,10 @@ class History extends Model
 
         $history = History::where('history.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('delivered', 'history.delivered_id', 'delivered.id')
-            ->leftJoin('history_import', 'history_import.id', 'history.history_import')
+            // ->leftJoin('history_import', 'history_import.id', 'history.history_import')
+              ->leftJoin('quoteimport', 'quoteimport.id', 'history.history_import')
             ->select(
-                DB::raw('delivered.price_export * delivered.deliver_qty as giaban'),
+                DB::raw('delivered.price_export * history.qty_export as giaban'),
                 'delivered.deliver_qty as slxuat',
                 DB::raw('CASE 
                     WHEN history.tax_import = 99 THEN delivered.price_export * delivered.deliver_qty 
@@ -105,14 +106,14 @@ class History extends Model
                     WHEN history.tax_import = 99 THEN delivered.price_export * delivered.deliver_qty 
                     ELSE (history.tax_import * delivered.price_export * delivered.deliver_qty) / 100 
                 END as thanhtienxuat'),
-                DB::raw('history_import.product_qty * history.price_import as tienThue'),
+                DB::raw('quoteimport.product_qty * history.price_import as tienThue'),
                 DB::raw('CASE 
-                    WHEN history.tax_import = 99 THEN history.price_import * history_import.product_qty 
-                    ELSE (history.tax_import * history.price_import * history_import.product_qty) / 100 
+                    WHEN history.tax_import = 99 THEN history.price_import * quoteimport.product_qty 
+                    ELSE (history.tax_import * history.price_import * quoteimport.product_qty) / 100 
                 END as thueNhapCalculated'),
-                DB::raw('history.price_import * history_import.product_qty + CASE 
-                    WHEN history.tax_import = 99 THEN history.price_import * history_import.product_qty 
-                    ELSE (history.tax_import * history.price_import * history_import.product_qty) / 100 
+                DB::raw('history.price_import * quoteimport.product_qty + CASE 
+                    WHEN history.tax_import = 99 THEN history.price_import * quoteimport.product_qty 
+                    ELSE (history.tax_import * history.price_import * quoteimport.product_qty) / 100 
                 END as thanhtiennhap'),
                 'history.*'
             )
@@ -155,9 +156,9 @@ class History extends Model
     }
     public function getQuoteExport()
     {
-        // return $this->hasOne(Delivered::class, 'id', 'delivered_id');
+        return $this->hasOne(Delivered::class, 'id', 'delivered_id');
         // ->where('detailexport_id','detailexport_id')->first();
-        return $this->hasOne(QuoteExport::class, 'detailexport_id', 'detailexport_id');
+        // return $this->hasOne(QuoteExport::class, 'detailexport_id', 'detailexport_id');
     }
     public function getProductToId($id_delivery, $idproduct)
     {

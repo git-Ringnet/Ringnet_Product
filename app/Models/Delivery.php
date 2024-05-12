@@ -221,6 +221,9 @@ class Delivery extends Model
                 }
             }
         }
+        // Kiểm tra trạng thái SN
+        $checkSN = false;
+        $id_history = [];
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $product = Products::find($data['product_id'][$i]);
             if ($product) {
@@ -232,28 +235,33 @@ class Delivery extends Model
                 }
             }
             if ($product) {
+                $getDelivered_id = Delivered::where('delivery_id', $delivery->id)
+                    ->where('product_id', $product->id)
+                    ->first();
                 if ($product->type == 2) {
                     $history = new History();
                     $dataHistory = [
                         'detailexport_id' => $data['detailexport_id'],
-                        'delivered_id' => $delivery->id,
+                        'delivered_id' => isset($getDelivered_id) ? $getDelivered_id->id : 0,
                         'provide_id' => 0,
                         'detailimport_id' => 0,
-                        'tax_import' => 0,
+                        'tax_import' => $product->product_tax,
                         'price_import' => 0,
                         'total_import' => 0,
                         'history_import' => 0,
                         'workspace_id' => Auth::user()->current_workspace,
                         'user_id' => Auth::user()->id,
                         'product_id' => $product->id,
-                        'qty_export' => $data['product_qty'][$i]
+                        'qty_export' => $data['product_qty'][$i],
+                        'delivery_id' => isset($delivery) ? $delivery->id : 0
                     ];
                     $history->addHistory($dataHistory);
                 } else {
-                    if ($product->check_seri == 1) {
-                        $history_import = HistoryImport::where('product_id', $data['product_id'][$i])->first();
+                    if ($product->check_seri == 0) {
+                        $history_import = QuoteImport::where('product_id', $data['product_id'][$i])
+                            ->first();
                         // Add lịch sử giao dịch
-                        $htrImport = HistoryImport::where('product_id', $data['product_id'][$i])
+                        $htrImport = QuoteImport::where('product_id', $data['product_id'][$i])
                             ->where('workspace_id', Auth::user()->current_workspace)
                             ->orderBy('id', 'ASC')
                             ->get();
@@ -265,7 +273,7 @@ class Delivery extends Model
                             $check = false;
                             foreach ($htrImport as $index => $va) {
                                 // Lấy sản phẩm đã bán 
-                                $getProductSell = History::where('history_import', $va->detailimport_id)
+                                $getProductSell = History::where('history_import', $va->id)
                                     ->where('workspace_id', Auth::user()->current_workspace)
                                     ->get();
                                 foreach ($getProductSell as $item) {
@@ -281,16 +289,17 @@ class Delivery extends Model
                                     $history = new History();
                                     $dataHistory = [
                                         'detailexport_id' => $data['detailexport_id'],
-                                        'delivered_id' => $delivery->id,
-                                        'provide_id' => $va->provide_id,
-                                        'detailimport_id' => $va->detailImport_id,
-                                        'tax_import' => $history_import ? $history_import->product_tax : null,
-                                        'price_import' => $history_import ? $history_import->price_export : null,
-                                        'total_import' => $history_import ? $history_import->product_total : null,
+                                        'delivered_id' => isset($getDelivered_id) ? $getDelivered_id->id : 0,
+                                        'provide_id' => isset($va->getQuoteNumber) ? $va->getQuoteNumber->provide_id : 0,
+                                        'detailimport_id' => $va->detailimport_id,
+                                        'tax_import' => $va->product_tax,
+                                        'price_import' => $va->price_export,
+                                        'total_import' => $va->product_total,
                                         'history_import' => $va->id,
                                         'workspace_id' => Auth::user()->current_workspace,
                                         'user_id' => Auth::user()->id,
-                                        'product_id' => $va->product_id
+                                        'product_id' => $va->product_id,
+                                        'delivery_id' => isset($delivery) ? $delivery->id : 0
                                     ];
 
                                     if ($va->product_qty == $getHtr) {
@@ -383,41 +392,40 @@ class Delivery extends Model
                             }
                         }
                     } else {
-
-                        if (isset($data['selected_serial_numbers'])) {
-                            $selectedSerialNumbers = $data['selected_serial_numbers'];
+                        if (isset($data['id_seri']) && !$checkSN) {
+                            $selectedSerialNumbers = $data['id_seri'];
                             $result = Serialnumber::whereIn('id', $selectedSerialNumbers)
-                                ->select('detailimport_id', Serialnumber::raw('COUNT(id) AS count_serial_numbers'))
-                                ->groupBy('detailimport_id')
+                                ->select('detailimport_id', 'product_id', Serialnumber::raw('COUNT(id) AS count_serial_numbers'))
+                                ->groupBy('detailimport_id', 'product_id')
                                 ->get();
                             foreach ($result as $value) {
-                                // $history_import = HistoryImport::where('product_id', $data['product_id'][$i])->first();
-                                $history_import = HistoryImport::where('detailImport_id', $value->detailimport_id)
-                                    ->where('product_name', $product->product_name)->first();
+                                $history_import = QuoteImport::where('product_id', $value->product_id)
+                                    ->where('detailimport_id', $value->detailimport_id)->first();
                                 $history = new History();
                                 $dataHistory = [
                                     'detailexport_id' => $data['detailexport_id'],
-                                    'delivered_id' => $delivery->id,
+                                    'delivered_id' => isset($getDelivered_id) ? $getDelivered_id->id : 0,
                                     'detailimport_id' => $value->detailimport_id,
                                     'provide_id' => isset($value->getDetailImport) ? $value->getDetailImport->provide_id : 0,
                                     'tax_import' => $history_import ? $history_import->product_tax : null,
                                     'price_import' => $history_import ? $history_import->price_export : null,
                                     'total_import' => $history_import ? $history_import->product_total : null,
-                                    // 'history_import' => isset($value->getHistoryImport) ? $value->getHistoryImport->id : 0,
                                     'history_import' =>  $history_import ? $history_import->id : 0,
                                     'workspace_id' => Auth::user()->current_workspace,
                                     'user_id' => Auth::user()->id,
-                                    'product_id' => $product->id,
-                                    'qty_export' => $value->count_serial_numbers
+                                    'product_id' => $value->product_id,
+                                    'qty_export' => $value->count_serial_numbers,
+                                    'delivery_id' => isset($delivery) ? $delivery->id : 0
                                 ];
-                                $history->addHistory($dataHistory);
+                                $id_H = $history->addHistory($dataHistory);
+                                array_push($id_history, $id_H->id);
                             }
+                            $checkSN = true;
                         }
                     }
                 }
             }
         }
-
 
         if (isset($data['id_seri'])) {
             $id_seri = $data['id_seri'];
@@ -429,6 +437,22 @@ class Delivery extends Model
                         'detailexport_id' => $detailexport_id,
                         'status' => 2,
                     ]);
+                }
+            }
+        }
+
+        for ($i = 0; $i < count($data['product_name']); $i++) {
+            $product = Products::find($data['product_id'][$i]);
+            if ($product) {
+                // Cập nhật delivered_id nếu có SN
+                $deliveredList = Delivered::where('delivery_id', $delivery->id)->where('product_id', $product->id)
+                    ->get();
+                if ($deliveredList) {
+                    foreach ($deliveredList as $item) {
+                        History::whereIn('id', $id_history)->where('delivery_id', $item->delivery_id)->where('product_id', $item->product_id)->update([
+                            'delivered_id' => $item->id
+                        ]);
+                    }
                 }
             }
         }
@@ -473,10 +497,7 @@ class Delivery extends Model
     {
         $delivery = Delivery::find($id);
         if ($delivery) {
-            $delivered_id = Delivered::where('delivery_id', $delivery->id)->first();
-            if ($delivered_id) {
-                History::where('delivered_id', $delivered_id->id)->delete();
-            }
+            History::where('delivery_id', $delivery->id)->delete();
         }
         Serialnumber::where('detailexport_id', $delivery->detailexport_id)
             ->update([
@@ -549,10 +570,7 @@ class Delivery extends Model
     {
         $delivery = Delivery::find($id);
         if ($delivery) {
-            $delivered_id = Delivered::where('delivery_id', $delivery->id)->first();
-            if ($delivered_id) {
-                History::where('delivered_id', $delivered_id->id)->delete();
-            }
+            History::where('delivery_id', $delivery->id)->delete();
         }
         Serialnumber::where('detailexport_id', $delivery->detailexport_id)
             ->update([
@@ -709,6 +727,9 @@ class Delivery extends Model
         $deliveryId = $delivery->id;
         QuoteExport::where('detailexport_id', $data['detailexport_id'])
             ->update(['deliver_id' => $deliveryId]);
+        // Kiểm tra SN đã được thêm 
+        $checkSN = false;
+        $id_history = [];
         //Thêm delivered
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
@@ -770,7 +791,6 @@ class Delivery extends Model
             $de = Delivered::where('delivery_id', $deliveryId)->first();
             $product = Products::where('product_name', $data['product_name'][$i])->first();
             if ($product) {
-
                 if ($product->type == 2) {
                     $history = new History();
                     $dataHistory = [
@@ -778,21 +798,23 @@ class Delivery extends Model
                         'delivered_id' => $delivered_id,
                         'provide_id' => 0,
                         'detailimport_id' => 0,
-                        'tax_import' => 0,
+                        'tax_import' => $product->product_tax,
                         'price_import' => 0,
                         'total_import' => 0,
                         'history_import' => 0,
                         'workspace_id' => Auth::user()->current_workspace,
                         'user_id' => Auth::user()->id,
                         'product_id' => $product->id,
-                        'qty_export' => $data['product_qty'][$i]
+                        'qty_export' => $data['product_qty'][$i],
+                        'delivery_id' => $delivery->id
                     ];
                     $history->addHistory($dataHistory);
                 } else {
                     if ($product->check_seri == 0) {
-                        $history_import = HistoryImport::where('product_id', $data['product_id'][$i])->first();
+                        $history_import = QuoteImport::where('product_id', $data['product_id'][$i])
+                            ->first();
                         // Add lịch sử giao dịch
-                        $htrImport = HistoryImport::where('product_id', $data['product_id'][$i])
+                        $htrImport = QuoteImport::where('product_id', $data['product_id'][$i])
                             ->where('workspace_id', Auth::user()->current_workspace)
                             ->orderBy('id', 'ASC')
                             ->get();
@@ -804,7 +826,10 @@ class Delivery extends Model
                             $check = false;
                             foreach ($htrImport as $index => $va) {
                                 // Lấy sản phẩm đã bán 
-                                $getProductSell = History::where('history_import', $va->detailimport_id)
+                                // $getProductSell = History::where('history_import', $va->detailimport_id)
+                                //     ->where('workspace_id', Auth::user()->current_workspace)
+                                //     ->get();
+                                $getProductSell = History::where('history_import', $va->id)
                                     ->where('workspace_id', Auth::user()->current_workspace)
                                     ->get();
                                 foreach ($getProductSell as $item) {
@@ -818,18 +843,32 @@ class Delivery extends Model
                                         ->where('workspace_id', Auth::user()->current_workspace)
                                         ->sum('qty_export');
                                     $history = new History();
+                                    // $dataHistory = [
+                                    //     'detailexport_id' => $data['detailexport_id'],
+                                    //     'delivered_id' => $delivered_id,
+                                    //     'provide_id' => $va->provide_id,
+                                    //     'detailimport_id' => $va->detailImport_id,
+                                    //     'tax_import' => $history_import ? $history_import->product_tax : null,
+                                    //     'price_import' => $history_import ? $history_import->price_export : null,
+                                    //     'total_import' => $history_import ? $history_import->product_total : null,
+                                    //     'history_import' => $va->id,
+                                    //     'workspace_id' => Auth::user()->current_workspace,
+                                    //     'user_id' => Auth::user()->id,
+                                    //     'product_id' => $va->product_id
+                                    // ];
                                     $dataHistory = [
                                         'detailexport_id' => $data['detailexport_id'],
                                         'delivered_id' => $delivered_id,
-                                        'provide_id' => $va->provide_id,
-                                        'detailimport_id' => $va->detailImport_id,
-                                        'tax_import' => $history_import ? $history_import->product_tax : null,
-                                        'price_import' => $history_import ? $history_import->price_export : null,
-                                        'total_import' => $history_import ? $history_import->product_total : null,
+                                        'provide_id' => isset($va->getQuoteNumber) ? $va->getQuoteNumber->provide_id : 0,
+                                        'detailimport_id' => $va->detailimport_id,
+                                        'tax_import' => $va->product_tax,
+                                        'price_import' => $va->price_export,
+                                        'total_import' => $va->product_total,
                                         'history_import' => $va->id,
                                         'workspace_id' => Auth::user()->current_workspace,
                                         'user_id' => Auth::user()->id,
-                                        'product_id' => $va->product_id
+                                        'product_id' => $va->product_id,
+                                        'delivery_id' => $delivery->id
                                     ];
 
                                     if ($va->product_qty == $getHtr) {
@@ -922,18 +961,16 @@ class Delivery extends Model
                             }
                         }
                     } else {
-
-                        if (isset($data['selected_serial_numbers'])) {
+                        if (isset($data['selected_serial_numbers']) && !$checkSN) {
                             $selectedSerialNumbers = $data['selected_serial_numbers'];
                             $result = Serialnumber::whereIn('id', $selectedSerialNumbers)
-                                ->select('detailimport_id', Serialnumber::raw('COUNT(id) AS count_serial_numbers'))
-                                ->groupBy('detailimport_id')
+                                ->select('detailimport_id', 'product_id', Serialnumber::raw('COUNT(id) AS count_serial_numbers'))
+                                ->groupBy('detailimport_id', 'product_id')
                                 ->get();
 
                             foreach ($result as $value) {
-                                // $history_import = HistoryImport::where('product_id', $data['product_id'][$i])->first();
-                                $history_import = HistoryImport::where('detailImport_id', $value->detailimport_id)
-                                    ->where('product_name', $product->product_name)->first();
+                                $history_import = QuoteImport::where('product_id', $value->product_id)
+                                    ->where('detailimport_id', $value->detailimport_id)->first();
                                 $history = new History();
                                 $dataHistory = [
                                     'detailexport_id' => $data['detailexport_id'],
@@ -946,11 +983,15 @@ class Delivery extends Model
                                     'history_import' =>  $history_import ? $history_import->id : 0,
                                     'workspace_id' => Auth::user()->current_workspace,
                                     'user_id' => Auth::user()->id,
-                                    'product_id' => $product->id,
-                                    'qty_export' => $value->count_serial_numbers
+                                    'product_id' => $value->product_id,
+                                    'qty_export' => $value->count_serial_numbers,
+                                    'delivery_id' => $delivery->id
                                 ];
-                                $history->addHistory($dataHistory);
+                                $id_H = $history->addHistory($dataHistory);
+                                array_push($id_history, $id_H->id);
                             }
+                            // Cập nhật trạng thái SN
+                            $checkSN = true;
                         }
                     }
                 }
@@ -1068,6 +1109,16 @@ class Delivery extends Model
                     $product->update([
                         'product_inventory' => $result,
                     ]);
+                }
+                // Cập nhật delivered_id nếu có SN
+                $deliveredList = Delivered::where('delivery_id', $deliveryId)->where('product_id', $product->id)
+                    ->get();
+                if ($deliveredList) {
+                    foreach ($deliveredList as $item) {
+                        History::whereIn('id', $id_history)->where('delivery_id', $item->delivery_id)->where('product_id', $item->product_id)->update([
+                            'delivered_id' => $item->id
+                        ]);
+                    }
                 }
             }
         }

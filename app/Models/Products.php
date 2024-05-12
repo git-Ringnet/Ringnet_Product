@@ -59,6 +59,11 @@ class Products extends Model
     {
         return $this->hasMany(ProductImport::class, 'product_id', 'id');
     }
+    public function getDelivered($id)
+    {
+        return $this->hasMany(Delivered::class, 'id', 'product_id')->where('delivery_id',$id);
+    }
+
 
     public function addProductDefault($data)
     {
@@ -219,6 +224,11 @@ class Products extends Model
                 }
                 array_push($list_id, $product_id);
                 HistoryImport::where('quoteImport_id', $getProductName->id)->update([
+                    'product_id' => $product_id
+                ]);
+
+                // Cập nhật id quoteImport
+                QuoteImport::where('id', $item->quoteImport_id)->update([
                     'product_id' => $product_id
                 ]);
                 $item->product_id = $product_id;

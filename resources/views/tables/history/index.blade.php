@@ -884,7 +884,7 @@
                                                     @endif
                                                 </td>
                                                 <td data-toggle="modal" data-target="#snModal"
-                                                    data-delivery-id="{{ $item->delivered_id }}"
+                                                    data-delivery-id="{{ $item->delivery_id }}"
                                                     data-product-id="{{ $item->product_id }}"
                                                     class="sn {{ $countClass }}" rowspan="{{ $count }}">
                                                     <img src="../../dist/img/icon/list.png">

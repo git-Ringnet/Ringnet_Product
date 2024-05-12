@@ -291,6 +291,9 @@ class Receive_bill extends Model
                             $dataUpdate = [
                                 'receive_qty' => $quoteImport->receive_qty - $item->product_qty
                             ];
+                            if($quoteImport->receive_qty - $item->product_qty == 0){
+                                $dataUpdate['product_id'] = null;
+                            }
                             DB::table('quoteimport')->where('id', $quoteImport->id)
                                 ->where('workspace_id', Auth::user()->current_workspace)
                                 ->update($dataUpdate);
@@ -319,6 +322,9 @@ class Receive_bill extends Model
                         // Xóa đơn hàng
                         $item->delete();
                     }
+
+                    // Cập nhật id product null khi xóa đơn
+
 
                     // Xóa đơn nhận hàng
                     DB::table('receive_bill')->where('id', $receive->id)
