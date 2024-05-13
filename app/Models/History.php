@@ -154,6 +154,10 @@ class History extends Model
     {
         return $this->hasOne(ProductImport::class, 'detailimport_id', 'detailimport_id');
     }
+    public function getQuoteImport()
+    {
+        return $this->hasOne(QuoteImport::class, 'id', 'history_import');
+    }
     public function getQuoteExport()
     {
         return $this->hasOne(Delivered::class, 'id', 'delivered_id');

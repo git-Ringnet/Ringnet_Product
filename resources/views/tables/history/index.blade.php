@@ -655,7 +655,7 @@
                                                 <td class="text-13-black min-width180">
                                                     @if ($item->getDetailImport)
                                                         <a
-                                                            href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $item->getDetailImport->id]) }}">
+                                                            href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->getDetailImport->id]) }}">
                                                             {{ $item->getDetailImport->quotation_number }}
                                                         </a>
                                                     @endif
@@ -696,8 +696,8 @@
                                                 </td>
 
                                                 <td class="text-13-black text-right">
-                                                    @if ($item->getQtyImport)
-                                                        {{ number_format($item->getQtyImport->product_qty) }}
+                                                    @if ($item->getQuoteImport)
+                                                        {{ number_format($item->getQuoteImport->product_qty) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right">
@@ -787,8 +787,8 @@
                                                 <td class="text-13-black min-width180 {{ $countClass }}"
                                                     rowspan="{{ $count }}">
                                                     @if ($item->getDetailExport)
-                                                        <a
-                                                            href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $item->getDetailExport->id]) }}">
+                                                        <a {{-- href="{{ route('detailExport.show', ['workspace' => $workspacename, 'detailExport' => $item->getDetailExport->id]) }}" --}}
+                                                            href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $item->getDetailExport->id]) }}">
                                                             {{ $item->getDetailExport->quotation_number }}
                                                         </a>
                                                     @endif
@@ -807,7 +807,6 @@
                                                 </td>
                                                 <td class="text-13-black text-right {{ $countClass }}"
                                                     rowspan="{{ $count }}">
-
                                                     @if ($item->getQuoteExport)
                                                         {{-- {{ number_format(($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }} --}}
                                                         {{ number_format($item->thueXuatCalculated) }}
