@@ -128,6 +128,8 @@ li {
 .max-width120 {
     max-width: 120px;
     text-wrap: wrap;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 .margin-top--53 {
@@ -1611,7 +1613,6 @@ input[type="checkbox"] {
 
 .title-index {
     color: #1d1c20;
-    size: 18px;
     font-weight: 600;
 }
 
@@ -2225,6 +2226,8 @@ input[type="checkbox"]:checked {
     .max-width120 {
         max-width: 100%;
         text-wrap: nowrap;
+        word-wrap: break-word;
+        white-space: normal;
     }
 }
 
