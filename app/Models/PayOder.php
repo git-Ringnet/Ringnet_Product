@@ -160,12 +160,12 @@ class PayOder extends Model
                     $count = "0" . $count;
                 }
                 $resultNumber = "MTT-" . $count;
-              
+
                 $dataReciept = [
                     'detailimport_id' => $detail->id,
                     'provide_id' => $detail->provide_id,
                     'status' => ($data['payment'] > 0 ? 6 : 1),
-                    'payment_date' => isset($data['payment_date']) ? Carbon::parse($data['payment_date'])->startOfDay() : Carbon::now(),
+                    'payment_date' => isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now(),
                     'total' => 0,
                     'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
                     'debt' => 0,
