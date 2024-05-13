@@ -563,16 +563,17 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black min-width180">
-                                                    @if ($item->detailimport_id == 0 && $item->history_import == 0)
+                                                    {{-- @dd($item->getProduct) --}}
+                                                    @if ($item->getProduct)
                                                         @if ($item->getProduct)
                                                             {{ $item->getProduct->product_name }}
                                                         @endif
-                                                    @else
+                                                        {{-- @else
                                                         @if ($item->getQtyImport)
                                                             {{ $item->getQtyImport->product_name }}
-                                                        @endif
+                                                        @endif --}}
                                                     @endif
-                                                </td>
+                                                </td> 
                                                 <td class="text-13-black">
                                                     @if ($item->getReceive)
                                                         @foreach ($item->getReceive as $value)
