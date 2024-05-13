@@ -109,6 +109,10 @@
                             top: e.pageY,
                             left: e.pageX
                         });
+                    } else {
+                        menu.css({
+                            display: 'none',
+                        });
                     }
 
                 }

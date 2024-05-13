@@ -344,11 +344,13 @@
                                                         <span style="color: #08AA36">Thanh toán đủ</span>
                                                     @elseif($item->status == 3)
                                                         <span style="color: #E8B600">Đến hạn trong
-                                                            {{ $item->formatDate($item->payment_date)->diffInDays($today) + 1 }}
+                                                            {{-- {{ $item->formatDate($item->payment_date)->diffInDays($today) + 1 }} --}}
+                                                            {{ Carbon\Carbon::parse($item->payment_date)->diffInDays(now()) + 1 }}
                                                             ngày</span>
                                                     @elseif($item->status == 4)
                                                         <span style="color:#EC212D">Quá hạn
-                                                            {{ $item->formatDate($item->payment_date)->diffInDays($today) }}
+                                                            {{-- {{ $item->formatDate($item->payment_date)->diffInDays($today) }} --}}
+                                                            {{ Carbon\Carbon::parse($item->payment_date)->diffInDays(now()) }}
                                                             ngày</span>
                                                     @elseif($item->status == 5)
                                                         <span style="color: #E8B600">Đến hạn</span>
