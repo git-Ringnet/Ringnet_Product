@@ -54,7 +54,7 @@ class PayOder extends Model
     {
         return $this->hasOne(HistoryPaymentOrder::class, 'payment_id', 'id')->latest();
     }
-    
+
     public function updatePayment($data, $id)
     {
         $result = true;
@@ -627,7 +627,18 @@ class PayOder extends Model
                     $query->orWhereIn('pay_order.status', $dataWithout7);
                 });
             } else {
-                $payment = $payment->whereIn('pay_order.status', $data['status']);
+                if (in_array(1, $data['status'])) {
+                    $payment = $payment->where(function ($query) {
+                        $query->where('pay_order.status', 1)
+                            ->where('pay_order.payment', '<=', 0);
+                    });
+                    $payment = $payment->orWhere(function ($query) use ($data) {
+                        $dataWithout7 = array_diff($data['status'], [1]);
+                        $query->orWhereIn('pay_order.status', $dataWithout7);
+                    });
+                } else {
+                    $payment = $payment->whereIn('pay_order.status', $data['status']);
+                }
             }
         }
         if (isset($data['payment'][0]) && isset($data['payment'][1])) {

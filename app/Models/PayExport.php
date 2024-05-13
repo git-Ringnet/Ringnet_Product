@@ -525,7 +525,18 @@ class PayExport extends Model
                     $query->orWhereIn('pay_export.status', $dataWithout7);
                 });
             } else {
-                $payExport = $payExport->whereIn('pay_export.status', $data['status']);
+                if (in_array(1, $data['status'])) {
+                    $payExport = $payExport->where(function ($query) {
+                        $query->where('pay_export.status', 1)
+                            ->where('pay_export.payment', '<=', 0);
+                    });
+                    $payExport = $payExport->orWhere(function ($query) use ($data) {
+                        $dataWithout7 = array_diff($data['status'], [1]);
+                        $query->orWhereIn('pay_export.status', $dataWithout7);
+                    });
+                } else {
+                    $payExport = $payExport->whereIn('pay_export.status', $data['status']);
+                }
             }
         }
         if (isset($data['payment'][0]) && isset($data['payment'][1])) {
