@@ -94,7 +94,7 @@ class History extends Model
         $history = History::where('history.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('delivered', 'history.delivered_id', 'delivered.id')
             // ->leftJoin('history_import', 'history_import.id', 'history.history_import')
-              ->leftJoin('quoteimport', 'quoteimport.id', 'history.history_import')
+            ->leftJoin('quoteimport', 'quoteimport.id', 'history.history_import')
             ->select(
                 DB::raw('delivered.price_export * history.qty_export as giaban'),
                 'delivered.deliver_qty as slxuat',
@@ -323,7 +323,36 @@ class History extends Model
         $history = History::where('history.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('delivered', 'history.delivered_id', 'delivered.id')
             ->leftJoin('history_import', 'history_import.id', 'history.history_import')
+            ->leftJoin('detailexport', 'history.detailexport_id', 'detailexport.id')
+            ->leftJoin('detailimport', 'detailimport.id', 'history.detailimport_id')
+            ->leftJoin('products', 'products.id', 'delivered.product_id')
+            ->leftJoin('pay_order', 'pay_order.detailimport_id', 'history.detailimport_id')
+            ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
+            ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
+            ->leftJoin('bill_sale', 'bill_sale.detailexport_id', 'history.detailexport_id')
             ->select(
+                'pay_export.*',
+                'bill_sale.*',
+                'pay_order.*',
+                'products.*',
+                'reciept.*',
+                'detailexport.*',
+                'detailimport.*',
+                'reciept.number_bill as hdvao',
+                'reciept.created_at as ngayHDnhap',
+                'detailimport.quotation_number as POnhap',
+                'products.product_name as tensp',
+                'products.product_guarantee as baoHanh',
+                'history_import.product_qty as slNhap',
+                'detailimport.status_pay as TTnhap',
+                'pay_order.payment_day as ngayTT',
+                'pay_order.payment_type as HTTT',
+                'detailexport.guest_name as tenKhach',
+                'detailexport.quotation_number as POxuat',
+                'bill_sale.created_at as ngayHDxuat',
+                'detailexport.status_pay as TTX',
+                'pay_export.payment_day as ngayTTxuat',
+                'pay_export.payment_type as HTTTxuat',
                 DB::raw('delivered.price_export * delivered.deliver_qty as giaban'),
                 'delivered.deliver_qty as slxuat',
                 DB::raw('CASE 
@@ -353,34 +382,35 @@ class History extends Model
             // dd($product);
             $history = $history->where(function ($query) use ($data, $product) {
                 $query->orWhere('products.product_name', 'like', '%' . $data['search'] . '%');
-                // $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailimport.provide_name', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailexport.guest_name', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('detailimport.reference_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('detailexport.reference_number', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('provides.provide_name_display', 'like', '%' . $data['search'] . '%');
+                // $query->orWhere('provides.provide_name_display', 'like', '%' . $data['search'] . '%');
                 $query->orWhereIn('delivered.id', $product);
             });
         }
         if (isset($data['provides'])) {
-            $history = $history->where('provides.provide_name_display', 'like', '%' . $data['provides'] . '%');
+            $history = $history->where('detailimport.provide_name', 'like', '%' . $data['provides'] . '%');
         }
         if (isset($data['guests'])) {
-            $history = $history->where('guest.guest_name_display', 'like', '%' . $data['guests'] . '%');
+            $history = $history->where('detailexport.guest_name', 'like', '%' . $data['guests'] . '%');
         }
         if (isset($data['tensp'])) {
             $history = $history->where('products.product_name', 'like', '%' . $data['tensp'] . '%');
         }
         if (isset($data['hdvao'])) {
-            $history = $history->having('hdvao', 'like', '%' . $data['hdvao'] . '%');
+            $history = $history->where('reciept.number_bill', 'like', '%' . $data['hdvao'] . '%');
         }
         if (isset($data['hdra'])) {
-            $history = $history->having('hdra', 'like', '%' . $data['hdra'] . '%');
+            $history = $history->where('bill_sale.number_bill', 'like', '%' . $data['hdra'] . '%');
         }
         if (isset($data['BH'])) {
             $history = $history->where('products.product_guarantee', 'like', '%' . $data['BH'] . '%');
         }
         // Nhập
         if (isset($data['POnhap'])) {
-            $history = $history->where('detailimport.reference_number', 'like', '%' . $data['POnhap'] . '%');
+            $history = $history->where('detailimport.quotation_number', 'like', '%' . $data['POnhap'] . '%');
         }
         if (isset($data['HTTTN'])) {
             $history = $history->where('pay_order.payment_type', 'like', '%' . $data['HTTTN'] . '%');
@@ -402,17 +432,17 @@ class History extends Model
         }
         if (!empty($data['dateHDN'][0]) && !empty($data['dateHDN'][1])) {
             $dateStart = Carbon::parse($data['dateHDN'][0]);
-            $dateEnd = Carbon::parse($data['dateHDN'][1]);
-            $history = $history->whereBetween('detailimport.created_at', [$dateStart, $dateEnd]);
+            $dateEnd = Carbon::parse($data['dateHDN'][1])->endOfDay();
+            $history = $history->whereBetween('reciept.created_at', [$dateStart, $dateEnd]);
         }
         if (!empty($data['dateTTN'][0]) && !empty($data['dateTTN'][1])) {
             $dateStart = Carbon::parse($data['dateTTN'][0]);
-            $dateEnd = Carbon::parse($data['dateTTN'][1]);
+            $dateEnd = Carbon::parse($data['dateTTN'][1])->endOfDay();
             $history = $history->whereBetween('pay_order.payment_day', [$dateStart, $dateEnd]);
         }
         // Xuất
         if (isset($data['POxuat'])) {
-            $history = $history->where('detailexport.reference_number', 'like', '%' . $data['POxuat'] . '%');
+            $history = $history->where('detailexport.quotation_number', 'like', '%' . $data['POxuat'] . '%');
         }
         if (isset($data['HTTTX'])) {
             $history = $history->where('pay_export.payment_type', 'like', '%' . $data['HTTTX'] . '%');
@@ -434,12 +464,12 @@ class History extends Model
         }
         if (!empty($data['dateHDX'][0]) && !empty($data['dateHDX'][1])) {
             $dateStart = Carbon::parse($data['dateHDX'][0]);
-            $dateEnd = Carbon::parse($data['dateHDX'][1]);
-            $history = $history->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
+            $dateEnd = Carbon::parse($data['dateHDX'][1])->endOfDay();
+            $history = $history->whereBetween('bill_sale.created_at', [$dateStart, $dateEnd]);
         }
         if (!empty($data['dateTTX'][0]) && !empty($data['dateTTX'][1])) {
             $dateStart = Carbon::parse($data['dateTTX'][0]);
-            $dateEnd = Carbon::parse($data['dateTTX'][1]);
+            $dateEnd = Carbon::parse($data['dateTTX'][1])->endOfDay();
             $history = $history->whereBetween('pay_export.payment_day', [$dateStart, $dateEnd]);
         }
 

@@ -148,8 +148,8 @@
                                             </button>
                                             <button class="dropdown-item btndropdown" id="btn-tensp"
                                                 data-button="tensp" type="button">Mặt hàng</button>
-                                            {{-- <button class="dropdown-item btndropdown" id="btn-hdvao"
-                                                data-button="hdvao" type="button">Hoá đơn vào</button> --}}
+                                            <button class="dropdown-item btndropdown" id="btn-hdvao"
+                                                data-button="hdvao" type="button">Hoá đơn vào</button>
                                             <button class="dropdown-item btndropdown" id="btn-dateHDN"
                                                 data-button="dateHDN" type="button">Ngày hoá đơn</button>
                                             <button class="dropdown-item btndropdown" id="btn-BH" data-button="BH"
@@ -169,6 +169,7 @@
                                             <button class="dropdown-item btndropdown" id="btn-HTTTN"
                                                 data-button="HTTTN" type="button">Hình thức thanh
                                                 toán</button>
+                                            <hr>
                                             <button class="dropdown-item btndropdown" id="btn-guests"
                                                 data-button="guests" type="button">Khách hàng</button>
                                             <button class="dropdown-item btndropdown" id="btn-POxuat"
@@ -207,11 +208,11 @@
                                         title="Hình thức thanh toán nhập" />
                                     <x-filter-compare name="slxuat" button="history" title="Số lượng xuất" />
                                     <x-filter-compare name="slnhap" button="history" title="Số lượng nhập" />
-                                    <x-filter-compare name="trcVATN" button="history" title="Số lượng nhập" />
-                                    <x-filter-compare name="VATN" button="history" title="Giá nhập" />
+                                    <x-filter-compare name="trcVATN" button="history" title="Trước VAT nhập" />
+                                    <x-filter-compare name="VATN" button="history" title="Thuế nhập" />
                                     <x-filter-compare name="sauVATN" button="history" title="Thành tiền nhập" />
-                                    <x-filter-compare name="trcVATX" button="history" title="Số lượng xuất" />
-                                    <x-filter-compare name="VATX" button="history" title="Giá xuất" />
+                                    <x-filter-compare name="trcVATX" button="history" title="Trước VAT xuất" />
+                                    <x-filter-compare name="VATX" button="history" title="Thuế xuất" />
                                     <x-filter-compare name="sauVATX" button="history" title="Thành tiền xuất" />
                                     <x-filter-status name="TTX" key1="1" value1="Chưa thanh toán"
                                         key2="2" value2="Thanh toán đủ" key3="3" value3="Một phần"
@@ -277,10 +278,10 @@
                                             <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="tenNCC" data-sort-type="DESC"><button
+                                                        data-sort-by="provide_name" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Nhà cung
                                                             cấp</button></a>
-                                                    <div class="icon" id="icon-tenNCC"></div>
+                                                    <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="text-left text-13">
@@ -471,11 +472,11 @@
 
                                             <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-center align-items-center">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="status_pay" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Thanh
+                                                    <a href="#" class="sort-link btn-submit" data-sort-by="TTX"
+                                                        data-sort-type="DESC"><button class="btn-sort text-13"
+                                                            type="submit">Thanh
                                                             toán</button></a>
-                                                    <div class="icon" id="icon-status_pay"></div>
+                                                    <div class="icon" id="icon-TTX"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="text-13 text-left">
@@ -510,7 +511,7 @@
                                                     <td class="text-13-black min-width180">{{ $item->tensp }}</td>
                                                     <td class="text-13-black">
                                                         {{ date('d/m/Y', strtotime($item->ngayHDnhap)) }}
-                                                    </td>
+                                                    </td>                                                   
                                                     <td class="text-13-black text-center">{{ $item->baoHanh }}</td>
                                                     <td class="text-13-black text-right">
                                                         {{ number_format($item->slNhap) }}
@@ -642,15 +643,16 @@
                                                     $previousIds[] = "$productId-$deliveredId";
                                                 }
                                             @endphp
-                                            <tr class="position-relative history-info height-52 {{ $item->id }}">
+                                            <tr
+                                                class="position-relative history-info height-52 {{ $item->delivered_id }}">
                                                 <input type="hidden" name="id-history" class="id-history"
-                                                    id="id-history" value="{{ $item->id }}">
-                                                <td>
+                                                    id="id-history" value="{{ $item->delivered_id }}">
+                                                <td class="text-13-black">
                                                     @if ($item->getDetailImport)
                                                         {{ $item->getDetailImport->provide_name }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="text-13-black min-width180">
                                                     @if ($item->getDetailImport)
                                                         <a
                                                             href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $item->getDetailImport->id]) }}">
@@ -658,7 +660,7 @@
                                                         </a>
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="text-13-black min-width180">
                                                     @if ($item->detailimport_id == 0 && $item->history_import == 0)
                                                         @if ($item->getProduct)
                                                             {{ $item->getProduct->product_name }}
@@ -669,7 +671,7 @@
                                                         @endif
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="text-13-black">
                                                     @if ($item->getReciept)
                                                         @foreach ($item->getReciept as $value)
                                                             <a
@@ -679,7 +681,7 @@
                                                         @endforeach
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="text-13-black">
                                                     @if ($item->getReciept)
                                                         @foreach ($item->getReciept as $value)
                                                             <p>{{ date_format(new DateTime($value->created_at), 'd/m/Y') }}
@@ -687,32 +689,33 @@
                                                         @endforeach
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="text-13-black text-center">
                                                     @if ($item->getProductImport)
                                                         {{ $item->getProductImport->product_guarantee }}
                                                     @endif
                                                 </td>
-                                                <td>
+
+                                                <td class="text-13-black text-right">
                                                     @if ($item->getQtyImport)
                                                         {{ number_format($item->getQtyImport->product_qty) }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="text-13-black text-right">
                                                     @if ($item->getQtyImport)
                                                         {{ number_format($item->getQtyImport->product_total) }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="text-13-black text-right">
                                                     @if ($item->getQtyImport)
                                                         {{ number_format(($item->getQtyImport->price_export * $item->getQtyImport->product_qty * $item->getQtyImport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="text-13-black text-right">
                                                     @if ($item->getQtyImport)
                                                         {{ number_format($item->getQtyImport->product_total + ($item->getQtyImport->price_export * $item->getQtyImport->product_qty * $item->getQtyImport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="text-13-black min-width180 text-center">
                                                     @if ($item->getDetailImport)
                                                         @if ($item->getDetailImport->status_pay == 0)
                                                             <span>
@@ -758,7 +761,8 @@
                                                         @endif
                                                     @endif
                                                 </td>
-                                                <td>
+
+                                                <td class="text-13-black">
                                                     @if (
                                                         $item->getDetailImport &&
                                                             isset($item->getDetailImport->getPayOrder) &&
@@ -766,20 +770,22 @@
                                                         {{ date_format(new DateTime($item->getDetailImport->getPayOrder->getHistoryPay->created_at), 'd/m/Y') }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="text-13-black text-center border-right">
                                                     @if (isset($item->getDetailImport->getPayOrder) && $item->getDetailImport)
                                                         <span>{{ $item->getDetailImport->getPayOrder->payment_type }}</span>
                                                     @endif
                                                 </td>
+
                                                 {{-- Khách hàng --}}
-                                                <td class="border-left {{ $countClass }}"
+                                                <td class="text-13-black border-left min-width180 {{ $countClass }}"
                                                     rowspan="{{ $count }}">
                                                     @if ($item->getDetailExport)
                                                         <span class=" {{ $countClass }}">
                                                             {{ $item->getDetailExport->guest_name }}</span>
                                                     @endif
                                                 </td>
-                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
+                                                <td class="text-13-black min-width180 {{ $countClass }}"
+                                                    rowspan="{{ $count }}">
                                                     @if ($item->getDetailExport)
                                                         <a
                                                             href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $item->getDetailExport->id]) }}">
@@ -787,30 +793,36 @@
                                                         </a>
                                                     @endif
                                                 </td>
-                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
+                                                <td class="text-13-black text-right {{ $countClass }}"
+                                                    rowspan="{{ $count }}">
                                                     {{-- {{ number_format($item->qty_export) }} --}}
                                                     {{ number_format($item->slxuat) }}
                                                 </td>
-                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
+                                                <td class="text-13-black text-right {{ $countClass }}"
+                                                    rowspan="{{ $count }}">
                                                     @if ($item->getQuoteExport)
                                                         {{-- {{ number_format($item->getQuoteExport->price_export * $item->qty_export) }} --}}
                                                         {{ number_format($item->giaban) }}
                                                     @endif
                                                 </td>
-                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
-                                                   
+                                                <td class="text-13-black text-right {{ $countClass }}"
+                                                    rowspan="{{ $count }}">
+
                                                     @if ($item->getQuoteExport)
                                                         {{-- {{ number_format(($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }} --}}
                                                         {{ number_format($item->thueXuatCalculated) }}
                                                     @endif
                                                 </td>
-                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
+                                                <td class="text-13-black text-right {{ $countClass }}"
+                                                    rowspan="{{ $count }}">
                                                     @if ($item->getQuoteExport)
                                                         {{ number_format($item->thanhtienxuat) }}
                                                         {{-- {{ number_format($item->getQuoteExport->price_export * $item->qty_export + ($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }} --}}
                                                     @endif
                                                 </td>
-                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
+
+                                                <td class="text-13-black {{ $countClass }}"
+                                                    rowspan="{{ $count }}">
                                                     @if ($item->getBillSale)
                                                         @foreach ($item->getBillSale as $value)
                                                             <a
@@ -820,7 +832,8 @@
                                                         @endforeach
                                                     @endif
                                                 </td>
-                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
+                                                <td class="text-13-black {{ $countClass }}"
+                                                    rowspan="{{ $count }}">
                                                     @if ($item->getBillSale)
                                                         @foreach ($item->getBillSale as $value)
                                                             <p>{{ date_format(new DateTime($value->created_at), 'd/m/Y') }}
@@ -828,7 +841,8 @@
                                                         @endforeach
                                                     @endif
                                                 </td>
-                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
+                                                <td class="text-13-black min-width180 text-center {{ $countClass }}"
+                                                    rowspan="{{ $count }}">
                                                     @if (isset($item->getDetailExport))
                                                         @if ($item->getDetailExport->status_pay == 1)
                                                             <span>
@@ -871,14 +885,16 @@
                                                         @endif
                                                     @endif
                                                 </td>
-                                                <td class="{{ $countClass }}"rowspan="{{ $count }}">
+                                                <td
+                                                    class="text-13-black {{ $countClass }}"rowspan="{{ $count }}">
                                                     @if (isset($item->getDetailExport->getPayExport) &&
                                                             $item->getDetailExport &&
                                                             isset($item->getDetailExport->getPayExport->getHistoryPay))
                                                         {{ date_format(new DateTime($item->getDetailExport->getPayExport->getHistoryPay->created_at), 'd/m/Y') }}
                                                     @endif
                                                 </td>
-                                                <td class="{{ $countClass }}" rowspan="{{ $count }}">
+                                                <td class="text-13-black {{ $countClass }}"
+                                                    rowspan="{{ $count }}">
                                                     @if (isset($item->getDetailExport->getPayExport) && $item->getDetailExport)
                                                         {{ $item->getDetailExport->getPayExport->payment_type }}
                                                     @endif
@@ -1274,8 +1290,9 @@
                         // Ẩn hiện dữ liệu khi đã filterHistory
                         var historyIds = [];
                         // Lặp qua mảng provides và thu thập các historyIds
+                        console.log(data.history);
                         data.history.forEach(function(item) {
-                            var historyId = item.id;
+                            var historyId = item.delivered_id;
                             historyIds.push(historyId);
                         });
                         // Ẩn tất cả các phần tử .history-info
