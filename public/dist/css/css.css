@@ -2537,7 +2537,13 @@ input[type="checkbox"]:checked {
 .icon-center {
     right: 4px;
     top: 50%;
-    transform: translateY(-50%);
+}
+
+@supports not (-webkit-touch-callout: none) {
+    /* Apply translateY(-50%) only for browsers other than Safari */
+    .icon-center {
+        transform: translateY(-50%);
+    }
 }
 
 .bg-hover-icon {
