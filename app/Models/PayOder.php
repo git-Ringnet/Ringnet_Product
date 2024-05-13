@@ -54,7 +54,7 @@ class PayOder extends Model
     {
         return $this->hasOne(HistoryPaymentOrder::class, 'payment_id', 'id')->latest();
     }
-    
+
     public function updatePayment($data, $id)
     {
         $result = true;
@@ -360,8 +360,12 @@ class PayOder extends Model
                 } else {
                     // Lịch sử giao dịch > 2 
                     $countHistory = DB::table('history_payment_order')->where('payment_id', $payorder->id)->count();
-                    if ($countHistory < 1 && $payorder->payment > 0) {
-                        $status = 6;
+                    if ($countHistory < 1) {
+                        if ($payorder->payment > 0) {
+                            $status = 6;
+                        } else {
+                            $status = 1;
+                        }
                     } else {
                         $status = 1;
                     }
