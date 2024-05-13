@@ -925,7 +925,7 @@
                         $(inputName).val('')
                     }
                     $('#' + data.list + ' li#' + data.id).remove();
-                    showNotification('success', data.msg)
+                    showAutoToast('success', data.msg)
 
                     $.ajax({
                         url: "{{ route('addUserFlow') }}",
@@ -937,7 +937,7 @@
                         success: function(data) {}
                     })
                 } else {
-                    showNotification('warning', data.msg)
+                    showAutoToast('warning', data.msg)
                 }
             }
         })
@@ -1013,17 +1013,17 @@
         var key = $("#editProvide input[name='key']").val().trim();
         var provide_name = $("#editProvide input[name='provide_name']").val().trim();
         if (provide_name_display == '') {
-            showNotification('warning', 'Vui lòng nhập tên hiển thị')
+            showAutoToast('warning', 'Vui lòng nhập tên hiển thị')
             check = true;
             return false;
         }
         if (provide_code == '') {
-            showNotification('warning', 'Vui lòng nhập mã số thuế')
+            showAutoToast('warning', 'Vui lòng nhập mã số thuế')
             check = true;
             return false;
         }
         if (provide_address == '') {
-            showNotification('warning', 'Vui lòng nhập địa chỉ nhà cung cấp')
+            showAutoToast('warning', 'Vui lòng nhập địa chỉ nhà cung cấp')
             check = true;
             return false;
         }
@@ -1053,7 +1053,7 @@
                         $("#editProvide input[name='provide_address']").val('')
                         $("#editProvide input[name='key']").val('')
                         $("#editProvide input[name='provide_name']").val('')
-                        showNotification('success', 'Chỉnh sửa thông tin thành công !')
+                        showAutoToast('success', 'Chỉnh sửa thông tin thành công !')
 
 
                         $.ajax({
@@ -1066,7 +1066,7 @@
                             success: function(data) {}
                         })
                     } else {
-                        showNotification('warning', 'Nhà cung cấp đã tồn tại !')
+                        showAutoToast('warning', 'Nhà cung cấp đã tồn tại !')
                     }
                 }
             })
@@ -1086,17 +1086,17 @@
         var provide_phone = $("input[name='provide_phone']").val().trim();
         var provide_address_delivery = $("input[name='provide_address_delivery']").val().trim();
         if (provide_name_display == '') {
-            showNotification('warning', 'Vui lòng nhập tên hiển thị')
+            showAutoToast('warning', 'Vui lòng nhập tên hiển thị')
             check = true;
             return false;
         }
         if (provide_code == '') {
-            showNotification('warning', 'Vui lòng nhập mã số thuế')
+            showAutoToast('warning', 'Vui lòng nhập mã số thuế')
             check = true;
             return false;
         }
         if (provide_address == '') {
-            showNotification('warning', 'Vui lòng nhập địa chỉ nhà cung cấp')
+            showAutoToast('warning', 'Vui lòng nhập địa chỉ nhà cung cấp')
             check = true;
             return false;
         }
@@ -1146,7 +1146,7 @@
                         $('#provides_id').val(data.id);
                         $('input[name="quotation_number"]').val(quotation);
                         $('.modal [data-dismiss="modal"]').click();
-                        showNotification('success', data.msg)
+                        showAutoToast('success', data.msg)
                         $("input[name='provide_name_display']").val('');
                         $("input[name='provide_code']").val('');
                         $("input[name='provide_address']").val('');
@@ -1275,11 +1275,11 @@
                     } else {
                         if (data.key) {
                             $("input[name='key']").val(data.key)
-                            showNotification('warning', data.msg);
+                            showAutoToast('warning', data.msg);
                             delayAndShowNotification('success', 'Tên viết tắt đã được thay đổi',
                                 500);
                         } else {
-                            showNotification('warning', data.msg)
+                            showAutoToast('warning', data.msg)
                         }
                     }
                 }
@@ -1290,7 +1290,7 @@
 
     function delayAndShowNotification(type, message, delayTime) {
         setTimeout(function() {
-            showNotification(type, message);
+            showAutoToast(type, message);
         }, delayTime);
     }
 
@@ -1315,7 +1315,7 @@
 
             if (status == 'Thêm mới') {
                 if ((provides_id == "" || provide_represent == "") && id == 'addRepresent') {
-                    showNotification('warning', 'Vui lòng nhập tên người đại diện')
+                    showAutoToast('warning', 'Vui lòng nhập tên người đại diện')
                 } else {
                     if (id == 'addRepresent') {
                         provides_id = $('#provides_id').val();
@@ -1367,7 +1367,7 @@
                                     `
                                     $('#listRepresent .p-1').after(newli)
                                 }
-                                showNotification('success', data.msg)
+                                showAutoToast('success', data.msg)
 
                                 $.ajax({
                                     url: "{{ route('addUserFlow') }}",
@@ -1462,7 +1462,7 @@
                                     $(id == "import" ? $('#listPriceEffect .p-1').after(
                                         price_effect) : $('#listTermsPay .p-1').after(
                                         term_pay))
-                                    showNotification('success', data.msg)
+                                        showAutoToast('success', data.msg)
 
                                     $.ajax({
                                         url: "{{ route('addUserFlow') }}",
@@ -1477,7 +1477,7 @@
                                     })
 
                                 } else {
-                                    showNotification('warning', data.msg)
+                                    showAutoToast('warning', data.msg)
                                 }
                             }
                         })
@@ -1504,7 +1504,7 @@
                                 }
                                 $('#listRepresent').find('li#' + data.id + ' span').text(data.data)
                                 $('#' + id).closest('div').find('.closeModal')[0].click()
-                                showNotification('success', data.msg)
+                                showAutoToast('success', data.msg)
 
                                 $.ajax({
                                     url: "{{ route('addUserFlow') }}",
@@ -1517,7 +1517,7 @@
                                 })
 
                             } else {
-                                showNotification('warning', data.msg)
+                                showAutoToast('warning', data.msg)
                             }
                         }
                     })
@@ -1550,7 +1550,7 @@
                                     "listTermsPay")).find(
                                     'li#' + data.id + " span").text(data.form_name)
                                 $('#' + id).closest('div').find('.closeModal')[0].click()
-                                showNotification('success', data.msg)
+                                showAutoToast('success', data.msg)
 
                                 $.ajax({
                                     url: "{{ route('addUserFlow') }}",
@@ -1564,7 +1564,7 @@
                                     success: function(data) {}
                                 })
                             } else {
-                                showNotification('warning', data.msg)
+                                showAutoToast('warning', data.msg)
                             }
                         }
                     })
@@ -1715,12 +1715,12 @@
         var formSubmit = true;
         if ($('#provides_id').val() == '') {
             formSubmit = false;
-            showNotification('warning', 'Vui lòng chọn nhà cung cấp')
+            showAutoToast('warning', 'Vui lòng chọn nhà cung cấp')
             return false;
         }
         if ($('#inputcontent tbody tr').length < 1) {
             formSubmit = false;
-            showNotification('warning', 'Vui lòng thêm ít nhất 1 sản phẩm')
+            showAutoToast('warning', 'Vui lòng thêm ít nhất 1 sản phẩm')
             return false;
         }
 
@@ -1743,7 +1743,7 @@
                 },
                 success: function(data) {
                     if (!data['status']) {
-                        showNotification('warning', 'Số báo giá đã tồn tại')
+                        showAutoToast('warning', 'Số báo giá đã tồn tại')
                     } else {
                         var listName = [];
                         var listTax = [];
@@ -1764,9 +1764,9 @@
                             success: function(data) {
                                 if (data.status == false) {
                                     if (data.type) {
-                                        showNotification('warning', data.msg);
+                                        showAutoToast('warning', data.msg);
                                     } else {
-                                        showNotification('warning', data.msg);
+                                        showAutoToast('warning', data.msg);
                                         delayAndShowNotification('success',
                                             "Đã cập nhật lại thuế cho sản phẩm :" +
                                             data.product_name + "",

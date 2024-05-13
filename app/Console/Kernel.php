@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Models\DateForm;
 use App\Models\PayExport;
 use App\Models\PayOder;
 use Carbon\Carbon;
@@ -93,6 +94,37 @@ class Kernel extends ConsoleKernel
                     }
                 }
             }
+            //Thêm Default
+            // $dataToInsert = [
+            //     [
+            //         'form_name' => 'Default',
+            //         'form_field' => 'quote',
+            //         'form_desc' => 'Báo giá có hiệu lực trong vòng 14 ngày.',
+            //     ],
+            //     [
+            //         'form_name' => 'Default',
+            //         'form_field' => 'payment',
+            //         'form_desc' => 'Thanh toán 100% sau khi ký xác nhận hợp đồng.',
+            //     ],
+            //     [
+            //         'form_name' => 'Default',
+            //         'form_field' => 'goods',
+            //         'form_desc' => 'Hàng mới 100% chính hãng.',
+            //     ],
+            //     [
+            //         'form_name' => 'Default',
+            //         'form_field' => 'delivery',
+            //         'form_desc' => 'Giao hàng trong vòng 7 ngày sau khi nhận được thanh toán.',
+            //     ],
+            //     [
+            //         'form_name' => 'Default',
+            //         'form_field' => 'location',
+            //         'form_desc' => 'Tại trụ sở Khách Hàng.',
+            //     ],
+            // ];
+            // foreach ($dataToInsert as $data) {
+            //     DateForm::create($data);
+            // }
         })->daily();
     }
 

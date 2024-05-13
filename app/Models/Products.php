@@ -339,7 +339,7 @@ class Products extends Model
                         $result['product_name'] = $checkProduct->product_name;
                         $result['product_tax'] = $checkProduct->product_tax;
                         $result['status'] = false;
-                        $result['msg'] = "Thuế nhập vào không trùng khớp với thuế của sản phẩm, thuế của sản phẩm <b>" . $checkProduct->product_name . " </b>là " . ($checkProduct->product_tax == 99 ? "NOVAT" : $checkProduct->product_tax . "%");
+                        $result['msg'] = "Thuế nhập vào không trùng khớp với thuế của sản phẩm, thuế của sản phẩm " . $checkProduct->product_name . " là " . ($checkProduct->product_tax == 99 ? "NOVAT" : $checkProduct->product_tax . "%");
                         break;
                     }
                 }
