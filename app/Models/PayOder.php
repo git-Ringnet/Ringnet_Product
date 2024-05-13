@@ -360,7 +360,7 @@ class PayOder extends Model
                 } else {
                     // Lịch sử giao dịch > 2 
                     $countHistory = DB::table('history_payment_order')->where('payment_id', $payorder->id)->count();
-                    if ($countHistory < 2 && $payorder->payment > 0) {
+                    if ($countHistory < 1 && $payorder->payment > 0) {
                         $status = 6;
                     } else {
                         $status = 1;
