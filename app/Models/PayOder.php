@@ -322,7 +322,8 @@ class PayOder extends Model
 
     public function updateStatusDebt($data, $id, $check)
     {
-        $startDate = Carbon::now()->startOfDay();
+        // $startDate = Carbon::now()->startOfDay();
+        $startDate = isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now();
         $endDate = isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now();
         $endDate = Carbon::parse($endDate);
         $daysDiffss = $startDate->diffInDays($endDate);
@@ -334,8 +335,6 @@ class PayOder extends Model
         } else {
             $daysDiff = $daysDiffss;
         }
-
-
         if ($daysDiff <= 3 && $daysDiff > 0) {
             $status = 3; // Đến hạn trong
         } elseif ($daysDiff == 0) {
