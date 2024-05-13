@@ -12,15 +12,17 @@ class DateForm extends Model
 {
     use HasFactory;
     protected $table = 'date_form';
-    protected $fillable = ['form_name', 'form_field', 'form_desc', 'user_id', 'default_form','workspace_id'];
+    protected $fillable = ['form_name', 'form_field', 'form_desc', 'user_id', 'default_form', 'workspace_id'];
     public function getDateForm()
     {
         return DB::table($this->table)
             ->where('workspace_id', Auth::user()->current_workspace)
+            ->OrWhere('workspace_id', null)
             ->get();
     }
 
-    public function getDefault(){
+    public function getDefault()
+    {
         return $this->hasOne(GuestFormDate::class, 'date_form_id', 'id');
     }
     public function createDateForm($data)

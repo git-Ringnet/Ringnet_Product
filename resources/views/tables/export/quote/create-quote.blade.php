@@ -758,34 +758,39 @@
                                                             <span class="text-13-black"
                                                                 id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                         </a>
-                                                        <div class="dropdown">
-                                                            <button type="button" data-toggle="dropdown"
-                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                <i class="fa-solid fa-ellipsis"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu date-form-setting"
-                                                                style="z-index: 1000;">
-                                                                <a class="dropdown-item search-date-form"
-                                                                    data-toggle="modal" data-target="#formModalquote"
-                                                                    data-name="quote" data-id="{{ $item->id }}"
-                                                                    id="{{ $item->id }}"><i
-                                                                        class="fa-regular fa-pen-to-square"></i></a>
-                                                                <a class="dropdown-item delete-item" href="#"
-                                                                    data-id="{{ $item->id }}"
-                                                                    data-name="{{ $item->form_field }}"><i
-                                                                        class="fa-solid fa-trash-can"></i></a>
-                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                    id="default-id{{ $item->id }}" href="#"
-                                                                    data-name="{{ $item->form_field }}"
-                                                                    data-id="{{ $item->id }}">
-                                                                    @if ($item->default_form === 1)
-                                                                        <i class="fa-solid fa-link-slash"></i>
-                                                                    @else
-                                                                        <i class="fa-solid fa-link"></i>
-                                                                    @endif
-                                                                </a>
+                                                        @if ($item->workspace_id != null)
+                                                            <div class="dropdown">
+                                                                <button type="button" data-toggle="dropdown"
+                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
+                                                                    <i class="fa-solid fa-ellipsis"></i>
+                                                                </button>
+                                                                <div class="dropdown-menu date-form-setting"
+                                                                    style="z-index: 1000;">
+                                                                    <a class="dropdown-item search-date-form"
+                                                                        data-toggle="modal"
+                                                                        data-target="#formModalquote"
+                                                                        data-name="quote"
+                                                                        data-id="{{ $item->id }}"
+                                                                        id="{{ $item->id }}"><i
+                                                                            class="fa-regular fa-pen-to-square"></i></a>
+                                                                    <a class="dropdown-item delete-item"
+                                                                        href="#" data-id="{{ $item->id }}"
+                                                                        data-name="{{ $item->form_field }}"><i
+                                                                            class="fa-solid fa-trash-can"></i></a>
+                                                                    <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                        id="default-id{{ $item->id }}"
+                                                                        href="#"
+                                                                        data-name="{{ $item->form_field }}"
+                                                                        data-id="{{ $item->id }}">
+                                                                        @if ($item->default_form === 1)
+                                                                            <i class="fa-solid fa-link-slash"></i>
+                                                                        @else
+                                                                            <i class="fa-solid fa-link"></i>
+                                                                        @endif
+                                                                    </a>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        @endif
                                                     </li>
                                                 @endif
                                             @endforeach
@@ -845,35 +850,39 @@
                                                             <span class="text-13-black"
                                                                 id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                         </a>
-                                                        <div class="dropdown">
-                                                            <button type="button" data-toggle="dropdown"
-                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                <i class="fa-solid fa-ellipsis"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu date-form-setting"
-                                                                style="z-index: 1000;">
-                                                                <a class="dropdown-item search-date-form"
-                                                                    data-toggle="modal"
-                                                                    data-target="#formModalpayment"
-                                                                    data-name="payment" data-id="{{ $item->id }}"
-                                                                    id="{{ $item->id }}"><i
-                                                                        class="fa-regular fa-pen-to-square"></i></a>
-                                                                <a class="dropdown-item delete-item" href="#"
-                                                                    data-id="{{ $item->id }}"
-                                                                    data-name="{{ $item->form_field }}"><i
-                                                                        class="fa-solid fa-trash-can"></i></a>
-                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                    id="default-id{{ $item->id }}" href="#"
-                                                                    data-name="{{ $item->form_field }}"
-                                                                    data-id="{{ $item->id }}">
-                                                                    @if ($item->default_form === 1)
-                                                                        <i class="fa-solid fa-link-slash"></i>
-                                                                    @else
-                                                                        <i class="fa-solid fa-link"></i>
-                                                                    @endif
-                                                                </a>
+                                                        @if ($item->workspace_id != null)
+                                                            <div class="dropdown">
+                                                                <button type="button" data-toggle="dropdown"
+                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
+                                                                    <i class="fa-solid fa-ellipsis"></i>
+                                                                </button>
+                                                                <div class="dropdown-menu date-form-setting"
+                                                                    style="z-index: 1000;">
+                                                                    <a class="dropdown-item search-date-form"
+                                                                        data-toggle="modal"
+                                                                        data-target="#formModalpayment"
+                                                                        data-name="payment"
+                                                                        data-id="{{ $item->id }}"
+                                                                        id="{{ $item->id }}"><i
+                                                                            class="fa-regular fa-pen-to-square"></i></a>
+                                                                    <a class="dropdown-item delete-item"
+                                                                        href="#" data-id="{{ $item->id }}"
+                                                                        data-name="{{ $item->form_field }}"><i
+                                                                            class="fa-solid fa-trash-can"></i></a>
+                                                                    <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                        id="default-id{{ $item->id }}"
+                                                                        href="#"
+                                                                        data-name="{{ $item->form_field }}"
+                                                                        data-id="{{ $item->id }}">
+                                                                        @if ($item->default_form === 1)
+                                                                            <i class="fa-solid fa-link-slash"></i>
+                                                                        @else
+                                                                            <i class="fa-solid fa-link"></i>
+                                                                        @endif
+                                                                    </a>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        @endif
                                                     </li>
                                                 @endif
                                             @endforeach
@@ -995,34 +1004,39 @@
                                                             <span class="text-13-black"
                                                                 id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                         </a>
-                                                        <div class="dropdown">
-                                                            <button type="button" data-toggle="dropdown"
-                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                <i class="fa-solid fa-ellipsis"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu date-form-setting"
-                                                                style="z-index: 1000;">
-                                                                <a class="dropdown-item search-date-form"
-                                                                    data-toggle="modal" data-target="#formModalgoods"
-                                                                    data-name="goods" data-id="{{ $item->id }}"
-                                                                    id="{{ $item->id }}"><i
-                                                                        class="fa-regular fa-pen-to-square"></i></a>
-                                                                <a class="dropdown-item delete-item" href="#"
-                                                                    data-id="{{ $item->id }}"
-                                                                    data-name="{{ $item->form_field }}"><i
-                                                                        class="fa-solid fa-trash-can"></i></a>
-                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                    id="default-id{{ $item->id }}" href="#"
-                                                                    data-name="{{ $item->form_field }}"
-                                                                    data-id="{{ $item->id }}">
-                                                                    @if ($item->default_form === 1)
-                                                                        <i class="fa-solid fa-link-slash"></i>
-                                                                    @else
-                                                                        <i class="fa-solid fa-link"></i>
-                                                                    @endif
-                                                                </a>
+                                                        @if ($item->workspace_id != null)
+                                                            <div class="dropdown">
+                                                                <button type="button" data-toggle="dropdown"
+                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
+                                                                    <i class="fa-solid fa-ellipsis"></i>
+                                                                </button>
+                                                                <div class="dropdown-menu date-form-setting"
+                                                                    style="z-index: 1000;">
+                                                                    <a class="dropdown-item search-date-form"
+                                                                        data-toggle="modal"
+                                                                        data-target="#formModalgoods"
+                                                                        data-name="goods"
+                                                                        data-id="{{ $item->id }}"
+                                                                        id="{{ $item->id }}"><i
+                                                                            class="fa-regular fa-pen-to-square"></i></a>
+                                                                    <a class="dropdown-item delete-item"
+                                                                        href="#" data-id="{{ $item->id }}"
+                                                                        data-name="{{ $item->form_field }}"><i
+                                                                            class="fa-solid fa-trash-can"></i></a>
+                                                                    <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                        id="default-id{{ $item->id }}"
+                                                                        href="#"
+                                                                        data-name="{{ $item->form_field }}"
+                                                                        data-id="{{ $item->id }}">
+                                                                        @if ($item->default_form === 1)
+                                                                            <i class="fa-solid fa-link-slash"></i>
+                                                                        @else
+                                                                            <i class="fa-solid fa-link"></i>
+                                                                        @endif
+                                                                    </a>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        @endif
                                                     </li>
                                                 @endif
                                             @endforeach
@@ -1082,36 +1096,39 @@
                                                             <span class="text-13-black"
                                                                 id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                         </a>
-                                                        <div class="dropdown">
-                                                            <button type="button" data-toggle="dropdown"
-                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                <i class="fa-solid fa-ellipsis"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu date-form-setting"
-                                                                style="z-index: 1000;">
-                                                                <a class="dropdown-item search-date-form"
-                                                                    data-toggle="modal"
-                                                                    data-target="#formModaldelivery"
-                                                                    data-name="delivery"
-                                                                    data-id="{{ $item->id }}"
-                                                                    id="{{ $item->id }}"><i
-                                                                        class="fa-regular fa-pen-to-square"></i></a>
-                                                                <a class="dropdown-item delete-item" href="#"
-                                                                    data-id="{{ $item->id }}"
-                                                                    data-name="{{ $item->form_field }}"><i
-                                                                        class="fa-solid fa-trash-can"></i></a>
-                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                    id="default-id{{ $item->id }}" href="#"
-                                                                    data-name="{{ $item->form_field }}"
-                                                                    data-id="{{ $item->id }}">
-                                                                    @if ($item->default_form === 1)
-                                                                        <i class="fa-solid fa-link-slash"></i>
-                                                                    @else
-                                                                        <i class="fa-solid fa-link"></i>
-                                                                    @endif
-                                                                </a>
+                                                        @if ($item->workspace_id != null)
+                                                            <div class="dropdown">
+                                                                <button type="button" data-toggle="dropdown"
+                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
+                                                                    <i class="fa-solid fa-ellipsis"></i>
+                                                                </button>
+                                                                <div class="dropdown-menu date-form-setting"
+                                                                    style="z-index: 1000;">
+                                                                    <a class="dropdown-item search-date-form"
+                                                                        data-toggle="modal"
+                                                                        data-target="#formModaldelivery"
+                                                                        data-name="delivery"
+                                                                        data-id="{{ $item->id }}"
+                                                                        id="{{ $item->id }}"><i
+                                                                            class="fa-regular fa-pen-to-square"></i></a>
+                                                                    <a class="dropdown-item delete-item"
+                                                                        href="#" data-id="{{ $item->id }}"
+                                                                        data-name="{{ $item->form_field }}"><i
+                                                                            class="fa-solid fa-trash-can"></i></a>
+                                                                    <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                        id="default-id{{ $item->id }}"
+                                                                        href="#"
+                                                                        data-name="{{ $item->form_field }}"
+                                                                        data-id="{{ $item->id }}">
+                                                                        @if ($item->default_form === 1)
+                                                                            <i class="fa-solid fa-link-slash"></i>
+                                                                        @else
+                                                                            <i class="fa-solid fa-link"></i>
+                                                                        @endif
+                                                                    </a>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        @endif
                                                     </li>
                                                 @endif
                                             @endforeach
@@ -1171,37 +1188,40 @@
                                                             <span class="text-13-black"
                                                                 id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                         </a>
-                                                        <div class="dropdown">
-                                                            <button type="button" data-toggle="dropdown"
-                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                <i class="fa-solid fa-ellipsis"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu date-form-setting"
-                                                                style="z-index: 1000;">
-                                                                <a class="dropdown-item search-date-form"
-                                                                    data-toggle="modal"
-                                                                    data-target="#formModallocation"
-                                                                    data-name="location"
-                                                                    data-id="{{ $item->id }}"
-                                                                    id="{{ $item->id }}"><i
-                                                                        class="fa-regular fa-pen-to-square"></i></a>
-                                                                <a class="dropdown-item delete-item" href="#"
-                                                                    data-id="{{ $item->id }}"
-                                                                    data-name="{{ $item->form_field }}"><i
-                                                                        class="fa-solid fa-trash-can"></i></a>
-                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                    id="default-id{{ $item->id }}"
-                                                                    href="#"
-                                                                    data-name="{{ $item->form_field }}"
-                                                                    data-id="{{ $item->id }}">
-                                                                    @if ($item->default_form === 1)
-                                                                        <i class="fa-solid fa-link-slash"></i>
-                                                                    @else
-                                                                        <i class="fa-solid fa-link"></i>
-                                                                    @endif
-                                                                </a>
+                                                        @if ($item->workspace_id != null)
+                                                            <div class="dropdown">
+                                                                <button type="button" data-toggle="dropdown"
+                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
+                                                                    <i class="fa-solid fa-ellipsis"></i>
+                                                                </button>
+                                                                <div class="dropdown-menu date-form-setting"
+                                                                    style="z-index: 1000;">
+                                                                    <a class="dropdown-item search-date-form"
+                                                                        data-toggle="modal"
+                                                                        data-target="#formModallocation"
+                                                                        data-name="location"
+                                                                        data-id="{{ $item->id }}"
+                                                                        id="{{ $item->id }}"><i
+                                                                            class="fa-regular fa-pen-to-square"></i></a>
+                                                                    <a class="dropdown-item delete-item"
+                                                                        href="#"
+                                                                        data-id="{{ $item->id }}"
+                                                                        data-name="{{ $item->form_field }}"><i
+                                                                            class="fa-solid fa-trash-can"></i></a>
+                                                                    <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                        id="default-id{{ $item->id }}"
+                                                                        href="#"
+                                                                        data-name="{{ $item->form_field }}"
+                                                                        data-id="{{ $item->id }}">
+                                                                        @if ($item->default_form === 1)
+                                                                            <i class="fa-solid fa-link-slash"></i>
+                                                                        @else
+                                                                            <i class="fa-solid fa-link"></i>
+                                                                        @endif
+                                                                    </a>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        @endif
                                                     </li>
                                                 @endif
                                             @endforeach

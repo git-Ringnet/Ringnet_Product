@@ -154,6 +154,16 @@ class History extends Model
     {
         return $this->hasOne(ProductImport::class, 'detailimport_id', 'detailimport_id');
     }
+    public function getQuoteImport()
+    {
+        return $this->hasOne(QuoteImport::class, 'id', 'history_import');
+    }
+    public function getReceive(){
+        return $this->hasMany(Receive_bill::class, 'id', 'detailimport_id');
+    }
+    public function getDelivery(){
+        return $this->hasMany(Delivery::class, 'detailexport_id', 'detailexport_id');
+    }
     public function getQuoteExport()
     {
         return $this->hasOne(Delivered::class, 'id', 'delivered_id');

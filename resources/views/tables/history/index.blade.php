@@ -251,7 +251,7 @@
                                         <input type="hidden" id="sortByInput" name="sort-by" value="">
                                         <input type="hidden" id="sortTypeInput" name="sort-type">
                                         <tr class="height-52">
-                                            <th colspan="13" scope="col" class="text-left text-13 border-right">
+                                            <th colspan="14" scope="col" class="text-left text-13 border-right">
                                                 <span class="d-flex justify-content-center align-items-center">
                                                     <a href="#" class="sort-link" data-sort-by="#"
                                                         data-sort-type="DESC"><button class="btn-sort text-13"
@@ -260,7 +260,7 @@
                                                     <div class="icon" id="icon-#"></div>
                                                 </span>
                                             </th>
-                                            <th colspan="11" scope="col"
+                                            <th colspan="12" scope="col"
                                                 class="text-left text-13 border-right border-left">
                                                 <span class="d-flex justify-content-center align-items-center">
                                                     <a href="#" class="sort-link" data-sort-by="#"
@@ -306,7 +306,16 @@
                                                 <span class="d-flex justify-content-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="hdvao" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Số hoá
+                                                            class="btn-sort text-13" type="submit">Đơn nhận hàng
+                                                        </button></a>
+                                                    <div class="icon" id="icon-hdvao"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-start align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="hdvao" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Số hóa
                                                             đơn</button></a>
                                                     <div class="icon" id="icon-hdvao"></div>
                                                 </span>
@@ -455,7 +464,16 @@
                                                 <span class="d-flex justify-content-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit" data-sort-by="hdr"
                                                         data-sort-type="DESC"><button class="btn-sort text-13"
-                                                            type="submit">Số hoá
+                                                            type="submit">Đơn giao hàng
+                                                        </button></a>
+                                                    <div class="icon" id="icon-hdr"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-start align-items-center">
+                                                    <a href="#" class="sort-link btn-submit" data-sort-by="hdr"
+                                                        data-sort-type="DESC"><button class="btn-sort text-13"
+                                                            type="submit">Số hóa
                                                             đơn</button></a>
                                                     <div class="icon" id="icon-hdr"></div>
                                                 </span>
@@ -501,125 +519,6 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-history">
-                                        {{-- @isset($history)
-                                            @foreach ($history as $index => $item)
-                                                <tr class="position-relative history-info height-52 {{ $item->id }}">
-                                                    <input type="hidden" name="id-history" class="id-history"
-                                                        id="id-history" value="{{ $item->id }}">
-                                                    <td class="text-13-black">{{ $item->tenNCC }}</td>
-                                                    <td class="text-13-black min-width180">{{ $item->POnhap }}</td>
-                                                    <td class="text-13-black min-width180">{{ $item->tensp }}</td>
-                                                    <td class="text-13-black">
-                                                        {{ date('d/m/Y', strtotime($item->ngayHDnhap)) }}
-                                                    </td>                                                   
-                                                    <td class="text-13-black text-center">{{ $item->baoHanh }}</td>
-                                                    <td class="text-13-black text-right">
-                                                        {{ number_format($item->slNhap) }}
-                                                    </td>
-                                                    <td class="text-13-black text-right">
-                                                        {{ number_format($item->trcVat * $item->slNhap) }}
-                                                    </td>
-                                                    <td class="text-13-black text-right">
-                                                        {{ number_format($item->thueNhapCalculated) }}
-                                                    </td>
-                                                    <td class="text-13-black text-right">
-                                                        {{ number_format($item->thanhtiennhap) }}
-                                                    </td>
-                                                    <td class="text-13-black min-width180 text-center">
-                                                        @if ($item->TTnhap == 0)
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                height="14" viewBox="0 0 14 14" fill="none">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2ZM0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C14 10.866 10.866 14 7 14C3.13401 14 0 10.866 0 7Z"
-                                                                    fill="#858585" />
-                                                            </svg>
-                                                        @elseif ($item->TTnhap == 1)
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" viewBox="0 0 16 16" fill="none">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M7.9967 13.8636C11.2368 13.8636 13.8634 11.237 13.8634 7.99694C13.8634 4.75687 11.2368 2.13027 7.9967 2.13027C4.75662 2.13027 2.13003 4.75687 2.13003 7.99694C2.13003 11.237 4.75662 13.8636 7.9967 13.8636ZM7.9967 15.4636C12.1204 15.4636 15.4634 12.1207 15.4634 7.99694C15.4634 3.87322 12.1204 0.530273 7.9967 0.530273C3.87297 0.530273 0.530029 3.87322 0.530029 7.99694C0.530029 12.1207 3.87297 15.4636 7.9967 15.4636Z"
-                                                                    fill="#E8B600" />
-                                                                <path
-                                                                    d="M11.8062 7.99694C11.8062 10.1009 10.1007 11.8064 7.99673 11.8064L7.99646 4.18742C10.1004 4.18742 11.8062 5.89299 11.8062 7.99694Z"
-                                                                    fill="#E8B600" />
-                                                            </svg>
-                                                        @else
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                height="14" viewBox="0 0 14 14" fill="none">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
-                                                                    fill="#08AA36" fill-opacity="0.75" />
-                                                            </svg>
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black">
-                                                        {{ date('d/m/Y', strtotime($item->ngayTT)) }}</td>
-                                                    <td class="text-13-black text-center border-right">{{ $item->HTTT }}
-                                                    </td>
-                                                    <td class="text-13-black border-left min-width180">
-                                                        {{ $item->tenKhach }}</td>
-
-                                                    <td class="text-13-black min-width180">{{ $item->POxuat }}</td>
-                                                    <td class="text-13-black text-right">
-                                                        {{ number_format($item->slXuat) }}</td>
-                                                    <td class="text-13-black text-right">
-                                                        {{ number_format($item->giaban) }}</td>
-                                                    <td class="text-13-black text-right">
-                                                        {{ number_format($item->thueXuatCalculated) }}
-                                                    </td>
-                                                    <td class="text-13-black text-right">
-                                                        {{ number_format($item->thanhtienxuat) }}
-                                                    </td>
-                                                    <td class="text-13-black">{{ $item->hdr }}</td>
-                                                    <td class="text-13-black">
-                                                        {{ date('d/m/Y', strtotime($item->ngayHDxuat)) == '01/01/1970' ? '' : date('d/m/Y', strtotime($item->ngayHDxuat)) }}
-                                                    </td>
-                                                    <td class="text-13-black min-width180 text-center">
-                                                        @if ($item->status_pay === 1)
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
-                                                                    fill="#858585" />
-                                                            </svg>
-                                                        @elseif ($item->status_pay === 3)
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_1699_20021)">
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                        d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
-                                                                        fill="#E8B600" />
-                                                                    <path
-                                                                        d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
-                                                                        fill="#E8B600" />
-                                                                </g>
-                                                                <defs>
-                                                                    <clipPath id="clip0_1699_20021">
-                                                                        <rect width="16" height="16"
-                                                                            fill="white" />
-                                                                    </clipPath>
-                                                                </defs>
-                                                            </svg>
-                                                        @elseif($item->status_pay === 2)
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                height="14" viewBox="0 0 14 14" fill="none">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
-                                                                    fill="#08AA36" fill-opacity="0.75" />
-                                                            </svg>
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black">
-                                                        {{ date('d/m/Y', strtotime($item->ngayTTxuat)) == '01/01/1970' ? '' : date('d/m/Y', strtotime($item->ngayTTxuat)) }}
-                                                    </td>
-                                                    <td class="text-13-black">{{ $item->HTTTxuat }}</td>
-                                                    <td data-toggle="modal" data-target="#snModal"
-                                                        data-delivery-id="{{ $item->delivery_id }}"
-                                                        data-product-id="{{ $item->product_id }}" class="sn"><img
-                                                            src="../../dist/img/icon/list.png"></td>
-                                                </tr>
-                                            @endforeach
-                                        @endisset --}}
                                         @inject('historyController', 'App\Http\Controllers\HistoryController')
                                         @php
                                             $previousIds = [];
@@ -649,26 +548,40 @@
                                                     id="id-history" value="{{ $item->delivered_id }}">
                                                 <td class="text-13-black">
                                                     @if ($item->getDetailImport)
-                                                        {{ $item->getDetailImport->provide_name }}
+                                                        <a
+                                                            href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->getDetailImport->provide_id]) }}">
+                                                            {{ $item->getDetailImport->provide_name }}
+                                                        </a>
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black min-width180">
                                                     @if ($item->getDetailImport)
                                                         <a
-                                                            href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $item->getDetailImport->id]) }}">
+                                                            href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->getDetailImport->id]) }}">
                                                             {{ $item->getDetailImport->quotation_number }}
                                                         </a>
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black min-width180">
-                                                    @if ($item->detailimport_id == 0 && $item->history_import == 0)
+                                                    {{-- @dd($item->getProduct) --}}
+                                                    @if ($item->getProduct)
                                                         @if ($item->getProduct)
                                                             {{ $item->getProduct->product_name }}
                                                         @endif
-                                                    @else
+                                                        {{-- @else
                                                         @if ($item->getQtyImport)
                                                             {{ $item->getQtyImport->product_name }}
-                                                        @endif
+                                                        @endif --}}
+                                                    @endif
+                                                </td> 
+                                                <td class="text-13-black">
+                                                    @if ($item->getReceive)
+                                                        @foreach ($item->getReceive as $value)
+                                                            <a
+                                                                href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $value->id]) }}">
+                                                                <p>{{ $value->delivery_code }}</p>
+                                                            </a>
+                                                        @endforeach
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black">
@@ -681,6 +594,7 @@
                                                         @endforeach
                                                     @endif
                                                 </td>
+
                                                 <td class="text-13-black">
                                                     @if ($item->getReciept)
                                                         @foreach ($item->getReciept as $value)
@@ -696,23 +610,23 @@
                                                 </td>
 
                                                 <td class="text-13-black text-right">
-                                                    @if ($item->getQtyImport)
-                                                        {{ number_format($item->getQtyImport->product_qty) }}
+                                                    @if ($item->getQuoteImport)
+                                                        {{ number_format($item->getQuoteImport->product_qty) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right">
-                                                    @if ($item->getQtyImport)
-                                                        {{ number_format($item->getQtyImport->product_total) }}
+                                                    @if ($item->getQuoteImport)
+                                                        {{ number_format($item->getQuoteImport->product_total) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right">
-                                                    @if ($item->getQtyImport)
-                                                        {{ number_format(($item->getQtyImport->price_export * $item->getQtyImport->product_qty * $item->getQtyImport->product_tax) / 100) }}
+                                                    @if ($item->getQuoteImport)
+                                                        {{ number_format(($item->getQuoteImport->price_export * $item->getQuoteImport->product_qty * $item->getQuoteImport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right">
-                                                    @if ($item->getQtyImport)
-                                                        {{ number_format($item->getQtyImport->product_total + ($item->getQtyImport->price_export * $item->getQtyImport->product_qty * $item->getQtyImport->product_tax) / 100) }}
+                                                    @if ($item->getQuoteImport)
+                                                        {{ number_format($item->getQuoteImport->product_total + ($item->getQuoteImport->price_export * $item->getQuoteImport->product_qty * $item->getQuoteImport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black min-width180 text-center">
@@ -767,7 +681,10 @@
                                                         $item->getDetailImport &&
                                                             isset($item->getDetailImport->getPayOrder) &&
                                                             isset($item->getDetailImport->getPayOrder->getHistoryPay))
-                                                        {{ date_format(new DateTime($item->getDetailImport->getPayOrder->getHistoryPay->created_at), 'd/m/Y') }}
+                                                        <a
+                                                            href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item->getDetailImport->getPayOrder->id]) }}">
+                                                            {{ date_format(new DateTime($item->getDetailImport->getPayOrder->getHistoryPay->created_at), 'd/m/Y') }}
+                                                        </a>
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-center border-right">
@@ -781,14 +698,18 @@
                                                     rowspan="{{ $count }}">
                                                     @if ($item->getDetailExport)
                                                         <span class=" {{ $countClass }}">
-                                                            {{ $item->getDetailExport->guest_name }}</span>
+                                                            <a
+                                                                href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => isset($item->getDetailExport) ? $item->getDetailExport->guest_id : '#']) }}">
+                                                                {{ $item->getDetailExport->guest_name }}
+                                                            </a>
+                                                        </span>
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black min-width180 {{ $countClass }}"
                                                     rowspan="{{ $count }}">
                                                     @if ($item->getDetailExport)
-                                                        <a
-                                                            href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $item->getDetailExport->id]) }}">
+                                                        <a {{-- href="{{ route('detailExport.show', ['workspace' => $workspacename, 'detailExport' => $item->getDetailExport->id]) }}" --}}
+                                                            href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $item->getDetailExport->id]) }}">
                                                             {{ $item->getDetailExport->quotation_number }}
                                                         </a>
                                                     @endif
@@ -807,7 +728,6 @@
                                                 </td>
                                                 <td class="text-13-black text-right {{ $countClass }}"
                                                     rowspan="{{ $count }}">
-
                                                     @if ($item->getQuoteExport)
                                                         {{-- {{ number_format(($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }} --}}
                                                         {{ number_format($item->thueXuatCalculated) }}
@@ -820,7 +740,17 @@
                                                         {{-- {{ number_format($item->getQuoteExport->price_export * $item->qty_export + ($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }} --}}
                                                     @endif
                                                 </td>
-
+                                                <td class="text-13-black {{ $countClass }}"
+                                                    rowspan="{{ $count }}">
+                                                    @if ($item->getDelivery)
+                                                        @foreach ($item->getDelivery as $value)
+                                                            <a
+                                                                href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $value->id]) }}">
+                                                                <p>{{ $value->code_delivery }}</p>
+                                                            </a>
+                                                        @endforeach
+                                                    @endif
+                                                </td>
                                                 <td class="text-13-black {{ $countClass }}"
                                                     rowspan="{{ $count }}">
                                                     @if ($item->getBillSale)
@@ -890,7 +820,10 @@
                                                     @if (isset($item->getDetailExport->getPayExport) &&
                                                             $item->getDetailExport &&
                                                             isset($item->getDetailExport->getPayExport->getHistoryPay))
-                                                        {{ date_format(new DateTime($item->getDetailExport->getPayExport->getHistoryPay->created_at), 'd/m/Y') }}
+                                                        <a
+                                                            href="{{ route('payExport.edit', ['workspace' => $workspacename, 'payExport' => $item->getDetailExport->getPayExport->id]) }}">
+                                                            {{ date_format(new DateTime($item->getDetailExport->getPayExport->getHistoryPay->created_at), 'd/m/Y') }}
+                                                        </a>
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black {{ $countClass }}"

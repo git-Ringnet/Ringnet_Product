@@ -161,7 +161,6 @@ class PayOder extends Model
                 }
                 $resultNumber = "MTT-" . $count;
 
-
                 $dataReciept = [
                     'detailimport_id' => $detail->id,
                     'provide_id' => $detail->provide_id,
@@ -322,7 +321,8 @@ class PayOder extends Model
 
     public function updateStatusDebt($data, $id, $check)
     {
-        $startDate = Carbon::now()->startOfDay();
+        // $startDate = Carbon::now()->startOfDay();
+        $startDate = isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now();
         $endDate = isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now();
         $endDate = Carbon::parse($endDate);
         $daysDiffss = $startDate->diffInDays($endDate);
@@ -334,8 +334,6 @@ class PayOder extends Model
         } else {
             $daysDiff = $daysDiffss;
         }
-
-
         if ($daysDiff <= 3 && $daysDiff > 0) {
             $status = 3; // Đến hạn trong
         } elseif ($daysDiff == 0) {
@@ -360,8 +358,12 @@ class PayOder extends Model
                 } else {
                     // Lịch sử giao dịch > 2 
                     $countHistory = DB::table('history_payment_order')->where('payment_id', $payorder->id)->count();
-                    if ($countHistory < 2 && $payorder->payment > 0) {
-                        $status = 6;
+                    if ($countHistory < 1) {
+                        if ($payorder->payment > 0) {
+                            $status = 6;
+                        } else {
+                            $status = 1;
+                        }
                     } else {
                         $status = 1;
                     }

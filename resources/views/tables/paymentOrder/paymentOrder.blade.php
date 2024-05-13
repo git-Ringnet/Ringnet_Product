@@ -168,7 +168,7 @@
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="my-0 py-2" style="width: 14%;">
+                                            <th scope="col" class="my-0 py-2 height-52" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment_code" data-sort-type="DESC">
@@ -178,7 +178,7 @@
                                                     <div class="icon" id="icon-payment_code"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2" style="width: 14%;">
+                                            <th scope="col" class="my-0 py-2 height-52" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
@@ -188,7 +188,7 @@
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2" style="width: 10%;">
+                                            <th scope="col" class="my-0 py-2 height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display"
@@ -200,7 +200,7 @@
                                                 </span>
                                             </th>
                                             @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                <th scope="col" class="my-0 py-2" style="width: 10%;">
+                                                <th scope="col" class="my-0 py-2 height-52" style="width: 10%;">
                                                     <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link" data-sort-by="created_at"
                                                             data-sort-type=""><button class="btn-sort "
@@ -211,7 +211,7 @@
                                                     </span>
                                                 </th>
                                             @endif
-                                            <th scope="col" class="my-0 py-2 border-bottom" style="width: 8%;">
+                                            <th scope="col" class="my-0 py-2 border-bottom height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC">
@@ -222,7 +222,7 @@
                                                     <div class="icon" id="icon-status"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2 border-bottom" style="width: 10%;">
+                                            <th scope="col" class="my-0 py-2 border-bottom height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment_date" data-sort-type="DESC"><button
@@ -233,7 +233,7 @@
                                                     <div class="icon" id="icon-payment_date"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2 border-bottom" style="width: 10%;">
+                                            <th scope="col" class="my-0 py-2 border-bottom height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total" data-sort-type="DESC"><button
@@ -243,7 +243,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2 border-bottom" style="width: 10%;">
+                                            <th scope="col" class="my-0 py-2 border-bottom height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment" data-sort-type="DESC"><button
@@ -253,7 +253,7 @@
                                                     <div class="icon" id="icon-payment"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2 border-bottom">
+                                            <th scope="col" class="my-0 py-2 border-bottom height-52">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="debt" data-sort-type="DESC"><button
@@ -344,11 +344,13 @@
                                                         <span style="color: #08AA36">Thanh toán đủ</span>
                                                     @elseif($item->status == 3)
                                                         <span style="color: #E8B600">Đến hạn trong
-                                                            {{ $item->formatDate($item->payment_date)->diffInDays($today) + 1 }}
+                                                            {{-- {{ $item->formatDate($item->payment_date)->diffInDays($today) + 1 }} --}}
+                                                            {{ Carbon\Carbon::parse($item->payment_date)->diffInDays(now()) + 1 }}
                                                             ngày</span>
                                                     @elseif($item->status == 4)
                                                         <span style="color:#EC212D">Quá hạn
-                                                            {{ $item->formatDate($item->payment_date)->diffInDays($today) }}
+                                                            {{-- {{ $item->formatDate($item->payment_date)->diffInDays($today) }} --}}
+                                                            {{ Carbon\Carbon::parse($item->payment_date)->diffInDays(now()) }}
                                                             ngày</span>
                                                     @elseif($item->status == 5)
                                                         <span style="color: #E8B600">Đến hạn</span>

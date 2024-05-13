@@ -198,8 +198,7 @@
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div id="title--fixed"
-                            class="content-title--fixed top-111 text-center">
+                        <div id="title--fixed" class="content-title--fixed top-111 text-center">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
                                 PHẨM
                             </p>
@@ -278,7 +277,8 @@
                                         <thead>
                                             <tr style="height:44px;">
                                                 <th class="border-right p-2" style="width: 15%;">
-                                                    <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox">
+                                                    <input class="checkall-btn ml-4 mr-1" id="checkall"
+                                                        type="checkbox">
                                                     <span class="text-13 "> Mã sản phẩm</span>
                                                 </th>
                                                 <th class="border-right p-2" style="width: 16%;">
@@ -323,8 +323,8 @@
                                                         <div class="d-flex align-items-center">
                                                             <input type="text"
                                                                 value="{{ $item_quote->product_name }}"
-                                                                class="height-32 border-0 px-2 py-1 w-100 product_name" readonly
-                                                                autocomplete="off" name="product_name[]">
+                                                                class="height-32 border-0 px-2 py-1 w-100 product_name"
+                                                                readonly autocomplete="off" name="product_name[]">
                                                             <input type="hidden" class="product_id"
                                                                 value="{{ $item_quote->product_id }}"
                                                                 autocomplete="off" name="product_id[]">
@@ -389,7 +389,8 @@
                                                     <td
                                                         class="border-right p-2 text-13 text-center align-top border-bottom border-top-0">
                                                         <select name="product_tax[]"
-                                                            class="height-32 border-0 py-1 text-center product_tax" disabled>
+                                                            class="height-32 border-0 py-1 text-center product_tax"
+                                                            disabled>
                                                             <option value="0" <?php if ($item_quote->product_tax == 0) {
                                                                 echo 'selected';
                                                             } ?>>0%</option>
@@ -411,8 +412,7 @@
                                                             value="{{ number_format($item_quote->product_total) }}"
                                                             class="height-32 border-0 px-2 py-1 w-100 text-right total-amount">
                                                     </td>
-                                                    <td
-                                                        class="p-2 text-13 align-top border-bottom border-top-0">
+                                                    <td class="p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" class="border-0 py-1 w-100" readonly
                                                             name="height-32 product_note[]"
                                                             value="{{ $item_quote->product_note }}">
@@ -444,7 +444,8 @@
                                             </div>
                                             <div class="d-flex justify-content-between mt-2">
                                                 <span class="text-13-bold text-lg font-weight-bold">Tổng cộng: </span>
-                                                <span class="text-13-bold text-lg font-weight-bold text-right text-table"
+                                                <span
+                                                    class="text-13-bold text-lg font-weight-bold text-right text-table"
                                                     id="grand-total" data-value="0">0đ</span>
                                                 <input type="text" hidden="" name="totalValue"
                                                     value="0" id="total">
@@ -457,8 +458,7 @@
                         </section>
                     </div>
                     <div id="history" class="tab-pane fade">
-                        <div id="title--fixed"
-                            class="content-title--fixed top-111">
+                        <div id="title--fixed" class="content-title--fixed top-111">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">
                                 Lịch sử thanh toán
                             </p>
@@ -619,18 +619,22 @@
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh
                                                 toán</span>
                                             <input id="prepayment" type="text"
-                                                class="text-13-black w-50 border-0 payment bg-input-guest-blue py-2 px-2" oninput="validateInput();"
+                                                class="text-13-black w-50 border-0 payment bg-input-guest-blue py-2 px-2"
+                                                oninput="validateInput();"
                                                 @if ($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif
                                                 name="payment" style="flex:2; outline:none;" name="payment" />
                                         </li>
-                                        <li class="d-flex justify-content-between text-13 py-2 px-3 border-bottom align-items-center text-left"
-                                            style="height:44px;">
-                                            <span class="mx-1 text-13 d-flex align-items-center" style="flex: 2;">
-                                                <input type="checkbox" name="payment_all" onclick="cbPayment(this)">
-                                                <span class="text-13 btn-click">Thanh toán đủ : <span
-                                                        class="payment_all">{{ number_format($noConLaiValue) }}</span></span>
-                                            </span>
-                                        </li>
+                                        @if ($payExport->trangThai != 2)
+                                            <li class="d-flex justify-content-between text-13 py-2 px-3 border-bottom align-items-center text-left"
+                                                style="height:44px;">
+                                                <span class="mx-1 text-13 d-flex align-items-center" style="flex: 2;">
+                                                    <input type="checkbox" name="payment_all"
+                                                        onclick="cbPayment(this)">
+                                                    <span class="text-13 btn-click">Thanh toán đủ : <span
+                                                            class="payment_all">{{ number_format($noConLaiValue) }}</span></span>
+                                                </span>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
