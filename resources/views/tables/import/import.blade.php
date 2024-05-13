@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
-    <div class="content-header-fixed p-0 margin-250">
+    <div class="content-header-fixed p-0 margin-250 border-bottom-0">
         <div class="content__header--inner margin-left32">
             <div class="content__heading--left">
                 <span>Mua hàng</span>
@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="content-filter-all">
-        <div class="bg-filter-search pl-4 border-bottom-0 border-top-0">
+        <div class="bg-filter-search pl-4 border-bottom-0">
             <div class="content-wrapper1 py-2">
                 <div class="row m-auto filter p-0">
                     <div class="w-100">

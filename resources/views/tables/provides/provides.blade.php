@@ -134,13 +134,13 @@
                             <div class="outer2 text-nowrap">
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
-                                        <tr>
-                                            <th scope="col" class="border-bottom"
+                                        <tr style="height: 44px">
+                                            <th scope="col" class="border-bottom height-52"
                                                 style="padding-left: 2rem;width:5%;" class="pr-0">
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width:30%;">
+                                            <th scope="col" class="border-bottom height-52" style="width:30%;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display" data-sort-type="DESC">
@@ -152,7 +152,7 @@
                                                 </span>
                                             </th>
                                             @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                <th scope="col" class="border-bottom" style="width:20%;">
+                                                <th scope="col" class="border-bottom height-52" style="width:20%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="provide_name_display" data-sort-type="DESC">
@@ -164,7 +164,7 @@
                                                     </span>
                                                 </th>
                                             @endif
-                                            <th scope="col" class="border-bottom" style="width:25%;">
+                                            <th scope="col" class="border-bottom height-52" style="width:25%;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
@@ -175,7 +175,7 @@
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom">
+                                            <th scope="col" class="border-bottom height-52">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_debt" data-sort-type="DESC">

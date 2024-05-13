@@ -144,12 +144,12 @@
                         <div class="outer2 table-responsive text-nowrap">
                             <table id="example2" class="table table-hover bg-white rounded">
                                 <thead class="border-custom">
-                                    <tr>
-                                        <th class="" style="width:5%;padding-left: 2rem;">
+                                    <tr style="height: 44px;">
+                                        <th class="height-52" style="width:5%;padding-left: 2rem;">
                                             <input type="checkbox" name="all" id="checkall"
                                                 class="checkall-btn">
                                         </th>
-                                        <th class="" scope="col" style="width: 30%;">
+                                        <th class="height-52" scope="col" style="width: 30%;">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_name_display" data-sort-type="DESC">
@@ -161,7 +161,7 @@
                                             </span>
                                         </th>
                                         @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                            <th class="" scope="col" style="width: 20%;">
+                                            <th class="height-52" scope="col" style="width: 20%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="name" data-sort-type="DESC">
@@ -173,7 +173,7 @@
                                                 </span>
                                             </th>
                                         @endif
-                                        <th class="" scope="col" style="width: 25%;">
+                                        <th class="height-52" scope="col" style="width: 25%;">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_code" data-sort-type="DESC">
@@ -205,7 +205,7 @@
                                                 <div class="icon" id="icon-guest_phone"></div>
                                             </span>
                                         </th> --}}
-                                        <th class="" scope="col">
+                                        <th class="height-52" scope="col">
                                             <span class="d-flex justify-content-end">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="sumDebt"
                                                     data-sort-type="DESC">

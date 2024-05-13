@@ -2769,9 +2769,3 @@ input[type="checkbox"]:checked {
 .flatpickr-current-month {
     font-size: initial !important;
 }
-
-.text-center
-{
-    text-align: center;
-    text-align: -webkit-center;
-}
