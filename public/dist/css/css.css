@@ -147,7 +147,7 @@ li {
     transition: 0.5s;
 }
 
-.border-filter{
+.border-filter {
     border-bottom: 1px solid #cfcbcb;
 }
 
@@ -1079,21 +1079,21 @@ td p {
     font-weight: 500 !important;
     font-size: 14px !important;
 }
-.input-groups input[type=date]{
-    border: 1px solid #D8D8D8;
+.input-groups input[type="date"] {
+    border: 1px solid #d8d8d8;
     box-shadow: 0px 6px 10px 0px #00000033;
     text-align: center;
 }
-.item-icon{
+.item-icon {
     padding-right: 8px;
 }
-.item-filter{
+.item-filter {
     position: relative;
 }
 [class*="result-filter-"] {
     /* padding-top: 16px; */
 }
-.item-filter span{
+.item-filter span {
     padding-top: 3px;
 }
 input[type="number"]::-webkit-inner-spin-button,
@@ -1173,7 +1173,7 @@ input[type="number"] {
 .block-options-admin label {
     font-weight: 500 !important;
     font-size: 14px;
-    color: #282A30;
+    color: #282a30;
     margin: 0;
     padding-left: 5px;
     user-select: none;
@@ -1252,16 +1252,16 @@ input[type="number"] {
     flex: 1;
     margin-left: 35% !important;
 }
-.btn-filter_search:disabled{
+.btn-filter_search:disabled {
     cursor: no-drop;
 }
-.fa-solid.fa-xmark{
+.fa-solid.fa-xmark {
     margin-top: 4px;
     margin-left: 8px;
     cursor: pointer;
 }
-.text-btnIner-filter{
-    background-color: #6E79D6;
+.text-btnIner-filter {
+    background-color: #6e79d6;
     padding: 7px 8px 7px 8px;
     gap: 6px;
     border-radius: 4px;
@@ -1521,7 +1521,7 @@ input[type="search"] {
 
 /*Checkbox*/
 input[type="checkbox"] {
-    accent-color: #6E79D6;
+    accent-color: #6e79d6;
     /* outline: #6E79D6; */
 }
 
@@ -2537,12 +2537,17 @@ input[type="checkbox"]:checked {
 .icon-center {
     right: 4px;
     top: 50%;
+    transform: translateY(-50%);
 }
 
+/* Apply only if browser supports not-webkit-touch-callout */
 @supports not (-webkit-touch-callout: none) {
-    /* Apply translateY(-50%) only for browsers other than Safari */
-    .icon-center {
-        transform: translateY(-50%);
+    /* Apply only if browser supports not (overflow-anchor: none) */
+    @supports not (overflow-anchor: none) {
+        /* Apply transform: none; only for Safari */
+        .icon-center {
+            transform: none;
+        }
     }
 }
 
@@ -2636,7 +2641,7 @@ input[type="checkbox"]:checked {
     top: 109px !important;
 }
 
-.top-111{
+.top-111 {
     top: 111px !important;
 }
 
@@ -2661,7 +2666,7 @@ input[type="checkbox"]:checked {
     width: 40px;
 }
 
-.content.margin-250 .card{
+.content.margin-250 .card {
     border-radius: 0 !important;
     /* CSS styles here */
 }
@@ -2761,6 +2766,6 @@ input[type="checkbox"]:checked {
     border: 1px solid #0052ccbf;
     padding: 2px 6px;
 }
-.flatpickr-current-month{
+.flatpickr-current-month {
     font-size: initial !important;
 }
