@@ -701,18 +701,18 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right">
-                                                    @if ($item->getQtyImport)
-                                                        {{ number_format($item->getQtyImport->product_total) }}
+                                                    @if ($item->getQuoteImport)
+                                                        {{ number_format($item->getQuoteImport->product_total) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right">
-                                                    @if ($item->getQtyImport)
-                                                        {{ number_format(($item->getQtyImport->price_export * $item->getQtyImport->product_qty * $item->getQtyImport->product_tax) / 100) }}
+                                                    @if ($item->getQuoteImport)
+                                                        {{ number_format(($item->getQuoteImport->price_export * $item->getQuoteImport->product_qty * $item->getQuoteImport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right">
-                                                    @if ($item->getQtyImport)
-                                                        {{ number_format($item->getQtyImport->product_total + ($item->getQtyImport->price_export * $item->getQtyImport->product_qty * $item->getQtyImport->product_tax) / 100) }}
+                                                    @if ($item->getQuoteImport)
+                                                        {{ number_format($item->getQuoteImport->product_total + ($item->getQuoteImport->price_export * $item->getQuoteImport->product_qty * $item->getQuoteImport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black min-width180 text-center">
