@@ -260,137 +260,272 @@ class Delivery extends Model
                     if ($product->check_seri == 0) {
                         $history_import = QuoteImport::where('product_id', $data['product_id'][$i])
                             ->first();
-                        // Add lịch sử giao dịch
                         $htrImport = QuoteImport::where('product_id', $data['product_id'][$i])
                             ->where('workspace_id', Auth::user()->current_workspace)
                             ->orderBy('id', 'ASC')
                             ->get();
                         $qty = 0;
-                        $count = 0;
+                        // $count = $data['product_qty'][$i];
                         $temp = 0;
                         $count_export = 0;
+                        $check = false;
                         if ($htrImport) {
-                            $check = false;
-                            foreach ($htrImport as $index => $va) {
-                                // Lấy sản phẩm đã bán 
-                                $getProductSell = History::where('history_import', $va->id)
+                            foreach ($htrImport as $value) {
+                                $history = new History();
+                                $dataHistory = [
+                                    'detailexport_id' => $data['detailexport_id'],
+                                    'delivered_id' => isset($getDelivered_id) ? $getDelivered_id->id : 0,
+                                    'provide_id' => isset($value->getQuoteNumber) ? $value->getQuoteNumber->provide_id : 0,
+                                    'detailimport_id' => $value->detailimport_id,
+                                    'tax_import' => $value->product_tax,
+                                    'price_import' => $value->price_export,
+                                    'total_import' => $value->product_total,
+                                    'history_import' => $value->id,
+                                    'workspace_id' => Auth::user()->current_workspace,
+                                    'user_id' => Auth::user()->id,
+                                    'product_id' => $value->product_id,
+                                    'delivery_id' => isset($delivery) ? $delivery->id : 0
+                                ];
+                                // Lấy số lượng sản phẩm đã bán
+                                $getHtr = History::where('product_id', $value->product_id)
                                     ->where('workspace_id', Auth::user()->current_workspace)
-                                    ->get();
-                                foreach ($getProductSell as $item) {
-                                    $count += $item->qty_export;
-                                }
-                                if ($count == $va->product_qty) {
-                                    $qty += $va->product_qty;
-                                    continue;
+                                    ->sum('qty_export');
+                                // Tính tổng số lượng sản phẩm bán
+                                $qty += $value->product_qty;
+                                if ($qty < $data['product_qty'][$i] && $getHtr == 0) {
+                                    $count_export = $temp == 0 ? $value->product_qty : $data['product_qty'][$i] - $temp;
+                                    $temp += $count_export;
                                 } else {
-                                    $getHtr = History::where('history_import', $va->id)
-                                        ->where('workspace_id', Auth::user()->current_workspace)
-                                        ->sum('qty_export');
-                                    $history = new History();
-                                    $dataHistory = [
-                                        'detailexport_id' => $data['detailexport_id'],
-                                        'delivered_id' => isset($getDelivered_id) ? $getDelivered_id->id : 0,
-                                        'provide_id' => isset($va->getQuoteNumber) ? $va->getQuoteNumber->provide_id : 0,
-                                        'detailimport_id' => $va->detailimport_id,
-                                        'tax_import' => $va->product_tax,
-                                        'price_import' => $va->price_export,
-                                        'total_import' => $va->product_total,
-                                        'history_import' => $va->id,
-                                        'workspace_id' => Auth::user()->current_workspace,
-                                        'user_id' => Auth::user()->id,
-                                        'product_id' => $va->product_id,
-                                        'delivery_id' => isset($delivery) ? $delivery->id : 0
-                                    ];
-
-                                    if ($va->product_qty == $getHtr) {
+                                    if ($qty < $getHtr) {
+                                        // Lấy thêm số lượng sản phẩm
                                         continue;
-                                    } else if ($va->product_qty > ($getHtr + $data['product_qty'][$i])) {
-                                        $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
-                                        $qty += ($temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp);
                                     } else {
-                                        if ($getHtr == 0 && $getHtr != null) {
-                                            if ($va->product_qty == $data['product_qty'][$i]) {
-                                                $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                $qty += $data['product_qty'][$i];
-                                            } else if ($va->product_qty > $data['product_qty'][$i]) {
-                                                $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                $qty += $data['product_qty'][$i];
-                                            } else {
-                                                if ($qty == 0) {
-                                                    if ($va->product_qty == $data['product_qty'][$i]) {
-                                                        $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                        $qty += $data['product_qty'][$i];
-                                                    } else if ($va->product_qty > $data['product_qty'][$i]) {
-                                                        $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                        $qty += $data['product_qty'][$i];
+                                        if ($getHtr > 0) {
+                                            // Lấy số lượng sản phẩm đã bán tại vị trí hiện tại
+                                            $curremt_export = History::where('history_import', $value->id)
+                                                ->where('product_id', $value->product_id)
+                                                ->where('workspace_id', Auth::user()->current_workspace)
+                                                ->first();
+                                            if ($curremt_export) {
+                                                $remaining_amount = $value->product_qty - $curremt_export->qty_export;
+                                                if ($temp > 0) {
+                                                    if ($remaining_amount == $data['product_qty'][$i] - $temp) {
+                                                        $count_export = $data['product_qty'][$i] - $temp;
+                                                    } elseif ($remaining_amount > $data['product_qty'][$i] - $temp) {
+                                                        $count_export = $data['product_qty'][$i] - $temp;
                                                     } else {
-                                                        $dataHistory['qty_export'] = $va->product_qty;
-                                                        $qty += $va->product_qty;
+                                                        $count_export = $value->product_qty - $remaining_amount;
                                                     }
                                                 } else {
-                                                    $dataHistory['qty_export'] = $data['product_qty'][$i] - $qty;
-                                                    $qty += $data['product_qty'][$i] - $qty;
+                                                    if ($remaining_amount == $data['product_qty'][$i]) {
+                                                        $count_export = $data['product_qty'][$i];
+                                                        var_dump("TH1");
+                                                    } elseif ($remaining_amount > $data['product_qty'][$i]) {
+                                                        $count_export = $data['product_qty'][$i];
+                                                        var_dump("TH2");
+                                                    } else {
+                                                        $count_export = $data['product_qty'][$i] - $remaining_amount;
+                                                        var_dump("TH3");
+                                                    }
+                                                }
+                                            } else {
+                                                if ($temp > 0) {
+                                                    if ($value->product_qty == $data['product_qty'][$i] - $temp) {
+                                                        $count_export = $value->product_qty;
+                                                    } else if ($value->product_qty > $data['product_qty'][$i] - $temp) {
+                                                        $count_export = $data['product_qty'][$i] - $temp;
+                                                    } else {
+                                                        $count_export = $value->product_qty;
+                                                    }
+                                                } else {
+                                                    if ($value->product_qty == $data['product_qty'][$i]) {
+                                                        $count_export = $data['product_qty'][$i];
+                                                        var_dump("TH4");
+                                                    } elseif ($value->product_qty > $data['product_qty'][$i]) {
+                                                        $count_export = $data['product_qty'][$i];
+                                                        var_dump("TH5");
+                                                    } else {
+                                                        // $count_export = $temp == 0 ? $value->product_qty : ($data['product_qty'][$i] - $value->product_qty < $data['product_qty'][$i] ? $data['product_qty'][$i] - $value->product_qty - $temp : $data['product_qty'][$i] - $temp);
+                                                        $count_export = $value->product_qty;
+                                                        var_dump("TH6.1");
+                                                    }
                                                 }
                                             }
+                                            $temp += $count_export;
                                         } else {
-                                            if ($getHtr == 0 && $getHtr != null) {
-                                                if ($va->product_qty - $temp == $data['product_qty'][$i]) {
-                                                    $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                    $temp += $data['product_qty'][$i];
-                                                } else if ($va->product_qty - $temp > $data['product_qty'][$i]) {
-                                                    $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                    $temp += $data['product_qty'][$i];
+                                            if ($temp > 0) {
+                                                if ($value->product_qty == $data['product_qty'][$i] - $temp) {
+                                                    $count_export = $data['product_qty'][$i] - $temp;
+                                                } elseif ($value->product_qty > $data['product_qty'][$i] - $temp) {
+                                                    $count_export = $data['product_qty'][$i] - $temp;
                                                 } else {
-                                                    $dataHistory['qty_export'] = ($va->product_qty - $temp);
-                                                    $temp += ($va->product_qty - $temp);
+                                                    $count_export = $value->product_qty;
                                                 }
                                             } else {
-                                                if ($va->product_qty - $getHtr == $data['product_qty'][$i]) {
-                                                    $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
-                                                    $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
-                                                    $qty += $temp;
-                                                } else if ($va->product_qty - $getHtr > $data['product_qty'][$i]) {
-                                                    $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
-                                                    $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
-                                                    $qty += $temp;
+                                                if ($value->product_qty == $data['product_qty'][$i]) {
+                                                    $count_export = $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
+                                                    var_dump("TH44");
+                                                } elseif ($value->product_qty > $data['product_qty'][$i]) {
+                                                    $count_export = $temp == 0 ? $value->product_qty - $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
+                                                    var_dump("TH55");
                                                 } else {
-                                                    // $temp == 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
-                                                    // $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $data['product_qty'][$i] - $temp);
-                                                    if ($va->product_qty == $data['product_qty'][$i] - $temp) {
-                                                        $count_export = $getHtr > 0 ? $data['product_qty'][$i] : (($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp));
-                                                        $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
-                                                        // $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : ($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp));
-                                                    } else if ($va->product_qty > $data['product_qty'][$i] - $temp) {
-                                                        $count_export = ($va->product_qty > $data['product_qty'][$i] - $temp ? $data['product_qty'][$i] - $temp : $data['product_qty'][$i] - $temp);
-                                                        $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
-                                                    } else {
-                                                        $count_export = ($va->product_qty < $data['product_qty'][$i] - $temp ? $va->product_qty : $data['product_qty'][$i] - $temp);
-                                                        $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
-                                                    }
-                                                    $getHtr > 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $count_export;
-                                                    $qty += $count_export;
+                                                    $count_export = $temp == 0 ? $value->product_qty : ($data['product_qty'][$i] - $value->product_qty);
+                                                    // - $temp > 0 ? $data['product_qty'][$i] - $value->product_qty - $temp : $value->product_qty);
+                                                    var_dump("TH66");
                                                 }
                                             }
+                                            $temp += $count_export;
                                         }
                                     }
-                                    if ($getHtr > 0) {
-                                        if (!$check || $qty <= $data['product_qty'][$i]) {
-                                            $history->addHistory($dataHistory);
-                                        }
-                                        if ($qty > $data['product_qty'][$i]) {
-                                            $check = true;
-                                        }
-                                    } else {
-                                        if (!$check || $qty < $data['product_qty'][$i]) {
-                                            $history->addHistory($dataHistory);
-                                        }
-                                        if ($qty >= $data['product_qty'][$i]) {
-                                            $check = true;
-                                        }
-                                    }
+                                }
+                                $dataHistory['qty_export'] = $count_export;
+                                if (!$check) {
+                                    $history->addHistory($dataHistory);
+                                }
+                                if ($temp == $data['product_qty'][$i]) {
+                                    $check = true;
                                 }
                             }
                         }
+
+
+
+
+
+
+                        // $history_import = QuoteImport::where('product_id', $data['product_id'][$i])
+                        //     ->first();
+                        // // Add lịch sử giao dịch
+                        // $htrImport = QuoteImport::where('product_id', $data['product_id'][$i])
+                        //     ->where('workspace_id', Auth::user()->current_workspace)
+                        //     ->orderBy('id', 'ASC')
+                        //     ->get();
+                        // $qty = 0;
+                        // $count = 0;
+                        // $temp = 0;
+                        // $count_export = 0;
+                        // if ($htrImport) {
+                        //     $check = false;
+                        //     foreach ($htrImport as $index => $va) {
+                        //         // Lấy sản phẩm đã bán 
+                        //         $getProductSell = History::where('history_import', $va->id)
+                        //             ->where('workspace_id', Auth::user()->current_workspace)
+                        //             ->get();
+                        //         foreach ($getProductSell as $item) {
+                        //             $count += $item->qty_export;
+                        //         }
+                        //         if ($count == $va->product_qty) {
+                        //             $qty += $va->product_qty;
+                        //             continue;
+                        //         } else {
+                        //             $getHtr = History::where('history_import', $va->id)
+                        //                 ->where('workspace_id', Auth::user()->current_workspace)
+                        //                 ->sum('qty_export');
+                        //             $history = new History();
+                        //             $dataHistory = [
+                        //                 'detailexport_id' => $data['detailexport_id'],
+                        //                 'delivered_id' => isset($getDelivered_id) ? $getDelivered_id->id : 0,
+                        //                 'provide_id' => isset($va->getQuoteNumber) ? $va->getQuoteNumber->provide_id : 0,
+                        //                 'detailimport_id' => $va->detailimport_id,
+                        //                 'tax_import' => $va->product_tax,
+                        //                 'price_import' => $va->price_export,
+                        //                 'total_import' => $va->product_total,
+                        //                 'history_import' => $va->id,
+                        //                 'workspace_id' => Auth::user()->current_workspace,
+                        //                 'user_id' => Auth::user()->id,
+                        //                 'product_id' => $va->product_id,
+                        //                 'delivery_id' => isset($delivery) ? $delivery->id : 0
+                        //             ];
+
+                        //             if ($va->product_qty == $getHtr) {
+                        //                 continue;
+                        //             } else if ($va->product_qty > ($getHtr + $data['product_qty'][$i])) {
+                        //                 $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
+                        //                 $qty += ($temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp);
+                        //             } else {
+                        //                 if ($getHtr == 0 && $getHtr != null) {
+                        //                     if ($va->product_qty == $data['product_qty'][$i]) {
+                        //                         $dataHistory['qty_export'] = $data['product_qty'][$i];
+                        //                         $qty += $data['product_qty'][$i];
+                        //                     } else if ($va->product_qty > $data['product_qty'][$i]) {
+                        //                         $dataHistory['qty_export'] = $data['product_qty'][$i];
+                        //                         $qty += $data['product_qty'][$i];
+                        //                     } else {
+                        //                         if ($qty == 0) {
+                        //                             if ($va->product_qty == $data['product_qty'][$i]) {
+                        //                                 $dataHistory['qty_export'] = $data['product_qty'][$i];
+                        //                                 $qty += $data['product_qty'][$i];
+                        //                             } else if ($va->product_qty > $data['product_qty'][$i]) {
+                        //                                 $dataHistory['qty_export'] = $data['product_qty'][$i];
+                        //                                 $qty += $data['product_qty'][$i];
+                        //                             } else {
+                        //                                 $dataHistory['qty_export'] = $va->product_qty;
+                        //                                 $qty += $va->product_qty;
+                        //                             }
+                        //                         } else {
+                        //                             $dataHistory['qty_export'] = $data['product_qty'][$i] - $qty;
+                        //                             $qty += $data['product_qty'][$i] - $qty;
+                        //                         }
+                        //                     }
+                        //                 } else {
+                        //                     if ($getHtr == 0 && $getHtr != null) {
+                        //                         if ($va->product_qty - $temp == $data['product_qty'][$i]) {
+                        //                             $dataHistory['qty_export'] = $data['product_qty'][$i];
+                        //                             $temp += $data['product_qty'][$i];
+                        //                         } else if ($va->product_qty - $temp > $data['product_qty'][$i]) {
+                        //                             $dataHistory['qty_export'] = $data['product_qty'][$i];
+                        //                             $temp += $data['product_qty'][$i];
+                        //                         } else {
+                        //                             $dataHistory['qty_export'] = ($va->product_qty - $temp);
+                        //                             $temp += ($va->product_qty - $temp);
+                        //                         }
+                        //                     } else {
+                        //                         if ($va->product_qty - $getHtr == $data['product_qty'][$i]) {
+                        //                             $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
+                        //                             $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
+                        //                             $qty += $temp;
+                        //                         } else if ($va->product_qty - $getHtr > $data['product_qty'][$i]) {
+                        //                             $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
+                        //                             $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
+                        //                             $qty += $temp;
+                        //                         } else {
+                        //                             // $temp == 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
+                        //                             // $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $data['product_qty'][$i] - $temp);
+                        //                             if ($va->product_qty == $data['product_qty'][$i] - $temp) {
+                        //                                 $count_export = $getHtr > 0 ? $data['product_qty'][$i] : (($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp));
+                        //                                 $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
+                        //                                 // $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : ($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp));
+                        //                             } else if ($va->product_qty > $data['product_qty'][$i] - $temp) {
+                        //                                 $count_export = ($va->product_qty > $data['product_qty'][$i] - $temp ? $data['product_qty'][$i] - $temp : $data['product_qty'][$i] - $temp);
+                        //                                 $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
+                        //                             } else {
+                        //                                 $count_export = ($va->product_qty < $data['product_qty'][$i] - $temp ? $va->product_qty : $data['product_qty'][$i] - $temp);
+                        //                                 $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
+                        //                             }
+                        //                             $getHtr > 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $count_export;
+                        //                             $qty += $count_export;
+                        //                         }
+                        //                     }
+                        //                 }
+                        //             }
+                        //             if ($getHtr > 0) {
+                        //                 if (!$check || $qty <= $data['product_qty'][$i]) {
+                        //                     $history->addHistory($dataHistory);
+                        //                 }
+                        //                 if ($qty > $data['product_qty'][$i]) {
+                        //                     $check = true;
+                        //                 }
+                        //             } else {
+                        //                 if (!$check || $qty < $data['product_qty'][$i]) {
+                        //                     $history->addHistory($dataHistory);
+                        //                 }
+                        //                 if ($qty >= $data['product_qty'][$i]) {
+                        //                     $check = true;
+                        //                 }
+                        //             }
+                        //         }
+                        //     }
+                        // }
                     } else {
                         if (isset($data['id_seri']) && !$checkSN) {
                             $selectedSerialNumbers = $data['id_seri'];
@@ -789,7 +924,8 @@ class Delivery extends Model
             ];
             $delivered_id = DB::table('delivered')->insertGetId($dataDelivered);
             $de = Delivered::where('delivery_id', $deliveryId)->first();
-            $product = Products::where('product_name', $data['product_name'][$i])->first();
+            $product = Products::where('product_name', $data['product_name'][$i])
+                ->where('workspace_id', Auth::user()->current_workspace)->first();
             if ($product) {
                 if ($product->type == 2) {
                     $history = new History();
@@ -813,153 +949,278 @@ class Delivery extends Model
                     if ($product->check_seri == 0) {
                         $history_import = QuoteImport::where('product_id', $data['product_id'][$i])
                             ->first();
-                        // Add lịch sử giao dịch
                         $htrImport = QuoteImport::where('product_id', $data['product_id'][$i])
                             ->where('workspace_id', Auth::user()->current_workspace)
                             ->orderBy('id', 'ASC')
                             ->get();
                         $qty = 0;
-                        $count = 0;
+                        // $count = $data['product_qty'][$i];
                         $temp = 0;
                         $count_export = 0;
+                        $check = false;
                         if ($htrImport) {
-                            $check = false;
-                            foreach ($htrImport as $index => $va) {
-                                // Lấy sản phẩm đã bán 
-                                // $getProductSell = History::where('history_import', $va->detailimport_id)
-                                //     ->where('workspace_id', Auth::user()->current_workspace)
-                                //     ->get();
-                                $getProductSell = History::where('history_import', $va->id)
+                            foreach ($htrImport as $value) {
+                                $history = new History();
+                                $dataHistory = [
+                                    'detailexport_id' => $data['detailexport_id'],
+                                    'delivered_id' => $delivered_id,
+                                    'provide_id' => isset($value->getQuoteNumber) ? $value->getQuoteNumber->provide_id : 0,
+                                    'detailimport_id' => $value->detailimport_id,
+                                    'tax_import' => $value->product_tax,
+                                    'price_import' => $value->price_export,
+                                    'total_import' => $value->product_total,
+                                    'history_import' => $value->id,
+                                    'workspace_id' => Auth::user()->current_workspace,
+                                    'user_id' => Auth::user()->id,
+                                    'product_id' => $value->product_id,
+                                    'delivery_id' => $delivery->id
+                                ];
+                                // Lấy số lượng sản phẩm đã bán
+                                $getHtr = History::where('product_id', $value->product_id)
                                     ->where('workspace_id', Auth::user()->current_workspace)
-                                    ->get();
-                                foreach ($getProductSell as $item) {
-                                    $count += $item->qty_export;
-                                }
-                                if ($count == $va->product_qty) {
-                                    $qty += $va->product_qty;
-                                    continue;
+                                    ->sum('qty_export');
+                                // Tính tổng số lượng sản phẩm bán
+                                $qty += $value->product_qty;
+                                if ($qty < $data['product_qty'][$i] && $getHtr == 0) {
+                                    $count_export = $temp == 0 ? $value->product_qty : $data['product_qty'][$i] - $temp;
+                                    $temp += $count_export;
                                 } else {
-                                    $getHtr = History::where('history_import', $va->id)
-                                        ->where('workspace_id', Auth::user()->current_workspace)
-                                        ->sum('qty_export');
-                                    $history = new History();
-                                    // $dataHistory = [
-                                    //     'detailexport_id' => $data['detailexport_id'],
-                                    //     'delivered_id' => $delivered_id,
-                                    //     'provide_id' => $va->provide_id,
-                                    //     'detailimport_id' => $va->detailImport_id,
-                                    //     'tax_import' => $history_import ? $history_import->product_tax : null,
-                                    //     'price_import' => $history_import ? $history_import->price_export : null,
-                                    //     'total_import' => $history_import ? $history_import->product_total : null,
-                                    //     'history_import' => $va->id,
-                                    //     'workspace_id' => Auth::user()->current_workspace,
-                                    //     'user_id' => Auth::user()->id,
-                                    //     'product_id' => $va->product_id
-                                    // ];
-                                    $dataHistory = [
-                                        'detailexport_id' => $data['detailexport_id'],
-                                        'delivered_id' => $delivered_id,
-                                        'provide_id' => isset($va->getQuoteNumber) ? $va->getQuoteNumber->provide_id : 0,
-                                        'detailimport_id' => $va->detailimport_id,
-                                        'tax_import' => $va->product_tax,
-                                        'price_import' => $va->price_export,
-                                        'total_import' => $va->product_total,
-                                        'history_import' => $va->id,
-                                        'workspace_id' => Auth::user()->current_workspace,
-                                        'user_id' => Auth::user()->id,
-                                        'product_id' => $va->product_id,
-                                        'delivery_id' => $delivery->id
-                                    ];
-
-                                    if ($va->product_qty == $getHtr) {
+                                    if ($qty < $getHtr) {
+                                        // Lấy thêm số lượng sản phẩm
                                         continue;
-                                    } else if ($va->product_qty > ($getHtr + $data['product_qty'][$i])) {
-                                        $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
-                                        $qty += ($temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp);
                                     } else {
-                                        if ($getHtr == 0 && $getHtr != null) {
-                                            if ($va->product_qty == $data['product_qty'][$i]) {
-                                                $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                $qty += $data['product_qty'][$i];
-                                            } else if ($va->product_qty > $data['product_qty'][$i]) {
-                                                $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                $qty += $data['product_qty'][$i];
-                                            } else {
-                                                if ($qty == 0) {
-                                                    if ($va->product_qty == $data['product_qty'][$i]) {
-                                                        $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                        $qty += $data['product_qty'][$i];
-                                                    } else if ($va->product_qty > $data['product_qty'][$i]) {
-                                                        $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                        $qty += $data['product_qty'][$i];
+                                        if ($getHtr > 0) {
+                                            // Lấy số lượng sản phẩm đã bán tại vị trí hiện tại
+                                            $curremt_export = History::where('history_import', $value->id)
+                                                ->where('product_id', $value->product_id)
+                                                ->where('workspace_id', Auth::user()->current_workspace)
+                                                ->first();
+                                            if ($curremt_export) {
+                                                $remaining_amount = $value->product_qty - $curremt_export->qty_export;
+                                                if ($temp > 0) {
+                                                    if ($remaining_amount == $data['product_qty'][$i] - $temp) {
+                                                        $count_export = $data['product_qty'][$i] - $temp;
+                                                    } elseif ($remaining_amount > $data['product_qty'][$i] - $temp) {
+                                                        $count_export = $data['product_qty'][$i] - $temp;
                                                     } else {
-                                                        $dataHistory['qty_export'] = $va->product_qty;
-                                                        $qty += $va->product_qty;
+                                                        $count_export = $value->product_qty - $remaining_amount;
                                                     }
                                                 } else {
-                                                    $dataHistory['qty_export'] = $data['product_qty'][$i] - $qty;
-                                                    $qty += $data['product_qty'][$i] - $qty;
+                                                    if ($remaining_amount == $data['product_qty'][$i]) {
+                                                        $count_export = $data['product_qty'][$i];
+                                                        var_dump("TH1");
+                                                    } elseif ($remaining_amount > $data['product_qty'][$i]) {
+                                                        $count_export = $data['product_qty'][$i];
+                                                        var_dump("TH2");
+                                                    } else {
+                                                        $count_export = $data['product_qty'][$i] - $remaining_amount;
+                                                        var_dump("TH3");
+                                                    }
+                                                }
+                                            } else {
+                                                if ($temp > 0) {
+                                                    if ($value->product_qty == $data['product_qty'][$i] - $temp) {
+                                                        $count_export = $value->product_qty;
+                                                    } else if ($value->product_qty > $data['product_qty'][$i] - $temp) {
+                                                        $count_export = $data['product_qty'][$i] - $temp;
+                                                    } else {
+                                                        $count_export = $value->product_qty;
+                                                    }
+                                                } else {
+                                                    if ($value->product_qty == $data['product_qty'][$i]) {
+                                                        $count_export = $data['product_qty'][$i];
+                                                        var_dump("TH4");
+                                                    } elseif ($value->product_qty > $data['product_qty'][$i]) {
+                                                        $count_export = $data['product_qty'][$i];
+                                                        var_dump("TH5");
+                                                    } else {
+                                                        // $count_export = $temp == 0 ? $value->product_qty : ($data['product_qty'][$i] - $value->product_qty < $data['product_qty'][$i] ? $data['product_qty'][$i] - $value->product_qty - $temp : $data['product_qty'][$i] - $temp);
+                                                        $count_export = $value->product_qty;
+                                                        var_dump("TH6.1");
+                                                    }
                                                 }
                                             }
+                                            $temp += $count_export;
                                         } else {
-                                            if ($getHtr == 0 && $getHtr != null) {
-                                                if ($va->product_qty - $temp == $data['product_qty'][$i]) {
-                                                    $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                    $temp += $data['product_qty'][$i];
-                                                } else if ($va->product_qty - $temp > $data['product_qty'][$i]) {
-                                                    $dataHistory['qty_export'] = $data['product_qty'][$i];
-                                                    $temp += $data['product_qty'][$i];
+                                            if ($temp > 0) {
+                                                if ($value->product_qty == $data['product_qty'][$i] - $temp) {
+                                                    $count_export = $data['product_qty'][$i] - $temp;
+                                                } elseif ($value->product_qty > $data['product_qty'][$i] - $temp) {
+                                                    $count_export = $data['product_qty'][$i] - $temp;
                                                 } else {
-                                                    $dataHistory['qty_export'] = ($va->product_qty - $temp);
-                                                    $temp += ($va->product_qty - $temp);
+                                                    $count_export = $value->product_qty;
                                                 }
                                             } else {
-                                                if ($va->product_qty - $getHtr == $data['product_qty'][$i]) {
-                                                    $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
-                                                    $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
-                                                    $qty += $temp;
-                                                } else if ($va->product_qty - $getHtr > $data['product_qty'][$i]) {
-                                                    $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
-                                                    $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
-                                                    $qty += $temp;
+                                                if ($value->product_qty == $data['product_qty'][$i]) {
+                                                    $count_export = $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
+                                                    var_dump("TH44");
+                                                } elseif ($value->product_qty > $data['product_qty'][$i]) {
+                                                    $count_export = $temp == 0 ? $value->product_qty - $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
+                                                    var_dump("TH55");
                                                 } else {
-                                                    // $temp == 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
-                                                    // $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $data['product_qty'][$i] - $temp);
-                                                    if ($va->product_qty == $data['product_qty'][$i] - $temp) {
-                                                        $count_export = $getHtr > 0 ? $data['product_qty'][$i] : (($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp));
-                                                        $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
-                                                        // $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : ($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp));
-                                                    } else if ($va->product_qty > $data['product_qty'][$i] - $temp) {
-                                                        $count_export = ($va->product_qty > $data['product_qty'][$i] - $temp ? $data['product_qty'][$i] - $temp : $data['product_qty'][$i] - $temp);
-                                                        $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
-                                                    } else {
-                                                        $count_export = ($va->product_qty < $data['product_qty'][$i] - $temp ? $va->product_qty : $data['product_qty'][$i] - $temp);
-                                                        $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
-                                                    }
-                                                    $getHtr > 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $count_export;
-                                                    $qty += $count_export;
+                                                    $count_export = $temp == 0 ? $value->product_qty : ($data['product_qty'][$i] - $value->product_qty);
+                                                    // - $temp > 0 ? $data['product_qty'][$i] - $value->product_qty - $temp : $value->product_qty);
+                                                    var_dump("TH66");
                                                 }
                                             }
+                                            $temp += $count_export;
                                         }
                                     }
-                                    if ($getHtr > 0) {
-                                        if (!$check || $qty <= $data['product_qty'][$i]) {
-                                            $history->addHistory($dataHistory);
-                                        }
-                                        if ($qty > $data['product_qty'][$i]) {
-                                            $check = true;
-                                        }
-                                    } else {
-                                        if (!$check || $qty < $data['product_qty'][$i]) {
-                                            $history->addHistory($dataHistory);
-                                        }
-                                        if ($qty >= $data['product_qty'][$i]) {
-                                            $check = true;
-                                        }
-                                    }
+                                }
+                                $dataHistory['qty_export'] = $count_export;
+                                if (!$check) {
+                                    $history->addHistory($dataHistory);
+                                }
+                                if ($temp == $data['product_qty'][$i]) {
+                                    $check = true;
                                 }
                             }
                         }
+
+
+                        // $history_import = QuoteImport::where('product_id', $data['product_id'][$i])
+                        //     ->first();
+                        // // Add lịch sử giao dịch
+                        // $htrImport = QuoteImport::where('product_id', $data['product_id'][$i])
+                        //     ->where('workspace_id', Auth::user()->current_workspace)
+                        //     ->orderBy('id', 'ASC')
+                        //     ->get();
+                        // $qty = 0;
+                        // $count = 0;
+                        // $temp = 0;
+                        // $count_export = 0;
+                        // if ($htrImport) {
+                        //     $check = false;
+                        //     foreach ($htrImport as $index => $va) {
+
+                        //         $getProductSell = History::where('history_import', $va->id)
+                        //             ->where('workspace_id', Auth::user()->current_workspace)
+                        //             ->get();
+
+                        //         $getHtr = History::where('product_id', $va->product_id)
+                        //             ->where('workspace_id', Auth::user()->current_workspace)
+                        //             ->sum('qty_export');
+
+                        //         $history = new History();
+                        //         $dataHistory = [
+                        //             'detailexport_id' => $data['detailexport_id'],
+                        //             'delivered_id' => $delivered_id,
+                        //             'provide_id' => isset($va->getQuoteNumber) ? $va->getQuoteNumber->provide_id : 0,
+                        //             'detailimport_id' => $va->detailimport_id,
+                        //             'tax_import' => $va->product_tax,
+                        //             'price_import' => $va->price_export,
+                        //             'total_import' => $va->product_total,
+                        //             'history_import' => $va->id,
+                        //             'workspace_id' => Auth::user()->current_workspace,
+                        //             'user_id' => Auth::user()->id,
+                        //             'product_id' => $va->product_id,
+                        //             'delivery_id' => $delivery->id
+                        //         ];
+
+
+                        //         foreach ($getProductSell as $item) {
+                        //             $count += $item->qty_export;
+                        //         }
+                        //         // if ($count == $va->product_qty) {
+                        //         if ($getHtr == $qty) {
+                        //             var_dump(12312312312312);
+                        //             // $qty += $va->product_qty;
+                        //             if ($getHtr > 0) {
+                        //                 $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
+                        //                 $qty += $data['product_qty'][$i] - $temp;
+                        //                 $history->addHistory($dataHistory);
+                        //             } else {
+                        //                 $qty += $va->product_qty;
+                        //                 var_dump(12345);
+                        //                 continue;
+                        //             }
+                        //         } else {
+                        //             if ($va->product_qty == $getHtr) {
+                        //                 var_dump("TTH");
+                        //                 continue;
+                        //             } else if ($va->product_qty > ($getHtr + $data['product_qty'][$i])) {
+                        //                 $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
+                        //                 $qty += ($temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp);
+                        //                 var_dump("TH1");
+                        //             } else {
+                        //                 if ($getHtr == 0 && $getHtr != null) {
+                        //                     if ($va->product_qty == $data['product_qty'][$i]) {
+                        //                         $dataHistory['qty_export'] = $data['product_qty'][$i];
+                        //                         $qty += $data['product_qty'][$i];
+                        //                         $history->addHistory($dataHistory);
+                        //                     } else if ($va->product_qty > $data['product_qty'][$i]) {
+                        //                         $dataHistory['qty_export'] = $data['product_qty'][$i];
+                        //                         $qty += $data['product_qty'][$i];
+                        //                         var_dump("TH3");
+                        //                     } else {
+                        //                         if ($qty == 0) {
+                        //                             if ($va->product_qty == $data['product_qty'][$i]) {
+                        //                                 $dataHistory['qty_export'] = $data['product_qty'][$i];
+                        //                                 $qty += $data['product_qty'][$i];
+                        //                                 var_dump("TH4");
+                        //                             } else if ($va->product_qty > $data['product_qty'][$i]) {
+                        //                                 $dataHistory['qty_export'] = $data['product_qty'][$i];
+                        //                                 $qty += $data['product_qty'][$i];
+                        //                                 var_dump("TH4.1");
+                        //                             } else {
+                        //                                 $dataHistory['qty_export'] = $va->product_qty;
+                        //                                 $qty += $va->product_qty;
+                        //                                 var_dump("TH4.2");
+                        //                             }
+                        //                         } else {
+                        //                             $dataHistory['qty_export'] = $data['product_qty'][$i] - $qty;
+                        //                             $qty += $data['product_qty'][$i] - $qty;
+                        //                             var_dump("TH5");
+                        //                         }
+                        //                     }
+                        //                 } else {
+                        //                     if ($va->product_qty - $getHtr == $data['product_qty'][$i]) {
+                        //                         $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
+                        //                         $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
+                        //                         $qty += $temp;
+                        //                         var_dump("TH6");
+                        //                     } else if ($va->product_qty - $getHtr > $data['product_qty'][$i]) {
+                        //                         $temp == 0 ? $dataHistory['qty_export'] = $data['product_qty'][$i] : $dataHistory['qty_export'] = $data['product_qty'][$i] - $temp;
+                        //                         $temp += $temp == 0 ? $data['product_qty'][$i] : $data['product_qty'][$i] - $temp;
+                        //                         $qty += $temp;
+                        //                         var_dump("TH6.1");
+                        //                     } else {
+                        //                         if ($va->product_qty == $data['product_qty'][$i] - $temp) {
+                        //                             $count_export = $getHtr > 0 ? $data['product_qty'][$i] - $getHtr : (($va->product_qty == $data['product_qty'][$i] - $temp ? $va->product_qty  : $data['product_qty'][$i] - $temp));
+                        //                             $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
+                        //                             var_dump("TH6.2");
+                        //                         } else if ($va->product_qty > $data['product_qty'][$i] - $temp) {
+                        //                             $count_export = ($va->product_qty > $data['product_qty'][$i] - $temp ? $data['product_qty'][$i] - $temp : $data['product_qty'][$i] - $temp);
+                        //                             $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
+                        //                             var_dump("TH6.3");
+                        //                         } else {
+                        //                             $count_export = ($va->product_qty < $data['product_qty'][$i] - $temp ? $va->product_qty : $data['product_qty'][$i] - $temp);
+                        //                             $temp += ($temp == 0 ? ($va->product_qty - $getHtr) : $count_export);
+                        //                             var_dump("TH6.4");
+                        //                         }
+                        //                         $getHtr > 0 ? $dataHistory['qty_export'] = ($va->product_qty - $getHtr) : $dataHistory['qty_export'] = $count_export;
+                        //                         $qty += $count_export;
+                        //                     }
+                        //                 }
+                        //             }
+                        //             if ($getHtr > 0) {
+                        //                 if (!$check || $qty >= $data['product_qty'][$i]) {
+                        //                     $history->addHistory($dataHistory);
+                        //                 }
+                        //                 if ($qty > $data['product_qty'][$i]) {
+                        //                     $check = true;
+                        //                 }
+                        //             } else {
+                        //                 if (!$check || $qty < $data['product_qty'][$i]) {
+                        //                     $history->addHistory($dataHistory);
+                        //                 }
+                        //                 if ($qty >= $data['product_qty'][$i]) {
+                        //                     $check = true;
+                        //                 }
+                        //             }
+                        //         }
+                        //     }
+                        // }
                     } else {
                         if (isset($data['selected_serial_numbers']) && !$checkSN) {
                             $selectedSerialNumbers = $data['selected_serial_numbers'];
