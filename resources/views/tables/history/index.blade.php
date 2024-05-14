@@ -622,12 +622,12 @@
                                                 </td>
                                                 <td class="text-13-black text-right">
                                                     @if ($item->getQuoteImport)
-                                                        {{ number_format(($item->getQuoteImport->price_export * $item->getQuoteImport->product_qty * $item->getQuoteImport->product_tax == 99 ? 0 : $item->getQuoteImport->product_tax) / 100) }}
+                                                        {{ number_format(($item->getQuoteImport->price_export * $item->getQuoteImport->product_qty * ($item->getQuoteImport->product_tax == 99 ? 0 : $item->getQuoteImport->product_tax)) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right">
                                                     @if ($item->getQuoteImport)
-                                                        {{ number_format($item->getQuoteImport->product_total + ($item->getQuoteImport->price_export * $item->getQuoteImport->product_qty * $item->getQuoteImport->product_tax == 99 ? 0 : $item->getQuoteImport->product_tax) / 100) }}
+                                                        {{ number_format($item->getQuoteImport->product_total + ($item->getQuoteImport->price_export * $item->getQuoteImport->product_qty * ($item->getQuoteImport->product_tax == 99 ? 0 : $item->getQuoteImport->product_tax)) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black min-width180 text-center">
