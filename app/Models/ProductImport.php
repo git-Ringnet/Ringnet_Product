@@ -110,7 +110,7 @@ class ProductImport extends Model
                         } else if ($checkCBImport) {
                             $cbSN = $checkCBImport->cbSN;
                         } else {
-                            $cbSN = isset($data['cbSeri']) ? $data['cbSeri'][$i] : 1;
+                            $cbSN = isset($data['cbSeri'][$i]) ? $data['cbSeri'][$i] : 0;
                         }
                         $dataProductImport = [
                             'detailimport_id' => $id,
@@ -121,7 +121,6 @@ class ProductImport extends Model
                             'created_at' => Carbon::now(),
                             'workspace_id' => Auth::user()->current_workspace,
                             'user_id' => Auth::user()->id,
-                            // 'product_guarantee' => $data['product_guarantee'][$i]
                         ];
                     }
                 }

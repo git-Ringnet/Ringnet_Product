@@ -280,7 +280,7 @@
                                                 'endable' ||
                                                 data.cb[index] == 1 ?
                                                 'checked' : '') + ` ` + (
-                                                data.checked[index]) + ` type="checkbox" name="cbSeri[]" onclick="getDataCheckbox(this)"
+                                                data.checked[index]) + ` type="checkbox" onclick="getDataCheckbox(this)"
                                                     value="` + (data.checked[index] == 'endable' ||
                                                 data.cb[index] == 1 ? 1 :
                                                 0) + `" onclick="getDataCheckbox(this)">
