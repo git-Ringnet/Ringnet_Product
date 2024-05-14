@@ -1933,7 +1933,9 @@ input[type="checkbox"]:checked {
 .order_content .multiple_action {
     display: none;
 }
-
+.highlights {
+    background-color: #b8b7b7b0 !important;
+}
 .highlight {
     border: 2px solid red;
 }
@@ -2038,6 +2040,10 @@ input[type="checkbox"]:checked {
 .select2-container {
     min-width: 200px !important;
     width: 100% !important;
+}
+.important-style {
+    top: 30px !important;
+    left: 0px !important;
 }
 
 .select2-container--default

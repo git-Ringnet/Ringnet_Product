@@ -243,7 +243,7 @@
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="outer2 text-nowrap">
-                                <table id="example2" class="table table-hover">
+                                <table id="example2" class="table table-hover table-history">
                                     <thead class="sticky-head">
                                         {{-- SortType --}}
                                         <input type="hidden" id="perPageinput" name="perPageinput"
@@ -1295,6 +1295,25 @@
                 }
             });
         });
+    });
+
+    $(document).ready(function() {
+        $(".table-history tr").hover(
+            function() {
+                // Khi hover vào một hàng, lấy giá trị của input ẩn bên trong hàng đó
+                var deliveredId = $(this).find(".id-history").val();
+                // Thêm lớp highlight vào tất cả các hàng có cùng delivered_id
+                $(".table-history tr").each(function() {
+                    if ($(this).find(".id-history").val() === deliveredId) {
+                        $(this).addClass("highlights");
+                    }
+                });
+            },
+            function() {
+                // Khi dừng hover, loại bỏ lớp highlights khỏi tất cả các hàng
+                $(".table-history tr").removeClass("highlights");
+            }
+        );
     });
 </script>
 
