@@ -604,12 +604,8 @@
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest" <?php if ($detailExport->tinhTrang == 1) {
-                                        echo 'id="datePicker"';
-                                    } else {
-                                        echo 'readonly';
-                                    } ?>
-                                        name="date_quote" style="flex:2;"
+                                    <input class="text-13-black w-50 border-0 bg-input-guest" id="datePicker"
+                                        style="flex:2;"
                                         value="{{ date_format(new DateTime($detailExport->ngayBG), 'd/m/Y') }}" />
                                     <input type="hidden" id="hiddenDateInput" name="date_quote"
                                         value="{{ date_format(new DateTime($detailExport->ngayBG), 'Y-m-d') }}">
@@ -1460,13 +1456,32 @@
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script type="text/javascript">
     //
-    flatpickr("#datePicker", {
-        locale: "vn",
-        dateFormat: "d/m/Y",
-        onChange: function(selectedDates, dateStr, instance) {
-            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
-                "Y-m-d");
+    $(document).ready(function() {
+        flatpickr("#datePicker", {
+            locale: "vn",
+            dateFormat: "d/m/Y",
+            onChange: function(selectedDates, dateStr, instance) {
+                // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+                document.getElementById("hiddenDateInput").value = instance.formatDate(
+                    selectedDates[0],
+                    "Y-m-d");
+            },
+            onReady: function(selectedDates, dateStr, instance) {
+                updateHiddenInput(selectedDates[0], instance, "hiddenDateInput" + number);
+            },
+        });
+
+        function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+            // Lấy thời gian hiện tại
+            var currentTime = new Date();
+
+            // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+            var selectedDateTime = new Date(selectedDate);
+            selectedDateTime.setHours(currentTime.getHours());
+            selectedDateTime.setMinutes(currentTime.getMinutes());
+            selectedDateTime.setSeconds(currentTime.getSeconds());
+
+            document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
         }
     });
     // $("table tbody").sortable({

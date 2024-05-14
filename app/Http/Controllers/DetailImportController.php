@@ -1134,7 +1134,7 @@ class DetailImportController extends Controller
                     ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
                     ->where('quoteimport.product_name', $request->product_name)
                     ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
-                    ->where('detailimport.status', 2)
+                    ->whereIn('detailimport.status', [0,2])
                     ->select('quoteimport.*', 'provides.provide_name_display as nameProvide', 'detailimport.created_at as create')
                     ->get();
                 $data['history'] = $history;

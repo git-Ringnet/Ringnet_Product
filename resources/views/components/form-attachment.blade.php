@@ -2,44 +2,41 @@
     <table class="table table-hover bg-white rounded">
         <thead>
             <tr style="height:44px;">
-                <th class="border-right p-1 border-bottom">
+                <th class="border-right p-1">
                     <span class="text-table ml-2 text-secondary">Tên file</span>
                 </th>
-                <th class="border-right p-1 border-bottom">
+                <th class="border-right p-1">
                     <span class="text-table ml-2 text-secondary">Chủ sở hữu</span>
                 </th>
-                <th class="border-right p-1 border-bottom">
+                <th class="border-right p-1">
                     <span class="text-table ml-2 text-secondary">Chỉnh sửa cuối</span>
                 </th>
-                <th class="border-right p-1 border-bottom">
+                <th class="border-right p-1">
                     <span class="text-table ml-2 text-secondary">Kích cỡ</span>
                 </th>
-                <th class="p-1 border-bottom border-right"></th>
-                <th class="p-1 border-bottom"></th>
+                <th class="p-1 border-right"></th>
+                <th class="p-1"></th>
             </tr>
         </thead>
         <tbody>
             @if ($value->getAttachment($name))
                 @foreach ($value->getAttachment($name) as $item)
                     <tr>
-                        <td class="p-1 border-right padding-left35 border-bottom">
-                            <input type="checkbox" class="checkall-btn">
-                        </td>
-                        <td class="p-1 border-right border-bottom">
+                        <td class="p-1 border-right border-bottom border-top-0">
                             {{ $item->file_name }}
                         </td>
-                        <td class="p-1 border-right border-bottom">
+                        <td class="p-1 border-right border-bottom border-top-0">
                             @if ($item->getUsers)
                                 {{ $item->getUsers->name }}
                             @endif
                         </td>
-                        <td class="p-1 border-right border-bottom">
+                        <td class="p-1 border-right border-bottom border-top-0">
                             {{ date_format(new DateTime($item->created_at), 'd-m-Y') }}
                         </td>
-                        <td class="p-1 border-right border-bottom">
+                        <td class="p-1 border-right border-bottom border-top-0">
                             {{ $item->size }} KB
                         </td>
-                        <td class="p-1 border-right border-bottom">
+                        <td class="p-1 border-right border-bottom border-top-0">
                             <a href="{{ route('downloadFile', ['folder' => $name, 'file' => $item->file_name]) }}"
                                 download><svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +50,7 @@
                                 </svg>
                             </a>
                         </td>
-                        <td class="p-1 border-right border-bottom">
+                        <td class="p-1 border-bottom border-top-0">
                             <form onclick="return confirm('Bạn có chắc chắn muốn xoá !!')"
                                 action="{{ route('deleteFile', ['folder' => $name, 'file' => $item->file_name]) }}"
                                 method="post">
