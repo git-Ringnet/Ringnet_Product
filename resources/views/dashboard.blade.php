@@ -29,7 +29,7 @@
                                 doanh nghiệp</label>
                             <br>
                             <input class="form-control" type="text" name="name_company" placeholder="Nhập thông tin"
-                                style="padding-top: 4px;width:100%;border-radius: 4px;">
+                                style="padding-top: 4px;width:100%;border-radius: 4px;" autocomplete="off">
                             <br>
                             <br>
                             <label for=""
@@ -38,7 +38,7 @@
                             <br>
                             <input class="form-control" type="number" name="phone_number" id="phone_number"
                                 placeholder="Nhập thông tin" style="padding-top: 4px;width:100%;border-radius: 4px;"
-                                inputmode="numeric" required>
+                                inputmode="numeric" required autocomplete="off">
                             <div class="text-noiti text-13-red" style="color: red"></div>
                             <br>
                             <button type="submit"
@@ -77,7 +77,6 @@
                             <br>
                         @endforeach
                     @endif
-                    <input type="hidden" id="idUser" name="idUser" value="{{ Auth::user()->id }}">
                 </div>
             </div>
             <br>
@@ -157,11 +156,13 @@
         var previousValue = '';
         $('input[name="workspace_name"]').on('input', function() {
             var workspace_name = $(this).val();
-
-            // Kiểm tra nếu giá trị thay đổi so với giá trị trước đó
+            var sanitizedWorkspaceName = workspace_name.replace(/[^a-zA-Z0-9-_]/g, '');
+            if (workspace_name !== sanitizedWorkspaceName) {
+                $(this).val(sanitizedWorkspaceName);
+                workspace_name = sanitizedWorkspaceName;
+            }
             if (workspace_name !== previousValue) {
                 previousValue = workspace_name;
-
                 $.ajax({
                     url: '{{ route('checkWorkspaceName') }}',
                     type: 'GET',
@@ -173,19 +174,18 @@
                             $('.submit-workspacename').attr('disabled', true);
                             $('.text-wp').css('color', 'red');
                             $('.text-wp').text(data.msg);
-                            $('.submit-workspacename').hide()
+                            $('.submit-workspacename').hide();
                         } else {
                             $('.submit-workspacename').attr('disabled', false);
                             $('.text-wp').css('color', 'green');
                             $('.text-wp').text(data.msg);
-                            $('.submit-workspacename').show()
+                            $('.submit-workspacename').show();
                         }
                     }
                 });
             }
         });
     });
-
 
     $(document).on('change', '#file_restore', function(e) {
         e.preventDefault();
@@ -197,12 +197,10 @@
     })
     $('.workspace-link').on('click', function(event) {
         var workspaceId = $(this).data('id');
-        var idUser = $('#idUser').val();
         $.ajax({
             url: '{{ route('updateWorkspaceUser') }}',
             type: 'GET',
             data: {
-                idUser: idUser,
                 workspaceId: workspaceId,
             },
             success: function(data) {
@@ -213,10 +211,13 @@
     $(document).ready(function() {
         $('#phone_number').on('input', function() {
             var phone_number = $('#phone_number').val();
-            if (phone_number.length < 10 || phone_number.length > 11) {
+            var phone_regex =
+                /^0\d{9,10}$/; // Regular expression to check if it starts with 0 and has 10-11 digits
+
+            if (!phone_regex.test(phone_number)) {
                 $('#phone_number').css('border', '1px solid red');
                 $('.btn-submit').attr('disabled', true);
-                $('.text-noiti').text('Số điện thoại phải từ 10 đến 11 số');
+                $('.text-noiti').text('Số điện thoại phải bắt đầu bằng số 0 và có từ 10 đến 11 số');
             } else {
                 $('#phone_number').css('border', '1px solid #DFE1E4');
                 $('.btn-submit').attr('disabled', false);
@@ -224,6 +225,7 @@
             }
         });
     });
+
     $('.btn-submit').on('click', function(event) {
         event.preventDefault();
         var name_company = $('input[name="name_company"]').val();

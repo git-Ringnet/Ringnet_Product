@@ -106,16 +106,27 @@ class WorkspaceController extends Controller
     public function updateWorkspaceUser(Request $request)
     {
         if ($request->ajax()) {
-            $id = $request->idUser;
-            $data = [
-                'current_workspace' => $request->workspaceId,
-            ];
-            $new_user = $this->user->updateUser($id, $data);
-            $msg = response()->json([
-                'success' => true,
-                'msg' => 'Cập nhật thành công',
-                'new_date_form' => $new_user,
-            ]);
+            $id = Auth::user()->id;
+            $userWorkspace = UserWorkspaces::where('user_id', $id)
+                ->where('workspace_id', $request->workspaceId)
+                ->first();
+            // dd(!$userWorkspace);
+            if ($userWorkspace) {
+                $data = [
+                    'current_workspace' => $request->workspaceId,
+                ];
+                $new_user = $this->user->updateUser($id, $data);
+                $msg = response()->json([
+                    'success' => true,
+                    'msg' => 'Cập nhật thành công',
+                    'new_date_form' => $new_user,
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'msg' => 'Người dùng không có quyền truy cập vào workspace này.',
+                ], 403);
+            }
             return $msg;
         }
     }

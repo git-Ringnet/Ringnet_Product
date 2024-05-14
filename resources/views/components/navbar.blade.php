@@ -128,7 +128,6 @@
                         @endforeach
                     @endisset
                 </div>
-                <input type="hidden" id="idUser" name="idUser" value="{{ Auth::user()->id }}">
                 <div class="workspace_setting border-bottom">
                     @if (Auth::user()->origin_workspace === Auth::user()->current_workspace)
                         <a href="{{ route('overview', $workspacename) }}">Cài đặt workspace</a>
@@ -744,12 +743,10 @@
 
         $('.workspace-link').on('click', function(event) {
             var workspaceId = $(this).data('id');
-            var idUser = $('#idUser').val();
             $.ajax({
                 url: '{{ route('updateWorkspaceUser') }}',
                 type: 'GET',
                 data: {
-                    idUser: idUser,
                     workspaceId: workspaceId,
                 },
                 success: function(data) {}
@@ -822,7 +819,7 @@
 
             } else {
                 $.ajax({
-                    url: "{{ 'updateWorkspace' }}",
+                    url: '{{ route('updateWorkspace') }}',
                     type: "get",
                     data: {
                         phone_number: phoneNumber
