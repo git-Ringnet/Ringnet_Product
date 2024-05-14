@@ -158,9 +158,8 @@ class History extends Model
     {
         return $this->hasOne(QuoteImport::class, 'id', 'history_import');
     }
-    public function getReceive()
-    {
-        return $this->hasMany(Receive_bill::class, 'id', 'detailimport_id');
+    public function getReceive(){
+        return $this->hasMany(Receive_bill::class, 'detailimport_id', 'detailimport_id');
     }
     public function getDelivery()
     {

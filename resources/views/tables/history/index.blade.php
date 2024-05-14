@@ -573,13 +573,13 @@
                                                             {{ $item->getQtyImport->product_name }}
                                                         @endif --}}
                                                     @endif
-                                                </td> 
+                                                </td>
                                                 <td class="text-13-black">
                                                     @if ($item->getReceive)
                                                         @foreach ($item->getReceive as $value)
                                                             <a
                                                                 href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $value->id]) }}">
-                                                                <p>{{ $value->delivery_code }}</p>
+                                                                <p class="m-0">{{ $value->delivery_code }}</p>
                                                             </a>
                                                         @endforeach
                                                     @endif
@@ -589,7 +589,7 @@
                                                         @foreach ($item->getReciept as $value)
                                                             <a
                                                                 href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $value->id]) }}">
-                                                                <p>{{ $value->number_bill }}</p>
+                                                                <p class="m-0">{{ $value->number_bill }}</p>
                                                             </a>
                                                         @endforeach
                                                     @endif
@@ -598,7 +598,8 @@
                                                 <td class="text-13-black">
                                                     @if ($item->getReciept)
                                                         @foreach ($item->getReciept as $value)
-                                                            <p>{{ date_format(new DateTime($value->created_at), 'd/m/Y') }}
+                                                            <p class="m-0">
+                                                                {{ date_format(new DateTime($value->created_at), 'd/m/Y') }}
                                                             </p>
                                                         @endforeach
                                                     @endif
@@ -621,12 +622,12 @@
                                                 </td>
                                                 <td class="text-13-black text-right">
                                                     @if ($item->getQuoteImport)
-                                                        {{ number_format(($item->getQuoteImport->price_export * $item->getQuoteImport->product_qty * $item->getQuoteImport->product_tax) / 100) }}
+                                                        {{ number_format(($item->getQuoteImport->price_export * $item->getQuoteImport->product_qty * $item->getQuoteImport->product_tax == 99 ? 0 : $item->getQuoteImport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right">
                                                     @if ($item->getQuoteImport)
-                                                        {{ number_format($item->getQuoteImport->product_total + ($item->getQuoteImport->price_export * $item->getQuoteImport->product_qty * $item->getQuoteImport->product_tax) / 100) }}
+                                                        {{ number_format($item->getQuoteImport->product_total + ($item->getQuoteImport->price_export * $item->getQuoteImport->product_qty * $item->getQuoteImport->product_tax == 99 ? 0 : $item->getQuoteImport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black min-width180 text-center">
@@ -746,7 +747,7 @@
                                                         @foreach ($item->getDelivery as $value)
                                                             <a
                                                                 href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $value->id]) }}">
-                                                                <p>{{ $value->code_delivery }}</p>
+                                                                <p class="m-0">{{ $value->code_delivery }}</p>
                                                             </a>
                                                         @endforeach
                                                     @endif
@@ -757,7 +758,7 @@
                                                         @foreach ($item->getBillSale as $value)
                                                             <a
                                                                 href="{{ route('billSale.edit', ['workspace' => $workspacename, 'billSale' => $value->id]) }}">
-                                                                <p>{{ $value->number_bill }}</p>
+                                                                <p class="m-0">{{ $value->number_bill }}</p>
                                                             </a>
                                                         @endforeach
                                                     @endif
@@ -766,7 +767,8 @@
                                                     rowspan="{{ $count }}">
                                                     @if ($item->getBillSale)
                                                         @foreach ($item->getBillSale as $value)
-                                                            <p>{{ date_format(new DateTime($value->created_at), 'd/m/Y') }}
+                                                            <p class="m-0">
+                                                                {{ date_format(new DateTime($value->created_at), 'd/m/Y') }}
                                                             </p>
                                                         @endforeach
                                                     @endif

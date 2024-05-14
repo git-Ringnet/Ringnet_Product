@@ -45,7 +45,7 @@ class Products extends Model
     }
     public function getSerialNumber()
     {
-        return $this->hasMany(Serialnumber::class, 'product_id', 'id');
+        return $this->hasMany(Serialnumber::class, 'product_id', 'id')->where('workspace_id',Auth::user()->current_workspace);
     }
     public function getWarehouse()
     {
@@ -177,6 +177,7 @@ class Products extends Model
     }
     public function addProductTowarehouse($data, $id)
     {
+        // dd($data);
         $status = true;
         $receive = Receive_bill::where('id', $id)->first();
         if ($receive) {
