@@ -291,7 +291,7 @@ class Receive_bill extends Model
                             $dataUpdate = [
                                 'receive_qty' => $quoteImport->receive_qty - $item->product_qty
                             ];
-                            if($quoteImport->receive_qty - $item->product_qty == 0){
+                            if ($quoteImport->receive_qty - $item->product_qty == 0) {
                                 $dataUpdate['product_id'] = null;
                             }
                             DB::table('quoteimport')->where('id', $quoteImport->id)

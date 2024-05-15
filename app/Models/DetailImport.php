@@ -205,6 +205,7 @@ class DetailImport extends Model
             } else {
                 $dataImport = [
                     'reference_number' => $data['reference_number'],
+                    'created_at' => isset($data['date_quote']) ? $data['date_quote'] : Carbon::now()
                 ];
                 $result = DB::table($this->table)->where('id', $id)->update($dataImport);
             }

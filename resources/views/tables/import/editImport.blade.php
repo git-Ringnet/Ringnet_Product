@@ -277,8 +277,7 @@
                                                             value="{{ $item->product_note }}"
                                                             @if ($import->status != 1) echo readonly @endif>
                                                     </td>
-                                                    <td
-                                                        class="p-2 align-top border-bottom border-top-0 deleteRow">
+                                                    <td class="p-2 align-top border-bottom border-top-0 deleteRow">
                                                         <svg width='17' height='17' viewBox='0 0 17 17'
                                                             fill='none' xmlns='http://www.w3.org/2000/svg'>
                                                             <path fill-rule='evenodd' clip-rule='evenodd'
@@ -1296,32 +1295,36 @@
                     } else {
                         inputName = $('#form-name-' + id).val().trim();
                         inputDesc = $('#form-desc-' + id).val()
-                        $.ajax({
-                            url: routeAdd,
-                            type: "get",
-                            data: {
-                                table: id,
-                                inputName: inputName,
-                                inputDesc: inputDesc,
-                            },
-                            success: function(data) {
-                                if (data.success) {
-                                    $('#form-name-' + id).val('')
-                                    $('#form-desc-' + id).val('')
-                                    $('#' + id).closest('div').find('.closeModal')[0].click()
-                                    $(id == "import" ? '#price_effect' : '#terms_pay').val(data
-                                        .data);
-                                    $(id == "import" ? '#price_effect' : '#terms_pay').attr(
-                                        'data-id', data.id);
-                                    if (id == "import") {
-                                        var price_effect = `
+                        if (inputName == "" || inputDesc == "") {
+                            inputName == "" ? showAutoToast('warning', 'Vui lòng nhập tên biểu mẫu') :
+                                showAutoToast('warning', 'Vui lòng nhập nội dung')
+                        } else {
+                            $.ajax({
+                                url: routeAdd,
+                                type: "get",
+                                data: {
+                                    table: id,
+                                    inputName: inputName,
+                                    inputDesc: inputDesc,
+                                },
+                                success: function(data) {
+                                    if (data.success) {
+                                        $('#form-name-' + id).val('')
+                                        $('#form-desc-' + id).val('')
+                                        $('#' + id).closest('div').find('.closeModal')[0].click()
+                                        $(id == "import" ? '#price_effect' : '#terms_pay').val(data
+                                            .data);
+                                        $(id == "import" ? '#price_effect' : '#terms_pay').attr(
+                                            'data-id', data.id);
+                                        if (id == "import") {
+                                            var price_effect = `
                                         <li class="border" id="` + data.id +
-                                            `">
+                                                `">
                                             <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="` +
-                                            data.id + `" name="search-price-effect">
+                                                data.id + `" name="search-price-effect">
                                                 <span class="w-100 text-nav text-dark overflow-hidden">` + data
-                                            .inputName +
-                                            `</span>
+                                                .inputName +
+                                                `</span>
                                             </a>
 
                                             <div class="dropdown">
@@ -1330,27 +1333,28 @@
                                                 </button>
                                                 <div class="dropdown-menu date-form-setting" style="z-index: 100;">
                                                     <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
-                                            data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                                data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
                                                     <a class="dropdown-item delete-item" href="#" data-id="` + data
-                                            .id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                                .id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
                                                     <a class="dropdown-item set-default default-id ` + data.data +
-                                            `" id="default-id` + data.id +
-                                            `" href="#" data-name="import" data-id="` + data.id + `">
+                                                `" id="default-id` + data.id +
+                                                `" href="#" data-name="import" data-id="` + data
+                                                .id + `">
                                                         <i class="fa-solid fa-link" aria-hidden="true"></i> 
                                                     </a>
                                                 </div>
                                             </div>
                                         </li>
                                         `
-                                    } else {
-                                        var term_pay = `
+                                        } else {
+                                            var term_pay = `
                                         <li class="border" id="` + data.id +
-                                            `">
+                                                `">
                                             <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="` +
-                                            data.id + `" name="search-term-pay">
+                                                data.id + `" name="search-term-pay">
                                                 <span class="w-100 text-nav text-dark overflow-hidden">` + data
-                                            .inputName +
-                                            `</span>
+                                                .inputName +
+                                                `</span>
                                             </a>
 
                                             <div class="dropdown">
@@ -1359,41 +1363,44 @@
                                                 </button>
                                                 <div class="dropdown-menu date-form-setting" style="z-index: 100;">
                                                     <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
-                                            data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                                data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
                                                     <a class="dropdown-item delete-item" href="#" data-id="` + data
-                                            .id + `" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                                .id + `" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
                                                     <a class="dropdown-item set-default default-id ` + data.data +
-                                            `" id="default-id` + data.id +
-                                            `" href="#" data-name="termpay" data-id="` + data.id + `">
+                                                `" id="default-id` + data.id +
+                                                `" href="#" data-name="termpay" data-id="` + data
+                                                .id + `">
                                                         <i class="fa-solid fa-link" aria-hidden="true"></i> 
                                                     </a>
                                                 </div>
                                             </div>
                                         </li>
                                         `
+                                        }
+                                        $(id == "import" ? $('#listPriceEffect .p-1').after(
+                                            price_effect) : $('#listTermsPay .p-1').after(
+                                            term_pay))
+
+                                        showNotification('success', data.msg)
+
+                                        $.ajax({
+                                            url: "{{ route('addUserFlow') }}",
+                                            type: "get",
+                                            data: {
+                                                type: "DMH",
+                                                des: (id == "import" ?
+                                                    "Thêm mới hiệu lực báo giá" :
+                                                    "Thêm mới điều khoản")
+                                            },
+                                            success: function(data) {}
+                                        })
+                                    } else {
+                                        showNotification('warning', data.msg)
                                     }
-                                    $(id == "import" ? $('#listPriceEffect .p-1').after(
-                                        price_effect) : $('#listTermsPay .p-1').after(
-                                        term_pay))
-
-                                    showNotification('success', data.msg)
-
-                                    $.ajax({
-                                        url: "{{ route('addUserFlow') }}",
-                                        type: "get",
-                                        data: {
-                                            type: "DMH",
-                                            des: (id == "import" ?
-                                                "Thêm mới hiệu lực báo giá" :
-                                                "Thêm mới điều khoản")
-                                        },
-                                        success: function(data) {}
-                                    })
-                                } else {
-                                    showNotification('warning', data.msg)
                                 }
-                            }
-                        })
+                            })
+                        }
+
                     }
                 }
             } else {
@@ -1436,49 +1443,55 @@
                     inputName = $('#form-name-' + id).val().trim();
                     inputDesc = $('#form-desc-' + id).val()
                     inputField = $('#form_field').val()
-                    $.ajax({
-                        url: routeEdit,
-                        type: "get",
-                        data: {
-                            table: id,
-                            present_id: present_id,
-                            inputName: inputName,
-                            inputDesc: inputDesc,
-                            inputField: inputField
-                        },
-                        success: function(data) {
-                            if (data.success) {
-                                var get_dataID = (inputField == "import" ? $('#price_effect').data(
-                                    'id') : $('#terms_pay').data('id'))
-                                if (get_dataID != null) {
-                                    if (get_dataID == data.id) {
-                                        $('#' + (inputField == "import" ? "price_effect" :
-                                                "terms_pay"))
-                                            .val(data.form_desc)
+                    if (inputName == "" || inputDesc == "") {
+                        inputName == "" ? showAutoToast('warning', 'Vui lòng nhập tên biểu mẫu') :
+                            showAutoToast('warning', 'Vui lòng nhập nội dung')
+                    } else {
+                        $.ajax({
+                            url: routeEdit,
+                            type: "get",
+                            data: {
+                                table: id,
+                                present_id: present_id,
+                                inputName: inputName,
+                                inputDesc: inputDesc,
+                                inputField: inputField
+                            },
+                            success: function(data) {
+                                if (data.success) {
+                                    var get_dataID = (inputField == "import" ? $('#price_effect')
+                                        .data(
+                                            'id') : $('#terms_pay').data('id'))
+                                    if (get_dataID != null) {
+                                        if (get_dataID == data.id) {
+                                            $('#' + (inputField == "import" ? "price_effect" :
+                                                    "terms_pay"))
+                                                .val(data.form_desc)
+                                        }
                                     }
-                                }
-                                $('#' + (inputField == "import" ? "listPriceEffect" :
-                                    "listTermsPay")).find(
-                                    'li#' + data.id + " span").text(data.form_name)
-                                $('#' + id).closest('div').find('.closeModal')[0].click()
-                                showNotification('success', data.msg)
+                                    $('#' + (inputField == "import" ? "listPriceEffect" :
+                                        "listTermsPay")).find(
+                                        'li#' + data.id + " span").text(data.form_name)
+                                    $('#' + id).closest('div').find('.closeModal')[0].click()
+                                    showNotification('success', data.msg)
 
-                                $.ajax({
-                                    url: "{{ route('addUserFlow') }}",
-                                    type: "get",
-                                    data: {
-                                        type: "DMH",
-                                        des: (id == "import" ?
-                                            "Chỉnh sửa hiệu lực báo giá" :
-                                            "Chỉnh sửa điều khoản")
-                                    },
-                                    success: function(data) {}
-                                })
-                            } else {
-                                showNotification('warning', data.msg)
+                                    $.ajax({
+                                        url: "{{ route('addUserFlow') }}",
+                                        type: "get",
+                                        data: {
+                                            type: "DMH",
+                                            des: (id == "import" ?
+                                                "Chỉnh sửa hiệu lực báo giá" :
+                                                "Chỉnh sửa điều khoản")
+                                        },
+                                        success: function(data) {}
+                                    })
+                                } else {
+                                    showNotification('warning', data.msg)
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
                 }
             }
         })

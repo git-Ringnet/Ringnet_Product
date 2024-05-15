@@ -237,7 +237,8 @@
                                                 </td>
                                                 {{-- <td class="border p-0 bg-secondary"></td> --}}
                                                 <td class="border-right note p-2 align-top border-bottom border-top-0">
-                                                    <input type="text" class="border-0 py-1 w-100 height-32 text-13-black"
+                                                    <input type="text"
+                                                        class="border-0 py-1 w-100 height-32 text-13-black"
                                                         name="product_note[]" placeholder="Nhập ghi chú">
                                                 </td>
                                                 <td class="p-2 align-top border-bottom border-top-0 user_flow"
@@ -451,7 +452,8 @@
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
 
                                     <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                        name="quotation_number" style="flex:2; background-color:#F0F4FF;border-radius:4px;"
+                                        name="quotation_number"
+                                        style="flex:2; background-color:#F0F4FF;border-radius:4px;"
                                         placeholder="Chọn thông tin">
 
                                 </li>
@@ -735,7 +737,8 @@
                         data['price_effect'].forEach(function(element) {
                             var li =
                                 `
-                            <li class="p-2 align-items-center text-wrap border-top border-bottom rounded" id="` + element.id + `">
+                            <li class="p-2 align-items-center text-wrap border-top border-bottom rounded" id="` +
+                                element.id + `">
                                 <a href="javascript:void(0)"
                                     class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect"
                                     id="` + element.id + `" name="search-price-effect">
@@ -1197,7 +1200,8 @@
                         if (data.terms_pay) {
                             data.terms_pay.forEach(function(element) {
                                 var li = `
-                                <li class="p-2 align-items-center text-wrap border-top border-bottom" id="` + element.id +
+                                <li class="p-2 align-items-center text-wrap border-top border-bottom" id="` + element
+                                    .id +
                                     `">
                                 <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="` +
                                     element.id + `" name="search-term-pay">
@@ -1383,32 +1387,39 @@
                     } else {
                         inputName = $('#form-name-' + id).val().trim();
                         inputDesc = $('#form-desc-' + id).val()
-                        $.ajax({
-                            url: routeAdd,
-                            type: "get",
-                            data: {
-                                table: id,
-                                inputName: inputName,
-                                inputDesc: inputDesc,
-                            },
-                            success: function(data) {
-                                if (data.success) {
-                                    $('#form-name-' + id).val('')
-                                    $('#form-desc-' + id).val('')
-                                    $('#' + id).closest('div').find('.closeModal')[0].click()
-                                    $(id == "import" ? '#price_effect' : '#terms_pay').val(data
-                                        .data);
-                                    $(id == "import" ? '#price_effect' : '#terms_pay').attr(
-                                        'data-id', data.id);
-                                    if (id == "import") {
-                                        var price_effect = `
-                                        <li class="p-2 align-items-center text-wrap border-top border-bottom rounded" id="` + data.id +
-                                            `">
+                        if (inputName == "" || inputDesc == "") {
+                            inputName == "" ? showAutoToast('warning', 'Vui lòng nhập tên biểu mẫu') :
+                                showAutoToast('warning', 'Vui lòng nhập nội dung')
+                        } else {
+                            $.ajax({
+                                url: routeAdd,
+                                type: "get",
+                                data: {
+                                    table: id,
+                                    inputName: inputName,
+                                    inputDesc: inputDesc,
+                                },
+                                success: function(data) {
+                                    if (data.success) {
+                                        $('#form-name-' + id).val('')
+                                        $('#form-desc-' + id).val('')
+                                        $('#' + id).closest('div').find('.closeModal')[0].click()
+                                        $(id == "import" ? '#price_effect' : '#terms_pay').val(data
+                                            .data);
+                                        $(id == "import" ? '#price_effect' : '#terms_pay').attr(
+                                            'data-id', data.id);
+                                        if (id == "import") {
+                                            var price_effect =
+                                                `
+                                        <li class="p-2 align-items-center text-wrap border-top border-bottom rounded" id="` +
+                                                data
+                                                .id +
+                                                `">
                                             <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="` +
-                                            data.id + `" name="search-price-effect">
+                                                data.id + `" name="search-price-effect">
                                                 <span class="w-100 text-13-black overflow-hidden">` + data
-                                            .inputName +
-                                            `</span>
+                                                .inputName +
+                                                `</span>
                                             </a>
 
                                             <div class="dropdown">
@@ -1417,27 +1428,29 @@
                                                 </button>
                                                 <div class="dropdown-menu date-form-setting" style="z-index: 100;">
                                                     <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
-                                            data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                                data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
                                                     <a class="dropdown-item delete-item" href="#" data-id="` + data
-                                            .id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                                .id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
                                                     <a class="dropdown-item set-default default-id ` + data.data +
-                                            `" id="default-id` + data.id +
-                                            `" href="#" data-name="import" data-id="` + data.id + `">
+                                                `" id="default-id` + data.id +
+                                                `" href="#" data-name="import" data-id="` + data
+                                                .id + `">
                                                         <i class="fa-solid fa-link" aria-hidden="true"></i> 
                                                     </a>
                                                 </div>
                                             </div>
                                         </li>
                                         `
-                                    } else {
-                                        var term_pay = `
-                                        <li class="p-2 align-items-center text-wrap border-top border-bottom" id="` + data.id +
-                                            `">
+                                        } else {
+                                            var term_pay = `
+                                        <li class="p-2 align-items-center text-wrap border-top border-bottom" id="` +
+                                                data.id +
+                                                `">
                                             <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="` +
-                                            data.id + `" name="search-term-pay">
+                                                data.id + `" name="search-term-pay">
                                                 <span class="w-100 text-13-black overflow-hidden">` + data
-                                            .inputName +
-                                            `</span>
+                                                .inputName +
+                                                `</span>
                                             </a>
 
                                             <div class="dropdown">
@@ -1446,41 +1459,43 @@
                                                 </button>
                                                 <div class="dropdown-menu date-form-setting" style="z-index: 100;">
                                                     <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
-                                            data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                                data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
                                                     <a class="dropdown-item delete-item" href="#" data-id="` + data
-                                            .id + `" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                                .id + `" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
                                                     <a class="dropdown-item set-default default-id ` + data.data +
-                                            `" id="default-id` + data.id +
-                                            `" href="#" data-name="termpay" data-id="` + data.id + `">
+                                                `" id="default-id` + data.id +
+                                                `" href="#" data-name="termpay" data-id="` + data
+                                                .id + `">
                                                         <i class="fa-solid fa-link" aria-hidden="true"></i> 
                                                     </a>
                                                 </div>
                                             </div>
                                         </li>
                                         `
-                                    }
-                                    $(id == "import" ? $('#listPriceEffect .p-1').after(
-                                        price_effect) : $('#listTermsPay .p-1').after(
-                                        term_pay))
+                                        }
+                                        $(id == "import" ? $('#listPriceEffect .p-1').after(
+                                            price_effect) : $('#listTermsPay .p-1').after(
+                                            term_pay))
                                         showAutoToast('success', data.msg)
 
-                                    $.ajax({
-                                        url: "{{ route('addUserFlow') }}",
-                                        type: "get",
-                                        data: {
-                                            type: "DMH",
-                                            des: (id == "import" ?
-                                                "Thêm mới hiệu lực báo giá" :
-                                                "Thêm mới điều khoản")
-                                        },
-                                        success: function(data) {}
-                                    })
+                                        $.ajax({
+                                            url: "{{ route('addUserFlow') }}",
+                                            type: "get",
+                                            data: {
+                                                type: "DMH",
+                                                des: (id == "import" ?
+                                                    "Thêm mới hiệu lực báo giá" :
+                                                    "Thêm mới điều khoản")
+                                            },
+                                            success: function(data) {}
+                                        })
 
-                                } else {
-                                    showAutoToast('warning', data.msg)
+                                    } else {
+                                        showAutoToast('warning', data.msg)
+                                    }
                                 }
-                            }
-                        })
+                            })
+                        }
                     }
                 }
             } else {
@@ -1525,49 +1540,56 @@
                     inputName = $('#form-name-' + id).val().trim();
                     inputDesc = $('#form-desc-' + id).val()
                     inputField = $('#form_field').val()
-                    $.ajax({
-                        url: routeEdit,
-                        type: "get",
-                        data: {
-                            table: id,
-                            present_id: present_id,
-                            inputName: inputName,
-                            inputDesc: inputDesc,
-                            inputField: inputField
-                        },
-                        success: function(data) {
-                            if (data.success) {
-                                var get_dataID = (inputField == "import" ? $('#price_effect').data(
-                                    'id') : $('#terms_pay').data('id'))
-                                if (get_dataID != null) {
-                                    if (get_dataID == data.id) {
-                                        $('#' + (inputField == "import" ? "price_effect" :
-                                                "terms_pay"))
-                                            .val(data.form_desc)
+                    if (inputName == "" || inputDesc == "") {
+                        inputName == "" ? showAutoToast('warning', 'Vui lòng nhập tên biểu mẫu') :
+                            showAutoToast('warning', 'Vui lòng nhập nội dung')
+                    } else {
+                        $.ajax({
+                            url: routeEdit,
+                            type: "get",
+                            data: {
+                                table: id,
+                                present_id: present_id,
+                                inputName: inputName,
+                                inputDesc: inputDesc,
+                                inputField: inputField
+                            },
+                            success: function(data) {
+                                if (data.success) {
+                                    var get_dataID = (inputField == "import" ? $('#price_effect')
+                                        .data(
+                                            'id') : $('#terms_pay').data('id'))
+                                    if (get_dataID != null) {
+                                        if (get_dataID == data.id) {
+                                            $('#' + (inputField == "import" ? "price_effect" :
+                                                    "terms_pay"))
+                                                .val(data.form_desc)
+                                        }
                                     }
-                                }
-                                $('#' + (inputField == "import" ? "listPriceEffect" :
-                                    "listTermsPay")).find(
-                                    'li#' + data.id + " span").text(data.form_name)
-                                $('#' + id).closest('div').find('.closeModal')[0].click()
-                                showAutoToast('success', data.msg)
+                                    $('#' + (inputField == "import" ? "listPriceEffect" :
+                                        "listTermsPay")).find(
+                                        'li#' + data.id + " span").text(data.form_name)
+                                    $('#' + id).closest('div').find('.closeModal')[0].click()
+                                    showAutoToast('success', data.msg)
 
-                                $.ajax({
-                                    url: "{{ route('addUserFlow') }}",
-                                    type: "get",
-                                    data: {
-                                        type: "DMH",
-                                        des: (id == "import" ?
-                                            "Chỉnh sửa hiệu lực báo giá" :
-                                            "Chỉnh sửa điều khoản")
-                                    },
-                                    success: function(data) {}
-                                })
-                            } else {
-                                showAutoToast('warning', data.msg)
+                                    $.ajax({
+                                        url: "{{ route('addUserFlow') }}",
+                                        type: "get",
+                                        data: {
+                                            type: "DMH",
+                                            des: (id == "import" ?
+                                                "Chỉnh sửa hiệu lực báo giá" :
+                                                "Chỉnh sửa điều khoản")
+                                        },
+                                        success: function(data) {}
+                                    })
+                                } else {
+                                    showAutoToast('warning', data.msg)
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
+
                 }
             }
         })

@@ -288,7 +288,7 @@
                                                 <span class="d-flex justify-content-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="POnhap" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Số PO</button></a>
+                                                            class="btn-sort text-13" type="submit">SỐ PO</button></a>
                                                     <div class="icon" id="icon-POnhap"></div>
                                                 </span>
                                             </th>
@@ -400,8 +400,8 @@
                                                 <span class="d-flex justify-content-center align-items-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="HTTT" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Hình thức thanh
-                                                            toán</button></a>
+                                                            class="btn-sort text-13" type="submit">Hình thức
+                                                        </button></a>
                                                     <div class="icon" id="icon-HTTT"></div>
                                                 </span>
                                             </th>
@@ -419,8 +419,7 @@
                                                 <span class="d-flex justify-content-start align-items-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="POxuat" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">SỐ PO/ HỢP
-                                                            ĐỒNG</button></a>
+                                                            class="btn-sort text-13" type="submit">SỐ PO</button></a>
                                                     <div class="icon" id="icon-POxuat"></div>
                                                 </span>
                                             </th>
