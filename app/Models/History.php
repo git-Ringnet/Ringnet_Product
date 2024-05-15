@@ -158,7 +158,8 @@ class History extends Model
     {
         return $this->hasOne(QuoteImport::class, 'id', 'history_import');
     }
-    public function getReceive(){
+    public function getReceive()
+    {
         return $this->hasMany(Receive_bill::class, 'detailimport_id', 'detailimport_id');
     }
     public function getDelivery()
@@ -395,8 +396,10 @@ class History extends Model
                 $query->orWhere('products.product_name', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('detailimport.provide_name', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('detailexport.guest_name', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('detailimport.reference_number', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('detailexport.reference_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailimport.quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailexport.quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('reciept.number_bill', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('bill_sale.number_bill', 'like', '%' . $data['search'] . '%');
                 // $query->orWhere('provides.provide_name_display', 'like', '%' . $data['search'] . '%');
                 $query->orWhereIn('delivered.id', $product);
             });

@@ -45,7 +45,7 @@ class Products extends Model
     }
     public function getSerialNumber()
     {
-        return $this->hasMany(Serialnumber::class, 'product_id', 'id')->where('workspace_id',Auth::user()->current_workspace);
+        return $this->hasMany(Serialnumber::class, 'product_id', 'id')->where('workspace_id', Auth::user()->current_workspace);
     }
     public function getWarehouse()
     {
@@ -61,7 +61,7 @@ class Products extends Model
     }
     public function getDelivered($id)
     {
-        return $this->hasMany(Delivered::class, 'id', 'product_id')->where('delivery_id',$id);
+        return $this->hasMany(Delivered::class, 'id', 'product_id')->where('delivery_id', $id);
     }
 
 

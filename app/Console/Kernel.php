@@ -23,17 +23,17 @@ class Kernel extends ConsoleKernel
             $payOrder = PayOder::all();
             if ($payOrder) {
                 foreach ($payOrder as $pay) {
-                    if($pay->debt > 0){
+                    if ($pay->debt > 0) {
                         $startDate = Carbon::now()->startOfDay();
                         $endDate = Carbon::parse($pay->payment_date);
                         $daysDiffss = $startDate->diffInDays($endDate);
-    
+
                         if ($endDate < $startDate) {
                             $daysDiff = -$daysDiffss;
                         } else {
                             $daysDiff = $daysDiffss;
                         }
-    
+
                         // Cập nhật lại tình trạng đơn hàng
                         if ($daysDiff <= 3 && $daysDiff > 0) {
                             $status = 3;

@@ -105,7 +105,7 @@ class DeliveryController extends Controller
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
             ->distinct()
-            ->orderby('detailexport.id','DESC')
+            ->orderby('detailexport.id', 'DESC')
             ->get();
         $product = $this->product->getAllProducts();
         return view('tables.export.delivery.create-delivery', compact('title', 'numberQuote', 'product', 'workspacename'));
@@ -448,7 +448,7 @@ class DeliveryController extends Controller
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
         }
         if (isset($data['shipping_fee']) && $data['shipping_fee'][1] !== null) {
-            $filters[] = ['value' => 'Phí vận chuyển: ' . $data['shipping_fee'][0] . ' ' . $data['shipping_fee'][1], 'name' => 'shipping_fee', 'icon' => 'money'];
+            $filters[] = ['value' => 'Phí giao hàng: ' . $data['shipping_fee'][0] . ' ' . $data['shipping_fee'][1], 'name' => 'shipping_fee', 'icon' => 'money'];
         }
         if (isset($data['date']) && $data['date'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));

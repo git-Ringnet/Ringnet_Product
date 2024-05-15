@@ -833,12 +833,17 @@
                                                         {{ $item->getDetailExport->getPayExport->payment_type }}
                                                     @endif
                                                 </td>
-                                                <td data-toggle="modal" data-target="#snModal"
-                                                    data-delivery-id="{{ $item->delivery_id }}"
-                                                    data-product-id="{{ $item->product_id }}"
-                                                    class="sn {{ $countClass }}" rowspan="{{ $count }}">
-                                                    <img src="../../dist/img/icon/list.png">
-                                                </td>
+                                                @if (isset($item->getProduct) && $item->getProduct->check_seri == 1)
+                                                    <td data-toggle="modal" data-target="#snModal"
+                                                        data-delivery-id="{{ $item->delivery_id }}"
+                                                        data-product-id="{{ $item->product_id }}"
+                                                        class="sn {{ $countClass }}"
+                                                        rowspan="{{ $count }}">
+                                                        <img src="../../dist/img/icon/list.png">
+                                                    </td>
+                                                @else
+                                                    <td></td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>
