@@ -399,7 +399,7 @@ class ReceiveController extends Controller
         $data = $request->all();
         $filters = [];
         if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
-            $filters[] = ['value' => 'Số báo giá: ' . $data['quotenumber'], 'name' => 'quotenumber', 'icon' => 'po'];
+            $filters[] = ['value' => 'Đơn mua hàng: ' . $data['quotenumber'], 'name' => 'quotenumber', 'icon' => 'po'];
         }
         if (isset($data['provides']) && $data['provides'] !== null) {
             $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides', 'icon' => 'user'];

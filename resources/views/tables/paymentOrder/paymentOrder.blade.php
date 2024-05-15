@@ -56,7 +56,7 @@
                                             style="display: none;" />
                                     </div>
                                 </form>
-                                <div class="dropdown mx-2">
+                                <div class="dropdown mx-2 filter-all">
                                     <button class="btn-filter_search" data-toggle="dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">
@@ -211,7 +211,8 @@
                                                     </span>
                                                 </th>
                                             @endif
-                                            <th scope="col" class="my-0 py-2 border-bottom height-52" style="width: 8%;">
+                                            <th scope="col" class="my-0 py-2 border-bottom height-52"
+                                                style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC">
@@ -222,7 +223,8 @@
                                                     <div class="icon" id="icon-status"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2 border-bottom height-52" style="width: 10%;">
+                                            <th scope="col" class="my-0 py-2 border-bottom height-52"
+                                                style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment_date" data-sort-type="DESC"><button
@@ -233,7 +235,8 @@
                                                     <div class="icon" id="icon-payment_date"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2 border-bottom height-52" style="width: 10%;">
+                                            <th scope="col" class="my-0 py-2 border-bottom height-52"
+                                                style="width: 10%;">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total" data-sort-type="DESC"><button
@@ -243,7 +246,8 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2 border-bottom height-52" style="width: 10%;">
+                                            <th scope="col" class="my-0 py-2 border-bottom height-52"
+                                                style="width: 10%;">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment" data-sort-type="DESC"><button
@@ -626,7 +630,10 @@
                     // Tạo thẻ item-filter
                     var itemFilter = $('<div>').addClass(
                         'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
-                    ).attr('data-icon', item.icon);
+                    ).attr({
+                        'data-icon': item.icon,
+                        'data-button': item.name
+                    });
                     itemFilter.css('order', index);
                     // Thêm nội dung và thuộc tính data vào thẻ item-filter
                     itemFilter.append(

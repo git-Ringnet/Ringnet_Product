@@ -53,7 +53,7 @@
                                             style="display: none;" />
                                     </div>
                                 </form>
-                                <div class="dropdown mx-2">
+                                <div class="dropdown mx-2 filter-all">
                                     <button class="btn-filter_search" type="button" id="dropdownMenuButton"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -92,8 +92,8 @@
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-code"
                                                 data-button="code" type="button">Mã hàng hóa
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-name"
-                                                data-button="name" type="button">Tên hàng hóa
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-idName"
+                                                data-button="idName" type="button">Tên hàng hóa
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-inventory"
                                                 data-button="inventory" type="button">Số lượng tồn
@@ -101,7 +101,7 @@
                                         </div>
                                     </div>
                                     <x-filter-text name="code" title="Mã hàng hoá" />
-                                    <x-filter-checkbox :dataa='$product' button="products" name="name"
+                                    <x-filter-checkbox :dataa='$product' button="products" name="idName"
                                         title="Tên hàng hóa" namedisplay="product_name" />
                                     <x-filter-compare name="inventory" button="products" title="Số lượng tồn" />
                                 </div>
@@ -279,8 +279,8 @@
         var buttonName = $(this).data('button');
         var btn_submit = $(this).data('button-name');
 
-        if ($(this).data('button-name') === 'name') {
-            $('.ks-cboxtags-name input[type="checkbox"]').each(function() {
+        if ($(this).data('button-name') === 'idName') {
+            $('.ks-cboxtags-idName input[type="checkbox"]').each(function() {
                 const value = $(this).val();
                 if ($(this).is(':checked') && idName.indexOf(value) === -1) {
                     idName.push(value);
@@ -365,7 +365,10 @@
                     // Tạo thẻ item-filter
                     var itemFilter = $('<div>').addClass(
                         'item-filter span input-search d-flex justify-content-center align-items-center mr-2'
-                    ).attr('data-icon', item.icon);
+                    ).attr({
+                        'data-icon': item.icon,
+                        'data-button': item.name
+                    });
                     itemFilter.css('order', index);
                     // Thêm nội dung và thuộc tính data vào thẻ item-filter
                     itemFilter.append(

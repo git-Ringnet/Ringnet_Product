@@ -1134,7 +1134,7 @@ class DetailImportController extends Controller
                     ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
                     ->where('quoteimport.product_name', $request->product_name)
                     ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
-                    ->whereIn('detailimport.status', [0,2])
+                    ->whereIn('detailimport.status', [0, 2])
                     ->select('quoteimport.*', 'provides.provide_name_display as nameProvide', 'detailimport.created_at as create')
                     ->get();
                 $data['history'] = $history;
@@ -1156,13 +1156,9 @@ class DetailImportController extends Controller
             $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides', 'icon' => 'user'];
         }
         if (isset($data['reference_number']) && $data['reference_number'] !== null) {
-            $detailImport = $this->detailImport->reference_numberById($data['reference_number']);
-            $detailImportString = implode(', ', $detailImport);
             $filters[] = ['value' => 'Số tham chiếu: ' . $data['reference_number'], 'name' => 'reference_number', 'icon' => 'po'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
-            $users = $this->users->getNameUser($data['users']);
-            $userstring = implode(', ', $users);
             $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users', 'icon' => 'user'];
         }
         $statusText = '';

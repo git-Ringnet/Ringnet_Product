@@ -68,7 +68,7 @@
                                             style="display: none;" />
                                     </div>
                                 </form>
-                                <div class="dropdown mx-2">
+                                <div class="dropdown mx-2 filter-all">
                                     <button class="btn-filter_search" data-toggle="dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">
@@ -1366,7 +1366,7 @@
                                                 var
                                                     invalidInventoryProducts = [];
                                                 var
-                                            invalidInventorySN = [];
+                                                    invalidInventorySN = [];
                                                 var sanPhamHetSN = [];
                                                 $(".bg-white.addProduct")
                                                     .each(
@@ -1384,7 +1384,7 @@
                                                             var checkbox =
                                                                 $(
                                                                     this
-                                                                    )
+                                                                )
                                                                 .find(
                                                                     ".check-add-sn"
                                                                 );
@@ -1392,21 +1392,23 @@
                                                             var quantity =
                                                                 parseFloat(
                                                                     $(
-                                                                        this)
+                                                                        this
+                                                                        )
                                                                     .find(
                                                                         ".quantity-input"
                                                                     )
                                                                     .val()
-                                                                    );
+                                                                );
                                                             var type =
                                                                 parseFloat(
                                                                     $(
-                                                                        this)
+                                                                        this
+                                                                        )
                                                                     .find(
                                                                         ".type"
                                                                     )
                                                                     .val()
-                                                                    );
+                                                                );
                                                             var productNameInventory =
                                                                 $(this)
                                                                 .find(
@@ -1446,14 +1448,16 @@
                                                                     );
                                                                 var productId =
                                                                     $(
-                                                                        this)
+                                                                        this
+                                                                        )
                                                                     .find(
                                                                         ".product_id"
                                                                     )
                                                                     .val();
                                                                 var productName =
                                                                     $(
-                                                                        this)
+                                                                        this
+                                                                        )
                                                                     .find(
                                                                         ".product_name"
                                                                     )
@@ -1530,11 +1534,11 @@
                                                         $('#pdf_export')
                                                             .val(0);
                                                         e
-                                                    .preventDefault();
+                                                            .preventDefault();
                                                     } else {
                                                         if (invalidInventorySN
                                                             .length > 0
-                                                            ) {
+                                                        ) {
                                                             showAutoToast
                                                                 (
                                                                     'warning',
@@ -1611,7 +1615,7 @@
                                                                         'Vui lòng điền đủ thông tin sản phẩm'
                                                                     );
                                                                 e
-                                                            .preventDefault();
+                                                                    .preventDefault();
                                                             }
                                                         }
 
@@ -1626,7 +1630,7 @@
                                                 var
                                                     invalidInventoryProducts = [];
                                                 var
-                                            invalidInventorySN = [];
+                                                    invalidInventorySN = [];
                                                 var sanPhamHetSN = [];
                                                 $(".bg-white.addProduct")
                                                     .each(
@@ -1644,7 +1648,7 @@
                                                             var checkbox =
                                                                 $(
                                                                     this
-                                                                    )
+                                                                )
                                                                 .find(
                                                                     ".check-add-sn"
                                                                 );
@@ -1652,21 +1656,23 @@
                                                             var quantity =
                                                                 parseFloat(
                                                                     $(
-                                                                        this)
+                                                                        this
+                                                                        )
                                                                     .find(
                                                                         ".quantity-input"
                                                                     )
                                                                     .val()
-                                                                    );
+                                                                );
                                                             var type =
                                                                 parseFloat(
                                                                     $(
-                                                                        this)
+                                                                        this
+                                                                        )
                                                                     .find(
                                                                         ".type"
                                                                     )
                                                                     .val()
-                                                                    );
+                                                                );
                                                             var productNameInventory =
                                                                 $(this)
                                                                 .find(
@@ -1706,14 +1712,16 @@
                                                                     );
                                                                 var productId =
                                                                     $(
-                                                                        this)
+                                                                        this
+                                                                        )
                                                                     .find(
                                                                         ".product_id"
                                                                     )
                                                                     .val();
                                                                 var productName =
                                                                     $(
-                                                                        this)
+                                                                        this
+                                                                        )
                                                                     .find(
                                                                         ".product_name"
                                                                     )
@@ -1790,11 +1798,11 @@
                                                         $('#pdf_export')
                                                             .val(0);
                                                         e
-                                                    .preventDefault();
+                                                            .preventDefault();
                                                     } else {
                                                         if (invalidInventorySN
                                                             .length > 0
-                                                            ) {
+                                                        ) {
                                                             showAutoToast
                                                                 (
                                                                     'warning',
@@ -1871,7 +1879,7 @@
                                                                         'Vui lòng điền đủ thông tin sản phẩm'
                                                                     );
                                                                 e
-                                                            .preventDefault();
+                                                                    .preventDefault();
                                                             }
                                                         }
 
@@ -2614,7 +2622,10 @@
                     // Tạo thẻ item-filter
                     var itemFilter = $('<div>').addClass(
                         'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
-                    ).attr('data-icon', item.icon);
+                    ).attr({
+                        'data-icon': item.icon,
+                        'data-button': item.name
+                    });
                     itemFilter.css('order', index);
                     // Thêm nội dung và thuộc tính data vào thẻ item-filter
                     itemFilter.append(

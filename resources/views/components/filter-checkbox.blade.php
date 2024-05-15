@@ -59,12 +59,20 @@
         $('.deselect-all-{{ $name }}').click(function() {
             $('.ks-cboxtags-{{ $name }} input[type="checkbox"]').prop('checked', false);
         });
-        $('.ks-cboxtags-{{ $name }} li, .ks-cboxtags-{{ $name }} label').on('click', function(
-            event) {
-            if (event.target.tagName !== 'INPUT') {
-                var checkbox = $(this).find('input[type="checkbox"]');
-                checkbox.prop('checked', !checkbox.prop('checked')); // Đảo ngược trạng thái checked
-            }
-        });
+        // $('.ks-cboxtags-{{ $name }} li, .ks-cboxtags-{{ $name }} label').on('click', function(
+        //     event) {
+        //     if (event.target.tagName !== 'INPUT') {
+        //         var checkbox = $(this).find('input[type="checkbox"]');
+        //         checkbox.prop('checked', !checkbox.prop('checked')); // Đảo ngược trạng thái checked
+        //     }
+        // });
+    });
+    $(document).on("click", ".ks-cboxtags-{{ $name }} li, .ks-cboxtags-{{ $name }} label", function(
+        e) {
+        e.preventDefault();
+        if (e.target.tagName !== 'INPUT') {
+            var checkbox = $(this).find('input[type="checkbox"]');
+            checkbox.prop('checked', !checkbox.prop('checked')); // Đảo ngược trạng thái checked
+        }
     });
 </script>

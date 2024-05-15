@@ -106,7 +106,7 @@
                                             style="display: none;">
                                     </div>
                                 </form>
-                                <div class="dropdown mx-2">
+                                <div class="dropdown mx-2 filter-all">
                                     <button class="btn-filter_search" data-toggle="dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">
@@ -1209,7 +1209,10 @@
                             // Tạo thẻ item-filter
                             var itemFilter = $('<div>').addClass(
                                 'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
-                            ).attr('data-icon', item.icon);
+                            ).attr({
+                                'data-icon': item.icon,
+                                'data-button': item.name
+                            });
                             itemFilter.css('order', index);
                             // Thêm nội dung và thuộc tính data vào thẻ item-filter
                             itemFilter.append(
@@ -1225,7 +1228,6 @@
                         // Ẩn hiện dữ liệu khi đã filterHistory
                         var historyIds = [];
                         // Lặp qua mảng provides và thu thập các historyIds
-                        console.log(data.history);
                         data.history.forEach(function(item) {
                             var historyId = item.delivered_id;
                             historyIds.push(historyId);

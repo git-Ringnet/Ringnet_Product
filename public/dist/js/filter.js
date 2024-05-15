@@ -17,7 +17,6 @@ function handleCancelClick(cancelBtn, input, options) {
         if (input) {
             input.val("");
         }
-        console.log(input);
         options.hide();
     });
 }
@@ -28,6 +27,7 @@ $(document).on("click", function (event) {
     ) {
         $(".block-options").hide();
         $(".btn-filter_search").prop("disabled", false);
+    } else if ($(event.target).closest(".important-style").length) {
     }
 });
 // Click show hide
@@ -35,22 +35,34 @@ $(document).on("click", ".btndropdown", function (e) {
     e.preventDefault();
     var buttonName = $(this).data("button");
     var absoluteItem = $("#" + buttonName + "-options");
-    $(".thienCo").append(absoluteItem);
+    $(".filter-all").append(absoluteItem);
 });
 
-$(document).on("click", ".item-filter", function (e) {
+$(document).on("click", ".item-icon, span", function (e) {
     e.preventDefault();
-    var buttonName = $(this).data("button");
-    var absoluteItem = $("#" + buttonName + "-options");
-    absoluteItem.appendTo($(this));
+    var parentItem = $(this).closest(".item-filter");
+    var buttonName = parentItem.data("button");
+    // var absoluteItem = $("#" + buttonName + "-options");
+    // absoluteItem.addClass("important-style");
+    // absoluteItem.appendTo(parentItem);
     if (
         !$(e.target).closest(
             "#cancel-" + buttonName + ",.block-options," + "#" + buttonName
         ).length
     ) {
-        console.log("dsad213");
         $("#" + buttonName + "-options").toggle();
     }
+    var buttonreport = parentItem.data("report");
+    if (buttonreport) {
+        console.log("#" + buttonName + "-" + buttonreport + "-options");
+    }
+});
+
+$(document).on("click", ".fa-xmark", function (e) {
+    e.preventDefault();
+    var buttonName = $(this).data("delete");
+    var absoluteItem = $("#" + buttonName + "-options");
+    $(".filter-all").append(absoluteItem);
 });
 
 $(".btn-filter_search").click(function () {
@@ -181,6 +193,7 @@ handleFilterClick($("#btn-TTX"), $("#TTX-options"), $(".TTX-input"));
 handleFilterClick($("#btn-HTTTX"), $("#HTTTX-options"), $(".HTTTX-input"));
 handleFilterClick($("#btn-HTTTN"), $("#HTTTN-options"), $(".HTTTN-input"));
 handleFilterClick($("#btn-date"), $("#date-options"), $(".date-input"));
+handleFilterClick($("#btn-idName"), $("#idName-options"), $(".idName-input"));
 handleFilterClick(
     $("#btn-dateHDX"),
     $("#dateHDX-options"),
@@ -401,6 +414,11 @@ handleCancelClick($("#cancel-HTTTX"), $(".HTTTX-input"), $("#HTTTX-options"));
 handleCancelClick($("#cancel-HTTTN"), $(".HTTTN-input"), $("#HTTTN-options"));
 handleCancelClick($("#cancel-date"), $(".date-input"), $("#date-options"));
 handleCancelClick($("#cancel-total"), $(".total-input"), $("#total-options"));
+handleCancelClick(
+    $("#cancel-idName"),
+    $(".idName-input"),
+    $("#idName-options")
+);
 handleCancelClick(
     $("#cancel-dateTTX"),
     $(".dateTTX-input"),

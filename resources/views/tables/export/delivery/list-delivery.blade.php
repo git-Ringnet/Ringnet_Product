@@ -68,7 +68,7 @@
                                             style="display: none;" />
                                     </div>
                                 </form>
-                                <div class="dropdown mx-2 thienCo">
+                                <div class="dropdown mx-2 filter-all">
                                     <button class="btn-filter_search" data-toggle="dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">
