@@ -255,7 +255,7 @@
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:48px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận hàng</span>
-                                <input type="text" placeholder="Chọn thông tin" name="delivery_code" required
+                                <input type="text" placeholder="Chọn thông tin" name="delivery_code"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
                             </li>
@@ -526,6 +526,12 @@
 
         });
 
+        if ($('input[name="quotation_number"]').val() == "" || $('input[name^="delivery_code"]').val() == "") {
+            formSubmit = false;
+            $('input[name="quotation_number"]').val() == "" ? showAutoToast('warning',
+                "Vui lòng chọn đơn mua hàng") : showAutoToast('warning', "Vui lòng nhập mã nhận hàng")
+        }
+
         if (formSubmit) {
             $.ajax({
                 url: "{{ route('checkSN') }}",
@@ -538,9 +544,11 @@
                 },
                 success: function(data) {
                     if (data['status'] == 'false') {
-                        showNotification('warning', 'Vui lòng nhập đủ số lượng seri sản phẩm ' +
-                            data[
-                                'productName'])
+                        showAutoToast('warning',"Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                            data['list']
+                            .join(
+                                ', '
+                            ));
                     } else {
                         // Kiểm tra sản phẩm đã tồn tại seri chưa
                         $.ajax({
@@ -572,8 +580,8 @@
                                                     'Mã nhận hàng đã tồn tại'
                                                 )
                                             } else {
-                                                updateProductSN()
-                                                $('form')[1].submit();
+                                                // updateProductSN()
+                                                // $('form')[1].submit();
                                             }
                                         }
                                     })

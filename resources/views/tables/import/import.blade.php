@@ -743,9 +743,14 @@
                     },
                     success: function(data) {
                         if (data['status'] == 'false') {
-                            showNotification('warning', 'Vui lòng nhập đủ số lượng seri sản phẩm ' +
-                                data[
-                                    'productName'])
+                            // showNotification('warning', 'Vui lòng nhập đủ số lượng seri sản phẩm ' +
+                            //     data[
+                            //         'productName'])
+                            showAutoToast('warning',"Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                            data['list']
+                            .join(
+                                ', '
+                            ));
                         } else {
                             // Kiểm tra sản phẩm đã tồn tại seri chưa
                             $.ajax({

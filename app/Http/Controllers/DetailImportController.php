@@ -641,6 +641,7 @@ class DetailImportController extends Controller
         $result = [];
         $status = "success";
         $productName = "123";
+        $listProduct = [];
         for ($i = 0; $i < count($data['listProductName']); $i++) {
             $check = Products::where('product_name', $data['listProductName'][$i])
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -656,12 +657,14 @@ class DetailImportController extends Controller
                 if ($data['listQty'][$i] != $data['listSN'][$i] && $data['checkSN'][$i] == 1) {
                     $status = "false";
                     $productName = $data['listProductName'][$i];
+                    array_push($listProduct,$data['listProductName'][$i]);
                 }
             }
         }
         $result = [
             'status' => $status,
             'productName' => $productName,
+            'list' => $listProduct
         ];
         return $result;
     }
