@@ -152,7 +152,7 @@ class History extends Model
     }
     public function getProductImport()
     {
-        return $this->hasOne(ProductImport::class, 'detailimport_id', 'detailimport_id');
+        return $this->hasOne(ProductImport::class, 'quoteImport_id', 'history_import');
     }
     public function getQuoteImport()
     {
