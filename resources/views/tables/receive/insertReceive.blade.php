@@ -580,8 +580,8 @@
                                                     'Mã nhận hàng đã tồn tại'
                                                 )
                                             } else {
-                                                // updateProductSN()
-                                                // $('form')[1].submit();
+                                                updateProductSN()
+                                                $('form')[1].submit();
                                             }
                                         }
                                     })
