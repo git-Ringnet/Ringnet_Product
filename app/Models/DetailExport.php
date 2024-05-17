@@ -46,6 +46,13 @@ class DetailExport extends Model
     {
         return $this->hasOne(PayExport::class, 'detailexport_id', 'id');
     }
+    public function getQuoteExport()
+    {
+        return $this->hasMany(QuoteExport::class, 'detailexport_id', 'id');
+    }
+    public function getGuest(){
+        return $this->hasOne(Guest::class, 'id', 'guest_id');
+    }
 
     public function getAllDetailExport()
     {
@@ -214,12 +221,15 @@ class DetailExport extends Model
     }
     public function sumSell($id)
     {
-        $sumSell = DetailExport::where('guest_id', $id)
-            ->whereIn('status', [2, 3])
-            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->selectRaw('SUM(total_price + total_tax) as sumSell')
-            ->value('sumSell');
-        return $sumSell;
+        if (isset($id)) {
+            $sumSell = DetailExport::where('guest_id', $id)
+                ->whereIn('status', [2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->selectRaw('SUM(total_price + total_tax) as sumSell')
+                ->value('sumSell');
+            return $sumSell;
+        } else {
+        }
     }
     // Ajax filter search history Guest
     public function historyFilterGuest($data)

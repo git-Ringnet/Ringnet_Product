@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\DetailExport;
 use App\Models\DetailImport;
 use App\Models\Guest;
+use App\Models\HistoryImport;
 use App\Models\PayExport;
 use App\Models\PayOder;
+use App\Models\Products;
 use App\Models\Provides;
+use App\Models\QuoteExport;
+use App\Models\QuoteImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -48,7 +52,6 @@ class ReportController extends Controller
         // Chuyển mảng labels và data thành chuỗi JSON để truyền vào biểu đồ JavaScript
         $labels = json_encode($labels);
         $data = json_encode($data);
-
         //Công ty còn dư nợ
         $labels1 = [];
         $data1 = [];
@@ -93,6 +96,22 @@ class ReportController extends Controller
             ->orderBy('year')
             ->orderBy('quarter')
             ->get();
+
+
+        // Công nợ nhà cung cấp
+        $provide = DetailImport::where('workspace_id', Auth::user()->current_workspace)->get();
+        $htrImport = HistoryImport::leftJoin('quoteexport', 'quoteexport.product_id', 'history_import.product_id')
+            ->leftJoin('delivery', 'delivery.id', 'quoteexport.deliver_id')
+            ->leftJoin('delivered', 'delivered.delivery_id', 'delivery.id')
+            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+            ->select('history_import.*', 'delivered.deliver_qty as qty_export', 'delivered.price_export as giaban')
+            ->get();
+        // $detailE = DB::table('detailexport')->where('workspace_id', Auth::user()->current_workspace)
+        // ->get();
+        $detailE = DetailExport::where('workspace_id',Auth::user()->current_workspace)->get();
+        $quoteexport = QuoteExport::where('workspace_id', Auth::user()->current_workspace)->get();
+        $countImport = QuoteImport::where('workspace_id', Auth::user()->current_workspace)->get();
+        $dataImport = DetailImport::where('workspace_id', Auth::user()->current_workspace)->get();
         return view('report.index', compact(
             'title',
             'guests',
@@ -105,7 +124,13 @@ class ReportController extends Controller
             'data3',
             'detailExport',
             'detailImport',
-            'revenueByQuarter'
+            'revenueByQuarter',
+            'provide',
+            'htrImport',
+            'quoteexport',
+            'detailE',
+            'countImport',
+            'dataImport'
         ));
     }
     public function view()

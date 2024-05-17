@@ -69,6 +69,9 @@ class DetailImport extends Model
     {
         return DB::table($this->table)->get();
     }
+    
+
+
     public function addImport($data)
     {
         $total = 0;
