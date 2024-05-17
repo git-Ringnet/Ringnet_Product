@@ -124,6 +124,8 @@ class Receive_bill extends Model
                     'status' => 0
                 ];
                 // $detail->status = 2;
+            }else{
+                $dataDetail['status_receive'] = 3;
             }
             if ($detail->status == 1) {
                 $dataDetail['status_debt'] = 1;

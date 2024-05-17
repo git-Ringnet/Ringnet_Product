@@ -103,6 +103,9 @@ class Reciept extends Model
             $dataDetail = [
                 'status' => 0,
             ];
+        } else {
+            $detail->status_reciept = 3;
+            $detail->save();
         }
 
         if ($detail->status == 1) {

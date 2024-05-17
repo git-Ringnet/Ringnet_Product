@@ -544,7 +544,7 @@
                 },
                 success: function(data) {
                     if (data['status'] == 'false') {
-                        showAutoToast('warning',"Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                        showAutoToast('warning',"Vui lòng nhập đủ seri cho các sản phẩm:\n" +
                             data['list']
                             .join(
                                 ', '

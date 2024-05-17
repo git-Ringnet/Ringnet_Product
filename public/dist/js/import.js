@@ -82,49 +82,55 @@ function formatCurrency(value) {
 
 function createRowInput(name) {
     var addRow = $(".addRow");
+
     for (let i = 0; i <= addRow.length; i++) {
         $(addRow[i])
             .off("click")
             .on("click", function () {
-                var modal_body = $(this)
-                    .closest(".modal-content")
-                    .find(".modal-body");
-                var newtr = document.createElement("tr");
-                var newtd1 = document.createElement("td");
-                var newtd2 = document.createElement("td");
-                var newtd3 = document.createElement("td");
-                var newtd4 = document.createElement("td");
-                var newDiv = document.createElement("input");
-                var stt = document.createElement("span");
-                var checkboxes = modal_body[0].querySelectorAll(
-                    // 'input[type="checkbox"]'
-                    '.deleteRow1 '
-                );
-                var checkboxCount = checkboxes.length + 1;
-                // checkbox.setAttribute("type", "checkbox");
-                // newtd1.append(checkbox);
-                newDiv.setAttribute("type", "text");
-                newDiv.setAttribute("class", "form-control w-100 border-0 pl-0");
-                newDiv.setAttribute("style", "background : none");
-                newDiv.setAttribute("name", name + i + "[]");
-                newtd3.append(newDiv);
-                newtd3.setAttribute("class", "border-bottom");
-                newtd2.setAttribute("class", "border-bottom");
-                newtd4.setAttribute("class", "deleteRow1 border-bottom");
-                newtd4.innerHTML =
-                    `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
+                SLTr = $(addRow[i]).closest('.modal-dialog').find('#table_SNS tbody tr').length;
+                id_target = $(addRow[i]).closest('.modal').attr('id');
+                SLProduct = $('#quickAction').find('a[data-target="#' + id_target + '"]').closest('tr').find('.quantity-input').val();
+                if (SLTr < SLProduct) {
+                    var modal_body = $(this)
+                        .closest(".modal-content")
+                        .find(".modal-body");
+                    var newtr = document.createElement("tr");
+                    var newtd1 = document.createElement("td");
+                    var newtd2 = document.createElement("td");
+                    var newtd3 = document.createElement("td");
+                    var newtd4 = document.createElement("td");
+                    var newDiv = document.createElement("input");
+                    var stt = document.createElement("span");
+                    var checkboxes = modal_body[0].querySelectorAll(
+                        // 'input[type="checkbox"]'
+                        '.deleteRow1 '
+                    );
+                    var checkboxCount = checkboxes.length + 1;
+                    // checkbox.setAttribute("type", "checkbox");
+                    // newtd1.append(checkbox);
+                    newDiv.setAttribute("type", "text");
+                    newDiv.setAttribute("class", "form-control w-100 border-0 pl-0");
+                    newDiv.setAttribute("style", "background : none");
+                    newDiv.setAttribute("name", name + i + "[]");
+                    newtd3.append(newDiv);
+                    newtd3.setAttribute("class", "border-bottom");
+                    newtd2.setAttribute("class", "border-bottom");
+                    newtd4.setAttribute("class", "deleteRow1 border-bottom");
+                    newtd4.innerHTML =
+                        `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.3687 5.5C10.6448 5.5 10.8687 5.72386 10.8687 6C10.8687 6.03856 10.8642 6.07699 10.8554 6.11452L9.3628 12.4581C9.1502 13.3615 8.3441 14 7.41597 14H4.58403C3.65593 14 2.84977 13.3615 2.6372 12.4581L1.14459 6.11452C1.08135 5.84572 1.24798 5.57654 1.51678 5.51329C1.55431 5.50446 1.59274 5.5 1.6313 5.5H10.3687ZM6.5 0C7.88071 0 9 1.11929 9 2.5H11C11.5523 2.5 12 2.94772 12 3.5V4C12 4.27614 11.7761 4.5 11.5 4.5H0.5C0.22386 4.5 0 4.27614 0 4V3.5C0 2.94772 0.44772 2.5 1 2.5H3C3 1.11929 4.11929 0 5.5 0H6.5ZM6.5 1.5H5.5C4.94772 1.5 4.5 1.94772 4.5 2.5H7.5C7.5 1.94772 7.05228 1.5 6.5 1.5Z" fill="#6D7075"/>
                     </svg>`;
 
-                // newtd2.appendChild(stt);
-                // newtr.append(newtd1);
-                newtr.append(newtd2);
-                newtr.append(newtd3);
-                newtr.append(newtd4);
-                modal_body[0]
-                    .querySelector("#table_SNS tbody")
-                    .appendChild(newtr);
-                newtd2.innerHTML = checkboxCount;
+                    // newtd2.appendChild(stt);
+                    // newtr.append(newtd1);
+                    newtr.append(newtd2);
+                    newtr.append(newtd3);
+                    newtr.append(newtd4);
+                    modal_body[0]
+                        .querySelector("#table_SNS tbody")
+                        .appendChild(newtr);
+                    newtd2.innerHTML = checkboxCount;
+                }
             });
     }
 }

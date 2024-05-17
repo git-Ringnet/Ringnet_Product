@@ -163,8 +163,7 @@
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div id="title--fixed"
-                            class="content-title--fixed top-111 border-0">
+                        <div id="title--fixed" class="content-title--fixed top-111 border-0">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
                                 PHẨM</p>
                         </div>
@@ -393,8 +392,7 @@
                         <x-formsynthetic :import="$import"></x-formsynthetic>
                     </div>
                     <div id="files" class="tab-pane fade">
-                        <div id="title--fixed"
-                            class="content-title--fixed top-111">
+                        <div id="title--fixed" class="content-title--fixed top-111">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM
                             </p>
                         </div>
@@ -611,9 +609,7 @@
                 type: "DNH",
                 des: "Đính kèm file"
             },
-            success: function(data) {
-                console.log(data);
-            }
+            success: function(data) {}
         })
         $('#formSubmit')[0].submit();
     })

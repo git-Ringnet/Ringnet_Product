@@ -268,7 +268,7 @@ class PayOder extends Model
         $payorder = PayOder::where('detailimport_id', $id)->first();
         if ($payorder) {
             if ($payorder->payment == 0) {
-                $status = 0;
+                $status = 3;
             }
         }
 

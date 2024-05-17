@@ -662,6 +662,7 @@
 
     // Tạo INPUT SERI
     createRowInput('seri');
+    
     $('#file_restore').on('change', function(e) {
         e.preventDefault();
         $('#formSubmit').attr('action', '{{ route('addAttachment') }}');

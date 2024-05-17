@@ -339,12 +339,6 @@
                                                 </td>
                                                 <td class="text-center py-2 border-bottom border-top-0">
                                                     @if ($item->status_receive == 0)
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                            height="14" viewBox="0 0 14 14" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2ZM0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C14 10.866 10.866 14 7 14C3.13401 14 0 10.866 0 7Z"
-                                                                fill="#858585" />
-                                                        </svg>
                                                     @elseif ($item->status_receive == 1)
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" viewBox="0 0 16 16" fill="none">
@@ -355,23 +349,24 @@
                                                                 d="M11.8062 7.99694C11.8062 10.1009 10.1007 11.8064 7.99673 11.8064L7.99646 4.18742C10.1004 4.18742 11.8062 5.89299 11.8062 7.99694Z"
                                                                 fill="#E8B600" />
                                                         </svg>
-                                                    @else
+                                                    @elseif($item->status_receive == 2)
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                             height="14" viewBox="0 0 14 14" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                                 d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
                                                                 fill="#08AA36" fill-opacity="0.75" />
                                                         </svg>
-                                                    @endif
-                                                </td>
-                                                <td class="text-center py-2 border-bottom border-top-0">
-                                                    @if ($item->status_reciept == 0)
+                                                    @else
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                             height="14" viewBox="0 0 14 14" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                                 d="M7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2ZM0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C14 10.866 10.866 14 7 14C3.13401 14 0 10.866 0 7Z"
                                                                 fill="#858585" />
                                                         </svg>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center py-2 border-bottom border-top-0">
+                                                    @if ($item->status_reciept == 0)
                                                     @elseif ($item->status_reciept == 1)
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" viewBox="0 0 16 16" fill="none">
@@ -382,23 +377,24 @@
                                                                 d="M11.8062 7.99694C11.8062 10.1009 10.1007 11.8064 7.99673 11.8064L7.99646 4.18742C10.1004 4.18742 11.8062 5.89299 11.8062 7.99694Z"
                                                                 fill="#E8B600" />
                                                         </svg>
-                                                    @else
+                                                    @elseif($item->status_reciept == 2)
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                             height="14" viewBox="0 0 14 14" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                                 d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
                                                                 fill="#08AA36" fill-opacity="0.75" />
                                                         </svg>
-                                                    @endif
-                                                </td>
-                                                <td class="text-center py-2 border-bottom border-top-0">
-                                                    @if ($item->status_pay == 0)
+                                                    @else
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                             height="14" viewBox="0 0 14 14" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                                 d="M7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2ZM0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C14 10.866 10.866 14 7 14C3.13401 14 0 10.866 0 7Z"
                                                                 fill="#858585" />
                                                         </svg>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center py-2 border-bottom border-top-0">
+                                                    @if ($item->status_pay == 0)
                                                     @elseif ($item->status_pay == 1)
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" viewBox="0 0 16 16" fill="none">
@@ -409,12 +405,19 @@
                                                                 d="M11.8062 7.99694C11.8062 10.1009 10.1007 11.8064 7.99673 11.8064L7.99646 4.18742C10.1004 4.18742 11.8062 5.89299 11.8062 7.99694Z"
                                                                 fill="#E8B600" />
                                                         </svg>
-                                                    @else
+                                                    @elseif($item->status_pay == 2)
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                             height="14" viewBox="0 0 14 14" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                                 d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
                                                                 fill="#08AA36" fill-opacity="0.75" />
+                                                        </svg>
+                                                    @else
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                            height="14" viewBox="0 0 14 14" fill="none">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2ZM0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C14 10.866 10.866 14 7 14C3.13401 14 0 10.866 0 7Z"
+                                                                fill="#858585" />
                                                         </svg>
                                                     @endif
                                                 </td>
@@ -746,11 +749,12 @@
                             // showNotification('warning', 'Vui lòng nhập đủ số lượng seri sản phẩm ' +
                             //     data[
                             //         'productName'])
-                            showAutoToast('warning',"Không đủ số lượng tồn kho cho các sản phẩm:\n" +
-                            data['list']
-                            .join(
-                                ', '
-                            ));
+                            showAutoToast('warning',
+                                "Vui lòng nhập đủ seri cho các sản phẩm:\n" +
+                                data['list']
+                                .join(
+                                    ', '
+                                ));
                         } else {
                             // Kiểm tra sản phẩm đã tồn tại seri chưa
                             $.ajax({
