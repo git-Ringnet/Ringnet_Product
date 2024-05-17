@@ -51,9 +51,9 @@
     </div>
     <div class="content-filter-all bg-white">
         <section class="content-header--options p-0 border-custom">
-            <div class="width-18">
-                <ul class="header-options--nav nav nav-tabs margin-left32 border-bottom-0"
-                    style="width: 320px !important;">
+            <div class="w-100">
+                <ul class="header-options--nav nav nav-tabs margin-left32 border-bottom-0 w-100"
+                    style="">
                     <li class="active">
                         <a class="text-secondary pl-3 active text-15" data-toggle="tab" href="#dashboard">Tổng quan</a>
                     </li>
@@ -62,6 +62,33 @@
                     </li>
                     <li>
                         <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#import">Mua hàng</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#import">Đơn đặt hàng</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#import">Kết quả kinh doanh</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#import">Tổng kết bán hàng</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#import">Tổng kết giao hàng</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#import">Tổng kết mua hàng</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#import">Đối chiếu công nợ</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#import">Lợi nhuận bán hàng</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#import">Thống kê nhập xuất tồn kho</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#import">Thông tin công nợ nha cung cấp</a>
                     </li>
                 </ul>
             </div>
