@@ -1655,7 +1655,7 @@
                                                     <tr class="position-relative guests-info"
                                                         onclick="handleRowClick('checkbox', event);">
                                                         <input type="hidden" name="id-guest" class="id-guest"
-                                                            id="id-guest" value="{{ $item->guest_id }}">
+                                                            id="id-guest" value="">
                                                         <td>
                                                             <span class="margin-Right10">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"

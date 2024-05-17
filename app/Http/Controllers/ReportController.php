@@ -100,14 +100,17 @@ class ReportController extends Controller
 
         // Công nợ nhà cung cấp
         $provide = DetailImport::where('workspace_id', Auth::user()->current_workspace)->get();
-        $htrImport = HistoryImport::leftJoin('quoteexport', 'quoteexport.product_id', 'history_import.product_id')
-            ->leftJoin('delivery', 'delivery.id', 'quoteexport.deliver_id')
-            ->leftJoin('delivered', 'delivered.delivery_id', 'delivery.id')
-            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
-            // ->where('delivered.product_id','quoteexport.product_id')
-            ->select('history_import.*', 'quoteexport.workspace_id','delivered.product_id' ,'quoteexport.product_id','delivered.deliver_qty as qty_export', 'delivered.price_export as giaban')
-            ->get()
-            ->unique('id');
+        $htrImport = DB::table('history_import')
+        ->leftJoin('quoteexport', 'quoteexport.product_id', '=', 'history_import.product_id')
+        ->leftJoin('delivery', 'delivery.id', '=', 'quoteexport.deliver_id')
+        ->leftJoin('delivered', function($join) {
+            $join->on('delivered.delivery_id', '=', 'delivery.id')
+                 ->on('delivered.product_id', '=', 'quoteexport.product_id');
+        })
+        ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+        ->select('history_import.*', 'delivered.deliver_qty as qty_export', 'delivered.price_export as giaban')
+        ->get();
+            // ->unique('id')
         // $detailE = DB::table('detailexport')->where('workspace_id', Auth::user()->current_workspace)
         // ->get();
         // dd($htrImport);
