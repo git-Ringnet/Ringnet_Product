@@ -94,7 +94,7 @@
                     class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
-                <div class="container-fluided margin-top-72">
+                <div class="container-fluided margin-top-72" id="quickAction">
                     <section class="content">
                         <div class="content-info position-relative text-nowrap">
                             <table id="inputcontent" class="table table-hover bg-white rounded">
