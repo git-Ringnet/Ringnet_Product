@@ -802,18 +802,20 @@
                                                             @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            @if ($item->getPayOrder)
-                                                                {{ number_format($item->getPayOrder->total) }}
-                                                            @endif
+                                                            {{ number_format($item->total_tax) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             @if ($item->getPayOrder)
                                                                 {{ number_format($item->getPayOrder->payment) }}
+                                                            @else
+                                                                0
                                                             @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             @if ($item->getPayOrder)
-                                                                {{ number_format($item->getPayOrder->total - $item->getPayOrder->payment) }}
+                                                                {{ number_format($item->total_tax - $item->getPayOrder->payment) }}
+                                                            @else
+                                                                {{ number_format($item->total_tax) }}
                                                             @endif
                                                         </td>
 
@@ -1242,7 +1244,7 @@
                                                         <td class="py-2 text-13-black pl-0 text-wrap">
                                                             @if (isset($item->getQuoteExport))
                                                                 @foreach ($item->getQuoteExport as $value)
-                                                                    {{ $value->product_name }}
+                                                                    <p class="m-0"> {{ $value->product_name }}</p>
                                                                 @endforeach
                                                             @endif
                                                         </td>
@@ -1893,7 +1895,7 @@
                                                         <td class="py-2 text-13-black pl-0 text-wrap">
                                                             @if (isset($item->getProductImport))
                                                                 @foreach ($item->getProductImport as $value)
-                                                                    {{ $value->product_name }}
+                                                                    <p>{{ $value->product_name }}</p>
                                                                 @endforeach
                                                             @endif
                                                         </td>
