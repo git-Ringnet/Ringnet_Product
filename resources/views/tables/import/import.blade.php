@@ -19,9 +19,9 @@
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
                     <a href="{{ route('import.create', $workspacename) }}" class="user_flow mr-3" data-type="DMH"
-                        data-des="Tạo mới">
+                        data-des="Tạo mới" id="create" >
                         {{-- <a href="#" class="user_flow" data-type="DMH" data-des="Tạo mới"> --}}
-                        <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
+                            <button type="submit" class="custom-btn d-flex align-items-center h-100 mx-1">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -31,7 +31,8 @@
                                     d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
                                     fill="white" />
                             </svg>
-                            <span class="text-btnIner-primary ml-1">Tạo mới</span>
+                            {{-- <span class="ml-1">Tạo mới</span> --}}
+                            <p class="m-0 ml-1" style="font-weight: 500; font-size:13px; color:white" >Tạo mới</p>
                         </button>
                     </a>
                 </div>
@@ -675,9 +676,6 @@
     var svgbot =
         "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
 
-
-
-
     function getDate(number) {
         flatpickr("#datePicker" + number, {
             locale: "vn",
@@ -1117,6 +1115,7 @@
     $(document).on('click', '.user_flow', function(e) {
         var type = $(this).attr('data-type')
         var des = $(this).attr('data-des');
+        console.log(123);
         $.ajax({
             url: "{{ route('addUserFlow') }}",
             type: "get",
