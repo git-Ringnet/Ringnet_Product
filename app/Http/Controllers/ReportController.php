@@ -106,8 +106,7 @@ class ReportController extends Controller
             ->orderBy('quarter')
             ->get();
         // Công nợ nhà cung cấp
-        $provide = DetailImport::where('workspace_id', Auth::user()->current_workspace)->get();
-
+        $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
 
         // $htrImport = DB::table('history_import')
         // ->leftJoin('quoteexport', 'quoteexport.product_id', '=', 'history_import.product_id')
@@ -137,6 +136,9 @@ class ReportController extends Controller
             ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
             ->get();
         // dd($quoteexport);
+        // $detailE = DetailExport::where('workspace_id',Auth::user()->current_workspace)->get();
+        $guest = Guest::where('workspace_id',Auth::user()->current_workspace)->get();
+        // $quoteexport = QuoteExport::where('workspace_id', Auth::user()->current_workspace)->get();
         $countImport = QuoteImport::where('workspace_id', Auth::user()->current_workspace)->get();
         $dataImport = DetailImport::where('workspace_id', Auth::user()->current_workspace)->get();
         // Đơn đặt hàng
@@ -214,7 +216,7 @@ class ReportController extends Controller
             'provide',
             'htrImport',
             'quoteexport',
-            'detailE',
+            'guest',
             'countImport',
             'workspacename',
             'dataImport',

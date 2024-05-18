@@ -1940,34 +1940,34 @@
                                                                 data-button="export" data-sort-by="guest_code"
                                                                 data-sort-type="#">
                                                                 <button class="btn-sort" type="submit"><span
-                                                                        class="text-13">Tên khách hàng
+                                                                        class="text-13">Mã khách hàng
                                                                     </span></button>
                                                             </a>
                                                             <div class="icon" id="icon-export-guest_code"></div>
                                                         </span>
                                                     </th>
-                                                    {{-- <th scope="col" class="bg-white pl-0">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link btn-submit"
-                                                                data-button="export" data-sort-by="guest_name"
-                                                                data-sort-type="DESC">
-                                                                <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Nợ đầu kỳ</span>
-                                                                </button>
-                                                            </a>
-                                                            <div class="icon" id="icon-export-guest_name"></div>
-                                                        </span>
-                                                    </th> --}}
                                                     <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="export" data-sort-by="sumSell"
                                                                 data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Bán hàng</span>
+                                                                    <span class="text-13">Tên Khách hàng</span>
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-export-sumSell"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex justify-content-end">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Tổng tiền</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="bg-white pl-0">
@@ -1999,7 +1999,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="import" class="tbody-export">
-                                                @foreach ($detailE as $item)
+                                                @foreach ($guest as $item)
                                                     <tr class="position-relative guests-info"
                                                         onclick="handleRowClick('checkbox', event);">
                                                         <input type="hidden" name="id-guest" class="id-guest"
@@ -2028,29 +2028,39 @@
                                                                 onclick="event.stopPropagation();">
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-                                                            {{ $item->guest_name }}
+                                                            {{ $item->guest_code }}
                                                         </td>
-                                                        {{-- <td class="py-2 text-13-black pl-0">
-                                                            @if (isset($item->getGuest))
-                                                                {{number_format($item->getGuest->guest_debt)}}
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            {{ $item->guest_name_display }}
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 text-right">
+                                                            @if ($item->getAllDetailByID)
+                                                                @php
+                                                                    $total =
+                                                                        $item->getAllDetailByID->sum('total_price') +
+                                                                        $item->getAllDetailByID->sum('total_tax');
+                                                                @endphp
                                                             @endif
-                                                        </td> --}}
-                                                        <td class="py-2 text-13-black pl-0 text-wrap">
-                                                            @if (isset($item->getQuoteExport))
-                                                                @foreach ($item->getQuoteExport as $value)
-                                                                    <p class="m-0"> {{ $value->product_name }}</p>
+                                                            {{ number_format($total) }}
+
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 text-right">
+                                                            @php
+                                                                $debt = 0;
+                                                            @endphp
+                                                            @if ($item->getAllDetailByID)
+                                                                @foreach ($item->getAllDetailByID as $value)
+                                                                    @if ($value->getPayExport)
+                                                                        @php
+                                                                            $debt += $value->getPayExport->payment;
+                                                                        @endphp
+                                                                    @endif
                                                                 @endforeach
                                                             @endif
+                                                            {{ number_format($debt) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            @if (isset($item->getPayExport))
-                                                                {{ number_format($item->getPayExport->payment) }}
-                                                            @endif
-                                                        </td>
-                                                        <td class="py-2 text-13-black pl-0 text-right">
-                                                            @if (isset($item->getPayExport) && isset($item->getGuest))
-                                                                {{ number_format($item->getPayExport->payment + $item->getGuest->guest_debt) }}
-                                                            @endif
+                                                            {{ number_format($total - $debt) }}
                                                         </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">
@@ -2566,13 +2576,13 @@
                                                     <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
-                                                                data-button="export" data-sort-by="guest_code"
-                                                                data-sort-type="#">
-                                                                <button class="btn-sort" type="submit"><span
-                                                                        class="text-13">Mã nhà cung cấp
-                                                                    </span></button>
+                                                                data-button="export" data-sort-by="guest_name"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Mã nhà cung cấp</span>
+                                                                </button>
                                                             </a>
-                                                            <div class="icon" id="icon-export-guest_code"></div>
+                                                            <div class="icon" id="icon-export-guest_name"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="bg-white pl-0">
@@ -2587,25 +2597,13 @@
                                                             <div class="icon" id="icon-export-guest_name"></div>
                                                         </span>
                                                     </th>
-                                                    {{-- <th scope="col" class="bg-white pl-0">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link btn-submit"
-                                                                data-button="export" data-sort-by="sumSell"
-                                                                data-sort-type="DESC">
-                                                                <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Đầu kỳ</span>
-                                                                </button>
-                                                            </a>
-                                                            <div class="icon" id="icon-export-sumSell"></div>
-                                                        </span>
-                                                    </th> --}}
                                                     <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="export" data-sort-by="sumAmountOwed"
                                                                 data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Mua hàng</span>
+                                                                    <span class="text-13">Tổng tiền</span>
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-export-sumAmountOwed">
@@ -2618,7 +2616,7 @@
                                                                 data-button="export" data-sort-by="sumAmountOwed"
                                                                 data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Thu</span>
+                                                                    <span class="text-13">Thanh toán</span>
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-export-sumAmountOwed">
@@ -2642,28 +2640,6 @@
                                             </thead>
                                             <tbody id="import" class="tbody-export">
                                                 @foreach ($provide as $item)
-                                                    {{-- @php
-                                                        $totalPayment = 0;
-                                                    @endphp --}}
-
-                                                    {{-- @if ($item->getPayOrder && $item->getPayOrder->getAllHistoryPayments)
-                                                        @foreach ($item->getPayOrder->getAllHistoryPayments as $value)
-                                                            @php
-                                                                $itemCreatedAt = \Carbon\Carbon::parse(
-                                                                    $item->created_at,
-                                                                );
-                                                                $valueCreatedAt = \Carbon\Carbon::parse(
-                                                                    $value->created_at,
-                                                                );
-                                                            @endphp
-                                                            @if ($valueCreatedAt->greaterThan($itemCreatedAt))
-                                                                {{ $value->payment }}
-                                                                @php
-                                                                    $totalPayment += $value->payment;
-                                                                @endphp
-                                                            @endif
-                                                        @endforeach
-                                                    @endif --}}
                                                     <tr class="position-relative guests-info"
                                                         onclick="handleRowClick('checkbox', event);">
                                                         <input type="hidden" name="id-guest" class="id-guest"
@@ -2692,36 +2668,35 @@
                                                                 onclick="event.stopPropagation();">
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-                                                            @if ($item->getProvideName)
-                                                                {{ $item->getProvideName->provide_code }}
-                                                            @endif
+                                                            {{ $item->provide_code }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-                                                            @if ($item->getProvideName)
-                                                                {{ $item->getProvideName->provide_name_display }}
-                                                            @endif
+                                                            {{ $item->provide_name_display }}
                                                         </td>
-                                                        {{-- <td class="py-2 text-13-black pl-0">
-                                                            @if ($item->getProvideName)
-                                                            {{ number_format($item->getProvideName->provide_debt) }}
-                                                            @endif
-                                                        </td> --}}
                                                         <td class="py-2 text-13-black pl-0 text-wrap">
-                                                            @if (isset($item->getProductImport))
-                                                                @foreach ($item->getProductImport as $value)
-                                                                    <p>{{ $value->product_name }}</p>
-                                                                @endforeach
+                                                            @if ($item->getAllDetailByID)
+                                                                @php
+                                                                    $total = $item->getAllDetailByID
+                                                                        ->whereIn('status', [2, 0])
+                                                                        ->sum('total_tax');
+                                                                @endphp
+                                                                {{ number_format($total) }}
                                                             @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            @if ($item->getPayOrder)
-                                                                {{ number_format($item->getPayOrder->payment) }}
+                                                            @if ($item->getPayment && $item->getPayment->getHistoryPayment)
+                                                                @php
+                                                                    $debt = $item->getPayment->getHistoryPayment->sum(
+                                                                        'payment',
+                                                                    );
+                                                                @endphp
+                                                                <span class="px-1">
+                                                                    {{ number_format($debt) }}@else{{ 0 }}
+                                                                </span>
                                                             @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            @if (isset($item->getPayOrder) && isset($item->getProvideName))
-                                                                {{ number_format($item->getPayOrder->payment + $item->getProvideName->provide_debt) }}
-                                                            @endif
+                                                            {{ number_format($total - $debt) }}
                                                         </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">

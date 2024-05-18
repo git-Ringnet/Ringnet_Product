@@ -41,7 +41,6 @@ class PayOder extends Model
     }
     public function getHistoryPayment()
     {
-        // return $this->hasMany(HistoryPaymentOrder::class, 'payment_id', 'id');
         return $this->hasMany(HistoryPaymentOrder::class, 'provide_id', 'provide_id');
     }
 

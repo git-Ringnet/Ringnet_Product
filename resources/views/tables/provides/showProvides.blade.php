@@ -280,7 +280,6 @@
                                                         <td
                                                             class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom text-right">
                                                             @if ($provide->getAllDetailByID)
-                                                                {{-- @dd($provide->getAllDetail) --}}
                                                                 <span class="px-1">
                                                                     {{ number_format($provide->getAllDetailByID->whereIn('status', [2, 0])->sum('total_tax')) }}
                                                                 </span>
@@ -289,7 +288,6 @@
                                                         <td
                                                             class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom text-right">
                                                             @if ($provide->getPayment && $provide->getPayment->getHistoryPayment)
-                                                                {{-- @dd($provide->getPayment->getHistoryPayment) --}}
                                                                 <span class="px-1">
                                                                     {{ number_format($provide->getPayment->getHistoryPayment->sum('payment')) }}@else{{ 0 }}
                                                                 </span>
