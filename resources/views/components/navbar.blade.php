@@ -151,7 +151,7 @@
     </div>
     <div class="wrapper">
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light w-100 d-none">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light w-100 border-bottom-0">
             <!-- Left navbar links -->
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
