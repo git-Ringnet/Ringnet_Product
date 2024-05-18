@@ -900,6 +900,28 @@ td p {
     background-color: #f4f5f8;
 }
 
+.header-options--nav-2 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 13px;
+    align-items: center;
+    border-radius: 7px;
+    background-color: #f4f5f8;
+    list-style: none;
+    padding: 0;
+}
+
+.custom-nav li {
+    margin: 0 10px;
+}
+
+.custom-nav a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+}
+
 .header-options--nav li:first-child {
     color: #6c757d !important;
 }

@@ -52,9 +52,9 @@
     <div class="content-filter-all bg-white">
         <section class="content-header--options p-0 border-custom">
             <div class="w-100">
-                <ul class="header-options--nav nav nav-tabs margin-left32 border-bottom-0 w-100"
-                    style="justify-content:center !important;margin: 13px 0 0 0 !important;">
-                    <li class="active">
+                <ul class="header-options--nav-2 nav nav-tabs margin-left32 border-bottom-0 w-100 custom-nav"
+                    style="margin: 13px 0 0 0 !important;">
+                    {{-- <li class="active">
                         <a class="text-secondary px-1 text-15 d-none" data-toggle="tab" href="#dashboard">Tổng quan</a>
                     </li>
                     <li>
@@ -62,7 +62,7 @@
                     </li>
                     <li>
                         <a class="text-secondary px-1 text-15 d-none" data-toggle="tab" href="#import">Mua hàng</a>
-                    </li>
+                    </li> --}}
                     {{-- <li>
                         <a class="text-secondary px-1 text-15" data-toggle="tab" href="#kqkinhdoanh">Kết quả kinh
                             doanh</a>
@@ -94,7 +94,7 @@
                     </li>
                     <li>
                         <a class="text-secondary px-1 text-15" data-toggle="tab" href="#debtProvide">Công nợ
-                            nha cung cấp</a>
+                            nhà cung cấp</a>
                     </li>
                 </ul>
             </div>
