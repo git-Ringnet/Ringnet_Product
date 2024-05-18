@@ -2441,7 +2441,7 @@
                                                                 data-button="export" data-sort-by="sumAmountOwed"
                                                                 data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Giá vốn</span>
+                                                                    <span class="text-13">Giá tồn</span>
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-export-sumAmountOwed">
@@ -2699,7 +2699,7 @@
                                                             @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($total - $debt) }}
+                                                            {{ number_format($item->provide_debt) }}
                                                         </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">
