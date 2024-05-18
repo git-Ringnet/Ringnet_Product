@@ -132,11 +132,13 @@ class ReportController extends Controller
                 'products.product_inventory as product_inventory',
                 'history_import.product_id',
                 DB::raw('SUM(delivered.deliver_qty) as total_quantity'),
-                'history_import.product_total as giavon'
+                'history_import.product_total as giavon',
+                'history_import.price_export as gianhap'
             )
             ->groupBy(
                 'history_import.product_id',
                 'history_import.product_total',
+                'history_import.price_export',
                 'products.product_name',
                 'products.product_code',
                 'products.product_unit',
