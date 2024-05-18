@@ -52,46 +52,48 @@
     <div class="content-filter-all bg-white">
         <section class="content-header--options p-0 border-custom">
             <div class="w-100">
-                <ul class="header-options--nav nav nav-tabs margin-left32 border-bottom-0 w-100" style="">
+                <ul class="header-options--nav nav nav-tabs margin-left32 border-bottom-0 w-100"
+                    style="justify-content:center !important;margin: 13px 0 0 0 !important;">
                     <li class="active">
-                        <a class="text-secondary pl-3 active text-15" data-toggle="tab" href="#dashboard">Tổng quan</a>
+                        <a class="text-secondary px-1 text-15 d-none" data-toggle="tab" href="#dashboard">Tổng quan</a>
                     </li>
                     <li>
-                        <a class="text-secondary text-15" data-toggle="tab" href="#export">Bán hàng</a>
+                        <a class="text-secondary text-15 px-1 d-none" data-toggle="tab" href="#export">Bán hàng</a>
                     </li>
                     <li>
-                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#import">Mua hàng</a>
+                        <a class="text-secondary px-1 text-15 d-none" data-toggle="tab" href="#import">Mua hàng</a>
                     </li>
                     {{-- <li>
-                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#kqkinhdoanh">Kết quả kinh
+                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#kqkinhdoanh">Kết quả kinh
                             doanh</a>
                     </li> --}}
                     <li>
-                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#tkbanhang">Tổng kết bán hàng</a>
-                    </li>
-                    <li>
-                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#tkgiaohang">Tổng kết giao
+                        <a class="text-secondary px-1 text-15 active" data-toggle="tab" href="#tkbanhang">Tổng kết bán
                             hàng</a>
                     </li>
                     <li>
-                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#countInport">Tổng kết mua
+                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#tkgiaohang">Tổng kết giao
                             hàng</a>
                     </li>
                     <li>
-                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#compareDebt">Công nợ khách hàng
+                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#countInport">Tổng kết mua
+                            hàng</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#compareDebt">Công nợ khách hàng
                         </a>
                     </li>
                     <li>
-                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#profitExport">Lợi nhuận bán
+                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#profitExport">Lợi nhuận bán
                             hàng</a>
                     </li>
                     <li>
-                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#importExport">Thống kê nhập xuất
+                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#importExport">Thống kê nhập xuất
                             tồn
                             kho</a>
                     </li>
                     <li>
-                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#debtProvide">Công nợ
+                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#debtProvide">Công nợ
                             nha cung cấp</a>
                     </li>
                 </ul>
@@ -284,7 +286,7 @@
     </div>
     <div class="tab-content">
         {{-- Tổng quan --}}
-        <div id="dashboard" class="content tab-pane in active">
+        <div id="dashboard" class="tab-pane fade">
             <div class="content margin-top-fixed10">
                 <!-- Main content -->
                 <section class="content margin-250">
@@ -583,7 +585,7 @@
             </div>
         </div>
         {{-- Tổng kết bán hàng --}}
-        <div id="tkbanhang" class="tab-pane fade">
+        <div id="tkbanhang" class="content tab-pane in active">
             <div class="content margin-top-fixed10">
                 <!-- Main content -->
                 <section class="content margin-250">
@@ -972,7 +974,7 @@
                 <!-- Main content -->
                 <section class="content margin-250">
                     <div class="container-fluided">
-                        <div class="row result-filter-payExport margin-left30 my-1">
+                        <div class="row result-filter-delivery margin-left30 my-1">
                         </div>
                         <div class="row">
                             <div class="col-12">
@@ -980,132 +982,119 @@
                                     <div class="outer2 text-nowrap">
                                         <table id="example2" class="table table-hover">
                                             <thead>
-                                                <tr style="height: 44px;">
-                                                    <th scope="col" class="height-52"
-                                                        style="width:5%;padding-left: 2rem;">
-                                                        <input type="checkbox" class="checkall-btn" name="all"
-                                                            id="checkall">
+                                                <tr class="border-custom">
+                                                    <th scope="col" style="width:5%;padding-left: 2rem;"
+                                                        class="height-52">
+                                                        <input type="checkbox" name="all" id="checkall"
+                                                            class="checkall-btn">
                                                     </th>
-                                                    <th scope="col" class="my-0 py-2 height-52"
-                                                        style="width: 14%;">
+                                                    <th scope="col" class="height-52" style="width: 14%;">
                                                         <span class="d-flex justify-content-start">
                                                             <a href="#" class="sort-link btn-submit"
-                                                                data-sort-by="code_payment" data-sort-type="DESC">
-                                                                <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Mã thanh toán</span>
-                                                                </button>
+                                                                data-sort-by="code_delivery" data-sort-type="DESC">
+                                                                <button class="btn-sort text-13" type="submit">Mã
+                                                                    giao
+                                                                    hàng#</button>
                                                             </a>
-                                                            <div class="icon" id="icon-code_payment"></div>
+                                                            <div class="icon" id="icon-code_delivery"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="my-0 py-2 height-52"
-                                                        style="width: 14%;">
+                                                    <th scope="col" class="height-52" style="width: 10%;">
                                                         <span class="d-flex justify-content-start">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-sort-by="quotation_number" data-sort-type="DESC">
-                                                                <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Số báo giá#</span>
-                                                                </button>
+                                                                <button class="btn-sort text-13" type="submit">Số báo
+                                                                    giá#</button>
                                                             </a>
                                                             <div class="icon" id="icon-quotation_number"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="my-0 py-2 height-52"
-                                                        style="width: 10%;">
+                                                    <th scope="col" class="height-52" style="width: 10%;">
                                                         <span class="d-flex justify-content-start">
                                                             <a href="#" class="sort-link btn-submit"
-                                                                data-sort-by="guest_name_display"
-                                                                data-sort-type="DESC">
-                                                                <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Khách hàng</span>
-                                                                </button>
+                                                                data-sort-by="ngayGiao" data-sort-type="DESC"><button
+                                                                    class="btn-sort text-13" type="submit">Ngày giao
+                                                                    hàng</button>
                                                             </a>
-                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                            <div class="icon" id="icon-ngayGiao"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52" style="width: 14%;">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="guest_name"
+                                                                data-sort-type="DESC"><button class="btn-sort text-13"
+                                                                    type="submit">Khách
+                                                                    hàng</button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name"></div>
                                                         </span>
                                                     </th>
                                                     @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                        <th scope="col" class="my-0 py-2 height-52"
-                                                            style="width: 10%;">
+                                                        <th scope="col" class="height-52" style="width: 10%;">
                                                             <span class="d-flex justify-content-start">
                                                                 <a href="#" class="sort-link btn-submit"
                                                                     data-sort-by="" data-sort-type="DESC">
-                                                                    <button class="btn-sort" type="submit">
-                                                                        <span class="text-13">Người tạo</span>
+                                                                    <button class="btn-sort text-13" type="submit">
+                                                                        Người tạo
                                                                     </button>
                                                                 </a>
                                                                 <div class="icon" id=""></div>
                                                             </span>
                                                         </th>
                                                     @endif
-                                                    <th scope="col" class="my-0 py-2 height-52"
-                                                        style="width: 8%;">
-                                                        <span class="d-flex justify-content-center">
-                                                            <a href="#" class="sort-link btn-submit"
-                                                                data-sort-by="status" data-sort-type="DESC">
-                                                                <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Trạng thái</span>
-                                                                </button>
-                                                            </a>
-                                                            <div class="icon" id="icon-status"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="my-0 py-2 height-52"
-                                                        style="width: 10%;">
+                                                    <th scope="col" class="height-52" style="width: 10%;">
                                                         <span class="d-flex justify-content-start">
                                                             <a href="#" class="sort-link btn-submit"
-                                                                data-sort-by="payment_date" data-sort-type="DESC">
-                                                                <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Hạn thanh toán</span>
-                                                                </button>
+                                                                data-sort-by="shipping_unit"
+                                                                data-sort-type="DESC"><button class="btn-sort text-13"
+                                                                    type="submit">Đơn vị vận
+                                                                    chuyển</button>
                                                             </a>
-                                                            <div class="icon" id="icon-payment_date"></div>
+                                                            <div class="icon" id="icon-shipping_unit"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="my-0 py-2 height-52"
-                                                        style="width: 10%;">
+                                                    <th scope="col" class="height-52" style="width: 10%;">
                                                         <span class="d-flex justify-content-end">
                                                             <a href="#" class="sort-link btn-submit"
-                                                                data-sort-by="tongTienNo" data-sort-type="DESC">
-                                                                <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Tổng tiền</span>
-                                                                </button>
+                                                                data-sort-by="shipping_fee"
+                                                                data-sort-type="DESC"><button class="btn-sort text-13"
+                                                                    type="submit">Phí giao
+                                                                    hàng</button>
                                                             </a>
-                                                            <div class="icon" id="icon-tongTienNo"></div>
+                                                            <div class="icon" id="icon-shipping_fee"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="my-0 py-2 height-52"
-                                                        style="width: 10%;">
-                                                        <span class="d-flex justify-content-end">
+                                                    <th scope="col" class="height-52" style="width: 8%;">
+                                                        <span class="d-flex justify-content-center">
                                                             <a href="#" class="sort-link btn-submit"
-                                                                data-sort-by="tongThanhToan" data-sort-type="DESC">
-                                                                <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Đã nhận</span>
-                                                                </button>
+                                                                data-sort-by="trangThai" data-sort-type="DESC"><button
+                                                                    class="btn-sort text-13" type="submit">Trạng
+                                                                    thái</button>
                                                             </a>
-                                                            <div class="icon" id="icon-tongThanhToan"></div>
+                                                            <div class="icon" id="icon-trangThai"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="my-0 py-2 height-52">
+                                                    <th scope="col" class="height-52">
                                                         <span class="d-flex justify-content-end">
                                                             <a href="#" class="sort-link btn-submit"
-                                                                data-sort-by="debt" data-sort-type="DESC">
-                                                                <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Dư nợ</span>
-                                                                </button>
+                                                                data-sort-by="totalProductVat"
+                                                                data-sort-type="DESC"><button class="btn-sort text-13"
+                                                                    type="submit">Tổng tiền</button>
                                                             </a>
-                                                            <div class="icon" id="icon-debt"></div>
+                                                            <div class="icon" id="icon-totalProductVat"></div>
                                                         </span>
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="tbody-payExport">
-                                                @foreach ($payExport as $item_pay)
-                                                    <tr class="position-relative payExport-info height-52"
+                                            <tbody class="tbody-delivery">
+                                                @foreach ($deliveries as $item_delivery)
+                                                    <tr class="position-relative delivery-info height-52"
                                                         onclick="handleRowClick('checkbox', event);">
-                                                        <input type="hidden" name="id-payExport"
-                                                            class="id-payExport" id="id-payExport"
-                                                            value="{{ $item_pay->id }}">
-                                                        <td class="border-bottom border-top-0">
+                                                        <input type="hidden" name="id-delivery" class="id-delivery"
+                                                            id="id-delivery"
+                                                            value="{{ $item_delivery->maGiaoHang }}">
+                                                        <td class="text-13-black border-bottom border-top-0">
                                                             <span class="margin-Right10">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                                     width="6" height="10"
@@ -1130,69 +1119,49 @@
                                                         </td>
                                                         <td
                                                             class="text-13-black text-left border-bottom border-top-0">
-                                                            <a class="activity" data-name1="TT"
-                                                                data-des="Xem đơn thanh toán"
-                                                                href="{{ route('payExport.edit', ['workspace' => $workspacename, 'payExport' => $item_pay->id]) }}">
-                                                                {{ $item_pay->code_payment }}
+                                                            <a href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $item_delivery->maGiaoHang]) }}"
+                                                                class="duongDan activity" data-name1="GH"
+                                                                data-des="Xem đơn giao hàng">
+                                                                {{ $item_delivery->code_delivery }}
                                                             </a>
-
                                                         </td>
                                                         <td
                                                             class="text-13-black max-width120 text-left border-bottom border-top-0">
-                                                            {{ $item_pay->quotation_number }}
+                                                            {{ $item_delivery->quotation_number }}
+                                                        </td>
+                                                        <td
+                                                            class="text-13-black text-left border-bottom border-top-0">
+                                                            {{ date_format(new DateTime($item_delivery->ngayGiao), 'd/m/Y') }}
                                                         </td>
                                                         <td
                                                             class="text-13-black max-width120 text-left border-bottom border-top-0">
-                                                            {{ $item_pay->guest_name }}
+                                                            {{ $item_delivery->guest_name }}
                                                         </td>
                                                         @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
                                                             <td
                                                                 class="text-13-black max-width120 text-left border-bottom border-top-0">
-                                                                {{ $item_pay->name }}
+                                                                {{ $item_delivery->name }}
                                                             </td>
                                                         @endif
                                                         <td
+                                                            class="text-13-black text-left border-bottom border-top-0">
+                                                            {{ $item_delivery->shipping_unit }}
+                                                        </td>
+                                                        <td
+                                                            class="text-13-black text-right border-bottom border-top-0">
+                                                            {{ number_format($item_delivery->shipping_fee) }}
+                                                        </td>
+                                                        <td
                                                             class="text-13-black text-center border-bottom border-top-0">
-                                                            @if ($item_pay->status == 1)
-                                                                @if ($item_pay->payment > 0)
-                                                                    <span style="color: #858585">Đặt cọc</span>
-                                                                @else
-                                                                    <span style="color: #858585">Chưa thanh
-                                                                        toán</span>
-                                                                @endif
-                                                            @elseif($item_pay->status == 2)
-                                                                <span style="color: #08AA36">Thanh toán đủ</span>
-                                                            @elseif($item_pay->status == 3)
-                                                                <span style="color: #E8B600">Đến hạn trong
-                                                                    {{ Carbon\Carbon::parse($item_pay->payment_date)->diffInDays(now()) + 1 }}
-                                                                    ngày
-                                                                </span>
-                                                            @elseif($item_pay->status == 4)
-                                                                <span style="color:#EC212D">Quá hạn
-                                                                    {{ Carbon\Carbon::parse($item_pay->payment_date)->diffInDays(now()) }}
-                                                                    ngày
-                                                                </span>
-                                                            @elseif($item_pay->status == 5)
-                                                                <span style="color:#0052CC">Thanh toán một phần</span>
+                                                            @if ($item_delivery->trangThai == 1)
+                                                                <span>Chưa giao</span>
                                                             @else
-                                                                <span style="color: #E8B600">Đến hạn</span>
+                                                                <span class="text-success">Đã giao</span>
                                                             @endif
                                                         </td>
                                                         <td
-                                                            class="text-13-black text-left border-bottom border-top-0">
-                                                            {{ date_format(new DateTime($item_pay->payment_date), 'd/m/Y') }}
-                                                        </td>
-                                                        <td
                                                             class="text-13-black text-right border-bottom border-top-0">
-                                                            {{ number_format($item_pay->tongTienNo) }}
-                                                        </td>
-                                                        <td
-                                                            class="text-13-black text-right border-bottom border-top-0">
-                                                            {{ number_format($item_pay->tongThanhToan) }}
-                                                        </td>
-                                                        <td
-                                                            class="text-13-black text-right border-bottom border-top-0">
-                                                            {{ number_format($item_pay->debt) }}
+                                                            {{ number_format($item_delivery->totalProductVat) }}
                                                         </td>
                                                         <td
                                                             class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
@@ -1201,7 +1170,7 @@
                                                                     <div class="m-0 mx-2 rounded">
                                                                         <form
                                                                             onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                            action="{{ route('payExport.destroy', ['workspace' => $workspacename, 'payExport' => $item_pay->id]) }}"
+                                                                            action="{{ route('delivery.destroy', ['workspace' => $workspacename, 'delivery' => $item_delivery->maGiaoHang]) }}"
                                                                             method="POST" class="d-inline">
                                                                             @csrf
                                                                             @method('DELETE')
@@ -2301,12 +2270,12 @@
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             @if ($item->getProduct)
-                                                                {{ number_format($item->getProduct->product_price_import) }}
+                                                                {{ number_format($item->dongia) }}
                                                             @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             @if ($item->getProduct)
-                                                                {{ number_format($item->getProduct->product_price_import * $item->qty_delivery) }}
+                                                                {{ number_format($item->dongia * $item->qty_delivery) }}
                                                             @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
@@ -2317,7 +2286,7 @@
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             @if ($item->getProduct)
-                                                                {{ number_format($item->product_total - $item->getProduct->product_price_import * $item->qty_delivery) }}
+                                                                {{ number_format($item->product_total - $item->dongia * $item->qty_delivery) }}
                                                             @endif
                                                         </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
