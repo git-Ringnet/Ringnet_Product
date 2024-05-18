@@ -31,7 +31,7 @@
                                     fill="white" />
                             </svg>
                             {{-- <span class="text-btnIner-primary ml-1">Tạo mới</span> --}}
-                            <p class="m-0 ml-1">Tạo mớ<i></i></p>
+                            <p class="m-0 ml-1">Tạo mới</p>
                         </button>
                     </a>
                 </div>
