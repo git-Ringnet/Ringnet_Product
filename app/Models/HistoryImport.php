@@ -38,6 +38,10 @@ class HistoryImport extends Model
     {
         return $this->hasOne(QuoteExport::class, 'product_id', 'product_id');
     }
+    public function getDelivered(){
+        return $this->hasMany(QuoteExport::class, 'product_id', 'product_id');
+    }
+
 
     public function addHistoryImport($data, $id)
     {

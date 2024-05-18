@@ -317,15 +317,19 @@ class Delivery extends Model
                                                         $count_export = $value->product_qty - $remaining_amount;
                                                     }
                                                 } else {
-                                                    if ($remaining_amount == $data['product_qty'][$i]) {
-                                                        $count_export = $data['product_qty'][$i];
-                                                        var_dump("TH1");
-                                                    } elseif ($remaining_amount > $data['product_qty'][$i]) {
-                                                        $count_export = $data['product_qty'][$i];
-                                                        var_dump("TH2");
+                                                    if ($remaining_amount == 0) {
+                                                        continue;
                                                     } else {
-                                                        $count_export = $data['product_qty'][$i] - $remaining_amount;
-                                                        var_dump("TH3");
+                                                        if ($remaining_amount == $data['product_qty'][$i]) {
+                                                            $count_export = $data['product_qty'][$i];
+                                                            var_dump("TH1");
+                                                        } elseif ($remaining_amount > $data['product_qty'][$i]) {
+                                                            $count_export = $data['product_qty'][$i];
+                                                            var_dump("TH2");
+                                                        } else {
+                                                            $count_export = $data['product_qty'][$i] - $remaining_amount;
+                                                            var_dump("TH3");
+                                                        }
                                                     }
                                                 }
                                             } else {
@@ -1006,15 +1010,19 @@ class Delivery extends Model
                                                         $count_export = $value->product_qty - $remaining_amount;
                                                     }
                                                 } else {
-                                                    if ($remaining_amount == $data['product_qty'][$i]) {
-                                                        $count_export = $data['product_qty'][$i];
-                                                        var_dump("TH1");
-                                                    } elseif ($remaining_amount > $data['product_qty'][$i]) {
-                                                        $count_export = $data['product_qty'][$i];
-                                                        var_dump("TH2");
+                                                    if ($remaining_amount == 0) {
+                                                        continue;
                                                     } else {
-                                                        $count_export = $data['product_qty'][$i] - $remaining_amount;
-                                                        var_dump("TH3");
+                                                        if ($remaining_amount == $data['product_qty'][$i]) {
+                                                            $count_export = $data['product_qty'][$i];
+                                                            var_dump("TH1");
+                                                        } elseif ($remaining_amount > $data['product_qty'][$i]) {
+                                                            $count_export = $data['product_qty'][$i];
+                                                            var_dump("TH2");
+                                                        } else {
+                                                            $count_export = $data['product_qty'][$i] - $remaining_amount;
+                                                            var_dump("TH3");
+                                                        }
                                                     }
                                                 }
                                             } else {
@@ -1297,7 +1305,6 @@ class Delivery extends Model
             }
         }
 
-        // dd(1);
 
 
         if (isset($data['selected_serial_numbers'])) {

@@ -1576,7 +1576,7 @@
                                                                 data-button="export" data-sort-by="sumAmountOwed"
                                                                 data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Tồn đầu</span>
+                                                                    <span class="text-13">Tồn</span>
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-export-sumAmountOwed">
@@ -1680,31 +1680,47 @@
                                                                 onclick="event.stopPropagation();">
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-                                                            {{ $item->product_code }}
+                                                            @if ($item->getProduct)
+                                                                {{ $item->getProduct->product_code }}
+                                                            @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-wrap">
-                                                            {{ $item->product_name }}
+                                                            @if ($item->getProduct)
+                                                                {{ $item->getProduct->product_name }}
+                                                            @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-                                                            {{ $item->product_unit }}
+                                                            @if ($item->getProduct)
+                                                                {{ $item->getProduct->product_unit }}
+                                                            @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->product_qty) }}
+                                                            @if ($item->getProduct)
+                                                                {{ number_format($item->getProduct->product_inventory) }}
+                                                            @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->price_export) }}
+                                                            @if ($item->getQuoteImport)
+                                                                {{ number_format($item->getQuoteImport->price_export) }}
+                                                            @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->product_qty) }}
+                                                            @if ($item->getQuoteImport)
+                                                                {{ number_format($item->getQuoteImport->product_qty) }}
+                                                            @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             {{ number_format($item->qty_export) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->product_qty - $item->qty_export) }}
+                                                            @if (isset($item->getProduct) && isset($item->getQuoteImport))
+                                                                {{ number_format($item->getProduct->product_inventory + $item->getQuoteImport->product_qty - $item->qty_export) }}
+                                                            @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->giaban) }}
+                                                            @if ($item->getDataReport && $item->product_id == $item->getDataReport->product_id)
+                                                                {{ number_format($item->getDataReport->price_export) }}
+                                                            @endif
                                                         </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">
