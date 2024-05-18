@@ -119,21 +119,51 @@ class ReportController extends Controller
         // ->select('history_import.*', 'delivered.deliver_qty as qty_export', 'delivered.price_export as giaban')
         // ->get();
         // $htrImport = HistoryImport::where('workspace_id', Auth::user()->current_workspace)->get();
-        $htrImport = History::where('workspace_id', Auth::user()->current_workspace)->get();
 
+        // $htrImport = History::where('workspace_id', Auth::user()->current_workspace)->get();
+        $htrImport = DB::table('history_import')
+            ->where('history_import.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('delivered', 'delivered.product_id', '=', 'history_import.product_id')
+            ->leftJoin('products', 'products.id', '=', 'delivered.product_id')
+            ->select(
+                'products.product_name as product_name',
+                'products.product_code as product_code',
+                'products.product_unit as product_unit',
+                'products.product_inventory as product_inventory',
+                'history_import.product_id',
+                DB::raw('SUM(delivered.deliver_qty) as total_quantity'),
+                'history_import.product_total as giavon'
+            )
+            ->groupBy(
+                'history_import.product_id',
+                'history_import.product_total',
+                'products.product_name',
+                'products.product_code',
+                'products.product_unit',
+                'products.product_inventory'
+            )
+            ->get();
         // dd($htrImport);
         // ->unique('id')
         // $detailE = DB::table('detailexport')->where('workspace_id', Auth::user()->current_workspace)
         // ->get();
         // dd($htrImport);
         $detailE = DetailExport::where('workspace_id', Auth::user()->current_workspace)->get();
-        $quoteexport = QuoteExport::leftJoin('history_import', 'quoteexport.product_id', 'history_import.product_id')
+        $quoteexport = Delivered::leftJoin('history_import', 'delivered.product_id', 'history_import.product_id')
+            ->leftJoin('products', 'products.id', 'delivered.product_id')
+            ->leftJoin('delivery', 'delivery.id', 'delivered.delivery_id')
+            ->leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
             ->select(
                 'history_import.*',
+                'products.*',
+                'detailexport.quotation_number as donhang',
+                'delivered.deliver_qty as slban',
+                'delivered.price_export as dongiaban',
+                'delivered.product_total_vat as tongban',
                 'history_import.price_export as dongia',
-                'quoteexport.*'
+                // 'quoteexport.*'
             )
-            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+            ->where('delivered.workspace_id', Auth::user()->current_workspace)
             ->get();
         // dd($quoteexport);
         // $detailE = DetailExport::where('workspace_id',Auth::user()->current_workspace)->get();

@@ -2265,9 +2265,7 @@
                                                             {{ $item->product_code }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-                                                            @if ($item->getDetailExport)
-                                                                {{ $item->getDetailExport->quotation_number }}
-                                                            @endif
+                                                            {{ $item->donhang }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-wrap">
                                                             {{ $item->product_name }}
@@ -2276,28 +2274,22 @@
                                                             {{ $item->product_unit }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->qty_delivery) }}
+                                                            {{ number_format($item->slban) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            @if ($item->getProduct)
-                                                                {{ number_format($item->dongia) }}
-                                                            @endif
+                                                            {{ number_format($item->dongia) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            @if ($item->getProduct)
-                                                                {{ number_format($item->dongia * $item->qty_delivery) }}
-                                                            @endif
+                                                            {{ number_format($item->dongia * $item->slban) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->price_export) }}
+                                                            {{ number_format($item->dongiaban) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->product_total) }}
+                                                            {{ number_format($item->tongban) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            @if ($item->getProduct)
-                                                                {{ number_format($item->product_total - $item->dongia * $item->qty_delivery) }}
-                                                            @endif
+                                                            {{ number_format($item->tongban - $item->dongia * $item->slban) }}
                                                         </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">
@@ -2378,7 +2370,7 @@
                                                             <div class="icon" id="icon-export-sumSell"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="bg-white pl-0">
+                                                    {{-- <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex justify-content-end">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="export" data-sort-by="sumAmountOwed"
@@ -2403,7 +2395,7 @@
                                                             <div class="icon" id="icon-export-sumAmountOwed">
                                                             </div>
                                                         </span>
-                                                    </th>
+                                                    </th> --}}
                                                     <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex justify-content-end">
                                                             <a href="#" class="sort-link btn-submit"
@@ -2488,21 +2480,25 @@
                                                                 onclick="event.stopPropagation();">
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-                                                            @if ($item->getProduct)
-                                                                {{ $item->getProduct->product_code }}
-                                                            @endif
+
+                                                            {{ $item->product_code }}
+
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-wrap">
-                                                            @if ($item->getProduct)
+                                                            {{-- @if ($item->getProduct)
                                                                 {{ $item->getProduct->product_name }}
-                                                            @endif
+                                                            @endif --}}
+                                                            {{ $item->product_name }}
+
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-                                                            @if ($item->getProduct)
+                                                            {{-- @if ($item->getProduct)
                                                                 {{ $item->getProduct->product_unit }}
-                                                            @endif
+                                                            @endif --}}
+                                                            {{ $item->product_unit }}
+
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 text-right">
+                                                        {{-- <td class="py-2 text-13-black pl-0 text-right">
                                                             @if ($item->getProduct)
                                                                 {{ number_format($item->getProduct->product_inventory) }}
                                                             @endif
@@ -2511,24 +2507,31 @@
                                                             @if ($item->getQuoteImport)
                                                                 {{ number_format($item->getQuoteImport->price_export) }}
                                                             @endif
-                                                        </td>
+                                                        </td> --}}
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            @if ($item->getQuoteImport)
+                                                            {{-- @if ($item->getQuoteImport)
                                                                 {{ number_format($item->getQuoteImport->product_qty) }}
-                                                            @endif
+                                                            @endif --}}
+                                                            {{-- {{ number_format($item->tongslnhap) }} --}}
+                                                            {{ number_format($item->total_quantity + $item->product_inventory) }}
+
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->qty_export) }}
+                                                            {{-- {{ number_format($item->qty_export) }} --}}
+                                                            {{ number_format($item->total_quantity) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            @if (isset($item->getProduct) && isset($item->getQuoteImport))
+                                                            {{-- @if (isset($item->getProduct) && isset($item->getQuoteImport))
                                                                 {{ number_format($item->getProduct->product_inventory + $item->getQuoteImport->product_qty - $item->qty_export) }}
-                                                            @endif
+                                                            @endif --}}
+                                                            {{ number_format($item->product_inventory) }}
+
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            @if ($item->getDataReport && $item->product_id == $item->getDataReport->product_id)
+                                                            {{-- @if ($item->getDataReport && $item->product_id == $item->getDataReport->product_id)
                                                                 {{ number_format($item->getDataReport->price_export) }}
-                                                            @endif
+                                                            @endif --}}
+                                                            {{ number_format($item->giavon) }}
                                                         </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">
