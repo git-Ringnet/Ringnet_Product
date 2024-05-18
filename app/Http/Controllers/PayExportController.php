@@ -108,7 +108,7 @@ class PayExportController extends Controller
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
             ->distinct()
-            ->orderby('detailexport.id','DESC')
+            ->orderby('detailexport.id', 'DESC')
             ->get();
         return view('tables.export.pay_export.create-payExport', compact('title', 'numberQuote', 'product', 'workspacename'));
     }
