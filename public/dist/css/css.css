@@ -345,8 +345,21 @@ li {
 
 /* Navbar */
 nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
+    display: none;
     position: fixed;
     margin: 0 !important;
+}
+
+/* Hiển thị thanh điều hướng trên màn hình di động */
+@media (max-width: 768px) {
+    nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
+        display: block;
+        position: fixed;
+        margin: 0 !important;
+    }
+    .content-filter-all {
+        padding-left: 0px !important;
+    }
 }
 
 .nav-sidebar a.nav-link {
