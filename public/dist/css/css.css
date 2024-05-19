@@ -1384,7 +1384,8 @@ input[type="number"] {
 
 .custom-btn span,
 .btn-light span,
-.btn--remove span {
+.btn--remove span,
+.custom-btn p {
     font-weight: 500;
     font-size: 13px;
     color: white;
@@ -1433,7 +1434,8 @@ input[type="number"] {
     border: 1px solid #6e79d6;
 }
 
-.custom-btn:hover span {
+.custom-btn:hover span,
+.custom-btn:hover p {
     color: #6e79d6 !important;
     font-weight: 500;
     font-size: 13px;
