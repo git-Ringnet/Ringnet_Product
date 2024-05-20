@@ -1650,8 +1650,9 @@
                         inputName.val($(this).closest('li').find('span').text());
                         inputUnit.val($(this).attr('data-unit') == "null" ? "" : $(this)
                             .attr('data-unit'));
-                        inputPriceExprot.val($(this).attr('data-priceExport') == "null" ?
-                            "" : formatCurrency($(this).attr('data-priceExport')))
+                        // inputPriceExprot.val($(this).attr('data-priceExport') == "null" ?
+                        //     "" : formatCurrency($(this).attr('data-priceExport')))
+                        inputPriceExprot.val('')
                         inputRatio.val($(this).attr('data-ratio') == "null" ? "" : $(this)
                             .attr('data-ratio'))
                         inputPriceImport.val($(this).attr('data-priceImport') == "null" ?
