@@ -690,7 +690,7 @@
                         </div>
                     </div>
                     <div class="modal-body px-0 pb-4 pt-0 m-0">
-                        <table id="table_SNS" class="w-100">
+                        <table id="table_SNS" class="w-100 hover-tr-table">
                             <thead>
                                 <tr>
                                     <th class="border border-right-0 pl-3 py-1 border-top-0 border-checkbox">

@@ -2777,3 +2777,6 @@ input[type="checkbox"]:checked {
 .flatpickr-current-month {
     font-size: initial !important;
 }
+.hover-tr-table tbody tr:hover{
+    background-color: #e9ecef;
+}
