@@ -19,9 +19,9 @@
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
                     <a href="{{ route('import.create', $workspacename) }}" class="user_flow mr-3" data-type="DMH"
-                        data-des="Tạo mới" id="create" >
+                        data-des="Tạo mới" id="create">
                         {{-- <a href="#" class="user_flow" data-type="DMH" data-des="Tạo mới"> --}}
-                            <button type="submit" class="custom-btn d-flex align-items-center h-100 mx-1">
+                        <button type="submit" class="custom-btn d-flex align-items-center h-100 mx-1">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -32,7 +32,7 @@
                                     fill="white" />
                             </svg>
                             {{-- <span class="ml-1">Tạo mới</span> --}}
-                            <p class="m-0 ml-1" style="font-weight: 500; font-size:13px; color:white" >Tạo mới</p>
+                            <p class="m-0 ml-1" style="font-weight: 500; font-size:13px; color:white">Tạo mới</p>
                         </button>
                     </a>
                 </div>
@@ -692,7 +692,7 @@
             }
         });
     }
-
+    var submit = false;
     $('#quickAction').on('submit', function(e) {
         var type = $(this).data('type');
         e.preventDefault();
@@ -796,7 +796,14 @@
             })
         } else {
             // Thanh toán
-            $('#quickAction')[0].submit();
+            if (!submit) {
+                submit = true;
+                $('#quickAction')[0].submit();
+            } else {
+                return false;
+            }
+
+
         }
     })
 
