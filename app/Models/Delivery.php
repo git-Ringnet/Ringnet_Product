@@ -305,9 +305,10 @@ class Delivery extends Model
                                             $curremt_export = History::where('history_import', $value->id)
                                                 ->where('product_id', $value->product_id)
                                                 ->where('workspace_id', Auth::user()->current_workspace)
-                                                ->first();
+                                                ->sum('qty_export');
+                                            // ->first();
                                             if ($curremt_export) {
-                                                $remaining_amount = $value->product_qty - $curremt_export->qty_export;
+                                                $remaining_amount = $value->product_qty - $curremt_export;
                                                 if ($temp > 0) {
                                                     if ($remaining_amount == $data['product_qty'][$i] - $temp) {
                                                         $count_export = $data['product_qty'][$i] - $temp;
@@ -317,15 +318,19 @@ class Delivery extends Model
                                                         $count_export = $value->product_qty - $remaining_amount;
                                                     }
                                                 } else {
-                                                    if ($remaining_amount == $data['product_qty'][$i]) {
-                                                        $count_export = $data['product_qty'][$i];
-                                                        var_dump("TH1");
-                                                    } elseif ($remaining_amount > $data['product_qty'][$i]) {
-                                                        $count_export = $data['product_qty'][$i];
-                                                        var_dump("TH2");
+                                                    if ($remaining_amount == 0) {
+                                                        continue;
                                                     } else {
-                                                        $count_export = $data['product_qty'][$i] - $remaining_amount;
-                                                        var_dump("TH3");
+                                                        if ($remaining_amount == $data['product_qty'][$i]) {
+                                                            $count_export = $data['product_qty'][$i];
+                                                            var_dump("TH1");
+                                                        } elseif ($remaining_amount > $data['product_qty'][$i]) {
+                                                            $count_export = $data['product_qty'][$i];
+                                                            var_dump("TH2");
+                                                        } else {
+                                                            $count_export = $data['product_qty'][$i] - $remaining_amount;
+                                                            var_dump("TH3");
+                                                        }
                                                     }
                                                 }
                                             } else {
@@ -994,9 +999,10 @@ class Delivery extends Model
                                             $curremt_export = History::where('history_import', $value->id)
                                                 ->where('product_id', $value->product_id)
                                                 ->where('workspace_id', Auth::user()->current_workspace)
-                                                ->first();
+                                                ->sum('qty_export');
+                                            // ->first();
                                             if ($curremt_export) {
-                                                $remaining_amount = $value->product_qty - $curremt_export->qty_export;
+                                                $remaining_amount = $value->product_qty - $curremt_export;
                                                 if ($temp > 0) {
                                                     if ($remaining_amount == $data['product_qty'][$i] - $temp) {
                                                         $count_export = $data['product_qty'][$i] - $temp;
@@ -1006,15 +1012,19 @@ class Delivery extends Model
                                                         $count_export = $value->product_qty - $remaining_amount;
                                                     }
                                                 } else {
-                                                    if ($remaining_amount == $data['product_qty'][$i]) {
-                                                        $count_export = $data['product_qty'][$i];
-                                                        var_dump("TH1");
-                                                    } elseif ($remaining_amount > $data['product_qty'][$i]) {
-                                                        $count_export = $data['product_qty'][$i];
-                                                        var_dump("TH2");
+                                                    if ($remaining_amount == 0) {
+                                                        continue;
                                                     } else {
-                                                        $count_export = $data['product_qty'][$i] - $remaining_amount;
-                                                        var_dump("TH3");
+                                                        if ($remaining_amount == $data['product_qty'][$i]) {
+                                                            $count_export = $data['product_qty'][$i];
+                                                            var_dump("TH1");
+                                                        } elseif ($remaining_amount > $data['product_qty'][$i]) {
+                                                            $count_export = $data['product_qty'][$i];
+                                                            var_dump("TH2");
+                                                        } else {
+                                                            $count_export = $data['product_qty'][$i] - $remaining_amount;
+                                                            var_dump("TH3");
+                                                        }
                                                     }
                                                 }
                                             } else {
