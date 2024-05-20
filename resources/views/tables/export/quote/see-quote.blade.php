@@ -242,7 +242,7 @@
                         </ul>
                     </div>
                     <div class="d-flex position-fixed" style="right: 10px; top: 70px;">
-                        @if ($detailExport->status_receive == 1)
+                        @if ($detailExport->status_receive == 1 || $detailExport->status_receive == 0)
                             <div class="border text-secondary p-1 rounded">
                                 <span>
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -266,7 +266,7 @@
                                 </span>
                                 <span class="text-table">Giao hàng: Đã giao</span>
                             </div>
-                        @else
+                        @elseif($detailExport->status_receive == 3)
                             <div class="border text-warning p-1 rounded">
                                 <span>
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -290,7 +290,7 @@
                             </div>
                         @endif
                         <div class="line-vertical mx-2 my-1"></div>
-                        @if ($detailExport->status_reciept == 1)
+                        @if ($detailExport->status_reciept == 1 || $detailExport->status_reciept == 0)
                             <div class="border text-secondary p-1 rounded">
                                 <span>
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -314,7 +314,7 @@
                                 </span>
                                 <span class="text-table">Hóa đơn: Chính thức</span>
                             </div>
-                        @else
+                        @elseif($detailExport->status_reciept == 3)
                             <div class="border text-warning p-1 rounded">
                                 <span>
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -338,7 +338,7 @@
                             </div>
                         @endif
                         <div class="line-vertical mx-2 my-1"></div>
-                        @if ($detailExport->status_pay == 1)
+                        @if ($detailExport->status_pay == 1 || $detailExport->status_pay == 0)
                             <div class="border text-secondary p-1 rounded">
                                 <span>
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -362,7 +362,7 @@
                                 </span>
                                 <span class="text-table">Thanh toán: Đã thanh toán</span>
                             </div>
-                        @else
+                        @elseif($detailExport->status_pay == 3)
                             <div class="border text-warning p-1 rounded">
                                 <span>
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"

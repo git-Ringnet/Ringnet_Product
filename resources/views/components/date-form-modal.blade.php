@@ -13,12 +13,12 @@
                  <div class="form-group">
                      <label for="form-name" class="col-form-label">Tên biểu mẫu</label>
                      <input type="text" class="form-control" id="form-name-{{ $name }}"
-                         name="form-name-{{ $name }}" value="" required>
+                         name="form-name-{{ $name }}" value="">
                  </div>
                  <div class="form-group">
                      <label for="message-text" class="col-form-label">Nội dung</label>
                      <textarea style="height: auto !important;" rows="4" cols="50" class="form-control-1 w-100"
-                         id="form-desc-{{ $name }}" name="form-desc-{{ $name }}" required></textarea>
+                         id="form-desc-{{ $name }}" name="form-desc-{{ $name }}"></textarea>
                  </div>
              </div>
              <div class="modal-footer">
