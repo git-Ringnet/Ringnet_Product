@@ -325,7 +325,7 @@
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:49px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
-                                <input type="text" placeholder="Chọn thông tin" id="debt" required
+                                <input type="text" placeholder="Chọn thông tin" id="debt" required readonly
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2;"
                                     value="@isset($yes){{ $getPaymentOrder[0]->payment == null

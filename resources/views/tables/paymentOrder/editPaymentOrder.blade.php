@@ -537,7 +537,7 @@
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
-                                <input type="text" placeholder="Chọn thông tin" name="debt" required
+                                <input type="text" placeholder="Chọn thông tin" name="debt" required readonly
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2;" value="{{ number_format($payment->debt) }}" />
                             </li>
