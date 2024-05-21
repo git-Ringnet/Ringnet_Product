@@ -89,7 +89,7 @@ class InvitationController extends Controller
         if ($emails) {
             // Lặp qua mỗi email và gửi email
             foreach ($emails as $index => $email) {
-                $existingInvitation = Invitation::where('email', $email)->first();
+                $existingInvitation = Invitation::where('email', $email)->where('workspace_id', $workspace_id)->first();
                 $role = $roles[$index];
                 // Nếu email chưa tồn tại trong bảng Invitation, thêm mới
                 if (!$existingInvitation) {
