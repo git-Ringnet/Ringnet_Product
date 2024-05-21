@@ -344,7 +344,8 @@ class Delivery extends Model
                                                             $count_export = $data['product_qty'][$i];
                                                             var_dump("TH2");
                                                         } else {
-                                                            $count_export = $data['product_qty'][$i] - $remaining_amount;
+                                                            // $count_export = $data['product_qty'][$i] - $remaining_amount;
+                                                            $count_export = $value->product_qty - $remaining_amount;
                                                             var_dump("TH3");
                                                         }
                                                     }
@@ -935,7 +936,8 @@ class Delivery extends Model
                                                             $count_export = $data['product_qty'][$i];
                                                             var_dump("TH2");
                                                         } else {
-                                                            $count_export = $data['product_qty'][$i] - $remaining_amount;
+                                                            // $count_export = $data['product_qty'][$i] - $remaining_amount;
+                                                            $count_export = $value->product_qty - $remaining_amount;
                                                             var_dump("TH3");
                                                         }
                                                     }
