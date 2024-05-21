@@ -51,7 +51,9 @@ class PayOder extends Model
 
     public function getHistoryPay()
     {
-        return $this->hasOne(HistoryPaymentOrder::class, 'payment_id', 'id')->latest();
+        return $this->hasOne(HistoryPaymentOrder::class, 'payment_id', 'id')
+        ->orderBy('id','desc');
+        // ->latest();
     }
     public function getAllHistoryPayments(){
         return $this->hasMany(HistoryPaymentOrder::class, 'payment_id', 'id');

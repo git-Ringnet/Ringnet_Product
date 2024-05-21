@@ -598,7 +598,7 @@
                                                     @if ($item->getReciept)
                                                         @foreach ($item->getReciept as $value)
                                                             <p class="m-0">
-                                                                {{ date_format(new DateTime($value->created_at), 'd/m/Y') }}
+                                                                {{ date_format(new DateTime($value->date_bill), 'd/m/Y') }}
                                                             </p>
                                                         @endforeach
                                                     @endif
@@ -632,15 +632,6 @@
                                                 <td class="text-13-black min-width180 text-center">
                                                     @if ($item->getDetailImport)
                                                         @if ($item->getDetailImport->status_pay == 0)
-                                                            <span>
-                                                                <svg width="16" height="16"
-                                                                    viewBox="0 0 16 16" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                        d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
-                                                                        fill="#858585" />
-                                                                </svg>
-                                                            </span>
                                                         @elseif($item->getDetailImport->status_pay == 1)
                                                             <span>
                                                                 <svg width="16" height="16"
@@ -662,7 +653,7 @@
                                                                     </defs>
                                                                 </svg>
                                                             </span>
-                                                        @else
+                                                        @elseif($item->getDetailImport->status_pay == 2)
                                                             <span>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                                     height="14" viewBox="0 0 14 14"
@@ -670,6 +661,16 @@
                                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                                         d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
                                                                         fill="#08AA36" fill-opacity="0.75" />
+                                                                </svg>
+                                                            </span>
+                                                        @else
+                                                            <span>
+                                                                <svg width="16" height="16"
+                                                                    viewBox="0 0 16 16" fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                                                        fill="#858585" />
                                                                 </svg>
                                                             </span>
                                                         @endif
@@ -775,7 +776,8 @@
                                                 <td class="text-13-black min-width180 text-center {{ $countClass }}"
                                                     rowspan="{{ $count }}">
                                                     @if (isset($item->getDetailExport))
-                                                        @if ($item->getDetailExport->status_pay == 1)
+                                                        @if ($item->getDetailExport->status_pay == 0)
+                                                        @elseif($item->getDetailExport->status_pay == 1)
                                                             <span>
                                                                 <svg width="16" height="16"
                                                                     viewBox="0 0 16 16" fill="none"
@@ -785,34 +787,31 @@
                                                                         fill="#858585" />
                                                                 </svg>
                                                             </span>
-                                                        @elseif($item->getDetailExport->status_pay == 3)
+                                                        @elseif($item->getDetailExport->status_pay == 2)
+                                                            <svg width="16" height="16" viewBox="0 0 16 16"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                                                    fill="#08AA36" fill-opacity="0.75"></path>
+                                                            </svg>
+                                                        @else
                                                             <svg width="16" height="16" viewBox="0 0 16 16"
                                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <g clip-path="url(#clip0_1699_20021)">
                                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                                         d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
-                                                                        fill="#E8B600" />
+                                                                        fill="#E8B600"></path>
                                                                     <path
                                                                         d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
-                                                                        fill="#E8B600" />
+                                                                        fill="#E8B600"></path>
                                                                 </g>
                                                                 <defs>
                                                                     <clipPath id="clip0_1699_20021">
                                                                         <rect width="16" height="16"
-                                                                            fill="white" />
+                                                                            fill="white"></rect>
                                                                     </clipPath>
                                                                 </defs>
                                                             </svg>
-                                                        @else
-                                                            <span>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                    height="14" viewBox="0 0 14 14"
-                                                                    fill="none">
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                        d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
-                                                                        fill="#08AA36" fill-opacity="0.75" />
-                                                                </svg>
-                                                            </span>
                                                         @endif
                                                     @endif
                                                 </td>
