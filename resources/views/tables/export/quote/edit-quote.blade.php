@@ -298,7 +298,7 @@
                                             </td>
 
                                             <td class='border-right p-2 text-13 align-top border-bottom border-top-0'>
-                                                <select name='product_tax[]' disabled
+                                                <select name='product_tax[]'
                                                     class='border-0 py-1 w-100 text-center product_tax height-32'
                                                     required="">
                                                     <option value="0" <?php if ($item_quote->product_tax == 0) {
@@ -2297,7 +2297,6 @@
                             }
                             infoProduct.show();
                             $('.recentModal').show();
-                            thue.prop('disabled', true);
                             productCode.prop('readonly', true);
                             productUnit.prop('readonly', true);
                             $(".list_product").hide();
@@ -3429,47 +3428,6 @@
             return normalized;
         }
 
-        // Hàm không đồng bộ để kiểm tra từng sản phẩm
-        async function checkProduct(productName, productTaxFromInput, productTaxInput) {
-            try {
-                const response = await $.ajax({
-                    url: "{{ route('checkProductExist') }}",
-                    type: "get",
-                    data: {
-                        productName: productName,
-                    },
-                });
-
-                // Kiểm tra xem sản phẩm có tồn tại không
-                if (response) {
-                    var productTaxFromServer = response.product_tax;
-                    // Kiểm tra xem thuế nhập vào có trùng với thuế từ dữ liệu trả về không
-                    if (productTaxFromInput != productTaxFromServer) {
-                        showAutoToast('warning',
-                            "Thuế nhập vào không trùng khớp với thuế của sản phẩm, thuế của sản phẩm " +
-                            productName + " là: " + (productTaxFromServer == 99 ? "NOVAT" :
-                                productTaxFromServer + "%"));
-                        // Cập nhật giá trị của select với giá trị từ server
-                        $(productTaxInput).val(productTaxFromServer);
-
-                        // Kích hoạt sự kiện change để tính lại tổng số tiền và tổng thuế
-                        $(productTaxInput).trigger('change');
-
-                        setTimeout(function() {
-                            // Hiển thị thông báo đã cập nhật lại thuế cho sản phẩm
-                            showAutoToast('success', 'Đã cập nhật lại thuế cho sản phẩm: ' + productName);
-                        }, 500);
-
-                        return false; // Trả về false nếu có lỗi
-                    }
-                }
-                return true; // Trả về true nếu không có lỗi
-            } catch (error) {
-                console.error("Lỗi khi kiểm tra sản phẩm:", error);
-                return false; // Trả về false nếu có lỗi
-            }
-        }
-
         (async function() {
             for (var i = 1; i < rows.length; i++) {
                 if (rows[i].classList.contains('addProduct')) {
@@ -3477,16 +3435,6 @@
                     var productNameInput = rows[i].querySelector('.product_name');
                     var productName = productNameInput.value;
                     var normalizedProductName = normalizeProductName(productName).trim();
-
-                    // Lấy giá trị thuế từ input của người dùng
-                    var productTaxInput = rows[i].querySelector('.product_tax');
-                    var productTaxFromInput = productTaxInput.value;
-
-                    // Kiểm tra sản phẩm và thuế
-                    var isValidProduct = await checkProduct(productName, productTaxFromInput, productTaxInput);
-                    if (!isValidProduct) {
-                        return; // Dừng nếu có lỗi
-                    }
 
                     // Kiểm tra trùng lặp tên sản phẩm
                     if (previousProductNames.includes(normalizedProductName)) {

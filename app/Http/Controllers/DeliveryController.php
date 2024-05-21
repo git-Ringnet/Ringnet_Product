@@ -126,7 +126,6 @@ class DeliveryController extends Controller
      */
     public function store(string $workspace, Request $request)
     {
-
         if ($request->action == 1) {
             $delivery_id = $this->delivery->addDelivery($request->all());
             $this->delivered->addDelivered($request->all(), $delivery_id);
@@ -137,7 +136,7 @@ class DeliveryController extends Controller
             $this->userFlow->addUserFlow($arrLuuNhap);
             if ($request->pdf_export == 1) {
                 // Sau khi lưu xong tất cả thông tin, set session export_id
-                $request->session()->put('pdf_info.delivery_id', $delivery_id);
+                $request->session()->put('pdf_info1.delivery_id', $delivery_id);
             }
             if ($request->redirect == "delivery") {
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', ' Tạo mới đơn giao hàng thành công !');
@@ -163,11 +162,11 @@ class DeliveryController extends Controller
     public function downloadPdf()
     {
         // Kiểm tra xem có session export_id không
-        $exportId = session('pdf_info.delivery_id');
+        $exportId = session('pdf_info1.delivery_id');
 
         if ($exportId) {
             // Xóa session delivery_id trước khi tạo và trả về PDF
-            session()->forget('pdf_info.delivery_id');
+            session()->forget('pdf_info1.delivery_id');
 
             // Tạo PDF từ dữ liệu và xuất nó
             $delivery = $this->delivery->getDeliveryToId($exportId);
@@ -219,7 +218,7 @@ class DeliveryController extends Controller
     public function clearPdfSession()
     {
         // Xóa session pdf_info.export_id
-        session()->forget('pdf_info.delivery_id');
+        session()->forget('pdf_info1.delivery_id');
 
         // Trả về phản hồi JSON để xác nhận rằng session đã được xóa
         return response()->json(['success' => true]);

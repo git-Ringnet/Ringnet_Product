@@ -1902,8 +1902,7 @@
 
                     arrProduct = [];
                     $('.product_id').each(function() {
-                        arrProduct.push($(this)
-                            .val()); // Thêm product_id vào mảng arrProduct
+                        arrProduct.push($(this).val());
                     });
 
                     $.ajax({
@@ -1937,7 +1936,6 @@
                             if (data.product_inventory > 0) {
                                 inventory.show();
                             }
-                            thue.prop('disabled', true);
                             productCode.prop('readonly', true);
                             productUnit.prop('readonly', true);
                             $(".list_product").hide();
@@ -2940,50 +2938,6 @@
             return normalized;
         }
 
-        // Hàm không đồng bộ để kiểm tra từng sản phẩm
-        async function checkProduct(productName, productTaxFromInput, productTaxInput) {
-            try {
-                const response = await $.ajax({
-                    url: "{{ route('checkProductExist') }}",
-                    type: "get",
-                    data: {
-                        productName: productName,
-                    },
-                });
-
-                // Kiểm tra xem sản phẩm có tồn tại không
-                if (response) {
-                    var productTaxFromServer = response.product_tax;
-                    // Kiểm tra xem thuế nhập vào có trùng với thuế từ dữ liệu trả về không
-                    if (productTaxFromInput != productTaxFromServer) {
-                        showAutoToast('warning',
-                            "Thuế nhập vào không trùng khớp với thuế của sản phẩm, thuế của sản phẩm " +
-                            productName + " là: " + (productTaxFromServer == 99 ? "NOVAT" :
-                                productTaxFromServer + "%"));
-
-                        // Cập nhật giá trị của select với giá trị từ server
-                        $(productTaxInput).val(productTaxFromServer);
-
-                        // Kích hoạt sự kiện change để tính lại tổng số tiền và tổng thuế
-                        $(productTaxInput).trigger('change');
-
-                        setTimeout(function() {
-                            // Hiển thị thông báo đã cập nhật lại thuế cho sản phẩm
-                            showAutoToast('success', 'Đã cập nhật lại thuế cho sản phẩm: ' + productName);
-                        }, 500);
-
-                        return false; // Trả về false nếu có lỗi
-                    }
-                }
-                return true; // Trả về true nếu không có lỗi
-            } catch (error) {
-                console.error("Lỗi khi kiểm tra sản phẩm:", error);
-                $('#excel_export').val(0);
-                $('#pdf_export').val(0);
-                return false; // Trả về false nếu có lỗi
-            }
-        }
-
         (async function() {
             for (var i = 1; i < rows.length; i++) {
                 if (rows[i].classList.contains('addProduct')) {
@@ -2991,16 +2945,6 @@
                     var productNameInput = rows[i].querySelector('.product_name');
                     var productName = productNameInput.value;
                     var normalizedProductName = normalizeProductName(productName).trim();
-
-                    // Lấy giá trị thuế từ input của người dùng
-                    var productTaxInput = rows[i].querySelector('.product_tax');
-                    var productTaxFromInput = productTaxInput.value;
-
-                    // Kiểm tra sản phẩm và thuế
-                    var isValidProduct = await checkProduct(productName, productTaxFromInput, productTaxInput);
-                    if (!isValidProduct) {
-                        return; // Dừng nếu có lỗi
-                    }
 
                     // Kiểm tra trùng lặp tên sản phẩm
                     if (previousProductNames.includes(normalizedProductName)) {
