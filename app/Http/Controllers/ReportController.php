@@ -121,28 +121,35 @@ class ReportController extends Controller
         // $htrImport = HistoryImport::where('workspace_id', Auth::user()->current_workspace)->get();
 
         // $htrImport = History::where('workspace_id', Auth::user()->current_workspace)->get();
+        $subQuery = DB::table('history_import')
+            ->select(DB::raw('MAX(id) as id')) // Assuming 'id' is the primary key
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->groupBy('product_id');
+
         $htrImport = DB::table('history_import')
-            ->where('history_import.workspace_id', Auth::user()->current_workspace)
+            ->joinSub($subQuery, 'latest_import', function ($join) {
+                $join->on('history_import.id', '=', 'latest_import.id');
+            })
             ->leftJoin('delivered', 'delivered.product_id', '=', 'history_import.product_id')
-            ->leftJoin('products', 'products.id', '=', 'delivered.product_id')
+            ->leftJoin('products', 'products.id', '=', 'history_import.product_id')
             ->select(
+                'history_import.product_id',
                 'products.product_name as product_name',
                 'products.product_code as product_code',
                 'products.product_unit as product_unit',
                 'products.product_inventory as product_inventory',
-                'history_import.product_id',
-                DB::raw('SUM(delivered.deliver_qty) as total_quantity'),
+                DB::raw('IFNULL(SUM(delivered.deliver_qty), 0) as total_quantity'),
                 'history_import.product_total as giavon',
                 'history_import.price_export as gianhap'
             )
             ->groupBy(
                 'history_import.product_id',
-                'history_import.product_total',
-                'history_import.price_export',
                 'products.product_name',
                 'products.product_code',
                 'products.product_unit',
-                'products.product_inventory'
+                'products.product_inventory',
+                'history_import.product_total',
+                'history_import.price_export'
             )
             ->get();
         // dd($htrImport);
@@ -169,7 +176,7 @@ class ReportController extends Controller
             ->get();
         // dd($quoteexport);
         // $detailE = DetailExport::where('workspace_id',Auth::user()->current_workspace)->get();
-        $guest = Guest::where('workspace_id',Auth::user()->current_workspace)->get();
+        $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
         // $quoteexport = QuoteExport::where('workspace_id', Auth::user()->current_workspace)->get();
         $countImport = QuoteImport::where('workspace_id', Auth::user()->current_workspace)->get();
         $dataImport = DetailImport::where('workspace_id', Auth::user()->current_workspace)->get();
