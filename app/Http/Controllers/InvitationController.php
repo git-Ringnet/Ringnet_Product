@@ -86,7 +86,6 @@ class InvitationController extends Controller
         $invitation = Invitation::where('workspace_id', $workspace_id)->first();
         $token = Str::random(32);
         // Kiểm tra xem có email để gửi hay không
-
         if ($emails) {
             // Lặp qua mỗi email và gửi email
             foreach ($emails as $index => $email) {

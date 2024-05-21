@@ -152,9 +152,8 @@
                                                     <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
                                             </th>
-                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                <th scope="col" class="border-bottom height-52"
-                                                    style="width:20%;">
+                                            @can('isAdmin')
+                                                <th scope="col" class="border-bottom height-52" style="width:20%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="provide_name_display" data-sort-type="DESC">
@@ -165,7 +164,7 @@
                                                         <div class="icon" id="icon-provide_name_display"></div>
                                                     </span>
                                                 </th>
-                                            @endif
+                                            @endcan
                                             <th scope="col" class="border-bottom height-52" style="width:25%;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
@@ -226,13 +225,13 @@
                                                         {{ $item->provide_name_display }}
                                                     </a>
                                                 </td>
-                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                @can('isAdmin')
                                                     <td class="text-13-black border-top-0 border-bottom">
                                                         @if ($item->getNameUser)
                                                             {{ $item->getNameUser->name }}
                                                         @endif
                                                     </td>
-                                                @endif
+                                                @endcan
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     {{ $item->provide_code }}
                                                 </td>
@@ -302,16 +301,16 @@
                             </div>
                         </div>
                         <!-- <div class="ml-3">
-                            <span class="text-perpage">
-                                Hiển thị:
-                                <select name="perPage" id="perPage" class="border-0">
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                </select>
-                            </span>
-                        </div> -->
+                                            <span class="text-perpage">
+                                                Hiển thị:
+                                                <select name="perPage" id="perPage" class="border-0">
+                                                    <option value="5">5</option>
+                                                    <option value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                </select>
+                                            </span>
+                                        </div> -->
                     </div>
                 </div>
             </div>

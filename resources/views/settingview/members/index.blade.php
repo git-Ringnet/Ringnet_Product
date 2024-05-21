@@ -305,12 +305,11 @@
                                     </div>
                                     <div class="col role d-flex justify-content-center">
                                         <input type="hidden" name="idUser" value="{{ $item->user_id }}" />
-                                        <select name="role-user-workspace" id="roles-option"
-                                            class="role-user-workspace mb-1">
+                                        <select name="role-user-workspace" id="roles-option" class="role-user-workspace">
                                             @isset($roles)
                                                 @foreach ($roles as $role)
                                                     <option {{ $item->vaitro == $role->name ? 'selected' : '' }}
-                                                        value="{{ $role->id }}">{{ $role->name }}{{ $role->id }}
+                                                        value="{{ $role->id }}">{{ $role->name }}
                                                     </option>
                                                 @endforeach
                                             @endisset
@@ -374,7 +373,7 @@
                     @endisset
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <form action="{{ route('sendInvitation') }}" method="post">
+                        <form action="{{ route('sendInvitation') }}" method="post" id="invitationForm">
                             @csrf
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -395,10 +394,10 @@
                                                 Vai trò
                                             </div>
                                         </div>
-                                        <div class="w-100 d-flex input-invite-form">
+                                        <div class="w-100 d-flex input-invite-form align-items-baseline">
                                             <div class="email-invite w-75">
                                                 <div class="info-invite-mail">
-                                                    <input class="w-100 email-input mb-1" type="email"
+                                                    <input class="w-100 p-0 email-input mb-1" type="email"
                                                         id="email" name="emails[]">
                                                     <span class="clear-input"><svg width="12" height="12"
                                                             viewBox="0 0 12 12" fill="none"

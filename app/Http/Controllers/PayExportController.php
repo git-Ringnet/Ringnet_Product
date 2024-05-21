@@ -85,8 +85,13 @@ class PayExportController extends Controller
                     'pay_export.payment',
                     'pay_export.code_payment',
                     'users.name',
-                )
-                ->get();
+                );
+            if (Auth::check()) {
+                if (Auth::user()->getRoleUser->roleid == 4) {
+                    $payExport->where('pay_export.user_id', Auth::user()->id);
+                }
+            }
+            $payExport = $payExport->get();
             return view('tables.export.pay_export.list-payExport', compact('title', 'users', 'payExport', 'workspacename'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
@@ -108,8 +113,13 @@ class PayExportController extends Controller
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
             ->distinct()
-            ->orderby('detailexport.id', 'DESC')
-            ->get();
+            ->orderby('detailexport.id', 'DESC');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $numberQuote->where('detailexport.user_id', Auth::user()->id);
+            }
+        }
+        $numberQuote = $numberQuote->get();
         return view('tables.export.pay_export.create-payExport', compact('title', 'numberQuote', 'product', 'workspacename'));
     }
 

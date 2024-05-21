@@ -103,9 +103,11 @@
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-provides"
                                                 data-button="provides" type="button">Nhà cung cấp
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-users"
-                                                data-button="users" type="button">Người tạo
-                                            </button>
+                                            @can('isAdmin')
+                                                <button class="dropdown-item btndropdown text-13-black" id="btn-users"
+                                                    data-button="users" type="button">Người tạo
+                                                </button>
+                                            @endcan
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-shipping_unit" data-button="shipping_unit" type="button">Đơn
                                                 vị vận chuyển
@@ -209,7 +211,7 @@
                                                     <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
                                             </th>
-                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                            @can('isAdmin')
                                                 <th scope="col" class="border-bottom" style="width: 10%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="users"
@@ -219,7 +221,7 @@
                                                         <div class="icon" id="icon-users"></div>
                                                     </span>
                                                 </th>
-                                            @endif
+                                            @endcan
                                             <th scope="col" class="border-bottom" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
@@ -308,13 +310,13 @@
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
                                                 </td>
-                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                @can('isAdmin')
                                                     <td class="text-13-black border-top-0 border-bottom">
                                                         @if ($item->getNameUser)
                                                             {{ $item->getNameUser->name }}
                                                         @endif
                                                     </td>
-                                                @endif
+                                                @endcan
 
                                                 <td class="text-13-black border-top-0 border-bottom text-wrap">
                                                     {{ $item->shipping_unit }}

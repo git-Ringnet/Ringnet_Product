@@ -862,18 +862,15 @@ class Delivery extends Model
                                                 ->where('workspace_id', Auth::user()->current_workspace)
                                                 ->sum('qty_export');
                                             // ->first();
-                                            if ($curremt_export) {
+                                         if ($curremt_export) {
                                                 $remaining_amount = $value->product_qty - $curremt_export;
                                                 if ($temp > 0) {
                                                     if ($remaining_amount == $data['product_qty'][$i] - $temp) {
                                                         $count_export = $data['product_qty'][$i] - $temp;
-                                                        var_dump("TH1");
                                                     } elseif ($remaining_amount > $data['product_qty'][$i] - $temp) {
                                                         $count_export = $data['product_qty'][$i] - $temp;
-                                                        var_dump("TH1.1");
                                                     } else {
                                                         $count_export = $value->product_qty - $remaining_amount;
-                                                        var_dump("TH1.2");
                                                     }
                                                 } else {
                                                     if ($remaining_amount == 0) {
@@ -881,15 +878,13 @@ class Delivery extends Model
                                                     } else {
                                                         if ($remaining_amount == $data['product_qty'][$i]) {
                                                             $count_export = $data['product_qty'][$i];
-                                                            var_dump("TH2.1");
+                                                            var_dump("TH1");
                                                         } elseif ($remaining_amount > $data['product_qty'][$i]) {
                                                             $count_export = $data['product_qty'][$i];
-                                                            var_dump("TH2.2");
+                                                            var_dump("TH2");
                                                         } else {
-                                                            var_dump($remaining_amount);
-                                                            // $count_export = $data['product_qty'][$i] - ($value->product_qty + $remaining_amount);
-                                                            $count_export = $remaining_amount;
-                                                            var_dump("TH2.3");
+                                                            $count_export = $value->product_qty - $remaining_amount;
+                                                            var_dump("TH3");
                                                         }
                                                     }
                                                 }
@@ -897,25 +892,22 @@ class Delivery extends Model
                                                 if ($temp > 0) {
                                                     if ($value->product_qty == $data['product_qty'][$i] - $temp) {
                                                         $count_export = $value->product_qty;
-                                                        var_dump("TH3.1");
                                                     } else if ($value->product_qty > $data['product_qty'][$i] - $temp) {
                                                         $count_export = $data['product_qty'][$i] - $temp;
-                                                        var_dump("TH3.2");
                                                     } else {
                                                         $count_export = $value->product_qty;
-                                                        var_dump("TH3.3");
                                                     }
                                                 } else {
                                                     if ($value->product_qty == $data['product_qty'][$i]) {
                                                         $count_export = $data['product_qty'][$i];
-                                                        var_dump("TH4.1");
+                                                        var_dump("TH4");
                                                     } elseif ($value->product_qty > $data['product_qty'][$i]) {
                                                         $count_export = $data['product_qty'][$i];
-                                                        var_dump("TH4.2");
+                                                        var_dump("TH5");
                                                     } else {
                                                         // $count_export = $temp == 0 ? $value->product_qty : ($data['product_qty'][$i] - $value->product_qty < $data['product_qty'][$i] ? $data['product_qty'][$i] - $value->product_qty - $temp : $data['product_qty'][$i] - $temp);
                                                         $count_export = $value->product_qty;
-                                                        var_dump("TH4.3");
+                                                        var_dump("TH6.1");
                                                     }
                                                 }
                                             }

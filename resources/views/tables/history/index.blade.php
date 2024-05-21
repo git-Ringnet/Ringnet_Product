@@ -874,7 +874,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td class="product-name"></td>
+                                                            <td class="product-name text-wrap"></td>
                                                             <td class="text-right product-qty"></td>
                                                             <td class="text-right qty-sn"></td>
                                                         </tr>
