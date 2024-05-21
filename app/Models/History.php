@@ -116,8 +116,13 @@ class History extends Model
                     ELSE (history.tax_import * history.price_import * quoteimport.product_qty) / 100 
                 END as thanhtiennhap'),
                 'history.*'
-            )
-            ->orderBy('id', 'desc')->get();
+            );
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $history->where('history.user_id', Auth::user()->id);
+            }
+        }
+        $history = $history->orderBy('id', 'desc')->get();
         // dd($history);
         return $history;
     }

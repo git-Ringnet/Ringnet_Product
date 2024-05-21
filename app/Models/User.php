@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -72,8 +73,10 @@ class User extends Authenticatable
     }
     public function getRoleUser()
     {
-        return $this->hasOne(UserWorkspaces::class, 'user_id', 'id');
+        return $this->hasOne(UserWorkspaces::class, 'user_id', 'id')
+            ->where('workspace_id', Auth::user()->current_workspace);
     }
+
 
     public function workspaces()
     {

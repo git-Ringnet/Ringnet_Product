@@ -132,7 +132,8 @@
                                         </th>
                                         <th class="border-right p-0 px-1 text-right text-13" style="width:12%;">Thành
                                             tiền</th>
-                                        <th class="border-right p-0 px-2 text-left note text-13" style="width: 10%;">Ghi chú
+                                        <th class="border-right p-0 px-2 text-left note text-13" style="width: 10%;">
+                                            Ghi chú
                                         </th>
                                         <th class="p-0 px-2"></th>
                                     </tr>
@@ -275,22 +276,23 @@
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:42px;">
                                     <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Người đại diện</span>
-                                    <input readonly class="text-13-black w-50 border-0 represent_name bg-input-guest" style="flex:2;"
-                                        value="{{ $getRepresentbyId[0]->represent_name ?? '' }}" />
+                                    <input readonly class="text-13-black w-50 border-0 represent_name bg-input-guest"
+                                        style="flex:2;" value="{{ $getRepresentbyId[0]->represent_name ?? '' }}" />
                                     <input type="hidden" class="idRepresent" autocomplete="off" name="represent_id"
                                         value="{{ $getRepresentbyId[0]->id ?? '' }}" />
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:42px;">
                                     <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Số hóa đơn</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2" style="flex:2;"
-                                        placeholder="Nhập thông tin" name="number_bill" required />
+                                    <input
+                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
+                                        style="flex:2;" placeholder="Nhập thông tin" name="number_bill" required />
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:42px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày hóa đơn</span>
-                                    <input type="text" class="text-13-black w-50 border-0 bg-input-guest" id="datePicker"
-                                        style="flex:2;" placeholder="Nhập thông tin" />
+                                    <input type="text" class="text-13-black w-50 border-0 bg-input-guest"
+                                        id="datePicker" style="flex:2;" placeholder="Nhập thông tin" />
                                     <input type="hidden" id="hiddenDateInput" value="" name="date_bill">
                                 </li>
                             </ul>

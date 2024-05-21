@@ -657,7 +657,7 @@ class DetailImportController extends Controller
                 if ($data['listQty'][$i] != $data['listSN'][$i] && $data['checkSN'][$i] == 1) {
                     $status = "false";
                     $productName = $data['listProductName'][$i];
-                    array_push($listProduct,$data['listProductName'][$i]);
+                    array_push($listProduct, $data['listProductName'][$i]);
                 }
             }
         }

@@ -51,8 +51,14 @@ class DetailExport extends Model
     {
         $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
-            ->leftJoin('users', 'users.id', 'detailexport.user_id')
-            ->orderBy('detailexport.id', 'desc')->get();
+            ->leftJoin('users', 'users.id', 'detailexport.user_id');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $detailExport->where('user_id', Auth::user()->id);
+            }
+        }
+        // dd(Auth::user()->getRoleUser);
+        $detailExport = $detailExport->orderBy('detailexport.id', 'desc')->get();
         return $detailExport;
     }
     public function addExport($data)

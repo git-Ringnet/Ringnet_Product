@@ -102,9 +102,11 @@
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-provides"
                                                 data-button="provides" type="button">Nhà cung cấp
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-users"
-                                                data-button="users" type="button">Người tạo
-                                            </button>
+                                            @can('isAdmin')
+                                                <button class="dropdown-item btndropdown text-13-black" id="btn-users"
+                                                    data-button="users" type="button">Người tạo
+                                                </button>
+                                            @endcan
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
                                                 data-button="status" type="button">Trạng thái
                                             </button>
@@ -199,18 +201,17 @@
                                                     <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
                                             </th>
-                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                            @can('isAdmin')
                                                 <th scope="col" class="my-0 py-2 height-52" style="width: 10%;">
                                                     <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link" data-sort-by="created_at"
-                                                            data-sort-type=""><button class="btn-sort "
-                                                                type="submit">
+                                                            data-sort-type=""><button class="btn-sort " type="submit">
                                                                 <span class="text-13">Người tạo</span></button>
                                                         </a>
                                                         <div class="icon" id="icon-created_at"></div>
                                                     </span>
                                                 </th>
-                                            @endif
+                                            @endcan
                                             <th scope="col" class="my-0 py-2 border-bottom height-52"
                                                 style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
@@ -330,13 +331,13 @@
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
                                                 </td>
-                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                @can('isAdmin')
                                                     <td class="text-13-black border-top-0 border-bottom">
                                                         @if ($item->getNameUser)
                                                             {{ $item->getNameUser->name }}
                                                         @endif
                                                     </td>
-                                                @endif
+                                                @endcan
                                                 <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($item->status == 1)
                                                         @if ($item->payment > 0)

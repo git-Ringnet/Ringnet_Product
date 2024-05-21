@@ -30,9 +30,13 @@ class BillSale extends Model
         $bill_sale = BillSale::leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
             ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD', 'bill_sale.*')
-            ->leftJoin('users', 'bill_sale.user_id', 'users.id')
-            ->orderBy('bill_sale.id', 'DESC')
-            ->get();
+            ->leftJoin('users', 'bill_sale.user_id', 'users.id');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $bill_sale->where('bill_sale.user_id', Auth::user()->id);
+            }
+        }
+        $bill_sale = $bill_sale->orderBy('bill_sale.id', 'DESC')->get();
         return $bill_sale;
     }
 

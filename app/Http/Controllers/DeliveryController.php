@@ -83,8 +83,13 @@ class DeliveryController extends Controller
                     'delivery.status',
                     'detailexport.guest_name'
                 )
-                ->orderBy('delivery.id', 'desc')
-                ->get();
+                ->orderBy('delivery.id', 'desc');
+            if (Auth::check()) {
+                if (Auth::user()->getRoleUser->roleid == 4) {
+                    $deliveries->where('delivery.user_id', Auth::user()->id);
+                }
+            }
+            $deliveries = $deliveries->get();
             return view('tables.export.delivery.list-delivery', compact('title', 'deliveries', 'users', 'workspacename'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
@@ -105,8 +110,13 @@ class DeliveryController extends Controller
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
             ->distinct()
-            ->orderby('detailexport.id', 'DESC')
-            ->get();
+            ->orderby('detailexport.id', 'DESC');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $numberQuote->where('detailexport.user_id', Auth::user()->id);
+            }
+        }
+        $numberQuote = $numberQuote->get();
         $product = $this->product->getAllProducts();
         return view('tables.export.delivery.create-delivery', compact('title', 'numberQuote', 'product', 'workspacename'));
     }
