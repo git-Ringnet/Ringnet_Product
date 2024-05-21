@@ -632,7 +632,7 @@
     });
 
     @php
-        $pdfSession = session('pdf_info');
+        $pdfSession = session('pdf_info1');
     @endphp
 
     document.addEventListener("DOMContentLoaded", function() {

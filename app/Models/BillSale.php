@@ -235,6 +235,12 @@ class BillSale extends Model
                     ->update([
                         'status' => 2,
                     ]);
+            }
+            if ($PayCount > 0) {
+                DetailExport::where('id', $billSale->detailexport_id)
+                    ->update([
+                        'status' => 2,
+                    ]);
             } else {
                 DetailExport::where('id', $billSale->detailexport_id)
                     ->update([
@@ -340,6 +346,12 @@ class BillSale extends Model
                 ]);
         } else {
             if ($BillCount2 > 0) {
+                DetailExport::where('id', $billSale->detailexport_id)
+                    ->update([
+                        'status' => 2,
+                    ]);
+            }
+            if ($PayCount > 0) {
                 DetailExport::where('id', $billSale->detailexport_id)
                     ->update([
                         'status' => 2,

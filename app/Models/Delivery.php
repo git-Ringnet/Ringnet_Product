@@ -87,6 +87,22 @@ class Delivery extends Model
         $detailexportId = $delivery->id;
         QuoteExport::where('detailexport_id', $data['detailexport_id'])
             ->update(['deliver_id' => $detailexportId]);
+        //Cập nhật
+        $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
+        $deliveredCount2 = Delivered::where('delivery.detailexport_id', $delivery->detailexport_id)
+            ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+            ->where('delivery.status', 2)
+            ->count();
+        if ($detaiExport) {
+            $detaiExport->update([
+                'status_receive' => 1,
+            ]);
+            if ($deliveredCount2 > 0) {
+                $detaiExport->update([
+                    'status_receive' => 3,
+                ]);
+            }
+        }
         return $delivery->id;
     }
     public function getDeliveryToId($id)
@@ -547,6 +563,10 @@ class Delivery extends Model
         $deliveredCount = Delivered::where('delivery.detailexport_id', $delivery->detailexport_id)
             ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
             ->count();
+        $deliveredCount2 = Delivered::where('delivery.detailexport_id', $delivery->detailexport_id)
+            ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+            ->where('delivery.status', 2)
+            ->count();
         $BillCount = productBill::where('bill_sale.detailexport_id', $delivery->detailexport_id)
             ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
             ->count();
@@ -559,9 +579,29 @@ class Delivery extends Model
                     'status' => 1,
                 ]);
         } else {
+            if ($deliveredCount2 > 0) {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status' => 2,
+                    ]);
+            }
+            if ($deliveredCount > 0) {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status' => 2,
+                    ]);
+            } else {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status' => 1,
+                    ]);
+            }
+        }
+        //Cập nhật
+        if ($deliveredCount == 0) {
             DetailExport::where('id', $delivery->detailexport_id)
                 ->update([
-                    'status' => 2,
+                    'status_receive' => 0,
                 ]);
         }
         QuoteExport::where('product_delivery', $id)->delete();
@@ -663,6 +703,10 @@ class Delivery extends Model
         $deliveredCount = Delivered::where('delivery.detailexport_id', $delivery->detailexport_id)
             ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
             ->count();
+        $deliveredCount2 = Delivered::where('delivery.detailexport_id', $delivery->detailexport_id)
+            ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+            ->where('delivery.status', 2)
+            ->count();
         $BillCount = productBill::where('bill_sale.detailexport_id', $delivery->detailexport_id)
             ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
             ->count();
@@ -675,9 +719,29 @@ class Delivery extends Model
                     'status' => 1,
                 ]);
         } else {
+            if ($deliveredCount2 > 0) {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status' => 2,
+                    ]);
+            }
+            if ($PayCount > 0) {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status' => 2,
+                    ]);
+            } else {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status' => 1,
+                    ]);
+            }
+        }
+        //Cập nhật
+        if ($deliveredCount == 0) {
             DetailExport::where('id', $delivery->detailexport_id)
                 ->update([
-                    'status' => 2,
+                    'status_receive' => 0,
                 ]);
         }
         QuoteExport::where('product_delivery', $id)->where('status', 1)->delete();
@@ -862,7 +926,7 @@ class Delivery extends Model
                                                 ->where('workspace_id', Auth::user()->current_workspace)
                                                 ->sum('qty_export');
                                             // ->first();
-                                         if ($curremt_export) {
+                                            if ($curremt_export) {
                                                 $remaining_amount = $value->product_qty - $curremt_export;
                                                 if ($temp > 0) {
                                                     if ($remaining_amount == $data['product_qty'][$i] - $temp) {
