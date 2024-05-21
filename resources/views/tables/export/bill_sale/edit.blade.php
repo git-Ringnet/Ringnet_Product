@@ -1,6 +1,7 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="billsale" :workspacename="$workspacename"></x-navbar>
-<form action="{{ route('billSale.update', ['workspace' => $workspacename, 'billSale' => $billSale->idHD]) }}"
-    method="POST" id="formSubmit" enctype="multipart/form-data">
+<form onsubmit="return kiemTraFormGiaoHang();"
+    action="{{ route('billSale.update', ['workspace' => $workspacename, 'billSale' => $billSale->idHD]) }}" method="POST"
+    id="formSubmit" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <input type="hidden" name="detail_id" value="{{ $billSale->idHD }}">
@@ -80,23 +81,20 @@
                             <input type="file" style="display: none;" id="file_restore" accept="*"
                                 name="file">
                         </label>
-                        @if ($billSale->tinhTrang !== 2)
-                            <div class="dropdown">
-                                <button type="submit" name="action" value="action_1"
-                                    class="custom-btn btn-light mx-1 d-flex align-items-center h-100"
-                                    onclick="kiemTraFormGiaoHang(event);">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                                fill="white" />
-                                        </svg>
-                                    </span>
-                                    <span class="text-btnIner-primary ml-2">Xác nhận</span>
-                                </button>
-                            </div>
-                        @endif
+                        <div class="dropdown">
+                            <button type="submit" name="action" value="action_1"
+                                class="custom-btn btn-light mx-1 d-flex align-items-center h-100">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        viewBox="0 0 16 16" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                            fill="white" />
+                                    </svg>
+                                </span>
+                                <span class="text-btnIner-primary ml-2">Xác nhận</span>
+                            </button>
+                        </div>
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-save-print border-0 rounded d-flex align-items-center h-100 dropdown-toggle px-2 bg-click">
@@ -468,8 +466,7 @@
                         </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div id="title--fixed"
-        class="content-title--fixed top-111">
+    <div id="title--fixed" class="content-title--fixed top-111">
         <p class="font-weight-bold text-uppercase info-chung--heading text-center">
             File Đính Kèm
         </p>
@@ -517,9 +514,9 @@
                     <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                         style="height:48px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số hóa đơn</span>
-                        <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
+                        <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2" required
                             style="flex:2;" placeholder="Nhập thông tin" name="number_bill"
-                            value="{{ $billSale->number_bill }}" readonly />
+                            value="{{ $billSale->number_bill }}" />
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                         style="height:48px;">
@@ -1374,6 +1371,42 @@
             }
         });
     });
+
+    function kiemTraFormGiaoHang() {
+        var numberValue = $('input[name="number_bill"]').val();
+        var detail_id = $('input[name="detail_id"]').val();
+        var ajaxSuccess = false;
+
+        $.ajax({
+            url: '{{ route('checkNumberBill') }}',
+            type: 'GET',
+            async: false,
+            data: {
+                detail_id: detail_id,
+                numberValue: numberValue
+            },
+            success: function(data) {
+                if (!data.success) {
+                    showAutoToast('warning', 'Số hóa đơn đã tồn tại');
+                } else {
+                    ajaxSuccess = true;
+                }
+            }
+        });
+
+        if (!ajaxSuccess) {
+            return false;
+        }
+
+        var hasProducts = false;
+        var rows = document.querySelectorAll('tr');
+        for (var i = 1; i < rows.length; i++) {
+            if (rows[i].classList.contains('sanPhamGiao')) {
+                hasProducts = true;
+                break;
+            }
+        }
+    }
 </script>
 </body>
 

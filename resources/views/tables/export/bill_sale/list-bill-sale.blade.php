@@ -114,9 +114,11 @@
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-guests"
                                                 data-button="guests" type="button">Khách hàng
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-users"
-                                                data-button="users" type="button">Người tạo
-                                            </button>
+                                            @can('isAdmin')
+                                                <button class="dropdown-item btndropdown text-13-black" id="btn-users"
+                                                    data-button="users" type="button">Người tạo
+                                                </button>
+                                            @endcan
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
                                                 data-button="status" type="button">Trạng thái
                                             </button>
@@ -205,11 +207,11 @@
                                                     <div class="icon" id="icon-guest_name"></div>
                                                 </span>
                                             </th>
-                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                            @can('isAdmin')
                                                 <th scope="col" class="height-52" style="width: 10%">
                                                     <span class="d-flex justify-content-start">
-                                                        <a href="#" class="sort-link btn-submit"
-                                                            data-sort-by="" data-sort-type="DESC">
+                                                        <a href="#" class="sort-link btn-submit" data-sort-by=""
+                                                            data-sort-type="DESC">
                                                             <button class="btn-sort text-13" type="submit">
                                                                 Người tạo
                                                             </button>
@@ -217,7 +219,7 @@
                                                         <div class="icon" id=""></div>
                                                     </span>
                                                 </th>
-                                            @endif
+                                            @endcan
                                             <th scope="col" class="height-52" style="width: 8%">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -287,12 +289,12 @@
                                                     class="text-13-black height-52 text-left border-bottom border-top-0">
                                                     {{ $item_bill->guest_name }}
                                                 </td>
-                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                @can('isAdmin')
                                                     <td
                                                         class="text-13-black height-52 text-left border-bottom border-top-0">
                                                         {{ $item_bill->name }}
                                                     </td>
-                                                @endif
+                                                @endcan
                                                 <td
                                                     class="text-13-black height-52 text-center border-bottom border-top-0">
                                                     @if ($item_bill->tinhTrang == 1)

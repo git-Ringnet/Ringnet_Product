@@ -117,9 +117,11 @@
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-guests"
                                                 data-button="guests" type="button">Khách hàng
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-users"
-                                                data-button="users" type="button">Người tạo
-                                            </button>
+                                            @can('isAdmin')
+                                                <button class="dropdown-item btndropdown text-13-black" id="btn-users"
+                                                    data-button="users" type="button">Người tạo
+                                                </button>
+                                            @endcan
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
                                                 data-button="status" type="button">Trạng thái
                                             </button>
@@ -230,11 +232,11 @@
                                                     <div class="icon" id="icon-guest_name_display"></div>
                                                 </span>
                                             </th>
-                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                            @can('isAdmin')
                                                 <th scope="col" class="height-52" style="width: 10%;">
                                                     <span class="d-flex justify-content-start">
-                                                        <a href="#" class="sort-link btn-submit"
-                                                            data-sort-by="" data-sort-type="DESC">
+                                                        <a href="#" class="sort-link btn-submit" data-sort-by=""
+                                                            data-sort-type="DESC">
                                                             <button class="btn-sort text-13" type="submit">
                                                                 Người tạo
                                                             </button>
@@ -242,7 +244,7 @@
                                                         <div class="icon" id=""></div>
                                                     </span>
                                                 </th>
-                                            @endif
+                                            @endcan
                                             <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -336,12 +338,12 @@
                                                     class="text-13-black max-width180 text-left border-top-0 border-bottom">
                                                     {{ $value_export->guest_name }}
                                                 </td>
-                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                @can('isAdmin')
                                                     <td
                                                         class="text-13-black max-width180 text-left border-top-0 border-bottom">
                                                         {{ $value_export->name }}
                                                     </td>
-                                                @endif
+                                                @endcan
                                                 <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($value_export->tinhTrang === 1)
                                                         <span class="text-secondary">Draft</span>
@@ -690,7 +692,7 @@
                         </div>
                     </div>
                     <div class="modal-body px-0 pb-4 pt-0 m-0">
-                        <table id="table_SNS" class="w-100">
+                        <table id="table_SNS" class="w-100 hover-tr-table">
                             <thead>
                                 <tr>
                                     <th class="border border-right-0 pl-3 py-1 border-top-0 border-checkbox">
@@ -1393,7 +1395,7 @@
                                                                 parseFloat(
                                                                     $(
                                                                         this
-                                                                        )
+                                                                    )
                                                                     .find(
                                                                         ".quantity-input"
                                                                     )
@@ -1403,7 +1405,7 @@
                                                                 parseFloat(
                                                                     $(
                                                                         this
-                                                                        )
+                                                                    )
                                                                     .find(
                                                                         ".type"
                                                                     )
@@ -1449,7 +1451,7 @@
                                                                 var productId =
                                                                     $(
                                                                         this
-                                                                        )
+                                                                    )
                                                                     .find(
                                                                         ".product_id"
                                                                     )
@@ -1457,7 +1459,7 @@
                                                                 var productName =
                                                                     $(
                                                                         this
-                                                                        )
+                                                                    )
                                                                     .find(
                                                                         ".product_name"
                                                                     )
@@ -1657,7 +1659,7 @@
                                                                 parseFloat(
                                                                     $(
                                                                         this
-                                                                        )
+                                                                    )
                                                                     .find(
                                                                         ".quantity-input"
                                                                     )
@@ -1667,7 +1669,7 @@
                                                                 parseFloat(
                                                                     $(
                                                                         this
-                                                                        )
+                                                                    )
                                                                     .find(
                                                                         ".type"
                                                                     )
@@ -1713,7 +1715,7 @@
                                                                 var productId =
                                                                     $(
                                                                         this
-                                                                        )
+                                                                    )
                                                                     .find(
                                                                         ".product_id"
                                                                     )
@@ -1721,7 +1723,7 @@
                                                                 var productName =
                                                                     $(
                                                                         this
-                                                                        )
+                                                                    )
                                                                     .find(
                                                                         ".product_name"
                                                                     )

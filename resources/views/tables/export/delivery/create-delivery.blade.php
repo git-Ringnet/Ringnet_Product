@@ -288,7 +288,7 @@
                                 </div>
                             </div>
                             <div class="modal-body px-0 pb-4 pt-0 m-0">
-                                <table id="table_SNS" class="w-100">
+                                <table id="table_SNS" class="w-100 hover-tr-table">
                                     <thead>
                                         <tr>
                                             <th class="border border-right-0 pl-3 py-1 border-top-0 border-checkbox">
@@ -1050,7 +1050,7 @@
                                                                 </td>
                                                                 <td class="border-bottom">${currentIndex}</td>
                                                                 <td class="border-bottom">
-                                                                    <input readonly class="form-control w-25" type="text" value="${sn.serinumber}">
+                                                                    <input readonly class="form-control w-100" type="text" value="${sn.serinumber}">
                                                                 </td>
                                                             </tr>`;
                                                             currentIndex++;
@@ -3029,7 +3029,7 @@
                         </td>
                         <td class="border-bottom">${currentIndex}</td>
                         <td class="border-bottom">
-                            <input readonly class="form-control w-25" type="text" value="${sn.serinumber}">
+                            <input readonly class="form-control w-100" type="text" value="${sn.serinumber}">
                         </td>
                     </tr>`;
                                                             currentIndex++;

@@ -43,7 +43,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('isSale', function ($user) {
             $userWorkspaces = $user->current_workspace;
             $roleid = DB::table('user_workspaces')->where('user_id', $user->id)->where('workspace_id', $userWorkspaces)->first()->roleid;
-            if ($roleid == 2) {
+            if ($roleid == 4) {
                 return true;
             }
             return false;

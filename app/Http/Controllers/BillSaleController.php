@@ -77,8 +77,13 @@ class BillSaleController extends Controller
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
             ->distinct()
-            ->orderby('detailexport.id','DESC')
-            ->get();
+            ->orderby('detailexport.id', 'DESC');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $numberQuote->where('detailexport.user_id', Auth::user()->id);
+            }
+        }
+        $numberQuote = $numberQuote->get();
         $product = $this->product->getAllProducts();
         return view('tables.export.bill_sale.create-billSale', compact('title', 'numberQuote', 'product', 'workspacename'));
     }
@@ -295,6 +300,7 @@ class BillSaleController extends Controller
                 $billSale->update([
                     'status' => 2,
                     'created_at' => $date_bill,
+                    'number_bill' => $request->number_bill,
                 ]);
                 $this->billSale->updateDetailExport($billSale->detailexport_id);
                 $arrCapNhatKH = [
@@ -388,9 +394,16 @@ class BillSaleController extends Controller
     //Kiểm tra số hóa đơn
     public function checkNumberBill(Request $request)
     {
-        $check = BillSale::where('number_bill', $request['numberValue'])
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->first();
+        if (isset($request->detail_id)) {
+            $check = BillSale::where('number_bill', $request['numberValue'])
+                ->where('id', '!=', $request['detail_id'])
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+        } else {
+            $check = BillSale::where('number_bill', $request['numberValue'])
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+        }
 
         if ($check) {
             $response = ['success' => false, 'msg' => 'Số hóa đơn đã tồn tại!'];

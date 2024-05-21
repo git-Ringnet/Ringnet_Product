@@ -104,9 +104,11 @@
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-provides"
                                                 data-button="provides" type="button">Nhà cung cấp
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-users"
-                                                data-button="users" type="button">Người tạo
-                                            </button>
+                                            @can('isAdmin')
+                                                <button class="dropdown-item btndropdown text-13-black" id="btn-users"
+                                                    data-button="users" type="button">Người tạo
+                                                </button>
+                                            @endcan
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
                                                 data-button="status" type="button">Trạng thái
                                             </button>
@@ -198,9 +200,8 @@
                                                     <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
                                             </th>
-                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                <th scope="col" class="height-52 border-bottom"
-                                                    style="width: 10%;">
+                                            @can('isAdmin')
+                                                <th scope="col" class="height-52 border-bottom" style="width: 10%;">
                                                     <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
@@ -209,7 +210,7 @@
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                            @endif
+                                            @endcan
                                             <th scope="col" class="height-52 border-bottom" style="width:8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -297,13 +298,13 @@
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
                                                 </td>
-                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                @can('isAdmin')
                                                     <td class="py-2 text-13-black border-bottom border-top-0">
                                                         @if ($item->getNameUser)
                                                             {{ $item->getNameUser->name }}
                                                         @endif
                                                     </td>
-                                                @endif
+                                                @endcan
                                                 <td class="text-13-black text-center border-bottom border-top-0">
                                                     @if ($item->status == 1)
                                                         <span style="color: #858585">Bản nháp</span>
