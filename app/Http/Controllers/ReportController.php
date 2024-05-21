@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Delivered;
+use App\Models\Delivery;
 use App\Models\DetailExport;
 use App\Models\DetailImport;
 use App\Models\Guest;
+use App\Models\History;
+use App\Models\HistoryImport;
 use App\Models\PayExport;
 use App\Models\PayOder;
+use App\Models\Products;
+use App\Models\ProductImport;
 use App\Models\Provides;
+use App\Models\QuoteExport;
+use App\Models\QuoteImport;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +31,8 @@ class ReportController extends Controller
     private $payOrder;
     private $guest;
     private $provide;
+    private $detailExport;
+    private $workspaces;
 
     public function __construct()
     {
@@ -29,6 +40,8 @@ class ReportController extends Controller
         $this->payOrder = new PayOder();
         $this->guest = new Guest();
         $this->provide = new Provides();
+        $this->detailExport = new DetailExport();
+        $this->workspaces = new Workspace();
     }
     public function index()
     {
@@ -48,7 +61,6 @@ class ReportController extends Controller
         // Chuyển mảng labels và data thành chuỗi JSON để truyền vào biểu đồ JavaScript
         $labels = json_encode($labels);
         $data = json_encode($data);
-
         //Công ty còn dư nợ
         $labels1 = [];
         $data1 = [];
@@ -93,6 +105,133 @@ class ReportController extends Controller
             ->orderBy('year')
             ->orderBy('quarter')
             ->get();
+        // Công nợ nhà cung cấp
+        $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+
+        // $htrImport = DB::table('history_import')
+        // ->leftJoin('quoteexport', 'quoteexport.product_id', '=', 'history_import.product_id')
+        // ->leftJoin('delivery', 'delivery.ids', '=', 'quoteexport.deliver_id')
+        // ->leftJoin('delivered', function($join) {
+        //     $join->on('delivered.delivery_id', '=', 'delivery.id')
+        //          ->on('delivered.product_id', '=', 'quoteexport.product_id');
+        // })
+        // ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+        // ->select('history_import.*', 'delivered.deliver_qty as qty_export', 'delivered.price_export as giaban')
+        // ->get();
+        // $htrImport = HistoryImport::where('workspace_id', Auth::user()->current_workspace)->get();
+
+        // $htrImport = History::where('workspace_id', Auth::user()->current_workspace)->get();
+        $htrImport = DB::table('history_import')
+            ->where('history_import.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('delivered', 'delivered.product_id', '=', 'history_import.product_id')
+            ->leftJoin('products', 'products.id', '=', 'delivered.product_id')
+            ->select(
+                'products.product_name as product_name',
+                'products.product_code as product_code',
+                'products.product_unit as product_unit',
+                'products.product_inventory as product_inventory',
+                'history_import.product_id',
+                DB::raw('SUM(delivered.deliver_qty) as total_quantity'),
+                'history_import.product_total as giavon',
+                'history_import.price_export as gianhap'
+            )
+            ->groupBy(
+                'history_import.product_id',
+                'history_import.product_total',
+                'history_import.price_export',
+                'products.product_name',
+                'products.product_code',
+                'products.product_unit',
+                'products.product_inventory'
+            )
+            ->get();
+        // dd($htrImport);
+        // ->unique('id')
+        // $detailE = DB::table('detailexport')->where('workspace_id', Auth::user()->current_workspace)
+        // ->get();
+        // dd($htrImport);
+        $detailE = DetailExport::where('workspace_id', Auth::user()->current_workspace)->get();
+        $quoteexport = Delivered::leftJoin('history_import', 'delivered.product_id', 'history_import.product_id')
+            ->leftJoin('products', 'products.id', 'delivered.product_id')
+            ->leftJoin('delivery', 'delivery.id', 'delivered.delivery_id')
+            ->leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
+            ->select(
+                'history_import.*',
+                'products.*',
+                'detailexport.quotation_number as donhang',
+                'delivered.deliver_qty as slban',
+                'delivered.price_export as dongiaban',
+                'delivered.product_total_vat as tongban',
+                'history_import.price_export as dongia',
+                // 'quoteexport.*'
+            )
+            ->where('delivered.workspace_id', Auth::user()->current_workspace)
+            ->get();
+        // dd($quoteexport);
+        // $detailE = DetailExport::where('workspace_id',Auth::user()->current_workspace)->get();
+        $guest = Guest::where('workspace_id',Auth::user()->current_workspace)->get();
+        // $quoteexport = QuoteExport::where('workspace_id', Auth::user()->current_workspace)->get();
+        $countImport = QuoteImport::where('workspace_id', Auth::user()->current_workspace)->get();
+        $dataImport = DetailImport::where('workspace_id', Auth::user()->current_workspace)->get();
+        // Đơn đặt hàng
+        $dondathang = HistoryImport::where('workspace_id', Auth::user()->current_workspace)->orderBy('id', 'desc')->get();
+        // TK bán hàng
+        $tkbanhang = Delivered::leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+            ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            ->leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
+            ->leftJoin('products', 'products.id', 'delivered.product_id')
+            ->select('products.*', 'detailexport.*', 'delivery.*', 'guest.*', 'delivered.*')
+            ->orderBy('delivered.id', 'desc')
+            ->where('delivered.workspace_id', Auth::user()->current_workspace)->get();
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        $quoteExport = $this->detailExport->getAllDetailExport();
+        // TK giao hàng
+        $deliveries = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
+            ->select(
+                'delivery.id',
+                'delivery.guest_id',
+                'delivery.quotation_number',
+                'delivery.code_delivery',
+                'delivery.shipping_unit',
+                'delivery.shipping_fee',
+                'delivery.id as maGiaoHang',
+                'delivery.created_at as ngayGiao',
+                'delivery.status as trangThai',
+                'users.name',
+                'detailexport.guest_name',
+                DB::raw('(SELECT COALESCE(SUM(product_total_vat), 0) FROM delivered WHERE delivery_id = delivery.id) as totalProductVat')
+            )
+            ->leftJoin('users', 'users.id', 'delivery.user_id')
+            ->where('delivery.workspace_id', Auth::user()->current_workspace)
+            ->groupBy(
+                'delivery.id',
+                'delivery.guest_id',
+                'delivery.quotation_number',
+                'delivery.code_delivery',
+                'delivery.shipping_unit',
+                'delivery.shipping_fee',
+                'users.name',
+                'delivery.created_at',
+                'delivery.status',
+                'detailexport.guest_name'
+            )
+            ->orderBy('delivery.id', 'desc')
+            ->get();
+        // TK DOANH số
+        // giá vốn bán hàng
+        $tonggiavon = PayExport::where('pay_export.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('product_pay', 'product_pay.pay_id', 'pay_export.id')
+            ->leftJoin('history_import', 'product_pay.product_id', 'history_import.product_id')
+            ->select(DB::raw('SUM(history_import.price_export * product_pay.pay_qty) as tonggiavon'))
+            ->value('tonggiavon');
+
+        $totalSales = PayExport::sum('debt');
+        $doanhso = PayExport::sum('total');
+
+        // Khách hàng còn nợ
+
+        // dd($doanhso);
         return view('report.index', compact(
             'title',
             'guests',
@@ -105,7 +244,21 @@ class ReportController extends Controller
             'data3',
             'detailExport',
             'detailImport',
-            'revenueByQuarter'
+            'revenueByQuarter',
+            'provide',
+            'htrImport',
+            'quoteexport',
+            'guest',
+            'countImport',
+            'workspacename',
+            'dataImport',
+            'doanhso',
+            'tkbanhang',
+            'deliveries',
+            'quoteExport',
+            'tonggiavon',
+            'totalSales',
+            'dondathang'
         ));
     }
     public function view()

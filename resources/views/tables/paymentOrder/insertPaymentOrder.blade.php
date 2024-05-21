@@ -325,8 +325,8 @@
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:49px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
-                                <input type="text" placeholder="Chọn thông tin" id="debt" required
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" readonly
+                                <input type="text" placeholder="Chọn thông tin" id="debt" required readonly
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2;"
                                     value="@isset($yes){{ $getPaymentOrder[0]->payment == null
                                         ? number_format($getPaymentOrder[0]->total_price)
@@ -444,18 +444,17 @@
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <!-- <script src="{{ asset('/dist/js/products.js') }}"></script> -->
 <script>
-    // let lastDevicePixelRatio = window.devicePixelRatio;
-   
-    // window.addEventListener('resize', function() {
-    //     const currentDevicePixelRatio = window.devicePixelRatio;
-    //    if (currentDevicePixelRatio > lastDevicePixelRatio) {
-    //     console.log(123);
-    // } else if (currentDevicePixelRatio < lastDevicePixelRatio) {
-    //     console.log(456);
-    // } else {
-    //     console.log("asadasdasds");
-    // }
-    // });
+
+    const lastDevicePixelRatio = window.devicePixelRatio;
+    window.addEventListener('resize', function() {
+        const currentDevicePixelRatio = window.devicePixelRatio;
+
+        if (currentDevicePixelRatio >= 1.5) {
+            $('#mySidenav').attr('style', 'height:90vh; overflow:auto;');
+        } else {
+            $('#mySidenav').attr('style', 'height:100vh');
+        }
+    });
 
     $(document).on('click', '.transaction', function() {
         nameProduct = $(this).closest('tr').find('.searchProductName').val()
@@ -735,6 +734,11 @@
                             $('#more_info1').show()
                         }
                     })
+                    if (lastDevicePixelRatio <= 1.25) {
+                        $('#mySidenav').attr('style', 'height:100vh');
+                    } else {
+                        $('#mySidenav').attr('style', 'height:90vh; overflow:auto');
+                    }
                 }
             })
         })

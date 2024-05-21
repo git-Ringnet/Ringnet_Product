@@ -35,7 +35,10 @@ class ProductImport extends Model
         'product_guarantee'
 
     ];
-
+    public function getProduct()
+    {
+        return $this->hasOne(Products::class, 'id', 'product_id');
+    }
     public function getSerialNumber()
     {
         return $this->hasMany(Serialnumber::class, 'receive_id', 'receive_id');

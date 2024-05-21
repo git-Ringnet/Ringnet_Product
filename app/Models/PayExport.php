@@ -32,7 +32,9 @@ class PayExport extends Model
 
     public function getHistoryPay()
     {
-        return $this->hasOne(history_Pay_Export::class, 'pay_id', 'id')->latest();
+        return $this->hasOne(history_Pay_Export::class, 'pay_id', 'id')
+        ->orderBy('id','desc');
+        // ->latest();
     }
     public function checkSL($data)
     {
@@ -127,6 +129,7 @@ class PayExport extends Model
         } else {
             $detailExport->update([
                 'status' => 2,
+                'status_pay' => 1,
             ]);
         }
 
@@ -192,12 +195,12 @@ class PayExport extends Model
                     ]);
                 }
             } else {
-                $detailExport->update([
-                    'status_pay' => 3,
-                ]);
                 if ($payment > 0) {
                     $payExport->update([
                         'status' => 5,
+                    ]);
+                    $detailExport->update([
+                        'status_pay' => 3,
                     ]);
                 }
             }
@@ -329,7 +332,7 @@ class PayExport extends Model
         } else {
             DetailExport::where('id', $payExport->detailexport_id)
                 ->update([
-                    'status_pay' => 1,
+                    'status_pay' => 0,
                 ]);
         }
         $BillCount = productBill::where('bill_sale.detailexport_id', $payExport->detailexport_id)

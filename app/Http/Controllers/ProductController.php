@@ -85,7 +85,7 @@ class ProductController extends Controller
         if ($product) {
             $title = $product->product_name;
         }
-        $history = ProductImport::where('product_id', $id)->where('workspace_id',Auth::user()->current_workspace);
+        $history = ProductImport::where('product_id', $id)->where('workspace_id', Auth::user()->current_workspace);
         if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
             $history->where('user_id', Auth::user()->id);
         }

@@ -93,6 +93,22 @@ class BillSale extends Model
         ];
         $bill_sale = new BillSale($dataBill);
         $bill_sale->save();
+        //Cập nhật
+        $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
+        $deliveredCount2 = productBill::where('bill_sale.detailexport_id', $bill_sale->detailexport_id)
+            ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
+            ->where('bill_sale.status', 2)
+            ->count();
+        if ($detaiExport) {
+            $detaiExport->update([
+                'status_reciept' => 1,
+            ]);
+            if ($deliveredCount2 > 0) {
+                $detaiExport->update([
+                    'status_reciept' => 3,
+                ]);
+            }
+        }
         return $bill_sale->id;
     }
 
@@ -198,6 +214,10 @@ class BillSale extends Model
         $BillCount = productBill::where('bill_sale.detailexport_id', $billSale->detailexport_id)
             ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
             ->count();
+        $BillCount2 =  productBill::where('bill_sale.detailexport_id', $billSale->detailexport_id)
+            ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
+            ->where('bill_sale.status', 2)
+            ->count();
         $deliveredCount = Delivered::where('delivery.detailexport_id', $billSale->detailexport_id)
             ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
             ->count();
@@ -210,9 +230,23 @@ class BillSale extends Model
                     'status' => 1,
                 ]);
         } else {
+            if ($BillCount2 > 0) {
+                DetailExport::where('id', $billSale->detailexport_id)
+                    ->update([
+                        'status' => 2,
+                    ]);
+            } else {
+                DetailExport::where('id', $billSale->detailexport_id)
+                    ->update([
+                        'status' => 1,
+                    ]);
+            }
+        }
+        //Cập nhật
+        if ($BillCount == 0) {
             DetailExport::where('id', $billSale->detailexport_id)
                 ->update([
-                    'status' => 2,
+                    'status_reciept' => 0,
                 ]);
         }
         BillSale::find($id)->delete();
@@ -289,6 +323,10 @@ class BillSale extends Model
         $BillCount = productBill::where('bill_sale.detailexport_id', $billSale->detailexport_id)
             ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
             ->count();
+        $BillCount2 =  productBill::where('bill_sale.detailexport_id', $billSale->detailexport_id)
+            ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
+            ->where('bill_sale.status', 2)
+            ->count();
         $deliveredCount = Delivered::where('delivery.detailexport_id', $billSale->detailexport_id)
             ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
             ->count();
@@ -301,9 +339,22 @@ class BillSale extends Model
                     'status' => 1,
                 ]);
         } else {
+            if ($BillCount2 > 0) {
+                DetailExport::where('id', $billSale->detailexport_id)
+                    ->update([
+                        'status' => 2,
+                    ]);
+            } else {
+                DetailExport::where('id', $billSale->detailexport_id)
+                    ->update([
+                        'status' => 1,
+                    ]);
+            }
+        }
+        if ($BillCount == 0) {
             DetailExport::where('id', $billSale->detailexport_id)
                 ->update([
-                    'status' => 2,
+                    'status_reciept' => 0,
                 ]);
         }
         BillSale::find($id)->delete();

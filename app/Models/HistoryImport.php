@@ -33,6 +33,16 @@ class HistoryImport extends Model
         'workspace_id', 'created_at'
     ];
 
+
+    public function getExport()
+    {
+        return $this->hasOne(QuoteExport::class, 'product_id', 'product_id');
+    }
+    public function getDelivered(){
+        return $this->hasMany(QuoteExport::class, 'product_id', 'product_id');
+    }
+
+
     public function addHistoryImport($data, $id)
     {
         for ($i = 0; $i < count($data['product_name']); $i++) {

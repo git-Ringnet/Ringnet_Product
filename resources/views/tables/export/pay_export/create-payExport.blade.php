@@ -1755,6 +1755,22 @@
             $('#luuNhap').click();
         });
     });
+    //
+    const lastDevicePixelRatio = window.devicePixelRatio;
+    window.addEventListener('resize', function() {
+        const currentDevicePixelRatio = window.devicePixelRatio;
+
+        if (currentDevicePixelRatio >= 1.5) {
+            $('#mySidenav').attr('style', 'height:90vh; overflow:auto;');
+        } else {
+            $('#mySidenav').attr('style', 'height:100vh');
+        }
+    });
+    if (lastDevicePixelRatio <= 1.25) {
+        $('#mySidenav').attr('style', 'height:100vh');
+    } else {
+        $('#mySidenav').attr('style', 'height:90vh; overflow:auto');
+    }
 </script>
 </body>
 

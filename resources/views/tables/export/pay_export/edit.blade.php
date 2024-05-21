@@ -1817,11 +1817,11 @@
             paymentInput.value = duNoValue;
         }
     }
-    document.getElementById('btnThanhToan').addEventListener('click', function() {
-        var paymentInput = document.getElementsByName('payment')[0];
-        paymentInput.removeAttribute('required');
-        validateInput();
-    });
+    // document.getElementById('btnThanhToan').addEventListener('click', function() {
+    //     var paymentInput = document.getElementsByName('payment')[0];
+    //     paymentInput.removeAttribute('required');
+    //     validateInput();
+    // });
     $('#btnXacNhan').click(function() {
         $('input[name="total"], input[name="daThanhToan"], input[name="number_bill"]').prop('readonly', false);
     });
@@ -1850,22 +1850,22 @@
             }
         });
     });
-    var dateInput = document.getElementById('customDateInput');
+    //
+    const lastDevicePixelRatio = window.devicePixelRatio;
+    window.addEventListener('resize', function() {
+        const currentDevicePixelRatio = window.devicePixelRatio;
 
-    // Người dùng thay đổi giá trị
-    dateInput.addEventListener('input', function() {
-        // Lấy giá trị của thẻ input
-        var inputValue = dateInput.value;
-
-        // Chuyển đổi thành định dạng Date JavaScript
-        var dateObject = new Date(inputValue.split('/').reverse().join('-'));
-
-        // Định dạng lại thành 'YYYY-MM-DD'
-        var formattedDate = dateObject.toISOString().split('T')[0];
-
-        // Gán giá trị đã chuyển đổi lại cho thẻ input
-        dateInput.value = formattedDate;
+        if (currentDevicePixelRatio >= 1.5) {
+            $('#mySidenav').attr('style', 'height:80vh; overflow:auto;');
+        } else {
+            $('#mySidenav').attr('style', 'height:100vh');
+        }
     });
+    if (lastDevicePixelRatio <= 1.25) {
+        $('#mySidenav').attr('style', 'height:100vh');
+    } else {
+        $('#mySidenav').attr('style', 'height:80vh; overflow:auto');
+    }
 </script>
 </body>
 

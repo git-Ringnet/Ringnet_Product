@@ -29,6 +29,15 @@ class Guest extends Model
     ];
     protected $table = 'guest';
 
+    public function getAllDetailByID(){
+        return $this->hasMany(DetailExport::class, 'guest_id', 'id')
+        ->whereIn('detailexport.status', [2,3]);
+    }
+    public function getPayment()
+    {
+        return $this->hasOne(PayExport::class, 'guest_id', 'id');
+    }
+
     public function getAllGuest()
     {
         $guests = DB::table($this->table)

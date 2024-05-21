@@ -49,7 +49,10 @@ class QuoteImport extends Model
     {
         return $this->hasOne(Products::class, 'product_name', 'product_name');
     }
-
+    public function getPayment()
+    {
+        return $this->hasMany(PayOder::class, 'detailimport_id', 'detailimport_id');
+    }
     public function addQuoteImport($data, $id)
     {
         for ($i = 0; $i < count($data['product_name']); $i++) {

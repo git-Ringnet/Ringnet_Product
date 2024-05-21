@@ -42,6 +42,16 @@ class QuoteExport extends Model
         $quoteExport = QuoteExport::all();
         return $quoteExport;
     }
+    public function getProduct(){
+        return $this->hasOne(Products::class, 'id', 'product_id');
+    }
+    public function getDetailExport(){
+        return $this->hasOne(DetailExport::class, 'id', 'detailexport_id');
+    }
+    public function getDelivery(){
+        return $this->hasOne(Delivery::class, 'id', 'deliver_id');
+    }
+
     public function getAllGuest()
     {
         $guest = Guest::all();
