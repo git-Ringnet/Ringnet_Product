@@ -696,7 +696,7 @@
             }
         });
     }
-
+    var submit = false;
     $('#quickAction').on('submit', function(e) {
         var type = $(this).data('type');
         e.preventDefault();
@@ -748,9 +748,6 @@
                     },
                     success: function(data) {
                         if (data['status'] == 'false') {
-                            // showNotification('warning', 'Vui lòng nhập đủ số lượng seri sản phẩm ' +
-                            //     data[
-                            //         'productName'])
                             showAutoToast('warning',
                                 "Vui lòng nhập đủ seri cho các sản phẩm:\n" +
                                 data['list']
@@ -783,7 +780,6 @@
         } else if (type == "reciept") {
             // Hóa đơn mua hàng
             var number_bill = $("input[name='number_bill']").val();
-            console.log(number_bill);
             $.ajax({
                 url: "{{ route('checkQuotetion') }}",
                 type: "get",
@@ -800,7 +796,40 @@
             })
         } else {
             // Thanh toán
-            $('#quickAction')[0].submit();
+            // var error = false;
+
+            // function checkQuotetion() {
+            //     var payment_code = $("input[name='payment_code']").val();
+            //     $.ajax({
+            //         url: "{{ route('checkQuotetion') }}",
+            //         type: "get",
+            //         data: {
+            //             payment_code: payment_code,
+            //         },
+            //         success: function(data) {
+            //             if (!data['status']) {
+            //                 error = false;
+            //                 showNotification('warning', 'Mã thanh toán đã tồn tại')
+            //                 return false;
+            //             } else {
+            //                 error = true;
+            //             }
+            //         }
+            //     })
+            //     return error
+            // }
+            // if (!submit && checkQuotetion()) {
+            //     submit = true;
+            //     $('#quickAction')[0].submit();
+            // } else {}
+
+            if (!submit) {
+                submit = true;
+                $('#quickAction')[0].submit();
+            } else {
+                return false;
+            }
+
         }
     })
 

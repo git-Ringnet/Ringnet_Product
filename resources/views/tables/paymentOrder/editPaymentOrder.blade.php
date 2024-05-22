@@ -537,7 +537,7 @@
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
-                                <input type="text" placeholder="Chọn thông tin" name="debt" required
+                                <input type="text" placeholder="Chọn thông tin" name="debt" required readonly
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2;" value="{{ number_format($payment->debt) }}" />
                             </li>
@@ -673,6 +673,25 @@
 
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    function checkZoom(currentDevicePixelRatio) {
+        if (currentDevicePixelRatio >= 1.5) {
+            $('#mySidenav').attr('style', 'height:82vh; overflow:auto;');
+        } else {
+            $('#mySidenav').attr('style', 'height:100vh');
+        }
+    }
+    const lastDevicePixelRatio = window.devicePixelRatio;
+    window.addEventListener('resize', function() {
+        const currentDevicePixelRatio = window.devicePixelRatio;
+        checkZoom(currentDevicePixelRatio)
+
+    });
+    $(document).ready(function() {
+        const currentDevicePixelRatio = window.devicePixelRatio;
+        checkZoom(currentDevicePixelRatio)
+    })
+
+
     // Hiển thị sản phẩm
     $(document).on('click', '.info-product', function() {
         $('#productModal .product_show').empty()
