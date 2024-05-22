@@ -1050,6 +1050,7 @@ class DetailExportController extends Controller
         if ($detailExport) {
             $quoteExport = QuoteExport::where('detailexport_id', $detailExport->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
+                ->where('status', 1)
                 ->get();
             if ($quoteExport) {
                 foreach ($quoteExport as $qt) {

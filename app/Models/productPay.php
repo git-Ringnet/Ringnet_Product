@@ -27,6 +27,7 @@ class productPay extends Model
             if ($data['product_id'][$i] != null) {
                 $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])
                     ->where('detailexport_id', $data['detailexport_id'])
+                    ->where('status', 1)
                     ->first();
                 if ($quoteExport) {
                     $quoteExport->qty_payment += $data['product_qty'][$i];
