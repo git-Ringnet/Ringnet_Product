@@ -17,6 +17,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvidesController;
 use App\Http\Controllers\QuoteExportController;
 use App\Http\Controllers\DateFormController;
+use App\Http\Controllers\GroupsController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RecieptController;
@@ -88,6 +89,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/showData', [DetailImportController::class, 'showData'])->name('showData');
     Route::get('/getDataImport', [DetailImportController::class, 'getDataImport'])->name('getDataImport');
     Route::get('/checkAction', [DetailImportController::class, 'checkAction'])->name('checkAction');
+    Route::resource('{workspace}/groups', GroupsController::class);
 });
 
 
