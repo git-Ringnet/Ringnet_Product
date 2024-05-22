@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->integer('workspace)id')->nullable()->after('description');
+            $table->integer('workspace_id')->nullable()->after('description');
         });
     }
 
