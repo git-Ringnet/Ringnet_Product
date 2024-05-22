@@ -635,7 +635,7 @@
     </a>
 </div>
 {{-- Modal --}}
-<form action="#" method="POST" id="quickAction">
+<form action="#" method="POST" id="quickAction" onsubmit="">
     @csrf
     <input type="hidden" id="id_export" name="detailexport_id">
     <input type="hidden" name="action" id="getAction">
@@ -1661,7 +1661,7 @@
                                                         .val(1);
                                                     if (
                                                         checkConditions()
-                                                        ) {
+                                                    ) {
                                                         getActionForm
                                                             (document
                                                                 .querySelector(
@@ -2092,6 +2092,7 @@
             $("input[name='redirect']").val('billSale');
             var actionUrl = "{{ route('billSale.store', $workspacename) }}";
             $('#quickAction').attr('action', actionUrl);
+            $('#quickAction').attr('onsubmit', 'return kiemTraFormGiaoHang();');
         } else if (type == "payorder") {
             $("input[name='redirect']").val('payExport');
             var actionUrl = "{{ route('payExport.store', $workspacename) }}";
@@ -2108,6 +2109,31 @@
         }
 
         $('#quickAction').attr('data-type', type);
+    }
+
+    function kiemTraFormGiaoHang() {
+        var numberValue = $('input[name="number_bill"]').val();
+        var ajaxSuccess = false;
+
+        $.ajax({
+            url: '{{ route('checkNumberBill') }}',
+            type: 'GET',
+            async: false, // Chuyển thành đồng bộ
+            data: {
+                numberValue: numberValue
+            },
+            success: function(data) {
+                if (!data.success) {
+                    showAutoToast('warning', 'Số hóa đơn đã tồn tại');
+                } else {
+                    ajaxSuccess = true;
+                }
+            }
+        });
+
+        if (!ajaxSuccess) {
+            return false;
+        }
     }
 
     function formatCurrency(value) {

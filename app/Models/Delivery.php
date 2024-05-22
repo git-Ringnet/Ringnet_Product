@@ -825,6 +825,7 @@ class Delivery extends Model
                 }
                 $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])
                     ->where('detailexport_id', $data['detailexport_id'])
+                    ->where('status', 1)
                     ->first();
                 if ($quoteExport) {
                     $quoteExport->qty_delivery += $data['product_qty'][$i];
