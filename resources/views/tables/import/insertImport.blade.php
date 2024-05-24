@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="import"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<form action="{{ route('import.store', $workspacename) }}" method="POST">
+<form action="{{ route('import.store') }}" method="POST">
     <div class="content-wrapper--2Column m-0 min-height--none">
         <!-- Content Header (Page header) -->
         @csrf
@@ -32,7 +32,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('import.index', $workspacename) }}">
+                        <a href="{{ route('import.index') }}">
                             <button type="button"
                                 class="btn-destroy btn-light d-flex align-items-center h-100 user_flow mx-1"
                                 data-type="DMH" data-des="Hủy đơn mua hàng">

@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="guest" :workspacename="$workspacename"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="guest"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
     <div class="content-header-fixed p-0 margin-250 border-0">
         <div class="content__header--inner margin-left32">
@@ -16,7 +16,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('guests.create', ['workspace' => $workspacename]) }}" class="activity mr-3"
+                    <a href="{{ route('guests.create') }}" class="activity mr-3"
                         data-name1="KH" data-des="Tạo mới">
                         <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
@@ -324,7 +324,7 @@
                                             </td>
                                             <td class="text-13-black text-left border-bottom border-top-0">
                                                 <a
-                                                    href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
+                                                    href="{{ route('guests.show', ['guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                             </td>
                                             @can('isAdmin')
                                                 <td class="text-13-black border-bottom border-top-0">
@@ -340,7 +340,7 @@
                                                 <div class="d-flex w-100">
                                                     <a class="activity" data-name1="KH"
                                                         data-des="Xem thông tin khách hàng"
-                                                        href="{{ route('guests.edit', ['workspace' => $workspacename, 'guest' => $item->id]) }}">
+                                                        href="{{ route('guests.edit', ['guest' => $item->id]) }}">
                                                         <div class="m-0 px-2 py-1 mx-2 rounded">
                                                             <svg width="16" height="16" viewBox="0 0 16 16"
                                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -359,7 +359,7 @@
                                                         <div class="rounded">
                                                             <form
                                                                 onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                action="{{ route('guests.destroy', ['workspace' => $workspacename, 'guest' => $item->id]) }}"
+                                                                action="{{ route('guests.destroy', ['guest' => $item->id]) }}"
                                                                 method="POST" class="d-inline">
                                                                 @csrf
                                                                 @method('DELETE')

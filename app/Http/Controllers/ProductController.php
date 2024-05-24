@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Groups;
 use App\Models\HistoryImport;
 use App\Models\ImportDB;
 use App\Models\ProductImport;
@@ -27,21 +28,20 @@ class ProductController extends Controller
     private $provides;
     private $warehouse;
     private $workspaces;
+    private $groups;
     public function __construct()
     {
         $this->products = new Products();
         $this->provides = new Provides();
         $this->warehouse = new Warehouse();
-        $this->workspaces = new Workspace();
+        $this->groups = new Groups();
     }
 
     public function index()
     {
         $product = $this->products->getAllProducts();
         $title = "Kho 1";
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        return view('tables.products.products', compact('product', 'title', 'workspacename'));
+        return view('tables.products.products', compact('product', 'title'));
     }
 
     /**
@@ -50,10 +50,9 @@ class ProductController extends Controller
     public function create()
     {
         $warehouse = $this->warehouse->getAllWareHouse();
+        $groups = $this->groups->getAll();
         $title = "Thêm sản phẩm";
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        return view('tables.products.insertProduct', compact('warehouse', 'title', 'workspacename'));
+        return view('tables.products.insertProduct', compact('warehouse', 'title', 'groups'));
     }
 
     /**
@@ -62,12 +61,10 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $add = $this->products->addProduct($request->all());
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($add == 0) {
-            $msg = redirect()->route('inventory.index', $workspacename)->with('warning', 'Sản phẩm đã tồn tại !');
+            $msg = redirect()->route('inventory.index')->with('warning', 'Sản phẩm đã tồn tại !');
         } else {
-            $msg = redirect()->route('inventory.index', $workspacename)->with('msg', 'Thêm sản phẩm mới thành công !');
+            $msg = redirect()->route('inventory.index')->with('msg', 'Thêm sản phẩm mới thành công !');
         }
 
         return $msg;
@@ -76,50 +73,43 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $workspace, string $id)
+    public function show(string $id)
     {
         $display = 1;
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $product = Products::findOrFail($id);
+        $groups = $this->groups->getAll();
         if ($product) {
             $title = $product->product_name;
         }
         $history = ProductImport::where('product_id', $id)->where('workspace_id', Auth::user()->current_workspace);
-        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
-            $history->where('user_id', Auth::user()->id);
-        }
         $history = $history->get();
-        return view('tables.products.showProduct', compact('product', 'title', 'display', 'history', 'workspacename'));
+        return view('tables.products.showProduct', compact('product', 'title', 'display', 'history', 'groups'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $workspace, string $id)
+    public function edit(string $id)
     {
         $display = 1;
         $product = Products::findOrFail($id);
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
+        $groups = $this->groups->getAll();
         if ($product) {
             $title = $product->product_name;
         }
-        return view('tables.products.editProduct', compact('product', 'title', 'display', 'workspacename'));
+        return view('tables.products.editProduct', compact('product', 'title', 'display','groups'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace, Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         $data = $this->products->updateProduct($request->all(), $id);
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($data == 1) {
-            return redirect()->route('inventory.index', $workspacename)->with('msg', 'Chỉnh sửa sản phẩm thành công !');
+            return redirect()->route('inventory.index')->with('msg', 'Chỉnh sửa sản phẩm thành công !');
         } else {
-            return redirect()->route('inventory.index', $workspacename)->with('warning', 'Chỉnh sửa sản phẩm thất bại !');
+            return redirect()->route('inventory.index')->with('warning', 'Chỉnh sửa sản phẩm thất bại !');
         }
     }
 

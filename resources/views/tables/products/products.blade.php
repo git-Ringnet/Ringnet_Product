@@ -17,7 +17,7 @@
                 <span class="font-weight-bold text-secondary">Sản phẩm</span>
             </div>
             <div class="d-flex content__heading--right">
-                <a href="{{ route('inventory.create', $workspacename) }}" class="mr-1">
+                <a href="{{ route('inventory.create') }}" class="mr-1">
                     <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                         <svg width="12" height="12" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -202,7 +202,7 @@
                                         </td>
                                         <td class="py-2 text-13-black border-bottom border-top-0">
                                             <a class="duongdan"
-                                                href="{{ route('inventory.show', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
+                                                href="{{ route('inventory.show', ['inventory' => $item->id]) }}">
                                                 {{ $item->product_name }}
                                             </a>
                                         </td>
@@ -213,7 +213,7 @@
                                             style="right: 10px; top: 7px;">
                                             <div class="d-flex w-100">
                                                 <a
-                                                    href="{{ route('inventory.edit', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
+                                                    href="{{ route('inventory.edit', ['inventory' => $item->id]) }}">
                                                     <div class="m-0 px-2 py-1 mx-2 rounded">
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">

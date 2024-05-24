@@ -16,13 +16,11 @@ class ProvidesController extends Controller
 {
     private $provides;
     private $repesent;
-    private $workspaces;
     private $users;
     public function __construct()
     {
         $this->provides = new Provides();
         $this->repesent = new ProvideRepesent();
-        $this->workspaces = new Workspace();
         $this->users = new User();
     }
     /**
@@ -33,10 +31,8 @@ class ProvidesController extends Controller
         $title = "Nhà cung cấp";
         $provides = $this->provides->getAllProvide();
         $dataa = $this->provides->getAllProvide();
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $users = $this->provides->getUserInProvides();
-        return view('tables.provides.provides', compact('title', 'users', 'provides', 'dataa', 'workspacename'));
+        return view('tables.provides.provides', compact('title', 'users', 'provides', 'dataa'));
     }
 
     /**
@@ -45,9 +41,7 @@ class ProvidesController extends Controller
     public function create()
     {
         $title = "Thêm mới nhà cung cấp";
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        return view('tables.provides.insertProvides', compact('title', 'workspacename'));
+        return view('tables.provides.insertProvides', compact('title'));
     }
 
     /**
@@ -56,8 +50,6 @@ class ProvidesController extends Controller
     public function store(Request $request)
     {
         $result = $this->provides->addProvide($request->all());
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($result['status'] == true) {
             $msg = redirect()->back()->with('warning', 'Mã số thuế hoặc tên hiển thị đã tồn tại');
         } else {
@@ -72,20 +64,17 @@ class ProvidesController extends Controller
             ];
 
             DB::table('user_flow')->insert($dataUserFlow);
-            $msg = redirect()->route('provides.index', $workspacename)->with('msg', 'Thêm mới nhà cung cấp thành công');
+            $msg = redirect()->route('provides.index')->with('msg', 'Thêm mới nhà cung cấp thành công');
         }
         return $msg;
-        // dd($resuilt);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $workspaces, string $id)
+    public function show(string $id)
     {
         $provide = Provides::findOrFail($id);
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($provide) {
             $title = $provide->provide_name_display;
             $repesent = ProvideRepesent::where('provide_id', $provide->id)->get();
@@ -93,17 +82,15 @@ class ProvidesController extends Controller
         $getId = $id;
         // $request->session()->put('id', $id);
 
-        return view('tables.provides.showProvides', compact('title', 'provide', 'repesent', 'workspacename'));
+        return view('tables.provides.showProvides', compact('title', 'provide', 'repesent'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $workspace, string $id, Request $request)
+    public function edit(string $id, Request $request)
     {
         $provide = Provides::findOrFail($id);
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($provide) {
             $title = $provide->provide_name_display;
             $repesent = ProvideRepesent::where('provide_id', $provide->id)->get();
@@ -111,21 +98,19 @@ class ProvidesController extends Controller
         $getId = $id;
         $request->session()->put('id', $id);
 
-        return view('tables.provides.editProvides', compact('title', 'provide', 'repesent', 'workspacename'));
+        return view('tables.provides.editProvides', compact('title', 'provide', 'repesent'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace, Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         $id = session('id');
         $status =  $this->provides->updateProvide($request->all(), $id);
         session()->forget('id');
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($status) {
-            return redirect(route('provides.index', $workspacename))->with('warning', 'Mã số thuế đã tồn tại');
+            return redirect(route('provides.index'))->with('warning', 'Mã số thuế đã tồn tại');
         } else {
             $dataUserFlow = [
                 'user_id' => Auth::user()->id,
@@ -135,7 +120,7 @@ class ProvidesController extends Controller
             ];
 
             DB::table('user_flow')->insert($dataUserFlow);
-            return redirect(route('provides.index', $workspacename))->with('msg', 'Sửa nhà cung cấp thành công');
+            return redirect(route('provides.index'))->with('msg', 'Sửa nhà cung cấp thành công');
         }
     }
 

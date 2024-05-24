@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="quote">
 </x-navbar>
-<form id="form-submit" action="{{ route('detailExport.store', ['workspace' => $workspacename]) }}" method="POST">
+<form id="form-submit" action="{{ route('detailExport.store') }}" method="POST">
     @csrf
     <input type="hidden" name="excel_export" id="excel_export">
     <input type="hidden" name="pdf_export" id="pdf_export">
@@ -17,7 +17,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="nearLast-span">Đơn báo giá</span>
+                    <span class="nearLast-span">Đơn bán hàng</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -26,12 +26,11 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="last-span">Tạo đơn báo giá</span>
+                    <span class="last-span">Tạo đơn bán hàng</span>
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('detailExport.index', $workspacename) }}" class="activity" data-name1="BG"
-                            data-des="Hủy">
+                        <a href="{{ route('detailExport.index') }}" class="activity" data-name1="BG" data-des="Hủy">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <span>
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -62,15 +61,13 @@
                         </div>
                         <button type="submit" onclick="kiemTraFormGiaoHang(event);" id="luuNhap"
                             class="custom-btn d-flex align-items-center h-100 mx-1">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 16 16" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
-                                        fill="white" />
-                                </svg>
-                            </span>
-                            <span class="text-btnIner-primary ml-2">Lưu nháp</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                    fill="white"></path>
+                            </svg>
+                            <span class="text-btnIner-primary ml-2">Xác nhận</span>
                         </button>
                         <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -1698,7 +1695,7 @@
                 "<input type='number' class='text-right border-0 px-2 py-1 w-100 quantity-input height-32' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "</div>" +
-                "<div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho'></span></div>" +
+                "<div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho'>0</span></div>" +
                 "</td>"
             );
             const donGia = $(
@@ -1735,7 +1732,8 @@
                 "<path fill-rule='evenodd' clip-rule='evenodd' d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z' fill='#6B6F76'/>" +
                 "</svg>" +
                 "</td>" +
-                "<td style='display:none;'><input type='text' class='product_tax1'></td>"
+                "<td style='display:none;'><input type='text' class='product_tax1'></td>" +
+                "<td style='display:none;'><input type='text' class='type'></td>"
             );
             // Gắn các phần tử vào hàng mới
             newRow.append(maSanPham, tenSanPham, dvTinh,
@@ -1895,6 +1893,8 @@
                     var tonkho = clickedRow.find('.tonkho');
                     var idProduct = $(this).attr('id');
                     var soTonKho = clickedRow.find('.soTonKho');
+                    var type = clickedRow.find('.type');
+                    console.log(type);
                     var infoProduct = clickedRow.find('.info-product');
                     var recentModal = clickedRow.find('.recentModal');
                     var inventory = clickedRow.find('.inventory');
@@ -1912,6 +1912,7 @@
                             idProduct: idProduct
                         },
                         success: function(data) {
+                            type.val(data.type);
                             productCode.val(data.product_code);
                             productName.val(data.product_name);
                             productUnit.val(data.product_unit);
@@ -2931,6 +2932,7 @@
         var hasProducts = false;
         var previousProductNames = [];
         var invalidProductNames = [];
+        var invalidInventoryProducts = [];
 
         function normalizeProductName(name) {
             var lowercaseName = name.toLowerCase();
@@ -2941,10 +2943,28 @@
         (async function() {
             for (var i = 1; i < rows.length; i++) {
                 if (rows[i].classList.contains('addProduct')) {
+                    var soTonKho = parseFloat($(rows[i]).find(".soTonKho").text());
+                    var quantity = parseFloat($(rows[i]).find(".quantity-input").val());
+                    var type = parseFloat($(rows[i]).find(".type").val());
                     var inputs = rows[i].querySelectorAll('input[required]');
                     var productNameInput = rows[i].querySelector('.product_name');
                     var productName = productNameInput.value;
                     var normalizedProductName = normalizeProductName(productName).trim();
+
+                    // Kiểm tra số lượng tồn kho
+                    if (type != 2) {
+                        if (quantity > soTonKho) {
+                            invalidInventoryProducts.push(productNameInput.value);
+                        }
+                    }
+
+                    if (invalidInventoryProducts.length > 0) {
+                        showAutoToast('warning', "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                            invalidInventoryProducts.join(', '));
+                        $('#excel_export').val(0);
+                        $('#pdf_export').val(0);
+                        return false;
+                    }
 
                     // Kiểm tra trùng lặp tên sản phẩm
                     if (previousProductNames.includes(normalizedProductName)) {
@@ -2953,7 +2973,6 @@
                         $('#pdf_export').val(0);
                         return;
                     } else {
-                        // Thêm tên sản phẩm đã chuẩn hóa vào mảng các tên sản phẩm đã xuất hiện trước đó
                         previousProductNames.push(normalizedProductName);
                     }
 
@@ -2970,7 +2989,6 @@
                     var inputQty = rows[i].querySelector('input[name="product_qty[]"]');
                     var value = parseFloat(inputQty.value);
                     if (isNaN(value) || value <= 0) {
-                        // Nếu số lượng không hợp lệ, thêm tên sản phẩm vào mảng invalidProductNames
                         invalidProductNames.push(productName);
                         $('#excel_export').val(0);
                         $('#pdf_export').val(0);
@@ -2987,7 +3005,6 @@
                 return;
             }
 
-            // Tiếp tục với các kiểm tra khác và xử lý submit nếu cần
             var inputValue = $('.idGuest').val();
             var shouldSubmit = true;
 
@@ -3003,7 +3020,6 @@
                 $('#pdf_export').val(0);
             }
 
-            // Kiểm tra số báo giá tồn tại bằng Ajax
             if (hasProducts && shouldSubmit) {
                 var quotetion_number = $('input[name="quotation_number"]').val();
                 $('.product_tax').prop('disabled', false);
@@ -3019,7 +3035,6 @@
                             $('#excel_export').val(0);
                             $('#pdf_export').val(0);
                         } else {
-                            // Nếu số báo giá không tồn tại, thực hiện submit form
                             $('form')[1].submit();
                         }
                     }

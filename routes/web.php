@@ -43,29 +43,29 @@ use Laravel\Socialite\Facades\Socialite;
 
 // Kho hàng
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/inventory', ProductController::class);
+    Route::resource('/inventory', ProductController::class);
     Route::get('/searchInventory', [ProductController::class, 'search'])->name('searchInventory');
     Route::get('/checkProductName', [ProductController::class, 'checkProductName'])->name('checkProductName');
-    Route::get('{workspacename}/editProduct', [ProductController::class, 'editProduct'])->name('editProduct');
+    Route::get('editProduct', [ProductController::class, 'editProduct'])->name('editProduct');
     Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProductInventory'])->name('inventory.showProductInventory');
 });
 
 
 // Nhà cung cấp
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/provides', ProvidesController::class)->middleware(CheckLogin::class);
+    Route::resource('/provides', ProvidesController::class)->middleware(CheckLogin::class);
     Route::get('/checkKeyProvide', [ProvidesController::class, 'checkKeyProvide'])->name('checkKeyProvide');
     Route::get('/searchProvides', [ProvidesController::class, 'search'])->name('searchProvides');
 });
 
 // Khách hàng
-Route::resource('{workspace}/guests', GuestController::class);
+Route::resource('/guests', GuestController::class);
 Route::get('/search', [GuestController::class, 'search'])->name('searchGuest');
 Route::get('/searchDetailGuest', [GuestController::class, 'searchDetailGuest'])->name('searchDetailGuest');
 
 // Mua hàng
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/import', DetailImportController::class);
+    Route::resource('/import', DetailImportController::class);
     Route::get('/show_provide', [DetailImportController::class, 'show_provide'])->name('show_provide');
     Route::get('/show_project', [DetailImportController::class, 'show_project'])->name('show_project');
     Route::get('/addNewProvide', [DetailImportController::class, 'addNewProvide'])->name('addNewProvide');
@@ -89,7 +89,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/showData', [DetailImportController::class, 'showData'])->name('showData');
     Route::get('/getDataImport', [DetailImportController::class, 'getDataImport'])->name('getDataImport');
     Route::get('/checkAction', [DetailImportController::class, 'checkAction'])->name('checkAction');
-    Route::resource('{workspace}/groups', GroupsController::class);
+    Route::resource('/groups', GroupsController::class);
 });
 
 
@@ -109,7 +109,7 @@ Route::get('/searchFormByGuestId', [DetailExportController::class, 'searchFormBy
 
 // Đơn nhận hàng
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/receive', ReceiveController::class);
+    Route::resource('/receive', ReceiveController::class);
     Route::get('/show_receive', [ReceiveController::class, 'show_receive'])->name('show_receive');
     Route::get('/getProduct_receive', [ReceiveController::class, 'getProduct_receive'])->name('getProduct_receive');
     Route::get('/searchReceive', [ReceiveController::class, 'searchReceive'])->name('searchReceive');
@@ -119,7 +119,7 @@ Route::middleware([CheckLogin::class])->group(function () {
 
 // Hóa đơn mua hàng
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/reciept', RecieptController::class);
+    Route::resource('/reciept', RecieptController::class);
     Route::get('/show_reciept', [RecieptController::class, 'show_reciept'])->name('show_reciept');
     Route::get('/getProduct_reciept', [RecieptController::class, 'getProduct_reciept'])->name('getProduct_reciept');
     Route::get('/searchReciept', [RecieptController::class, 'searchReciept'])->name('searchReciept');
@@ -127,7 +127,7 @@ Route::middleware([CheckLogin::class])->group(function () {
 
 // Thanh toán nhập hàng
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/paymentOrder', PayOrderController::class);
+    Route::resource('/paymentOrder', PayOrderController::class);
     Route::get('getPaymentOrder', [PayOrderController::class, 'getPaymentOrder'])->name('getPaymentOrder');
     Route::get('searchPaymentOrder', [PayOrderController::class, 'searchPaymentOrder'])->name('searchPaymentOrder');
 });
@@ -159,8 +159,8 @@ Route::get('/clear-pdf-session', [DetailExportController::class, 'clearPdfSessio
 Route::get('/addActivity', [UserFlowController::class, 'addActivity'])->name('addActivity');
 //Báo giá
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/detailExport', DetailExportController::class);
-    Route::get('{workspace}/seeInfo/{id}', [DetailExportController::class, 'seeInfo'])->name('seeInfo');
+    Route::resource('/detailExport', DetailExportController::class);
+    Route::get('/seeInfo/{id}', [DetailExportController::class, 'seeInfo'])->name('seeInfo');
 });
 
 //tìm kiếm tên khách hàng
@@ -207,8 +207,8 @@ Route::get('/getListExport', [DetailExportController::class, 'getListExport'])->
 
 //Giao hàng
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/delivery', DeliveryController::class);
-    Route::get('{workspace}/watchDelivery/{id}', [DeliveryController::class, 'watchDelivery'])->name('watchDelivery');
+    Route::resource('/delivery', DeliveryController::class);
+    Route::get('/watchDelivery/{id}', [DeliveryController::class, 'watchDelivery'])->name('watchDelivery');
 });
 
 Route::get('searchDelivery', [DeliveryController::class, 'searchDelivery'])->name('searchDelivery');
@@ -217,7 +217,7 @@ Route::get('/getInfoQuote', [DeliveryController::class, 'getInfoQuote'])->name('
 Route::get('/getProductQuote', [DeliveryController::class, 'getProductQuote'])->name('getProductQuote');
 Route::get('/getProductFromQuote', [DeliveryController::class, 'getProductFromQuote'])->name('getProductFromQuote');
 //Hóa đơn bán hàng
-Route::resource('{workspace}/billSale', BillSaleController::class);
+Route::resource('/billSale', BillSaleController::class);
 //lấy thông tin từ số báo giá trong hóa đơn
 Route::get('/getInfoDelivery', [BillSaleController::class, 'getInfoDelivery'])->name('getInfoDelivery');
 Route::get('/getProductDelivery', [BillSaleController::class, 'getProductDelivery'])->name('getProductDelivery');
@@ -232,7 +232,7 @@ Route::get('/checkCodePayment', [PayExportController::class, 'checkCodePayment']
 
 //thanh toán bán hàng
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/payExport', PayExportController::class);
+    Route::resource('/payExport', PayExportController::class);
     Route::get('searchPayExport', [PayExportController::class, 'searchPayExport'])->name('searchPayExport');
     Route::get('/getInfoPay', [PayExportController::class, 'getInfoPay'])->name('getInfoPay');
     Route::get('/getProductPay', [PayExportController::class, 'getProductPay'])->name('getProductPay');
@@ -244,7 +244,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit'])->name('getProductSeriEdit');
 
     Route::get('exportDatabase', [ProductController::class, 'exportDatabase'])->name('exportDatabase');
-    Route::post('import', [ProductController::class, 'import'])->name('import');
+    // Route::post('import', [ProductController::class, 'import'])->name('import');
     Route::POST('/importDatabase', [ProductController::class, 'importDatabase'])->name('importDatabase');
     Route::get('/checkProductTax', [ProductController::class, 'checkProductTax'])->name('checkProductTax');
 });
@@ -255,7 +255,7 @@ Route::get('/report', function () {
 });
 // Lịch sử giao dịch
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/history', HistoryController::class);
+    Route::resource('/history', HistoryController::class);
     Route::get('getSN', [HistoryController::class, 'getSN'])->name('getSN');
     Route::get('/searchHistory', [HistoryController::class, 'searchHistory'])->name('searchHistory');
 });
@@ -278,7 +278,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/updateWorkspace', [WorkspaceController::class, 'updateWorkspace'])->name('updateWorkspace');
     Route::get('/checkWorkspaceName', [WorkspaceController::class, 'checkWorkspaceName'])->name('checkWorkspaceName');
 
-    Route::resource('{workspace}/userWorkspace', UserWorkspacesController::class);
+    Route::resource('/userWorkspace', UserWorkspacesController::class);
     Route::get('/updateRoleWorkspace', [UserWorkspacesController::class, 'updateRoleWorkspace'])->name('updateRoleWorkspace');
     Route::get('/searchUserWorkspace', [UserWorkspacesController::class, 'searchUserWorkspace'])->name('searchUserWorkspace');
     Route::get('/deleteUserWorkspace', [UserWorkspacesController::class, 'deleteUserWorkspace'])->name('deleteUserWorkspace');
@@ -286,17 +286,17 @@ Route::middleware([CheckLogin::class])->group(function () {
 
 // Report
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/report', ReportController::class);
+    Route::resource('/report', ReportController::class);
     Route::get('searchReportGuests', [ReportController::class, 'searchReportGuests'])->name('searchReportGuests');
     Route::get('searchReportProvides', [ReportController::class, 'searchReportProvides'])->name('searchReportProvides');
     Route::get('/view', [ReportController::class, 'view'])->name('view');
 });
 
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/settings', SettingController::class);
-    Route::get('{workspace}/overview', [SettingController::class, 'overview'])->name('overview');
-    Route::get('{workspace}/user', [SettingController::class, 'viewUser'])->name('viewUser');
-    Route::get('{workspace}/viewCompany', [SettingController::class, 'viewCompany'])->name('viewCompany');
+    Route::resource('/settings', SettingController::class);
+    Route::get('/overview', [SettingController::class, 'overview'])->name('overview');
+    Route::get('/user', [SettingController::class, 'viewUser'])->name('viewUser');
+    Route::get('/viewCompany', [SettingController::class, 'viewCompany'])->name('viewCompany');
     Route::post('/deleteAllTable', [SettingController::class, 'deleteAllTable'])->name('deleteAllTable');
     Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');
     Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');
@@ -305,7 +305,7 @@ Route::middleware([CheckLogin::class])->group(function () {
 });
 //Dashboard
 Route::middleware([CheckLogin::class])->group(function () {
-    Route::resource('{workspace}/dashboardProduct', DashboardController::class);
+    Route::resource('/dashboardProduct', DashboardController::class);
     //Sản phẩm bán chạy nhất
     Route::get('/productSell', [DashboardController::class, 'productSell'])->name('productSell');
     //Hoạt động bán hàng
@@ -321,7 +321,7 @@ Route::middleware([CheckLogin::class])->group(function () {
 });
 
 // User flow
-Route::resource('{workspace}/userflow', UserFlowController::class)->middleware(CheckLogin::class);
+Route::resource('/userflow', UserFlowController::class)->middleware(CheckLogin::class);
 
 Route::middleware([
     'auth:sanctum',

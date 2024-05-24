@@ -82,13 +82,11 @@ class DetailExportController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-            $workspacename = $workspacename->workspace_name;
             $title = "Đơn báo giá";
             $quoteExport = $this->detailExport->getAllDetailExport();
             $guests = $this->detailExport->getGuestInDetail();
             $users = $this->detailExport->getUserInDetail();
-            return view('tables.export.quote.list-quote', compact('title', 'quoteExport', 'guests', 'users',  'workspacename'));
+            return view('tables.export.quote.list-quote', compact('title', 'quoteExport', 'guests', 'users'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
         }
@@ -112,11 +110,7 @@ class DetailExportController extends Controller
             'goods' => $this->date_form->findFormByField('goods'),
             'payment' => $this->date_form->findFormByField('payment'),
         ];
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-
-        // dd($data);
-        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product', 'project', 'date_form', 'dataForm', 'workspacename'));
+        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product', 'project', 'date_form', 'dataForm'));
     }
     public function searchFormByGuestId(Request $request)
     {
@@ -128,7 +122,7 @@ class DetailExportController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(string $workspace, Request $request)
+    public function store(Request $request)
     {
         $export_id = $this->detailExport->addExport($request->all());
         $this->quoteExport->addQuoteExport($request->all(), $export_id);
@@ -152,7 +146,7 @@ class DetailExportController extends Controller
             // Sau khi lưu xong tất cả thông tin, set session export_id
             $request->session()->put('pdf_info.export_id', $export_id);
         }
-        return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Tạo mới đơn báo giá thành công!');
+        return redirect()->route('detailExport.index')->with('msg', 'Tạo mới đơn báo giá thành công!');
     }
 
     public function downloadExcel()
@@ -239,10 +233,8 @@ class DetailExportController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function seeInfo(string $workspace, string $id)
+    public function seeInfo(string $id)
     {
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $title = 'Chi tiết đơn báo giá';
         $guest = $this->guest->getAllGuest();
         $product = $this->product->getAllProducts();
@@ -252,13 +244,13 @@ class DetailExportController extends Controller
         }
         $quoteExport = $this->detailExport->getProductToId($id);
         $history = $this->quoteExport->history($id);
-        return view('tables.export.quote.see-quote', compact('title', 'history', 'guest', 'product', 'detailExport', 'quoteExport', 'workspacename'));
+        return view('tables.export.quote.see-quote', compact('title', 'history', 'guest', 'product', 'detailExport', 'quoteExport'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $workspace, string $id)
+    public function edit(string $id)
     {
         $title = 'Chỉnh sửa đơn báo giá';
         $guest = $this->guest->getAllGuest();
@@ -277,9 +269,7 @@ class DetailExportController extends Controller
             'goods' => $this->date_form->findFormByField('goods'),
             'payment' => $this->date_form->findFormByField('payment'),
         ];
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        return view('tables.export.quote.edit-quote', compact('project', 'title', 'guest', 'product', 'detailExport', 'quoteExport', 'date_form', 'dataForm', 'workspacename'));
+        return view('tables.export.quote.edit-quote', compact('project', 'title', 'guest', 'product', 'detailExport', 'quoteExport', 'date_form', 'dataForm'));
     }
 
     /**
@@ -442,7 +432,7 @@ class DetailExportController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $workspace, string $id)
+    public function destroy(string $id)
     {
         $delivery = Delivery::where('detailexport_id', $id)->get();
         $billSale = BillSale::where('detailexport_id', $id)->get();
@@ -463,12 +453,12 @@ class DetailExportController extends Controller
                     'des' => 'Xóa đơn báo giá'
                 ];
                 $this->userFlow->addUserFlow($arrCapNhatKH);
-                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn bán hàng thành công!');
+                return redirect()->route('detailExport.index')->with('msg', 'Xóa đơn bán hàng thành công!');
             } else {
-                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Không tìm thấy đơn bán hàng để xóa!');
+                return redirect()->route('detailExport.index')->with('warning', 'Không tìm thấy đơn bán hàng để xóa!');
             }
         } else {
-            return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Xóa đơn bán hàng thất bại!');
+            return redirect()->route('detailExport.index')->with('warning', 'Xóa đơn bán hàng thất bại!');
         }
     }
     //Tìm kiếm khách hàng

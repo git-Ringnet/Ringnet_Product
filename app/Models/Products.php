@@ -35,13 +35,9 @@ class Products extends Model
     ];
     public function getAllProducts()
     {
-        $perpage = 10;
         return DB::table($this->table)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->orderBy('id', 'desc')
             ->get();
-        // ->paginate($perpage);
-        // return DB::table($this->table)->get();
     }
     public function getSerialNumber()
     {
@@ -119,6 +115,7 @@ class Products extends Model
                 'product_available' => 0,
                 'workspace_id' => Auth::user()->current_workspace,
                 'product_tax' => $data['product_tax'],
+                'group_id' => $data['group_id'],
                 'created_at' => Carbon::now(),
                 'user_id' => Auth::user()->id
             ];
@@ -142,6 +139,7 @@ class Products extends Model
             isset($data['check_seri']) ? $check = 1 : $check = 0;
             $dataUpdate = [
                 'product_code' => $data['product_code'],
+                'group_id' => $data['group_id'],
                 'product_name' => $data['product_name'],
                 'product_unit' => $data['product_unit'],
                 'product_price_import' => isset($data['product_price_import']) ? str_replace(',', '', $data['product_price_import']) : 0,

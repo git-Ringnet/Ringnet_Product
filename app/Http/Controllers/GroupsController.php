@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Groups;
-use App\Models\Grouptype;
 use App\Models\Guest;
+use App\Models\Products;
 use App\Models\Workspace;
 use App\Models\userFlow;
 use Illuminate\Http\Request;
@@ -15,25 +15,21 @@ class GroupsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    private $workspaces;
     private $groups;
     private $userFlow;
+    private $products;
 
     public function __construct()
     {
-        $this->workspaces = new Workspace();
         $this->groups = new Groups();
         $this->userFlow = new userFlow();
+        $this->products = new Products();
     }
     public function index()
     {
         $title = 'Nhóm đối tượng';
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $groups = $this->groups->getAll();
-
-        // dd($groups);
-        return view('tables.groups.index', compact('title', 'groups', 'workspacename'));
+        return view('tables.groups.index', compact('title', 'groups'));
     }
 
     /**
@@ -41,28 +37,26 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        $grouptypes = Grouptype::all();
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $title = "Thêm mới nhóm đối tượng";
-        return view('tables.groups.create', compact('title', 'grouptypes', 'workspacename'));
+        $products = $this->groups->getAllProducts();
+        return view('tables.groups.create', compact('title', 'products'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(string $workspace, Request $request)
+    public function store(Request $request)
     {
         $result = $this->groups->addGroup($request->all());
         if ($result == true) {
-            $msg = redirect()->back()->with('msg', 'Nhóm đối tượng đã tồn tại');
+            $msg = redirect()->back()->with('warning', 'Nhóm sản phẩm đã tồn tại');
         } else {
             $arrCapNhatKH = [
-                'name' => 'KH',
-                'des' => 'Lưu nhóm đối tượng'
+                'name' => 'SP',
+                'des' => 'Lưu nhóm sản phẩm'
             ];
             $this->userFlow->addUserFlow($arrCapNhatKH);
-            $msg = redirect()->route('groups.index', ['workspace' => $workspace])->with('msg', 'Thêm mới nhóm đối tượng thành công');
+            $msg = redirect()->route('groups.index')->with('msg', 'Thêm mới nhóm sản phẩm thành công');
         }
         return $msg;
     }
@@ -70,83 +64,63 @@ class GroupsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, string $workspace, string $id)
+    public function show($id)
     {
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        $group = Groups::where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->first();
-        dd($group);
-        if ($group) {
-            $title = $group->name;
-        } else {
-            abort('404');
-            $title = '';
-            return view('tables.groups.show', compact('title', 'group', 'workspacename'));
-        }
+        $title = "Xem nhóm sản phẩm";
+        $group = Groups::find($id);
+        $products = $this->products->getAllProducts();
+        return view('tables.groups.show', compact('title', 'group', 'products'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $workspace, string $id, Request $request)
+    public function edit($id)
     {
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        $group = Groups::where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->first();
-        // dd($group);
-        if ($group) {
-            $title = $group->name;
-        } else {
-            abort('404');
-            $title = '';
-        }
-        $getId = $id;
-        $request->session()->put('idGr', $id);
-        $grouptypes = Grouptype::all();
-
-        return view('tables.groups.edit', compact('title', 'group', 'grouptypes', 'workspacename'));
+        $title = "Sửa nhóm sản phẩm";
+        $group = Groups::find($id);
+        $products = $this->groups->getAllProductsExist($id);
+        return view('tables.groups.edit', compact('title', 'group', 'products'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace, Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $id = session('idGr');
-        $data = [
-            'name' => $request->group_name_display,
-            'grouptype_id' => $request->grouptype_id,
-            'description' => $request->group_desc,
-            'workspace_id' => Auth::user()->current_workspace,
-        ];
-        $this->groups->updateGroup($data, $id);
-        session()->forget('idGr');
-        return redirect(route('groups.index', ['workspace' => $workspace]))->with('msg', 'Sửa nhóm đối tượng thành công');
+        $updatGroup = $this->groups->updateGroup($request->all(), $id);
+        if ($updatGroup == true) {
+            $msg = redirect()->back()->with('warning', 'Nhóm sản phẩm đã tồn tại');
+        } else {
+            $arrCapNhatKH = [
+                'name' => 'SP',
+                'des' => 'Cập nhật nhóm sản phẩm'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+            $msg = redirect()->route('groups.index')->with('msg', 'Cập nhật nhóm sản phẩm thành công');
+        }
+        return $msg;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $workspace, string $id)
+    public function destroy($id)
     {
         $group = Groups::find($id);
         if (!$group) {
-            return back()->with('warning', 'Không tìm thấy loại đối tượng xóa');
+            return back()->with('warning', 'Không tìm nhóm sản phẩm để xóa');
         }
-        $check = Guest::where('group_id', $id)->first();
+        $check = Products::where('group_id', $id)->get();
         if ($check) {
-            return back()->with('warning', 'Xóa thất bại do loại đối tượng vẫn đang còn sử dụng!');
+            return back()->with('warning', 'Xóa thất bại do nhóm sản phẩm có sản phẩm!');
         }
         $group->delete();
         $arrCapNhatKH = [
-            'name' => 'KH',
-            'des' => 'Xóa loại đối tượng'
+            'name' => 'SP',
+            'des' => 'Xóa nhóm sản phẩm'
         ];
         $this->userFlow->addUserFlow($arrCapNhatKH);
-        return back()->with('msg', 'Xóa loại đối tượng thành công');
+        return back()->with('msg', 'Xóa nhóm sản phẩm thành công');
     }
 }

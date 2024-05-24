@@ -33,38 +33,28 @@ class DetailImportController extends Controller
 {
     private $detailImport;
     private $sn;
-    private $provide;
     private $quoteImport;
     private $receiver_bill;
     private $product;
-    private $productImport;
     private $reciept;
     private $payment;
     private $history_import;
-    private $historyPayment;
     private $attachment;
     private $workspaces;
     private $userFlow;
-    private $provides;
-    private $users;
     public function __construct()
     {
         $this->detailImport = new DetailImport();
-        $this->provide = new Provides();
         $this->quoteImport = new QuoteImport();
         $this->receiver_bill = new Receive_bill();
         $this->product = new Products();
         $this->sn = new Serialnumber();
-        $this->productImport = new ProductImport();
         $this->reciept = new Reciept();
         $this->payment = new PayOder();
         $this->history_import = new HistoryImport();
-        $this->historyPayment = new HistoryPaymentOrder();
         $this->attachment = new Attachment();
         $this->workspaces = new Workspace();
         $this->userFlow = new userFlow();
-        $this->provides = new Provides();
-        $this->users = new User();
     }
     /**
      * Display a listing of the resource.
@@ -75,19 +65,10 @@ class DetailImportController extends Controller
         $perPage = 10;
         $import = DetailImport::where('workspace_id', Auth::user()->current_workspace)
             ->orderBy('id', 'desc');
-        if (Auth::check()) {
-            if (Auth::user()->getRoleUser->roleid == 4) {
-                $import->where('user_id', Auth::user()->id);
-            }
-        }
         $import = $import->get();
-        // ->paginate($perPage);
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $provides = $this->detailImport->getProvideInDetail();
         $users = $this->detailImport->getUserInDetail();
-        // $import = $this->import->getAllImport();
-        return view('tables.import.import', compact('title', 'import', 'users', 'provides', 'workspacename'));
+        return view('tables.import.import', compact('title', 'import', 'users', 'provides'));
     }
 
     /**
@@ -98,9 +79,7 @@ class DetailImportController extends Controller
         $title = "Tạo đơn mua hàng";
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $project = Project::all();
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        return view('tables.import.insertImport', compact('title', 'provides', 'project', 'workspacename'));
+        return view('tables.import.insertImport', compact('title', 'provides', 'project'));
     }
 
     /**
@@ -110,17 +89,15 @@ class DetailImportController extends Controller
     {
         // Thêm thông tin đơn hàng
         $result = $import_id = $this->detailImport->addImport($request->all());
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($result['status']) {
             // Thêm sản phẩm vào tồn kho
             $this->product->addProductDefault($request->all());
             $import_id = $result['detail_id'];
             // Thêm sản phẩm theo đơn hàng, thêm vào lịch sử
             $this->quoteImport->addQuoteImport($request->all(), $import_id);
-            return redirect()->route('import.index', $workspacename)->with('msg', 'Tạo mới đơn nhập hàng thành công !');
+            return redirect()->route('import.index')->with('msg', 'Tạo mới đơn nhập hàng thành công !');
         } else {
-            return redirect()->route('import.index', $workspacename)->with('warning', 'Số đơn mua hàng đã tồn tại !');
+            return redirect()->route('import.index')->with('warning', 'Số đơn mua hàng đã tồn tại !');
         }
     }
 

@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="provide"></x-navbar>
-<form action="{{ route('provides.store', $workspacename) }}" method="POST">
+<form action="{{ route('provides.store') }}" method="POST">
     @csrf
     <div class="content-wrapper m-0 min-height--none">
         <!-- Content Header (Page header) -->
@@ -16,7 +16,7 @@
                         </svg>
                     </span>
                     <span class="nearLast-span">
-                        <a class="text-dark" href="{{ route('provides.index', $workspacename) }}">
+                        <a class="text-dark" href="{{ route('provides.index') }}">
                             Nhà cung cấp
                         </a>
                     </span>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('provides.index', $workspacename) }}" class="user_flow" data-type="NCC"
+                        <a href="{{ route('provides.index') }}" class="user_flow" data-type="NCC"
                             data-des="Hủy thêm nhà cung cấp">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"

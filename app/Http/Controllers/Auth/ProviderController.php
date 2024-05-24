@@ -68,7 +68,6 @@ class ProviderController extends Controller
             auth()->login($user);
 
             return redirect()->route('dashboardProduct.index', $nameCurrentWP->workspace_name);
-            // return redirect()->route('dashboard');
         }
         Session::forget('workspace_id');
         Session::forget('token');

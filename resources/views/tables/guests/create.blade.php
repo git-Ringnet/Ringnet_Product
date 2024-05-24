@@ -1,5 +1,5 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="guest" :workspacename="$workspacename"></x-navbar>
-<form action="{{ route('guests.store', $workspacename) }}" method="POST"
+<x-navbar :title="$title" activeGroup="sell" activeName="guest"></x-navbar>
+<form action="{{ route('guests.store') }}" method="POST"
     onsubmit="return checkDuplicateRepresentatives()">
     @csrf
     <div class="content-wrapper m-0 min-height--none">
@@ -16,7 +16,7 @@
                         </svg>
                     </span>
                     <span>
-                        <a class="text-dark" href="{{ route('guests.create', $workspacename) }}">Khách hàng</a>
+                        <a class="text-dark" href="{{ route('guests.create') }}">Khách hàng</a>
                     </span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -31,7 +31,7 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <div class="dropdown">
-                            <a href="{{ route('guests.index', $workspacename) }}" class="activity" data-name1="KH"
+                            <a href="{{ route('guests.index') }}" class="activity" data-name1="KH"
                                 data-des="Hủy">
                                 <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100"
                                     type="button">

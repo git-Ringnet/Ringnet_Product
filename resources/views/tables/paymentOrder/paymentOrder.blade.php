@@ -18,7 +18,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('paymentOrder.create', $workspacename) }}" class="user_flow mr-3" data-type="TTMH"
+                    <a href="{{ route('paymentOrder.create') }}" class="user_flow mr-3" data-type="TTMH"
                         data-des="Tạo mới">
                         <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"

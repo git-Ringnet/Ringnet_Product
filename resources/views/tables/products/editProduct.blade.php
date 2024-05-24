@@ -1,6 +1,5 @@
-<x-navbar :title="$title" activeGroup="products" activeName="editproduct"></x-navbar>
-<form action="{{ route('inventory.update', ['workspace' => $workspacename, 'inventory' => $product->id]) }}"
-    method="POST">
+<x-navbar :title="$title" activeGroup="products" activeName="product"></x-navbar>
+<form action="{{ route('inventory.update', ['inventory' => $product->id]) }}" method="POST">
     @method('PUT')
     @csrf
     <input type="hidden" name="type_product" value="{{ $product->type }}">
@@ -31,7 +30,7 @@
                     </span>
                 </div>
                 <div class="d-flex content__heading--right">
-                    <a href="{{ route('inventory.index', $workspacename) }}">
+                    <a href="{{ route('inventory.index') }}">
                         <button type="button"
                             class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
@@ -71,23 +70,6 @@
                             </button>
                         </div>
                     @endif
-                    <div type="button" class="btn-option">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                fill="#42526E">
-                            </path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                fill="#42526E">
-                            </path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                fill="#42526E">
-                            </path>
-                        </svg>
-                    </div>
                 </div>
             </div>
         </div>
@@ -108,12 +90,12 @@
                                         <div
                                             class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black d-flex">
                                             <input type="radio" id="hanghoa" name="type_product" value="1"
-                                                class="py-2" @if ($product->type == 1) checked @endif
-                                                disabled style="margin-right:10px;">
+                                                class="py-2" @if ($product->type == 1) checked @endif disabled
+                                                style="margin-right:10px;">
                                             <label for="html" class="m-0">Hàng hóa</label>
                                             <input type="radio" id="dichvu" name="type_product" value="2"
-                                                class="py-2" @if ($product->type == 2) checked @endif
-                                                disabled style="margin-left:40px; margin-right:10px;">
+                                                class="py-2" @if ($product->type == 2) checked @endif disabled
+                                                style="margin-left:40px; margin-right:10px;">
                                             <label for="html" class="m-0">Dịch vụ</label>
                                         </div>
                                     </div>
@@ -164,6 +146,26 @@
                                                 <option value="99"
                                                     @if ($product->product_tax == 99) selected @endif>
                                                     NOVAT</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="title-info py-2 border border-top-0 border-left-0">
+                                            <p class="p-0 m-0 margin-left32 text-13">Nhóm sản phẩm</p>
+                                        </div>
+                                        <div
+                                            class="border border-top-0 w-100 border-left-0 border-right-0 px-3 height-100 pt-2 pb-1">
+                                            <select name="group_id" class="text-13-black border-0">
+                                                <option value="0"
+                                                    @if ($product->group_id == 0 || $product->group_id == null) selected @endif>
+                                                    Không nhóm sản phẩm
+                                                </option>
+                                                @foreach ($groups as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        @if ($product->group_id == $item->id) selected @endif>
+                                                        {{ $item->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

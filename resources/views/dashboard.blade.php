@@ -112,7 +112,7 @@
     </div>
 
     <div class="d-none" style="display:none">
-        <form action="{{ route('import') }}" enctype="multipart/form-data" method="POST" id="restore_data"
+        {{-- <form action="{{ route('import') }}" enctype="multipart/form-data" method="POST" id="restore_data"
             class="btn btn-outline-primary d-flex align-items-center h-100 custom-btn">
             @csrf
             <label class="btn-file mb-0 wf-500" style="color:#0095F6; font-weight : 500">
@@ -127,7 +127,7 @@
                 </svg>
                 Khôi phục<input type="file" style="display: none;" id="file_restore" name="file">
             </label>
-        </form>
+        </form> --}}
         {{-- Database tổng --}}
         Data tổng
         <form action="{{ route('importDatabase') }}" enctype="multipart/form-data" method="POST"

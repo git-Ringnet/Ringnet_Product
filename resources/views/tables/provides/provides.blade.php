@@ -18,8 +18,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('provides.create', $workspacename) }}" class="user_flow mr-3" data-type="NCC"
-                        data-des="Tạo mới">
+                    <a href="{{ route('provides.create') }}" class="user_flow mr-3" data-type="NCC" data-des="Tạo mới">
                         <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -219,7 +218,7 @@
                                                         onclick="event.stopPropagation();">
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom text-wrap">
-                                                    <a href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
+                                                    <a href="{{ route('provides.show', ['provide' => $item->id]) }}"
                                                         class="user_flow" data-type="NCC"
                                                         data-des="Xem nhà cung cấp">
                                                         {{ $item->provide_name_display }}
@@ -241,7 +240,7 @@
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 10px; bottom:0;">
                                                     <div class="d-flex w-100">
-                                                        <a href="{{ route('provides.edit', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
+                                                        <a href="{{ route('provides.edit', ['provide' => $item->id]) }}"
                                                             class="user_flow" data-type="NCC"
                                                             data-des="Chỉnh sửa nhà cung cấp">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">
@@ -263,7 +262,7 @@
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
                                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                    action="{{ route('provides.destroy', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
+                                                                    action="{{ route('provides.destroy', ['provide' => $item->id]) }}"
                                                                     method="POST" class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')

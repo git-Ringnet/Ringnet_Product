@@ -18,7 +18,7 @@
                         </svg>
                     </span>
                     <span class="nearLast-span">
-                        <a class="text-dark" href="{{ route('guests.index', ['workspace' => $workspacename]) }}">Khách
+                        <a class="text-dark" href="{{ route('guests.index') }}">Khách
                             hàng
                         </a>
                     </span>
@@ -35,7 +35,7 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <div class="dropdown">
-                            <a href="{{ route('guests.index', ['workspace' => $workspacename]) }}" class="activity"
+                            <a href="{{ route('guests.index') }}" class="activity"
                                 data-name1="KH" data-des="Trở về">
                                 <button type="button" class="btn-save-print d-flex align-items-center h-100 rounded"
                                     style="margin-right:10px;">
@@ -61,7 +61,7 @@
                                 name="file">
                         </label>
                         <a class="activity" data-name1="KH" data-des="Xem trang sửa"
-                            href="{{ route('guests.edit', ['workspace' => $workspacename, 'guest' => $guest->id]) }}">
+                            href="{{ route('guests.edit', ['guest' => $guest->id]) }}">
                             <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
@@ -195,16 +195,16 @@
                                                     <td class="border-right text-13-black px-0 py-2 padding-left35 height-52"
                                                         style="width: 20%;">
                                                         <input type="text" autocomplete="off"
-                                                            value="{{ $itemRepresent->represent_email }}" readonly
-                                                            class="border-0 py-1 w-100 represent_email"
-                                                            name="represent_email[]">
+                                                            value="{{ $itemRepresent->represent_phone }}" readonly
+                                                            class="border-0 py-1 w-100 represent_phone"
+                                                            name="represent_phone[]">
                                                     </td>
                                                     <td class="border-right text-13-black px-0 py-2 padding-left35 height-52"
                                                         style="width: 20%;">
                                                         <input type="text" autocomplete="off"
-                                                            value="{{ $itemRepresent->represent_phone }}" readonly
-                                                            class="border-0 py-1 w-100 represent_phone"
-                                                            name="represent_phone[]">
+                                                            value="{{ $itemRepresent->represent_email }}" readonly
+                                                            class="border-0 py-1 w-100 represent_email"
+                                                            name="represent_email[]">
                                                     </td>
                                                     <td class="border-right text-13-black px-0 py-2 padding-left35 height-52"
                                                         style="width: 20%;">

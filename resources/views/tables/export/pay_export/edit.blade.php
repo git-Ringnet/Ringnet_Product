@@ -1,5 +1,5 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="payexport" :workspacename="$workspacename"></x-navbar>
-<form action="{{ route('payExport.update', ['workspace' => $workspacename, 'payExport' => $payExport->idTT]) }}"
+<x-navbar :title="$title" activeGroup="sell" activeName="payexport"></x-navbar>
+<form action="{{ route('payExport.update', ['payExport' => $payExport->idTT]) }}"
     method="POST" id="formSubmit" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -60,7 +60,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('payExport.index', ['workspace' => $workspacename]) }}" class="activity"
+                        <a href="{{ route('payExport.index') }}" class="activity"
                             data-name1="TT" data-des="Trở về">
                             <button type="button"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 rounded">

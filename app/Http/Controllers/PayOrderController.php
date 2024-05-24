@@ -20,7 +20,6 @@ class PayOrderController extends Controller
     private $payment;
     private $productImport;
     private $historyPayment;
-    private $workspaces;
     private $attachment;
     private $users;
 
@@ -29,7 +28,6 @@ class PayOrderController extends Controller
         $this->payment = new PayOder();
         $this->productImport = new ProductImport();
         $this->historyPayment = new HistoryPaymentOrder();
-        $this->workspaces = new Workspace();
         $this->attachment = new Attachment();
         $this->users = new User();
     }
@@ -40,20 +38,13 @@ class PayOrderController extends Controller
     {
         $title = "Thanh toán mua hàng";
         $perPage = 10;
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $payment = PayOder::where('pay_order.workspace_id', Auth::user()->current_workspace)->orderBy('pay_order.id', 'desc');
-        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
-            $payment->join('detailimport', 'detailimport.id', 'pay_order.detailimport_id')
-                ->where('detailimport.user_id', Auth::user()->id);
-        }
         $payment->select('pay_order.*');
 
         $payment = $payment->get();
-        // ->paginate($perPage);
         $users = $this->payment->getUserInPayOrder();
         $today = Carbon::now();
-        return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'users', 'today', 'workspacename'));
+        return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'users', 'today'));
     }
 
     /**
@@ -62,8 +53,6 @@ class PayOrderController extends Controller
     public function create()
     {
         $title = "Tạo mới hóa đơn thanh toán";
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
             // ->where('quoteimport.product_qty', '>', 'quoteimport.payment_qty')
             ->where('quoteimport.product_qty','>',DB::raw('COALESCE(quoteimport.payment_qty,0)'))
@@ -71,10 +60,6 @@ class PayOrderController extends Controller
             ->where('detailimport.status_pay', '=', 0)
             ->distinct()
             ->orderBy('id', 'desc');
-
-        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
-            $reciept->where('detailimport.user_id', Auth::user()->id);
-        }
 
         $reciept->select('detailimport.quotation_number', 'detailimport.id');
         $reciept = $reciept->get();
@@ -91,9 +76,6 @@ class PayOrderController extends Controller
         } else {
             $id = $request->detailimport_id;
         }
-
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         // Tạo sản phẩm theo đơn nhận hàng
         $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
         // Tạo mới thanh toán hóa đơn
@@ -112,12 +94,12 @@ class PayOrderController extends Controller
             // Lưu lịch sử
             $this->historyPayment->addHistoryPayment($request->all(), $payment);
             if (isset($request->id_import)) {
-                return redirect()->route('import.index', $workspacename)->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
+                return redirect()->route('import.index')->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
             } else {
-                return redirect()->route('paymentOrder.index', $workspacename)->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
+                return redirect()->route('paymentOrder.index')->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
             }
         } else {
-            return redirect()->route('paymentOrder.index', $workspacename)->with('msg', 'Không tìm thấy !');
+            return redirect()->route('paymentOrder.index')->with('msg', 'Không tìm thấy !');
         }
     }
 
@@ -135,8 +117,6 @@ class PayOrderController extends Controller
     public function edit(string $workspaces, string $id)
     {
         $payment = PayOder::findOrFail($id);
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($payment) {
             $title = $payment->id;
             $detail = DetailImport::where('id', $payment->detailimport_id)->first();
@@ -167,7 +147,7 @@ class PayOrderController extends Controller
                 ->where('history_payment_order.payment_id', $payment->id)
                 ->select('history_payment_order.*', 'pay_order.payment_code')
                 ->get();
-            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'workspacename', 'nameRepresent'));
+            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'nameRepresent'));
         }
     }
 
@@ -178,8 +158,6 @@ class PayOrderController extends Controller
     {
         // Cập nhật trạng thái
         $result = $this->payment->updatePayment($request->all(), $id);
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($result) {
             // Thêm user flow
             $dataUserFlow = [
@@ -192,9 +170,9 @@ class PayOrderController extends Controller
             DB::table('user_flow')->insert($dataUserFlow);
             // Thêm lịch sử thanh toán
             $this->historyPayment->addHistoryPayment($request->all(), $id);
-            return redirect()->route('paymentOrder.index', $workspacename)->with('msg', 'Thanh toán hóa đơn thành công !');
+            return redirect()->route('paymentOrder.index')->with('msg', 'Thanh toán hóa đơn thành công !');
         } else {
-            return redirect()->route('paymentOrder.index', $workspacename)->with('warning', 'Hóa đơn đã được thanh toán !');
+            return redirect()->route('paymentOrder.index')->with('warning', 'Hóa đơn đã được thanh toán !');
         }
     }
 
@@ -204,8 +182,6 @@ class PayOrderController extends Controller
     public function destroy(string $workspace, string $id)
     {
         $status = $this->payment->deletePayment($id);
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($status) {
             $dataUserFlow = [
                 'user_id' => Auth::user()->id,
@@ -216,9 +192,9 @@ class PayOrderController extends Controller
 
             DB::table('user_flow')->insert($dataUserFlow);
             $this->attachment->deleteFileAll($id, 'TTMH');
-            return redirect()->route('paymentOrder.index', $workspacename)->with('msg', 'Xóa thanh toán mua hàng thành công !');
+            return redirect()->route('paymentOrder.index')->with('msg', 'Xóa thanh toán mua hàng thành công !');
         } else {
-            return redirect()->route('paymentOrder.index', $workspacename)->with('warning', 'Không tìn thấy thanh toán mua hàng cần xóa !');
+            return redirect()->route('paymentOrder.index')->with('warning', 'Không tìn thấy thanh toán mua hàng cần xóa !');
         }
     }
 

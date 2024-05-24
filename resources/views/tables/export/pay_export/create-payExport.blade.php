@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="payexport"></x-navbar>
-<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('payExport.store', ['workspace' => $workspacename]) }}"
+<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('payExport.store') }}"
     method="POST">
     @csrf
     <input type="hidden" name="detailexport_id" id="detailexport_id"
@@ -33,7 +33,7 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <div class="dropdown">
-                            <a href="{{ route('payExport.index', $workspacename) }}" class="activity" data-name1="TT"
+                            <a href="{{ route('payExport.index') }}" class="activity" data-name1="TT"
                                 data-des="Hủy">
                                 <button type="button"
                                     class="btn-destroy btn-light mx-1 rounded d-flex align-items-center h-100">

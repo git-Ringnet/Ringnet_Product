@@ -1,10 +1,10 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="provide">
 </x-navbar>
-<form action="{{ route('provides.update', ['workspace' => $workspacename, 'provide' => $provide->id]) }}" method="POST">
+<form action="{{ route('provides.update', ['provide' => $provide->id]) }}" method="POST">
     @csrf
     @method('PUT')
     {{-- <div class="content-wrapper m-0"> --}}
-        <div class="content-wrapper editGuest min-height--none p-0" style="min-height: 502px;">
+    <div class="content-wrapper editGuest min-height--none p-0" style="min-height: 502px;">
         <!-- Content Header (Page header) -->
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
@@ -19,7 +19,7 @@
                         </svg>
                     </span>
                     <span class="nearLast-span">
-                        <a class="text-dark" href="{{ route('provides.index', $workspacename) }}">
+                        <a class="text-dark" href="{{ route('provides.index') }}">
                             Nhà cung cấp
                         </a>
                     </span>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="content__heading--rightFixed">
                     <div class="row m-0">
-                        <a href="{{ route('provides.index', $workspacename) }}" class="user_flow" data-type="NCC"
+                        <a href="{{ route('provides.index') }}" class="user_flow" data-type="NCC"
                             data-des="Hủy chỉnh sửa nhà cung cấp">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"

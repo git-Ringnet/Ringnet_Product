@@ -16,7 +16,7 @@
                     </svg>
                 </span>
                 <span class="nearLast-span">
-                    <a class="text-dark" href="{{ route('provides.index', $workspacename) }}">Nhà cung cấp
+                    <a class="text-dark" href="{{ route('provides.index') }}">Nhà cung cấp
                     </a>
                 </span>
                 <span>
@@ -31,7 +31,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('provides.index', $workspacename) }}" class="user_flow" data-type="NCC"
+                    <a href="{{ route('provides.index') }}" class="user_flow" data-type="NCC"
                         data-des="Trở về">
                         <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
@@ -44,7 +44,7 @@
                         </button>
                     </a>
 
-                    <a href="{{ route('provides.edit', ['workspace' => $workspacename, 'provide' => $provide->id]) }}"
+                    <a href="{{ route('provides.edit', ['provide' => $provide->id]) }}"
                         class="user_flow mr-1" data-type="NCC" data-des="Chỉnh sửa nhà cung cấp">
                         <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"

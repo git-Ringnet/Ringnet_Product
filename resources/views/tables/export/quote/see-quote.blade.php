@@ -1,5 +1,5 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="quote" :workspacename="$workspacename"></x-navbar>
-<form action="{{ route('detailExport.update', ['workspace' => $workspacename, 'detailExport' => $detailExport->maBG]) }}"
+<x-navbar :title="$title" activeGroup="sell" activeName="quote"></x-navbar>
+<form action="{{ route('detailExport.update', ['detailExport' => $detailExport->maBG]) }}"
     method="POST" id="formSubmit" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -38,7 +38,7 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <div class="dropdown">
-                            <a href="{{ route('detailExport.index', $workspacename) }}" class="activity" data-name1="BG"
+                            <a href="{{ route('detailExport.index') }}" class="activity" data-name1="BG"
                                 data-des="Hủy xem đơn báo giá">
                                 <button type="button" class="btn-destroy rounded mx-1 d-flex align-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -145,7 +145,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <a href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $detailExport->maBG]) }}"
+                        <a href="{{ route('detailExport.edit', ['detailExport' => $detailExport->maBG]) }}"
                             class="activity" data-name1="BG" data-des="Xem trang sửa">
                             <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"

@@ -50,7 +50,8 @@ class DetailExport extends Model
     {
         return $this->hasMany(QuoteExport::class, 'detailexport_id', 'id');
     }
-    public function getGuest(){
+    public function getGuest()
+    {
         return $this->hasOne(Guest::class, 'id', 'guest_id');
     }
 
@@ -59,12 +60,6 @@ class DetailExport extends Model
         $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
             ->leftJoin('users', 'users.id', 'detailexport.user_id');
-        if (Auth::check()) {
-            if (Auth::user()->getRoleUser->roleid == 4) {
-                $detailExport->where('user_id', Auth::user()->id);
-            }
-        }
-        // dd(Auth::user()->getRoleUser);
         $detailExport = $detailExport->orderBy('detailexport.id', 'desc')->get();
         return $detailExport;
     }

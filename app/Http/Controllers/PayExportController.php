@@ -26,7 +26,6 @@ class PayExportController extends Controller
     /**
      * Display a listing of the resource.
      */
-    private $billSale;
     private $product;
     private $payExport;
     private $productPay;
@@ -37,7 +36,6 @@ class PayExportController extends Controller
 
     public function __construct()
     {
-        $this->billSale = new BillSale();
         $this->product = new Products();
         $this->payExport = new PayExport();
         $this->productPay = new productPay();
@@ -50,8 +48,6 @@ class PayExportController extends Controller
     {
         if (Auth::check()) {
             $title = "Thanh toán bán hàng";
-            $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-            $workspacename = $workspacename->workspace_name;
             $users = $this->payExport->getUserInPayEx();
             $payExport = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
                 ->leftJoin('history_payment_export', 'pay_export.id', 'history_payment_export.pay_id')
@@ -86,13 +82,8 @@ class PayExportController extends Controller
                     'pay_export.code_payment',
                     'users.name',
                 );
-            if (Auth::check()) {
-                if (Auth::user()->getRoleUser->roleid == 4) {
-                    $payExport->where('pay_export.user_id', Auth::user()->id);
-                }
-            }
             $payExport = $payExport->get();
-            return view('tables.export.pay_export.list-payExport', compact('title', 'users', 'payExport', 'workspacename'));
+            return view('tables.export.pay_export.list-payExport', compact('title', 'users', 'payExport'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
         }
@@ -104,8 +95,6 @@ class PayExportController extends Controller
     public function create()
     {
         $title = "Tạo đơn thanh toán";
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $product = $this->product->getAllProducts();
         $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
             ->where('quoteexport.status', 1)
@@ -114,13 +103,8 @@ class PayExportController extends Controller
             ->select('detailexport.quotation_number', 'detailexport.id')
             ->distinct()
             ->orderby('detailexport.id', 'DESC');
-        if (Auth::check()) {
-            if (Auth::user()->getRoleUser->roleid == 4) {
-                $numberQuote->where('detailexport.user_id', Auth::user()->id);
-            }
-        }
         $numberQuote = $numberQuote->get();
-        return view('tables.export.pay_export.create-payExport', compact('title', 'numberQuote', 'product', 'workspacename'));
+        return view('tables.export.pay_export.create-payExport', compact('title', 'numberQuote', 'product'));
     }
 
     /**

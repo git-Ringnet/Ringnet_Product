@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="payexport" :workspacename="$workspacename"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="payexport"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
     <div class="content-header-fixed p-0 margin-250 border-0">
         <div class="content__header--inner margin-left32">
@@ -16,7 +16,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('payExport.create', ['workspace' => $workspacename]) }}" class="activity mr-3"
+                    <a href="{{ route('payExport.create') }}" class="activity mr-3"
                         data-name1="TT" data-des="Tạo mới">
                         <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
@@ -312,7 +312,7 @@
                                                     </td>
                                                     <td class="text-13-black text-left border-bottom border-top-0">
                                                         <a class="activity" data-name1="TT" data-des="Xem đơn thanh toán"
-                                                            href="{{ route('payExport.edit', ['workspace' => $workspacename, 'payExport' => $item_pay->id]) }}">
+                                                            href="{{ route('payExport.edit', ['payExport' => $item_pay->id]) }}">
                                                             {{ $item_pay->code_payment }}
                                                         </a>
 
@@ -375,7 +375,7 @@
                                                                 <div class="m-0 mx-2 rounded">
                                                                     <form
                                                                         onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                        action="{{ route('payExport.destroy', ['workspace' => $workspacename, 'payExport' => $item_pay->id]) }}"
+                                                                        action="{{ route('payExport.destroy', ['payExport' => $item_pay->id]) }}"
                                                                         method="POST" class="d-inline">
                                                                         @csrf
                                                                         @method('DELETE')

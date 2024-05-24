@@ -22,7 +22,6 @@ class GuestController extends Controller
     private $representGuest;
     private $detailExport;
     private $payExport;
-    private $workspaces;
     private $userFlow;
     private $users;
     public function __construct()
@@ -31,7 +30,6 @@ class GuestController extends Controller
         $this->representGuest = new representGuest();
         $this->detailExport = new DetailExport();
         $this->payExport = new PayExport();
-        $this->workspaces = new Workspace();
         $this->userFlow = new userFlow();
         $this->users = new User();
     }
@@ -43,15 +41,13 @@ class GuestController extends Controller
             $dataa = $this->guests->getAllGuest();
             $users = $this->guests->getUserInGuests();
             //Dư nợ
-            $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-            $workspacename = $workspacename->workspace_name;
             // foreach ($guests as $guest) {
             //     $sumDebt = DetailExport::where('guest_id', $guest->id)->where('status', 2)->sum('amount_owed');
             //     $guest->sumDebt = $sumDebt;
             // }
 
 
-            return view('tables.guests.index', compact('title', 'guests', 'users', 'dataa', 'workspacename'));
+            return view('tables.guests.index', compact('title', 'guests', 'users', 'dataa'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
         }
@@ -62,16 +58,14 @@ class GuestController extends Controller
      */
     public function create()
     {
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $title = "Thêm mới khách hàng";
-        return view('tables.guests.create', compact('title', 'workspacename'));
+        return view('tables.guests.create', compact('title'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(string $workspace, Request $request)
+    public function store(Request $request)
     {
         $result = $this->guests->addGuest($request->all());
         if ($result == true) {
@@ -82,7 +76,7 @@ class GuestController extends Controller
                 'des' => 'Lưu khách hàng'
             ];
             $this->userFlow->addUserFlow($arrCapNhatKH);
-            $msg = redirect()->route('guests.index', ['workspace' => $workspace])->with('msg', 'Thêm mới khách hàng thành công');
+            $msg = redirect()->route('guests.index')->with('msg', 'Thêm mới khách hàng thành công');
         }
         return $msg;
     }
@@ -90,10 +84,8 @@ class GuestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $workspace, string $id)
+    public function show(string $id)
     {
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $guest = Guest::where('guest.id', $id)
             ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->first();
@@ -115,16 +107,14 @@ class GuestController extends Controller
         $sumDebt = $this->detailExport->sumDebt($id);
         //Lịch sử giao dịch
         $historyGuest = $this->detailExport->historyGuest($id);
-        return view('tables.guests.show', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'sumSell', 'workspacename'));
+        return view('tables.guests.show', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'sumSell'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $workspace, string $id, Request $request)
+    public function edit(string $id, Request $request)
     {
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $guest = Guest::where('guest.id', $id)
             ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->first();
@@ -150,13 +140,13 @@ class GuestController extends Controller
         $historyGuest = $this->detailExport->historyGuest($id);
         $dataa = $this->guests->getAllGuest();
 
-        return view('tables.guests.edit', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'dataa', 'workspacename'));
+        return view('tables.guests.edit', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'dataa'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace, Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         $id = session('id');
         $data = [
@@ -176,7 +166,7 @@ class GuestController extends Controller
         $this->guests->updateProvide($data, $id);
         $this->representGuest->updateRepresentGuest($request->all(), $id);
         session()->forget('id');
-        return redirect(route('guests.index', ['workspace' => $workspace]))->with('msg', 'Sửa khách hàng thành công');
+        return redirect(route('guests.index'))->with('msg', 'Sửa khách hàng thành công');
     }
 
     /**

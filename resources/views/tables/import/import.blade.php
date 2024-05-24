@@ -18,7 +18,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('import.create', $workspacename) }}" class="user_flow mr-3" data-type="DMH"
+                    <a href="{{ route('import.create') }}" class="user_flow mr-3" data-type="DMH"
                         data-des="Tạo mới" id="create">
                         {{-- <a href="#" class="user_flow" data-type="DMH" data-des="Tạo mới"> --}}
                         <button type="submit" class="custom-btn d-flex align-items-center h-100 mx-1">
@@ -307,7 +307,7 @@
                                                 <td class="text-13-black border-bottom border-top-0 text-wrap">
                                                     <div class="user_flow" data-type="DMH"
                                                         data-des="Xem đơn mua hàng">
-                                                        <a href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}"
+                                                        <a href="{{ route('import.show', ['import' => $item->id]) }}"
                                                             class="duongDan">
                                                             {{ $item->quotation_number == null ? $item->id : $item->quotation_number }}
                                                         </a>
@@ -431,7 +431,7 @@
                                                     <div class="d-flex w-100">
                                                         <a class="user_flow" data-type="DMH"
                                                             data-des="Xem đơn mua hàng"
-                                                            href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $item->id]) }}">
+                                                            href="{{ route('import.edit', ['import' => $item->id]) }}">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">
                                                                 <svg width="16" height="16"
                                                                     viewBox="0 0 16 16" fill="none"
@@ -451,7 +451,7 @@
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
                                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                    action="{{ route('import.destroy', ['workspace' => $workspacename, 'import' => $item->id]) }}"
+                                                                    action="{{ route('import.destroy', ['import' => $item->id]) }}"
                                                                     method="post" id="search-filter">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -813,11 +813,11 @@
         type = $(e).data('type');
         $('#getAction').val($(e).find('button').val());
         if (type == "receive_bill") {
-            $('#quickAction').attr('action', "{{ route('receive.store', $workspacename) }}");
+            $('#quickAction').attr('action', "{{ route('receive.store') }}");
         } else if (type == "reciept") {
-            $('#quickAction').attr('action', "{{ route('reciept.store', $workspacename) }}");
+            $('#quickAction').attr('action', "{{ route('reciept.store') }}");
         } else {
-            $('#quickAction').attr('action', "{{ route('paymentOrder.store', $workspacename) }}");
+            $('#quickAction').attr('action', "{{ route('paymentOrder.store') }}");
         }
         $('#quickAction').attr('data-type', type)
     }

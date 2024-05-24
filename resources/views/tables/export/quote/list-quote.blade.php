@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="quote" :workspacename="$workspacename"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="quote"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
     <div class="content-header-fixed p-0 margin-250 border-bottom-0">
         <div class="content__header--inner margin-left32">
@@ -12,12 +12,12 @@
                             fill="#26273B" fill-opacity="0.8" />
                     </svg>
                 </span>
-                <span class="font-weight-bold text-secondary">Đơn báo giá</span>
+                <span class="font-weight-bold text-secondary">Đơn bán hàng</span>
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('detailExport.create', ['workspace' => $workspacename]) }}" class="activity mr-3"
-                        data-name1="BG" data-des="Tạo mới">
+                    <a href="{{ route('detailExport.create') }}" class="activity mr-3" data-name1="BG"
+                        data-des="Tạo mới">
                         <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -122,9 +122,6 @@
                                                     data-button="users" type="button">Người tạo
                                                 </button>
                                             @endcan
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-status"
-                                                data-button="status" type="button">Trạng thái
-                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-receive"
                                                 data-button="receive" type="button">Giao hàng
                                             </button>
@@ -150,9 +147,6 @@
                                     <x-filter-text name="guests" title="Khách hàng" />
                                     <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
                                         namedisplay="name" />
-                                    <x-filter-status name="status" key1="1" value1="Draft" color1="#858585"
-                                        key2="2" value2="Approved" color2="#E8B600" key3="3"
-                                        value3="Close" color3="#08AA36BF" title="Trạng thái" />
                                     <x-filter-status name="receive" key1="1" value1="Chưa giao"
                                         color1="#858585" key2="2" value2="Đã giao" color2="#08AA36BF"
                                         key3="3" value3="Một phần" color3="#E8B600" title="Giao hàng" />
@@ -248,37 +242,10 @@
                                             <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="status" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Trạng
-                                                            thái</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-status"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52" style="width: 8%;">
-                                                <span class="d-flex justify-content-center">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="status_receive" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Giao hàng</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-status_receive"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52" style="width: 8%;">
-                                                <span class="d-flex justify-content-center">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="status_reciept" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Hóa đơn</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-status_reciept"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52" style="width: 8%;">
-                                                <span class="d-flex justify-content-center">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="status_pay" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Thanh
-                                                            toán</button>
+                                                        data-sort-by="status_pay" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Thanh toán
+                                                        </button>
                                                     </a>
                                                     <div class="icon" id="icon-status_pay"></div>
                                                 </span>
@@ -323,7 +290,7 @@
                                                 </td>
                                                 <td class="text-13-black text-left border-top-0 border-bottom">
                                                     <div class="">
-                                                        <a href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $value_export->maBG]) }}"
+                                                        <a href="{{ route('seeInfo', ['id' => $value_export->maBG]) }}"
                                                             class="duongDan activity" data-name1="BG"
                                                             data-des="Xem đơn báo giá">{{ $value_export->quotation_number }}</a>
                                                     </div>
@@ -344,85 +311,6 @@
                                                         {{ $value_export->name }}
                                                     </td>
                                                 @endcan
-                                                <td class="text-13-black text-center border-top-0 border-bottom">
-                                                    @if ($value_export->tinhTrang === 1)
-                                                        <span class="text-secondary">Draft</span>
-                                                    @elseif($value_export->tinhTrang === 2)
-                                                        <span class="text-warning">Approved</span>
-                                                    @elseif($value_export->tinhTrang === 3)
-                                                        <span class="text-success">Close</span>
-                                                    @endif
-                                                </td>
-                                                <td class="text-13-black text-center border-top-0 border-bottom">
-                                                    @if ($value_export->status_receive === 1)
-                                                        <svg width="16" height="16" viewBox="0 0 16 16"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
-                                                                fill="#858585" />
-                                                        </svg>
-                                                    @elseif ($value_export->status_receive === 3)
-                                                        <svg width="16" height="16" viewBox="0 0 16 16"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <g clip-path="url(#clip0_1699_20021)">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
-                                                                    fill="#E8B600" />
-                                                                <path
-                                                                    d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
-                                                                    fill="#E8B600" />
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_1699_20021">
-                                                                    <rect width="16" height="16"
-                                                                        fill="white" />
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    @elseif($value_export->status_receive === 2)
-                                                        <svg width="16" height="16" viewBox="0 0 16 16"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                                                fill="#08AA36" fill-opacity="0.75" />
-                                                        </svg>
-                                                    @endif
-                                                </td>
-                                                <td class="text-13-black text-center border-top-0 border-bottom">
-                                                    @if ($value_export->status_reciept === 1)
-                                                        <svg width="16" height="16" viewBox="0 0 16 16"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
-                                                                fill="#858585" />
-                                                        </svg>
-                                                    @elseif ($value_export->status_reciept === 3)
-                                                        <svg width="16" height="16" viewBox="0 0 16 16"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <g clip-path="url(#clip0_1699_20021)">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
-                                                                    fill="#E8B600" />
-                                                                <path
-                                                                    d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
-                                                                    fill="#E8B600" />
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_1699_20021">
-                                                                    <rect width="16" height="16"
-                                                                        fill="white" />
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    @elseif($value_export->status_reciept === 2)
-                                                        <svg width="16" height="16" viewBox="0 0 16 16"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                                                fill="#08AA36" fill-opacity="0.75" />
-                                                        </svg>
-                                                    @endif
-                                                </td>
                                                 <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($value_export->status_pay === 1)
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
@@ -465,7 +353,7 @@
                                                     class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">
                                                         <a
-                                                            href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $value_export->maBG]) }}">
+                                                            href="{{ route('detailExport.edit', ['detailExport' => $value_export->maBG]) }}">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded activity"
                                                                 data-name1="BG" data-des="Xem đơn báo giá">
                                                                 <svg width="16" height="16"
@@ -486,7 +374,7 @@
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
                                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                    action="{{ route('detailExport.destroy', ['workspace' => $workspacename, 'detailExport' => $value_export->maBG]) }}"
+                                                                    action="{{ route('detailExport.destroy', ['detailExport' => $value_export->maBG]) }}"
                                                                     method="POST" class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -2086,24 +1974,23 @@
 
         if (type == "delivery") {
             $("input[name='redirect']").val('delivery');
-            var actionUrl = "{{ route('delivery.store', $workspacename) }}";
+            var actionUrl = "{{ route('delivery.store') }}";
             $('#quickAction').attr('action', actionUrl);
         } else if (type == "reciept") {
             $("input[name='redirect']").val('billSale');
-            var actionUrl = "{{ route('billSale.store', $workspacename) }}";
+            var actionUrl = "{{ route('billSale.store') }}";
             $('#quickAction').attr('action', actionUrl);
             $('#quickAction').attr('onsubmit', 'return kiemTraFormGiaoHang();');
         } else if (type == "payorder") {
             $("input[name='redirect']").val('payExport');
-            var actionUrl = "{{ route('payExport.store', $workspacename) }}";
+            var actionUrl = "{{ route('payExport.store') }}";
             $('#quickAction').attr('action', actionUrl);
         } else if (type == "thanhToan") {
             $("input[name='redirect']").val('payExport');
             $("input[name='_method']").val('PUT');
-            var workspace = "{{ $workspacename }}";
             var payExportId = $(e).data('id');
             var actionUrl =
-                "{{ route('payExport.update', ['workspace' => $workspacename, 'payExport' => ':payExportId']) }}";
+                "{{ route('payExport.update', ['payExport' => ':payExportId']) }}";
             actionUrl = actionUrl.replace(':payExportId', payExportId);
             $('#quickAction').attr('action', actionUrl);
         }

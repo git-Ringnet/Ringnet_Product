@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="guest"></x-navbar>
-<form action="{{ route('guests.update', ['workspace' => $workspacename, 'guest' => $guest->id]) }}" method="POST"
+<form action="{{ route('guests.update', ['guest' => $guest->id]) }}" method="POST"
     onsubmit="return checkDuplicateRepresentatives()">
     @csrf
     @method('PUT')
@@ -17,7 +17,7 @@
                         </svg>
                     </span>
                     <span>
-                        <a class="text-dark" href="{{ route('guests.index', ['workspace' => $workspacename]) }}">Khách
+                        <a class="text-dark" href="{{ route('guests.index') }}">Khách
                             hàng</a>
                     </span>
                     <span>
@@ -33,7 +33,7 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <div class="dropdown">
-                            <a href="{{ route('guests.index', ['workspace' => $workspacename]) }}">
+                            <a href="{{ route('guests.index') }}">
                                 <button type="button" class="btn-save-print d-flex align-items-center h-100 rounded"
                                     style="margin-right:10px;">
                                     <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -47,16 +47,16 @@
                             </a>
                         </div>
                         <button type="submit" class="custom-btn d-flex align-items-center h-100"
-                            style="margin-right:10px" onclick="kiemTraFormGiaoHang(event)">
+                            style="margin-right:10px">
                             <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                     fill="white" />
                             </svg>
-                            <span>Lưu khách hàng</span>
+                            <p class="p-0 m-0">Lưu khách hàng</p>
                         </button>
-                        <div>
+                        {{-- <div>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -69,7 +69,7 @@
                                     d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                     fill="#42526E"></path>
                             </svg>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

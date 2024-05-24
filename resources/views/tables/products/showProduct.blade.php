@@ -26,7 +26,7 @@
                 </span>
             </div>
             <div class="d-flex content__heading--right">
-                <a href="{{ route('inventory.index', $workspacename) }}">
+                <a href="{{ route('inventory.index') }}">
                     <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 rounded">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                             fill="none">
@@ -38,8 +38,7 @@
                     </button>
                 </a>
                 @if ($display == 1)
-                    <a
-                        href="{{ route('inventory.edit', ['workspace' => $workspacename, 'inventory' => $product->id]) }}">
+                    <a href="{{ route('inventory.edit', ['inventory' => $product->id]) }}">
                         <button type="button" class="custom-btn d-flex mx-1 align-items-center h-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
                                 fill="none">
@@ -181,6 +180,26 @@
                                                 <option value="99"
                                                     @if ($product->product_tax == 99) selected @endif>
                                                     NOVAT</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="title-info py-2 border border-top-0 border-left-0">
+                                            <p class="p-0 m-0 margin-left32 text-13">Nhóm sản phẩm</p>
+                                        </div>
+                                        <div
+                                            class="border border-top-0 w-100 border-left-0 border-right-0 px-3 height-100 pt-2 pb-1">
+                                            <select name="group_id" disabled class="text-13-black border-0">
+                                                <option value="0"
+                                                    @if ($product->group_id == 0 || $product->group_id == null) selected @endif>
+                                                    Không nhóm sản phẩm
+                                                </option>
+                                                @foreach ($groups as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        @if ($product->group_id == $item->id) selected @endif>
+                                                        {{ $item->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -657,7 +676,7 @@
                                                     style="width: 33.34%;">
                                                     <span style="display:block;" class="text-14-blue">
                                                         <a
-                                                            href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->getReceive->id]) }}">
+                                                            href="{{ route('receive.edit', ['receive' => $item->getReceive->id]) }}">
                                                             {{ $item->getReceive->delivery_code }}
                                                         </a>
                                                     </span>
@@ -670,7 +689,7 @@
                                                     @if ($sn->getQuotation)
                                                         <span style="display:block;" class="text-14-blue">
                                                             <a
-                                                                href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $sn->getQuotation->id]) }}">
+                                                                href="{{ route('watchDelivery', ['id' => $sn->getQuotation->id]) }}">
                                                                 {{ $sn->getQuotation->code_delivery }}
                                                             </a>
                                                         </span>

@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="products" activeName="product"></x-navbar>
-<form action="{{ route('inventory.store', $workspacename) }}" method="POST">
+<form action="{{ route('inventory.store') }}" method="POST">
     @csrf
     <div class="content-wrapper m-0 min-height--none" style="background: none;">
         <div class="content-header-fixed p-0 margin-250 border-bottom-0">
@@ -26,7 +26,7 @@
                     <span class="last-span">Thêm sản phẩm</span>
                 </div>
                 <div class="d-flex content__heading--right">
-                    <a href="{{ route('inventory.index', $workspacename) }}">
+                    <a href="{{ route('inventory.index') }}">
                         <button type="button"
                             class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
@@ -62,8 +62,7 @@
                                 <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 text-danger margin-left32 text-13">Danh mục sản phẩm</p>
                                 </div>
-                                <div
-                                    class="border-bottom height-100 w-100 py-2 px-3 text-13-black d-flex">
+                                <div class="border-bottom height-100 w-100 py-2 px-3 text-13-black d-flex">
                                     <input type="radio" id="hanghoa" name="type_product" value="1"
                                         class="py-2" checked style="margin-right:10px;">
                                     <label for="html" class="m-0">Hàng hóa</label>
@@ -104,6 +103,19 @@
                                         <option value="8">8%</option>
                                         <option value="10" selected>10%</option>
                                         <option value="99">NOVAT</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="title-info py-2 border border-top-0 border-left-0">
+                                    <p class="p-0 m-0 margin-left32 text-13">Nhóm sản phẩm</p>
+                                </div>
+                                <div class="border border-top-0 w-100 border-left-0 border-right-0 px-3 text-13-black">
+                                    <select name="group_id" class="form-control text-13-black border-0 p-0 m-0">
+                                        <option value="0">Không nhóm sản phẩm</option>
+                                        @foreach ($groups as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

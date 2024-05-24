@@ -1,5 +1,5 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="quote" :workspacename="$workspacename"></x-navbar>
-<form action="{{ route('detailExport.update', ['workspace' => $workspacename, 'detailExport' => $detailExport->maBG]) }}"
+<x-navbar :title="$title" activeGroup="sell" activeName="quote"></x-navbar>
+<form action="{{ route('detailExport.update', ['detailExport' => $detailExport->maBG]) }}"
     method="POST">
     @csrf
     @method('PUT')
@@ -35,7 +35,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('detailExport.index', $workspacename) }}" class="activity" data-name1="BG"
+                        <a href="{{ route('detailExport.index') }}" class="activity" data-name1="BG"
                             data-des="Hủy ">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
