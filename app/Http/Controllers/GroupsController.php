@@ -47,6 +47,18 @@ class GroupsController extends Controller
         $title = "Thêm mới nhóm đối tượng";
         return view('tables.groups.create', compact('title', 'grouptypes', 'workspacename'));
     }
+    public function dataObj(Request $request)
+    {
+        $data = $request->all();
+        $dataGroup = $this->groups->dataObj($data['group_id']);
+        return $dataGroup;
+    }
+    public function updateDataGroup(Request $request)
+    {
+        $data = $request->all();
+        $dataGroup = $this->groups->updateDataGroup($data);
+        return $dataGroup;
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -107,8 +119,9 @@ class GroupsController extends Controller
         $getId = $id;
         $request->session()->put('idGr', $id);
         $grouptypes = Grouptype::all();
-
-        return view('tables.groups.edit', compact('title', 'group', 'grouptypes', 'workspacename'));
+        $dataGroup = $this->groups->getDataGroup($id);
+        // dd($dataGroup);
+        return view('tables.groups.edit', compact('title', 'group', 'dataGroup', 'grouptypes', 'workspacename'));
     }
 
     /**

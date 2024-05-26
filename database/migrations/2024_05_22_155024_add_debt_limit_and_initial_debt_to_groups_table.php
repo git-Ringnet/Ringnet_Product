@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('guest', function (Blueprint $table) {
-            $table->integer('group_id')->nullable()->after('guest_name');
+            $table->integer('group_id')->default(0)->after('guest_name');
             $table->date('birthday')->nullable()->after('group_id');
             $table->string('fax')->nullable()->after('birthday');
             $table->decimal('debt_limit', 15, 2)->nullable()->after('fax');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('price_type')->nullable()->after('initial_debt');
         });
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('group_id')->nullable()->after('email');
+            $table->integer('group_id')->default(0)->after('email');
             $table->string('user_code')->nullable()->after('group_id');
         });
     }

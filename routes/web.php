@@ -17,6 +17,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvidesController;
 use App\Http\Controllers\QuoteExportController;
 use App\Http\Controllers\DateFormController;
+use App\Http\Controllers\FundController;
 use App\Http\Controllers\GroupsController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ReceiveController;
@@ -90,6 +91,9 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/getDataImport', [DetailImportController::class, 'getDataImport'])->name('getDataImport');
     Route::get('/checkAction', [DetailImportController::class, 'checkAction'])->name('checkAction');
     Route::resource('{workspace}/groups', GroupsController::class);
+    Route::get('/dataObj', [GroupsController::class, 'dataObj'])->name('dataObj');
+    Route::get('/updateDataGroup', [GroupsController::class, 'updateDataGroup'])->name('updateDataGroup');
+    Route::resource('funds', FundController::class);
 });
 
 

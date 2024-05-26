@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailExport;
+use App\Models\Groups;
 use App\Models\Guest;
 use App\Models\PayExport;
 use App\Models\representGuest;
@@ -49,7 +50,7 @@ class GuestController extends Controller
             //     $sumDebt = DetailExport::where('guest_id', $guest->id)->where('status', 2)->sum('amount_owed');
             //     $guest->sumDebt = $sumDebt;
             // }
-
+            // dd($guests);
 
             return view('tables.guests.index', compact('title', 'guests', 'users', 'dataa', 'workspacename'));
         } else {
@@ -65,7 +66,8 @@ class GuestController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $title = "Thêm mới khách hàng";
-        return view('tables.guests.create', compact('title', 'workspacename'));
+        $groups = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('tables.guests.create', compact('title', 'groups', 'workspacename'));
     }
 
     /**
@@ -103,6 +105,7 @@ class GuestController extends Controller
             abort('404');
             $title = '';
         }
+        $groups = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
         //Người đại diện
         $representGuest = $this->representGuest->getRepresentGuest($id);
         //Tổng số đơn
@@ -115,7 +118,7 @@ class GuestController extends Controller
         $sumDebt = $this->detailExport->sumDebt($id);
         //Lịch sử giao dịch
         $historyGuest = $this->detailExport->historyGuest($id);
-        return view('tables.guests.show', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'sumSell', 'workspacename'));
+        return view('tables.guests.show', compact('title', 'groups', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'sumSell', 'workspacename'));
     }
 
     /**
@@ -149,8 +152,9 @@ class GuestController extends Controller
         //Lịch sử giao dịch
         $historyGuest = $this->detailExport->historyGuest($id);
         $dataa = $this->guests->getAllGuest();
+        $groups = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
 
-        return view('tables.guests.edit', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'dataa', 'workspacename'));
+        return view('tables.guests.edit', compact('title', 'groups', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'dataa', 'workspacename'));
     }
 
     /**

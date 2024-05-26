@@ -29,22 +29,29 @@ class Guest extends Model
     ];
     protected $table = 'guest';
 
-    public function getAllDetailByID(){
+    public function getAllDetailByID()
+    {
         return $this->hasMany(DetailExport::class, 'guest_id', 'id')
-        ->whereIn('detailexport.status', [2,3]);
+            ->whereIn('detailexport.status', [2, 3]);
     }
     public function getPayment()
     {
         return $this->hasOne(PayExport::class, 'guest_id', 'id');
+    }
+    public function representGuest()
+    {
+        return $this->belongsTo(representGuest::class, 'guest_id', 'id');
     }
 
     public function getAllGuest()
     {
         $guests = DB::table($this->table)
             ->leftJoin('users', 'guest.user_id', '=', 'users.id')
+            ->leftJoin('represent_guest', 'represent_guest.guest_id', '=', 'guest.id')
             ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->orderBy('guest.id', 'DESC')
             ->select(
+                'represent_guest.*',
                 'guest.*',
                 'users.name as name',
                 DB::raw('COALESCE((SELECT SUM(amount_owed) FROM detailexport WHERE guest_id = guest.id AND status = 2), 0) as sumDebt')
@@ -201,6 +208,7 @@ class Guest extends Model
                 'guest_debt' => isset($data['guest_debt']) ? $data['guest_debt'] : 0,
                 'guest_note' => isset($data['guest_note']) ? $data['guest_note'] : null,
                 'workspace_id' => Auth::user()->current_workspace,
+                'group_id' => isset($data['grouptype_id']) ? $data['grouptype_id'] : 0,
             ];
             $guest_id =  DB::table($this->table)->insertGetId($dataguest);
             //Thêm người đại diện

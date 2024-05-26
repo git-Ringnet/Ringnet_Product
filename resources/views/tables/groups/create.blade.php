@@ -92,7 +92,7 @@
                                 <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                     <p class="p-0 m-0 margin-left32 text-13-red required-label">Loại nhóm</p>
                                 </div>
-                                <select name="grouptype_id" required
+                                <select name="grouptype_id" id="grouptypeSelect" required
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                     <option value="">Chọn loại nhóm</option>
                                     @foreach ($grouptypes as $grouptype)

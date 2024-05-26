@@ -15,112 +15,9 @@ return new class extends Migration
         //     $table->id();
         //     $table->timestamps();
         // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         Schema::table('provides', function (Blueprint $table) {
             $table->decimal('quota_debt', 20, 4)->nullable()->after('provide_phone');
-            $table->integer('category_id')->nullable()->after('provide_phone');
+            $table->integer('group_id')->default(0)->after('provide_phone');
             $table->string('provide_fax')->nullable()->after('provide_phone');
         });
         Schema::table('products', function (Blueprint $table) {
@@ -128,7 +25,7 @@ return new class extends Migration
             $table->decimal('price_wholesale', 20, 4)->nullable()->after('user_id');
             $table->decimal('price_specialsale', 20, 4)->nullable()->after('user_id');
             $table->decimal('product_weight', 20, 4)->nullable()->after('user_id');
-            $table->integer('category_id')->nullable()->after('user_id');
+            $table->integer('group_id')->default(0)->after('user_id');
         });
 
         Schema::create('content-import-export', function (Blueprint $table) {
