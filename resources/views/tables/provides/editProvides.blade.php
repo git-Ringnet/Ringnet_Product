@@ -4,7 +4,7 @@
     @csrf
     @method('PUT')
     {{-- <div class="content-wrapper m-0"> --}}
-        <div class="content-wrapper editGuest min-height--none p-0" style="min-height: 502px;">
+    <div class="content-wrapper editGuest min-height--none p-0" style="min-height: 502px;">
         <!-- Content Header (Page header) -->
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
@@ -58,20 +58,6 @@
                             <span class="text-btnIner-primary ml-2">Lưu nhà cung cấp</span>
                         </button>
 
-                        {{-- <button class="btn-option">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E" />
-                            </svg>
-                        </button> --}}
                     </div>
                 </div>
             </div>
@@ -88,22 +74,24 @@
                             <div class="info-chung">
                                 <div class="content-info">
                                     <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                            <p class="p-0 m-0  margin-left32 text-13">Mã</p>
+                                        </div>
+                                        <input type="text" placeholder="Nhập thông tin" name="key"
+                                            value="{{ old('key') ?? $provide->key }}"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    </div>
+
+                                    <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 height-100">
-                                            <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên hiển thị</p>
+                                            <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên</p>
                                         </div>
                                         <input type="text" required placeholder="Nhập thông tin"
                                             name="provide_name_display"
                                             value="{{ old('provide_name_display') ?? $provide->provide_name_display }}"
                                             class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                     </div>
-                                    <div class="d-flex align-items-center height-60-mobile">
-                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                            <p class="p-0 m-0  margin-left32 required-label text-13-red">Mã số thuế</p>
-                                        </div>
-                                        <input type="text" required placeholder="Nhập thông tin" name="provide_code"
-                                            value="{{ old('provide_code') ?? $provide->provide_code }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                    </div>
+
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                             <p class="p-0 m-0  margin-left32 required-label text-13-red">Địa chỉ</p>
@@ -113,25 +101,80 @@
                                             value="{{ old('provide_address') ?? $provide->provide_address }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                     </div>
+
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                            <p class="p-0 m-0  margin-left32 text-13">Tên viết tắt</p>
+                                            <p class="p-0 m-0  margin-left32 required-label text-13-red">Điện thoại</p>
                                         </div>
-                                        <input type="text" placeholder="Nhập thông tin" name="key"
-                                            value="{{ old('key') ?? $provide->key }}"
+                                        <input type="text" required placeholder="Nhập thông tin" name="provide_phone"
+                                            value="{{ old('provide_address') ?? $provide->provide_phone }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                     </div>
+
                                     <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                            <p class="p-0 m-0  margin-left32 required-label text-13-red">Mã số thuế</p>
+                                        </div>
+                                        <input type="text" required placeholder="Nhập thông tin"
+                                            name="provide_code"
+                                            value="{{ old('provide_code') ?? $provide->provide_code }}"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    </div>
+
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                            <p class="p-0 m-0  margin-left32 text-13">Email</p>
+                                        </div>
+                                        <input type="text" placeholder="Nhập thông tin" name="provide_email"
+                                            value="{{ old('provide_email') ?? $provide->provide_email }}"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    </div>
+
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                            <p class="p-0 m-0  margin-left32 text-13">Fax</p>
+                                        </div>
+                                        <input type="text" placeholder="Nhập thông tin" name="provide_fax"
+                                            value="{{ old('provide_fax') ?? $provide->provide_fax }}"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    </div>
+
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                            <p class="p-0 m-0  margin-left32 text-13">Đỉnh mức nợ</p>
+                                        </div>
+                                        <input type="text" placeholder="Nhập thông tin" name="quota_debt"
+                                            value="{{ old('quota_debt') ?? number_format($provide->quota_debt) }}"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    </div>
+
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                            <p class="p-0 m-0  margin-left32 text-13">Nhóm</p>
+                                        </div>
+                                        <select name="category_id" id=""
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            @foreach ($category as $item)
+                                                <option value="{{ $item->id }}"
+                                                    @if ($item->id == $provide->category_id) selected @endif>
+                                                    {{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                             <p class="p-0 m-0  margin-left32 text-13">Tên đầy đủ</p>
                                         </div>
                                         <input type="text" placeholder="Nhập thông tin" name="provide_name"
                                             value="{{ old('provide_name') ?? $provide->provide_name }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
-                            <div class="bg-filter-search border-0 text-left border-custom">
+
+                            {{-- Người đại diện --}}
+                            {{-- <div class="bg-filter-search border-0 text-left border-custom">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-left">THÔNG TIN
                                     NGƯỜI ĐẠI DIỆN</p>
                             </div>
@@ -231,7 +274,7 @@
                                         </div>
                                     </div>
                                 </section>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

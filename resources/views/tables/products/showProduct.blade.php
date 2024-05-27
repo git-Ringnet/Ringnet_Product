@@ -160,6 +160,57 @@
                                             name="product_unit" value="{{ $product->product_unit }}"
                                             class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
                                     </div>
+
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                            <p class="p-0 m-0 margin-left32 text-13">Giá nhập</p>
+                                        </div>
+                                        <input readonly type="text" placeholder="Nhập thông tin"
+                                            name="product_unit"
+                                            value="{{ number_format($product->product_price_import) }}"
+                                            class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                    </div>
+                                    @if ($product->type == 1)
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 margin-left32 text-13">Giá bán lẻ</p>
+                                            </div>
+                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                                name="product_unit"
+                                                value="{{ number_format($product->price_retail) }}"
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                        </div>
+
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 margin-left32 text-13">Giá bán sỉ</p>
+                                            </div>
+                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                                name="product_unit"
+                                                value="{{ number_format($product->price_wholesale) }}"
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                        </div>
+
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 margin-left32 text-13">Giá đặc biệt</p>
+                                            </div>
+                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                                name="product_unit"
+                                                value="{{ number_format($product->price_specialsale) }}"
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                        </div>
+
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 margin-left32 text-13">Trọng lượng</p>
+                                            </div>
+                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                                name="product_unit"
+                                                value="{{ number_format($product->product_weight) }}"
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                        </div>
+                                    @endif
                                     <div class="d-flex align-items-center height-60-mobile ">
                                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                             <p class="p-0 m-0 margin-left32 text-13">Thuế</p>
@@ -229,6 +280,15 @@
                                                 <input disabled type="checkbox" name="check_seri"
                                                     @if ($product->check_seri == 1) checked @endif>
                                             </div>
+                                        </div>
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 margin-left32 text-13">Nhóm</p>
+                                            </div>
+                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                                name="product_guarantee"
+                                                value="@if ($product->getGroup) {{ $product->getGroup->name }} @endif"
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                                         </div>
                                     @endif
                                 </div>

@@ -379,6 +379,18 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
+                                <a href="{{ route('warehouse.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'warehouse') active @endif">
+                                    <p class="text-nav ml-2">Kho hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('content.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'content') active @endif">
+                                    <p class="text-nav ml-2">Nội dung thu chi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('inventory.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'product') active @endif">
                                     <p class="text-nav ml-2">Sản phẩm</p>

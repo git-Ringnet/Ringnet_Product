@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="products" activeName="product"></x-navbar>
+<x-navbar :title="$title" activeGroup="products" activeName="warehouse"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
@@ -14,10 +14,10 @@
                             fill="#26273B" fill-opacity="0.8" />
                     </svg>
                 </span>
-                <span class="font-weight-bold text-secondary">Sản phẩm</span>
+                <span class="font-weight-bold text-secondary">Kho</span>
             </div>
             <div class="d-flex content__heading--right">
-                <a href="{{ route('inventory.create', $workspacename) }}" class="mr-1">
+                <a href="{{ route('warehouse.create', $workspacename) }}" class="mr-1">
                     <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                         <svg width="12" height="12" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -100,10 +100,10 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <x-filter-text name="code" title="Mã hàng hoá" />
+                                    {{-- <x-filter-text name="code" title="Mã hàng hoá" />
                                     <x-filter-checkbox :dataa='$product' button="products" name="idName"
                                         title="Tên hàng hóa" namedisplay="product_name" />
-                                    <x-filter-compare name="inventory" button="products" title="Số lượng tồn" />
+                                    <x-filter-compare name="inventory" button="products" title="Số lượng tồn" /> --}}
                                 </div>
                             </div>
                         </div>
@@ -112,9 +112,6 @@
             </div>
         </div>
     </div>
-    <a href="{{ route('exportDatabase') }}">
-        Export
-    </a>
 </div>
 <!-- Main content -->
 <section class="content margin-top-75">
@@ -140,7 +137,7 @@
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_code" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Mã hàng hóa
+                                                    <span class="text-13">Mã kho
                                                     </span>
                                                 </button>
                                             </a>
@@ -152,51 +149,7 @@
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Tên hàng hóa</span>
-                                                </button>
-                                            </a>
-                                            <div class="icon" id="icon-product_name"></div>
-                                        </span>
-                                    </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
-                                        <span class="d-flex justify-content-end">
-                                            <a href="#" class="sort-link btn-submit"
-                                                data-sort-by="product_name" data-sort-type="DESC">
-                                                <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Giá nhập</span>
-                                                </button>
-                                            </a>
-                                            <div class="icon" id="icon-product_name"></div>
-                                        </span>
-                                    </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
-                                        <span class="d-flex justify-content-end">
-                                            <a href="#" class="sort-link btn-submit"
-                                                data-sort-by="product_name" data-sort-type="DESC">
-                                                <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Giá bán lẻ</span>
-                                                </button>
-                                            </a>
-                                            <div class="icon" id="icon-product_name"></div>
-                                        </span>
-                                    </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
-                                        <span class="d-flex justify-content-end">
-                                            <a href="#" class="sort-link btn-submit"
-                                                data-sort-by="product_name" data-sort-type="DESC">
-                                                <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Giá bán sỉ</span>
-                                                </button>
-                                            </a>
-                                            <div class="icon" id="icon-product_name"></div>
-                                        </span>
-                                    </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
-                                        <span class="d-flex justify-content-end">
-                                            <a href="#" class="sort-link btn-submit"
-                                                data-sort-by="product_name" data-sort-type="DESC">
-                                                <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Giá đặc biệt</span>
+                                                    <span class="text-13">Tên kho</span>
                                                 </button>
                                             </a>
                                             <div class="icon" id="icon-product_name"></div>
@@ -204,11 +157,11 @@
                                     </th>
                                     <th scope="col" class="border-top-0 bg-white border-bottom"
                                         style="width: 14%;">
-                                        <span class="d-flex justify-content-end">
+                                        <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_inventory" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Số lượng tồn</span>
+                                                    <span class="text-13">Địa chỉ</span>
                                                 </button>
                                             </a>
                                             <div class="icon" id="icon-product_inventory"></div>
@@ -217,11 +170,11 @@
                                 </tr>
                             </thead>
                             <tbody class="tbody-product">
-                                @foreach ($product as $item)
+                                @foreach ($wareHouse as $item)
                                     <tr class="position-relative product-info"
                                         onclick="handleRowClick('checkbox', event);">
                                         <input type="hidden" name="id-product" class="id-product" id="id-product"
-                                            value="{{ $item->id }}">
+                                            value="">
                                         <td class="border-bottom border-top-0">
                                             <span class="margin-Right10">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10"
@@ -242,34 +195,21 @@
                                                 id="checkbox" value="" onclick="event.stopPropagation();">
                                         </td>
                                         <td class="py-2 text-13-black pl-0 border-bottom border-top-0">
-                                            {{ $item->product_code }}
+                                            {{ $item->warehouse_code }}
                                         </td>
                                         <td class="py-2 text-13-black border-bottom border-top-0">
-                                            <a class="duongdan"
-                                                href="{{ route('inventory.show', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
-                                                {{ $item->product_name }}
+                                            {{-- <a class="duongdan" href="#"> --}}
+                                                {{ $item->warehouse_name }}
                                             </a>
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
-                                            {{ number_format($item->product_price_import) }}
-                                        </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
-                                            {{ number_format($item->price_retail) }}
-                                        </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
-                                            {{ number_format($item->price_wholesale) }}
-                                        </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
-                                            {{ number_format($item->price_specialsale) }}
-                                        </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
-                                            {{ number_format($item->product_inventory) }}
+                                        <td class="py-2 text-13-black border-bottom border-top-0">
+                                            {{ $item->warehouse_address }}
                                         </td>
                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0"
                                             style="right: 10px; top: 7px;">
                                             <div class="d-flex w-100">
                                                 <a
-                                                    href="{{ route('inventory.edit', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
+                                                    href="{{ route('warehouse.edit', ['workspace' => $workspacename, 'warehouse' => $item->id]) }}">
                                                     <div class="m-0 px-2 py-1 mx-2 rounded">
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -306,7 +246,7 @@
 </div> --}}
 
 </div>
-<script src="{{ asset('/dist/js/filter.js') }}"></script>
+{{-- <script src="{{ asset('/dist/js/filter.js') }}"></script> --}}
 
 <script type="text/javascript">
     $(document).on('change', '#file_restore', function(e) {

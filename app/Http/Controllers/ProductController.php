@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Groups;
 use App\Models\HistoryImport;
 use App\Models\ImportDB;
 use App\Models\ProductImport;
@@ -53,7 +54,8 @@ class ProductController extends Controller
         $title = "Thêm sản phẩm";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.products.insertProduct', compact('warehouse', 'title', 'workspacename'));
+        $category = Groups::where('grouptype_id', 4)->get();
+        return view('tables.products.insertProduct', compact('warehouse', 'title', 'workspacename', 'category'));
     }
 
     /**
@@ -105,7 +107,8 @@ class ProductController extends Controller
         if ($product) {
             $title = $product->product_name;
         }
-        return view('tables.products.editProduct', compact('product', 'title', 'display', 'workspacename'));
+        $category = Groups::where('grouptype_id', 4)->get();
+        return view('tables.products.editProduct', compact('product', 'title', 'display', 'workspacename', 'category'));
     }
 
     /**

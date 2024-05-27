@@ -43,6 +43,12 @@ class Products extends Model
         // ->paginate($perpage);
         // return DB::table($this->table)->get();
     }
+    public function getGroup()
+    {
+        return $this->hasOne(Groups::class, 'id', 'groups_id');
+    }
+
+
     public function getSerialNumber()
     {
         return $this->hasMany(Serialnumber::class, 'product_id', 'id')->where('workspace_id', Auth::user()->current_workspace);
@@ -67,7 +73,6 @@ class Products extends Model
 
     public function addProductDefault($data)
     {
-        // dd($data);
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $checkProductName = DB::table($this->table)->where('product_name', $data['product_name'][$i])
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -110,10 +115,15 @@ class Products extends Model
                 'product_name' => $data['product_name'],
                 'product_unit' => $data['product_unit'],
                 'product_code' => $data['product_code'],
-                'product_price_import' => isset($data['product_price_import']) ? $data['product_price_import'] : 0,
-                'product_price_export' => isset($data['product_price_export']) ? $data['product_price_export'] : 0,
+                'product_price_import' => isset($data['product_price_import']) ? str_replace(',', '', $data['product_price_import']) : 0,
+                'product_price_export' => isset($data['product_price_export']) ? str_replace(',', '', $data['product_price_export']) : 0,
+                'price_retail' => isset($data['price_retail']) ? str_replace(',', '', $data['price_retail']) : 0,
+                'price_wholesale' => isset($data['price_wholesale']) ? str_replace(',', '', $data['price_wholesale']) : 0,
+                'price_specialsale' => isset($data['price_specialsale']) ? str_replace(',', '', $data['price_specialsale']) : 0,
+                'product_weight' =>  isset($data['product_weight']) ? str_replace(',', '', $data['product_weight']) : 0,
                 'product_ratio' => isset($data['product_ratio']) ? $data['product_ratio'] : 0,
                 'check_seri' => $data['type_product'] == 1 ? $check : 0,
+                'category_id' => $data['category_id'],
                 'product_inventory' => 0,
                 'product_trade' => 0,
                 'product_available' => 0,
@@ -146,9 +156,9 @@ class Products extends Model
                 'product_unit' => $data['product_unit'],
                 'product_price_import' => isset($data['product_price_import']) ? str_replace(',', '', $data['product_price_import']) : 0,
                 'product_price_export' => isset($data['product_price_export']) ? str_replace(',', '', $data['product_price_export']) : 0,
-                // 'product_ratio' => $data['product_ratio'],
                 'product_tax' => $data['product_tax'],
                 'check_seri' => $data['type_product'] == 1 ? $check : 0,
+                'groups_id' => $data['groups_id']
             ];
 
             if ($data['type_product'] == 1) {
@@ -156,7 +166,10 @@ class Products extends Model
                 $dataUpdate['product_manufacturer'] = $data['product_manufacturer'];
                 $dataUpdate['product_origin'] = $data['product_origin'];
                 $dataUpdate['product_guarantee'] = $data['product_guarantee'];
-                // $dataUpdate['product_ratio'] = $data['product_ratio'];
+                $dataUpdate['price_retail'] = isset($data['price_retail']) ? str_replace(',', '', $data['price_retail']) : 0;
+                $dataUpdate['price_wholesale'] = isset($data['price_wholesale']) ? str_replace(',', '', $data['price_wholesale']) : 0;
+                $dataUpdate['price_specialsale'] = isset($data['price_specialsale']) ? str_replace(',', '', $data['price_specialsale']) : 0;
+                $dataUpdate['product_weight'] = isset($data['product_weight']) ? str_replace(',', '', $data['product_weight']) : 0;
             }
 
             $checkProductName = DB::table($this->table)

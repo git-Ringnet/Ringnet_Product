@@ -14,10 +14,34 @@ return new class extends Migration
         // Schema::create('update_database', function (Blueprint $table) {
         //     $table->id();
         //     $table->timestamps();
-        // });
+        // }
+
+        Schema::table('warehouse', function (Blueprint $table) {
+            $table->string('warehouse_address')->nullable();
+            $table->string('warehouse_code')->nullable();
+        });
+
+
+        Schema::create('contenttype', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->text('description')->nullable();
+            $table->timestamps();
+        });
+        Schema::create('contentgroups', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->unsignedBigInteger('contenttype_id')->nullable();
+            $table->text('description')->nullable();
+            $table->integer('workspace_id')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->timestamps();
+        });
+
+
         Schema::table('provides', function (Blueprint $table) {
             $table->decimal('quota_debt', 20, 4)->nullable()->after('provide_phone');
-            $table->integer('group_id')->default(0)->after('provide_phone');
+            $table->integer('groups_id')->nullable()->after('provide_phone');
             $table->string('provide_fax')->nullable()->after('provide_phone');
         });
         Schema::table('products', function (Blueprint $table) {

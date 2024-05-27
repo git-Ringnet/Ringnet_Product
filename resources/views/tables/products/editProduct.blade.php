@@ -117,33 +117,83 @@
                                             <label for="html" class="m-0">Dịch vụ</label>
                                         </div>
                                     </div>
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-left-0 border-top-0 height-100">
+                                            <p class="p-0 m-0 margin-left32 text-13">Mã hàng hóa</p>
+                                        </div>
+                                        <input type="text" placeholder="Nhập thông tin" name="product_code"
+                                            value="{{ $product->product_code }}"
+                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                                    </div>
 
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 border-top-0 height-100">
-                                            <p class="p-0 m-0 required-label text-danger margin-left32 text-13">Tên sản
-                                                phẩm
+                                            <p class="p-0 m-0 required-label text-danger margin-left32 text-13-red">Tên
+                                                hàng
+                                                hóa
                                             </p>
                                         </div>
                                         <input required type="text" placeholder="Nhập thông tin"
                                             name="product_name" value="{{ $product->product_name }}"
                                             class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                                     </div>
+
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 border-top-0 height-100">
-                                            <p class="p-0 m-0 margin-left32 text-13">Mã sản phẩm</p>
-                                        </div>
-                                        <input type="text" placeholder="Nhập thông tin" name="product_code"
-                                            value="{{ $product->product_code }}"
-                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
-                                    </div>
-                                    <div class="d-flex align-items-center height-60-mobile">
-                                        <div class="title-info py-2 border border-left-0 border-top-0 height-100">
-                                            <p class="p-0 m-0 margin-left32 text-13">Đơn vị tính</p>
+                                            <p class="p-0 m-0 required-label margin-left32 text-13-red">Đơn vị tính</p>
                                         </div>
                                         <input type="text" placeholder="Nhập thông tin" name="product_unit"
                                             value="{{ $product->product_unit }}"
                                             class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                                     </div>
+
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                            <p class="p-0 m-0 margin-left32 text-13">Giá nhập</p>
+                                        </div>
+                                        <input type="text" placeholder="Nhập thông tin"
+                                            name="product_price_import"
+                                            value="{{ number_format($product->product_price_import) }}"
+                                            class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                    </div>
+                                    @if ($product->type == 1)
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 margin-left32 text-13">Giá bán lẻ</p>
+                                            </div>
+                                            <input type="text" placeholder="Nhập thông tin" name="price_retail"
+                                                value="{{ number_format($product->price_retail) }}"
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                        </div>
+
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 margin-left32 text-13">Giá bán sỉ</p>
+                                            </div>
+                                            <input type="text" placeholder="Nhập thông tin" name="price_wholesale"
+                                                value="{{ number_format($product->price_wholesale) }}"
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                        </div>
+
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 margin-left32 text-13">Giá đặc biệt</p>
+                                            </div>
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                name="price_specialsale"
+                                                value="{{ number_format($product->price_specialsale) }}"
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                        </div>
+
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 margin-left32 text-13">Trọng lượng</p>
+                                            </div>
+                                            <input type="text" placeholder="Nhập thông tin" name="product_weight"
+                                                value="{{ number_format($product->product_weight) }}"
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                        </div>
+                                    @endif
                                     <div class="d-flex align-items-center height-60-mobile ">
                                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                             <p class="p-0 m-0 margin-left32 text-13">Thuế</p>
@@ -217,6 +267,22 @@
                                                 </div>
                                             @endif
                                         @endif
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 margin-left32 text-13">Nhóm</p>
+                                            </div>
+                                            <select name="groups_id" id=""
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                                                <option value="0"
+                                                    @if ($product->groups_id == 0) selected @endif>Chọn loại nhóm
+                                                </option>
+                                                @foreach ($category as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        @if ($item->id == $product->groups_id) selected @endif>
+                                                        {{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -288,6 +354,45 @@
 </div>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script>
+    $("body").on(
+        "input",
+        'input[name="product_price_import"] ,input[name="price_retail"] ,input[name="price_wholesale"],input[name="price_specialsale"],input[name="product_weight"]',
+        function(event) {
+            // Lấy giá trị đã nhập
+            var value = event.target.value;
+
+            // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
+            var formattedValue = value.replace(/[^0-9.]/g, "");
+
+            // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
+            var formattedNumber = numberWithCommas(formattedValue);
+
+            event.target.value = formattedNumber;
+        }
+    );
+
+    function numberWithCommas(number) {
+        // Chia số thành phần nguyên và phần thập phân
+        var parts = number.split(".");
+        var integerPart = parts[0];
+        var decimalPart = parts[1];
+
+        // Định dạng phần nguyên số với dấu phân cách hàng nghìn
+        var formattedIntegerPart = integerPart
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        // Kết hợp phần nguyên và phần thập phân (nếu có)
+        var formattedNumber =
+            decimalPart !== undefined ?
+            formattedIntegerPart + "." + decimalPart :
+            formattedIntegerPart;
+
+        return formattedNumber;
+    }
+
+
+
     $('form').on('submit', function(e) {
         e.preventDefault();
         var id = {{ $product->id }}

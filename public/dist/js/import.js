@@ -16,6 +16,22 @@ $("body").on(
     }
 );
 
+function formatNumber(name) {
+    $(document).on('input', name, function (e) {
+        // Lấy giá trị đã nhập
+        var value = e.target.value;
+
+        // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
+        var formattedValue = value.replace(/[^0-9.]/g, "");
+
+        // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
+        var formattedNumber = numberWithCommas(formattedValue);
+
+        e.target.value = formattedNumber;
+    })
+}
+
+
 function numberWithCommas(number) {
     // Chia số thành phần nguyên và phần thập phân
     var parts = number.split(".");
@@ -367,7 +383,7 @@ function getKeyProvide(name) {
             getValueUpperCase = getUppercaseCharacters(
                 removeAccents(
                     $(this).val().charAt(0).toUpperCase() +
-                        $(this).val().slice(1)
+                    $(this).val().slice(1)
                 )
             );
             $('input[name="key"]').val(getValueUpperCase);

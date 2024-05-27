@@ -1,12 +1,12 @@
-<x-navbar :title="$title" activeGroup="buy" activeName="provide"></x-navbar>
-<form action="{{ route('provides.store', $workspacename) }}" method="POST">
+<x-navbar :title="$title" activeGroup="products" activeName="content"></x-navbar>
+<form action="{{ route('content.store', $workspacename) }}" method="POST">
     @csrf
     <div class="content-wrapper m-0 min-height--none">
         <!-- Content Header (Page header) -->
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
-                    <span>Mua hàng</span>
+                    <span>Kho hàng</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -17,7 +17,7 @@
                     </span>
                     <span class="nearLast-span">
                         <a class="text-dark" href="{{ route('provides.index', $workspacename) }}">
-                            Nhà cung cấp
+                            Kho
                         </a>
                     </span>
                     <span>
@@ -28,11 +28,11 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="last-span">Tạo nhà cung cấp</span>
+                    <span class="last-span">Tạo nội dung thu chi</span>
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('provides.index', $workspacename) }}" class="user_flow" data-type="NCC"
+                        <a href="{{ route('warehouse.index', $workspacename) }}" class="user_flow" data-type="NCC"
                             data-des="Hủy thêm nhà cung cấp">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
@@ -53,23 +53,8 @@
                                     d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                     fill="white" />
                             </svg>
-                            <span class="text-btnIner-primary ml-2">Lưu nhà cung cấp</span>
+                            <span class="text-btnIner-primary ml-2">Lưu nội dung thu chi</span>
                         </button>
-
-                        {{-- <button class="btn-option">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E" />
-                            </svg>
-                        </button> --}}
                     </div>
                 </div>
             </div>
@@ -84,140 +69,79 @@
                         <div class="content-info">
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Mã</p>
+                                    <p class="p-0 m-0  margin-left32 text-13">Loại</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" name="key"
+                                <select name="type" id=""
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-left-0 height-100">
-                                    <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên</p>
-                                </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="provide_name_display"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Địa chỉ</p>
-                                </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="provide_address"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Điện thoại</p>
-                                </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="provide_phone"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 required-label text-13-red">Mã số thuế</p>
-                                </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="provide_code"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Email</p>
-                                </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="provide_email"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Fax</p>
-                                </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="provide_fax"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Đỉnh mức nợ</p>
-                                </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="quota_debt"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Nhóm</p>
-                                </div>
-                                <select name="category_id" id=""
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                    @foreach ($category as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @foreach($type as $item)
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
                                     @endforeach
                                 </select>
-
-
-                                {{-- <input type="text" required placeholder="Nhập thông tin" name="provide_fax"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"> --}}
                             </div>
 
-                            {{-- <div class="d-flex align-items-center height-60-mobile">
+                            <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Tên đầy đủ</p>
+                                    <p class="p-0 m-0 required-label margin-left32 text-13-red">Nội dung thu chi</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" name="provide_name"
+                                <input type="text" placeholder="Nhập thông tin" name="content" required
+                                    class="border  border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                            </div>
+
+
+
+
+                            {{-- <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info py-2 border border-left-0 height-100">
+                                    <p class="p-0 m-0 margin-left32 text-13">Chứng từ</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="document"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                            </div>
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                    <p class="p-0 m-0 margin-left32 text-13">Tên</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="name"
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                            </div>
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                    <p class="p-0 m-0  margin-left32 text-13">Số tiền</p>
+                                </div>
+                                <input type="number" placeholder="Nhập thông tin" name="qty_money" required
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                            </div>
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                    <p class="p-0 m-0  margin-left32 text-13">Quỹ</p>
+                                </div>
+                                <select name="fund_id" id=""
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    @foreach ($quy as $value)
+                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                    <p class="p-0 m-0  margin-left32 text-13">Ghi chú</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="notes"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                            </div>
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                    <p class="p-0 m-0  margin-left32 text-13">Ngày tạo</p>
+                                </div>
+                                <input
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                    name="" placeholder="Chọn thông tin" id="datePicker"
+                                    value="{{ date('Y-m-d') }}" />
+                                <input type="hidden" name="date" id="hiddenDateInput"
+                                    value="{{ date('Y-m-d') }}">
                             </div> --}}
                         </div>
                     </div>
-                    {{-- Thông tin đại diện --}}
-                    {{-- <div class="bg-filter-search border-top-0 text-left border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN NGƯỜI ĐẠI DIỆN</p>
-                    </div>
-                    <div class="info-chung">
-                        <div class="outer container-fluided order_content">
-                            <table class="table table-hover bg-white rounded" id="listrepesent">
-                                <thead>
-                                    <tr>
-                                        <th class="border-right height-52 padding-left35 text-13" style="width: 23%;">
-                                            Người đại diện
-                                        </th>
-                                        <th class="border-right height-52 padding-left35 text-13" style="width: 23%;">
-                                            Số điện thoại
-                                        </th>
-                                        <th class="border-right height-52 padding-left35 text-13" style="width: 23%;">
-                                            Email
-                                        </th>
-                                        <th class="border-right height-52 padding-left35 text-13" style="width: 23%;">
-                                            Địa chỉ nhận
-                                        </th>
-                                        <th class="border-top-0" style="width: 8%;"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                        <section class="content">
-                            <div class="container-fluided">
-                                <div class="d-flex">
-                                    <button type="button" data-toggle="dropdown"
-                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 ml-4 rounded user_flow"
-                                        data-type="NCC" data-des="Thêm người đại diện" id="addRowRepesent"
-                                        style="margin-right:10px; border-radius:4px;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                fill="#6D7075" />
-                                        </svg>
-                                        <span class="text-13 pl-2">Thêm người đại diện</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </section>
-                    </div> --}}
                 </div>
             </section>
         </div>
@@ -228,6 +152,20 @@
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script>
+    flatpickr("#datePicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        defaultDate: new Date(),
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
+</script>
+
+
+{{-- <script>
     getKeyProvide($('input[name="provide_name_display"]'))
     $('form').on('submit', function(e) {
         e.preventDefault();
@@ -302,4 +240,4 @@
             success: function(data) {}
         })
     })
-</script>
+</script> --}}

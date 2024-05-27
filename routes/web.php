@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\Auth\WorkspaceController;
 use App\Http\Controllers\BillSaleController;
+use App\Http\Controllers\ContentGroupsController;
+use App\Http\Controllers\ContentImportExportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\DetailExportController;
@@ -26,6 +28,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserFlowController;
 use App\Http\Controllers\UserWorkspacesController;
+use App\Http\Controllers\WarehouseController;
 use App\Http\Middleware\CheckLogin;
 use App\Models\DetailImport;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +52,8 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/checkProductName', [ProductController::class, 'checkProductName'])->name('checkProductName');
     Route::get('{workspacename}/editProduct', [ProductController::class, 'editProduct'])->name('editProduct');
     Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProductInventory'])->name('inventory.showProductInventory');
+    Route::resource('{workspace}/warehouse', WarehouseController::class);
+    Route::resource('{workspace}/content', ContentGroupsController::class);
 });
 
 

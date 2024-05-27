@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailImport;
+use App\Models\Groups;
 use App\Models\ProvideRepesent;
 use App\Models\Provides;
 use App\Models\User;
@@ -47,7 +48,8 @@ class ProvidesController extends Controller
         $title = "Thêm mới nhà cung cấp";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.provides.insertProvides', compact('title', 'workspacename'));
+        $category = Groups::where('grouptype_id',3)->get();
+        return view('tables.provides.insertProvides', compact('title', 'workspacename','category'));
     }
 
     /**
@@ -109,9 +111,10 @@ class ProvidesController extends Controller
             $repesent = ProvideRepesent::where('provide_id', $provide->id)->get();
         }
         $getId = $id;
+        $category = Groups::where('grouptype_id',3)->get();
         $request->session()->put('id', $id);
 
-        return view('tables.provides.editProvides', compact('title', 'provide', 'repesent', 'workspacename'));
+        return view('tables.provides.editProvides', compact('title', 'provide', 'repesent', 'workspacename','category'));
     }
 
     /**

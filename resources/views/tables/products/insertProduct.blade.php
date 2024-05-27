@@ -62,8 +62,7 @@
                                 <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 text-danger margin-left32 text-13">Danh mục sản phẩm</p>
                                 </div>
-                                <div
-                                    class="border-bottom height-100 w-100 py-2 px-3 text-13-black d-flex">
+                                <div class="border-bottom height-100 w-100 py-2 px-3 text-13-black d-flex">
                                     <input type="radio" id="hanghoa" name="type_product" value="1"
                                         class="py-2" checked style="margin-right:10px;">
                                     <label for="html" class="m-0">Hàng hóa</label>
@@ -73,26 +72,71 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
-                                    <p class="p-0 m-0 required-label text-danger margin-left32 text-13">Tên sản phẩm</p>
-                                </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="product_name"
-                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-left-0 border-top-0">
-                                    <p class="p-0 m-0 margin-left32 text-13">Mã sản phẩm</p>
+                                    <p class="p-0 m-0 margin-left32 text-13">Mã hàng hóa</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="product_code"
                                     class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-left-0 border-top-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Đơn vị tính</p>
+                                    <p class="p-0 m-0 required-label text-danger margin-left32 text-13-red">Tên hàng hóa
+                                    </p>
                                 </div>
-                                <input type="text" required="" placeholder="Nhập thông tin" name="product_unit"
+                                <input type="text" required placeholder="Nhập thông tin" name="product_name"
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black"
+                                    maxlength="255">
+                            </div>
+
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
+                                    <p class="p-0 m-0 required-label margin-left32 text-13-red">Đơn vị tính</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="product_unit"
                                     class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                             </div>
+
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
+                                    <p class="p-0 m-0 margin-left32 text-13">Giá nhập</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="product_price_import"
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black"
+                                    maxlength="14">
+                            </div>
+
+                            <div class="d-flex align-items-center height-60-mobile option-radio">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
+                                    <p class="p-0 m-0 margin-left32 text-13">Giá bán lẻ</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="price_retail"
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                            </div>
+
+                            <div class="d-flex align-items-center height-60-mobile option-radio">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
+                                    <p class="p-0 m-0 margin-left32 text-13">Giá bán sỉ</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="price_wholesale"
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                            </div>
+
+                            <div class="d-flex align-items-center height-60-mobile option-radio">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
+                                    <p class="p-0 m-0 margin-left32 text-13">Giá đặc biệt</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="price_specialsale"
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                            </div>
+
+                            <div class="d-flex align-items-center height-60-mobile option-radio">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
+                                    <p class="p-0 m-0 margin-left32 text-13">Trọng lượng</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="product_weight"
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                            </div>
+
                             <div class="d-flex align-items-center">
                                 <div class="title-info py-2 border border-top-0 border-left-0">
                                     <p class="p-0 m-0 margin-left32 text-13">Thuế</p>
@@ -118,14 +162,14 @@
                                 <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Hãng</p>
                                 </div>
-                                <input type="number" placeholder="Nhập thông tin" name="product_manufacturer"
+                                <input type="text" placeholder="Nhập thông tin" name="product_manufacturer"
                                     class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile option-radio">
                                 <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Xuất xứ</p>
                                 </div>
-                                <input type="number" placeholder="Nhập thông tin" name="product_origin"
+                                <input type="text" placeholder="Nhập thông tin" name="product_origin"
                                     class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile option-radio">
@@ -144,169 +188,68 @@
                                     <input type="checkbox" placeholder="Nhập thông tin" name="check_seri"
                                         class="" checked>
                                 </div>
-
                             </div>
-                        </div>
-                    </div>
-                </section>
-                {{-- <section class="container-fluided">
-                    <div class="info-chung">
-                        <p class="font-weight-bold text-uppercase info-chung--heading border-custom">Thông tin giá</p>
-                        <div class="d-flex align-items-center height-60-mobile">
-                            <div class="title-info py-2 border border-left-0 height-100">
-                                <p class="p-0 m-0 margin-left32 text-13">Đơn giá bán</p>
-                            </div>
-                            <input type="text" placeholder="Nhập thông tin" name="product_price_export"
-                                class="border w-100 py-2 border-left-0 height-100  px-3 text-13-black">
-                        </div>
-                        <div class="d-flex align-items-center height-60-mobile">
-                            <div class="title-info py-2 border border-left-0 height-100">
-                                <p class="p-0 m-0 margin-left32 text-13">Đơn giá mua</p>
-                            </div>
-                            <input type="text" placeholder="Nhập thông tin" name="product_price_import"
-                                class="border w-100 py-2 border-left-0 height-100  px-3 text-13-black">
-                        </div>
-                        <div class="d-flex align-items-center height-60-mobile">
-                            <div class="title-info py-2 border border-left-0 height-100">
-                                <p class="p-0 m-0 margin-left32 text-13">Hệ số nhân</p>
-                            </div>
-                            <input type="text" value="Theo hệ thống" name="product_ratio" readonly
-                                class="border w-100 py-2 border-left-0 height-100  px-3 text-13-blue">
-                        </div>
-                    </div>
-                </section> --}}
-            </section>
-        </div>
-    </div>
-
-
-
-
-    <!-- Content Header (Page header) -->
-    {{-- <section class="content">
-        <div class="container-fluided">
-            <div class="row">
-                <div class="col-12">
-                    <div class="info-chung">
-                        <p class="font-weight-bold ml-2 px-3">Thông tin chung</p>
-                        <div class="content-info">
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">Tên sản phẩm</p>
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
+                                    <p class="p-0 m-0 margin-left32 text-13">Nhóm</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" name="product_name"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off"
-                                    required>
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Mã sản phẩm</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="product_code"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Đơn vị tính</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="product_unit"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Loại sản phẩm</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="product_type"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Hãng</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="product_manufacturer"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Xuất xứ</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="product_origin"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Bảo hành</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="product_guarantee"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Quản lý Serial Number</p>
-                                </div>
-                                <div class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                    <input type="checkbox" checked name="check_seri" class="">
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-
-    {{-- <section class="content">
-        <div class="container-fluided">
-            <div class="row">
-                <div class="col-12">
-                    <div class="info-chung">
-                        <p class="font-weight-bold ml-2 px-3 pt-3">Thông tin giá</p>
-                        <div class="content-info">
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">Đơn giá bán</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="product_price_export"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Đơn giá nhập</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="product_price_import"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Hệ số nhân</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="product_ratio"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Thuế</p>
-                                </div>
-                                <div class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                    <select name="product_tax" id="" class="form-control w-25">
-                                        <option value="0">0%</option>
-                                        <option value="8">8%</option>
-                                        <option value="10">10%</option>
-                                        <option value="99">NOVAT</option>
+                                <div
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                                    <select name="category_id" id="" class="border-0">
+                                        <option value="0">Chọn loại nhóm</option>
+                                        @foreach ($category as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </section>
+            </section>
         </div>
-    </section> --}}
-
+    </div>
 </form>
 </div>
 <script>
+    $("body").on(
+        "input",
+        'input[name="product_price_import"] ,input[name="price_retail"] ,input[name="price_wholesale"],input[name="price_specialsale"],input[name="product_weight"]',
+        function(event) {
+            // Lấy giá trị đã nhập
+            var value = event.target.value;
+
+            // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
+            var formattedValue = value.replace(/[^0-9.]/g, "");
+
+            // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
+            var formattedNumber = numberWithCommas(formattedValue);
+
+            event.target.value = formattedNumber;
+        }
+    );
+
+    function numberWithCommas(number) {
+        // Chia số thành phần nguyên và phần thập phân
+        var parts = number.split(".");
+        var integerPart = parts[0];
+        var decimalPart = parts[1];
+
+        // Định dạng phần nguyên số với dấu phân cách hàng nghìn
+        var formattedIntegerPart = integerPart
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        // Kết hợp phần nguyên và phần thập phân (nếu có)
+        var formattedNumber =
+            decimalPart !== undefined ?
+            formattedIntegerPart + "." + decimalPart :
+            formattedIntegerPart;
+
+        return formattedNumber;
+    }
+
+
     $(document).on('click', '#dichvu', function() {
         $('.option-radio').attr('style', 'display:none !important;');
         $('select[name="product_tax"]').val(8);

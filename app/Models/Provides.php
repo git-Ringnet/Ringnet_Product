@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,10 @@ class Provides extends Model
         'provide_address_delivery',
         'workspace_id'
     ];
+    public function getGroup(){
+        return $this->hasOne(Groups::class, 'id', 'groups_id');
+    }
+
 
     public function getAllDetail()
     {
@@ -81,13 +86,19 @@ class Provides extends Model
             }
             $dataProvide = [
                 'provide_name_display' => $data['provide_name_display'],
-                'provide_name' => $data['provide_name'],
+                'provide_name' => isset($data['provide_name']) ? $data['provide_name'] : "",
                 'provide_address' => $data['provide_address'],
                 'provide_code' => $data['provide_code'],
                 'key' => $key,
                 'provide_debt' => 0,
+                'provide_email' => $data['provide_email'],
+                'provide_phone' => $data['provide_phone'],
+                'provide_fax' => $data['provide_fax'],
+                'quota_debt' => str_replace(',', '', $data['quota_debt']),
+                'groups_id' => $data['category_id'],
                 'workspace_id' => Auth::user()->current_workspace,
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'created_at' => Carbon::now()
             ];
             $provide_id =  DB::table($this->table)->insertGetId($dataProvide);
             if ($provide_id) {
@@ -118,9 +129,14 @@ class Provides extends Model
             $dataUpdate = [
                 'provide_name_display' => $data['provide_name_display'],
                 'key' => $data['key'],
-                'provide_name' => $data['provide_name'],
+                'provide_name' => isset($data['provide_name']) ? $data['provide_name'] : "",
                 'provide_address' => $data['provide_address'],
                 'provide_code' => $data['provide_code'],
+                'provide_phone' => $data['provide_phone'],
+                'provide_email' => $data['provide_email'],
+                'provide_fax' => $data['provide_fax'],
+                'quota_debt' => str_replace(',','',$data['quota_debt']),
+                'groups_id' => $data['category_id']
             ];
             Provides::where('id', $id)->update($dataUpdate);
             if (isset($data['represent_name'])) {
