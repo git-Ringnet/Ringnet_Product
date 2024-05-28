@@ -124,6 +124,10 @@
                                                     style="width:10%;">
                                                     Đơn giá
                                                 </th>
+                                                <th class="border-right p-0 px-2 text-right text-13"
+                                                    style="width:10%;">
+                                                    KM
+                                                </th>
                                                 <th class="border-right p-0 px-2 text-center text-13"
                                                     style="width:10%;">
                                                     Thuế
@@ -246,6 +250,38 @@
                                                             data-target="#recentModal">Giao dịch gần đây
                                                         </div>
                                                     </td>
+                                                    <td
+                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
+
+                                                        @php
+                                                            $promotionArray = json_decode($item->promotion, true);
+                                                            $promotionValue = isset($promotionArray['value'])
+                                                                ? $promotionArray['value']
+                                                                : '';
+                                                            $promotionOption = isset($promotionArray['type'])
+                                                                ? $promotionArray['type']
+                                                                : '';
+                                                        @endphp
+
+
+                                                        <div>
+                                                            <input type="text"
+                                                                class="border-0 px-2 py-1 w-100 text-right height-32 promotion"
+                                                                name="promotion[]"
+                                                                value="{{ number_format($promotionValue) }}">
+                                                        </div>
+                                                        <div class="mt-3 text-13-blue text-right">
+                                                            <select class="border-0 promotion-option"
+                                                                name="promotion-option[]">
+                                                                <option value="1"
+                                                                    @if ($promotionOption == 1) selected @endif>
+                                                                    Nhập tiền</option>
+                                                                <option value="2"
+                                                                    @if ($promotionOption == 2) selected @endif>
+                                                                    Nhập %</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
                                                     <input type="hidden" class="product_tax1">
                                                     <td
                                                         class="border-right pt-0 p-2 text-13 align-top border-top-0 border-bottom text-center">
@@ -267,7 +303,7 @@
                                                         <input type="text" name="total_price[]"
                                                             class="text-right border-0 px-2 py-1 w-100 total_price height-32"
                                                             readonly
-                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
+                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total - $promotionValue, 2, '.', ',') : number_format($item->product_total - $promotionValue) }}">
                                                     </td>
                                                     <td
                                                         class="border-right border-top-0 p-2 text-13 align-top border-bottom">
@@ -321,7 +357,7 @@
                         </div>
                     </div>
                 </div>
-                <x-formsynthetic :import="''"></x-formsynthetic>
+                <x-formsynthetic :import="$import"></x-formsynthetic>
             </section>
         </div>
         <div class="content-wrapper2 px-0 py-0">

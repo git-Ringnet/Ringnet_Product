@@ -411,6 +411,14 @@ function addRowTable(status) {
         "</div>" +
         "<div class='mt-3 text-13-blue transaction text-right' id='transaction' data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div>" +
         "</td>" +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
+        "<div>" +
+        '<input type="text" class="border-0 px-2 py-1 w-100 text-right height-32 promotion" name="promotion[]">' +
+        "</div>" +
+        "<div class='mt-3 text-13-blue text-right'> " +
+        "<select class='border-0 promotion-option' name='promotion-option[]'> <option value='1'>Nhập tiền </opion> <option value='2'>Nhập %</option> </select> " +
+        "</div>" +
+        "</td>" +
         '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">';
 
     if (status == 2) {
@@ -430,6 +438,12 @@ function addRowTable(status) {
         '<input type="hidden" class="product_tax1">' +
         '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
         '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly name="total_price[]">' +
+        "</td>" +
+        '<td class="border-right note p-2 align-top border-bottom border-top-0">' +
+        '<input type="text" placeholder="Nhập ghi chú" class="border-0 py-1 w-100 height-32 text-13-black" name="product_note[]" ' +
+        " >" +
+        '<ul id="listWarehouse" class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
+        "</ul>" +
         "</td>" +
         '<td class="border-right note p-2 align-top border-bottom border-top-0">' +
         '<input type="text" placeholder="Nhập ghi chú" class="border-0 py-1 w-100 height-32 text-13-black" name="product_note[]" ' +

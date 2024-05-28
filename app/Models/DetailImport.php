@@ -69,7 +69,7 @@ class DetailImport extends Model
     {
         return DB::table($this->table)->get();
     }
-    
+
 
 
     public function addImport($data)
@@ -78,6 +78,7 @@ class DetailImport extends Model
         $total_tax = 0;
         $result = [];
         for ($i = 0; $i < count($data['product_name']); $i++) {
+            $promotion = [];
             $product_ratio = 0;
             $price_import = 0;
             $price_export = 0;
@@ -93,6 +94,8 @@ class DetailImport extends Model
             $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
         }
         $total_tax = round($total_tax) + round($total);
+        $promotion['type'] = $data['promotion-option-total'];
+        $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
         $dataImport = [
             'provide_id' => $data['provides_id'],
             'project_id' => 1,
@@ -103,7 +106,7 @@ class DetailImport extends Model
             'status' => 1,
             'created_at' => $data['date_quote'],
             'total_price' => $total,
-            'total_tax' => $total_tax,
+            'total_tax' => $total_tax - $promotion['value'],
             'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
             'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
             'status_receive' => 0,
@@ -115,7 +118,8 @@ class DetailImport extends Model
             'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
             'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
             'status_debt' => 0,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'promotion' => json_encode($promotion)
         ];
         $checkQuotation = DetailImport::where('provide_id', $data['provides_id'])
             ->where('quotation_number', $data['quotation_number'])->first();
@@ -185,6 +189,8 @@ class DetailImport extends Model
                 }
             }
             if ($check_status && $detail->status == 1) {
+                $promotion['type'] = $data['promotion-option-total'];
+                $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
                 $dataImport = [
                     'provide_id' => $data['provides_id'],
                     'represent_id' => $data['represent_id'],
@@ -202,7 +208,7 @@ class DetailImport extends Model
                     'terms_pay' => $data['terms_pay'],
                     'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
                     'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
-                    'user_id' => Auth::user()->id,
+                    'promotion' => json_encode($promotion)
                 ];
                 $result = DB::table($this->table)->where('id', $id)->update($dataImport);
             } else {
@@ -244,7 +250,7 @@ class DetailImport extends Model
         } else {
             $detail = DetailImport::where('id', $id)->first();
             if ($detail) {
-                HistoryImport::where('detailImport_id',$detail->id)->delete();
+                HistoryImport::where('detailImport_id', $detail->id)->delete();
                 $quote = QuoteImport::where('detailimport_id', $detail->id)->get();
                 if ($quote) {
                     foreach ($quote as $qt) {

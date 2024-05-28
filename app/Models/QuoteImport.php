@@ -18,7 +18,8 @@ class QuoteImport extends Model
         'product_id', 'product_name',
         'product_unit', 'product_qty',
         'product_tax', 'product_total', 'reciept_qty', 'payment_qty',
-        'price_export', 'version', 'warehouse_id', 'workspace_id', 'product_code', 'created_at'
+        'price_export', 'version', 'warehouse_id', 'workspace_id', 'product_code', 'created_at',
+        'promotion'
     ];
     public function getProductCode()
     {
@@ -56,6 +57,10 @@ class QuoteImport extends Model
     public function addQuoteImport($data, $id)
     {
         for ($i = 0; $i < count($data['product_name']); $i++) {
+            $promotion = [];
+            $promotion['type'] = $data['promotion-option'][$i];
+            $promotion['value'] = isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0;
+
             $dataQuote = [
                 'detailimport_id' => $id,
                 'product_code' => $data['product_code'][$i],
@@ -74,7 +79,8 @@ class QuoteImport extends Model
                 'user_id' => Auth::user()->id,
                 'receive_qty' => 0,
                 'reciept_qty' => 0,
-                'payment_qty' => 0
+                'payment_qty' => 0,
+                'promotion' => json_encode($promotion)
             ];
             $quote_id = DB::table($this->table)->insertGetId($dataQuote);
             $getProvide = DetailImport::where('id', $id)->first();
@@ -94,7 +100,8 @@ class QuoteImport extends Model
                     'created_at' => Carbon::now(),
                     'workspace_id' => Auth::user()->current_workspace,
                     'provide_id' => $getProvide->provide_id,
-                    'user_id' => Auth::user()->id
+                    'user_id' => Auth::user()->id,
+                    'promotion' => json_encode($promotion)
                 ];
                 DB::table('history_import')->insert($dataHistory);
             }
@@ -113,6 +120,7 @@ class QuoteImport extends Model
                 ->delete();
         }
         for ($i = 0; $i < count($data['product_name']); $i++) {
+            $promotion = [];
             // Kiểm tra và thêm sản phẩm mới vào kho hàng
             $checkProduct = Products::where('product_name', $data['product_name'][$i])
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -140,8 +148,10 @@ class QuoteImport extends Model
                 if (
                     $dataUpdate->product_code != $data['product_code'][$i] || $dataUpdate->product_name != $data['product_name'][$i] || $dataUpdate->product_unit != $data['product_unit'][$i] ||
                     $dataUpdate->product_qty != str_replace(',', '', $data['product_qty'][$i]) || $dataUpdate->product_tax != $data['product_tax'][$i] ||
-                    $dataUpdate->product_total != $total_price || $dataUpdate->price_export != $price_export || $dataUpdate->product_note != $data['product_note'][$i]
+                    $dataUpdate->product_total != $total_price || $dataUpdate->price_export != $price_export || $dataUpdate->product_note != $data['product_note'][$i] || $dataUpdate->promotion != $promotion
                 ) {
+                    $promotion['type'] = $data['promotion-option'][$i];
+                    $promotion['value'] = isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0;
                     $dataQuoteUpdate = [
                         'product_code' => $data['product_code'][$i],
                         'product_name' => $data['product_name'][$i],
@@ -152,6 +162,7 @@ class QuoteImport extends Model
                         'price_export' => $price_export,
                         'version' => ($dataUpdate->version + 1),
                         'product_note' => $data['product_note'][$i],
+                        'promotion' => json_encode($promotion)
                     ];
                     DB::table($this->table)->where('id', $dataUpdate->id)->update($dataQuoteUpdate);
                 }

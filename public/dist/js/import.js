@@ -173,11 +173,45 @@ searchInput(".input-search", "#listReceive li");
 searchInput("#searchRepresent", "#listRepresent li");
 searchInput("#searchPriceEffect", "#listPriceEffect li");
 searchInput("#searchTermsPay", "#listTermsPay li");
+// Cập nhật tổng tiền
+function calculateAll() {
+    var total_amount = $('#total-amount-sum').text().replace(/[^0-9.-]+/g, "") || 0;
+    var product_tax = $('#product-tax').text().replace(/[^0-9.-]+/g, "") || 0;
+    var total = parseFloat(total_amount) + parseFloat(product_tax);
+    var option = $("[name^='promotion-option-total']").val();
+    var promotion = $("input[name^='promotion-total']").val().replace(/[^0-9.-]+/g, "") || 0;
+    console.log(option);
+    if (option == 1) {
+        var cal = total - promotion;
+    } else {
+        var cal = total - (total * promotion / 100);
+    }
+    $('#grand-total').text(formatCurrency(cal))
+    console.log(cal);
+}
+
+$(document).on(
+    "input", "[name^='promotion']", function () {
+        calculateAll()
+    }
+)
+
+
+
 // Tính thuế, tổng tiền,...
 $(document).on(
     "input",
-    '.quantity-input, [name^="price_export"]',
+    '.quantity-input, [name^="price_export"], .promotion',
     function (e) {
+        var option_promotion = $(this).closest('tr').find('.promotion-option').val();
+        var promotion =
+            parseFloat(
+                $(this)
+                    .closest("tr")
+                    .find("[name^='promotion']")
+                    .val()
+                    .replace(/[^0-9.-]+/g, "")
+            ) || 0;
         var productPrice =
             parseFloat(
                 $(this)
@@ -194,16 +228,25 @@ $(document).on(
                     .val()
                     .replace(/[^0-9.-]+/g, "")
             ) || 0;
-        updateTaxAmount($(this).closest("tr"));
 
-        if (!isNaN(productQty) && !isNaN(productPrice)) {
-            var totalAmount = productQty * productPrice;
+
+        if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(promotion)) {
+            if (option_promotion == 1) {
+                var totalAmount = productQty * productPrice - promotion;
+            } else {
+                var totalAmount = (productQty * productPrice) - (productQty * productPrice) * promotion / 100;
+            }
+
             $(this)
                 .closest("tr")
                 .find(".total_price")
                 .val(formatCurrency(totalAmount));
+            updateTaxAmount()
+            updateTaxAmount($(this).closest("tr"));
+
             calculateTotalAmount();
             calculateTotalTax();
+            calculateAll()
         }
     }
 );
@@ -217,22 +260,71 @@ function updateTaxAmount() {
                 .val()
                 .replace(/[^0-9.-]+/g, "")
         );
+        var option_promotion = $(this).closest('tr').find('.promotion-option').val();
+        var promotion =
+            parseFloat(
+                $(this)
+                    .closest("tr")
+                    .find("[name^='promotion']")
+                    .val()
+                    .replace(/[^0-9.-]+/g, "")
+            ) || 0;
         var taxValue = parseFloat($(this).find(".product_tax").val());
         if (taxValue == 99) {
             taxValue = 0;
         }
         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
-            var totalAmount = productQty * productPrice;
+            if (option_promotion == 1) {
+                var totalAmount = productQty * productPrice - promotion;
+            } else {
+                var totalAmount = productQty * productPrice - (productQty * productPrice) * promotion / 100;
+            }
             var taxAmount = (totalAmount * taxValue) / 100;
             $(this).find(".product_tax1").text(Math.round(taxAmount));
         }
     });
 }
+function updateTotalPrice(position) {
+    var price =
+        parseFloat(
+            $(position)
+                .closest("tr")
+                .find(".price_export")
+                .val()
+                .replace(/[^0-9.-]+/g, "")
+        ) || 0;
+    var qty =
+        parseFloat(
+            $(position)
+                .closest("tr")
+                .find(".quantity-input")
+                .val()
+                .replace(/[^0-9.-]+/g, "")
+        ) || 0;
 
-$(document).on("change", ".product_tax", function () {
+    var total = qty * price;
+    $(position)
+        .closest("tr")
+        .find(".total_price")
+        .val(formatCurrency(total));
+}
+
+
+$(document).on("change", ".product_tax, .promotion-option,.promotion-option-total", function () {
+    if ($(this).hasClass('promotion-option')) {
+        // Xóa dữ liệu trường Khuyến Mãi
+        $(this).closest('tr').find('input[name^="promotion"]').val("")
+
+        // Cập nhật lại thành tiền
+        updateTotalPrice($(this))
+    }
+    if ($(this).hasClass('promotion-option-total')) {
+        $('input[name^="promotion-total"]').val("")
+    }
     updateTaxAmount($(this).closest("tr"));
     calculateTotalAmount();
     calculateTotalTax();
+    calculateAll()
 });
 
 function calculateTotalAmount() {
@@ -291,34 +383,35 @@ function calculateGrandTotal() {
     $("#total").val(totalAmount);
 }
 
-function updateTaxAmount() {
-    $("#inputcontent tbody tr").each(function () {
-        var productQty = parseFloat($(this).find(".quantity-input").val());
-        var productPrice = $(this).find('input[name^="price_export"]');
-        if (productPrice.length > 0) {
-            productPrice = parseFloat(
-                productPrice.val().replace(/[^0-9.-]+/g, "")
-            );
-        }
-        var taxValue = parseFloat($(this).find(".product_tax").val());
-        if (taxValue == 99) {
-            taxValue = 0;
-        }
+// function updateTaxAmount() {
+//     console.log(123);
+//     $("#inputcontent tbody tr").each(function () {
+//         var productQty = parseFloat($(this).find(".quantity-input").val());
+//         var productPrice = $(this).find('input[name^="price_export"]');
+//         if (productPrice.length > 0) {
+//             productPrice = parseFloat(
+//                 productPrice.val().replace(/[^0-9.-]+/g, "")
+//             );
+//         }
+//         var taxValue = parseFloat($(this).find(".product_tax").val());
+//         if (taxValue == 99) {
+//             taxValue = 0;
+//         }
 
-        if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
-            var totalAmount = productQty * productPrice;
-            var taxAmount = (totalAmount * taxValue) / 100;
-            $(this).find(".product_tax1").text(Math.round(taxAmount));
-        }
-    });
-}
+//         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
+//             var totalAmount = productQty * productPrice;
+//             var taxAmount = (totalAmount * taxValue) / 100;
+//             $(this).find(".product_tax1").text(Math.round(taxAmount));
+//         }
+//     });
+// }
 
 // Edit
 updateTaxAmount();
 calculateTotalAmount();
 calculateTotalTax();
 calculateGrandTotal();
-
+calculateAll()
 // Xóa hàng SN
 $(document).on("click", ".deleteRow1", function () {
     var div = $(this).parent("tr");

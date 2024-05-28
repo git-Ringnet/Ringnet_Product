@@ -87,7 +87,8 @@
                                             <button class="align-items-left h-100 border-0 w-100 rounded"
                                                 style="background-color: transparent;" name="action"
                                                 value="action_2" type="submit">
-                                                <span class="text-left" style="color: #282A30; font-size:14px">Chuyển đổi
+                                                <span class="text-left" style="color: #282A30; font-size:14px">Chuyển
+                                                    đổi
                                                     thành đơn nhận hàng</span>
                                             </button>
                                         </a>
@@ -99,7 +100,8 @@
                                             <button class="align-items-left h-100 border-0 w-100 rounded "
                                                 style="background-color: transparent;" name="action"
                                                 value="action_3" type="submit">
-                                                <span class="text-left" style="color: #282A30; font-size:14px">Chuyển đổi
+                                                <span class="text-left" style="color: #282A30; font-size:14px">Chuyển
+                                                    đổi
                                                     thành hóa đơn</span>
                                             </button>
                                         </a>
@@ -403,6 +405,12 @@
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
+                                                <th scope="col" class="border border-right-0" style="width:10%;">
+                                                    <span class="d-flex justify-content-end text-13">
+                                                        KM
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
                                                 <th scope="col" class="border border-right-0" style="width:5%;">
                                                     <span class="d-flex justify-content-center text-13">
                                                         Thuế
@@ -432,8 +440,7 @@
                                                             name="listProduct[]">
                                                         <input readonly type="text" name="product_code[]"
                                                             class='border-0 pl-0 pr-2 py-1 w-100 product_code searchProduct'
-                                                            value="{{ $item->product_code }}"
-                                                            readonly>
+                                                            value="{{ $item->product_code }}" readonly>
                                                         <ul id="listProductCode"
                                                             class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
                                                             style="z-index: 99; left: 24%; top: 75%;">
@@ -445,8 +452,7 @@
                                                             <input readonly id="searchProductName" type="text"
                                                                 name="product_name[]"
                                                                 class="searchProductName border-0  py-1 w-100 height-32"
-                                                                value="{{ $item->product_name }}"
-                                                                readonly>
+                                                                value="{{ $item->product_name }}" readonly>
                                                             <ul id="listProductName"
                                                                 class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
                                                                 style="z-index: 99; left: 1%; top: 74%; display: none;">
@@ -511,6 +517,36 @@
                                                             gần đây
                                                         </div>
                                                     </td>
+                                                    <td
+                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0">
+                                                        @php
+                                                            $promotionArray = json_decode($item->promotion, true);
+                                                            $promotionValue = isset($promotionArray['value'])
+                                                                ? $promotionArray['value']
+                                                                : '';
+                                                            $promotionOption = isset($promotionArray['type'])
+                                                                ? $promotionArray['type']
+                                                                : '';
+                                                        @endphp
+
+                                                        <div>
+                                                            <input type="text" readonly
+                                                                class="border-0 px-2 py-1 w-100 text-right height-32 promotion"
+                                                                name="promotion[]"
+                                                                value="{{ number_format($promotionValue) }}">
+                                                        </div>
+                                                        <div class="mt-3 text-13-blue text-right">
+                                                            <select class="border-0 promotion-option"
+                                                                name="promotion-option[]" disabled>
+                                                                <option value="1"
+                                                                    @if ($promotionOption == 1) selected @endif>
+                                                                    Nhập tiền </option>
+                                                                <option value="2"
+                                                                    @if ($promotionOption == 2) selected @endif>
+                                                                    Nhập %</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
                                                     <input type="hidden" class="product_tax1">
                                                     <td
                                                         class="border-left p-2 text-13 align-top border-bottom border-top-0 text-center">
@@ -540,7 +576,7 @@
                                                         <input type="text" name="total_price[]"
                                                             class="text-right border-0 px-2 py-1 w-100 total_price height-32"
                                                             readonly
-                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
+                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total - $promotionValue, 2, '.', ',') : number_format($item->product_total - $promotionValue) }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                     </td>
                                                     <td
@@ -555,13 +591,12 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <x-formsynthetic :import="''"></x-formsynthetic>
+                                <x-formsynthetic :import="$import"></x-formsynthetic>
                             </section>
                         </div>
 
                         <div id="history" class="tab-pane fade">
-                            <div id="title--fixed"
-                                class="content-title--fixed top-111">
+                            <div id="title--fixed" class="content-title--fixed top-111">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ
                                     CHỈNH SỬA SẢN PHẨM</p>
                             </div>
@@ -687,8 +722,7 @@
                             </section>
                         </div>
                         <div id="files" class="tab-pane fade">
-                            <div id="title--fixed"
-                                class="content-title--fixed top-111">
+                            <div id="title--fixed" class="content-title--fixed top-111">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính
                                     kèm</p>
                             </div>
