@@ -128,29 +128,35 @@ class QuoteImport extends Model
 
     public function updateImport($data, $id)
     {
-        // Xóa sản phẩm khi chỉnh sửa đơn hàng
         if ($data['action'] == 'action_1') {
             $id_detail = DB::table($this->table)->where('detailimport_id', $id)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->whereNotIn('id', $data['listProduct'])
                 ->delete();
         }
+
         for ($i = 0; $i < count($data['product_name']); $i++) {
             // Kiểm tra và thêm sản phẩm mới vào kho hàng
             $checkProduct = Products::where('product_name', $data['product_name'][$i])
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
+
+            $productId = null;
             if (!$checkProduct) {
                 $dataProduct = [
+                    'type' => 1,
                     'product_code' => $data['product_code'][$i],
                     'product_name' => $data['product_name'][$i],
                     'product_unit' => $data['product_unit'][$i],
                     'product_tax' => $data['product_tax'][$i],
-                    'product_inventory' => 0,
+                    'product_inventory' => str_replace(',', '', $data['product_qty'][$i]),
                     'check_seri' => 1,
-                    'workspace_id' => Auth::user()->current_workspace
+                    'workspace_id' => Auth::user()->current_workspace,
+                    'created_at' => now(),
                 ];
-                DB::table('products')->insert($dataProduct);
+                $productId = DB::table('products')->insertGetId($dataProduct);
+            } else {
+                $productId = $checkProduct->id;
             }
 
             // Lấy sản phẩm cần sửa
@@ -159,6 +165,7 @@ class QuoteImport extends Model
                 ->first();
             $price_export = floatval(str_replace(',', '', $data['price_export'][$i]));
             $total_price = floatval(str_replace(',', '', $data['product_qty'][$i])) * $price_export;
+
             if ($dataUpdate) {
                 if (
                     $dataUpdate->product_code != $data['product_code'][$i] || $dataUpdate->product_name != $data['product_name'][$i] || $dataUpdate->product_unit != $data['product_unit'][$i] ||
@@ -181,10 +188,11 @@ class QuoteImport extends Model
             } else {
                 $dataQuote = [
                     'detailimport_id' => $id,
+                    'product_id' => $productId,
                     'product_code' => $data['product_code'][$i],
                     'product_name' => $data['product_name'][$i],
                     'product_unit' => $data['product_unit'][$i],
-                    'product_qty' =>  str_replace(',', '', $data['product_qty'][$i]),
+                    'product_qty' => str_replace(',', '', $data['product_qty'][$i]),
                     'product_tax' => $data['product_tax'][$i],
                     'product_total' => $total_price,
                     'price_export' => $price_export,

@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="paymentorder"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<form action="{{ route('paymentOrder.store', $workspacename) }}" method="POST">
+<form action="{{ route('paymentOrder.store') }}" method="POST">
     @csrf
     <div class="content-wrapper--2Column m-0">
         <!-- Content Header (Page header) -->
@@ -32,7 +32,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('paymentOrder.index', $workspacename) }}" class="user_flow" data-type="TTMH"
+                        <a href="{{ route('paymentOrder.index') }}" class="user_flow" data-type="TTMH"
                             data-des="Hủy">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"

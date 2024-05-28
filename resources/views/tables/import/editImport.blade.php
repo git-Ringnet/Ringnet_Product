@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="import"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<form action="{{ route('import.update', ['workspace' => $workspacename, 'import' => $import->id]) }}" method="POST">
+<form action="{{ route('import.update', ['import' => $import->id]) }}" method="POST">
     <div class="content-wrapper--2Column m-0">
         <!-- Content Header (Page header) -->
         @method('PUT')
@@ -38,7 +38,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('import.index', $workspacename) }}">
+                        <a href="{{ route('import.index') }}">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                     viewBox="0 0 14 14" fill="none">
@@ -131,11 +131,9 @@
                                                 <th class="border-right p-0 px-2 text-right text-13"style="width:15%;">
                                                     Thành tiền
                                                 </th>
-                                                <th class="border-right p-0 px-2 text-left note text-13"
+                                                <th class="p-0 px-2 text-left note text-13"
                                                     style="width:15%;">
                                                     Ghi chú sản phẩm
-                                                </th>
-                                                <th scope="col" class="p-0 px-2 text-left note text-13">
                                                 </th>
                                             </tr>
                                         </thead>
@@ -177,7 +175,7 @@
                                                         <div class="d-flex align-items-center">
                                                             <input id="searchProductName" type="text"
                                                                 name="product_name[]"
-                                                                class="searchProductName border-0 px-2 py-1 w-100 height-32"
+                                                                class="@if ($import->status == 1) searchProductName @endif border-0 px-2 py-1 w-100 height-32"
                                                                 value="{{ $item->product_name }}"
                                                                 @if ($import->status != 1) echo readonly @endif
                                                                 required>
@@ -270,20 +268,12 @@
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                     </td>
                                                     <td
-                                                        class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                        class="border-top-0 p-2 text-13 align-top border-bottom">
                                                         <input placeholder="Nhập ghi chú" type="text"
                                                             name="product_note[]"
                                                             class="border-0 py-1 w-100 height-32"
                                                             value="{{ $item->product_note }}"
                                                             @if ($import->status != 1) echo readonly @endif>
-                                                    </td>
-                                                    <td class="p-2 align-top border-bottom border-top-0 deleteRow">
-                                                        <svg width='17' height='17' viewBox='0 0 17 17'
-                                                            fill='none' xmlns='http://www.w3.org/2000/svg'>
-                                                            <path fill-rule='evenodd' clip-rule='evenodd'
-                                                                d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z'
-                                                                fill='#6B6F76' />
-                                                        </svg>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -502,15 +492,6 @@
                                     style="flex:2; background-color:#F0F4FF; border-radius:4px;"
                                     placeholder="Chọn thông tin" value="{{ $import->quotation_number }}"
                                     @if ($import->status == 2) readonly @endif>
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
-
-                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
-                                    name="reference_number"
-                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                    placeholder="Chọn thông tin" value="{{ $import->reference_number }}">
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
                                 style="height:44px;">
@@ -1711,82 +1692,82 @@
         }
     })
 
-    getProduct('searchProductName');
+    // getProduct('searchProductName');
     showListProductName()
 
-    function getProduct(name) {
-        $('#inputcontent tbody tr .' + name).on('click', function() {
-            listProductCode = $(this).closest('tr').find('#listProductCode');
-            listProductName = $(this).closest('tr').find('#listProductName');
-            inputCode = $(this).closest('tr').find('.searchProduct');
-            inputName = $(this).closest('tr').find('.searchProductName');
-            inputUnit = $(this).closest('tr').find('.product_unit');
-            inputPriceExprot = $(this).closest('tr').find('.price_export');
-            inputRatio = $(this).closest('tr').find('.product_ratio');
-            inputPriceImport = $(this).closest('tr').find('.price_import');
-            selectTax = $(this).closest('tr').find('.product_tax');
-            $.ajax({
-                url: "{{ route('getAllProducts') }}",
-                type: "get",
-                success: function(result) {
-                    listProductName.empty()
-                    var createLi =
-                        '<a class="bg-dark d-flex justify-content-between p-2 position-sticky">' +
-                        '<span class="w-100 text-white">Thêm mới</span>' +
-                        '</a>';
-                    result.forEach(element => {
-                        var UL = '<li>' +
-                            '<a href="javascript:void(0)" class="text-dark d-flex justify-content-between w-100 p-2 search-name" id="' +
-                            element.id + ' "data-code="' + element.product_code +
-                            '"data-tax="' + element
-                            .product_tax +
-                            '"data-priceExport= "' +
-                            element.product_price_export +
-                            '"data-unit="' + element.product_unit + '" "data-name="' +
-                            element.product_name +
-                            '""name="search-product">' +
-                            '<span class="w-100" data-id="' + element.id + '">' + element
-                            .product_name + '</span>' +
-                            '</a>' +
-                            '</li>';
-                        listProductName.append(UL);
-                    });
+    // function getProduct(name) {
+    //     $('#inputcontent tbody tr .' + name).on('click', function() {
+    //         listProductCode = $(this).closest('tr').find('#listProductCode');
+    //         listProductName = $(this).closest('tr').find('#listProductName');
+    //         inputCode = $(this).closest('tr').find('.searchProduct');
+    //         inputName = $(this).closest('tr').find('.searchProductName');
+    //         inputUnit = $(this).closest('tr').find('.product_unit');
+    //         inputPriceExprot = $(this).closest('tr').find('.price_export');
+    //         inputRatio = $(this).closest('tr').find('.product_ratio');
+    //         inputPriceImport = $(this).closest('tr').find('.price_import');
+    //         selectTax = $(this).closest('tr').find('.product_tax');
+    //         $.ajax({
+    //             url: "{{ route('getAllProducts') }}",
+    //             type: "get",
+    //             success: function(result) {
+    //                 listProductName.empty()
+    //                 var createLi =
+    //                     '<a class="bg-dark d-flex justify-content-between p-2 position-sticky">' +
+    //                     '<span class="w-100 text-white">Thêm mới</span>' +
+    //                     '</a>';
+    //                 result.forEach(element => {
+    //                     var UL = '<li>' +
+    //                         '<a href="javascript:void(0)" class="text-dark d-flex justify-content-between w-100 p-2 search-name" id="' +
+    //                         element.id + ' "data-code="' + element.product_code +
+    //                         '"data-tax="' + element
+    //                         .product_tax +
+    //                         '"data-priceExport= "' +
+    //                         element.product_price_export +
+    //                         '"data-unit="' + element.product_unit + '" "data-name="' +
+    //                         element.product_name +
+    //                         '""name="search-product">' +
+    //                         '<span class="w-100" data-id="' + element.id + '">' + element
+    //                         .product_name + '</span>' +
+    //                         '</a>' +
+    //                         '</li>';
+    //                     listProductName.append(UL);
+    //                 });
 
-                    $('.search-name').on('click', function() {
-                        console.log(inputCode);
-                        inputCode.val($(this).attr(
-                                'data-code') == "null" ?
-                            "" : $(this).attr(
-                                'data-code'))
-                        inputName.val($(this).closest('li')
-                            .find('span')
-                            .text());
-                        inputUnit.val($(this).attr(
-                                'data-unit') == null ?
-                            "" : $(this).attr(
-                                'data-unit'));
-                        inputPriceExprot.val($(this).attr(
-                                'data-priceExport') ==
-                            "null" ? "" :
-                            formatCurrency($(this).attr(
-                                'data-priceExport')))
-                        inputRatio.val($(this).attr(
-                                'data-ratio') ==
-                            "null" ? "" : $(this).attr(
-                                'data-ratio'))
-                        inputPriceImport.val($(this).attr(
-                                'data-priceImport') ==
-                            "null" ? "" :
-                            formatCurrency($(this).attr(
-                                'data-priceImport')))
-                        selectTax.val($(this).attr(
-                            'data-tax'))
-                        listProductName.hide();
-                    })
-                }
-            })
-        })
-    }
+    //                 $('.search-name').on('click', function() {
+    //                     console.log(inputCode);
+    //                     inputCode.val($(this).attr(
+    //                             'data-code') == "null" ?
+    //                         "" : $(this).attr(
+    //                             'data-code'))
+    //                     inputName.val($(this).closest('li')
+    //                         .find('span')
+    //                         .text());
+    //                     inputUnit.val($(this).attr(
+    //                             'data-unit') == null ?
+    //                         "" : $(this).attr(
+    //                             'data-unit'));
+    //                     inputPriceExprot.val($(this).attr(
+    //                             'data-priceExport') ==
+    //                         "null" ? "" :
+    //                         formatCurrency($(this).attr(
+    //                             'data-priceExport')))
+    //                     inputRatio.val($(this).attr(
+    //                             'data-ratio') ==
+    //                         "null" ? "" : $(this).attr(
+    //                             'data-ratio'))
+    //                     inputPriceImport.val($(this).attr(
+    //                             'data-priceImport') ==
+    //                         "null" ? "" :
+    //                         formatCurrency($(this).attr(
+    //                             'data-priceImport')))
+    //                     selectTax.val($(this).attr(
+    //                         'data-tax'))
+    //                     listProductName.hide();
+    //                 })
+    //             }
+    //         })
+    //     })
+    // }
 
     $('.project_name').on('click', function() {
         var project_id = $(this).attr('id');
@@ -1809,6 +1790,11 @@
         var detail_id = {{ $import->id }}
         var provide_id = $('#provides_id').val()
         var formSubmit = true;
+        if ($('#inputcontent tbody tr').length < 1) {
+            formSubmit = false
+            showAutoToast('warning', 'Vui lòng thêm ít nhất 1 sản phẩm')
+            return false;
+        }
         if (!checkProduct()) {
             formSubmit = false
         }

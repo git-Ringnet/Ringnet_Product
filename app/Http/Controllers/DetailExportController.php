@@ -238,7 +238,18 @@ class DetailExportController extends Controller
         }
         $quoteExport = $this->detailExport->getProductToId($id);
         $history = $this->quoteExport->history($id);
-        return view('tables.export.quote.see-quote', compact('title', 'history', 'guest', 'product', 'detailExport', 'quoteExport'));
+        //Ngày thanh toán và Tổng tiền
+        $payExport = PayExport::where('detailexport_id', $id)
+            ->first();
+        return view('tables.export.quote.see-quote', compact(
+            'title',
+            'history',
+            'guest',
+            'product',
+            'detailExport',
+            'quoteExport',
+            'payExport'
+        ));
     }
 
     /**
@@ -263,7 +274,20 @@ class DetailExportController extends Controller
             'goods' => $this->date_form->findFormByField('goods'),
             'payment' => $this->date_form->findFormByField('payment'),
         ];
-        return view('tables.export.quote.edit-quote', compact('project', 'title', 'guest', 'product', 'detailExport', 'quoteExport', 'date_form', 'dataForm'));
+        //Ngày thanh toán và Tổng tiền
+        $payExport = PayExport::where('detailexport_id', $id)
+            ->first();
+        return view('tables.export.quote.edit-quote', compact(
+            'project',
+            'title',
+            'guest',
+            'product',
+            'detailExport',
+            'quoteExport',
+            'date_form',
+            'dataForm',
+            'payExport'
+        ));
     }
 
     /**

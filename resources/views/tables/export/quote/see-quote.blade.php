@@ -831,12 +831,38 @@
                             <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
                                 name="quotation_number" value="{{ $detailExport->quotation_number }}" />
                         </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-left-0"
                             style="height:44px;">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày bán hàng</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest " id="customDateInput"
                                 name="date_quote" style="flex:2;" readonly
                                 value="{{ date_format(new DateTime($detailExport->ngayBG), 'd/m/Y') }}" />
+                        </li>
+                        <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
+                            @if ($payExport && $payExport->payment_day)
+                                <input type="text" id="dayPicker" style="flex:2;" placeholder="Chọn thông tin"
+                                    readonly class="text-13-black w-50 border-0 bg-input-guest"
+                                    value="{{ date_format(new DateTime($payExport->payment_day), 'd/m/Y') }}">
+                            @endif
+                        </li>
+                        <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                            @if ($payExport && $payExport->total)
+                                <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
+                                    value="{{ number_format($payExport->total) }}" style="flex:2;" readonly>
+                            @endif
+                        </li>
+                        <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
+                            @if ($payExport && $payExport->payment)
+                                <input readonly value="{{ number_format($payExport->payment) }}"
+                                    class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2 payment"
+                                    style="flex:2;" placeholder="Nhập số tiền" name="payment">
+                            @endif
                         </li>
                     </ul>
                 </div>

@@ -54,7 +54,13 @@ class PayExport extends Model
 
         // Ensure numeric values
         $total = isset($data['total']) ? str_replace(',', '', $data['total']) : $detailExport->amount_owed;
-        $payment = isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0;
+        if (isset($data['checkPayment'])) {
+            if ($data['checkPayment'] == 1) {
+                $payment = $detailExport->amount_owed;
+            }
+        } else {
+            $payment = isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0;
+        }
         $date_pay = isset($data['date_pay']) ? Carbon::parse($data['date_pay']) : Carbon::now();
         $payment_day = isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now();
 
@@ -338,23 +344,6 @@ class PayExport extends Model
             DetailExport::where('id', $payExport->detailexport_id)
                 ->update([
                     'status_pay' => 0,
-                ]);
-        }
-        $BillCount = productBill::where('bill_sale.detailexport_id', $payExport->detailexport_id)
-            ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
-            ->count();
-        $deliveredCount = Delivered::where('delivery.detailexport_id', $payExport->detailexport_id)
-            ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
-            ->count();
-        if ($deliveredCount == 0 && $BillCount == 0 && $PayCount == 0) {
-            DetailExport::where('id', $payExport->detailexport_id)
-                ->update([
-                    'status' => 1,
-                ]);
-        } else {
-            DetailExport::where('id', $payExport->detailexport_id)
-                ->update([
-                    'status' => 2,
                 ]);
         }
         history_Pay_Export::where('pay_id', $id)->delete();

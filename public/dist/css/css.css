@@ -935,6 +935,17 @@ td p {
     padding: 0;
 }
 
+.header-options--nav-3 {
+    width: 270px;
+    height: 34px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 13px;
+    align-items: center;
+    border-radius: 7px;
+    background-color: #f4f5f8;
+}
+
 .custom-nav li {
     margin: 0 10px;
 }

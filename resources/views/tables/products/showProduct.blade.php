@@ -89,17 +89,14 @@
             </div>
         </div>
         <section class="content-header--options p-0">
-            <ul class="header-options--nav nav nav-tabs margin-left32"
+            <ul class="header-options--nav-3 nav nav-tabs margin-left32"
                 @if ($product->type == 2) style="width:100px;" @endif>
                 <li>
                     <a class="text-secondary pl-3 active" data-toggle="tab" href="#info">Thông tin</a>
                 </li>
                 @if ($product->type == 1)
                     <li>
-                        <a class="text-secondary" data-toggle="tab" href="#history">Lịch sử mua hàng</a>
-                    </li>
-                    <li>
-                        <a class="text-secondary pr-3" data-toggle="tab" href="#serialnumber">Serial Number</a>
+                        <a class="text-secondary pr-3" data-toggle="tab" href="#history">Lịch sử mua hàng</a>
                     </li>
                 @endif
             </ul>
@@ -236,18 +233,6 @@
                                             <input readonly type="text" placeholder="Nhập thông tin"
                                                 name="product_guarantee" value="{{ $product->product_guarantee }}"
                                                 class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
-                                        </div>
-                                        <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0 height-100 margin-left32 text-13">Quản lý Serial
-                                                    Number
-                                                </p>
-                                            </div>
-                                            <div
-                                                class="border border-top-0 height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
-                                                <input disabled type="checkbox" name="check_seri"
-                                                    @if ($product->check_seri == 1) checked @endif>
-                                            </div>
                                         </div>
                                     @endif
                                 </div>
@@ -427,7 +412,7 @@
                                     </svg>
                                 </th>
                                 <th scope="col" class="text-13 text-nowrap">
-                                    Số báo giá
+                                    Mã bán hàng
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
                                         <path
@@ -572,136 +557,6 @@
                                         @endif
                                     </td>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </div>
-
-        <div id="serialnumber" class="tab-pane fade">
-            <section class="content">
-                <div class="container-fluided">
-                    <div class="row">
-                        <div class="col-12">
-                            <div
-                                class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed margin-250">
-                                <form class="w-100" action="" method="get" id="search-filter">
-                                    <div class="row mr-0 w-100">
-                                        <div class="col-md-5 d-flex">
-                                            <div class="position-relative" style="width: 55%;">
-                                                <input type="text" placeholder="Tìm kiếm" name="keywords"
-                                                    class="pr-4 w-100 input-search text-13-black" value="" />
-                                                <span id="search-icon" class="search-icon">
-                                                    <i class="fas fa-search" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                            <button class="btn-filter_search mx-2 d-none" type="button"
-                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                        height="16" viewBox="0 0 16 16" fill="none">
-                                                        <path
-                                                            d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
-                                                            fill="#6D7075" />
-                                                        <path
-                                                            d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
-                                                            fill="#6D7075" />
-                                                        <path
-                                                            d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
-                                                            fill="#6D7075" />
-                                                        <path
-                                                            d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
-                                                            fill="#6D7075" />
-                                                    </svg>
-                                                    <span class="text-btnIner">Bộ lọc</span>
-                                                    <svg width="16" height="16" viewBox="0 0 16 16"
-                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                                            fill="#6B6F76" />
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content margin-top-fixed3">
-                <div class="container-fluided table-responsive">
-                    <table class="table table-hover bg-white rounded" id="inputcontent">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-nowrap text-13 padding-left35">Serial Number
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th>
-                                <th scope="col" class="text-nowrap text-13">Đơn mua hàng
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th>
-                                <th scope="col" class="text-nowrap text-13">Đơn bán hàng
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($history as $item)
-                                @if ($item->getSerialNumber)
-                                    @foreach ($item->getSerialNumber as $sn)
-                                        @if ($item->product_id == $sn->product_id)
-                                            <tr class="bg-white">
-                                                <td class="text-14-black padding-left35 text-left border-top-0 border-bottom"
-                                                    style="width: 33.34%;"> {{ $sn->serinumber }} </td>
-                                                <td class= "text-14-blue text-left border-top-0 border-bottom"
-                                                    style="width: 33.34%;">
-                                                    <span style="display:block;" class="text-14-blue">
-                                                        <a
-                                                            href="{{ route('receive.edit', ['receive' => $item->getReceive->id]) }}">
-                                                            {{ $item->getReceive->delivery_code }}
-                                                        </a>
-                                                    </span>
-                                                    <span style="display:block;" class="text-14-blue">
-                                                        {{ date_format(new DateTime($sn->created_at), 'd-m-Y') }}
-                                                    </span>
-                                                </td>
-                                                <td
-                                                    class="text-14-blue text-left border-top-0 border-bottom"style="width: 33.34%;">
-                                                    @if ($sn->getQuotation)
-                                                        <span style="display:block;" class="text-14-blue">
-                                                            <a
-                                                                href="{{ route('watchDelivery', ['id' => $sn->getQuotation->id]) }}">
-                                                                {{ $sn->getQuotation->code_delivery }}
-                                                            </a>
-                                                        </span>
-                                                        <span style="display:block;" class="text-14-blue">
-                                                            {{ date_format(new DateTime($sn->getQuotation->created_at), 'd-m-Y') }}
-                                                        </span>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                @endif
                             @endforeach
                         </tbody>
                     </table>

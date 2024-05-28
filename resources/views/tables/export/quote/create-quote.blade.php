@@ -737,14 +737,14 @@
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
                                     <input
-                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
+                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2 payment"
                                         style="flex:2;" placeholder="Nhập số tiền" name="payment">
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap" style="flex: 1.5;"></span>
                                     <div class="text-13 d-flex align-items-center py-2 px-2" style="width: 58%;">
-                                        <input type="checkbox" class="mr-2">
+                                        <input type="checkbox" class="mr-2 cbPayment" value="1" name="checkPayment">
                                         <span>Thanh toán đủ</span>
                                     </div>
                                 </li>
@@ -783,6 +783,43 @@
 <x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script type="text/javascript">
+    //
+    $(document).ready(function() {
+        $('.cbPayment').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('input[name="payment"]').val('')
+                $('input[name="payment"]').prop('readonly', true);
+            } else {
+                $('input[name="payment"]').prop('readonly', false);
+            }
+        });
+    });
+    //Giới hạn số tiền
+    document.querySelector('.payment')
+        .addEventListener('input',
+            function() {
+                var duNoValue = document
+                    .querySelector('#TongTien')
+                    .value;
+                var paymentInput = document
+                    .querySelector(
+                        '.payment');
+                var paymentValue =
+                    paymentInput.value;
+                var duNoNumber = parseFloat(
+                    duNoValue.replace(
+                        /,/g, ''));
+                var paymentNumber =
+                    parseFloat(paymentValue
+                        .replace(/,/g, ''));
+
+                if (paymentNumber < 0 ||
+                    paymentNumber >
+                    duNoNumber) {
+                    paymentInput.value =
+                        duNoValue;
+                }
+            });
     //
     flatpickr("#datePicker", {
         locale: "vn",
@@ -2486,7 +2523,7 @@
     });
 
     //format giá
-    $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher, .promotion', function(event) {
+    $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher, .promotion, .payment', function(event) {
         var value = event.target.value.replace(/[^0-9.]/g, '');
         if ($(this).closest('tr').find('.promotion_type').val() === "1") {
             event.target.value = formatCurrency(parseFloat(value));
@@ -2590,6 +2627,14 @@
 
                     hasProducts = true;
                 }
+            }
+
+            var tongTien = parseFloat($('#TongTien').val().replace(/,/g, ''));
+            var payment = parseFloat($('input[name="payment"]').val().replace(/,/g, ''));
+
+            if (payment > tongTien) {
+                showAutoToast('warning','Số tiền thanh toán không được lớn hơn tổng tiền');
+                return;
             }
 
             if (invalidProductNames.length > 0) {

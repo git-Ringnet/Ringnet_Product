@@ -1,7 +1,7 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="import"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<form action="{{ route('import.update', ['import' => $import->id]) }}" method="POST"
-    id="formSubmit" enctype="multipart/form-data">
+<form action="{{ route('import.update', ['import' => $import->id]) }}" method="POST" id="formSubmit"
+    enctype="multipart/form-data">
     <div class="content-wrapper--2Column m-0">
         <!-- Content Header (Page header) -->
         @method('PUT')
@@ -35,7 +35,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('import.index', $workspacename) }}" class="user_flow" data-type="DMH"
+                        <a href="{{ route('import.index') }}" class="user_flow" data-type="DMH"
                             data-des="Trở về">
                             <button class="btn-destroy rounded mx-1 d-flex align-items-center" type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -76,46 +76,22 @@
                                 id="listBtnCreateFast">
                                 <ul class="m-0 p-0 scroll-data">
                                     <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
-                                        data-type="DMH" data-des="Tạo nhanh đơn nhận hàng">
-                                        <a href="#" style="flex:2;" onclick="getAction(this)"
-                                            name="search-info" class="search-info">
-                                            <button class="align-items-left h-100 border-0 w-100 rounded"
-                                                style="background-color: transparent;" name="action"
-                                                value="action_2" type="submit">
-                                                <span class="text-left" style="color: #282A30; font-size:14px">Chuyển đổi
-                                                    thành đơn nhận hàng</span>
-                                            </button>
-                                        </a>
-                                    </li>
-                                    <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
-                                        data-type="DMH" data-des="Tạo nhanh hóa đơn mua hàng">
-                                        <a href="#" style="flex:2;" onclick="getAction(this)"
-                                            name="search-info" class="search-info">
-                                            <button class="align-items-left h-100 border-0 w-100 rounded "
-                                                style="background-color: transparent;" name="action"
-                                                value="action_3" type="submit">
-                                                <span class="text-left" style="color: #282A30; font-size:14px">Chuyển đổi
-                                                    thành hóa đơn</span>
-                                            </button>
-                                        </a>
-                                    </li>
-                                    <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
                                         data-type="DMH" data-des="Tạo nhanh thanh toán mua hàng">
                                         <a href="#" style="flex:2;" onclick="getAction(this)"
                                             name="search-info" class="search-info">
                                             <button class="align-items-left h-100 border-0 w-100 rounded"
                                                 style="background-color: transparent;" name="action"
                                                 value="action_4" type="submit">
-                                                <span style="color: #282A30; font-size:14px">Chuyển đổi
-                                                    thành thanh
-                                                    toán</span>
+                                                <span style="color: #282A30; font-size:14px">
+                                                    Chuyển đổi thành thanh toán
+                                                </span>
                                             </button>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <a href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $import->id]) }}"
+                        <a href="{{ route('import.edit', ['import' => $import->id]) }}"
                             class="user_flow" data-type="DMH" data-des="Sửa đơn mua hàng">
                             <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -331,8 +307,7 @@
                                                             name="listProduct[]">
                                                         <input readonly type="text" name="product_code[]"
                                                             class='border-0 pl-0 pr-2 py-1 w-100 product_code searchProduct'
-                                                            value="{{ $item->product_code }}"
-                                                            readonly>
+                                                            value="{{ $item->product_code }}" readonly>
                                                         <ul id="listProductCode"
                                                             class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
                                                             style="z-index: 99; left: 24%; top: 75%;">
@@ -344,8 +319,7 @@
                                                             <input readonly id="searchProductName" type="text"
                                                                 name="product_name[]"
                                                                 class="searchProductName border-0  py-1 w-100 height-32"
-                                                                value="{{ $item->product_name }}"
-                                                                readonly>
+                                                                value="{{ $item->product_name }}" readonly>
                                                             <ul id="listProductName"
                                                                 class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
                                                                 style="z-index: 99; left: 1%; top: 74%; display: none;">
@@ -459,8 +433,7 @@
                         </div>
 
                         <div id="history" class="tab-pane fade">
-                            <div id="title--fixed"
-                                class="content-title--fixed top-111">
+                            <div id="title--fixed" class="content-title--fixed top-111">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ
                                     CHỈNH SỬA SẢN PHẨM</p>
                             </div>
@@ -586,8 +559,7 @@
                             </section>
                         </div>
                         <div id="files" class="tab-pane fade">
-                            <div id="title--fixed"
-                                class="content-title--fixed top-111">
+                            <div id="title--fixed" class="content-title--fixed top-111">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính
                                     kèm</p>
                             </div>
@@ -629,46 +601,47 @@
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã mua hàng</span>
                                 <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
                                     placeholder="Nhập thông tin" name="quotation_number"
                                     value="{{ $import->quotation_number }}" readonly />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
-                                <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
-                                    placeholder="Nhập thông tin" name="reference_number"readonly
-                                    value="{{ $import->reference_number }}" />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày mua hàng</span>
                                 <input type="text" class="text-13-black w-50 border-0 px-2 py-2"
                                     placeholder="Nhập thông tin" id="datePicker" name="date_quote" style="flex:2;"
                                     value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}" />
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                            <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
-                                <input type="text" class="text-13-black w-50 border-0 px-2 py-2" style="flex:2;"
-                                    name="price_effect" placeholder="Nhập thông tin"
-                                    value="{{ $import->price_effect }}" readonly />
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
+                                <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                    name="" placeholder="Chọn thông tin" style="flex:2;" id="dayPicker"
+                                    value="{{ date('d/m/Y') }}" />
+                                <input type="hidden" name="payment_day" id="hiddenDayInput"
+                                    value="{{ date('d/m/Y') }}">
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                            <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
                                 style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                                <input type="text" readonly class="text-13-black w-50 border-0 px-2 py-2"
-                                    name="terms_pay" style="flex:2;" placeholder="Nhập thông tin"
-                                    value="{{ $import->terms_pay }}" />
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                                <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
+                                    style="flex:2;" readonly="">
                             </li>
-                            {{-- <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
                                 style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
-                                <input type="text" class="text-13-black w-50 border-0 px-2 py-2" style="flex:2;"
-                                    placeholder="Nhập thông tin" id="inputProject" readonly
-                                    value="@if ($import->getProjectName) {{ $import->getProjectName->project_name }} @endif">
-                            </li> --}}
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
+                                <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
+                                    style="flex:2;" readonly>
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap" style="flex: 1.5;"></span>
+                                <div class="text-13 d-flex align-items-center py-2 px-2" style="width: 58%;">
+                                    <input type="checkbox" class="mr-2" disabled>
+                                    <span>Thanh toán đủ</span>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -814,10 +787,39 @@
         dateFormat: "d/m/Y",
         onChange: function(selectedDates, dateStr, instance) {
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
-                "Y-m-d");
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
         }
     });
+
+    flatpickr("#dayPicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+        }
+    });
+
+    function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+        // Lấy thời gian hiện tại
+        var currentTime = new Date();
+
+        // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+        var selectedDateTime = new Date(selectedDate);
+        selectedDateTime.setHours(currentTime.getHours());
+        selectedDateTime.setMinutes(currentTime.getMinutes());
+        selectedDateTime.setSeconds(currentTime.getSeconds());
+
+        document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
+    }
     // Xóa đơn hàng
     deleteImport('#delete_import',
         '{{ route('import.destroy', ['import' => $import->id]) }}')

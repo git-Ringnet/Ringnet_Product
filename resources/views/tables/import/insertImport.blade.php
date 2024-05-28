@@ -1728,8 +1728,6 @@
             return false;
         }
 
-
-
         if (!checkProduct()) {
             formSubmit = false
         }

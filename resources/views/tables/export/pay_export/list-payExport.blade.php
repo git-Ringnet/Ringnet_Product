@@ -196,7 +196,7 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Số báo giá#</span>
+                                                            <span class="text-13">Mã bán hàng#</span>
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-quotation_number"></div>

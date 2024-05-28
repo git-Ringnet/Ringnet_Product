@@ -463,7 +463,7 @@
                                     </div>
                                     <div class="d-flex justify-content-between mt-2 align-items-center">
                                         <span class="text-13-black">Khuyến mãi:</span>
-                                        <input id="voucher" type="text" name="voucher"
+                                        <input id="voucher" type="text" name="voucher" readonly
                                             value="{{ number_format($detailExport->discount) }}"
                                             class="text-right text-13-black border-0 py-1 w-50 height-32"
                                             placeholder="Nhập số tiền">
@@ -635,6 +635,34 @@
                                         value="{{ date_format(new DateTime($detailExport->ngayBG), 'd/m/Y') }}" />
                                     <input type="hidden" id="hiddenDateInput" name="date_quote"
                                         value="{{ date_format(new DateTime($detailExport->ngayBG), 'Y-m-d') }}">
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
+                                    @if ($payExport && $payExport->payment_day)
+                                        <input type="text" id="dayPicker" style="flex:2;"
+                                            placeholder="Chọn thông tin" readonly
+                                            class="text-13-black w-50 border-0 bg-input-guest"
+                                            value="{{ date_format(new DateTime($payExport->payment_day), 'd/m/Y') }}">
+                                    @endif
+                                </li>
+                                <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                                    @if ($payExport && $payExport->total)
+                                        <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                            id="TongTien" value="{{ number_format($payExport->total) }}"
+                                            style="flex:2;" readonly>
+                                    @endif
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
+                                    @if ($payExport && $payExport->payment)
+                                        <input readonly value="{{ number_format($payExport->payment) }}"
+                                            class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2 payment"
+                                            style="flex:2;" placeholder="Nhập số tiền" name="payment">
+                                    @endif
                                 </li>
                             </ul>
                         </div>

@@ -108,8 +108,6 @@ class DetailImportController extends Controller
             }
         }
         $import = $import->first();
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($import) {
             $provides = Provides::all();
             $title = $import->quotation_number;
@@ -121,7 +119,7 @@ class DetailImportController extends Controller
             $project = Project::all();
             $history = HistoryImport::where('detailImport_id', $id)->get();
 
-            return view('tables.import.showImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename'));
+            return view('tables.import.showImport', compact('import', 'title', 'provides', 'product', 'project', 'history'));
         } else {
             return redirect()->route('import.index')->with('warning', 'Không tìm thấy trang hợp lệ !');
         }
@@ -139,9 +137,6 @@ class DetailImportController extends Controller
             }
         }
         $import = $import->first();
-
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($import) {
             $represent = ProvideRepesent::where('provide_id', $import->provide_id)->get();
             $price_effect = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'import')->get();
@@ -164,7 +159,7 @@ class DetailImportController extends Controller
             $history = HistoryImport::where('detailImport_id', $id)
                 ->orderBy('id', 'desc')
                 ->get();
-            return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay'));
+            return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay'));
         } else {
             return redirect()->route('import.index')->with('warning', 'Không tìm thấy trang hợp lệ !');
         }
@@ -176,8 +171,6 @@ class DetailImportController extends Controller
     public function update(Request $request, string $id)
     {
         $title = "";
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($request->action == 'action_1') {
             if ($this->detailImport->checkStatus($id) == false) {
                 return redirect()->route('import.index')->with('warning', 'Không tìm thấy đơn hàng cần chỉnh sửa !');
@@ -208,7 +201,7 @@ class DetailImportController extends Controller
                     ->distinct()
                     ->get();
                 $yes = true;
-                return view('tables.receive.insertReceive', compact('title', 'listDetail', 'receiver_bill', 'data', 'yes', 'show_receive', 'workspacename'));
+                return view('tables.receive.insertReceive', compact('title', 'listDetail', 'receiver_bill', 'data', 'yes', 'show_receive'));
             }
         } elseif ($request->action == "action_3") {
             $recieptProduct = $this->reciept->getProduct_reciept($request->detail_id);
@@ -224,7 +217,7 @@ class DetailImportController extends Controller
                     ->select('detailimport.quotation_number', 'detailimport.id')
                     ->get();
                 $yes = true;
-                return view('tables.reciept.insertReciept', compact('yes', 'title', 'reciept', 'recieptProduct', 'show_receive', 'workspacename'));
+                return view('tables.reciept.insertReciept', compact('yes', 'title', 'reciept', 'recieptProduct', 'show_receive'));
             }
         } else {
             $checkPay = PayOder::where('detailimport_id', $request->detail_id)->first();
@@ -244,7 +237,7 @@ class DetailImportController extends Controller
                         ->select('detailimport.quotation_number', 'detailimport.id')
                         ->get();
                     $yes = true;
-                    return view('tables.paymentOrder.insertPaymentOrder', compact('yes', 'title', 'reciept', 'getPaymentOrder', 'show_receive', 'workspacename'));
+                    return view('tables.paymentOrder.insertPaymentOrder', compact('yes', 'title', 'reciept', 'getPaymentOrder', 'show_receive'));
                 }
             }
         }
@@ -256,8 +249,6 @@ class DetailImportController extends Controller
     public function destroy(string $id)
     {
         $status = $this->detailImport->deleteDetail($id);
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         if ($status['status']) {
             $dataUserFlow = [
                 'user_id' => Auth::user()->id,

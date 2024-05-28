@@ -98,9 +98,7 @@ class DetailImport extends Model
             'project_id' => 1,
             'user_id' => Auth::user()->id,
             'quotation_number' => $data['quotation_number'],
-            'reference_number' => $data['reference_number'],
-            'price_effect' => $data['price_effect'],
-            'status' => 1,
+            'status' => 2,
             'created_at' => $data['date_quote'],
             'total_price' => $total,
             'total_tax' => $total_tax,
@@ -109,7 +107,6 @@ class DetailImport extends Model
             'status_receive' => 0,
             'status_reciept' => 0,
             'status_pay' => 3,
-            'terms_pay' => $data['terms_pay'],
             'workspace_id' => Auth::user()->current_workspace,
             'represent_id' => $data['represent_id'],
             'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
@@ -191,15 +188,12 @@ class DetailImport extends Model
                     'project_id' => isset($data['project_id']) ? $data['project_id'] : 1,
                     'user_id' => 1,
                     'quotation_number' => $data['quotation_number'],
-                    'reference_number' => $data['reference_number'],
-                    'price_effect' => $data['price_effect'],
                     'status' => $status,
                     'created_at' => $data['date_quote'],
                     'total_price' => round($total),
                     'total_tax' => (round($total_tax) + round($total)),
                     'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
                     'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
-                    'terms_pay' => $data['terms_pay'],
                     'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
                     'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
                     'user_id' => Auth::user()->id,
@@ -207,7 +201,6 @@ class DetailImport extends Model
                 $result = DB::table($this->table)->where('id', $id)->update($dataImport);
             } else {
                 $dataImport = [
-                    'reference_number' => $data['reference_number'],
                     'created_at' => isset($data['date_quote']) ? $data['date_quote'] : Carbon::now()
                 ];
                 $result = DB::table($this->table)->where('id', $id)->update($dataImport);
@@ -244,26 +237,38 @@ class DetailImport extends Model
         } else {
             $detail = DetailImport::where('id', $id)->first();
             if ($detail) {
-                HistoryImport::where('detailImport_id', $detail->id)->delete();
                 $quote = QuoteImport::where('detailimport_id', $detail->id)
                     ->where('version', 1)
                     ->get();
-                if ($quote) {
-                    foreach ($quote as $qt) {
-                        //Cập nhật tồn kho
-                        $product = Products::where('id', $qt->product_id)->first();
-                        $product->product_inventory = $product->product_inventory - $qt->product_qty;
-                        $product->save();
+                $productIds = $quote->pluck('product_id');
+                $quoteExport = QuoteExport::whereIn('product_id', $productIds)->get();
+                if ($quoteExport->isEmpty()) {
+                    HistoryImport::where('detailImport_id', $detail->id)->delete();
+                    if ($quote) {
+                        foreach ($quote as $qt) {
+                            //Cập nhật tồn kho
+                            $product = Products::where('id', $qt->product_id)->first();
+                            $product->product_inventory = $product->product_inventory - $qt->product_qty;
+                            $product->save();
+                            if ($product->product_inventory == 0) {
+                                $product->delete();
+                            }
+                        }
                     }
-                }
-                QuoteImport::where('detailimport_id', $detail->id)->delete();
+                    QuoteImport::where('detailimport_id', $detail->id)->delete();
 
-                // Xóa đơn mua hàng
-                $detail->delete();
-                $result = [
-                    'status' => true,
-                    'msg' => 'Xóa đơn mua hàng thành công !'
-                ];
+                    // Xóa đơn mua hàng
+                    $detail->delete();
+                    $result = [
+                        'status' => true,
+                        'msg' => 'Xóa đơn mua hàng thành công !'
+                    ];
+                } else {
+                    $result = [
+                        'status' => false,
+                        'msg' => 'Sản phẩm đang được bán ở đơn bán hàng!'
+                    ];
+                }
             } else {
                 $result = [
                     'status' => false,

@@ -100,7 +100,7 @@ class DetailExport extends Model
             'total_price' => $totalBeforeTax,
             'total_tax' => $totalTax,
             'discount' => $data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']),
-            'amount_owed' => $totalBeforeTax + $totalTax,
+            'amount_owed' => ($totalBeforeTax + $totalTax) - ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher'])),
             'guest_name' => $data['guestName'],
             'represent_name' => $data['representName'],
         ];
