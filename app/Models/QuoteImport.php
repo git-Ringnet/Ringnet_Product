@@ -56,8 +56,32 @@ class QuoteImport extends Model
     public function addQuoteImport($data, $id)
     {
         for ($i = 0; $i < count($data['product_name']); $i++) {
+            $checkProductName = Products::where('product_name', $data['product_name'][$i])->first();
+            if (!$checkProductName) {
+                $productData  = [
+                    'product_code' => $data['product_code'][$i],
+                    'product_name' => $data['product_name'][$i],
+                    'product_unit' => $data['product_unit'][$i],
+                    'product_price_import' => str_replace(',', '', $data['price_export'][$i]),
+                    'product_tax' => $data['product_tax'][$i],
+                    'check_seri' => 1,
+                    'product_inventory' => $data['product_qty'][$i],
+                    'product_trade' => 0,
+                    'product_available' => 0,
+                    'workspace_id' => Auth::user()->current_workspace,
+                    'type' => 1,
+                    'created_at' => Carbon::now(),
+                    'user_id' => Auth::user()->id
+                ];
+                $productId = DB::table('products')->insertGetId($productData);
+            } else {
+                $checkProductName->product_inventory += $data['product_qty'][$i];
+                $checkProductName->save();
+                $productId = $checkProductName->id;
+            }
             $dataQuote = [
                 'detailimport_id' => $id,
+                'product_id' => $productId,
                 'product_code' => $data['product_code'][$i],
                 'product_name' => $data['product_name'][$i],
                 'product_unit' => $data['product_unit'][$i],
@@ -99,7 +123,6 @@ class QuoteImport extends Model
                 DB::table('history_import')->insert($dataHistory);
             }
         }
-        // return $result;
     }
 
 

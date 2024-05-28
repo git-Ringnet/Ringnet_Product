@@ -364,6 +364,7 @@ function addRowTable(status) {
         "</ul>" +
         "</td>" +
         '<td class="border-right p-2 text-13 align-top position-relative border-bottom border-top-0"> ' +
+        '<input type="hidden" name="product_id[]" class="product_id border-0 px-2 py-1 w-100 height-32" value=""></input>' +
         '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-2 py-1 w-100 height-32" name="product_name[]">' +
         '<ul id="listProductName" class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
         "</ul>" +

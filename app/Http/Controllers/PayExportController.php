@@ -110,10 +110,10 @@ class PayExportController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(string $workspace, Request $request)
+    public function store(Request $request)
     {
-        $pay_id = $this->payExport->addPayExport($request->all());
-        $this->productPay->addProductPay($request->all(), $pay_id);
+        $pay_id = $this->payExport->addPayExport($request->all(), $request->detailexport_id);
+        $this->productPay->addProductPay($request->all(), $pay_id, $request->detailexport_id);
         $arrCapNhatKH = [
             'name' => 'TT',
             'des' => 'Xác nhận'
@@ -124,9 +124,9 @@ class PayExportController extends Controller
         }
         $this->userFlow->addUserFlow($arrCapNhatKH);
         if ($request->redirect == 'payExport') {
-            return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', ' Tạo đơn thanh toán hàng thành công !');
+            return redirect()->route('detailExport.index')->with('msg', ' Tạo đơn thanh toán hàng thành công !');
         } else {
-            return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', ' Tạo đơn thanh toán hàng thành công !');
+            return redirect()->route('payExport.index')->with('msg', ' Tạo đơn thanh toán hàng thành công !');
         }
     }
 
@@ -243,11 +243,9 @@ class PayExportController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $workspace, string $id)
+    public function edit(string $id)
     {
         $title = "Thanh toán bán hàng";
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $payExport = PayExport::where('pay_export.id', $id)
             ->where('pay_export.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
@@ -323,13 +321,13 @@ class PayExportController extends Controller
             ->select('history_payment_export.*', 'pay_export.code_payment', 'history_payment_export.payment_type')
             ->orderBy('history_payment_export.created_at', 'desc')
             ->get();
-        return view('tables.export.pay_export.edit', compact('title', 'payExport', 'product', 'history', 'thanhToan', 'noConLaiValue', 'workspacename'));
+        return view('tables.export.pay_export.edit', compact('title', 'payExport', 'product', 'history', 'thanhToan', 'noConLaiValue'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace, Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         if ($request->action == "action_1") {
             $payExport = PayExport::find($id);
@@ -341,9 +339,9 @@ class PayExportController extends Controller
                 ];
                 $this->userFlow->addUserFlow($arrCapNhatKH);
                 if ($request->redirect == 'payExport') {
-                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xác nhận thanh toán thành công!');
+                    return redirect()->route('detailExport.index')->with('msg', 'Xác nhận thanh toán thành công!');
                 } else {
-                    return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xác nhận thanh toán thành công!');
+                    return redirect()->route('payExport.index')->with('msg', 'Xác nhận thanh toán thành công!');
                 }
             }
         }
@@ -358,14 +356,14 @@ class PayExportController extends Controller
                 'des' => 'Xóa đơn thanh toán'
             ];
             $this->userFlow->addUserFlow($arrCapNhatKH);
-            return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn thanh toán thành công!');
+            return redirect()->route('payExport.index')->with('msg', 'Xóa đơn thanh toán thành công!');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $workspace, string $id)
+    public function destroy(string $id)
     {
         $this->payExport->deletePayExport($id);
         $table_id = $id;
@@ -376,7 +374,7 @@ class PayExportController extends Controller
             'des' => 'Xóa đơn thanh toán'
         ];
         $this->userFlow->addUserFlow($arrCapNhatKH);
-        return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn thanh toán thành công!');
+        return redirect()->route('payExport.index')->with('msg', 'Xóa đơn thanh toán thành công!');
     }
 
     public function getInfoPay(Request $request)

@@ -104,7 +104,7 @@
                                         </div>
                                         <div class="scrollbar">
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-date"
-                                                data-button="date" type="button">Ngày báo giá
+                                                data-button="date" type="button">Ngày bán hàng
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-quotenumber" data-button="quotenumber" type="button">Số báo
@@ -183,39 +183,29 @@
                                                 class="height-52">
                                                 <input type="checkbox" name="all" id="checkall">
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 14%;">
+                                            <th scope="col" class="height-52" style="width: 18%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
-                                                            Số báo giá#
+                                                            Mã bán hàng#
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 12%;">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="reference_number" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Số tham
-                                                            chiếu</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-reference_number"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52" style="width: 10%;">
+                                            <th scope="col" class="height-52" style="width: 18%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="ngayBG" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
-                                                            Ngày báo giá
+                                                            Ngày bán hàng
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-ngayBG"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 14%;">
+                                            <th scope="col" class="height-52" style="width: 18%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="guest_name_display"
@@ -227,7 +217,7 @@
                                                 </span>
                                             </th>
                                             @can('isAdmin')
-                                                <th scope="col" class="height-52" style="width: 10%;">
+                                                <th scope="col" class="height-52" style="width: 15%;">
                                                     <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link btn-submit" data-sort-by=""
                                                             data-sort-type="DESC">
@@ -239,7 +229,7 @@
                                                     </span>
                                                 </th>
                                             @endcan
-                                            <th scope="col" class="height-52" style="width: 8%;">
+                                            <th scope="col" class="height-52" style="width: 15%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_pay" data-sort-type="DESC">
@@ -295,10 +285,6 @@
                                                             data-des="Xem đơn báo giá">{{ $value_export->quotation_number }}</a>
                                                     </div>
                                                 </td>
-                                                <td
-                                                    class="text-13-black max-width120 text-left border-top-0 border-bottom">
-                                                    {{ $value_export->reference_number }}
-                                                </td>
                                                 <td class="text-13-black text-left border-top-0 border-bottom">
                                                     {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
                                                 <td
@@ -347,7 +333,7 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    {{ number_format($value_export->total_price + $value_export->total_tax) }}
+                                                    {{ number_format(($value_export->total_price + $value_export->total_tax) - $value_export->discount)}}
                                                 </td>
                                                 <td
                                                     class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">

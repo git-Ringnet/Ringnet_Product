@@ -36,19 +36,24 @@ class QuoteExport extends Model
         'qty_bill_sale',
         'qty_bill_sale',
         'product_delivery',
+        'promotion',
+        'promotion_type'
     ];
     public function getAllQuoteExport()
     {
         $quoteExport = QuoteExport::all();
         return $quoteExport;
     }
-    public function getProduct(){
+    public function getProduct()
+    {
         return $this->hasOne(Products::class, 'id', 'product_id');
     }
-    public function getDetailExport(){
+    public function getDetailExport()
+    {
         return $this->hasOne(DetailExport::class, 'id', 'detailexport_id');
     }
-    public function getDelivery(){
+    public function getDelivery()
+    {
         return $this->hasOne(Delivery::class, 'id', 'deliver_id');
     }
 
@@ -103,6 +108,8 @@ class QuoteExport extends Model
                     'price_import' => $priceImport,
                     'workspace_id' => Auth::user()->current_workspace,
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                    'promotion' => isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
+                    'promotion_type' => $data['promotion_type'][$i],
                     'user_id' => Auth::user()->id,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
@@ -124,12 +131,18 @@ class QuoteExport extends Model
                     'price_import' => $priceImport,
                     'workspace_id' => Auth::user()->current_workspace,
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                    'promotion' => isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
+                    'promotion_type' => $data['promotion_type'][$i],
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                     'user_id' => Auth::user()->id,
                     'status' => 1,
                 ];
                 DB::table($this->table)->insert($dataQuote);
+                //Cập nhật tồn kho sản phẩm
+                $product = Products::where('id', $data['product_id'][$i])->first();
+                $product->product_inventory = $product->product_inventory - $data['product_qty'][$i];
+                $product->save();
             }
         }
     }
@@ -300,6 +313,10 @@ class QuoteExport extends Model
                             'user_id' => Auth::user()->id,
                         ];
                         DB::table($this->table)->insert($dataQuote);
+                        //Cập nhật tồn kho sản phẩm
+                        $product = Products::where('id', $data['product_id'][$i])->first();
+                        $product->product_inventory = $product->product_inventory - $data['product_qty'][$i];
+                        $product->save();
                     }
                 }
             }

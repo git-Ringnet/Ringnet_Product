@@ -26,7 +26,6 @@ use App\Models\userFlow;
 use App\Models\Workspace;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
-use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -126,18 +125,13 @@ class DetailExportController extends Controller
     {
         $export_id = $this->detailExport->addExport($request->all());
         $this->quoteExport->addQuoteExport($request->all(), $export_id);
+        $pay_id = $this->payExport->addPayExport($request->all(), $export_id);
+        $this->productPay->addProductPay($request->all(), $pay_id, $export_id);
         $arrLuuNhap = [
             'name' => 'BG',
-            'des' => 'Lưu nháp'
+            'des' => 'Xác nhận bán hàng'
         ];
         $this->userFlow->addUserFlow($arrLuuNhap);
-        $dateForms = $request->idDate;
-        $fieldDates = $request->fieldDate;
-        $guestId = $request->guest_id;
-        foreach ($dateForms as $key => $dateFormId) {
-            $formField = $fieldDates[$key];
-            $this->guest_dateForm->insertFormGuest($guestId, $dateFormId, $formField);
-        }
         if ($request->excel_export == 1) {
             // Sau khi lưu xong tất cả thông tin, set session export_id
             $request->session()->put('excel_info.export_id', $export_id);
@@ -146,7 +140,7 @@ class DetailExportController extends Controller
             // Sau khi lưu xong tất cả thông tin, set session export_id
             $request->session()->put('pdf_info.export_id', $export_id);
         }
-        return redirect()->route('detailExport.index')->with('msg', 'Tạo mới đơn báo giá thành công!');
+        return redirect()->route('detailExport.index')->with('msg', 'Tạo mới đơn bán hàng thành công!');
     }
 
     public function downloadExcel()
@@ -275,7 +269,7 @@ class DetailExportController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace, Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         $detailExport = DetailExport::find($id);
         //Đơn báo giá
@@ -290,15 +284,15 @@ class DetailExportController extends Controller
                     $formField = $fieldDates[$key];
                     $this->guest_dateForm->insertFormGuest($guestId, $dateFormId, $formField);
                 }
-                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Cập nhật đơn báo giá thành công!');
+                return redirect()->route('detailExport.index')->with('msg', 'Cập nhật đơn báo giá thành công!');
             } else {
                 if ($detailExport) {
                     $detailExport->reference_number = $request->reference_number;
                     $detailExport->created_at = $request->date_quote;
                     $detailExport->save();
-                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Cập nhật đơn báo giá thành công!');
+                    return redirect()->route('detailExport.index')->with('msg', 'Cập nhật đơn báo giá thành công!');
                 } else {
-                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Không tìm thấy đơn báo giá!');
+                    return redirect()->route('detailExport.index')->with('warning', 'Không tìm thấy đơn báo giá!');
                 }
             }
         }
@@ -324,11 +318,11 @@ class DetailExportController extends Controller
             ];
             $this->userFlow->addUserFlow($arrCapNhatKH);
             if ($getProductQuote->isEmpty()) {
-                return redirect()->route('delivery.index', ['workspace' => $workspace])->with('warning', 'Đơn giao hàng đã tạo hết!');
+                return redirect()->route('delivery.index')->with('warning', 'Đơn giao hàng đã tạo hết!');
             } else {
                 return view('tables.export.delivery.create-delivery', [
                     'active' => 'active', 'yes' => $yes, 'getInfoQuote' => $getInfoQuote, 'getGuestbyId' => $getGuestbyId, 'getRepresentbyId' => $getRepresentbyId, 'data' => $data, 'title' => $title, 'numberQuote' => $numberQuote,
-                    'product' => $product, 'getProductQuote' => $getProductQuote, 'workspacename' => $workspace
+                    'product' => $product, 'getProductQuote' => $getProductQuote
                 ]);
             }
         }
@@ -353,9 +347,9 @@ class DetailExportController extends Controller
             ];
             $this->userFlow->addUserFlow($arrCapNhatKH);
             if ($getInfoDelivery->isEmpty()) {
-                return redirect()->route('billSale.index', ['workspace' => $workspace])->with('warning', 'Hóa đơn bán hàng đã được tạo hết!');
+                return redirect()->route('billSale.index')->with('warning', 'Hóa đơn bán hàng đã được tạo hết!');
             } else {
-                return view('tables.export.bill_sale.create-billSale', ['yes' => $yes, 'getInfoDelivery' => $getInfoDelivery, 'getGuestbyId' => $getGuestbyId, 'getRepresentbyId' => $getRepresentbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport, 'workspacename' => $workspace]);
+                return view('tables.export.bill_sale.create-billSale', ['yes' => $yes, 'getInfoDelivery' => $getInfoDelivery, 'getGuestbyId' => $getGuestbyId, 'getRepresentbyId' => $getRepresentbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
             }
         }
         //Thanh toán
@@ -379,9 +373,9 @@ class DetailExportController extends Controller
             ];
             $this->userFlow->addUserFlow($arrCapNhatKH);
             if ($delivery->isEmpty()) {
-                return redirect()->route('payExport.index', ['workspace' => $workspace])->with('warning', 'Thanh toán bán hàng đã được tạo hết!');
+                return redirect()->route('payExport.index')->with('warning', 'Thanh toán bán hàng đã được tạo hết!');
             } else {
-                return view('tables.export.pay_export.create-payExport', ['yes' => $yes, 'delivery' => $delivery, 'getGuestbyId' => $getGuestbyId, 'getRepresentbyId' => $getRepresentbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport, 'workspacename' => $workspace]);
+                return view('tables.export.pay_export.create-payExport', ['yes' => $yes, 'delivery' => $delivery, 'getGuestbyId' => $getGuestbyId, 'getRepresentbyId' => $getRepresentbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
             }
         }
         //Xóa đơn báo giá
@@ -394,6 +388,7 @@ class DetailExportController extends Controller
                 $detailExport = DetailExport::find($id);
 
                 if ($detailExport) {
+                    $this->detailExport->deleteDetailExport($id);
                     $table_id = $id;
                     $table_name = 'BG';
                     $this->attachment->deleteFileAll($table_id, $table_name);
@@ -403,14 +398,12 @@ class DetailExportController extends Controller
                         'des' => 'Xóa đơn báo giá'
                     ];
                     $this->userFlow->addUserFlow($arrCapNhatKH);
-                    QuoteExport::where('detailexport_id', $id)->delete();
-                    $detailExport->delete();
-                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn bán hàng thành công!');
+                    return redirect()->route('detailExport.index')->with('msg', 'Xóa đơn bán hàng thành công!');
                 } else {
-                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Không tìm thấy đơn bán hàng để xóa!');
+                    return redirect()->route('detailExport.index')->with('warning', 'Không tìm thấy đơn bán hàng để xóa!');
                 }
             } else {
-                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Xóa đơn bán hàng thất bại!');
+                return redirect()->route('detailExport.index')->with('warning', 'Xóa đơn bán hàng thất bại!');
             }
         }
         //Đơn mua hàng
@@ -425,7 +418,7 @@ class DetailExportController extends Controller
                 'des' => 'Tạo đơn mua hàng'
             ];
             $this->userFlow->addUserFlow($arrCapNhatKH);
-            return view('tables.import.insertImport', ['dataImport' => $dataImport, 'title' => $title, 'provides' => $provides, 'project' => $project, 'workspacename' => $workspace]);
+            return view('tables.import.insertImport', ['dataImport' => $dataImport, 'title' => $title, 'provides' => $provides, 'project' => $project]);
         }
     }
 
@@ -442,8 +435,7 @@ class DetailExportController extends Controller
             $detailExport = DetailExport::find($id);
 
             if ($detailExport) {
-                QuoteExport::where('detailexport_id', $id)->delete();
-                $detailExport->delete();
+                $this->detailExport->deleteDetailExport($id);
                 $table_id = $id;
                 $table_name = 'BG';
                 $this->attachment->deleteFileAll($table_id, $table_name);

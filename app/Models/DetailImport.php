@@ -69,7 +69,7 @@ class DetailImport extends Model
     {
         return DB::table($this->table)->get();
     }
-    
+
 
 
     public function addImport($data)
@@ -108,7 +108,7 @@ class DetailImport extends Model
             'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
             'status_receive' => 0,
             'status_reciept' => 0,
-            'status_pay' => 0,
+            'status_pay' => 3,
             'terms_pay' => $data['terms_pay'],
             'workspace_id' => Auth::user()->current_workspace,
             'represent_id' => $data['represent_id'],
@@ -244,19 +244,19 @@ class DetailImport extends Model
         } else {
             $detail = DetailImport::where('id', $id)->first();
             if ($detail) {
-                HistoryImport::where('detailImport_id',$detail->id)->delete();
-                $quote = QuoteImport::where('detailimport_id', $detail->id)->get();
+                HistoryImport::where('detailImport_id', $detail->id)->delete();
+                $quote = QuoteImport::where('detailimport_id', $detail->id)
+                    ->where('version', 1)
+                    ->get();
                 if ($quote) {
                     foreach ($quote as $qt) {
-                        $qt->delete();
+                        //Cập nhật tồn kho
+                        $product = Products::where('id', $qt->product_id)->first();
+                        $product->product_inventory = $product->product_inventory - $qt->product_qty;
+                        $product->save();
                     }
                 }
-
-                // Xóa file đính kèm
-                // DB::table('attachment')->where('table_id', $detail->id)
-                //     ->where('table_name', 'DMH')
-                //     ->where('workspace_id', Auth::user()->current_workspace)
-                //     ->delete();
+                QuoteImport::where('detailimport_id', $detail->id)->delete();
 
                 // Xóa đơn mua hàng
                 $detail->delete();

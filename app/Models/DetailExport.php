@@ -69,13 +69,21 @@ class DetailExport extends Model
         $totalTax = 0;
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
+            $promotion = isset($data['promotion'][$i]) && $data['promotion'][$i] !== '' ? str_replace(',', '', $data['promotion'][$i]) : 0;
             $tax = 0;
+
             if ($data['product_tax'][$i] == 99) {
                 $tax = 0;
             } else {
                 $tax = $data['product_tax'][$i];
             }
-            $subtotal = $data['product_qty'][$i] * (float) $price;
+            if ($data['promotion_type'][$i] == 1) {
+                $subtotal = ($data['product_qty'][$i] * (float) $price) - $promotion;
+            } else if ($data['promotion_type'][$i] == 2) {
+                $subtotal = ($data['product_qty'][$i] * (float) $price) - ($data['product_qty'][$i] * (float) $price * $promotion) / 100;
+            } else {
+                $subtotal = $data['product_qty'][$i] * (float) $price;
+            }
             $subTax = ($subtotal * $tax) / 100;
             $totalBeforeTax += $subtotal;
             $totalTax += $subTax;
@@ -85,21 +93,14 @@ class DetailExport extends Model
             'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,
             'user_id' => Auth::user()->id,
             'represent_id' => $data['represent_guest_id'],
-            'reference_number' => $data['reference_number'],
-            'price_effect' => $data['price_effect'],
-            'status' => 1,
-            'status_receive' => 0,
-            'status_reciept' => 0,
-            'status_pay' => 0,
+            'status' => 2,
+            'status_pay' => 1,
             'workspace_id' => Auth::user()->current_workspace,
             'created_at' => $data['date_quote'] == null ? now() : $data['date_quote'],
             'total_price' => $totalBeforeTax,
-            'terms_pay' => $data['terms_pay'],
             'total_tax' => $totalTax,
+            'discount' => $data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']),
             'amount_owed' => $totalBeforeTax + $totalTax,
-            'goods' => $data['goods'],
-            'delivery' => $data['delivery'],
-            'location' => $data['location'],
             'guest_name' => $data['guestName'],
             'represent_name' => $data['representName'],
         ];
@@ -323,5 +324,19 @@ class DetailExport extends Model
         }
         $detaiExport = $detaiExport->pluck('reference_number')->all();
         return $detaiExport;
+    }
+    //
+    public function deleteDetailExport($id)
+    {
+        $detailExport = DetailExport::find($id);
+        //Cập nhật tồn kho sản phẩm
+        $quoteExports = QuoteExport::where('detailexport_id', $id)->where('status', 1)->get();
+        foreach ($quoteExports as $quoteExport) {
+            $product = Products::where('id', $quoteExport->product_id)->first();
+            $product->product_inventory = $product->product_inventory + $quoteExport->product_qty;
+            $product->save();
+        }
+        QuoteExport::where('detailexport_id', $id)->delete();
+        $detailExport->delete();
     }
 }

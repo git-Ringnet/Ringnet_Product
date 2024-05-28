@@ -7,9 +7,7 @@ use App\Models\DateForm;
 use App\Models\DetailImport;
 use App\Models\GuestFormDate;
 use App\Models\HistoryImport;
-use App\Models\HistoryPaymentOrder;
 use App\Models\PayOder;
-use App\Models\ProductCode;
 use App\Models\ProductImport;
 use App\Models\Products;
 use App\Models\Project;
@@ -19,7 +17,6 @@ use App\Models\QuoteImport;
 use App\Models\Receive_bill;
 use App\Models\Reciept;
 use App\Models\Serialnumber;
-use App\Models\User;
 use App\Models\userFlow;
 use App\Models\Workspace;
 use Carbon\Carbon;
@@ -27,7 +24,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Storage;
 
 class DetailImportController extends Controller
 {
@@ -77,7 +73,7 @@ class DetailImportController extends Controller
     public function create()
     {
         $title = "Tạo đơn mua hàng";
-        $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+        $provides = Provides::all();
         $project = Project::all();
         return view('tables.import.insertImport', compact('title', 'provides', 'project'));
     }
@@ -90,10 +86,9 @@ class DetailImportController extends Controller
         // Thêm thông tin đơn hàng
         $result = $import_id = $this->detailImport->addImport($request->all());
         if ($result['status']) {
-            // Thêm sản phẩm vào tồn kho
-            $this->product->addProductDefault($request->all());
+            // 
             $import_id = $result['detail_id'];
-            // Thêm sản phẩm theo đơn hàng, thêm vào lịch sử
+            // Thêm sản phẩm theo đơn hàng, thêm vào lịch sử, Thêm sản phẩm vào tồn kho
             $this->quoteImport->addQuoteImport($request->all(), $import_id);
             return redirect()->route('import.index')->with('msg', 'Tạo mới đơn nhập hàng thành công !');
         } else {
@@ -104,7 +99,7 @@ class DetailImportController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $workspace, string $id)
+    public function show(string $id)
     {
         $import = DetailImport::where('id', $id);
         if (Auth::check()) {
@@ -128,14 +123,14 @@ class DetailImportController extends Controller
 
             return view('tables.import.showImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename'));
         } else {
-            return redirect()->route('import.index', $workspacename)->with('warning', 'Không tìm thấy trang hợp lệ !');
+            return redirect()->route('import.index')->with('warning', 'Không tìm thấy trang hợp lệ !');
         }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $workspace, string $id)
+    public function edit(string $id)
     {
         $import = DetailImport::where('id', $id);
         if (Auth::check()) {
@@ -171,21 +166,21 @@ class DetailImportController extends Controller
                 ->get();
             return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay'));
         } else {
-            return redirect()->route('import.index', $workspacename)->with('warning', 'Không tìm thấy trang hợp lệ !');
+            return redirect()->route('import.index')->with('warning', 'Không tìm thấy trang hợp lệ !');
         }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace, Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         $title = "";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($request->action == 'action_1') {
             if ($this->detailImport->checkStatus($id) == false) {
-                return redirect()->route('import.index', $workspacename)->with('warning', 'Không tìm thấy đơn hàng cần chỉnh sửa !');
+                return redirect()->route('import.index')->with('warning', 'Không tìm thấy đơn hàng cần chỉnh sửa !');
             } else {
                 // Cập nhật thông tin đơn hàng
                 $this->detailImport->updateImport($request->all(), $id, 1);
@@ -196,14 +191,14 @@ class DetailImportController extends Controller
                     // Lưu lịch sử
                     $this->history_import->addHistoryImport($request->all(), $id);
                 }
-                return redirect()->route('import.index', $workspacename)->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
+                return redirect()->route('import.index')->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
             }
         } else if ($request->action == 'action_2') {
             $receiver_bill = $this->receiver_bill->getProduct_receive($request->detail_id);
             $show_receive = $this->receiver_bill->show_receive($request->detail_id);
             $data = $request->all();
             if ($receiver_bill['quoteImport']->isEmpty()) {
-                return redirect()->route('import.index', $workspacename)->with('warning', 'Đã tạo hết đơn nhận hàng !');
+                return redirect()->route('import.index')->with('warning', 'Đã tạo hết đơn nhận hàng !');
             } else {
                 $title = "Tạo đơn nhận hàng";
                 $listDetail = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
@@ -220,7 +215,7 @@ class DetailImportController extends Controller
             $show_receive = $this->receiver_bill->show_receive($request->detail_id);
             $title = "Tạo mới hóa đơn mua hàng";
             if ($recieptProduct->isEmpty()) {
-                return redirect()->route('import.index', $workspacename)->with('warning', 'Hóa đơn đã được tạo hết !');
+                return redirect()->route('import.index')->with('warning', 'Hóa đơn đã được tạo hết !');
             } else {
                 $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
                     ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.reciept_qty,0)'))
@@ -234,12 +229,12 @@ class DetailImportController extends Controller
         } else {
             $checkPay = PayOder::where('detailimport_id', $request->detail_id)->first();
             if ($checkPay) {
-                return redirect()->route('import.index', $workspacename)->with('warning', 'Thanh toán mua hàng đã được tạo !');
+                return redirect()->route('import.index')->with('warning', 'Thanh toán mua hàng đã được tạo !');
             } else {
                 $getPaymentOrder = $this->payment->getPaymentOrder($request->detail_id);
                 $show_receive = $this->receiver_bill->show_receive($request->detail_id);
                 if ($getPaymentOrder->isEmpty()) {
-                    return redirect()->route('import.index', $workspacename)->with('warning', 'Hóa đơn thanh toán đã được tạo hết!');
+                    return redirect()->route('import.index')->with('warning', 'Hóa đơn thanh toán đã được tạo hết!');
                 } else {
                     $title = "Tạo mới hóa đơn thanh toán";
                     $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
@@ -258,7 +253,7 @@ class DetailImportController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $workspace, string $id)
+    public function destroy(string $id)
     {
         $status = $this->detailImport->deleteDetail($id);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
@@ -271,9 +266,9 @@ class DetailImportController extends Controller
             ];
             DB::table('user_flow')->insert($dataUserFlow);
             $this->attachment->deleteFileAll($id, 'DMH');
-            return redirect()->route('import.index', $workspacename)->with('msg', 'Xóa đơn mua hàng thành công !');
+            return redirect()->route('import.index')->with('msg', 'Xóa đơn mua hàng thành công !');
         } else {
-            return redirect()->route('import.index', $workspacename)->with('warning', $status['msg']);
+            return redirect()->route('import.index')->with('warning', $status['msg']);
         }
     }
     // Hiển thị thông tin nhà cung cấp theo id đã chọn

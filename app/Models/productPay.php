@@ -21,12 +21,12 @@ class productPay extends Model
     ];
     protected $table = 'product_pay';
 
-    public function addProductPay($data, $id)
+    public function addProductPay($data, $id, $export_id)
     {
         for ($i = 0; $i < count($data['product_name']); $i++) {
             if ($data['product_id'][$i] != null) {
                 $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])
-                    ->where('detailexport_id', $data['detailexport_id'])
+                    ->where('detailexport_id', $export_id)
                     ->where('status', 1)
                     ->first();
                 if ($quoteExport) {

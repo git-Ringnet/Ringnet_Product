@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="quote"></x-navbar>
-<form action="{{ route('detailExport.update', ['detailExport' => $detailExport->maBG]) }}"
-    method="POST" id="formSubmit" enctype="multipart/form-data">
+<form action="{{ route('detailExport.update', ['detailExport' => $detailExport->maBG]) }}" method="POST" id="formSubmit"
+    enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <input type="hidden" name="detail_id" value="{{ $detailExport->maBG }}">
@@ -19,7 +19,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="nearLast-span">Đơn báo giá</span>
+                    <span class="nearLast-span">Đơn bán hàng</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -29,11 +29,6 @@
                         </svg>
                     </span>
                     <span class="last-span">{{ $detailExport->quotation_number }}</span>
-                    @if ($detailExport->tinhTrang == 1)
-                        <span style="color: #858585; font-size:13px;" class="btn-status">Nháp</span>
-                    @else
-                        <span style="color: #0052CC; font-size:13px;" class="btn-status">Chính thức</span>
-                    @endif
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
@@ -87,8 +82,8 @@
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
-                                <svg class="mr-1" width="16" height="16" viewBox="0 0 16 16"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="mr-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M4.82017 6.15415C5.02571 5.94862 5.35895 5.94862 5.56449 6.15415L7.99935 8.58901L10.4342 6.15415C10.6397 5.94862 10.973 5.94862 11.1785 6.15415C11.3841 6.35969 11.3841 6.69294 11.1785 6.89848L8.37151 9.70549C8.16597 9.91103 7.83273 9.91103 7.62719 9.70549L4.82017 6.89848C4.61463 6.69294 4.61463 6.35969 4.82017 6.15415Z"
                                         fill="#6D7075" />
@@ -98,39 +93,6 @@
                             <div class="dropdown-menu"
                                 style="z-index: 9999;width:250px!important;transform: translate3d(-65px, 38px, 0px) !important;">
                                 <ul class="m-0 p-0 scroll-data">
-                                    <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
-                                        <a href="#" onclick="getAction(this)" id="btnNhan">
-                                            <button name="action" value="action_2" type="submit"
-                                                style="background-color: transparent;"
-                                                class="align-items-left h-100 border-0 w-100 rounded hover-button text-center">
-                                                <span style="color: #282A30; font-size:14px">
-                                                    Chuyển đổi thành đơn giao hàng
-                                                </span>
-                                            </button>
-                                        </a>
-                                    </li>
-                                    <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
-                                        <a href="#" onclick="getAction(this)" id="btnHoaDon">
-                                            <button name="action" value="action_3" type="submit"
-                                                style="background-color: transparent;"
-                                                class="align-items-left h-100 border-0 w-100 rounded hover-button">
-                                                <span style="color: #282A30; font-size:14px">
-                                                    Chuyển đổi thành hóa đơn
-                                                </span>
-                                            </button>
-                                        </a>
-                                    </li>
-                                    <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
-                                        <a href="#" onclick="getAction(this)" id="btnThanhToan">
-                                            <button name="action" value="action_4" type="submit"
-                                                style="background-color: transparent;"
-                                                class="align-items-left h-100 border-0 w-100 rounded hover-button">
-                                                <span style="color: #282A30; font-size:14px">
-                                                    Chuyển đổi thành thanh toán
-                                                </span>
-                                            </button>
-                                        </a>
-                                    </li>
                                     <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
                                         <a href="#" onclick="getAction(this)" id="btnMuaHang">
                                             <button name="action" value="action_6" type="submit"
@@ -242,102 +204,6 @@
                         </ul>
                     </div>
                     <div class="d-flex position-fixed" style="right: 10px; top: 70px;">
-                        @if ($detailExport->status_receive == 1 || $detailExport->status_receive == 0)
-                            <div class="border text-secondary p-1 rounded">
-                                <span>
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
-                                            fill="#858585" />
-                                    </svg>
-                                </span>
-                                <span class="text-table">Giao hàng: Chưa giao</span>
-                            </div>
-                        @elseif($detailExport->status_receive == 2)
-                            <div class="border text-success p-1 rounded">
-                                <span>
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                            fill="#08AA36" fill-opacity="0.75" />
-                                    </svg>
-                                </span>
-                                <span class="text-table">Giao hàng: Đã giao</span>
-                            </div>
-                        @elseif($detailExport->status_receive == 3)
-                            <div class="border text-warning p-1 rounded">
-                                <span>
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_1699_20021)">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
-                                                fill="#E8B600" />
-                                            <path
-                                                d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
-                                                fill="#E8B600" />
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_1699_20021">
-                                                <rect width="16" height="16" fill="white" />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </span>
-                                <span class="text-table">Giao hàng: Một phần</span>
-                            </div>
-                        @endif
-                        <div class="line-vertical mx-2 my-1"></div>
-                        @if ($detailExport->status_reciept == 1 || $detailExport->status_reciept == 0)
-                            <div class="border text-secondary p-1 rounded">
-                                <span>
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
-                                            fill="#858585" />
-                                    </svg>
-                                </span>
-                                <span class="text-table">Hóa đơn: Chưa chính thức</span>
-                            </div>
-                        @elseif($detailExport->status_reciept == 2)
-                            <div class="border text-success p-1 rounded">
-                                <span>
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                            fill="#08AA36" fill-opacity="0.75" />
-                                    </svg>
-                                </span>
-                                <span class="text-table">Hóa đơn: Chính thức</span>
-                            </div>
-                        @elseif($detailExport->status_reciept == 3)
-                            <div class="border text-warning p-1 rounded">
-                                <span>
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_1699_20021)">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
-                                                fill="#E8B600" />
-                                            <path
-                                                d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
-                                                fill="#E8B600" />
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_1699_20021">
-                                                <rect width="16" height="16" fill="white" />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </span>
-                                <span class="text-table">Hóa đơn: Một phần</span>
-                            </div>
-                        @endif
-                        <div class="line-vertical mx-2 my-1"></div>
                         @if ($detailExport->status_pay == 1 || $detailExport->status_pay == 0)
                             <div class="border text-secondary p-1 rounded">
                                 <span>
@@ -417,48 +283,55 @@
                                                         style="width:15%;">
                                                         <span class="d-flex justify-content-start text-13">
                                                             Tên sản phẩm
-                                                            <div class="icon" id="icon-created_at"></div>
+                                                            <div class="icon"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border border-right-0"
                                                         style="width:10%;">
                                                         <span class="d-flex justify-content-start text-13">
                                                             Đơn vị
-                                                            <div class="icon" id="icon-created_at"></div>
+                                                            <div class="icon"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border border-right-0"
                                                         style="width:10%;">
                                                         <span class="d-flex justify-content-end text-13">
                                                             Số lượng
-                                                            <div class="icon" id="icon-total"></div>
+                                                            <div class="icon"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border border-right-0"
                                                         style="width:15%;">
                                                         <span class="d-flex justify-content-end text-13">
                                                             Đơn giá
-                                                            <div class="icon" id="icon-total"></div>
+                                                            <div class="icon"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border border-right-0"
                                                         style="width:5%;">
                                                         <span class="d-flex justify-content-center text-13">
                                                             Thuế
-                                                            <div class="icon" id="icon-total"></div>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="border border-right-0"
+                                                        style="width:5%;">
+                                                        <span class="d-flex justify-content-center text-13">
+                                                            Khuyến mãi
+                                                            <div class="icon"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border border-right-0"
                                                         style="width:15%;">
                                                         <span class="d-flex justify-content-end text-13">
                                                             Thành tiền
-                                                            <div class="icon" id="icon-total"></div>
+                                                            <div class="icon"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border border-right-0">
                                                         <span class="d-flex justify-content-start text-13">
                                                             Ghi chú sản phẩm
-                                                            <div class="icon" id="icon-total"></div>
+                                                            <div class="icon"></div>
                                                         </span>
                                                     </th>
                                                 </tr>
@@ -571,6 +444,34 @@
                                                         </td>
                                                         <td
                                                             class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
+                                                            <div class='d-flex align-item-center'>
+                                                                <input type='text' name='promotion[]'
+                                                                    value="{{ number_format($item_quote->promotion) }}"
+                                                                    class='text-right border-0 px-2 py-1 w-100 height-32 promotion'
+                                                                    readonly autocomplete='off'>
+                                                                <span class='mt-1 <?php if ($item_quote->promotion_type == 1) {
+                                                                    echo 'd-none';
+                                                                } ?> percent'>%</span>
+                                                            </div>
+                                                            <div class='text-right'>
+                                                                <select
+                                                                    class='border-0 mt-3 text-13-blue text-center promotion_type'
+                                                                    disabled>
+                                                                    <option value='1' <?php if ($item_quote->promotion_type == 1) {
+                                                                        echo 'selected';
+                                                                    } ?>>Nhập
+                                                                        tiền</option>
+                                                                    <option value='2' <?php if ($item_quote->promotion_type == 2) {
+                                                                        echo 'selected';
+                                                                    } ?>>Nhập %
+                                                                    </option>
+                                                                </select>
+                                                                <input type="hidden" name='promotion_type[]'
+                                                                    value="{{ $item_quote->promotion_type }}">
+                                                            </div>
+                                                        </td>
+                                                        <td
+                                                            class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
                                                             <input type="text" readonly=""
                                                                 value="{{ number_format($item_quote->product_total) }}"
                                                                 class="border-0 px-2 py-1 w-100 total-amount text-right height-32">
@@ -609,6 +510,13 @@
                                                 </span>
                                                 <span id="product-tax" class="text-13-black text-right">0đ</span>
                                             </div>
+                                            <div class="d-flex justify-content-between mt-2 align-items-center">
+                                                <span class="text-13-black">Khuyến mãi:</span>
+                                                <input id="voucher" type="text" name="voucher" readonly
+                                                    value="{{ number_format($detailExport->discount) }}"
+                                                    class="text-right text-13-black border-0 py-1 w-50 height-32"
+                                                    placeholder="Nhập số tiền">
+                                            </div>
                                             <div class="d-flex justify-content-between mt-2">
                                                 <span class="text-13-bold text-lg font-weight-bold">
                                                     Tổng cộng:
@@ -634,7 +542,8 @@
                                     <table class="table table-hover bg-white rounded">
                                         <thead>
                                             <tr style="height:44px;">
-                                                <th scope="col" class="border-bottom-0 border-right" style="padding-left: 2rem;">
+                                                <th scope="col" class="border-bottom-0 border-right"
+                                                    style="padding-left: 2rem;">
                                                     <span class="d-flex justify-content-start text-13">
                                                         Mã sản phẩm
                                                         <div class="icon" id="icon-id"></div>
@@ -643,49 +552,49 @@
                                                 <th scope="col" class="border-bottom-0 border-right">
                                                     <span class="d-flex justify-content-start text-13">
                                                         Tên sản phẩm
-                                                        <div class="icon" id="icon-created_at"></div>
+                                                        <div class="icon"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border-bottom-0 border-right">
                                                     <span class="d-flex justify-content-start text-13">
                                                         Đơn vị
-                                                        <div class="icon" id="icon-created_at"></div>
+                                                        <div class="icon"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border-bottom-0 border-right">
                                                     <span class="d-flex justify-content-end text-13">
                                                         Số lượng
-                                                        <div class="icon" id="icon-total"></div>
+                                                        <div class="icon"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border-bottom-0 border-right">
                                                     <span class="d-flex justify-content-end text-13">
                                                         Đơn giá
-                                                        <div class="icon" id="icon-total"></div>
+                                                        <div class="icon"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border-bottom-0 border-right">
                                                     <span class="d-flex justify-content-center text-13">
                                                         Thuế
-                                                        <div class="icon" id="icon-total"></div>
+                                                        <div class="icon"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border-bottom-0 border-right">
                                                     <span class="d-flex justify-content-end text-13">
                                                         Thành tiền
-                                                        <div class="icon" id="icon-total"></div>
+                                                        <div class="icon"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border-bottom-0 border-right">
                                                     <span class="d-flex justify-content-start text-13">
                                                         Ghi chú sản phẩm
-                                                        <div class="icon" id="icon-total"></div>
+                                                        <div class="icon"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border-bottom-0">
                                                     <span class="d-flex justify-content-start text-13">
                                                         Thời gian chỉnh sửa
-                                                        <div class="icon" id="icon-total"></div>
+                                                        <div class="icon"></div>
                                                     </span>
                                                 </th>
                                             </tr>
@@ -700,7 +609,8 @@
                                                             class="border-0 py-1 w-75 product_code text-left height-32"
                                                             name="product_code[]">
                                                     </td>
-                                                    <td class="border-bottom border-right bg-white align-top text-13-black p-1">
+                                                    <td
+                                                        class="border-bottom border-right bg-white align-top text-13-black p-1">
                                                         <div class="d-flex align-items-center">
                                                             <input type="text"
                                                                 value="{{ $item_history->product_name }}"
@@ -758,7 +668,8 @@
                                                                 class="pl-1 soTonKho">{{ is_int($item_history->product_inventory) ? $item_history->product_inventory : rtrim(rtrim(number_format($item_history->product_inventory, 4, '.', ''), '0'), '.') }}</span>
                                                         </div>
                                                     </td>
-                                                    <td class="border-bottom border-right bg-white align-top text-13-black p-1">
+                                                    <td
+                                                        class="border-bottom border-right bg-white align-top text-13-black p-1">
                                                         <div>
                                                             <input type="text"
                                                                 value="{{ number_format($item_history->price_export) }}"
@@ -773,7 +684,8 @@
                                                             </div>
                                                         </a>
                                                     </td>
-                                                    <td class="border-bottom border-right bg-white align-top text-13-black p-1 text-center">
+                                                    <td
+                                                        class="border-bottom border-right bg-white align-top text-13-black p-1 text-center">
                                                         <select name="product_tax[]"
                                                             class="border-0 text-center height-32" disabled>
                                                             <option value="0" <?php if ($item_history->product_tax == 0) {
@@ -791,12 +703,14 @@
                                                             </option>
                                                         </select>
                                                     </td>
-                                                    <td class="border-bottom border-right bg-white align-top text-13-black text-left p-1">
+                                                    <td
+                                                        class="border-bottom border-right bg-white align-top text-13-black text-left p-1">
                                                         <input type="text" readonly=""
                                                             value="{{ number_format($item_history->product_total) }}"
                                                             class="border-0 px-2 py-1 w-100 text-right height-32">
                                                     </td>
-                                                    <td class="text-center border-bottom border-right bg-white align-top text-13-black p-1">
+                                                    <td
+                                                        class="text-center border-bottom border-right bg-white align-top text-13-black p-1">
                                                         <input type="text"
                                                             class="border-0 py-1 w-100 text-left height-32" readonly
                                                             name="product_note[]"
@@ -805,7 +719,8 @@
                                                     <td style="display:none;" class="">
                                                         <input type="text" class="product_tax1">
                                                     </td>
-                                                    <td class="border-bottom bg-white align-top text-13-black text-left p-1 height-32">
+                                                    <td
+                                                        class="border-bottom bg-white align-top text-13-black text-left p-1 height-32">
                                                         {{ date_format(new DateTime($item_history->ngayChinhSua), 'd-m-Y H:i:s') }}
                                                     </td>
                                                 </tr>
@@ -912,62 +827,16 @@
                         </li>
                         <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
                             style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Số báo giá</span>
+                            <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Mã bán hàng</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
                                 name="quotation_number" value="{{ $detailExport->quotation_number }}" />
                         </li>
                         <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
                             style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
-                                name="reference_number" value="{{ $detailExport->reference_number }}" />
-                        </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày bán hàng</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest " id="customDateInput"
                                 name="date_quote" style="flex:2;" readonly
                                 value="{{ date_format(new DateTime($detailExport->ngayBG), 'd/m/Y') }}" />
-                        </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo
-                                giá</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest" name="price_effect" readonly
-                                id="myInput" style="flex:2;" value="{{ $detailExport->price_effect }}" />
-
-                        </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest" id="myInput" style="flex:2;"
-                                readonly name="terms_pay" value="{{ $detailExport->terms_pay }}" />
-                        </li>
-                        {{-- <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
-                                id="ProjectInput" value="{{ $detailExport->project_name }}" />
-
-                        </li> --}}
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hàng hóa</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" id="myInput"
-                                readonly name="goods" value="{{ $detailExport->goods }}" />
-
-                        </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Giao hàng</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
-                                name="delivery" id="myInput" value="{{ $detailExport->delivery }}" />
-                        </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-left-0"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa điểm</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;" readonly
-                                name="location" id="myInput" value="{{ $detailExport->location }}" />
                         </li>
                     </ul>
                 </div>
@@ -1206,10 +1075,6 @@
         calculateTotals();
     });
 
-    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap', function() {
-        calculateTotals();
-    });
-
     function calculateTotals() {
         var totalAmount = 0;
         var totalTax = 0;
@@ -1219,7 +1084,10 @@
             var productQty = parseFloat($(this).find('[name^="product_qty"]').val());
             var productPriceElement = $(this).find('[name^="product_price"]');
             var productPrice = 0;
+            var promotionElement = $(this).find('[name^="promotion"]');
+            var promotion = 0;
             var taxValue = parseFloat($(this).find('[name^="product_tax"]').val());
+            var promotionType = parseFloat($(this).find('[name^="promotion_type"]').val());
 
             if (taxValue == 99) {
                 taxValue = 0;
@@ -1230,10 +1098,22 @@
                     productPrice = parseFloat(rawPrice.replace(/,/g, ''));
                 }
             }
+            if (promotionElement.length > 0) {
+                var rawPromotion = promotionElement.val();
+                if (rawPromotion !== "") {
+                    promotion = parseFloat(rawPromotion.replace(/,/g, ''));
+                }
+            }
 
             if (!isNaN(productQty) && !isNaN(taxValue)) {
                 var donGia = productPrice;
                 var rowTotal = productQty * donGia;
+                // Trừ khuyến mãi
+                if (promotionType == "1") {
+                    rowTotal -= promotion;
+                } else if (promotionType == "2") {
+                    rowTotal *= (1 - promotion / 100);
+                }
                 var rowTax = (rowTotal * taxValue) / 100;
 
                 // Làm tròn từng thuế
@@ -1259,8 +1139,9 @@
     }
 
     function calculateGrandTotal(totalAmount, totalTax) {
+        var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
         if (!isNaN(totalAmount) || !isNaN(totalTax)) {
-            var grandTotal = totalAmount + totalTax;
+            var grandTotal = (totalAmount + totalTax) - voucher;
             $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
         }
 
@@ -1295,25 +1176,6 @@
 
         return formattedValue;
     }
-
-    document.getElementById('btnNhan').addEventListener('click', function() {
-        var selects = document.querySelectorAll('.product_tax');
-        selects.forEach(function(select) {
-            select.removeAttribute('disabled');
-        });
-    });
-    document.getElementById('btnHoaDon').addEventListener('click', function() {
-        var selects = document.querySelectorAll('.product_tax');
-        selects.forEach(function(select) {
-            select.removeAttribute('disabled');
-        });
-    });
-    document.getElementById('btnThanhToan').addEventListener('click', function() {
-        var selects = document.querySelectorAll('.product_tax');
-        selects.forEach(function(select) {
-            select.removeAttribute('disabled');
-        });
-    });
 </script>
 </body>
 

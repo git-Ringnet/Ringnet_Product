@@ -16,8 +16,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('guests.create') }}" class="activity mr-3"
-                        data-name1="KH" data-des="Tạo mới">
+                    <a href="{{ route('guests.create') }}" class="activity mr-3" data-name1="KH" data-des="Tạo mới">
                         <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -145,157 +144,58 @@
                         <!-- /.card-header -->
                         <div class="outer2 table-responsive text-nowrap">
                             <table id="example2" class="table table-hover bg-white rounded">
-                                <thead class="border-custom">
-                                    <tr style="height: 44px;">
-                                        <th class="height-52" style="width:5%;padding-left: 2rem;">
+                                <thead class="sticky-head">
+                                    <tr style="height: 44px">
+                                        <th scope="col" class="border-bottom height-52"
+                                            style="padding-left: 2rem;width:5%;">
                                             <input type="checkbox" name="all" id="checkall"
                                                 class="checkall-btn">
                                         </th>
-                                        <th class="height-52" scope="col" style="width: 30%;">
-                                            <span class="d-flex justify-content-start">
+                                        <th scope="col" class="border-bottom height-52" style="width:30%;">
+                                            <span class="d-flex">
                                                 <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_name_display" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Mã</span>
+                                                    data-sort-by="provide_name_display" data-sort-type="DESC">
+                                                    <button class="btn-sort text-13" type="submit">
+                                                        Tên hiển thị
                                                     </button>
                                                 </a>
-                                                <div class="icon" id="icon-guest_name_display"></div>
+                                                <div class="icon" id="icon-provide_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="width: 30%;">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_name_display" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Tên</span>
+                                        <th scope="col" class="border-bottom height-52" style="width:20%;">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link"
+                                                    data-sort-by="provide_name_display" data-sort-type="DESC">
+                                                    <button class="btn-sort text-13" type="submit">
+                                                        Người tạo
                                                     </button>
                                                 </a>
-                                                <div class="icon" id="icon-guest_name_display"></div>
+                                                <div class="icon" id="icon-provide_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="width: 30%;">
-                                            <span class="d-flex justify-content-start">
+                                        <th scope="col" class="border-bottom height-52" style="width:25%;">
+                                            <span class="d-flex">
                                                 <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_name_display" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Địa chỉ</span>
+                                                    data-sort-by="provide_name" data-sort-type="DESC">
+                                                    <button class="btn-sort text-13" type="submit">
+                                                        Mã số thuế
                                                     </button>
                                                 </a>
-                                                <div class="icon" id="icon-guest_name_display"></div>
+                                                <div class="icon" id="icon-provide_name"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="width: 30%;">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_name_display" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Điện thoại</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_name_display"></div>
-                                            </span>
-                                        </th>
-                                        <th class="height-52" scope="col" style="width: 30%;">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_name_display" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Ngày sinh</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_name_display"></div>
-                                            </span>
-                                        </th>
-                                        @can('isAdmin')
-                                            <th class="height-52" scope="col" style="width: 20%;">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit" data-sort-by="name"
-                                                        data-sort-type="DESC">
-                                                        <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Người tạo</span>
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id="icon-name"></div>
-                                                </span>
-                                            </th>
-                                        @endcan
-                                        <th class="height-52" scope="col" style="width: 25%;">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Mã số thuế</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th>
-                                        <th class="height-52" scope="col" style="width: 25%;">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Email</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th>
-                                        <th class="height-52" scope="col" style="width: 25%;">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Fax</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th>
-                                        <th class="height-52" scope="col" style="width: 25%;">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Loại giá</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th>
-                                        <th class="height-52" scope="col" style="width: 25%;">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Định mức nợ</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th>
-                                        <th class="height-52" scope="col" style="width: 25%;">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Công nợ ban đầu</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th>
-                                        <th class="height-52" scope="col">
+                                        <th scope="col" class="border-bottom height-52">
                                             <span class="d-flex justify-content-end">
-                                                <a href="#" class="sort-link btn-submit" data-sort-by="sumDebt"
-                                                    data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Dư nợ</span>
+                                                <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="provide_debt" data-sort-type="DESC">
+                                                    <button class="btn-sort text-13" type="submit">
+                                                        Dư nợ
                                                     </button>
                                                 </a>
-                                                <div class="icon" id="icon-sumDebt"></div>
+                                                <div class="icon" id="icon-provide_debt"></div>
                                             </span>
                                         </th>
+
                                     </tr>
                                 </thead>
                                 <tbody class="tbody-guest">

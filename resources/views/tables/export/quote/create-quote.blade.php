@@ -100,7 +100,7 @@
                                             class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
                                         <span class="text-table text-secondary">Mã sản phẩm</span>
                                     </th>
-                                    <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
+                                    <th class="border-right px-2 p-0 text-left" style="width: 14%;z-index:99;">
                                         <span class="text-table text-secondary">Tên sản phẩm</span>
                                     </th>
                                     <th class="border-right px-2 p-0 text-left" style="width: 8%;">
@@ -109,13 +109,16 @@
                                     <th class="border-right px-2 p-0 text-right" style="width: 10%;">
                                         <span class="text-table text-secondary">Số lượng</span>
                                     </th>
-                                    <th class="border-right px-2 p-0 text-right" style="width: 13%;">
+                                    <th class="border-right px-2 p-0 text-right" style="width: 14%;">
                                         <span class="text-table text-secondary">Đơn giá</span>
                                     </th>
                                     <th class="border-right px-2 p-0 text-center" style="width: 8%;">
                                         <span class="text-table text-secondary">Thuế</span>
                                     </th>
-                                    <th class="border-right px-2 p-0 text-right" style="width: 11%;">
+                                    <th class="border-right px-2 p-0 text-center" style="width: 10%;">
+                                        <span class="text-table text-secondary">Khuyến mãi</span>
+                                    </th>
+                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
                                         <span class="text-table text-secondary">Thành tiền</span>
                                     </th>
                                     <th class="border-right note px-2 p-0 text-left" style="width: 15%;">
@@ -278,6 +281,12 @@
                                 <div class="d-flex justify-content-between mt-2 align-items-center">
                                     <span class="text-13-black">Thuế VAT:</span>
                                     <span id="product-tax" class="text-table">0</span>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2 align-items-center">
+                                    <span class="text-13-black">Khuyến mãi:</span>
+                                    <input id="voucher" type="text" name="voucher"
+                                        class="text-right text-13-black border-0 py-1 w-50 height-32"
+                                        placeholder="Nhập số tiền">
                                 </div>
                                 <div class="d-flex justify-content-between mt-2">
                                     <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
@@ -697,546 +706,46 @@
                                 </li>
                                 <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
                                     style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Số báo giá</span>
+                                    <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Mã bán hàng</span>
                                     <input
                                         class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;"
                                         name="quotation_number" />
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
-                                    <input
-                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
-                                        placeholder="Chọn thông tin" style="flex:2;" name="reference_number" />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày bán hàng</span>
                                     <input type="text" id="datePicker" style="flex:2;"
                                         placeholder="Chọn thông tin"
                                         class="text-13-black w-50 border-0 bg-input-guest">
                                     <input type="hidden" id="hiddenDateInput" name="date_quote" value="">
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest" autocomplete="off"
-                                        placeholder="Chọn thông tin" name="price_effect" id="myInput-quote"
-                                        style="flex:2;"
-                                        value="{{ isset($dataForm['quote']) ? $dataForm['quote']->form_desc : '' }}" />
-                                    <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[quote]"
-                                        value="{{ isset($dataForm['quote']) ? $dataForm['quote']->id : '' }}">
-                                    <input type="hidden" class="nameDateForm" autocomplete="off"
-                                        name="fieldDate[quote]"
-                                        value="{{ isset($dataForm['quote']) ? $dataForm['quote']->form_field : '' }}">
-
-                                    <div id="myUL2"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập hiệu lực "
-                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black"
-                                                    id="companyFilter2">
-                                                <span id="search-icon" class="search-icon"><i
-                                                        class="fas fa-search text-table"
-                                                        aria-hidden="true"></i></span>
-                                            </div>
-                                        </div>
-                                        <ul class="m-0 p-0 scroll-data addDateFormquote">
-                                            @foreach ($date_form as $item)
-                                                @if ($item->form_field == 'quote')
-                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap border-top"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                        <a href="#" title="{{ $item->form_name }}"
-                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
-                                                            id="{{ $item->id }}" name="search-date-form"
-                                                            data-name="quote">
-                                                            <span class="text-13-black"
-                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
-                                                        </a>
-                                                        @if ($item->workspace_id != null)
-                                                            <div class="dropdown">
-                                                                <button type="button" data-toggle="dropdown"
-                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                    <i class="fa-solid fa-ellipsis"></i>
-                                                                </button>
-                                                                <div class="dropdown-menu date-form-setting"
-                                                                    style="z-index: 1000;">
-                                                                    <a class="dropdown-item search-date-form"
-                                                                        data-toggle="modal"
-                                                                        data-target="#formModalquote"
-                                                                        data-name="quote"
-                                                                        data-id="{{ $item->id }}"
-                                                                        id="{{ $item->id }}"><i
-                                                                            class="fa-regular fa-pen-to-square"></i></a>
-                                                                    <a class="dropdown-item delete-item"
-                                                                        href="#" data-id="{{ $item->id }}"
-                                                                        data-name="{{ $item->form_field }}"><i
-                                                                            class="fa-solid fa-trash-can"></i></a>
-                                                                    <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                        id="default-id{{ $item->id }}"
-                                                                        href="#"
-                                                                        data-name="{{ $item->form_field }}"
-                                                                        data-id="{{ $item->id }}">
-                                                                        @if ($item->default_form === 1)
-                                                                            <i class="fa-solid fa-link-slash"></i>
-                                                                        @else
-                                                                            <i class="fa-solid fa-link"></i>
-                                                                        @endif
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                        <a type="button" class="d-flex align-items-center p-2 position-sticky mt-2"
-                                            data-toggle="modal" data-target="#formModalquote"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm hiệu lực báo giá</span>
-                                        </a>
-                                    </div>
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
+                                    <input type="text" id="dayPicker" style="flex:2;"
+                                        placeholder="Chọn thông tin"
+                                        class="text-13-black w-50 border-0 bg-input-guest">
+                                    <input type="hidden" id="hiddenDayInput" name="payment_day" value="">
                                 </li>
-                                <li class="d-flex justify-content-between position-relative py-2 px-3 border-bottom align-items-center text-left"
+                                <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
                                     style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest" id="myInput-payment"
-                                        placeholder="Chọn thông tin" style="flex:2;" name="terms_pay"
-                                        autocomplete="off"
-                                        value="{{ isset($dataForm['payment']) ? $dataForm['payment']->form_desc : '' }}" />
-                                    <input type="hidden" class="idDateForm" autocomplete="off"
-                                        name="idDate[payment]"
-                                        value="{{ isset($dataForm['payment']) ? $dataForm['payment']->id : '' }}">
-                                    <input type="hidden" class="nameDateForm" autocomplete="off"
-                                        name="fieldDate[payment]"
-                                        value="{{ isset($dataForm['payment']) ? $dataForm['payment']->form_field : '' }}">
-
-                                    <div id="myUL1"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập điều khoản"
-                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black"
-                                                    id="companyFilter1">
-                                                <span id="search-icon" class="search-icon"><i
-                                                        class="fas fa-search text-table"
-                                                        aria-hidden="true"></i></span>
-                                            </div>
-                                        </div>
-                                        <ul class="m-0 p-0 scroll-data addDateFormpayment">
-                                            @foreach ($date_form as $item)
-                                                @if ($item->form_field == 'payment')
-                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap border-top"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                        <a href="#" title="{{ $item->form_name }}"
-                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
-                                                            id="{{ $item->id }}" name="search-date-form"
-                                                            data-name="payment">
-                                                            <span class="text-13-black"
-                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
-                                                        </a>
-                                                        @if ($item->workspace_id != null)
-                                                            <div class="dropdown">
-                                                                <button type="button" data-toggle="dropdown"
-                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                    <i class="fa-solid fa-ellipsis"></i>
-                                                                </button>
-                                                                <div class="dropdown-menu date-form-setting"
-                                                                    style="z-index: 1000;">
-                                                                    <a class="dropdown-item search-date-form"
-                                                                        data-toggle="modal"
-                                                                        data-target="#formModalpayment"
-                                                                        data-name="payment"
-                                                                        data-id="{{ $item->id }}"
-                                                                        id="{{ $item->id }}"><i
-                                                                            class="fa-regular fa-pen-to-square"></i></a>
-                                                                    <a class="dropdown-item delete-item"
-                                                                        href="#" data-id="{{ $item->id }}"
-                                                                        data-name="{{ $item->form_field }}"><i
-                                                                            class="fa-solid fa-trash-can"></i></a>
-                                                                    <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                        id="default-id{{ $item->id }}"
-                                                                        href="#"
-                                                                        data-name="{{ $item->form_field }}"
-                                                                        data-id="{{ $item->id }}">
-                                                                        @if ($item->default_form === 1)
-                                                                            <i class="fa-solid fa-link-slash"></i>
-                                                                        @else
-                                                                            <i class="fa-solid fa-link"></i>
-                                                                        @endif
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                        <a type="button" class="d-flex align-items-center p-2 position-sticky mt-2"
-                                            data-toggle="modal" data-target="#formModalpayment"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm điều khoản</span>
-                                        </a>
-                                    </div>
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                                    <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
+                                        style="flex:2;" readonly>
                                 </li>
-                                {{-- <li class="d-flex justify-content-between position-relative py-2 px-3 border-bottom border align-items-center text-left"
+                                <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
                                     style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
-                                        autocomplete="off" placeholder="Chọn thông tin" id="ProjectInput" />
-                                    <input type="hidden" class="idProject" autocomplete="off" name="project_id">
-
-                                    <div id="listProject"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập dự án"
-                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black"
-                                                    id="companyFilter8">
-                                                <span id="search-icon" class="search-icon"><i
-                                                        class="fas fa-search text-table"
-                                                        aria-hidden="true"></i></span>
-                                            </div>
-                                        </div>
-                                        <ul class="m-0 p-0 scroll-data addProjectNew">
-                                            @foreach ($project as $project_value)
-                                                <li class="p-2 align-items-center text-wrap"
-                                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                    <a href="#"
-                                                        class="text-dark d-flex justify-content-between p-2 search-project w-100"
-                                                        id="{{ $project_value->id }}">
-                                                        <span
-                                                            class="text-13-black">{{ $project_value->project_name }}</span>
-                                                    </a>
-                                                    <div class="dropdown">
-                                                        <button type="button" data-toggle="dropdown"
-                                                            class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
-                                                            style="margin-right:10px" aria-expanded="false"><i
-                                                                class="fa-solid fa-ellipsis" aria-hidden="true"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu date-form-setting"
-                                                            style="z-index: 1000;">
-                                                            <a class="dropdown-item delete-project w-50"
-                                                                href="#" data-id="{{ $project_value->id }}">
-                                                                <i class="fa-solid fa-trash-can"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                        <a type="button" class="d-flex align-items-center p-2 position-sticky mt-2"
-                                            data-toggle="modal" data-target="#projectModal"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm dự án</span>
-                                        </a>
-                                    </div>
-                                </li> --}}
-                                <li class="d-flex justify-content-between position-relative py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hàng hóa</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;"
-                                        id="myInput-goods" placeholder="Chọn thông tin" name="goods"
-                                        autocomplete="off"
-                                        value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_desc : '' }}" />
-                                    <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[goods]"
-                                        value="{{ isset($dataForm['goods']) ? $dataForm['goods']->id : '' }}">
-                                    <input type="hidden" class="nameDateForm" autocomplete="off"
-                                        name="fieldDate[goods]"
-                                        value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_field : '' }}">
-
-                                    <div id="myUL4"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập hàng hóa"
-                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black"
-                                                    id="companyFilter4">
-                                                <span id="search-icon" class="search-icon"><i
-                                                        class="fas fa-search text-table"
-                                                        aria-hidden="true"></i></span>
-                                            </div>
-                                        </div>
-                                        <ul class="m-0 p-0 scroll-data addDateFormgoods">
-                                            @foreach ($date_form as $item)
-                                                @if ($item->form_field == 'goods')
-                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap border-top"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                        <a href="#" title="{{ $item->form_name }}"
-                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
-                                                            id="{{ $item->id }}" name="search-date-form"
-                                                            data-name="goods">
-                                                            <span class="text-13-black"
-                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
-                                                        </a>
-                                                        @if ($item->workspace_id != null)
-                                                            <div class="dropdown">
-                                                                <button type="button" data-toggle="dropdown"
-                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                    <i class="fa-solid fa-ellipsis"></i>
-                                                                </button>
-                                                                <div class="dropdown-menu date-form-setting"
-                                                                    style="z-index: 1000;">
-                                                                    <a class="dropdown-item search-date-form"
-                                                                        data-toggle="modal"
-                                                                        data-target="#formModalgoods"
-                                                                        data-name="goods"
-                                                                        data-id="{{ $item->id }}"
-                                                                        id="{{ $item->id }}"><i
-                                                                            class="fa-regular fa-pen-to-square"></i></a>
-                                                                    <a class="dropdown-item delete-item"
-                                                                        href="#" data-id="{{ $item->id }}"
-                                                                        data-name="{{ $item->form_field }}"><i
-                                                                            class="fa-solid fa-trash-can"></i></a>
-                                                                    <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                        id="default-id{{ $item->id }}"
-                                                                        href="#"
-                                                                        data-name="{{ $item->form_field }}"
-                                                                        data-id="{{ $item->id }}">
-                                                                        @if ($item->default_form === 1)
-                                                                            <i class="fa-solid fa-link-slash"></i>
-                                                                        @else
-                                                                            <i class="fa-solid fa-link"></i>
-                                                                        @endif
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                        <a type="button" class="d-flex align-items-center p-2 position-sticky mt-2"
-                                            data-toggle="modal" data-target="#formModalgoods"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm hàng hóa</span>
-                                        </a>
-                                    </div>
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
+                                    <input
+                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
+                                        style="flex:2;" placeholder="Nhập số tiền" name="payment">
                                 </li>
-                                <li class="d-flex justify-content-between position-relative py-2 px-3 border-bottom align-items-center text-left"
+                                <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
                                     style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Giao hàng</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;"
-                                        placeholder="Chọn thông tin" name="delivery" id="myInput-delivery"
-                                        autocomplete="off"
-                                        value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_desc : '' }}" />
-                                    <input type="hidden" class="idDateForm" autocomplete="off"
-                                        name="idDate[delivery]"
-                                        value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->id : '' }}">
-                                    <input type="hidden" class="nameDateForm" autocomplete="off"
-                                        name="fieldDate[delivery]"
-                                        value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_field : '' }}">
-
-                                    <div id="myUL5"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập giao hàng"
-                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black"
-                                                    id="companyFilter5">
-                                                <span id="search-icon" class="search-icon"><i
-                                                        class="fas fa-search text-table"
-                                                        aria-hidden="true"></i></span>
-                                            </div>
-                                        </div>
-                                        <ul class="m-0 p-0 scroll-data2 addDateFormdelivery">
-                                            @foreach ($date_form as $item)
-                                                @if ($item->form_field == 'delivery')
-                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap border-top"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                        <a href="#" title="{{ $item->form_name }}"
-                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
-                                                            id="{{ $item->id }}" name="search-date-form"
-                                                            data-name="delivery">
-                                                            <span class="text-13-black"
-                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
-                                                        </a>
-                                                        @if ($item->workspace_id != null)
-                                                            <div class="dropdown">
-                                                                <button type="button" data-toggle="dropdown"
-                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                    <i class="fa-solid fa-ellipsis"></i>
-                                                                </button>
-                                                                <div class="dropdown-menu date-form-setting"
-                                                                    style="z-index: 1000;">
-                                                                    <a class="dropdown-item search-date-form"
-                                                                        data-toggle="modal"
-                                                                        data-target="#formModaldelivery"
-                                                                        data-name="delivery"
-                                                                        data-id="{{ $item->id }}"
-                                                                        id="{{ $item->id }}"><i
-                                                                            class="fa-regular fa-pen-to-square"></i></a>
-                                                                    <a class="dropdown-item delete-item"
-                                                                        href="#" data-id="{{ $item->id }}"
-                                                                        data-name="{{ $item->form_field }}"><i
-                                                                            class="fa-solid fa-trash-can"></i></a>
-                                                                    <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                        id="default-id{{ $item->id }}"
-                                                                        href="#"
-                                                                        data-name="{{ $item->form_field }}"
-                                                                        data-id="{{ $item->id }}">
-                                                                        @if ($item->default_form === 1)
-                                                                            <i class="fa-solid fa-link-slash"></i>
-                                                                        @else
-                                                                            <i class="fa-solid fa-link"></i>
-                                                                        @endif
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                        <a type="button" class="d-flex align-items-center p-2 position-sticky mt-2"
-                                            data-toggle="modal" data-target="#formModaldelivery"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm giao hàng</span>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li class="d-flex justify-content-between position-relative py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa điểm</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;"
-                                        placeholder="Chọn thông tin" name="location" id="myInput-location"
-                                        autocomplete="off"
-                                        value="{{ isset($dataForm['location']) ? $dataForm['location']->form_desc : '' }}" />
-                                    <input type="hidden" class="idDateForm" autocomplete="off"
-                                        name="idDate[location]"
-                                        value="{{ isset($dataForm['location']) ? $dataForm['location']->id : '' }}">
-                                    <input type="hidden" class="nameDateForm" autocomplete="off"
-                                        name="fieldDate[location]"
-                                        value="{{ isset($dataForm['location']) ? $dataForm['location']->form_field : '' }}">
-
-                                    <div id="myUL6"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest--special z-index-block"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập địa điểm"
-                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black"
-                                                    id="companyFilter6">
-                                                <span id="search-icon" class="search-icon"><i
-                                                        class="fas fa-search text-table"
-                                                        aria-hidden="true"></i></span>
-                                            </div>
-                                        </div>
-                                        <ul class="m-0 p-0 scroll-data2 addDateFormlocation">
-                                            @foreach ($date_form as $item)
-                                                @if ($item->form_field == 'location')
-                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap border-top"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                        <a href="#" title="{{ $item->form_name }}"
-                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
-                                                            id="{{ $item->id }}" name="search-date-form"
-                                                            data-name="location">
-                                                            <span class="text-13-black"
-                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
-                                                        </a>
-                                                        @if ($item->workspace_id != null)
-                                                            <div class="dropdown">
-                                                                <button type="button" data-toggle="dropdown"
-                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                    <i class="fa-solid fa-ellipsis"></i>
-                                                                </button>
-                                                                <div class="dropdown-menu date-form-setting"
-                                                                    style="z-index: 1000;">
-                                                                    <a class="dropdown-item search-date-form"
-                                                                        data-toggle="modal"
-                                                                        data-target="#formModallocation"
-                                                                        data-name="location"
-                                                                        data-id="{{ $item->id }}"
-                                                                        id="{{ $item->id }}"><i
-                                                                            class="fa-regular fa-pen-to-square"></i></a>
-                                                                    <a class="dropdown-item delete-item"
-                                                                        href="#"
-                                                                        data-id="{{ $item->id }}"
-                                                                        data-name="{{ $item->form_field }}"><i
-                                                                            class="fa-solid fa-trash-can"></i></a>
-                                                                    <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                        id="default-id{{ $item->id }}"
-                                                                        href="#"
-                                                                        data-name="{{ $item->form_field }}"
-                                                                        data-id="{{ $item->id }}">
-                                                                        @if ($item->default_form === 1)
-                                                                            <i class="fa-solid fa-link-slash"></i>
-                                                                        @else
-                                                                            <i class="fa-solid fa-link"></i>
-                                                                        @endif
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                        <a type="button" class="d-flex align-items-center p-2 position-sticky mt-2"
-                                            data-toggle="modal" data-target="#formModallocation"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                    height="16" viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm địa điểm</span>
-                                        </a>
+                                    <span class="text-13 text-nowrap" style="flex: 1.5;"></span>
+                                    <div class="text-13 d-flex align-items-center py-2 px-2" style="width: 58%;">
+                                        <input type="checkbox" class="mr-2">
+                                        <span>Thanh toán đủ</span>
                                     </div>
                                 </li>
                             </ul>
@@ -1281,10 +790,40 @@
         defaultDate: new Date(),
         onChange: function(selectedDates, dateStr, instance) {
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
-                "Y-m-d");
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
         }
     });
+
+    flatpickr("#dayPicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        defaultDate: new Date(),
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+        }
+    });
+
+    function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+        // Lấy thời gian hiện tại
+        var currentTime = new Date();
+
+        // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+        var selectedDateTime = new Date(selectedDate);
+        selectedDateTime.setHours(currentTime.getHours());
+        selectedDateTime.setMinutes(currentTime.getMinutes());
+        selectedDateTime.setSeconds(currentTime.getSeconds());
+
+        document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
+    }
     // Số báo giá
     getKeyGuest($('#guest_name_display'));
     //Lấy thông tin project
@@ -1716,6 +1255,17 @@
                 "</select>" +
                 "</td>"
             );
+            const khuyenMai = $(
+                "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
+                "<div class='d-flex align-item-center'>" +
+                "<input type='text' name='promotion[]' class='text-right border-0 px-2 py-1 w-100 height-32 promotion' autocomplete='off'>" +
+                "<span class='mt-2 percent d-none'>%</span>" +
+                "</div>" +
+                "<div class='text-right'>" +
+                "<select name='promotion_type[]' class='border-0 mt-3 text-13-blue text-center promotion_type' required=''><option value='1'>Nhập tiền</option><option value='2'>Nhập %</option></select>" +
+                "</div>" +
+                "</td>"
+            );
             const thanhTien = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
                 "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>" +
@@ -1737,7 +1287,7 @@
             );
             // Gắn các phần tử vào hàng mới
             newRow.append(maSanPham, tenSanPham, dvTinh,
-                soLuong, donGia, thue, thanhTien, ghiChu, option
+                soLuong, donGia, thue, khuyenMai, thanhTien, ghiChu, option
             );
             $("#dynamic-fields").before(newRow);
             // Tăng giá trị fieldCounter
@@ -1894,7 +1444,6 @@
                     var idProduct = $(this).attr('id');
                     var soTonKho = clickedRow.find('.soTonKho');
                     var type = clickedRow.find('.type');
-                    console.log(type);
                     var infoProduct = clickedRow.find('.info-product');
                     var recentModal = clickedRow.find('.recentModal');
                     var inventory = clickedRow.find('.inventory');
@@ -2768,17 +2317,34 @@
     });
 
     //tính thành tiền của sản phẩm
-    $(document).on('input', '.quantity-input, [name^="product_price"]', function(e) {
-        var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
-        var productPrice = parseFloat($(this).closest('tr').find('input[name^="product_price"]').val()
-            .replace(
-                /[^0-9.-]+/g, "")) || 0;
-        updateTaxAmount($(this).closest('tr'));
+    $(document).on('input', '.quantity-input, [name^="product_price"], .promotion, .promotion_type, #voucher', function(
+        e) {
+        var $row = $(this).closest('tr');
+        var productQty = parseFloat($row.find('.quantity-input').val()?.replace(/[^0-9.-]+/g, "")) || 0;
+        var productPrice = parseFloat($row.find('input[name^="product_price"]').val()?.replace(/[^0-9.-]+/g,
+            "")) || 0;
+        var promotionValue = parseFloat($row.find('.promotion').val()?.replace(/[^0-9.-]+/g, "")) || 0;
+        var percent = $row.find('.percent');
+        var promotionType = $row.find('.promotion_type').val();
+
+        updateTaxAmount($row);
+
         if (!isNaN(productQty) && !isNaN(productPrice)) {
-            var totalAmount = productQty * productPrice;
-            $(this).closest('tr').find('.total-amount').val(formatCurrency(Math.round(totalAmount)));
+            var totalAmount;
+            if (promotionType === "1") {
+                // Fixed amount promotion
+                totalAmount = (productQty * productPrice) - promotionValue;
+                percent.hide();
+            } else if (promotionType === "2") {
+                // Percentage promotion
+                totalAmount = (productQty * productPrice) * (1 - promotionValue / 100);
+                percent.show();
+            }
+
+            $row.find('.total-amount').val(formatCurrency(Math.round(totalAmount)));
             calculateTotalAmount();
             calculateTotalTax();
+            calculateGrandTotal();
         }
     });
 
@@ -2786,20 +2352,53 @@
         updateTaxAmount($(this).closest('tr'));
         calculateTotalAmount();
         calculateTotalTax();
+        calculateGrandTotal();
+    });
+
+    $(document).on('change', '.promotion_type', function(e) {
+        var $row = $(this).closest('tr');
+        var promotionType = $row.find('.promotion_type').val();
+
+        $row.find('.promotion').val(''); // Clear only the promotion input field
+
+        if (promotionType === "2") {
+            $row.find('.percent').removeClass('d-none').show(); // Show the percent span
+        } else {
+            $row.find('.percent').addClass('d-none').hide(); // Hide the percent span
+        }
+
+        updateTaxAmount($row);
+        calculateTotalAmount();
+        calculateTotalTax();
+        calculateGrandTotal();
     });
 
     function updateTaxAmount(row) {
         var productQty = parseFloat(row.find('.quantity-input').val());
-        var productPrice = parseFloat(row.find('input[name^="product_price"]').val().replace(/[^0-9.-]+/g, ""));
+        var productPrice = parseFloat(row.find('input[name^="product_price"]').val()?.replace(/[^0-9.-]+/g,
+            "")) || 0;
+        var promotionValue = parseFloat(row.find('.promotion').val()?.replace(/[^0-9.-]+/g, "")) || 0;
+        var promotionType = row.find('.promotion_type').val();
         var taxValue = parseFloat(row.find('.product_tax').val());
         if (taxValue == 99) {
             taxValue = 0;
         }
+
         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
             var totalAmount = productQty * productPrice;
-            var taxAmount = (totalAmount * taxValue) / 100;
 
-            row.find('.product_tax1').text(Math.round(taxAmount));
+            if (promotionType === "1") {
+                // Fixed amount promotion
+                totalAmount -= promotionValue;
+            } else if (promotionType === "2") {
+                // Percentage promotion
+                totalAmount *= (1 - promotionValue / 100);
+            }
+
+            var taxAmount = totalAmount * (taxValue / 100);
+
+            row.find('.total-amount').val(formatCurrency(Math.round(totalAmount)));
+            row.find('.product_tax1').text(formatCurrency(Math.round(taxAmount)));
         }
     }
 
@@ -2826,7 +2425,7 @@
                 totalTax += rowTax;
             }
         });
-        totalTax = Math.round(totalTax); // Làm tròn thành số nguyên
+        totalTax = Math.round(totalTax); // Round to the nearest integer
         $('#product-tax').text(formatCurrency(totalTax));
 
         calculateGrandTotal();
@@ -2835,14 +2434,16 @@
     function calculateGrandTotal() {
         var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
         var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
+        var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
 
-        var grandTotal = totalAmount + totalTax;
-        grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
+        var grandTotal = totalAmount + totalTax - voucher;
+        grandTotal = Math.round(grandTotal);
         $('#grand-total').text(formatCurrency(grandTotal));
+        $('#TongTien').val(formatCurrency(grandTotal));
 
         // Update data-value attribute
         $('#grand-total').attr('data-value', grandTotal);
-        $('#total').val(totalAmount);
+        $('#total').val(grandTotal);
     }
 
     function formatCurrency(value) {
@@ -2885,21 +2486,14 @@
     });
 
     //format giá
-    var inputElement = document.getElementById('product_price');
-    $('body').on('input',
-        '.product_price, #transport_fee, .giaNhap, #voucher',
-        function(event) {
-            // Lấy giá trị đã nhập
-            var value = event.target.value;
-
-            // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
-            var formattedValue = value.replace(/[^0-9.]/g, '');
-
-            // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
-            var formattedNumber = numberWithCommas(formattedValue);
-
-            event.target.value = formattedNumber;
-        });
+    $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher, .promotion', function(event) {
+        var value = event.target.value.replace(/[^0-9.]/g, '');
+        if ($(this).closest('tr').find('.promotion_type').val() === "1") {
+            event.target.value = formatCurrency(parseFloat(value));
+        } else {
+            event.target.value = numberWithCommas(value);
+        }
+    });
 
     function numberWithCommas(number) {
         // Chia số thành phần nguyên và phần thập phân

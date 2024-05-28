@@ -33,7 +33,7 @@ class PayExport extends Model
     public function getHistoryPay()
     {
         return $this->hasOne(history_Pay_Export::class, 'pay_id', 'id')
-        ->orderBy('id','desc');
+            ->orderBy('id', 'desc');
         // ->latest();
     }
     public function checkSL($data)
@@ -48,9 +48,9 @@ class PayExport extends Model
         return $check;
     }
 
-    public function addPayExport($data)
+    public function addPayExport($data, $export_id)
     {
-        $detailExport = DetailExport::find($data['detailexport_id']);
+        $detailExport = DetailExport::find($export_id);
 
         // Ensure numeric values
         $total = isset($data['total']) ? str_replace(',', '', $data['total']) : $detailExport->amount_owed;
@@ -92,17 +92,22 @@ class PayExport extends Model
             }
         }
 
+        $lastPayExportId = DB::table('pay_export')
+            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+            ->max(DB::raw('CAST(SUBSTRING_INDEX(code_payment, "-", -1) AS UNSIGNED)'));
+        $lastPayExportId = $lastPayExportId ? $lastPayExportId + 1 : 1;
+
         $dataPay = [
-            'detailexport_id' => $data['detailexport_id'],
+            'detailexport_id' => $export_id,
             'user_id' => Auth::user()->id,
             'guest_id' => $data['guest_id'],
-            'code_payment' => $data['code_payment'],
+            'code_payment' => isset($data['code_payment']) && $data['code_payment'] != null ? $data['code_payment'] : "MTT-" . $lastPayExportId,
             'payment_date' => $date_pay,
             'total' => $total,
             'payment' => $payment,
             'debt' => $result,
             'payment_day' => $payment_day,
-            'payment_type' => $data['payment_type'],
+            'payment_type' => isset($data['payment_type']) && $data['payment_type'] != null ? $data['payment_type'] : "Tiền mặt",
             'status' => $status,
             'workspace_id' => Auth::user()->current_workspace,
             'created_at' => Carbon::now(),
@@ -144,7 +149,7 @@ class PayExport extends Model
             'total' => $total,
             'user_id' => Auth::user()->id,
             'payment' => $payment,
-            'payment_type' => $data['payment_type'],
+            'payment_type' => isset($data['payment_type']) && $data['payment_type'] != null ? $data['payment_type'] : "Tiền mặt",
             'debt' => $result,
             'workspace_id' => Auth::user()->current_workspace,
             'created_at' => $payment_day,

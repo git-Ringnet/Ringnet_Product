@@ -55,7 +55,7 @@
                                         fill="white"></path>
                                 </svg>
                             </span>
-                            <span class="text-btnIner-primary ml-2">Lưu nháp</span>
+                            <span class="text-btnIner-primary ml-2">Xác nhận</span>
                         </button>
 
                         <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
@@ -176,6 +176,9 @@
                                                 </td>
                                                 <td
                                                     class="border-right p-2 text-13 align-top position-relative border-bottom border-top-0">
+                                                    <input type="hidden" name="product_id[]"
+                                                        class="border-0 px-2 py-1 w-100 height-32 product_id"
+                                                        value="{{ $item->id }}">
                                                     <input id="searchProductName" type="text" name="product_name[]"
                                                         class="searchProductName border-0 px-2 py-1 w-100 height-32"
                                                         value="{{ $item->product_name }}">
@@ -449,7 +452,7 @@
                                 </li>
                                 <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left position-relative border-top-0"
                                     style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã mua hàng</span>
 
                                     <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
                                         name="quotation_number"
@@ -459,92 +462,36 @@
                                 </li>
                                 <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
                                     style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                        placeholder="Nhập thông tin"
-                                        style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                        name="reference_number" />
-                                </li>
-                                <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày mua hàng</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
                                         name="" placeholder="Chọn thông tin" style="flex:2;" id="datePicker"
                                         value="{{ date('Y-m-d') }}" />
                                     <input type="hidden" name="date_quote" id="hiddenDateInput"
                                         value="{{ date('Y-m-d') }}">
                                 </li>
-                                <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left position-relative border-top-0"
+                                <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
                                     style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
-                                        name="price_effect" placeholder="Chọn thông tin" style="flex:2;"
-                                        id="price_effect" readonly />
-                                    <ul id="listPriceEffect"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập hiệu lực"
-                                                    class="pr-4 w-100 input-search bg-input-guest"
-                                                    id="searchPriceEffect">
-                                                <span id="search-icon" class="search-icon">
-                                                    <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <a type="button"
-                                            class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
-                                            data-toggle="modal" data-target="#formModalquote"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm hiệu lực báo giá</span>
-                                        </a>
-                                    </ul>
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
+                                    <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                        name="" placeholder="Chọn thông tin" style="flex:2;" id="dayPicker"
+                                        value="{{ date('Y-m-d') }}" />
+                                    <input type="hidden" name="payment_day" id="hiddenDayInput"
+                                        value="{{ date('Y-m-d') }}">
                                 </li>
-                                <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left position-relative border-top-0"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
-                                        name="terms_pay" id="terms_pay" placeholder="Chọn thông tin" style="flex:2;"
-                                        readonly />
-                                    <ul id="listTermsPay"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập điều khoản"
-                                                    class="pr-4 w-100 input-search bg-input-guest"
-                                                    id="searchTermsPay">
-                                                <span id="search-icon" class="search-icon">
-                                                    <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <a type="button"
-                                            class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
-                                            data-toggle="modal" data-target="#formModalTermPay"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm điều khoản</span>
-                                        </a>
-                                    </ul>
+                                <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left" style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                                    <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien" style="flex:2;" readonly="">
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left" style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
+                                    <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2" style="flex:2;" placeholder="Nhập số tiền">
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left" style="height:44px;">
+                                    <span class="text-13 text-nowrap" style="flex: 1.5;"></span>
+                                    <div class="text-13 d-flex align-items-center py-2 px-2" style="width: 58%;">
+                                        <input type="checkbox" class="mr-2">
+                                        <span>Thanh toán đủ</span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -644,10 +591,40 @@
         defaultDate: new Date(),
         onChange: function(selectedDates, dateStr, instance) {
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
-                "Y-m-d");
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
         }
     });
+
+    flatpickr("#dayPicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        defaultDate: new Date(),
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+        }
+    });
+
+    function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+        // Lấy thời gian hiện tại
+        var currentTime = new Date();
+
+        // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+        var selectedDateTime = new Date(selectedDate);
+        selectedDateTime.setHours(currentTime.getHours());
+        selectedDateTime.setMinutes(currentTime.getMinutes());
+        selectedDateTime.setSeconds(currentTime.getSeconds());
+
+        document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
+    }
     getKeyProvide($('#getKeyProvide'));
     getKeyProvide($('#getKeyProvide1'));
     $(document).click(function(event) {
@@ -1610,6 +1587,7 @@
             inputCode = $(this).closest('tr').find('.searchProduct');
             inputName = $(this).closest('tr').find('.searchProductName');
             inputUnit = $(this).closest('tr').find('.product_unit');
+            inputID = $(this).closest('tr').find('.product_id');
             inputPriceExprot = $(this).closest('tr').find('.price_export');
             inputRatio = $(this).closest('tr').find('.product_ratio');
             inputPriceImport = $(this).closest('tr').find('.price_import');
@@ -1621,21 +1599,22 @@
                     listProductName.empty();
                     data.forEach(element => {
                         var UL = '<li class="w-100">' +
-                            '<a data-unit="' + element
+                            '<a ' +
+                            ' data-unit=' + element
                             .product_unit +
-                            '" data-code="' + element
+                            ' data-code=' + element
                             .product_code +
-                            '" data-priceExport= "' +
+                            ' data-priceExport= ' +
                             element.product_price_export +
-                            '" data-ratio="' + element
+                            ' data-ratio=' + element
                             .product_ratio +
-                            '" data-priceImport="' + element
+                            ' data-priceImport=' + element
                             .product_price_import +
-                            '" href="javascript:void(0)" class="text-dark d-flex w-100 justify-content-between p-2 search-name" id="' +
+                            ' href="javascript:void(0)" class="text-dark d-flex w-100 justify-content-between p-2 search-name" data-id=' +
                             element.id +
-                            '" data-tax="' + element
+                            ' data-tax=' + element
                             .product_tax +
-                            '" name="search-product">' +
+                            ' name="search-product">' +
                             '<span class="w-100 text-13-black" data-id="' +
                             element.id + '">' + element
                             .product_name + '</span>' +
@@ -1647,6 +1626,8 @@
                         var currentTr = $(this);
                         inputCode.val($(this).attr('data-code') == "null" ? "" : $(this)
                             .attr('data-code'));
+                        inputID.val($(this).attr('data-id') == "null" ? "" : $(this)
+                            .attr('data-id'));
                         inputName.val($(this).closest('li').find('span').text());
                         inputUnit.val($(this).attr('data-unit') == "null" ? "" : $(this)
                             .attr('data-unit'));

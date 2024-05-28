@@ -24,7 +24,8 @@ return new class extends Migration
             $table->integer('product_ratio')->nullable();
             $table->decimal('price_import')->nullable();
             $table->string('product_note')->nullable();
-            // $table->unsignedBigInteger('product_id');
+            $table->decimal('promotion', 20, 4)->nullable();
+            $table->integer('promotion_type')->nullable();
             $table->timestamps();
         });
     }
