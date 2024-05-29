@@ -36,7 +36,6 @@ class HistoryPaymentOrder extends Model
                 'debt' => $payment->debt,
                 // 'created_at' => Carbon::now(),
                 'created_at' => isset($data['payment_day']) ? $data['payment_day'] : Carbon::now(),
-                'workspace_id' => Auth::user()->current_workspace,
                 'provide_id' => $payment->provide_id,
                 'payment_type' => isset($data['payment_type']) && $data['payment_type'] != null ? $data['payment_type'] : "Tiền mặt",
                 'user_id' => Auth::user()->id
@@ -45,7 +44,6 @@ class HistoryPaymentOrder extends Model
                 ->where('total', $payment->total)
                 ->where('payment', $payment->payment)
                 ->where('debt', $payment->debt)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if (!$checkHistory) {
                 DB::table($this->table)->insert($dataHistory);

@@ -125,7 +125,6 @@ class DetailImport extends Model
             'status_receive' => 0,
             'status_reciept' => 0,
             'status_pay' => 3,
-            'workspace_id' => Auth::user()->current_workspace,
             'represent_id' => $data['represent_id'],
             'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
             'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
@@ -160,7 +159,6 @@ class DetailImport extends Model
         $total_tax = 0;
         $check_status = false;
         $detail = DetailImport::where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($detail) {
             if ($data['action'] == "action_1") {
@@ -182,7 +180,6 @@ class DetailImport extends Model
                 }
             } else {
                 $product = QuoteImport::where('detailimport_id', $id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->get();
                 foreach ($product as $item) {
                     if ($item->product_ratio > 0 && $item->price_import) {
@@ -311,7 +308,6 @@ class DetailImport extends Model
     {
         $import = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
             ->select('provides.provide_name_display as provide_name_display', 'detailimport.*', 'provides.*')
-            ->where('detailimport.workspace_id', Auth::user()->current_workspace)
             ->get();
         return $import;
     }
@@ -319,7 +315,6 @@ class DetailImport extends Model
     {
         $import = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
             ->leftJoin('users', 'users.id', 'detailimport.user_id')->distinct('guest.id')
-            ->where('detailimport.workspace_id', Auth::user()->current_workspace)
             ->select('provides.provide_name_display as provide_name_display', 'detailimport.*', 'users.*')
             ->get();
         return $import;
@@ -327,8 +322,7 @@ class DetailImport extends Model
     public function ajax($data)
     {
         $import = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
-            ->select('provides.provide_name_display as provide_name_display', 'detailimport.*')
-            ->where('detailimport.workspace_id', Auth::user()->current_workspace);
+            ->select('provides.provide_name_display as provide_name_display', 'detailimport.*');
 
         if (isset($data['search'])) {
             $import = $import->where(function ($query) use ($data) {
@@ -387,7 +381,6 @@ class DetailImport extends Model
     public function checkStatus($id)
     {
         $detail = DetailImport::where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($detail) {
             return true;

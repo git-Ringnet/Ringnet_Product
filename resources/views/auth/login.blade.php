@@ -13,14 +13,14 @@
         @endif
 
         <hr>
-        <div class="form-group row mb-0">
+        {{-- <div class="form-group row mb-0">
             <div class="col-md-8 offset-md-4">
                 <a href="{{ url('/auth/google/redirect') }}" class="btn btn-primary"><i class="fa fa-google"></i>
                     Login with Google</a>
             </div>
-        </div>
+        </div> --}}
 
-        {{-- <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}">
             @csrf
             <div>
                 <x-label for="email" value="{{ __('Email') }}" />
@@ -50,7 +50,7 @@
                     {{ __('Log in') }}
                 </x-button>
             </div>
-        </form> --}}
+        </form>
     </x-authentication-card>
 </x-guest-layout>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>

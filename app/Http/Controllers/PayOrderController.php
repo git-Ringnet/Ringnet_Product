@@ -38,7 +38,7 @@ class PayOrderController extends Controller
     {
         $title = "Thanh toán mua hàng";
         $perPage = 10;
-        $payment = PayOder::where('pay_order.workspace_id', Auth::user()->current_workspace)->orderBy('pay_order.id', 'desc');
+        $payment = PayOder::orderBy('pay_order.id', 'desc');
         $payment->select('pay_order.*');
 
         $payment = $payment->get();
@@ -56,7 +56,6 @@ class PayOrderController extends Controller
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
             // ->where('quoteimport.product_qty', '>', 'quoteimport.payment_qty')
             ->where('quoteimport.product_qty','>',DB::raw('COALESCE(quoteimport.payment_qty,0)'))
-            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->distinct()
             ->orderBy('id', 'desc');
 
@@ -128,7 +127,6 @@ class PayOrderController extends Controller
                 ->join('products', 'quoteimport.product_name', 'products.product_name')
                 ->where('products_import.detailimport_id', $payment->detailimport_id)
                 ->where('products_import.payOrder_id', $payment->id)
-                ->where('products.workspace_id', Auth::user()->current_workspace)
                 ->select(
                     'quoteimport.product_code',
                     'quoteimport.product_name',
@@ -205,8 +203,6 @@ class PayOrderController extends Controller
             ->join('products', 'products.product_name', 'quoteimport.product_name')
             ->leftJoin('pay_order', 'detailimport.id', 'pay_order.detailimport_id')
             ->where('quoteimport.detailimport_id', $request->id)
-            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
-            ->where('products.workspace_id', Auth::user()->current_workspace)
             ->select('detailimport.*', 'pay_order.*', 'quoteimport.*', 'products.product_inventory as inventory')
             ->get();
     }

@@ -179,15 +179,13 @@ class ProvidesController extends Controller
     public function checkKeyProvide(Request $request)
     {
         if ($request->status == "add") {
-            $check = Provides::where('workspace_id', Auth::user()->current_workspace)
-                ->where(function ($query) use ($request) {
-                    $query->where('provide_code', $request->provide_code)
-                        ->orWhere('provide_name_display', $request->provide_name_display);
-                })
+            $check = Provides::where(function ($query) use ($request) {
+                $query->where('provide_code', $request->provide_code)
+                    ->orWhere('provide_name_display', $request->provide_name_display);
+            })
                 ->first();
             if ($check == null) {
-                $checkKey = Provides::where('workspace_id', Auth::user()->current_workspace)
-                    ->where('key', $request->key)
+                $checkKey = Provides::where('key', $request->key)
                     ->first();
                 if ($checkKey) {
                     // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
@@ -230,7 +228,6 @@ class ProvidesController extends Controller
         } else {
             $data = $request->all();
             $check = DB::table('provides')
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->where(function ($query) use ($data) {
                     $query->where('provide_code', $data['provide_code'])
                         ->orWhere('provide_name_display', $data['provide_name_display']);
@@ -242,12 +239,10 @@ class ProvidesController extends Controller
                 return response()->json(['success' => false, 'msg' => 'Thông tin khách hàng đã tồn tại']);
             } else {
                 $provide = Provides::where('id', $request->id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
 
                 if ($provide) {
-                    $checkKey = Provides::where('workspace_id', Auth::user()->current_workspace)
-                        ->where('id', '!=', $request->id)
+                    $checkKey = Provides::where('id', '!=', $request->id)
                         ->where('key', $data['key'])
                         ->first();
 

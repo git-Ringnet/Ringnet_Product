@@ -38,7 +38,6 @@ class Reciept extends Model
     public function getAttachment($name)
     {
         return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
     }
 
@@ -57,7 +56,6 @@ class Reciept extends Model
                 'status' => 1,
                 'price_total' => 0,
                 'created_at' => Carbon::now(),
-                'workspace_id' => Auth::user()->current_workspace,
                 'user_id' => Auth::user()->id
             ];
             $reciept_id = DB::table($this->table)->insertGetId($dataReciept);
@@ -66,19 +64,15 @@ class Reciept extends Model
                     'reciept_id' => $reciept_id,
                 ];
                 $checkQuote = QuoteImport::where('detailimport_id', $detail->id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->get();
                 if ($checkQuote) {
                     foreach ($checkQuote as $value) {
                         $productImport = ProductImport::where('quoteImport_id', $value->id)
-                            ->where('workspace_id', Auth::user()->current_workspace)
                             ->where('reciept_id', 0)->first();
                         if ($productImport) {
                             DB::table('products_import')->where('id', $productImport->id)
-                                ->where('workspace_id', Auth::user()->current_workspace)
                                 ->update($dataupdate);
                             $product = QuoteImport::where('id', $productImport->quoteImport_id)
-                                ->where('workspace_id', Auth::user()->current_workspace)
                                 ->first();
                             if ($product->product_ratio > 0 && $product->price_import > 0) {
                                 $price_export = ($product->product_ratio + 100) * $product->price_import / 100;
@@ -94,7 +88,6 @@ class Reciept extends Model
                 }
             }
             DB::table($this->table)->where('id', $reciept_id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->update([
                     'price_total' => $sum
                 ]);
@@ -121,7 +114,6 @@ class Reciept extends Model
     public function calculateDebt($provide_id, $total)
     {
         $provide = DB::table('provides')->where('id', $provide_id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($provide) {
             $debt = $provide->provide_debt + $total;
@@ -129,7 +121,6 @@ class Reciept extends Model
                 'provide_debt' => $debt,
             ];
             Provides::where('id', $provide->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->update($dataProvide);
         }
     }
@@ -138,7 +129,6 @@ class Reciept extends Model
     {
         $result = true;
         $reciept = Reciept::where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($reciept && $reciept->status == 1) {
             $dataUpdate = [
@@ -147,7 +137,6 @@ class Reciept extends Model
                 'status' => 2,
             ];
             DB::table($this->table)->where('id', $reciept->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->update($dataUpdate);
 
             // Cập nhật lại trạng thái đơn hàng
@@ -171,10 +160,8 @@ class Reciept extends Model
     {
         $check = false;
         $detail = DetailImport::where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         $product = QuoteImport::where('detailimport_id', $detail->id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
         foreach ($product as $item) {
             if ($item->product_qty != $item->$colum) {
@@ -183,7 +170,6 @@ class Reciept extends Model
             }
         }
         $receive = $table::where('detailimport_id', $detail->id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
         foreach ($receive as $value) {
             if ($value->status == 1) {
@@ -203,38 +189,32 @@ class Reciept extends Model
             $dataUpdate['status'] = 2;
         }
         DB::table('detailimport')->where('id', $detail->id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->update($dataUpdate);
     }
     public function deleteReciept($id)
     {
         $status = false;
         $reciept = DB::table($this->table)->where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($reciept) {
             $detail = $reciept->detailimport_id;
             $productImport = ProductImport::where('reciept_id', $reciept->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->get();
             if ($productImport) {
                 foreach ($productImport as $item) {
                     $quoteImport = QuoteImport::where('id', $item->quoteImport_id)
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
                     if ($quoteImport) {
                         $dataUpdate = [
                             'reciept_qty' => $quoteImport->reciept_qty - $item->product_qty
                         ];
                         DB::table('quoteimport')->where('id', $quoteImport->id)
-                            ->where('workspace_id', Auth::user()->current_workspace)
                             ->update($dataUpdate);
                     }
                 }
             }
             // Xóa hóa đơn mua hàng
             DB::table('reciept')->where('id', $reciept->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->delete();
 
             // Xóa file đính kèm
@@ -245,13 +225,10 @@ class Reciept extends Model
 
             // Cập nhật lại trạng thái đơn hàng
             $checkReceive = Receive_bill::where('detailimport_id', $detail)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             $checkReciept = Reciept::where('detailimport_id', $detail)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             $checkPayment = PayOder::where('detailimport_id', $detail)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($checkReciept) {
                 $st = 1;
@@ -266,7 +243,6 @@ class Reciept extends Model
                 $stDebt = 0;
             }
             DB::table('detailimport')->where('id', $detail)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->update([
                     'status_reciept' => $st,
                     'status' => $stDetail,
@@ -304,7 +280,6 @@ class Reciept extends Model
     public function getProduct_reciept($id)
     {
         return QuoteImport::where('detailimport_id', $id)->where('product_qty', '>', DB::raw('COALESCE(reciept_qty,0)'))
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
     }
     public function show_reciept($detail_id)
@@ -322,7 +297,6 @@ class Reciept extends Model
     public function getUserInReceipt()
     {
         $reciept = Reciept::leftJoin('detailimport', 'reciept.detailimport_id', 'detailimport.id')
-            ->where('reciept.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('users', 'reciept.user_id', 'users.id')
             ->select('users.*')
             ->get();
@@ -342,8 +316,7 @@ class Reciept extends Model
         $reciept = DB::table($this->table)
             ->leftJoin('detailimport', 'reciept.detailimport_id', 'detailimport.id')
             ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
-            ->select('reciept.*', 'provides.provide_name_display as provide_name_display', 'detailimport.quotation_number as quotation_number', 'detailimport.provide_name as provide_name')
-            ->where('reciept.workspace_id', Auth::user()->current_workspace);
+            ->select('reciept.*', 'provides.provide_name_display as provide_name_display', 'detailimport.quotation_number as quotation_number', 'detailimport.provide_name as provide_name');
 
         if (isset($data['search'])) {
             $reciept = $reciept->where(function ($query) use ($data) {

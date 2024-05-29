@@ -29,9 +29,10 @@ class Guest extends Model
     ];
     protected $table = 'guest';
 
-    public function getAllDetailByID(){
+    public function getAllDetailByID()
+    {
         return $this->hasMany(DetailExport::class, 'guest_id', 'id')
-        ->whereIn('detailexport.status', [2,3]);
+            ->whereIn('detailexport.status', [2, 3]);
     }
     public function getPayment()
     {
@@ -42,7 +43,6 @@ class Guest extends Model
     {
         $guests = DB::table($this->table)
             ->leftJoin('users', 'guest.user_id', '=', 'users.id')
-            ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->orderBy('guest.id', 'DESC')
             ->select(
                 'guest.*',
@@ -88,7 +88,6 @@ class Guest extends Model
             ->leftJoin('represent_guest', function ($join) {
                 $join->on('represent_guest.guest_id', '=', 'guest.id');
             })
-            ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->first();
 
         return $guests;
@@ -96,7 +95,6 @@ class Guest extends Model
     public function getUserInGuests()
     {
         $guests = DB::table($this->table)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->leftJoin('users', 'guest.user_id', '=', 'users.id')
             ->orderBy('guest.id', 'DESC')
             ->select('guest.*', 'users.name as name', 'users.*')->get();
@@ -115,7 +113,6 @@ class Guest extends Model
     {
         $guests = DB::table($this->table)
             ->leftJoin('users', 'guest.user_id', '=', 'users.id')
-            ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'guest.*',
                 'users.name as name',
@@ -153,7 +150,6 @@ class Guest extends Model
     {
         $exist = false;
         $guests = DB::table($this->table)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->where(function ($query) use ($data) {
                 $query->where('guest_code', $data['guest_code'])
                     ->orWhere('guest_name_display', $data['guest_name_display']);
@@ -166,8 +162,7 @@ class Guest extends Model
             if ($data['key'] == null) {
                 $nameKey = "RN";
             }
-            $checkKey = Guest::where('workspace_id', Auth::user()->current_workspace)
-                ->where('key', $data['key'])
+            $checkKey = Guest::where('key', $data['key'])
                 ->first();
 
             if ($checkKey) {
@@ -200,7 +195,6 @@ class Guest extends Model
                 'guest_phone_receiver' => isset($data['guest_phone_receiver']) ? $data['guest_phone_receiver'] : null,
                 'guest_debt' => isset($data['guest_debt']) ? $data['guest_debt'] : 0,
                 'guest_note' => isset($data['guest_note']) ? $data['guest_note'] : null,
-                'workspace_id' => Auth::user()->current_workspace,
             ];
             $guest_id =  DB::table($this->table)->insertGetId($dataguest);
             //Thêm người đại diện
@@ -213,7 +207,6 @@ class Guest extends Model
                         'represent_phone' => $data['represent_phone'][$i],
                         'represent_address' => $data['represent_address'][$i],
                         'user_id' => Auth::user()->id,
-                        'workspace_id' => Auth::user()->current_workspace,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ];
@@ -227,7 +220,6 @@ class Guest extends Model
     public function updateGuestRepresent($data)
     {
         $checkGuest = DB::table($this->table)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->where(function ($query) use ($data) {
                 $query->where('guest_code', $data['guest_code'])
                     ->orWhere('guest_name_display', $data['guest_name_display']);
@@ -238,11 +230,9 @@ class Guest extends Model
             return response()->json(['success' => false, 'msg' => 'Thông tin khách hàng đã tồn tại']);
         } else {
             $guest = Guest::where('id', $data['guest_id'])
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($guest) {
-                $checkKey = Guest::where('workspace_id', Auth::user()->current_workspace)
-                    ->where('id', '!=', $data['guest_id'])
+                $checkKey = Guest::where('id', '!=', $data['guest_id'])
                     ->where('key', $data['key'])
                     ->first();
 
@@ -290,7 +280,6 @@ class Guest extends Model
             })
                 ->where('id', '!=', $data['represent_id'])
                 ->where('guest_id', $data['guest_id'])
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($checkRepresent) {
                 return response()->json(['success' => false, 'msg' => 'Thông tin người đại diện đã tồn tại']);
@@ -302,14 +291,12 @@ class Guest extends Model
                 if (!empty($representGuestName)) {
                     $represent = representGuest::where('id', $data['represent_id'])
                         ->where('guest_id', $data['guest_id'])
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->firstOrNew();
 
                     if (!$represent->exists) {
                         // Nếu không tìm thấy, đây là lần đầu tiên sử dụng firstOrNew
                         $represent->id = $data['represent_id'];
                         $represent->guest_id = $data['guest_id'];
-                        $represent->workspace_id = Auth::user()->current_workspace;
                     }
 
                     $represent->represent_name = $representGuestName;

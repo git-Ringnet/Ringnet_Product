@@ -17,14 +17,13 @@ class GuestFormDate extends Model
         // Kiểm tra nếu chưa có guestid và cùng field thì sẽ thêm mới ngược lại cập nhật thui
         $existingRecord = self::where('guest_id', $guestId)
             ->where('form_field', $formField)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
 
         if ($existingRecord) {
             $existingRecord->date_form_id = $dateFormId;
             $existingRecord->save();
         } else {
-            self::create(['guest_id' => $guestId, 'form_field' => $formField, 'date_form_id' => $dateFormId, 'workspace_id' => Auth::user()->current_workspace]);
+            self::create(['guest_id' => $guestId, 'form_field' => $formField, 'date_form_id' => $dateFormId]);
         }
     }
     public function getFormFieldIdsByGuestId($guestId)

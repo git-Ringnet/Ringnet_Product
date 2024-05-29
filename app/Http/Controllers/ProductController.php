@@ -81,7 +81,7 @@ class ProductController extends Controller
         if ($product) {
             $title = $product->product_name;
         }
-        $history = ProductImport::where('product_id', $id)->where('workspace_id', Auth::user()->current_workspace);
+        $history = ProductImport::where('product_id', $id);
         $history = $history->get();
         return view('tables.products.showProduct', compact('product', 'title', 'display', 'history', 'groups'));
     }

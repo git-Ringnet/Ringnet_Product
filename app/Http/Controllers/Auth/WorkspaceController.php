@@ -32,7 +32,7 @@ class WorkspaceController extends Controller
     public function index()
     {
         if (!Auth::check()) {
-            return redirect()->route('landingPage');
+            return redirect()->route('auth.login');
         }
         $title = 'Danh sách workspace';
 
@@ -154,8 +154,7 @@ class WorkspaceController extends Controller
     }
     public function landingPage(Request $request)
     {
-
-        return view('landing-page');
+        return view('auth.login');
     }
     // Ajax func checks workspace_name
     public function checkWorkspaceName(Request $request)

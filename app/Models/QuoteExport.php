@@ -85,10 +85,8 @@ class QuoteExport extends Model
                     'check_seri' => 1,
                     'type' => 1,
                     'user_id' => Auth::user()->id,
-                    'workspace_id' => Auth::user()->current_workspace,
                 ];
                 $checkProduct = Products::where('product_name', $data['product_name'][$i])
-                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
                 if (!$checkProduct) {
                     $product = new Products($dataProduct);
@@ -106,7 +104,6 @@ class QuoteExport extends Model
                     'price_export' => $price,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                     'price_import' => $priceImport,
-                    'workspace_id' => Auth::user()->current_workspace,
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                     'promotion' => isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
                     'promotion_type' => $data['promotion_type'][$i],
@@ -129,7 +126,6 @@ class QuoteExport extends Model
                     'price_export' => $price,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                     'price_import' => $priceImport,
-                    'workspace_id' => Auth::user()->current_workspace,
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                     'promotion' => isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
                     'promotion_type' => $data['promotion_type'][$i],
@@ -149,7 +145,6 @@ class QuoteExport extends Model
     public function updateQuoteExport($data, $id)
     {
         $quoteExports = QuoteExport::where('detailexport_id', $id)
-            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
             ->get();
         $productIdsToUpdate = [];
         if (!$quoteExports->isEmpty()) {
@@ -164,7 +159,6 @@ class QuoteExport extends Model
                 $subtotal = $data['product_qty'][$i] * (float) $price;
                 if ($data['product_id'][$i] == null) {
                     $checkProduct = Products::where('product_name', $data['product_name'][$i])
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
                     $dataProduct = [
                         'product_code' => $data['product_code'][$i],
@@ -175,7 +169,6 @@ class QuoteExport extends Model
                         'product_price_export' => $price,
                         'product_price_import' => isset($priceImport) ? $priceImport : 0,
                         'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
-                        'workspace_id' => Auth::user()->current_workspace,
                         'check_seri' => 1,
                         'type' => 1,
                         'user_id' => Auth::user()->id,
@@ -197,7 +190,6 @@ class QuoteExport extends Model
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                             'price_import' => $priceImport,
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
-                            'workspace_id' => Auth::user()->current_workspace,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                             'status' => 1,
@@ -207,7 +199,6 @@ class QuoteExport extends Model
                     } else {
                         $productIdsToUpdate[] = $checkProduct->id;
                         QuoteExport::where('detailexport_id', $id)
-                            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                             ->where('product_id', $checkProduct->id)
                             ->update(['status' => 2]);
                         $dataQuote = [
@@ -223,7 +214,6 @@ class QuoteExport extends Model
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                             'price_import' => $priceImport,
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
-                            'workspace_id' => Auth::user()->current_workspace,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                             'status' => 1,
@@ -233,7 +223,6 @@ class QuoteExport extends Model
                     }
                 } else {
                     $quoteExport = QuoteExport::where('detailexport_id', $id)
-                        ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                         ->where('quoteexport.product_id', $data['product_id'][$i])
                         ->where('quoteexport.status', 1)
                         ->first();
@@ -252,7 +241,6 @@ class QuoteExport extends Model
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                             'price_import' => $priceImport,
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
-                            'workspace_id' => Auth::user()->current_workspace,
                             'status' => 1,
                             'user_id' => Auth::user()->id,
                         ];
@@ -270,7 +258,6 @@ class QuoteExport extends Model
                             'product_ratio' => $quoteExport->product_ratio,
                             'price_import' => $quoteExport->price_import,
                             'product_note' => $quoteExport->product_note,
-                            'workspace_id' => $quoteExport->workspace_id,
                             'status' => $quoteExport->status,
                             'user_id' => Auth::user()->id,
                         ];
@@ -287,7 +274,6 @@ class QuoteExport extends Model
                             $newQuoteExport = new QuoteExport();
                             $newQuoteExport->fill($currentValues);
                             $newQuoteExport->status = 3;
-                            $newQuoteExport->workspace_id = Auth::user()->current_workspace;
                             $newQuoteExport->created_at = Carbon::now();
                             $newQuoteExport->updated_at = Carbon::now();
                             $newQuoteExport->save();
@@ -306,7 +292,6 @@ class QuoteExport extends Model
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                             'price_import' => $priceImport,
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
-                            'workspace_id' => Auth::user()->current_workspace,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                             'status' => 1,
@@ -322,7 +307,6 @@ class QuoteExport extends Model
             }
             // Lấy danh sách product_id từ bảng QuoteExport
             $existingProductIds = QuoteExport::where('detailexport_id', $id)
-                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                 ->pluck('product_id')
                 ->toArray();
 
@@ -331,7 +315,6 @@ class QuoteExport extends Model
 
             if (!empty($productsToUpdate)) {
                 QuoteExport::where('detailexport_id', $id)
-                    ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                     ->whereIn('product_id', $productsToUpdate)
                     ->update(['status' => 2]);
             }
@@ -349,7 +332,6 @@ class QuoteExport extends Model
     public function history($id)
     {
         $quoteExport = QuoteExport::where('detailexport.id', $id)
-            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
             ->leftJoin('products', 'quoteexport.product_id', 'products.id')
             ->where(function ($query) {

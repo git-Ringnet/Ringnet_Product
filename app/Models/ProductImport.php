@@ -66,11 +66,9 @@ class ProductImport extends Model
             $qty = 0;
             $product = QuoteImport::where('detailimport_id', $id)
                 ->where('product_name', $data['product_name'][$i])
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             // Lưu thông tin bảo hành vào sản phẩm
             $productGuarantee = Products::where('product_name', $data['product_name'][$i])
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
 
             if (!isset($data['id_import']) && $columQuote == "receive_qty" && $productGuarantee && $productGuarantee->product_guarantee == null && $productGuarantee->type == 1) {
@@ -97,15 +95,12 @@ class ProductImport extends Model
                     continue;
                 } else {
                     $checkCBSN = Products::where('product_name', $data['product_name'][$i])
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
                         ->first();
                     $productExist = QuoteImport::where('product_name', $data['product_name'][$i])
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
                     if ($productExist) {
                         $checkCBImport = ProductImport::where('quoteImport_id', $productExist->id)
-                            ->where('workspace_id', Auth::user()->current_workspace)
                             ->where('receive_id', '!=', 'null')
                             ->first();
                         if ($checkCBSN) {
@@ -122,7 +117,6 @@ class ProductImport extends Model
                             $colum => 0,
                             'cbSN' => $cbSN,
                             'created_at' => Carbon::now(),
-                            'workspace_id' => Auth::user()->current_workspace,
                             'user_id' => Auth::user()->id,
                         ];
                     }
@@ -145,7 +139,6 @@ class ProductImport extends Model
                     $columQuote => $receive_qty + $qty
                 ];
                 QuoteImport::where('id', $product->id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->update($dataQuote);
                 $status = true;
             }

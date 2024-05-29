@@ -99,7 +99,6 @@ class PayExport extends Model
         }
 
         $lastPayExportId = DB::table('pay_export')
-            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
             ->max(DB::raw('CAST(SUBSTRING_INDEX(code_payment, "-", -1) AS UNSIGNED)'));
         $lastPayExportId = $lastPayExportId ? $lastPayExportId + 1 : 1;
 
@@ -115,7 +114,6 @@ class PayExport extends Model
             'payment_day' => $payment_day,
             'payment_type' => isset($data['payment_type']) && $data['payment_type'] != null ? $data['payment_type'] : "Tiền mặt",
             'status' => $status,
-            'workspace_id' => Auth::user()->current_workspace,
             'created_at' => Carbon::now(),
         ];
 
@@ -157,7 +155,6 @@ class PayExport extends Model
             'payment' => $payment,
             'payment_type' => isset($data['payment_type']) && $data['payment_type'] != null ? $data['payment_type'] : "Tiền mặt",
             'debt' => $result,
-            'workspace_id' => Auth::user()->current_workspace,
             'created_at' => $payment_day,
         ];
 
@@ -219,7 +216,6 @@ class PayExport extends Model
 
         $existingHistory = history_Pay_Export::where('pay_id', $payExport->id)
             ->where('debt', $detailExport->amount_owed)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->exists();
 
         if (!$existingHistory) {
@@ -230,7 +226,6 @@ class PayExport extends Model
             $history->payment = $payment;
             $history->payment_type = $data['payment_type'];
             $history->debt = $detailExport->amount_owed;
-            $history->workspace_id = Auth::user()->current_workspace;
             $history->created_at = $payment_day;
             $history->save();
         }
@@ -271,7 +266,6 @@ class PayExport extends Model
                         $history->payment = $payment;
                         $history->payment_type = $data['payment_type'];
                         $history->debt = $detailExport->amount_owed;
-                        $history->workspace_id = Auth::user()->current_workspace;
                         $history->created_at = $payment_day;
                         $history->save();
                     } else {
@@ -358,8 +352,7 @@ class PayExport extends Model
     }
     public function guestStatistics()
     {
-        $report_guest = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
+        $report_guest = DetailExport::leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
             ->whereIn('detailexport.status', [2, 3])
             ->select(
                 'detailexport.guest_id as guest_id',
@@ -375,8 +368,7 @@ class PayExport extends Model
     }
     public function guestdoanhThuTop5()
     {
-        $report_guest = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
+        $report_guest = DetailExport::leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
             ->whereIn('detailexport.status', [2, 3])
             ->select(
                 'detailexport.guest_id as guest_id',
@@ -395,8 +387,7 @@ class PayExport extends Model
     }
     public function getCompaniesWithDebt()
     {
-        $companiesWithDebt = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
+        $companiesWithDebt = DetailExport::leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
             ->whereIn('detailexport.status', [2, 3])
             ->where('detailexport.amount_owed', '>', 0)
             ->select(
@@ -413,8 +404,7 @@ class PayExport extends Model
     }
     public function ajax($data)
     {
-        $report_guest = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
+        $report_guest = DetailExport::leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
             ->whereIn('detailexport.status', [2, 3])
             ->select(
                 'detailexport.guest_id as guest_id',
@@ -458,7 +448,6 @@ class PayExport extends Model
     public function getUserInPayEx()
     {
         $pay_export = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
-            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('users', 'pay_export.user_id', 'users.id')->distinct('guest.id')
             ->select('*', 'users.*')
             ->get();
@@ -478,7 +467,6 @@ class PayExport extends Model
         $payExport = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
             ->leftJoin('history_payment_export', 'pay_export.id', 'history_payment_export.pay_id')
-            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'detailexport.quotation_number',
                 'guest.guest_name_display',

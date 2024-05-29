@@ -48,7 +48,6 @@ class HistoryImport extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $quote = QuoteImport::where('detailimport_id', $id)
                 ->where('product_name', $data['product_name'][$i])
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
 
             $price_export = str_replace(',', '', $data['price_export'][$i]);
@@ -61,7 +60,6 @@ class HistoryImport extends Model
                 // ->where('product_total', $total_price)
                 // ->where('price_export', $price_export)
                 ->where('product_note', $data['product_note'][$i])
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->where('version', $quote->version)
                 ->first();
             // if ($quote) {
@@ -89,7 +87,6 @@ class HistoryImport extends Model
                         'product_note' => $data['product_note'][$i],
                         'version' => $quote->version,
                         'created_at' => Carbon::now(),
-                        'workspace_id' => Auth::user()->current_workspace,
                         'provide_id' => $getProvide->provide_id,
                         'user_id' => Auth::user()->id
                     ];

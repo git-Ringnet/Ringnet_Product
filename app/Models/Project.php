@@ -15,7 +15,7 @@ class Project extends Model
     ];
     public function getAllProject()
     {
-        $project = Project::where('workspace_id', Auth::user()->current_workspace)->get();
+        $project = Project::all();
         return $project;
     }
     public function deleteProject($id)

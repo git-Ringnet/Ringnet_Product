@@ -35,7 +35,6 @@ class representGuest extends Model
     public function getRepresentGuest($id)
     {
         $representGuest = representGuest::where('guest_id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
         return $representGuest;
     }
@@ -59,7 +58,6 @@ class representGuest extends Model
                             'represent_email' => $data['represent_email'][$i],
                             'represent_phone' => $data['represent_phone'][$i],
                             'represent_address' => $data['represent_address'][$i],
-                            'workspace_id' => Auth::user()->current_workspace,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                         ];
@@ -100,7 +98,6 @@ class representGuest extends Model
             })
                 ->where('id', '!=', $data['represent_id'])
                 ->where('guest_id', $data['guest_id'])
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($checkRepresent) {
                 return response()->json(['success' => false, 'msg' => 'Thông tin người đại diện đã tồn tại']);
@@ -118,7 +115,6 @@ class representGuest extends Model
     {
         $representGuest = representGuest::find($id);
         representGuest::where('guest_id', $id_guest)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->update(['default_guest' => 0]);
         $representGuest->default_guest = 1;
         $representGuest->save();

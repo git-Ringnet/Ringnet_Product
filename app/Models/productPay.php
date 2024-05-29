@@ -40,7 +40,6 @@ class productPay extends Model
                 'user_id' => Auth::user()->id,
                 'product_id' => $data['product_id'][$i],
                 'pay_qty' => $data['product_qty'][$i],
-                'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];

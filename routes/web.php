@@ -329,7 +329,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        // return view('dashboard');
-        return redirect()->route('workspace.index');
+        return view('welcome');
+        // return redirect()->route('workspace.index');
     })->name('dashboard');
 });

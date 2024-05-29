@@ -48,14 +48,13 @@ class Provides extends Model
     public function getAllProvide()
     {
         // return DB::table($this->table)->where('workspace_id', Auth::user()->current_workspace)->get();
-        return Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+        return Provides::all();
     }
     public function addProvide($data)
     {
         $result = [];
         $provides = DB::table($this->table)->where('provide_code', $data['provide_code'])
             ->orWhere('provide_name_display', $data['provide_name_display'])
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($provides) {
             $result = [
@@ -86,7 +85,6 @@ class Provides extends Model
                 'provide_code' => $data['provide_code'],
                 'key' => $key,
                 'provide_debt' => 0,
-                'workspace_id' => Auth::user()->current_workspace,
                 'user_id' => Auth::user()->id
             ];
             $provide_id =  DB::table($this->table)->insertGetId($dataProvide);
@@ -109,7 +107,6 @@ class Provides extends Model
                 $query->where('provide_code', $data['provide_code'])
                     ->orWhere('provide_name_display', $data['provide_name_display']);
             })
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
 
         if ($check) {
@@ -131,7 +128,6 @@ class Provides extends Model
                 // Chỉnh sửa thông tin người đại diện và thêm người đại diện
                 for ($i = 0; $i < count($data['represent_name']); $i++) {
                     $represent = ProvideRepesent::where('id', isset($data['repesent_id'][$i]) ? $data['repesent_id'][$i]  : "")
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
                     $dataRepresent = [
                         'represent_name' => $data['represent_name'][$i],
@@ -144,7 +140,6 @@ class Provides extends Model
                         ProvideRepesent::where('id', $represent->id)->update($dataRepresent);
                     } else {
                         $dataRepresent['provide_id'] = $id;
-                        $dataRepresent['workspace_id'] =  Auth::user()->current_workspace;
                         DB::table('represent_provide')->insert($dataRepresent);
                     }
                 }
@@ -219,7 +214,6 @@ class Provides extends Model
     public function getUserInProvides()
     {
         $provides = DB::table($this->table)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->leftJoin('users', 'provides.user_id', '=', 'users.id')
             ->orderBy('provides.id', 'DESC')
             ->select('provides.*', 'users.name as name', 'users.*')->get();

@@ -41,7 +41,7 @@ class Products extends Model
     }
     public function getSerialNumber()
     {
-        return $this->hasMany(Serialnumber::class, 'product_id', 'id')->where('workspace_id', Auth::user()->current_workspace);
+        return $this->hasMany(Serialnumber::class, 'product_id', 'id');
     }
     public function getWarehouse()
     {
@@ -76,7 +76,6 @@ class Products extends Model
                     'product_inventory' => $data['product_qty'][$i],
                     'product_trade' => 0,
                     'product_available' => 0,
-                    'workspace_id' => Auth::user()->current_workspace,
                     'type' => 1,
                     'created_at' => Carbon::now(),
                     'user_id' => Auth::user()->id
@@ -96,7 +95,6 @@ class Products extends Model
         $return  = 0;
         isset($data['check_seri']) ? $check = 1 : $check = 0;
         $checkProductName = DB::table($this->table)->where('product_name', $data['product_name'])
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($checkProductName) {
             $return = 0;
@@ -113,7 +111,6 @@ class Products extends Model
                 'product_inventory' => 0,
                 'product_trade' => 0,
                 'product_available' => 0,
-                'workspace_id' => Auth::user()->current_workspace,
                 'product_tax' => $data['product_tax'],
                 'group_id' => $data['group_id'],
                 'created_at' => Carbon::now(),
@@ -160,7 +157,6 @@ class Products extends Model
             $checkProductName = DB::table($this->table)
                 ->where('id', '!=', $product->id)
                 ->where('product_name', $data['product_name'])
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($checkProductName) {
                 $return = 0;
@@ -185,20 +181,17 @@ class Products extends Model
             for ($i = 0; $i < count($data['product_name']); $i++) {
                 $products = QuoteImport::where('product_name', $data['product_name'][$i])
                     ->where('detailimport_id', $receive->detailimport_id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
                 array_push($array_id, $products->id); //4
             }
             $product = ProductImport::where('receive_id', $receive->id)
                 ->whereIn('quoteImport_id', $array_id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->get();
             $product_id = 0;
             // Thêm sản phẩm vào tồn kho
             foreach ($product as $item) {
                 $getProductName = QuoteImport::where('id', $item->quoteImport_id)->first();
                 $checkProduct = Products::where('product_name', $getProductName->product_name)
-                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
                 if ($checkProduct) {
                     $checkProduct->product_inventory += $item->product_qty;
@@ -216,7 +209,6 @@ class Products extends Model
                         'product_tax' => $getProductName->product_tax,
                         'product_inventory' => $item->product_qty,
                         'check_seri' => $item->cbSN,
-                        'workspace_id' => Auth::user()->current_workspace,
                         'user_id' => Auth::user()->id
                     ];
                     $product_id = DB::table($this->table)->insertGetId($dataProduct);
@@ -239,7 +231,7 @@ class Products extends Model
             for ($i = 0; $i < count($data['product_name']); $i++) {
                 $getProduct = QuoteImport::where('product_name', $data['product_name'][$i])
                     ->where('detailimport_id', $receive->detailimport_id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
+
                     ->first();
                 if ($getProduct) {
                     if (isset($data['seri' . $i])) {
@@ -249,7 +241,7 @@ class Products extends Model
                                 $getSN = Serialnumber::where('serinumber', $productSN[$j])
                                     ->where('receive_id', $receive->id)
                                     ->where('quoteImport_id', $getProduct->id)
-                                    ->where('workspace_id', Auth::user()->current_workspace)
+                
                                     ->get();
                                 $dataSN = [
                                     'product_id' => $list_id[$i],
@@ -270,7 +262,7 @@ class Products extends Model
     }
     public function ajax($data)
     {
-        $products =  DB::table($this->table)->where('workspace_id', Auth::user()->current_workspace);
+        $products =  DB::table($this->table);
         if (isset($data['search'])) {
             $products = $products->where(function ($query) use ($data) {
                 $query->orWhere('product_code', 'like', '%' . $data['search'] . '%');
@@ -325,7 +317,6 @@ class Products extends Model
         $result = [];
         for ($i = 0; $i < count($data['listName']); $i++) {
             $checkProduct = DB::table($this->table)->where('product_name', $data['listName'][$i])
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($checkProduct) {
                 if ($checkProduct->product_tax != $data['listTax'][$i]) {
@@ -350,8 +341,7 @@ class Products extends Model
     public function checkProductName($data)
     {
         $result = [];
-        $check = DB::table($this->table)->where('product_name', $data['name'])
-            ->where('workspace_id', Auth::user()->current_workspace);
+        $check = DB::table($this->table)->where('product_name', $data['name']);
         if (isset($data['action'])) {
             $check->where('id', '!=', $data['id']);
         }

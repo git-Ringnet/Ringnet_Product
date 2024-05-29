@@ -234,7 +234,7 @@
                     data-accordion="false">
                     {{-- Logo --}}
                     <li class="">
-                        <a href="{{ route('welcome') }}" class="nav-link">
+                        <a href="#" class="nav-link">
                             <div class="d-flex align-items-center justify-content-center w-100">
                                 <img src="{{ asset('dist/img/logo_ringnetOC_small.png') }}" alt="">
                             </div>

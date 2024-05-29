@@ -58,8 +58,7 @@ class DetailExport extends Model
 
     public function getAllDetailExport()
     {
-        $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
+        $detailExport = DetailExport::select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
             ->leftJoin('users', 'users.id', 'detailexport.user_id');
         $detailExport = $detailExport->orderBy('detailexport.id', 'desc')->get();
         return $detailExport;
@@ -102,7 +101,6 @@ class DetailExport extends Model
             'represent_id' => $data['represent_guest_id'],
             'status' => 2,
             'status_pay' => 1,
-            'workspace_id' => Auth::user()->current_workspace,
             'created_at' => $data['date_quote'] == null ? now() : $data['date_quote'],
             'total_price' => $totalBeforeTax,
             'total_tax' => $totalTax,
@@ -129,7 +127,6 @@ class DetailExport extends Model
     public function getDetailExportToId($id)
     {
         $detailExport = DetailExport::where('detailexport.id', $id)
-            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
             ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
             ->leftJoin('project', 'detailexport.project_id', 'project.id')
@@ -209,19 +206,18 @@ class DetailExport extends Model
     public function countDetail($id)
     {
         $countDetail = DetailExport::where('guest_id', $id)->whereIn('status', [2, 3])
-            ->where('detailexport.workspace_id', Auth::user()->current_workspace)->count();
+            ->count();
         return $countDetail;
     }
     public function sumDebt($id)
     {
         $sumDebt = DetailExport::where('guest_id', $id)->whereIn('status', [2, 3])
-            ->where('detailexport.workspace_id', Auth::user()->current_workspace)->sum('amount_owed');
+            ->sum('amount_owed');
         return $sumDebt;
     }
     public function historyGuest($id)
     {
         $historyGuest = DetailExport::where('guest_id', $id)
-            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->get();
         return $historyGuest;
     }
@@ -230,7 +226,6 @@ class DetailExport extends Model
         if (isset($id)) {
             $sumSell = DetailExport::where('guest_id', $id)
                 ->whereIn('status', [2, 3])
-                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->select('detailexport.amount_owed as sumSell')
                 ->value('sumSell');
             return $sumSell;
@@ -240,15 +235,13 @@ class DetailExport extends Model
     // Ajax filter search history Guest
     public function historyFilterGuest($data)
     {
-        $historyGuest = DetailExport::where('guest_id', $data['idName'])
-            ->where('detailexport.workspace_id', Auth::user()->current_workspace)->get();
+        $historyGuest = DetailExport::where('guest_id', $data['idName'])->get();
         return $historyGuest;
     }
     // Get Guest in detailExport
     public function getGuestInDetail()
     {
-        $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+        $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->select('detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.*', 'guest.*')
             ->leftJoin('users', 'users.id', 'detailexport.user_id')->distinct('guest.id')
             ->get();
@@ -256,8 +249,7 @@ class DetailExport extends Model
     }
     public function getUserInDetail()
     {
-        $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+        $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('users', 'users.id', 'detailexport.user_id')->distinct('guest.id')
             ->select('detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.*', 'users.*')
             ->get();
@@ -266,7 +258,6 @@ class DetailExport extends Model
     public function ajax($data)
     {
         $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
-            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'detailexport.id as maBG',
                 'detailexport.created_at as ngayBG',

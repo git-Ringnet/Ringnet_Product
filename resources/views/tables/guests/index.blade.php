@@ -226,11 +226,9 @@
                                                 <a
                                                     href="{{ route('guests.show', ['guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                             </td>
-                                            @can('isAdmin')
-                                                <td class="text-13-black border-bottom border-top-0">
-                                                    {{ $item->name }}
-                                                </td>
-                                            @endcan
+                                            <td class="text-13-black border-bottom border-top-0">
+                                                {{ $item->name }}
+                                            </td>
                                             <td class="text-13-black border-bottom border-top-0">
                                                 {{ $item->guest_code }}</td>
                                             <td class="text-13-black text-right border-bottom border-top-0">

@@ -87,7 +87,6 @@ class GuestController extends Controller
     public function show(string $id)
     {
         $guest = Guest::where('guest.id', $id)
-            ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($guest) {
             $title = $guest->guest_name_display;
@@ -116,7 +115,6 @@ class GuestController extends Controller
     public function edit(string $id, Request $request)
     {
         $guest = Guest::where('guest.id', $id)
-            ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($guest) {
             $title = $guest->guest_name_display;

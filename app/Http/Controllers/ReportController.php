@@ -44,8 +44,10 @@ class ReportController extends Controller
     public function index()
     {
         $title = 'Báo cáo';
+        $SumInvenrory = Products::all();
         return view('report.index', compact(
             'title',
+            'SumInvenrory'
         ));
     }
     public function view()

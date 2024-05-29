@@ -65,7 +65,6 @@ class PayOder extends Model
     {
         $result = true;
         $payment = PayOder::where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
 
         if ($payment && $payment->status != 2) {
@@ -79,7 +78,6 @@ class PayOder extends Model
                 'payment_type' => $data['payment_type']
             ];
             PayOder::where('id', $payment->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->update($dataPayment);
             $total = 0;
             if ($payment->total - ($payment->payment + (isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0)) == 0) {
@@ -104,7 +102,6 @@ class PayOder extends Model
                 'payment_type' => $data['payment_type']
             ];
             PayOder::where('id', $payment->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->update($dataPayment);
             $result = true;
         }
@@ -137,22 +134,19 @@ class PayOder extends Model
         $detail =  DetailImport::findOrFail($id);
         if ($detail) {
             $payment = PayOder::where('detailimport_id', $detail->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($payment) {
                 $payment_id = $payment->id;
                 DB::table($this->table)->where('id', $payment_id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->update([
                         'payment' => $payment->payment + (isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0),
                         'debt' => $payment->debt - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0)
                     ]);
             } else {
                 // Lây mã thanh toán hiện tại
-                $count = PayOder::where('workspace_id', Auth::user()->current_workspace)->count();
+                $count = PayOder::count();
 
-                $lastReceive = PayOder::where('workspace_id', Auth::user()->current_workspace)
-                    ->orderBy('id', 'desc')
+                $lastReceive = PayOder::orderBy('id', 'desc')
                     ->first();
 
                 if ($lastReceive) {
@@ -176,7 +170,6 @@ class PayOder extends Model
                     'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
                     'debt' => 0,
                     'created_at' => Carbon::now(),
-                    'workspace_id' => Auth::user()->current_workspace,
                     'payment_code' => isset($data['payment_code']) ? $data['payment_code'] : $resultNumber,
                     'payment_day' => isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now(),
                     'payment_type' => isset($data['payment_type']) && $data['payment_type'] != null ? $data['payment_type'] : "Tiền mặt",
@@ -188,20 +181,16 @@ class PayOder extends Model
                         'payOrder_id' => $payment_id,
                     ];
                     $checkQuote = QuoteImport::where('detailimport_id', $detail->id)
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->get();
                     if ($checkQuote) {
                         foreach ($checkQuote as $value) {
                             $productImport = ProductImport::where('quoteImport_id', $value->id)
                                 ->where('payOrder_id', 0)
-                                ->where('workspace_id', Auth::user()->current_workspace)
                                 ->first();
                             if ($productImport) {
                                 DB::table('products_import')->where('id', $productImport->id)
-                                    ->where('workspace_id', Auth::user()->current_workspace)
                                     ->update($dataupdate);
                                 $product = QuoteImport::where('id', $productImport->quoteImport_id)
-                                    ->where('workspace_id', Auth::user()->current_workspace)
                                     ->first();
                                 $price_export = $product->price_export;
                                 $total += $price_export * $productImport->product_qty;
@@ -209,12 +198,11 @@ class PayOder extends Model
                             }
                         }
                         $detailImport = DetailImport::where('id', $detail->id)->first();
-                        $sum = $detailImport->total_tax ;
+                        $sum = $detailImport->total_tax;
                         $temp = $sum;
                         if (isset($data['checkPayment'])) {
                             if ($data['checkPayment'] == 1) {
                                 DB::table($this->table)->where('id', $payment_id)
-                                    ->where('workspace_id', Auth::user()->current_workspace)
                                     ->update([
                                         'total' => $sum,
                                         'debt' => 0,
@@ -223,7 +211,6 @@ class PayOder extends Model
                             }
                         } else {
                             DB::table($this->table)->where('id', $payment_id)
-                                ->where('workspace_id', Auth::user()->current_workspace)
                                 ->update([
                                     'total' => $sum,
                                     'debt' => $sum - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
@@ -257,10 +244,8 @@ class PayOder extends Model
     {
         $check = false;
         $detail = DetailImport::where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         $product = QuoteImport::where('detailimport_id', $detail->id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
         foreach ($product as $item) {
             if ($item->product_qty != $item->$colum) {
@@ -269,7 +254,6 @@ class PayOder extends Model
             }
         }
         $receive = $table::where('detailimport_id', $detail->id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
         foreach ($receive as $value) {
             if ($value->status != 2) {
@@ -299,7 +283,6 @@ class PayOder extends Model
             $dataUpdate['status'] = 2;
         }
         DB::table('detailimport')->where('id', $detail->id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->update($dataUpdate);
     }
 
@@ -307,7 +290,6 @@ class PayOder extends Model
     public function calculateDebt($provide_id, $temp, $total, $detail_id)
     {
         $provide = DB::table('provides')->where('id', $provide_id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($provide) {
             // Kiểm tra tình trạng đơn mua hàng
@@ -328,7 +310,6 @@ class PayOder extends Model
                 'provide_debt' => $debt,
             ];
             Provides::where('id', $provide->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->update($dataProvide);
         }
     }
@@ -346,7 +327,6 @@ class PayOder extends Model
         $endDate = Carbon::parse($endDate);
         $daysDiffss = $startDate->diffInDays($endDate);
         $payorder = PayOder::where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($endDate < $startDate) {
             $daysDiff = -$daysDiffss;
@@ -396,7 +376,6 @@ class PayOder extends Model
             }
             if ($data['payment'] > 0 || $payorder->status != $status) {
                 DB::table('pay_order')->where('id', $id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->update([
                         'status' => $status,
                     ]);
@@ -408,31 +387,26 @@ class PayOder extends Model
     public function getAttachment($name)
     {
         return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
     }
     public function deletePayment($id)
     {
         $status = false;
         $payment = DB::table($this->table)->where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($payment) {
             $detail = $payment->detailimport_id;
             $productImport = ProductImport::where('payOrder_id', $payment->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->get();
             if ($productImport) {
                 foreach ($productImport as $item) {
                     $quoteImport = QuoteImport::where('id', $item->quoteImport_id)
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
                     if ($quoteImport) {
                         $dataUpdate = [
                             'payment_qty' => $quoteImport->payment_qty - $item->product_qty
                         ];
                         DB::table('quoteimport')->where('id', $quoteImport->id)
-                            ->where('workspace_id', Auth::user()->current_workspace)
                             ->update($dataUpdate);
                     }
                 }
@@ -440,12 +414,10 @@ class PayOder extends Model
             $prepay = $payment->payment;
             // Xóa lịch sử
             HistoryPaymentOrder::where('payment_id', $payment->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->delete();
 
             // Xóa thanh toán
             DB::table('pay_order')->where('id', $payment->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->delete();
 
             // Xóa file đính kèm
@@ -456,13 +428,10 @@ class PayOder extends Model
 
             // Cập nhật lại trạng thái đơn hàng
             $checkReceive = Receive_bill::where('detailimport_id', $detail)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             $checkReciept = Reciept::where('detailimport_id', $detail)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             $checkPayment = PayOder::where('detailimport_id', $detail)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($checkReceive || $checkReciept || $checkPayment) {
                 $stDetail = 0;
@@ -473,7 +442,6 @@ class PayOder extends Model
             }
             $detailImport = DetailImport::where('id', $detail)->first();
             DB::table('detailimport')->where('id', $detail)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->update([
                     'status_pay' => 0,
                     'status_debt' => $stDebt
@@ -505,14 +473,12 @@ class PayOder extends Model
         return QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
             ->leftJoin('pay_order', 'detailimport.id', 'pay_order.detailimport_id')
             ->where('quoteimport.detailimport_id', $id)
-            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             // ->where('product_qty', '>', DB::raw('COALESCE(payment_qty,0)'))
             ->get();
     }
     public function provideStatistics()
     {
-        $report_provide = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('provides', 'provides.id', '=', 'detailimport.provide_id')
+        $report_provide = DetailImport::leftJoin('provides', 'provides.id', '=', 'detailimport.provide_id')
             ->whereIn('detailimport.status', [0, 2])
             ->select(
                 'detailimport.provide_id as provide_id',
@@ -529,8 +495,7 @@ class PayOder extends Model
 
     public function getProvidersWithDebt()
     {
-        $providersWithDebt = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('provides', 'provides.id', '=', 'detailimport.provide_id')
+        $providersWithDebt = DetailImport::leftJoin('provides', 'provides.id', '=', 'detailimport.provide_id')
             ->whereIn('detailimport.status', [0, 2])
             ->where('provides.provide_debt', '>', 0)
             ->select(
@@ -550,8 +515,7 @@ class PayOder extends Model
 
     public function ajax($data)
     {
-        $report_provide = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('provides', 'provides.id', '=', 'detailimport.provide_id')
+        $report_provide = DetailImport::leftJoin('provides', 'provides.id', '=', 'detailimport.provide_id')
             ->whereIn('detailimport.status', [0, 2])
             ->select(
                 'detailimport.provide_id as provide_id',
@@ -594,7 +558,6 @@ class PayOder extends Model
     public function getUserInPayOrder()
     {
         $pay_order = PayOder::leftJoin('detailimport', 'pay_order.detailimport_id', 'detailimport.id')
-            ->where('pay_order.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('users', 'pay_order.user_id', 'users.id')->distinct('guest.id')
             ->select('*', 'users.*')
             ->get();
@@ -614,8 +577,7 @@ class PayOder extends Model
         $payment = DB::table($this->table)
             ->leftJoin('detailimport', 'pay_order.detailimport_id', 'detailimport.id')
             ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
-            ->select('provides.provide_name_display as provide_name_display', 'pay_order.*', 'detailimport.quotation_number as quotation_number')
-            ->where('pay_order.workspace_id', Auth::user()->current_workspace);
+            ->select('provides.provide_name_display as provide_name_display', 'pay_order.*', 'detailimport.quotation_number as quotation_number');
 
         if (isset($data['search'])) {
             $payment = $payment->where(function ($query) use ($data) {

@@ -68,7 +68,6 @@ class QuoteImport extends Model
                     'product_inventory' => $data['product_qty'][$i],
                     'product_trade' => 0,
                     'product_available' => 0,
-                    'workspace_id' => Auth::user()->current_workspace,
                     'type' => 1,
                     'created_at' => Carbon::now(),
                     'user_id' => Auth::user()->id
@@ -94,7 +93,6 @@ class QuoteImport extends Model
                 'warehouse_id' => 1,
                 'version' => 1,
                 'created_at' => Carbon::now(),
-                'workspace_id' => Auth::user()->current_workspace,
                 'user_id' => Auth::user()->id,
                 'promotion' => isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
                 'promotion_type' => $data['promotion_type'][$i],
@@ -118,7 +116,6 @@ class QuoteImport extends Model
                     'product_note' => $data['product_note'][$i],
                     'version' => 1,
                     'created_at' => Carbon::now(),
-                    'workspace_id' => Auth::user()->current_workspace,
                     'provide_id' => $getProvide->provide_id,
                     'user_id' => Auth::user()->id
                 ];
@@ -132,7 +129,6 @@ class QuoteImport extends Model
     {
         if ($data['action'] == 'action_1') {
             $id_detail = DB::table($this->table)->where('detailimport_id', $id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->whereNotIn('id', $data['listProduct'])
                 ->delete();
         }
@@ -140,7 +136,6 @@ class QuoteImport extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             // Kiểm tra và thêm sản phẩm mới vào kho hàng
             $checkProduct = Products::where('product_name', $data['product_name'][$i])
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
 
             $productId = null;
@@ -153,7 +148,6 @@ class QuoteImport extends Model
                     'product_tax' => $data['product_tax'][$i],
                     'product_inventory' => str_replace(',', '', $data['product_qty'][$i]),
                     'check_seri' => 1,
-                    'workspace_id' => Auth::user()->current_workspace,
                     'created_at' => now(),
                 ];
                 $productId = DB::table('products')->insertGetId($dataProduct);
@@ -163,7 +157,6 @@ class QuoteImport extends Model
 
             // Lấy sản phẩm cần sửa
             $dataUpdate = QuoteImport::where('id', $data['listProduct'][$i])
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             $price_export = floatval(str_replace(',', '', $data['price_export'][$i]));
             $total_price = floatval(str_replace(',', '', $data['product_qty'][$i])) * $price_export;
@@ -203,7 +196,6 @@ class QuoteImport extends Model
                     'warehouse_id' => 1,
                     'version' => 1,
                     'created_at' => Carbon::now(),
-                    'workspace_id' => Auth::user()->current_workspace,
                     'receive_qty' => 0,
                     'reciept_qty' => 0,
                     'payment_qty' => 0

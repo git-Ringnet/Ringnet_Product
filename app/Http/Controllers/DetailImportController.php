@@ -60,8 +60,7 @@ class DetailImportController extends Controller
     {
         $title = 'Đơn mua hàng';
         $perPage = 10;
-        $import = DetailImport::where('workspace_id', Auth::user()->current_workspace)
-            ->orderBy('id', 'desc');
+        $import = DetailImport::orderBy('id', 'desc');
         $import = $import->get();
         $provides = $this->detailImport->getProvideInDetail();
         $users = $this->detailImport->getUserInDetail();
@@ -127,7 +126,6 @@ class DetailImportController extends Controller
             $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
                 ->where('detailimport_id', $import->id)
                 ->select('quoteimport.*', 'products.product_inventory')
-                ->where('products.workspace_id', Auth::user()->current_workspace)
                 ->get();
             $project = Project::all();
             $history = HistoryImport::where('detailImport_id', $id)->get();
@@ -147,8 +145,8 @@ class DetailImportController extends Controller
         $import = DetailImport::where('id', $id)->first();
         if ($import) {
             $represent = ProvideRepesent::where('provide_id', $import->provide_id)->get();
-            $price_effect = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'import')->get();
-            $terms_pay = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'termpay')->get();
+            $price_effect = DateForm::where('form_field', 'import')->get();
+            $terms_pay = DateForm::where('form_field', 'termpay')->get();
             $id_priceeffect = DateForm::where('form_desc', $import->price_effect)
                 ->where('form_field', 'import')
                 ->first();
@@ -156,12 +154,11 @@ class DetailImportController extends Controller
                 ->where('form_field', 'termpay')
                 ->first();
 
-            $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+            $provides = Provides::all();
             $title = $import->quotation_number;
             $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
                 ->where('detailimport_id', $import->id)
                 ->select('quoteimport.*', 'products.product_inventory')
-                ->where('products.workspace_id', Auth::user()->current_workspace)
                 ->get();
             $project = Project::all();
             $history = HistoryImport::where('detailImport_id', $id)
@@ -169,7 +166,7 @@ class DetailImportController extends Controller
                 ->get();
             //Thanh toán
             $payOrder = PayOder::where('detailimport_id', $id)->first();
-            return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay','payOrder'));
+            return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay', 'payOrder'));
         } else {
             return redirect()->route('import.index')->with('warning', 'Không tìm thấy trang hợp lệ !');
         }
@@ -278,18 +275,15 @@ class DetailImportController extends Controller
         $result = [];
         $data = $request->all();
         $provide = Provides::where('id', $data['provides_id'])
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($provide) {
             $date = DetailImport::where('provide_id', $provide->id)->orderBy('id', 'desc')
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
                 ->first();
             if ($date) {
                 $date = explode('/', $date->quotation_number)[0];
             }
             $count = DetailImport::where('provide_id', $provide->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
                 ->count();
             $lastDetailImport = DetailImport::where('provide_id', $provide->id)
@@ -325,8 +319,7 @@ class DetailImportController extends Controller
         $result = [];
         $data = $request->all();
         if (isset($data['quotetion_number'])) {
-            $checkQuotetion = DetailImport::where('quotation_number', $data['quotetion_number'])
-                ->where('workspace_id', Auth::user()->current_workspace);
+            $checkQuotetion = DetailImport::where('quotation_number', $data['quotetion_number']);
             if (isset($data['detail_id'])) {
                 $checkQuotetion->where('id', '!=', $data['detail_id']);
             }
@@ -341,8 +334,7 @@ class DetailImportController extends Controller
                 ];
             }
         } elseif (isset($data['delivery_code'])) {
-            $delivery_code = Receive_bill::where('delivery_code', $data['delivery_code'])
-                ->where('workspace_id', Auth::user()->current_workspace)->first();
+            $delivery_code = Receive_bill::where('delivery_code', $data['delivery_code']);
             if ($delivery_code) {
                 $result = [
                     'status' => false,
@@ -353,9 +345,8 @@ class DetailImportController extends Controller
                 ];
             }
         } elseif (isset($data['number_bill'])) {
-            $number_bill = Reciept::where('number_bill', $data['number_bill'])
-                ->where('workspace_id', Auth::user()->current_workspace)->first();
-            if ($number_bill) {
+            $number_bill = Reciept::where('number_bill', $data['number_bill']);
+            if ($number_bill->isEmpty()) {
                 $result = [
                     'status' => false,
                 ];
@@ -365,8 +356,7 @@ class DetailImportController extends Controller
                 ];
             }
         } else {
-            $payment_code = PayOder::where('payment_code', $data['payment_code'])
-                ->where('workspace_id', Auth::user()->current_workspace)->first();
+            $payment_code = PayOder::where('payment_code', $data['payment_code'])->first();
             if ($payment_code) {
                 $result = [
                     'status' => false,
@@ -382,15 +372,13 @@ class DetailImportController extends Controller
     // Thêm mới nhà cung cấp
     public function addNewProvide(Request $request)
     {
-        $check = Provides::where('workspace_id', Auth::user()->current_workspace)
-            ->where(function ($query) use ($request) {
-                $query->where('provide_code', $request->provide_code)
-                    ->orWhere('provide_name_display', $request->provide_name_display);
-            })
+        $check = Provides::where(function ($query) use ($request) {
+            $query->where('provide_code', $request->provide_code)
+                ->orWhere('provide_name_display', $request->provide_name_display);
+        })
             ->first();
         if ($check == null) {
-            $checkKey = Provides::where('workspace_id', Auth::user()->current_workspace)
-                ->where('key', $request->key)
+            $checkKey = Provides::where('key', $request->key)
                 ->first();
             if ($checkKey) {
                 // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
@@ -428,7 +416,6 @@ class DetailImportController extends Controller
                     'key' => $key,
                     'provide_code' => $request->provide_code,
                     'provide_debt' => 0,
-                    'workspace_id' => Auth::user()->current_workspace,
                     'user_id' => Auth::user()->id
                 ];
                 $new_provide = DB::table('provides')->insertGetId($data);
@@ -439,7 +426,6 @@ class DetailImportController extends Controller
                         'represent_email' => $request->provide_email,
                         'represent_phone' => $request->provide_phone,
                         'represent_address' => $request->provide_address_delivery,
-                        'workspace_id' => Auth::user()->current_workspace,
                         'user_id' => Auth::user()->id
                     ];
                     if ($request->provide_represent != null || $request->provide_email != null || $request->provide_phone != null) {
@@ -449,11 +435,9 @@ class DetailImportController extends Controller
                 }
                 $provide = Provides::findOrFail($new_provide);
                 $price_effect = DateForm::where('form_field', 'import')
-                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->get();
 
                 $terms_pay = DateForm::where('form_field', 'termpay')
-                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->get();
                 $msg = response()->json([
                     'success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công',
@@ -487,7 +471,6 @@ class DetailImportController extends Controller
     {
         $data = $request->all();
         $check = DB::table('provides')
-            ->where('workspace_id', Auth::user()->current_workspace)
             ->where(function ($query) use ($data) {
                 $query->where('provide_code', $data['provide_code'])
                     ->orWhere('provide_name_display', $data['provide_name_display']);
@@ -499,12 +482,10 @@ class DetailImportController extends Controller
             return response()->json(['success' => false, 'msg' => 'Thông tin khách hàng đã tồn tại']);
         } else {
             $provide = Provides::where('id', $request->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
 
             if ($provide) {
-                $checkKey = Provides::where('workspace_id', Auth::user()->current_workspace)
-                    ->where('id', '!=', $request->id)
+                $checkKey = Provides::where('id', '!=', $request->id)
                     ->where('key', $data['key'])
                     ->first();
 
@@ -547,14 +528,12 @@ class DetailImportController extends Controller
                     DB::table('provides')->where('id', $request->id)->update($dataProvide);
 
                     $date = DetailImport::where('provide_id', $provide->id)->orderBy('id', 'desc')
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
                         ->first();
                     if ($date) {
                         $date = explode('/', $date->quotation_number)[0];
                     }
                     $count = DetailImport::where('provide_id', $provide->id)
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
                         ->count();
                     $lastDetailImport = DetailImport::where('provide_id', $provide->id)
@@ -588,16 +567,14 @@ class DetailImportController extends Controller
     // Hiển thị tất cả Mã sản phẩm
     public function getAllProducts()
     {
-        $data = Products::where('workspace_id', Auth::user()->current_workspace)
-            ->where('type', 1)
+        $data = Products::where('type', 1)
             ->get();
         return $data;
     }
     // Hiển thị tên sản phẩm theo id đã chọn
     public function showProductName()
     {
-        return Products::where('workspace_id', Auth::user()->current_workspace)
-            ->where('type', 1)
+        return Products::where('type', 1)
             ->get();
     }
     // Hiển thị thông tin Dự án
@@ -617,7 +594,6 @@ class DetailImportController extends Controller
         $listProduct = [];
         for ($i = 0; $i < count($data['listProductName']); $i++) {
             $check = Products::where('product_name', $data['listProductName'][$i])
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
                 ->first();
             if ($check && $check->check_seri == 1 && $data['checkSN'][$i] == 1) {
@@ -775,15 +751,12 @@ class DetailImportController extends Controller
         if ($request->status == "add") {
 
             $represent = ProvideRepesent::where('provide_id', $request->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->get();
 
             $price_effect = DateForm::where('form_field', 'import')
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->get();
 
             $terms_pay = DateForm::where('form_field', 'termpay')
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->get();
 
             $defaltPrice = DateForm::join('guest_dateform', 'date_form.id', 'guest_dateform.date_form_id')
@@ -809,12 +782,10 @@ class DetailImportController extends Controller
             if (isset($request->table)) {
                 if ($request->table == 'represent') {
                     $represent = ProvideRepesent::where('id', $request->id)
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
                     $data['represent'] = $represent;
                 } else {
                     $dateForm = DateForm::where('id', $request->id)
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
                     $data[$request->table] = $dateForm;
                     $data['table'] = $request->table;
@@ -837,7 +808,6 @@ class DetailImportController extends Controller
                 'represent_email' => $request->provide_email,
                 'represent_phone' => $request->provide_phone,
                 'represent_address' => $request->provide_address_delivery,
-                'workspace_id' => Auth::user()->current_workspace,
                 'default' => 0,
                 'user_id' => Auth::user()->id
             ];
@@ -860,7 +830,6 @@ class DetailImportController extends Controller
             $checkF = DateForm::where('form_name', $request->inputName)
                 ->where('form_field', $request->table)
                 ->where('form_desc', $request->inputDesc)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($checkF) {
                 $msg = response()->json([
@@ -873,7 +842,6 @@ class DetailImportController extends Controller
                     'form_desc' => $request->inputDesc,
                     'default_form' => 0,
                     'default_guest' => 0,
-                    'workspace_id' => Auth::user()->current_workspace,
                     'created_at' => Carbon::now(),
                     'user_id' => Auth::user()->id
                 ];
@@ -892,7 +860,6 @@ class DetailImportController extends Controller
             $check = ProvideRepesent::where('id', '!=', $request->present_id)
                 ->where('represent_name', $request->provide_represent)
                 ->where('represent_phone', $request->provide_phone)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($check) {
                 $msg = response()->json([
@@ -918,7 +885,6 @@ class DetailImportController extends Controller
                 ->where('form_name', $request->inputName)
                 ->where('form_field', $request->inputField)
                 ->where('form_desc', $request->inputDesc)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($checkF) {
                 $msg = response()->json([
@@ -945,11 +911,9 @@ class DetailImportController extends Controller
     {
         if ($request->table == "represent") {
             $check = ProvideRepesent::where('id', $request->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($check) {
                 $check_exist = DetailImport::where('represent_id', $request->id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
                 if ($check_exist) {
                     $msg = response()->json([
@@ -968,7 +932,6 @@ class DetailImportController extends Controller
             }
         } else {
             $check = DateForm::where('id', $request->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($check) {
                 $msg = response()->json([
@@ -989,8 +952,7 @@ class DetailImportController extends Controller
     {
         $data = [];
         $checkF = GuestFormDate::where('guest_id', $request->provides_id)
-            ->where('form_field', $request->form)
-            ->where('workspace_id', Auth::user()->current_workspace);
+            ->where('form_field', $request->form);
         if ($request->form == 'represent') {
             $checkF = $checkF->first();
             if ($checkF) {
@@ -1014,7 +976,6 @@ class DetailImportController extends Controller
                     'form_field' => $request->form,
                     'guest_id' => $request->provides_id,
                     'date_form_id' => $request->id,
-                    'workspace_id' => Auth::user()->current_workspace
                 ];
                 GuestFormDate::insert($dataForm);
                 DB::table('represent_provide')
@@ -1047,7 +1008,6 @@ class DetailImportController extends Controller
                     'form_field' => $request->form,
                     'guest_id' => $request->provides_id,
                     'date_form_id' => $request->id,
-                    'workspace_id' => Auth::user()->current_workspace
                 ];
                 GuestFormDate::insert($dataForm);
                 DB::table('date_form')
@@ -1086,7 +1046,6 @@ class DetailImportController extends Controller
         if ($product) {
             $history = QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
                 ->where('quoteimport.product_name', $request->product_name)
-                ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
                 ->where('detailimport.status', 2)
                 ->get();
             $data['history'] = $history;
@@ -1109,7 +1068,6 @@ class DetailImportController extends Controller
                 $history = QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
                     ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
                     ->where('quoteimport.product_name', $request->product_name)
-                    ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
                     ->whereIn('detailimport.status', [0, 2])
                     ->select('quoteimport.*', 'provides.provide_name_display as nameProvide', 'detailimport.created_at as create')
                     ->get();
@@ -1224,13 +1182,11 @@ class DetailImportController extends Controller
         $detailImport = DetailImport::where('id', $request->id)->first();
         if ($detailImport) {
             $quoteImport = QuoteImport::where('detailimport_id', $detailImport->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->get();
             if ($quoteImport) {
                 foreach ($quoteImport as $qt) {
                     $product = Products::where('product_name', $qt->product_name)
                         ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
-                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
 
                     if ($request->type == "receive") {
@@ -1240,12 +1196,10 @@ class DetailImportController extends Controller
                             break;
                         } else {
                             $productImport = QuoteImport::where('product_name', $qt->product_name)
-                                ->where('workspace_id', Auth::user()->current_workspace)
                                 ->first();
 
                             if ($productImport) {
                                 $CBSN = ProductImport::where('quoteImport_id', $productImport->id)
-                                    ->where('workspace_id', Auth::user()->current_workspace)
                                     ->where('receive_id', '!=', 'null')
                                     ->first();
                             }
@@ -1269,10 +1223,9 @@ class DetailImportController extends Controller
                             $data['msg'] = "Đơn nhận hàng đã được tạo";
                             break;
                         } else {
-                            $count = Reciept::where('workspace_id', Auth::user()->current_workspace)->count();
+                            $count = Reciept::count();
 
-                            $lastReceive = Reciept::where('workspace_id', Auth::user()->current_workspace)
-                                ->orderBy('id', 'desc')
+                            $lastReceive = Reciept::orderBy('id', 'desc')
                                 ->first();
 
                             if ($lastReceive) {

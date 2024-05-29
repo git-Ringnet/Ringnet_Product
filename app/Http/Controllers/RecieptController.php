@@ -40,8 +40,7 @@ class RecieptController extends Controller
     {
         $title = "Hóa đơn mua hàng";
         $perPage = 10;
-        $reciept = Reciept::where('reciept.workspace_id', Auth::user()->current_workspace)
-            ->orderBy('reciept.id', 'desc');
+        $reciept = Reciept::orderBy('reciept.id', 'desc');
         if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
             $reciept->join('detailimport', 'detailimport.id', 'reciept.detailimport_id')
                 ->where('detailimport.user_id', Auth::user()->id);
@@ -65,7 +64,6 @@ class RecieptController extends Controller
         $workspacename = $workspacename->workspace_name;
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
             ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.reciept_qty,0)'))
-            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->distinct()
             ->orderBy('id', 'desc');
         if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
@@ -152,7 +150,6 @@ class RecieptController extends Controller
             ->join('products', 'quoteimport.product_name', 'products.product_name')
             ->where('products_import.detailimport_id', $reciept->detailimport_id)
             ->where('products_import.reciept_id', $reciept->id)
-            ->where('products.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'quoteimport.product_code',
                 'quoteimport.product_name',
@@ -220,8 +217,7 @@ class RecieptController extends Controller
     public function show_reciept(Request $request)
     {
         $data = [];
-        $detail = DetailImport::where('id', $request->detail_id)
-            ->where('workspace_id', Auth::user()->current_workspace)->first();
+        $detail = DetailImport::where('id', $request->detail_id)->first();
         $name =  $detail->getNameProvide->provide_name_display;
         $data = [
             'quotation_number' => $detail->quotation_number,
@@ -236,8 +232,6 @@ class RecieptController extends Controller
         return QuoteImport::join('products', 'products.product_name', 'quoteimport.product_name')
             ->where('quoteimport.detailimport_id', $request->id)
             ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(reciept_qty,0)'))
-            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
-            ->where('products.workspace_id', Auth::user()->current_workspace)
             ->select('quoteimport.*', 'products.product_inventory as inventory')
             ->get();
     }

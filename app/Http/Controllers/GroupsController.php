@@ -112,7 +112,7 @@ class GroupsController extends Controller
             return back()->with('warning', 'Không tìm nhóm sản phẩm để xóa');
         }
         $check = Products::where('group_id', $id)->get();
-        if ($check) {
+        if (!$check->isEmpty()) {
             return back()->with('warning', 'Xóa thất bại do nhóm sản phẩm có sản phẩm!');
         }
         $group->delete();
