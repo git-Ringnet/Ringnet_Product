@@ -7,6 +7,7 @@ use App\Models\DateForm;
 use App\Models\DetailImport;
 use App\Models\GuestFormDate;
 use App\Models\HistoryImport;
+use App\Models\HistoryPaymentOrder;
 use App\Models\PayOder;
 use App\Models\ProductImport;
 use App\Models\Products;
@@ -31,26 +32,26 @@ class DetailImportController extends Controller
     private $sn;
     private $quoteImport;
     private $receiver_bill;
-    private $product;
     private $reciept;
     private $payment;
     private $history_import;
     private $attachment;
-    private $workspaces;
     private $userFlow;
+    private $productImport;
+    private $historyPayment;
     public function __construct()
     {
         $this->detailImport = new DetailImport();
         $this->quoteImport = new QuoteImport();
         $this->receiver_bill = new Receive_bill();
-        $this->product = new Products();
         $this->sn = new Serialnumber();
         $this->reciept = new Reciept();
         $this->payment = new PayOder();
         $this->history_import = new HistoryImport();
         $this->attachment = new Attachment();
-        $this->workspaces = new Workspace();
         $this->userFlow = new userFlow();
+        $this->productImport = new ProductImport();
+        $this->historyPayment = new HistoryPaymentOrder();
     }
     /**
      * Display a listing of the resource.
@@ -90,6 +91,24 @@ class DetailImportController extends Controller
             $import_id = $result['detail_id'];
             // Thêm sản phẩm theo đơn hàng, thêm vào lịch sử, Thêm sản phẩm vào tồn kho
             $this->quoteImport->addQuoteImport($request->all(), $import_id);
+            //
+            // Tạo sản phẩm theo đơn nhận hàng
+            $this->productImport->addProductImport($request->all(), $import_id, 'payOrder_id', 'payment_qty');
+            // Tạo mới thanh toán hóa đơn
+            $payment = $this->payment->addNewPayment($request->all(), $import_id);
+            if ($payment) {
+                $dataUserFlow = [
+                    'user_id' => Auth::user()->id,
+                    'activity_type' => "TTMH",
+                    'activity_description' => "Xác nhận thanh toán mua hàng",
+                    'created_at' => Carbon::now()
+                ];
+
+                DB::table('user_flow')->insert($dataUserFlow);
+
+                // Lưu lịch sử
+                $this->historyPayment->addHistoryPayment($request->all(), $payment);
+            }
             return redirect()->route('import.index')->with('msg', 'Tạo mới đơn nhập hàng thành công !');
         } else {
             return redirect()->route('import.index')->with('warning', 'Số đơn mua hàng đã tồn tại !');
@@ -101,13 +120,7 @@ class DetailImportController extends Controller
      */
     public function show(string $id)
     {
-        $import = DetailImport::where('id', $id);
-        if (Auth::check()) {
-            if (Auth::user()->getRoleUser->roleid == 4) {
-                $import->where('user_id', Auth::user()->id);
-            }
-        }
-        $import = $import->first();
+        $import = DetailImport::where('id', $id)->first();
         if ($import) {
             $provides = Provides::all();
             $title = $import->quotation_number;
@@ -118,8 +131,9 @@ class DetailImportController extends Controller
                 ->get();
             $project = Project::all();
             $history = HistoryImport::where('detailImport_id', $id)->get();
-
-            return view('tables.import.showImport', compact('import', 'title', 'provides', 'product', 'project', 'history'));
+            //Thanh toán
+            $payOrder = PayOder::where('detailimport_id', $id)->first();
+            return view('tables.import.showImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'payOrder'));
         } else {
             return redirect()->route('import.index')->with('warning', 'Không tìm thấy trang hợp lệ !');
         }
@@ -130,13 +144,7 @@ class DetailImportController extends Controller
      */
     public function edit(string $id)
     {
-        $import = DetailImport::where('id', $id);
-        if (Auth::check()) {
-            if (Auth::user()->getRoleUser->roleid == 4) {
-                $import->where('user_id', Auth::user()->id);
-            }
-        }
-        $import = $import->first();
+        $import = DetailImport::where('id', $id)->first();
         if ($import) {
             $represent = ProvideRepesent::where('provide_id', $import->provide_id)->get();
             $price_effect = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'import')->get();
@@ -159,7 +167,9 @@ class DetailImportController extends Controller
             $history = HistoryImport::where('detailImport_id', $id)
                 ->orderBy('id', 'desc')
                 ->get();
-            return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay'));
+            //Thanh toán
+            $payOrder = PayOder::where('detailimport_id', $id)->first();
+            return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay','payOrder'));
         } else {
             return redirect()->route('import.index')->with('warning', 'Không tìm thấy trang hợp lệ !');
         }

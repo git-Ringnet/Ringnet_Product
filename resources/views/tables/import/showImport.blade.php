@@ -35,8 +35,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('import.index') }}" class="user_flow" data-type="DMH"
-                            data-des="Trở về">
+                        <a href="{{ route('import.index') }}" class="user_flow" data-type="DMH" data-des="Trở về">
                             <button class="btn-destroy rounded mx-1 d-flex align-items-center" type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
@@ -77,8 +76,8 @@
                                 <ul class="m-0 p-0 scroll-data">
                                     <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
                                         data-type="DMH" data-des="Tạo nhanh thanh toán mua hàng">
-                                        <a href="#" style="flex:2;" onclick="getAction(this)"
-                                            name="search-info" class="search-info">
+                                        <a href="#" style="flex:2;" onclick="getAction(this)" name="search-info"
+                                            class="search-info">
                                             <button class="align-items-left h-100 border-0 w-100 rounded"
                                                 style="background-color: transparent;" name="action"
                                                 value="action_4" type="submit">
@@ -91,8 +90,8 @@
                                 </ul>
                             </div>
                         </div>
-                        <a href="{{ route('import.edit', ['import' => $import->id]) }}"
-                            class="user_flow" data-type="DMH" data-des="Sửa đơn mua hàng">
+                        <a href="{{ route('import.edit', ['import' => $import->id]) }}" class="user_flow"
+                            data-type="DMH" data-des="Sửa đơn mua hàng">
                             <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
@@ -181,7 +180,7 @@
                         </ul>
                     </div>
                     <div class="d-flex position-fixed" style="right: 10px; top: 70px;">
-                        @if ($import->status_pay == 3)
+                        @if ($import->status_pay == 3 || $import->status_pay == 0)
                             <div class="border text-secondary p-1 rounded">
                                 <span>
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -282,6 +281,12 @@
                                                     <span class="d-flex justify-content-center text-13">
                                                         Thuế
                                                         <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border border-right-0" style="width:5%;">
+                                                    <span class="d-flex justify-content-center text-13">
+                                                        Khuyến mãi
+                                                        <div class="icon"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border border-right-0" style="width:15%;">
@@ -409,6 +414,34 @@
                                                         </select>
                                                     </td>
                                                     <td
+                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
+                                                        <div class='d-flex align-item-center'>
+                                                            <input type='text' name='promotion[]'
+                                                                value="{{ number_format($item->promotion) }}"
+                                                                class='text-right border-0 px-2 py-1 w-100 height-32 promotion'
+                                                                readonly autocomplete='off'>
+                                                            <span class='mt-1 <?php if ($item->promotion_type == 1) {
+                                                                echo 'd-none';
+                                                            } ?> percent'>%</span>
+                                                        </div>
+                                                        <div class='text-right'>
+                                                            <select
+                                                                class='border-0 mt-3 text-13-blue text-center promotion_type'
+                                                                disabled>
+                                                                <option value='1' <?php if ($item->promotion_type == 1) {
+                                                                    echo 'selected';
+                                                                } ?>>Nhập
+                                                                    tiền</option>
+                                                                <option value='2' <?php if ($item->promotion_type == 2) {
+                                                                    echo 'selected';
+                                                                } ?>>Nhập %
+                                                                </option>
+                                                            </select>
+                                                            <input type="hidden" name='promotion_type[]'
+                                                                value="{{ $item->promotion_type }}">
+                                                        </div>
+                                                    </td>
+                                                    <td
                                                         class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" name="total_price[]"
                                                             class="text-right border-0 px-2 py-1 w-100 total_price height-32"
@@ -428,7 +461,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <x-formsynthetic :import="''"></x-formsynthetic>
+                                <x-formsynthetic :import="$import"></x-formsynthetic>
                             </section>
                         </div>
 
@@ -616,31 +649,29 @@
                             <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
-                                    name="" placeholder="Chọn thông tin" style="flex:2;" id="dayPicker"
-                                    value="{{ date('d/m/Y') }}" />
-                                <input type="hidden" name="payment_day" id="hiddenDayInput"
-                                    value="{{ date('d/m/Y') }}">
+                                @if ($payOrder && $payOrder->payment_day)
+                                    <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                        placeholder="Chọn thông tin" style="flex:2;" readonly
+                                        value="{{ date_format(new DateTime($payOrder->payment_day), 'd/m/Y') }}" />
+                                @endif
                             </li>
                             <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
-                                    style="flex:2;" readonly="">
+                                @if ($payOrder && $payOrder->total)
+                                    <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
+                                        style="flex:2;" readonly=""
+                                        value="{{ number_format($payOrder->total) }}">
+                                @endif
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
-                                    style="flex:2;" readonly>
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap" style="flex: 1.5;"></span>
-                                <div class="text-13 d-flex align-items-center py-2 px-2" style="width: 58%;">
-                                    <input type="checkbox" class="mr-2" disabled>
-                                    <span>Thanh toán đủ</span>
-                                </div>
+                                @if ($payOrder && $payOrder->payment)
+                                    <input
+                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
+                                        style="flex:2;" readonly value="{{ number_format($payOrder->payment) }}">
+                                @endif
                             </li>
                         </ul>
                     </div>
@@ -748,8 +779,6 @@
         </div>
     </div>
 </div>
-
-
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>

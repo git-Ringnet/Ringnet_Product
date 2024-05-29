@@ -113,6 +113,13 @@ function cbPayment(element) {
     }
 }
 
+$(document).ready(function() {
+    // Attach the event handler in case it wasn't properly attached before
+    $("#payment_all_checkbox").on('click', function() {
+        cbPayment(this);
+    });
+});
+
 function checkQty(value, odlQty) {
     if (
         $(value)

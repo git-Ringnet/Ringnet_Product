@@ -89,7 +89,7 @@
                                                 class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
+                                        <th class="border-right px-2 p-0 text-left" style="width: 14%;z-index:99;">
                                             <span class="text-table text-secondary">Tên sản phẩm</span>
                                         </th>
                                         <th class="border-right px-2 p-0 text-left" style="width: 8%;">
@@ -98,13 +98,16 @@
                                         <th class="border-right px-2 p-0 text-right" style="width: 10%;">
                                             <span class="text-table text-secondary">Số lượng</span>
                                         </th>
-                                        <th class="border-right px-2 p-0 text-right" style="width: 13%;">
+                                        <th class="border-right px-2 p-0 text-right" style="width: 14%;">
                                             <span class="text-table text-secondary">Đơn giá</span>
                                         </th>
                                         <th class="border-right px-2 p-0 text-center" style="width: 8%;">
                                             <span class="text-table text-secondary">Thuế</span>
                                         </th>
-                                        <th class="border-right px-2 p-0 text-right" style="width: 11%;">
+                                        <th class="border-right px-2 p-0 text-center" style="width: 10%;">
+                                            <span class="text-table text-secondary">Khuyến mãi</span>
+                                        </th>
+                                        <th class="border-right px-2 p-0 text-right" style="width: 10%;">
                                             <span class="text-table text-secondary">Thành tiền</span>
                                         </th>
                                         <th class="border-right note px-2 p-0 text-left" style="width: 15%;">
@@ -478,18 +481,25 @@
                                     <input type="hidden" name="payment_day" id="hiddenDayInput"
                                         value="{{ date('Y-m-d') }}">
                                 </li>
-                                <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left" style="height:44px;">
+                                <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
+                                    style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien" style="flex:2;" readonly="">
+                                    <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
+                                        style="flex:2;" readonly="">
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left" style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
+                                    style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2" style="flex:2;" placeholder="Nhập số tiền">
+                                    <input name="payment"
+                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2 payment_input"
+                                        style="flex:2;" placeholder="Nhập số tiền">
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left" style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
+                                    style="height:44px;">
                                     <span class="text-13 text-nowrap" style="flex: 1.5;"></span>
                                     <div class="text-13 d-flex align-items-center py-2 px-2" style="width: 58%;">
-                                        <input type="checkbox" class="mr-2">
+                                        <input type="checkbox" class="mr-2 cbPayment" name="checkPayment"
+                                            value="1">
                                         <span>Thanh toán đủ</span>
                                     </div>
                                 </li>
@@ -585,6 +595,45 @@
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    //
+    $(document).ready(function() {
+        $('.cbPayment').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('input[name="payment"]').val('')
+                $('input[name="payment"]').prop('readonly', true);
+            } else {
+                $('input[name="payment"]').prop('readonly', false);
+            }
+        });
+    });
+    //
+    //Giới hạn số tiền
+    document.querySelector('.payment_input')
+        .addEventListener('input',
+            function() {
+                var duNoValue = document
+                    .querySelector('#TongTien')
+                    .value;
+                var paymentInput = document
+                    .querySelector(
+                        '.payment_input');
+                var paymentValue =
+                    paymentInput.value;
+                var duNoNumber = parseFloat(
+                    duNoValue.replace(
+                        /,/g, ''));
+                var paymentNumber =
+                    parseFloat(paymentValue
+                        .replace(/,/g, ''));
+
+                if (paymentNumber < 0 ||
+                    paymentNumber >
+                    duNoNumber) {
+                    paymentInput.value =
+                        duNoValue;
+                }
+            });
+    //
     flatpickr("#datePicker", {
         locale: "vn",
         dateFormat: "d/m/Y",
@@ -1566,11 +1615,9 @@
                             }
                         })
                     }
-
                 }
             }
         })
-
     }
 
     function getAc(button) {
@@ -1725,6 +1772,15 @@
         if ($('#inputcontent tbody tr').length < 1) {
             formSubmit = false;
             showAutoToast('warning', 'Vui lòng thêm ít nhất 1 sản phẩm')
+            return false;
+        }
+
+        var tongTien = parseFloat($('#TongTien').val().replace(/,/g, ''));
+        var payment = parseFloat($('input[name="payment"]').val().replace(/,/g, ''));
+
+        if (payment > tongTien) {
+            showAutoToast('warning', 'Số tiền thanh toán không được lớn hơn tổng tiền');
+            formSubmit = false;
             return false;
         }
 

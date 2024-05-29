@@ -29,6 +29,7 @@ class DetailImport extends Model
         'workspace_id',
         'total_tax',
         'discount',
+        'discount_type',
         'transfer_fee',
         'terms_pay',
         'created_at',
@@ -76,23 +77,39 @@ class DetailImport extends Model
     {
         $total = 0;
         $total_tax = 0;
+        $total_amount = 0;
         $result = [];
+        $voucher = 0;
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $product_ratio = 0;
             $price_import = 0;
             $price_export = 0;
             isset($data['product_ratio']) ? $product_ratio = $data['product_ratio'][$i] : $product_ratio = 0;
             isset($data['price_import']) ? $price_import = str_replace(',', '', $data['price_import'][$i]) : $price_import = 0;
+            $promotion = isset($data['promotion'][$i]) && $data['promotion'][$i] !== '' ? str_replace(',', '', $data['promotion'][$i]) : 0;
             if ($product_ratio > 0 && $price_import > 0) {
                 $price_export = (($product_ratio + 100) * $price_import) / 100;
                 $total += $price_export * str_replace(',', '', $data['product_qty'][$i]);
             } else {
-                $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
+                if ($data['promotion_type'][$i] == 1) {
+                    $price_export = (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i])) - $promotion;
+                }
+                else if ($data['promotion_type'][$i] == 2) {
+                    $price_export = (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i])) - ((str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]) * $promotion) / 100);
+                }
+                else{
+                    $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
+                }
                 $total += $price_export;
+                $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
             }
-            $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
         }
-        $total_tax = round($total_tax) + round($total);
+        $total_amount = round($total_tax) + round($total);
+        if ($data['discount_type'] == 1) {
+            $voucher = $total_amount - ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
+        } else {
+            $voucher = $total_amount - (($total_amount * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100);
+        }
         $dataImport = [
             'provide_id' => $data['provides_id'],
             'project_id' => 1,
@@ -101,8 +118,9 @@ class DetailImport extends Model
             'status' => 2,
             'created_at' => $data['date_quote'],
             'total_price' => $total,
-            'total_tax' => $total_tax,
-            'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
+            'total_tax' => $voucher,
+            'discount' =>   isset($data['voucher']) ? str_replace(',', '', $data['voucher']) : 0,
+            'discount_type' => $data['discount_type'],
             'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
             'status_receive' => 0,
             'status_reciept' => 0,

@@ -52,18 +52,17 @@ class PayOrderController extends Controller
      */
     public function create()
     {
-        $title = "Tạo mới hóa đơn thanh toán";
+        $title = "Tạo mới đơn thanh toán";
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
             // ->where('quoteimport.product_qty', '>', 'quoteimport.payment_qty')
             ->where('quoteimport.product_qty','>',DB::raw('COALESCE(quoteimport.payment_qty,0)'))
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
-            ->where('detailimport.status_pay', '=', 0)
             ->distinct()
             ->orderBy('id', 'desc');
 
         $reciept->select('detailimport.quotation_number', 'detailimport.id');
         $reciept = $reciept->get();
-        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename'));
+        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept'));
     }
 
     /**
@@ -114,7 +113,7 @@ class PayOrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $workspaces, string $id)
+    public function edit(string $id)
     {
         $payment = PayOder::findOrFail($id);
         if ($payment) {
@@ -140,6 +139,8 @@ class PayOrderController extends Controller
                     'quoteimport.product_note',
                     'products_import.product_id',
                     'products.product_inventory as inventory',
+                    'quoteimport.promotion',
+                    'quoteimport.promotion_type',
                     DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
                 )
                 ->get();
@@ -147,14 +148,14 @@ class PayOrderController extends Controller
                 ->where('history_payment_order.payment_id', $payment->id)
                 ->select('history_payment_order.*', 'pay_order.payment_code')
                 ->get();
-            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'nameRepresent'));
+            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'nameRepresent','detail'));
         }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace, Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         // Cập nhật trạng thái
         $result = $this->payment->updatePayment($request->all(), $id);
@@ -179,7 +180,7 @@ class PayOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $workspace, string $id)
+    public function destroy(string $id)
     {
         $status = $this->payment->deletePayment($id);
         if ($status) {

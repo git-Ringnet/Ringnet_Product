@@ -329,14 +329,14 @@ class ReceiveController extends Controller
             }
             $resultNumber = "MTT-" . $count;
         }
-
-
         $data = [
             'quotation_number' => isset($detail) ? $detail->quotation_number : "",
             'represent' => isset($nameRepresent) ? $nameRepresent : "",
             'provide_name' => isset($nameProvide) ? $nameProvide : "",
             'id' => isset($detail) ? $detail->id : "",
-            'resultNumber' => $resultNumber
+            'resultNumber' => $resultNumber,
+            'discount' => $detail->discount,
+            'discount_type' => $detail->discount_type,
         ];
         return $data;
     }

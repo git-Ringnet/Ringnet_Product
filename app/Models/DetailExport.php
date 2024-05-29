@@ -30,6 +30,7 @@ class DetailExport extends Model
         'terms_pay',
         'total_tax',
         'discount',
+        'discount_type',
         'transfer_fee',
         'amount_owed',
         'goods',
@@ -67,6 +68,7 @@ class DetailExport extends Model
     {
         $totalBeforeTax = 0;
         $totalTax = 0;
+        $voucher = 0;
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
             $promotion = isset($data['promotion'][$i]) && $data['promotion'][$i] !== '' ? str_replace(',', '', $data['promotion'][$i]) : 0;
@@ -87,6 +89,11 @@ class DetailExport extends Model
             $subTax = ($subtotal * $tax) / 100;
             $totalBeforeTax += $subtotal;
             $totalTax += $subTax;
+            if ($data['discount_type'] == 1) {
+                $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
+            } else {
+                $voucher = (($totalBeforeTax + $totalTax) * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
+            }
         }
         $dataExport = [
             'guest_id' => $data['guest_id'],
@@ -100,9 +107,10 @@ class DetailExport extends Model
             'total_price' => $totalBeforeTax,
             'total_tax' => $totalTax,
             'discount' => $data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']),
-            'amount_owed' => ($totalBeforeTax + $totalTax) - ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher'])),
+            'amount_owed' => ($totalBeforeTax + $totalTax) - $voucher,
             'guest_name' => $data['guestName'],
             'represent_name' => $data['representName'],
+            'discount_type' => $data['discount_type'],
         ];
         $detailexport = new DetailExport($dataExport);
         $detailexport->save();
@@ -223,7 +231,7 @@ class DetailExport extends Model
             $sumSell = DetailExport::where('guest_id', $id)
                 ->whereIn('status', [2, 3])
                 ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-                ->selectRaw('SUM(total_price + total_tax) as sumSell')
+                ->select('detailexport.amount_owed as sumSell')
                 ->value('sumSell');
             return $sumSell;
         } else {

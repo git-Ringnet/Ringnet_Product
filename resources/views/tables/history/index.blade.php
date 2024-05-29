@@ -683,7 +683,7 @@
                                                             isset($item->getDetailImport->getPayOrder) &&
                                                             isset($item->getDetailImport->getPayOrder->getHistoryPay))
                                                         <a
-                                                            href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item->getDetailImport->getPayOrder->id]) }}">
+                                                            href="{{ route('paymentOrder.edit', ['paymentOrder' => $item->getDetailImport->getPayOrder->id]) }}">
                                                             {{ date_format(new DateTime($item->getDetailImport->getPayOrder->getHistoryPay->created_at), 'd/m/Y') }}
                                                         </a>
                                                     @endif

@@ -455,18 +455,33 @@
                                         </span>
                                         <span id="total-amount-sum" class="text-13-black text-right">0đ</span>
                                     </div>
+                                    <div class="d-flex justify-content-between mt-2 align-items-center">
+                                        <span class="text-13-black">Khuyến mãi:</span>
+                                        <div class="d-flex align-items-center">
+                                            <input id="voucher" type="text" name="voucher"
+                                                class="text-right text-13-black border-0 py-1 w-100 height-32 bg-input-guest"
+                                                value="{{ number_format($detailExport->discount) }}" readonly>
+                                            @if ($detailExport->discount_type == 2)
+                                                <span class="percent_discount">%</span>
+                                            @endif
+                                            <select name="discount_type" disabled
+                                                class="border-0 height-32 text-13-blue text-center bg-input-guest">
+                                                <option value="1" <?php if ($detailExport->discount_type == 1) {
+                                                    echo 'selected';
+                                                } ?>>Nhập tiền</option>
+                                                <option value="2" <?php if ($detailExport->discount_type == 2) {
+                                                    echo 'selected';
+                                                } ?>>Nhập %</option>
+                                            </select>
+                                            <input type="hidden" class="discount_type"
+                                                value="{{ $detailExport->discount_type }}">
+                                        </div>
+                                    </div>
                                     <div class="d-flex justify-content-between mt-2">
                                         <span class="text-13-black">
                                             Thuế VAT:
                                         </span>
                                         <span id="product-tax" class="text-13-black text-right">0đ</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between mt-2 align-items-center">
-                                        <span class="text-13-black">Khuyến mãi:</span>
-                                        <input id="voucher" type="text" name="voucher" readonly
-                                            value="{{ number_format($detailExport->discount) }}"
-                                            class="text-right text-13-black border-0 py-1 w-50 height-32"
-                                            placeholder="Nhập số tiền">
                                     </div>
                                     <div class="d-flex justify-content-between mt-2">
                                         <span class="text-13-bold text-lg font-weight-bold">
@@ -2872,14 +2887,20 @@
 
     function calculateGrandTotal(totalAmount, totalTax) {
         var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
+        var discountType = $('.discount_type').val();
         if (!isNaN(totalAmount) || !isNaN(totalTax)) {
-            var grandTotal = (totalAmount + totalTax) - voucher;
-            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
-        }
+            var grandTotal = totalAmount + totalTax;
+            if (discountType === "2") { // Nhập %
+                voucher = (grandTotal * voucher) / 100;
+            }
 
-        // Cập nhật giá trị data-value
-        $('#grand-total').attr('data-value', grandTotal);
-        $('#total').val(totalAmount);
+            grandTotal -= voucher;
+            grandTotal = Math.round(grandTotal);
+            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
+            // Cập nhật giá trị data-value
+            $('#grand-total').attr('data-value', grandTotal);
+            $('#total').val(totalAmount);
+        }
     }
 
     function formatCurrency(value) {

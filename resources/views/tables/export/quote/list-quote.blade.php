@@ -333,7 +333,19 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    {{ number_format(($value_export->total_price + $value_export->total_tax) - $value_export->discount)}}
+                                                    @php
+                                                        $discount = 0;
+                                                        if ($value_export->discount_type == 1) {
+                                                            $discount = $value_export->discount;
+                                                        } else {
+                                                            $discount =
+                                                                (($value_export->total_price +
+                                                                    $value_export->total_tax) *
+                                                                    $value_export->discount) /
+                                                                100;
+                                                        }
+                                                    @endphp
+                                                    {{ number_format($value_export->total_price + $value_export->total_tax - $discount) }}
                                                 </td>
                                                 <td
                                                     class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">

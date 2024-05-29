@@ -13,37 +13,20 @@
     </div>
     <div class="content-filter-all bg-white">
         <section class="content-header--options p-0 border-custom">
-            <div class="w-100">
-                <ul class="header-options--nav-2 nav nav-tabs margin-left32 border-bottom-0 w-100 custom-nav"
-                    style="margin: 13px 0 0 0 !important;">
+            <div class="h-100" style="width: 38%;">
+                <ul class="header-options--nav-1 nav nav-tabs margin-left32 border-bottom-0 w-100 custom-nav"
+                    style="margin: 13px 0 0 0 !important;height: 40px !important;">
                     <li>
-                        <a class="text-secondary px-1 text-15 active" data-toggle="tab" href="#tkbanhang">Tổng kết bán
-                            hàng</a>
-                    </li>
-                    <li>
-                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#tkgiaohang">Tổng kết giao
-                            hàng</a>
-                    </li>
-                    <li>
-                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#countInport">Tổng kết mua
-                            hàng</a>
-                    </li>
-                    <li>
-                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#compareDebt">Công nợ khách hàng
-                        </a>
-                    </li>
-                    <li>
-                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#profitExport">Lợi nhuận bán
-                            hàng</a>
-                    </li>
-                    <li>
-                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#importExport">Thống kê nhập xuất
-                            tồn
+                        <a class="text-secondary px-1 text-15 active" data-toggle="tab" href="#ttTonKho">Tổng tiền tồn
                             kho</a>
                     </li>
                     <li>
-                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#debtProvide">Công nợ
-                            nhà cung cấp</a>
+                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#lnBanHang">Lợi nhuận bán
+                            hàng</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#dnKH">Dư nợ khách
+                            hàng</a>
                     </li>
                 </ul>
             </div>
@@ -97,8 +80,7 @@
                                             aria-labelledby="dropdownMenuButton">
                                             <div class="search-container px-2">
                                                 <input type="text" placeholder="Tìm kiếm" id="myInput"
-                                                    class="text-13" onkeyup="filterFunction()"
-                                                    style="outline: none;">
+                                                    class="text-13" onkeyup="filterFunction()" style="outline: none;">
                                                 <span class="search-icon mr-2">
                                                     <i class="fas fa-search"></i>
                                                 </span>
@@ -218,10 +200,8 @@
             </div>
             {{-- <div class="cac">Export</div> --}}
         </div>
+        
     </div>
 </div>
-
-
-
 </div>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>

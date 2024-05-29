@@ -10,10 +10,20 @@
                             <span id="total-amount-sum" class="text-table">0đ</span>
                         </div>
                         <div class="d-flex justify-content-between mt-2 align-items-center">
+                            <span class="text-13-black">Khuyến mãi:</span>
+                            <div class="d-flex align-items-center">
+                                <input id="voucher" @if($import != "") value="{{number_format($import->discount)}}" readonly @endif type="text" name="voucher" class="text-right text-13-black border-0 py-1 w-100 height-32 bg-input-guest" placeholder="Nhập số tiền">
+                                <span class="percent_discount @if($import != "" && $import->discount_type == 1) d-none @endif">%</span>
+                                <select @if($import != "") disabled @endif id="discount_type" name="discount_type" class="border-0 height-32 text-13-blue text-center discount_type bg-input-guest">
+                                    <option value="1" @if($import != "" && $import->discount_type == 1) selected @endif>Nhập tiền</option>
+                                    <option value="2" @if($import != "" && $import->discount_type == 2) selected @endif>Nhập %</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2 align-items-center">
                             <span class="text-13-black">Thuế VAT:</span>
                             <span id="product-tax" class="text-table">0đ</span>
                         </div>
-                        @if($import != "123")
                         {{-- @if($import)
                         <div class="d-flex justify-content-between align-items-center mt-2">
                             <span class="text-primary text-table">Giảm giá:</span>
@@ -45,7 +55,6 @@
                             </div>
                         </div>
                         @endif --}}
-                        @endif
                         <div class="d-flex justify-content-between mt-2">
                             <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
                             <span id="grand-total" data-value="0"  

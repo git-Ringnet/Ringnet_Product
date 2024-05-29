@@ -1136,7 +1136,7 @@ class DetailExportController extends Controller
                                 'detailexport.quotation_number',
                                 'detailexport.represent_name',
                                 'pay_export.id as payTT',
-                                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
+                                'detailexport.amount_owed',
                             )
                             ->groupBy(
                                 'detailexport.id',
@@ -1147,6 +1147,7 @@ class DetailExportController extends Controller
                                 'detailexport.quotation_number',
                                 'detailexport.represent_name',
                                 'pay_export.id',
+                                'detailexport.amount_owed',
                             )
                             ->first();
                         $tongThanhToan = PayExport::where('detailexport_id', $payExport->id)
@@ -1157,7 +1158,7 @@ class DetailExportController extends Controller
                             ->max(DB::raw('CAST(SUBSTRING_INDEX(code_payment, "-", -1) AS UNSIGNED)'));
                         $idLast =  $lastPayExportId;
                         $data['status'] = true;
-                        $data['tongTienNo'] = $payExport->tongTienNo;
+                        $data['tongTienNo'] = $payExport->amount_owed;
                         if ($tongThanhToan) {
                             $data['tongThanhToan'] = $tongThanhToan->payment;
                         } else {

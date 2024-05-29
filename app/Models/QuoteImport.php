@@ -18,7 +18,7 @@ class QuoteImport extends Model
         'product_id', 'product_name',
         'product_unit', 'product_qty',
         'product_tax', 'product_total', 'reciept_qty', 'payment_qty',
-        'price_export', 'version', 'warehouse_id', 'workspace_id', 'product_code', 'created_at'
+        'price_export', 'version', 'warehouse_id', 'workspace_id', 'product_code', 'created_at', 'promotion', 'promotion_type'
     ];
     public function getProductCode()
     {
@@ -96,6 +96,8 @@ class QuoteImport extends Model
                 'created_at' => Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,
                 'user_id' => Auth::user()->id,
+                'promotion' => isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
+                'promotion_type' => $data['promotion_type'][$i],
                 'receive_qty' => 0,
                 'reciept_qty' => 0,
                 'payment_qty' => 0

@@ -128,11 +128,14 @@
                                                     style="width:10%;">
                                                     Thuế
                                                 </th>
+                                                <th class="border-right p-0 px-2 text-center text-13"
+                                                    style="width:10%;">
+                                                    Khuyến mãi
+                                                </th>
                                                 <th class="border-right p-0 px-2 text-right text-13"style="width:15%;">
                                                     Thành tiền
                                                 </th>
-                                                <th class="p-0 px-2 text-left note text-13"
-                                                    style="width:15%;">
+                                                <th class="p-0 px-2 text-left note text-13" style="width:15%;">
                                                     Ghi chú sản phẩm
                                                 </th>
                                             </tr>
@@ -261,14 +264,41 @@
                                                         </select>
                                                     </td>
                                                     <td
+                                                        class="border-right pt-0 p-2 text-13 align-top border-top-0 border-bottom text-center">
+                                                        <div class='d-flex align-item-center'>
+                                                            <input type='text' name='promotion[]'
+                                                                value="{{ number_format($item->promotion) }}"
+                                                                class='text-right border-0 px-2 py-1 w-100 height-32 promotion'
+                                                                readonly autocomplete='off'>
+                                                            <span class='mt-1 <?php if ($item->promotion_type == 1) {
+                                                                echo 'd-none';
+                                                            } ?> percent'>%</span>
+                                                        </div>
+                                                        <div class='text-right'>
+                                                            <select
+                                                                class='border-0 mt-3 text-13-blue text-center promotion_type'
+                                                                disabled>
+                                                                <option value='1' <?php if ($item->promotion_type == 1) {
+                                                                    echo 'selected';
+                                                                } ?>>Nhập
+                                                                    tiền</option>
+                                                                <option value='2' <?php if ($item->promotion_type == 2) {
+                                                                    echo 'selected';
+                                                                } ?>>Nhập %
+                                                                </option>
+                                                            </select>
+                                                            <input type="hidden" name='promotion_type[]'
+                                                                value="{{ $item->promotion_type }}">
+                                                        </div>
+                                                    </td>
+                                                    <td
                                                         class="border-right p-2 text-13 align-top border-top-0 border-bottom position-relative">
                                                         <input type="text" name="total_price[]"
                                                             class="text-right border-0 px-2 py-1 w-100 total_price height-32"
                                                             readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                     </td>
-                                                    <td
-                                                        class="border-top-0 p-2 text-13 align-top border-bottom">
+                                                    <td class="border-top-0 p-2 text-13 align-top border-bottom">
                                                         <input placeholder="Nhập ghi chú" type="text"
                                                             name="product_note[]"
                                                             class="border-0 py-1 w-100 height-32"
@@ -311,7 +341,7 @@
                         </div>
                     </div>
                 </div>
-                <x-formsynthetic :import="''"></x-formsynthetic>
+                <x-formsynthetic :import="$import"></x-formsynthetic>
             </section>
         </div>
         <div class="content-wrapper2 px-0 py-0">
@@ -485,7 +515,7 @@
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
                                 style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã mua hàng</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                     name="quotation_number"
@@ -495,7 +525,7 @@
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
                                 style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày mua hàng</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                     id="datePicker" style="flex:2;" placeholder="Chọn thông tin"
@@ -503,171 +533,31 @@
                                 <input type="hidden" id="hiddenDateInput" name="date_quote"
                                     value="{{ $import->created_at->toDateString() }}">
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
+                            <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
-
-                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
-                                    id="price_effect" value="{{ $import->price_effect }}" name="price_effect"
-                                    style="flex:2;" placeholder="Chọn thông tin" readonly
-                                    @if ($id_priceeffect) data-id="{{ $id_priceeffect->id }}" @endif>
-                                @if ($import->status == 1)
-                                    <ul id="listPriceEffect"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập thông tin"
-                                                    class="pr-4 w-100 input-search bg-input-guest"
-                                                    id="searchPriceEffect">
-                                                <span id="search-icon" class="search-icon">
-                                                    <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <ul class="m-0 p-0 scroll-data">
-                                            @if ($price_effect)
-                                                @foreach ($price_effect as $price)
-                                                    <li class="p-2 align-items-center text-wrap"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;"
-                                                        id="{{ $price->id }}">
-                                                        <a href="javascript:void(0)" style="flex:2;"
-                                                            id="{{ $price->id }}" name="search-price-effect"
-                                                            class="search-priceeffect search-price-effect">
-                                                            <span class="text-13-black">{{ $price->form_name }}</span>
-                                                        </a>
-
-                                                        <div class="dropdown">
-                                                            <button type="button" data-toggle="dropdown"
-                                                                class="btn-save-print d-flex align-items-center h-100"
-                                                                style="margin-right:10px">
-                                                                <i class="fa-solid fa-ellipsis"
-                                                                    aria-hidden="true"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu date-form-setting"
-                                                                style="z-index: 100;">
-                                                                <a class="dropdown-item search-date-form"
-                                                                    data-toggle="modal" data-target="#formModalquote"
-                                                                    data-name="import" data-id="{{ $price->id }}"
-                                                                    id="{{ $price->id }}"><i
-                                                                        class="fa-regular fa-pen-to-square"
-                                                                        aria-hidden="true"></i></a>
-                                                                <a class="dropdown-item delete-item" href="#"
-                                                                    data-id="{{ $price->id }}"
-                                                                    data-name="priceeffect"><i
-                                                                        class="fa-solid fa-trash-can"
-                                                                        aria-hidden="true"></i></a>
-                                                                <a class="dropdown-item set-default default-id"
-                                                                    id="default-id{{ $price->id }}" href="#"
-                                                                    data-name="import" data-id="{{ $price->id }}">
-                                                                    <i class="fa-solid fa-link"
-                                                                        aria-hidden="true"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                @endforeach
-                                            @endif
-                                        </ul>
-                                        <a type="button"
-                                            class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
-                                            data-toggle="modal" data-target="#formModalquote"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm hiệu lực báo giá</span>
-                                        </a>
-                                    </ul>
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
+                                @if ($payOrder && $payOrder->payment_day)
+                                    <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                        placeholder="Chọn thông tin" style="flex:2;" readonly
+                                        value="{{ date_format(new DateTime($payOrder->payment_day), 'd/m/Y') }}" />
                                 @endif
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
+                            <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
                                 style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
-                                    value="{{ $import->terms_pay }}" id="terms_pay" name="terms_pay"
-                                    style="flex:2;" placeholder="Chọn thông tin" readonly
-                                    @if ($id_termpay) data-id="{{ $id_termpay->id }}" @endif>
-                                @if ($import->status == 1)
-                                    <ul id="listTermsPay"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập thông tin"
-                                                    class="pr-4 w-100 input-search bg-input-guest"
-                                                    id="searchTermsPay">
-                                                <span id="search-icon" class="search-icon">
-                                                    <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <ul class="m-0 p-0 scroll-data">
-                                            @if ($terms_pay)
-                                                @foreach ($terms_pay as $term)
-                                                    <li class="p-2 align-items-center text-wrap"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;"
-                                                        id="{{ $term->id }}">
-                                                        <a href="javascript:void(0)" style="flex:2;"
-                                                            id="{{ $term->id }}" name="search-term-pay"
-                                                            class="search-termpay search-term-pay">
-                                                            <span class="text-13-black">{{ $term->form_name }}</span>
-                                                        </a>
-
-                                                        <div class="dropdown">
-                                                            <button type="button" data-toggle="dropdown"
-                                                                class="btn-save-print d-flex align-items-center h-100"
-                                                                style="margin-right:10px">
-                                                                <i class="fa-solid fa-ellipsis"
-                                                                    aria-hidden="true"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu date-form-setting"
-                                                                style="z-index: 100;">
-                                                                <a class="dropdown-item search-date-form"
-                                                                    data-toggle="modal" data-target="#formModalquote"
-                                                                    data-name="import" data-id="{{ $term->id }}"
-                                                                    id="{{ $term->id }}"><i
-                                                                        class="fa-regular fa-pen-to-square"
-                                                                        aria-hidden="true"></i></a>
-                                                                <a class="dropdown-item delete-item" href="#"
-                                                                    data-id="{{ $term->id }}"
-                                                                    data-name="priceeffect"><i
-                                                                        class="fa-solid fa-trash-can"
-                                                                        aria-hidden="true"></i></a>
-                                                                <a class="dropdown-item set-default default-id"
-                                                                    id="default-id{{ $term->id }}" href="#"
-                                                                    data-name="import" data-id="{{ $term->id }}">
-                                                                    <i class="fa-solid fa-link"
-                                                                        aria-hidden="true"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                @endforeach
-                                            @endif
-                                        </ul>
-                                        <a type="button"
-                                            class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
-                                            data-toggle="modal" data-target="#formModalTermPay"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm điều khoản</span>
-                                        </a>
-                                    </ul>
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                                @if ($payOrder && $payOrder->total)
+                                    <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
+                                        style="flex:2;" readonly=""
+                                        value="{{ number_format($payOrder->total) }}">
+                                @endif
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
+                                @if ($payOrder && $payOrder->payment)
+                                    <input
+                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
+                                        style="flex:2;" readonly value="{{ number_format($payOrder->payment) }}">
                                 @endif
                             </li>
                         </ul>
@@ -1794,9 +1684,6 @@
             formSubmit = false
             showAutoToast('warning', 'Vui lòng thêm ít nhất 1 sản phẩm')
             return false;
-        }
-        if (!checkProduct()) {
-            formSubmit = false
         }
         if (formSubmit) {
             $.ajax({

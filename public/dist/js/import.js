@@ -1,7 +1,7 @@
 // Format giá tiền
 $("body").on(
     "input",
-    '.price_export , .price_import ,.payment_input,.quantity-input,.payment_input,input[name="delivery_charges"]',
+    '.price_export , .price_import ,.payment_input,.quantity-input,.payment_input,input[name="delivery_charges"], .promotion, #voucher',
     function (event) {
         // Lấy giá trị đã nhập
         var value = event.target.value;
@@ -160,32 +160,37 @@ searchInput("#searchTermsPay", "#listTermsPay li");
 // Tính thuế, tổng tiền,...
 $(document).on(
     "input",
-    '.quantity-input, [name^="price_export"]',
+    '.quantity-input, [name^="price_export"], .promotion, .promotion_type, #voucher',
     function (e) {
-        var productPrice =
+        var productPrice = parseFloat($(this).find('input[name^="product_price"]').val()?.replace(/[^0-9.-]+/g,
+            "")) || 0;
+        var productQty = parseFloat($(this).find('.quantity-input').val()?.replace(/[^0-9.-]+/g, "")) || 0;
+        var promotionValue =
             parseFloat(
                 $(this)
-                    .closest("tr")
-                    .find(".price_export")
+                    .find(".promotion")
                     .val()
-                    .replace(/[^0-9.-]+/g, "")
+                    ?.replace(/[^0-9.-]+/g, "")
             ) || 0;
-        var productQty =
-            parseFloat(
-                $(this)
-                    .closest("tr")
-                    .find(".quantity-input")
-                    .val()
-                    .replace(/[^0-9.-]+/g, "")
-            ) || 0;
+        var percent = $(this).find(".percent");
+        var promotionType = $(this).find(".promotion_type").val();
         updateTaxAmount($(this).closest("tr"));
 
         if (!isNaN(productQty) && !isNaN(productPrice)) {
-            var totalAmount = productQty * productPrice;
+            var totalAmount;
+            if (promotionType === "1") {
+                // Fixed amount promotion
+                totalAmount = productQty * productPrice - promotionValue;
+                percent.hide();
+            } else if (promotionType === "2") {
+                // Percentage promotion
+                totalAmount =
+                    productQty * productPrice * (1 - promotionValue / 100);
+                percent.show();
+            }
             $(this)
-                .closest("tr")
-                .find(".total_price")
-                .val(formatCurrency(totalAmount));
+                .find(".total-price")
+                .val(formatCurrency(Math.round(totalAmount)));
             calculateTotalAmount();
             calculateTotalTax();
         }
@@ -195,19 +200,33 @@ $(document).on(
 function updateTaxAmount() {
     $("#inputcontent tbody tr").each(function () {
         var productQty = parseFloat($(this).find(".quantity-input").val());
-        var productPrice = parseFloat(
-            $(this)
-                .find('input[name^="price_export"]')
-                .val()
-                .replace(/[^0-9.-]+/g, "")
-        );
+        var productPrice = parseFloat($(this).find('input[name^="price_export"]').val()?.replace(/[^0-9.-]+/g,
+        "")) || 0;
         var taxValue = parseFloat($(this).find(".product_tax").val());
+        var promotionValue =
+            parseFloat(
+                $(this)
+                    .find(".promotion")
+                    .val()
+                    ?.replace(/[^0-9.-]+/g, "")
+            ) || 0;
+        var promotionType = $(this).find(".promotion_type").val();
         if (taxValue == 99) {
             taxValue = 0;
         }
         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
             var totalAmount = productQty * productPrice;
+            if (promotionType === "1") {
+                // Fixed amount promotion
+                totalAmount -= promotionValue;
+            } else if (promotionType === "2") {
+                // Percentage promotion
+                totalAmount *= 1 - promotionValue / 100;
+            }
             var taxAmount = (totalAmount * taxValue) / 100;
+            $(this)
+                .find(".total_price")
+                .val(formatCurrency(Math.round(totalAmount)));
             $(this).find(".product_tax1").text(Math.round(taxAmount));
         }
     });
@@ -217,6 +236,40 @@ $(document).on("change", ".product_tax", function () {
     updateTaxAmount($(this).closest("tr"));
     calculateTotalAmount();
     calculateTotalTax();
+});
+
+$(document).on("change", ".promotion_type", function (e) {
+    var $row = $(this).closest("tr");
+    var promotionType = $row.find(".promotion_type").val();
+
+    $row.find(".promotion").val("");
+
+    if (promotionType === "2") {
+        $row.find(".percent").removeClass("d-none").show(); // Show the percent span
+    } else {
+        $row.find(".percent").addClass("d-none").hide(); // Hide the percent span
+    }
+
+    updateTaxAmount($row);
+    calculateTotalAmount();
+    calculateTotalTax();
+    calculateGrandTotal();
+});
+
+$(document).on("change", ".discount_type", function (e) {
+    var discountType = $('select[name="discount_type"]').val();
+
+    $("#voucher").val("");
+
+    if (discountType === "2") {
+        $(".percent_discount").removeClass("d-none").show(); // Show the percent span
+    } else {
+        $(".percent_discount").addClass("d-none").hide(); // Hide the percent span
+    }
+
+    calculateTotalAmount();
+    calculateTotalTax();
+    calculateGrandTotal();
 });
 
 function calculateTotalAmount() {
@@ -265,36 +318,28 @@ function calculateGrandTotal() {
             .text()
             .replace(/[^0-9.-]+/g, "")
     );
+    var voucher =
+        parseFloat(
+            $("#voucher")
+                .val()
+                .replace(/[^0-9.-]+/g, "")
+        ) || 0;
+    var discountType = $('select[name="discount_type"]').val();
 
     var grandTotal = totalAmount + totalTax;
-    grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
+    if (discountType === "2") {
+        // Nhập %
+        voucher = (grandTotal * voucher) / 100;
+    }
+    grandTotal -= voucher;
+    grandTotal = Math.round(grandTotal);
+
     $("#grand-total").text(formatCurrency(grandTotal));
+    $("#TongTien").val(formatCurrency(grandTotal));
 
     // Update data-value attribute
     $("#grand-total").attr("data-value", grandTotal);
     $("#total").val(totalAmount);
-}
-
-function updateTaxAmount() {
-    $("#inputcontent tbody tr").each(function () {
-        var productQty = parseFloat($(this).find(".quantity-input").val());
-        var productPrice = $(this).find('input[name^="price_export"]');
-        if (productPrice.length > 0) {
-            productPrice = parseFloat(
-                productPrice.val().replace(/[^0-9.-]+/g, "")
-            );
-        }
-        var taxValue = parseFloat($(this).find(".product_tax").val());
-        if (taxValue == 99) {
-            taxValue = 0;
-        }
-
-        if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
-            var totalAmount = productQty * productPrice;
-            var taxAmount = (totalAmount * taxValue) / 100;
-            $(this).find(".product_tax1").text(Math.round(taxAmount));
-        }
-    });
 }
 
 // Edit

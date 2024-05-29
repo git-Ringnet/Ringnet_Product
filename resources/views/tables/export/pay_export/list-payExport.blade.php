@@ -360,7 +360,7 @@
                                                         {{ date_format(new DateTime($item_pay->payment_date), 'd/m/Y') }}
                                                     </td>
                                                     <td class="text-13-black text-right border-bottom border-top-0">
-                                                        {{ number_format($item_pay->tongTienNo) }}
+                                                        {{ number_format($item_pay->total) }}
                                                     </td>
                                                     <td class="text-13-black text-right border-bottom border-top-0">
                                                         {{ number_format($item_pay->tongThanhToan) }}

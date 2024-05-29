@@ -318,7 +318,7 @@
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td> --}}
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">
-                                                    <a href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item->id]) }}"
+                                                    <a href="{{ route('paymentOrder.edit', ['paymentOrder' => $item->id]) }}"
                                                         class="user_flow" data-type="TTMH"
                                                         data-des="Xem thanh toán mua hàng">
                                                         {{ $item->payment_code }}
@@ -391,7 +391,7 @@
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
                                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                    action="{{ route('paymentOrder.destroy', ['workspace' => $workspacename, 'paymentOrder' => $item->id]) }}"
+                                                                    action="{{ route('paymentOrder.destroy', ['paymentOrder' => $item->id]) }}"
                                                                     method="post" id="search-filter">
                                                                     @csrf
                                                                     @method('DELETE')

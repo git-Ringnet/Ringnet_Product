@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('product_note')->nullable();
             $table->integer('product_id')->nullable();
             $table->integer('version');
+            $table->decimal('promotion', 20, 4)->nullable();
+            $table->integer('promotion_type')->nullable();
             $table->timestamps();
         });
     }

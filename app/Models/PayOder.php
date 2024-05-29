@@ -52,10 +52,11 @@ class PayOder extends Model
     public function getHistoryPay()
     {
         return $this->hasOne(HistoryPaymentOrder::class, 'payment_id', 'id')
-        ->orderBy('id','desc');
+            ->orderBy('id', 'desc');
         // ->latest();
     }
-    public function getAllHistoryPayments(){
+    public function getAllHistoryPayments()
+    {
         return $this->hasMany(HistoryPaymentOrder::class, 'payment_id', 'id');
     }
 
@@ -178,7 +179,7 @@ class PayOder extends Model
                     'workspace_id' => Auth::user()->current_workspace,
                     'payment_code' => isset($data['payment_code']) ? $data['payment_code'] : $resultNumber,
                     'payment_day' => isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now(),
-                    'payment_type' => $data['payment_type'],
+                    'payment_type' => isset($data['payment_type']) && $data['payment_type'] != null ? $data['payment_type'] : "Tiền mặt",
                     'user_id' => Auth::user()->id
                 ];
                 $payment_id = DB::table($this->table)->insertGetId($dataReciept);
@@ -207,14 +208,27 @@ class PayOder extends Model
                                 $total_tax += ($price_export * $productImport->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax) / 100;
                             }
                         }
-                        $sum = round($total) + round($total_tax);
+                        $detailImport = DetailImport::where('id', $detail->id)->first();
+                        $sum = $detailImport->total_tax ;
                         $temp = $sum;
-                        DB::table($this->table)->where('id', $payment_id)
-                            ->where('workspace_id', Auth::user()->current_workspace)
-                            ->update([
-                                'total' => $sum,
-                                'debt' => $sum - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
-                            ]);
+                        if (isset($data['checkPayment'])) {
+                            if ($data['checkPayment'] == 1) {
+                                DB::table($this->table)->where('id', $payment_id)
+                                    ->where('workspace_id', Auth::user()->current_workspace)
+                                    ->update([
+                                        'total' => $sum,
+                                        'debt' => 0,
+                                        'payment' => $sum,
+                                    ]);
+                            }
+                        } else {
+                            DB::table($this->table)->where('id', $payment_id)
+                                ->where('workspace_id', Auth::user()->current_workspace)
+                                ->update([
+                                    'total' => $sum,
+                                    'debt' => $sum - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
+                                ]);
+                        }
                     }
                 }
             }
@@ -462,7 +476,6 @@ class PayOder extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->update([
                     'status_pay' => 0,
-                    'status' => $stDetail,
                     'status_debt' => $stDebt
                 ]);
 

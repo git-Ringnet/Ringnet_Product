@@ -35,8 +35,7 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <div class="dropdown">
-                            <a href="{{ route('guests.index') }}" class="activity"
-                                data-name1="KH" data-des="Trở về">
+                            <a href="{{ route('guests.index') }}" class="activity" data-name1="KH" data-des="Trở về">
                                 <button type="button" class="btn-save-print d-flex align-items-center h-100 rounded"
                                     style="margin-right:10px;">
                                     <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -432,7 +431,18 @@
                                                 @endif
                                             </td>
                                             <td class="text-13-black text-nowrap border-bottom">
-                                                {{ number_format($itemGuest->total_price + $itemGuest->total_tax) }}
+                                                @php
+                                                    $discount = 0;
+                                                    if ($itemGuest->discount_type == 1) {
+                                                        $discount = $itemGuest->discount;
+                                                    } else {
+                                                        $discount =
+                                                            (($itemGuest->total_price + $itemGuest->total_tax) *
+                                                                $itemGuest->discount) /
+                                                            100;
+                                                    }
+                                                @endphp
+                                                {{ number_format($itemGuest->total_price + $itemGuest->total_tax - $discount) }}
                                             </td>
                                             <td class="text-13-black text-nowrap border-bottom">
                                                 {{ number_format($itemGuest->amount_owed) }}</td>

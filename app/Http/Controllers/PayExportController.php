@@ -65,7 +65,6 @@ class PayExportController extends Controller
                     'pay_export.payment',
                     'pay_export.code_payment',
                     'users.name',
-                    DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
                     DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
                 )
                 ->groupby(
@@ -256,7 +255,7 @@ class PayExportController extends Controller
                 'pay_export.id as idTT',
                 'pay_export.created_at as ngayTT',
                 'pay_export.status as trangThai',
-                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo')
+                'detailexport.amount_owed',
             )
             ->first();
         if (!$payExport) {
@@ -299,7 +298,9 @@ class PayExportController extends Controller
                 'quoteexport.product_total',
                 'quoteexport.product_ratio',
                 'quoteexport.price_import',
-                'product_pay.pay_qty'
+                'product_pay.pay_qty',
+                'quoteexport.promotion',
+                'quoteexport.promotion_type',
             )
             ->groupBy(
                 'quoteexport.product_id',
@@ -312,7 +313,9 @@ class PayExportController extends Controller
                 'quoteexport.product_total',
                 'quoteexport.product_ratio',
                 'quoteexport.price_import',
-                'product_pay.pay_qty'
+                'product_pay.pay_qty',
+                'quoteexport.promotion',
+                'quoteexport.promotion_type',
             )
             ->get();
         $history = history_Pay_Export::where('pay_id', $id)
@@ -392,7 +395,11 @@ class PayExportController extends Controller
                 'detailexport.guest_name',
                 'detailexport.quotation_number',
                 'detailexport.represent_name',
-                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
+                'detailexport.amount_owed',
+                'detailexport.total_price',
+                'detailexport.total_tax',
+                'detailexport.discount',
+                'detailexport.discount_type',
                 DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
             )
             ->groupBy(
@@ -402,6 +409,11 @@ class PayExportController extends Controller
                 'detailexport.total_tax',
                 'detailexport.quotation_number',
                 'detailexport.represent_name',
+                'detailexport.amount_owed',
+                'detailexport.total_price',
+                'detailexport.total_tax',
+                'detailexport.discount',
+                'detailexport.discount_type',
             )
             ->first();
         $lastPayExportId = DB::table('pay_export')

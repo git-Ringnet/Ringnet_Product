@@ -279,14 +279,22 @@
                                     <span id="total-amount-sum" class="text-table">0</span>
                                 </div>
                                 <div class="d-flex justify-content-between mt-2 align-items-center">
-                                    <span class="text-13-black">Thuế VAT:</span>
-                                    <span id="product-tax" class="text-table">0</span>
+                                    <span class="text-13-black">Khuyến mãi:</span>
+                                    <div class="d-flex align-items-center">
+                                        <input id="voucher" type="text" name="voucher"
+                                            class="text-right text-13-black border-0 py-1 w-100 height-32 bg-input-guest"
+                                            placeholder="Nhập số tiền">
+                                        <span class="percent_discount d-none">%</span>
+                                        <select name="discount_type"
+                                            class="border-0 height-32 text-13-blue text-center discount_type bg-input-guest">
+                                            <option value="1">Nhập tiền</option>
+                                            <option value="2">Nhập %</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="d-flex justify-content-between mt-2 align-items-center">
-                                    <span class="text-13-black">Khuyến mãi:</span>
-                                    <input id="voucher" type="text" name="voucher"
-                                        class="text-right text-13-black border-0 py-1 w-50 height-32"
-                                        placeholder="Nhập số tiền">
+                                    <span class="text-13-black">Thuế VAT:</span>
+                                    <span id="product-tax" class="text-table">0</span>
                                 </div>
                                 <div class="d-flex justify-content-between mt-2">
                                     <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
@@ -744,7 +752,8 @@
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap" style="flex: 1.5;"></span>
                                     <div class="text-13 d-flex align-items-center py-2 px-2" style="width: 58%;">
-                                        <input type="checkbox" class="mr-2 cbPayment" value="1" name="checkPayment">
+                                        <input type="checkbox" class="mr-2 cbPayment" value="1"
+                                            name="checkPayment">
                                         <span>Thanh toán đủ</span>
                                     </div>
                                 </li>
@@ -2396,7 +2405,7 @@
         var $row = $(this).closest('tr');
         var promotionType = $row.find('.promotion_type').val();
 
-        $row.find('.promotion').val(''); // Clear only the promotion input field
+        $row.find('.promotion').val(''); 
 
         if (promotionType === "2") {
             $row.find('.percent').removeClass('d-none').show(); // Show the percent span
@@ -2405,6 +2414,22 @@
         }
 
         updateTaxAmount($row);
+        calculateTotalAmount();
+        calculateTotalTax();
+        calculateGrandTotal();
+    });
+
+    $(document).on('change', '.discount_type', function(e) {
+        var discountType = $('select[name="discount_type"]').val();
+
+        $('#voucher').val('');
+
+        if (discountType === "2") {
+            $('.percent_discount').removeClass('d-none').show(); // Show the percent span
+        } else {
+            $('.percent_discount').addClass('d-none').hide(); // Hide the percent span
+        }
+
         calculateTotalAmount();
         calculateTotalTax();
         calculateGrandTotal();
@@ -2472,9 +2497,17 @@
         var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
         var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
         var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
+        var discountType = $('select[name="discount_type"]').val();
 
-        var grandTotal = totalAmount + totalTax - voucher;
+        var grandTotal = totalAmount + totalTax;
+
+        if (discountType === "2") { // Nhập %
+            voucher = (grandTotal * voucher) / 100;
+        }
+
+        grandTotal -= voucher;
         grandTotal = Math.round(grandTotal);
+
         $('#grand-total').text(formatCurrency(grandTotal));
         $('#TongTien').val(formatCurrency(grandTotal));
 
@@ -2633,7 +2666,7 @@
             var payment = parseFloat($('input[name="payment"]').val().replace(/,/g, ''));
 
             if (payment > tongTien) {
-                showAutoToast('warning','Số tiền thanh toán không được lớn hơn tổng tiền');
+                showAutoToast('warning', 'Số tiền thanh toán không được lớn hơn tổng tiền');
                 return;
             }
 
