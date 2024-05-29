@@ -48,10 +48,12 @@ class ReportController extends Controller
         $detailExport = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
             ->get();
+        $guest = $this->payExport->guestStatistics();
         return view('report.index', compact(
             'title',
             'SumInvenrory',
-            'detailExport'
+            'detailExport',
+            'guest'
         ));
     }
     public function view()

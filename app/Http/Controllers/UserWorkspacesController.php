@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\UserWorkspaces;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class UserWorkspacesController extends Controller
@@ -20,7 +22,10 @@ class UserWorkspacesController extends Controller
     }
     public function index()
     {
-        //
+        $users = User::where('roleid', '!=', 1)->get();
+        return view('users.index', compact(
+            'users',
+        ));
     }
 
     /**
@@ -28,7 +33,10 @@ class UserWorkspacesController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::where('roleid', '!=', 1)->get();
+        return view('users.add', compact(
+            'users',
+        ));
     }
 
     /**
@@ -36,7 +44,22 @@ class UserWorkspacesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $check = User::where('email', $request->email)->first();
+        if ($check == null) {
+            $account = new User();
+            $account->name = $request->name;
+            $account->email = $request->email;
+            $account->password = Hash::make($request->password);
+            $account->roleid = 2;
+            $account->provider = 'login';
+            $account->provider_id = 1;
+            $account->current_workspace = 1;
+            $account->save();
+
+            return redirect()->route('users.index')->with('msg', 'Tài khoản đã được thêm thành công.');
+        } else {
+            return redirect()->back()->with('warning', 'Email đã tồn tại!');
+        }
     }
 
     /**
@@ -50,25 +73,43 @@ class UserWorkspacesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(UserWorkspaces $userWorkspaces)
+    public function edit($id)
     {
-        //
+        $users = User::findOrFail($id);
+        return view('users.edit', compact(
+            'users',
+        ));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UserWorkspaces $userWorkspaces)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'email' => 'required|email|unique:users,email,' . $id,
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        // Kiểm tra xem mật khẩu có được nhập hay không
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+        return redirect()->route('users.index')->with('msg', 'Tài khoản đã được cập nhật thành công.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $workspace, string $id)
+    public function destroy(string $id)
     {
-        $this->user_workspaces->deleteUser($id);
+        $account = User::findOrFail($id);
+        $account->delete();
         return back()->with('msg', 'Xóa người dùng thành công!');
     }
     public function updateRoleWorkspace(Request $request)

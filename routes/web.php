@@ -323,6 +323,9 @@ Route::middleware([CheckLogin::class])->group(function () {
 // User flow
 Route::resource('/userflow', UserFlowController::class)->middleware(CheckLogin::class);
 
+//Thêm nhân viên
+Route::resource('/users', UserWorkspacesController::class)->middleware(CheckLogin::class);
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
                 'current_workspace' => 1,
                 'origin_workspace' => 1,
                 'status' => 1,
+                'roleid' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

@@ -352,7 +352,14 @@ class PayExport extends Model
     }
     public function guestStatistics()
     {
+        $subQuery = DB::table('pay_export')
+            ->select('guest_id', DB::raw('SUM(payment) as totalPayment'))
+            ->groupBy('guest_id');
+
         $report_guest = DetailExport::leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
+            ->leftJoinSub($subQuery, 'pe', function ($join) {
+                $join->on('guest.id', '=', 'pe.guest_id');
+            })
             ->whereIn('detailexport.status', [2, 3])
             ->select(
                 'detailexport.guest_id as guest_id',
@@ -360,9 +367,10 @@ class PayExport extends Model
                 'guest.guest_code as guest_code',
                 'guest.id',
                 DB::raw('SUM(detailexport.total_price + detailexport.total_tax) as sumSell'),
-                DB::raw('SUM(detailexport.amount_owed) as sumAmountOwed')
+                DB::raw('SUM(detailexport.amount_owed) as sumAmountOwed'),
+                DB::raw('COALESCE(pe.totalPayment, 0) as totalPayment')
             )
-            ->groupBy('detailexport.guest_id', 'guest.guest_name_display', 'guest.guest_code', 'guest.id')
+            ->groupBy('detailexport.guest_id', 'guest.guest_name_display', 'guest.guest_code', 'guest.id', 'pe.totalPayment')
             ->get();
         return $report_guest;
     }
