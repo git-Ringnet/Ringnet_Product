@@ -564,5 +564,11 @@
                 $('#dropdown-content').removeClass('show');
             }
         });
-        
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#notification').fadeOut('slow', function() {
+                    $(this).remove();
+                });
+            }, 3000);
+        });
     </script>

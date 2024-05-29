@@ -22,7 +22,7 @@ class UserWorkspacesController extends Controller
     }
     public function index()
     {
-        $users = User::where('roleid', '!=', 1)->get();
+        $users = User::all();
         return view('users.index', compact(
             'users',
         ));
