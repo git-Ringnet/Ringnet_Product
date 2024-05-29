@@ -45,9 +45,13 @@ class ReportController extends Controller
     {
         $title = 'Báo cáo';
         $SumInvenrory = Products::all();
+        $detailExport = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->leftJoin('products', 'products.id', 'quoteexport.product_id')
+            ->get();
         return view('report.index', compact(
             'title',
-            'SumInvenrory'
+            'SumInvenrory',
+            'detailExport'
         ));
     }
     public function view()
