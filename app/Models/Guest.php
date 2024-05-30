@@ -167,17 +167,20 @@ class Guest extends Model
 
             if ($checkKey) {
                 // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
-                $newKey = $data['key'] . ($checkKey->id + 1);
+                $newKey = $nameKey;
 
-                // Kiểm tra xem key mới đã tồn tại chưa
-                $counter = 1;
-                while (Guest::where('workspace_id', Auth::user()->current_workspace)
-                    ->where('key', $newKey)
-                    ->exists()
-                ) {
-                    // Nếu key đã tồn tại, thay đổi giá trị key và tăng counter
-                    $newKey = $data['key'] . ($checkKey->id + $counter);
-                    $counter++;
+                // Kiểm tra xem key mới đã tồn tại chưa và điều chỉnh nếu cần
+                while (Guest::where('key', $newKey)->exists()) {
+                    // Kiểm tra xem key có kết thúc bằng số không
+                    if (preg_match('/\d+$/', $newKey)) {
+                        // Tăng số đằng sau
+                        $newKey = preg_replace_callback('/(\d+)$/', function ($matches) {
+                            return ++$matches[1];
+                        }, $newKey);
+                    } else {
+                        // Nếu không có số, thêm số 1 vào sau key
+                        $newKey .= '1';
+                    }
                 }
                 $nameKey = $newKey;
             }
@@ -241,10 +244,7 @@ class Guest extends Model
                     $newKey = $data['key'];
 
                     // Tăng số đằng sau cho đến khi không còn trùng
-                    while (Guest::where('workspace_id', Auth::user()->current_workspace)
-                        ->where('key', $newKey)
-                        ->exists()
-                    ) {
+                    while (Guest::where('key', $newKey)->exists()) {
                         // Kiểm tra xem key có kết thúc bằng số không
                         if (preg_match('/\d+$/', $newKey)) {
                             // Tăng số đằng sau

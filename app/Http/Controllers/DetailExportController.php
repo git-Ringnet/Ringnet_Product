@@ -588,10 +588,7 @@ class DetailExportController extends Controller
                 $newKey = $request->key;
 
                 // Tăng số đằng sau cho đến khi không còn trùng
-                while (Guest::where('workspace_id', Auth::user()->current_workspace)
-                    ->where('key', $newKey)
-                    ->exists()
-                ) {
+                while (Guest::where('key', $newKey)->exists()) {
                     // Kiểm tra xem key có kết thúc bằng số không
                     if (preg_match('/\d+$/', $newKey)) {
                         // Tăng số đằng sau
@@ -797,9 +794,9 @@ class DetailExportController extends Controller
     public function addRepresentGuest(Request $request)
     {
         $check = representGuest::where(function ($query) use ($request) {
-                $query->where('represent_name', $request->represent_name)
-                    ->where('guest_id', $request->guest_id);
-            })
+            $query->where('represent_name', $request->represent_name)
+                ->where('guest_id', $request->guest_id);
+        })
             ->first();
         if ($check == null) {
             $data = [

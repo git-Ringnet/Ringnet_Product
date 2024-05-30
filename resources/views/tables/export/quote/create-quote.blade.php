@@ -1873,6 +1873,7 @@
                     represent_guest_name: represent_guest_name,
                 },
                 success: function(data) {
+                    console.log(data);
                     if (data.success) {
                         quotation = getQuotation1(data.key, '1');
                         $('input[name="quotation_number"]').val(quotation);

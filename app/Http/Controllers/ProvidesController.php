@@ -193,10 +193,7 @@ class ProvidesController extends Controller
 
                     // Kiểm tra xem key mới đã tồn tại chưa
                     $counter = 1;
-                    while (Provides::where('workspace_id', Auth::user()->current_workspace)
-                        ->where('key', $newKey)
-                        ->exists()
-                    ) {
+                    while (Provides::where('key', $newKey)->exists()) {
                         // Kiểm tra xem key có kết thúc bằng số không
                         if (preg_match('/\d+$/', $newKey)) {
                             // Tăng số đằng sau
@@ -251,10 +248,7 @@ class ProvidesController extends Controller
                         $newKey = $data['key'];
 
                         // Tăng số đằng sau cho đến khi không còn trùng
-                        while (Provides::where('workspace_id', Auth::user()->current_workspace)
-                            ->where('key', $newKey)
-                            ->exists()
-                        ) {
+                        while (Provides::where('key', $newKey)->exists()) {
                             // Kiểm tra xem key có kết thúc bằng số không
                             if (preg_match('/\d+$/', $newKey)) {
                                 // Tăng số đằng sau
