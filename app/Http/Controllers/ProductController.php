@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailExport;
+use App\Models\DetailImport;
 use App\Models\Groups;
 use App\Models\HistoryImport;
 use App\Models\ImportDB;
@@ -97,7 +99,7 @@ class ProductController extends Controller
         if ($product) {
             $title = $product->product_name;
         }
-        return view('tables.products.editProduct', compact('product', 'title', 'display','groups'));
+        return view('tables.products.editProduct', compact('product', 'title', 'display', 'groups'));
     }
 
     /**
@@ -118,7 +120,35 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Products::findOrFail($id);
+        $check = true;
+
+        if ($product) {
+            $detailExport = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+                ->where('quoteexport.product_id', $id)->get();
+            $detailImport = DetailImport::leftJoin('quoteimport', 'quoteimport.detailimport_id', 'detailimport.id')
+                ->where('quoteimport.product_id', $id)->get();
+
+            if (!$detailExport->isEmpty()) {
+                return redirect()->route('inventory.index')->with('warning', 'Xóa thất bại, sản phẩm đã tạo đơn bán!');
+                $check = false;
+            } else if (!$detailImport->isEmpty()) {
+                return redirect()->route('inventory.index')->with('warning', 'Xóa thất bại, sản phẩm đã tạo đơn mua!');
+                $check = false;
+            }
+            if ($product->product_inventory > 0) {
+                return redirect()->route('inventory.index')->with('warning', 'Xóa thất bại, sản phẩm còn tồn kho!');
+                $check = false;
+            }
+            if ($check) {
+                //Xóa
+                $product->delete();
+                return redirect()->route('inventory.index')->with('msg', 'Sản phẩm đã được xóa thành công!');
+            }
+        }
+        else{
+            return redirect()->route('inventory.index')->with('warning', 'Không tìm thấy sản phẩm!');
+        }
     }
 
 

@@ -265,9 +265,6 @@ class DetailImport extends Model
                             $product = Products::where('id', $qt->product_id)->first();
                             $product->product_inventory = $product->product_inventory - $qt->product_qty;
                             $product->save();
-                            if ($product->product_inventory == 0) {
-                                $product->delete();
-                            }
                         }
                     }
                     QuoteImport::where('detailimport_id', $detail->id)->delete();
