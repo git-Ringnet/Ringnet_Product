@@ -222,7 +222,7 @@
                                                         <input type="checkbox" name="all" id="checkall"
                                                             class="checkall-btn">
                                                     </th>
-                                                    <th scope="col" class="bg-white pl-0">
+                                                    <th scope="col" class="bg-white pl-0" style="width: 25%;">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="import" data-sort-by="provide_code"
@@ -235,7 +235,7 @@
                                                             </div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="bg-white pl-0">
+                                                    <th scope="col" class="bg-white pl-0" style="width: 25%;">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="import" data-sort-by="provide_name"
@@ -248,8 +248,8 @@
                                                             </div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="bg-white pl-0">
-                                                        <span class="d-flex">
+                                                    <th scope="col" class="bg-white pl-0" style="width: 15%;">
+                                                        <span class="d-flex justify-content-end">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="import" data-sort-by="sumSell"
                                                                 data-sort-type="DESC">
@@ -261,7 +261,7 @@
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="bg-white pl-0">
-                                                        <span class="d-flex">
+                                                        <span class="d-flex justify-content-end">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="import" data-sort-by="sumAmountOwed"
                                                                 data-sort-type="DESC">
@@ -276,7 +276,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="tbody-import">
-                                                @foreach ($SumInvenrory as $item_inventory)
+                                                @foreach ($sumInventory as $item_inventory)
                                                     <tr class="position-relative detailExport-info height-52">
                                                         <td class="text-13-black border-top-0 border-bottom">
                                                             <span class="margin-Right10">
@@ -308,14 +308,15 @@
                                                                 {{ $item_inventory->product_name }}
                                                             </div>
                                                         </td>
-                                                        <td class="text-13-black text-left border-top-0 border-bottom">
+                                                        <td
+                                                            class="text-13-black text-right border-top-0 border-bottom">
                                                             <div class="">
                                                                 {{ number_format($item_inventory->product_inventory) }}
                                                             </div>
                                                         </td>
                                                         <td class="text-13-black text-left border-top-0 border-bottom">
-                                                            <div class="">
-                                                                {{ number_format($item_inventory->product_price_import) }}
+                                                            <div class="text-right">
+                                                                {{ number_format($item_inventory->sum_price_export) }}
                                                             </div>
                                                         </td>
                                                     </tr>

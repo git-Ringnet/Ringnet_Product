@@ -44,14 +44,28 @@ class ReportController extends Controller
     public function index()
     {
         $title = 'Báo cáo';
-        $SumInvenrory = Products::all();
+        $sumInventory = Products::leftJoin('quoteimport', 'quoteimport.product_id', '=', 'products.id')
+            ->select(
+                'quoteimport.product_code',
+                'quoteimport.product_name',
+                DB::raw('SUM(quoteimport.price_export) as sum_price_export'),
+                'products.product_inventory',
+                'quoteimport.product_id'
+            )
+            ->groupBy(
+                'quoteimport.product_code',
+                'quoteimport.product_name',
+                'products.product_inventory',
+                'quoteimport.product_id'
+            )
+            ->get();
         $detailExport = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
             ->get();
         $guest = $this->payExport->guestStatistics();
         return view('report.index', compact(
             'title',
-            'SumInvenrory',
+            'sumInventory',
             'detailExport',
             'guest'
         ));
