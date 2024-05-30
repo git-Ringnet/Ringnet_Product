@@ -51,7 +51,7 @@ class Groups extends Model
             $group_id = DB::table($this->table)->insertGetId($datagroup);
             if (isset($data['product_id'])) {
                 for ($i = 0; $i < count($data['product_id']); $i++) {
-                    $product = Products::find($data['product_id'])->first();
+                    $product = Products::where('id',$data['product_id'][$i])->first();
                     $product->group_id = $group_id;
                     $product->save();
                 }
