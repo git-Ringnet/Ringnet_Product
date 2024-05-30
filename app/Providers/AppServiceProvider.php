@@ -43,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
     protected function getWorkspaceNames(): array
     {
         // Check if user is authenticated
+        // dakhljuskdhsa
         if (Auth::check()) {
             $user_id = Auth::id();
             $allWorkSpace = UserWorkspaces::with('workspace')->where('user_id', $user_id)->get();
