@@ -218,6 +218,7 @@ class DetailExport extends Model
     public function historyGuest($id)
     {
         $historyGuest = DetailExport::where('guest_id', $id)
+            ->leftJoin('guest','guest.id','detailexport.guest_id')
             ->get();
         return $historyGuest;
     }

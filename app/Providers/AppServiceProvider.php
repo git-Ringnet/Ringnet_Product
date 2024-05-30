@@ -24,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
         // Use View Composer to make global_variable available to all views
         View::composer('*', function ($view) {
             // Fetch workspace names for the authenticated user
