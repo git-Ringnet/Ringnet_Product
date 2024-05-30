@@ -226,11 +226,18 @@ class DetailExport extends Model
         if (isset($id)) {
             $sumSell = DetailExport::where('guest_id', $id)
                 ->whereIn('status', [2, 3])
-                ->select('detailexport.amount_owed as sumSell')
+                ->select(
+                    DB::raw('SUM(total_price + total_tax - 
+                        CASE 
+                            WHEN discount_type = 1 THEN discount 
+                            WHEN discount_type = 2 THEN (total_price + total_tax) * discount / 100 
+                            ELSE 0 
+                        END) as sumSell')
+                )
                 ->value('sumSell');
             return $sumSell;
-        } else {
         }
+        return null;
     }
     // Ajax filter search history Guest
     public function historyFilterGuest($data)
