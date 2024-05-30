@@ -244,7 +244,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit'])->name('getProductSeriEdit');
 
     Route::get('exportDatabase', [ProductController::class, 'exportDatabase'])->name('exportDatabase');
-    // Route::post('import', [ProductController::class, 'import'])->name('import');
+    Route::post('import', [ProductController::class, 'import'])->name('import');
     Route::POST('/importDatabase', [ProductController::class, 'importDatabase'])->name('importDatabase');
     Route::get('/checkProductTax', [ProductController::class, 'checkProductTax'])->name('checkProductTax');
 });
