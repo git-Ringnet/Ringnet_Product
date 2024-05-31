@@ -316,7 +316,7 @@
                                                         </td>
                                                         <td class="text-13-black text-left border-top-0 border-bottom">
                                                             <div class="text-right">
-                                                                {{ number_format($item_inventory->sum_price_export) }}
+                                                                {{ number_format($item_inventory->total_inventory_value) }}
                                                             </div>
                                                         </td>
                                                     </tr>

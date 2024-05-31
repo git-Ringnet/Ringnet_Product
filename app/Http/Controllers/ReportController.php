@@ -44,20 +44,15 @@ class ReportController extends Controller
     public function index()
     {
         $title = 'Báo cáo';
-        $sumInventory = Products::leftJoin('quoteimport', 'quoteimport.product_id', '=', 'products.id')
-            ->select(
-                'quoteimport.product_code',
-                'quoteimport.product_name',
-                DB::raw('SUM(quoteimport.price_export) as sum_price_export'),
-                'products.product_inventory',
-                'quoteimport.product_id'
-            )
-            ->groupBy(
-                'quoteimport.product_code',
-                'quoteimport.product_name',
-                'products.product_inventory',
-                'quoteimport.product_id'
-            )
+        $sumInventory = QuoteImport::select(
+            'quoteimport.product_id',
+            'quoteimport.product_name',
+            'products.product_inventory',
+            DB::raw('SUM(quantity_remaining * price_export) as total_inventory_value')
+        )
+            ->where('quantity_remaining', '>', 0)
+            ->leftJoin('products', 'products.id', 'quoteimport.product_id')
+            ->groupBy('quoteimport.product_id', 'quoteimport.product_name', 'products.product_inventory')
             ->get();
         $detailExport = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')

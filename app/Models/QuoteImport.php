@@ -85,6 +85,7 @@ class QuoteImport extends Model
                 'product_name' => $data['product_name'][$i],
                 'product_unit' => $data['product_unit'][$i],
                 'product_qty' => str_replace(',', '', $data['product_qty'][$i]),
+                'quantity_remaining' => $data['product_qty'][$i],
                 'product_tax' => $data['product_tax'][$i],
                 'product_total' => str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]),
                 'price_export' => str_replace(',', '', $data['price_export'][$i]),
@@ -98,7 +99,7 @@ class QuoteImport extends Model
                 'promotion_type' => $data['promotion_type'][$i],
                 'receive_qty' => 0,
                 'reciept_qty' => 0,
-                'payment_qty' => 0
+                'payment_qty' => 0,
             ];
             $quote_id = DB::table($this->table)->insertGetId($dataQuote);
             $getProvide = DetailImport::where('id', $id)->first();

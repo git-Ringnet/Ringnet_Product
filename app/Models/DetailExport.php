@@ -218,7 +218,7 @@ class DetailExport extends Model
     public function historyGuest($id)
     {
         $historyGuest = DetailExport::where('guest_id', $id)
-            ->leftJoin('guest','guest.id','detailexport.guest_id')
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->get();
         return $historyGuest;
     }
@@ -336,12 +336,45 @@ class DetailExport extends Model
     public function deleteDetailExport($id)
     {
         $detailExport = DetailExport::find($id);
-        //Cập nhật tồn kho sản phẩm
         $quoteExports = QuoteExport::where('detailexport_id', $id)->where('status', 1)->get();
-        foreach ($quoteExports as $quoteExport) {
-            $product = Products::where('id', $quoteExport->product_id)->first();
-            $product->product_inventory = $product->product_inventory + $quoteExport->product_qty;
-            $product->save();
+        //Cập nhật tồn kho sản phẩm, Cập nhật số lượng còn lại của đơn nhập
+        foreach ($quoteExports as $detail) {
+            $productId = $detail->product_id;
+            $quantityToRestore = $detail->product_qty;
+
+            // Cập nhật lại tồn kho sản phẩm
+            $product = Products::find($productId);
+            if ($product) {
+                $product->product_inventory += $quantityToRestore;
+                $product->save();
+            }
+
+            // Khôi phục lại số lượng còn lại của các đơn nhập
+            $remainingQuantityToRestore = $quantityToRestore;
+
+            $quoteImports = DB::table('quoteimport')
+                ->where('product_id', $productId)
+                ->orderBy('created_at', 'asc')
+                ->get();
+
+            foreach ($quoteImports as $quoteImport) {
+                if ($remainingQuantityToRestore <= 0) {
+                    break;
+                }
+
+                $quantityRemaining = $quoteImport->quantity_remaining;
+
+                // Cập nhật lại số lượng còn lại
+                if ($quantityRemaining < $quoteImport->product_qty) {
+                    $restoredQuantity = min($quoteImport->product_qty - $quantityRemaining, $remainingQuantityToRestore);
+
+                    DB::table('quoteimport')
+                        ->where('id', $quoteImport->id)
+                        ->update(['quantity_remaining' => $quantityRemaining + $restoredQuantity]);
+
+                    $remainingQuantityToRestore -= $restoredQuantity;
+                }
+            }
         }
         QuoteExport::where('detailexport_id', $id)->delete();
         $detailExport->delete();

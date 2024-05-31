@@ -562,6 +562,6 @@
                 $('#notification').fadeOut('slow', function() {
                     $(this).remove();
                 });
-            }, 3000);
+            }, 2000);
         });
     </script>

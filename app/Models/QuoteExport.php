@@ -139,6 +139,34 @@ class QuoteExport extends Model
                 $product = Products::where('id', $data['product_id'][$i])->first();
                 $product->product_inventory = $product->product_inventory - $data['product_qty'][$i];
                 $product->save();
+                //Cập nhật số lượng còn lại của đơn nhập sản phẩm
+                $productId = $data['product_id'][$i];
+                $quantitySold = $data['product_qty'][$i];
+                $remainingQuantityToDeduct = $quantitySold;
+
+                $quoteImports = DB::table('quoteimport')
+                    ->where('product_id', $productId)
+                    ->where('quantity_remaining', '>', 0)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+
+                foreach ($quoteImports as $quoteImport) {
+                    if ($remainingQuantityToDeduct <= 0) {
+                        break;
+                    }
+
+                    if ($quoteImport->quantity_remaining >= $remainingQuantityToDeduct) {
+                        DB::table('quoteimport')
+                            ->where('id', $quoteImport->id)
+                            ->update(['quantity_remaining' => $quoteImport->quantity_remaining - $remainingQuantityToDeduct]);
+                        $remainingQuantityToDeduct = 0;
+                    } else {
+                        $remainingQuantityToDeduct -= $quoteImport->quantity_remaining;
+                        DB::table('quoteimport')
+                            ->where('id', $quoteImport->id)
+                            ->update(['quantity_remaining' => 0]);
+                    }
+                }
             }
         }
     }
