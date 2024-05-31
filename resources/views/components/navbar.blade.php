@@ -485,7 +485,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('users.index') }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'users') active @endif">
                             <svg class="fill" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -501,7 +501,7 @@
                                 <p class="text-nav">Nhân viên</p>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
