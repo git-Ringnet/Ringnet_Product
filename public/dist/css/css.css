@@ -182,6 +182,21 @@ li {
     z-index: 999;
 }
 
+.outer4 {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    max-height: calc(95vh - 180px);
+}
+
+.outer4 th {
+    text-align: left;
+    top: 0;
+    position: sticky;
+    background-color: white;
+    z-index: 99;
+}
+
 .outerImport {
     width: 100%;
     overflow-x: auto;
@@ -2833,6 +2848,6 @@ input[type="checkbox"]:checked {
 .flatpickr-current-month {
     font-size: initial !important;
 }
-.hover-tr-table tbody tr:hover{
+.hover-tr-table tbody tr:hover {
     background-color: #e9ecef;
 }

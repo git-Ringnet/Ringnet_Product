@@ -214,7 +214,7 @@
                             <div class="col-md-12 p-0 m-0 pl-2">
                                 <div class="card">
                                     <!-- /.card-header -->
-                                    <div class="outer2 text-nowrap">
+                                    <div class="outer4 text-nowrap">
                                         <table id="example2" class="table table-hover">
                                             <thead class="sticky-head">
                                                 <tr class="border-custom">
@@ -276,7 +276,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="tbody-import">
-                                                @foreach ($sumInventory as $item_inventory)
+                                                @foreach ($productInventory as $item_inventory)
                                                     <tr class="position-relative detailExport-info height-52">
                                                         <td class="text-13-black border-top-0 border-bottom">
                                                             <span class="margin-Right10">
@@ -323,6 +323,21 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="w-100 bg-filter-search" style="height: 30px;bottom: 0;">
+                                    <div class="position-relative">
+                                        <div class="position-absolute px-4 pt-1 border bg-white" style="right: 0;">
+                                            <span class="text-danger font-weight-bold">
+                                                @php
+                                                    $sumInventory = 0;
+                                                    foreach ($productInventory as $item_inventory) {
+                                                        $sumInventory += $item_inventory->total_inventory_value;
+                                                    }
+                                                @endphp
+                                                {{number_format($sumInventory)}}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
