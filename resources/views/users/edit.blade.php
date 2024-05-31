@@ -1,4 +1,4 @@
-<x-navbar activeName="users"></x-navbar>
+<x-navbar-setting title="Nhân viên" activeName="users"></x-navbar-setting>
 <form action="{{ route('users.update', $users->id) }}" method="POST">
     @csrf
     @method('PUT')

@@ -37,13 +37,16 @@ class ProductController extends Controller
         $this->provides = new Provides();
         $this->warehouse = new Warehouse();
         $this->groups = new Groups();
+        $this->workspaces = new Workspace();
     }
 
     public function index()
     {
         $product = $this->products->getAllProducts();
         $title = "Kho 1";
-        return view('tables.products.products', compact('product', 'title'));
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        return view('tables.products.products', compact('product', 'title', 'workspacename'));
     }
 
     /**
@@ -125,8 +128,10 @@ class ProductController extends Controller
 
         if ($product) {
             $detailExport = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->where('quoteexport.product_id', $id)->get();
             $detailImport = DetailImport::leftJoin('quoteimport', 'quoteimport.detailimport_id', 'detailimport.id')
+                ->where('detailimport.workspace_id', Auth::user()->current_workspace)
                 ->where('quoteimport.product_id', $id)->get();
 
             if (!$detailExport->isEmpty()) {
@@ -145,8 +150,7 @@ class ProductController extends Controller
                 $product->delete();
                 return redirect()->route('inventory.index')->with('msg', 'Sản phẩm đã được xóa thành công!');
             }
-        }
-        else{
+        } else {
             return redirect()->route('inventory.index')->with('warning', 'Không tìm thấy sản phẩm!');
         }
     }

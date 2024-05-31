@@ -61,6 +61,7 @@ class HistoryImport extends Model
                 // ->where('price_export', $price_export)
                 ->where('product_note', $data['product_note'][$i])
                 ->where('version', $quote->version)
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             // if ($quote) {
             //     $checkData->where('version', $quote->version)
@@ -88,7 +89,8 @@ class HistoryImport extends Model
                         'version' => $quote->version,
                         'created_at' => Carbon::now(),
                         'provide_id' => $getProvide->provide_id,
-                        'user_id' => Auth::user()->id
+                        'user_id' => Auth::user()->id,
+                        'workspace_id' => Auth::user()->current_workspace,
                     ];
                     DB::table($this->table)->insert($dataHistory);
                 }

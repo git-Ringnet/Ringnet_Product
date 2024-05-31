@@ -17,7 +17,7 @@
                 <span class="font-weight-bold text-secondary">Sản phẩm</span>
             </div>
             <div class="d-flex content__heading--right">
-                <a href="{{ route('inventory.create') }}" class="mr-1">
+                <a href="{{ route('inventory.create', $workspacename) }}" class="mr-1">
                     <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                         <svg width="12" height="12" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">

@@ -27,7 +27,9 @@ class representGuest extends Model
     public function getRepresentbyId($id)
     {
         $representGuest = DB::table($this->table);
-        $representGuest = $representGuest->where('represent_guest.id', $id)->get();
+        $representGuest = $representGuest->where('represent_guest.id', $id)
+            ->where('represent_guest.workspace_id', Auth::user()->current_workspace)
+            ->get();
 
         return $representGuest;
     }
@@ -35,6 +37,7 @@ class representGuest extends Model
     public function getRepresentGuest($id)
     {
         $representGuest = representGuest::where('guest_id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
         return $representGuest;
     }
@@ -58,6 +61,7 @@ class representGuest extends Model
                             'represent_email' => $data['represent_email'][$i],
                             'represent_phone' => $data['represent_phone'][$i],
                             'represent_address' => $data['represent_address'][$i],
+                            'workspace_id' => Auth::user()->current_workspace,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                         ];

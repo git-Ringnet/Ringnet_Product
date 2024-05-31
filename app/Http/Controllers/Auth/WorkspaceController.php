@@ -32,7 +32,7 @@ class WorkspaceController extends Controller
     public function index()
     {
         if (!Auth::check()) {
-            return redirect()->route('auth.login');
+            return redirect()->route('login');
         }
         $title = 'Danh sách workspace';
 

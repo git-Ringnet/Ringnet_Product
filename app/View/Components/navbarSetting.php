@@ -15,7 +15,7 @@ class navbarSetting extends Component
     public $activeName;
     public $activeGroup;
     public $workspacename;
-    public function __construct($title = 'Ringnet', $activeName = 'activeName', $activeGroup = 'activeGroup', $workspacename = 'worksapcename')
+    public function __construct($title = 'Ringnet', $activeName = 'activeName', $activeGroup = 'activeGroup', $workspacename = 'workspacename')
     {
         $this->title = $title;
         $this->activeName = $activeName;

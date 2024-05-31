@@ -59,7 +59,8 @@ class DetailExport extends Model
     public function getAllDetailExport()
     {
         $detailExport = DetailExport::select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
-            ->leftJoin('users', 'users.id', 'detailexport.user_id');
+            ->leftJoin('users', 'users.id', 'detailexport.user_id')
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace);
         $detailExport = $detailExport->orderBy('detailexport.id', 'desc')->get();
         return $detailExport;
     }
@@ -109,6 +110,7 @@ class DetailExport extends Model
             'guest_name' => $data['guestName'],
             'represent_name' => $data['representName'],
             'discount_type' => $data['discount_type'],
+            'workspace_id' => Auth::user()->current_workspace,
         ];
         $detailexport = new DetailExport($dataExport);
         $detailexport->save();
@@ -141,6 +143,9 @@ class DetailExport extends Model
                 'detailexport.guest_name as export_guest_name',
                 'detailexport.represent_name as export_represent_name',
             )
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->where('guest.workspace_id', Auth::user()->current_workspace)
+            ->where('represent_guest.workspace_id', Auth::user()->current_workspace)
             ->first();
         return $detailExport;
     }
@@ -155,6 +160,8 @@ class DetailExport extends Model
                 $query->where('quoteexport.product_delivery', null)
                     ->orWhere('quoteexport.product_delivery', 0);
             })
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
             ->get();
         return $quoteExport;
     }
@@ -206,12 +213,14 @@ class DetailExport extends Model
     public function countDetail($id)
     {
         $countDetail = DetailExport::where('guest_id', $id)->whereIn('status', [2, 3])
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->count();
         return $countDetail;
     }
     public function sumDebt($id)
     {
         $sumDebt = DetailExport::where('guest_id', $id)->whereIn('status', [2, 3])
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->sum('amount_owed');
         return $sumDebt;
     }
@@ -219,6 +228,7 @@ class DetailExport extends Model
     {
         $historyGuest = DetailExport::where('guest_id', $id)
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->get();
         return $historyGuest;
     }
@@ -235,6 +245,7 @@ class DetailExport extends Model
                             ELSE 0 
                         END) as sumSell')
                 )
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->value('sumSell');
             return $sumSell;
         }
@@ -252,6 +263,7 @@ class DetailExport extends Model
         $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->select('detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.*', 'guest.*')
             ->leftJoin('users', 'users.id', 'detailexport.user_id')->distinct('guest.id')
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->get();
         return $detailExport;
     }
@@ -260,6 +272,7 @@ class DetailExport extends Model
         $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('users', 'users.id', 'detailexport.user_id')->distinct('guest.id')
             ->select('detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.*', 'users.*')
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->get();
         return $detailExport;
     }

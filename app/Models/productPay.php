@@ -27,6 +27,7 @@ class productPay extends Model
             if ($data['product_id'][$i] != null) {
                 $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])
                     ->where('detailexport_id', $export_id)
+                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->where('status', 1)
                     ->first();
                 if ($quoteExport) {
@@ -42,6 +43,7 @@ class productPay extends Model
                 'pay_qty' => $data['product_qty'][$i],
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'workspace_id' => Auth::user()->current_workspace,
             ];
             DB::table($this->table)->insert($dataPay);
         }
@@ -65,6 +67,7 @@ class productPay extends Model
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                     'user_id' => Auth::user()->id,
+                    'workspace_id' => Auth::user()->current_workspace,
                 ];
                 DB::table($this->table)->insert($dataPay);
             }

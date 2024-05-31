@@ -28,7 +28,9 @@ class GuestFormDate extends Model
     }
     public function getFormFieldIdsByGuestId($guestId)
     {
-        $formData = self::where('guest_id', $guestId)->get();
+        $formData = self::where('guest_id', $guestId)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
 
         $result = [];
         foreach ($formData as $data) {

@@ -46,7 +46,6 @@ class GuestController extends Controller
             //     $guest->sumDebt = $sumDebt;
             // }
 
-
             return view('tables.guests.index', compact('title', 'guests', 'users', 'dataa'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');

@@ -85,6 +85,7 @@ class QuoteExport extends Model
                     'check_seri' => 1,
                     'type' => 1,
                     'user_id' => Auth::user()->id,
+                    'workspace_id' => Auth::user()->current_workspace,
                 ];
                 $checkProduct = Products::where('product_name', $data['product_name'][$i])
                     ->first();
@@ -111,6 +112,7 @@ class QuoteExport extends Model
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                     'status' => 1,
+                    'workspace_id' => Auth::user()->current_workspace,
                 ];
                 DB::table($this->table)->insert($dataQuote);
             } else {
@@ -133,10 +135,13 @@ class QuoteExport extends Model
                     'updated_at' => Carbon::now(),
                     'user_id' => Auth::user()->id,
                     'status' => 1,
+                    'workspace_id' => Auth::user()->current_workspace,
                 ];
                 DB::table($this->table)->insert($dataQuote);
                 //Cập nhật tồn kho sản phẩm
-                $product = Products::where('id', $data['product_id'][$i])->first();
+                $product = Products::where('id', $data['product_id'][$i])
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
                 $product->product_inventory = $product->product_inventory - $data['product_qty'][$i];
                 $product->save();
                 //Cập nhật số lượng còn lại của đơn nhập sản phẩm
@@ -148,6 +153,7 @@ class QuoteExport extends Model
                     ->where('product_id', $productId)
                     ->where('quantity_remaining', '>', 0)
                     ->orderBy('created_at', 'asc')
+                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->get();
 
                 foreach ($quoteImports as $quoteImport) {
@@ -158,12 +164,14 @@ class QuoteExport extends Model
                     if ($quoteImport->quantity_remaining >= $remainingQuantityToDeduct) {
                         DB::table('quoteimport')
                             ->where('id', $quoteImport->id)
+                            ->where('workspace_id', Auth::user()->current_workspace)
                             ->update(['quantity_remaining' => $quoteImport->quantity_remaining - $remainingQuantityToDeduct]);
                         $remainingQuantityToDeduct = 0;
                     } else {
                         $remainingQuantityToDeduct -= $quoteImport->quantity_remaining;
                         DB::table('quoteimport')
                             ->where('id', $quoteImport->id)
+                            ->where('workspace_id', Auth::user()->current_workspace)
                             ->update(['quantity_remaining' => 0]);
                     }
                 }
@@ -200,6 +208,7 @@ class QuoteExport extends Model
                         'check_seri' => 1,
                         'type' => 1,
                         'user_id' => Auth::user()->id,
+                        'workspace_id' => Auth::user()->current_workspace,
                     ];
                     if (!$checkProduct) {
                         $product = new Products($dataProduct);
@@ -222,6 +231,7 @@ class QuoteExport extends Model
                             'updated_at' => Carbon::now(),
                             'status' => 1,
                             'user_id' => Auth::user()->id,
+                            'workspace_id' => Auth::user()->current_workspace,
                         ];
                         DB::table($this->table)->insert($dataQuote);
                     } else {
@@ -246,6 +256,7 @@ class QuoteExport extends Model
                             'updated_at' => Carbon::now(),
                             'status' => 1,
                             'user_id' => Auth::user()->id,
+                            'workspace_id' => Auth::user()->current_workspace,
                         ];
                         DB::table($this->table)->insert($dataQuote);
                     }
@@ -271,6 +282,7 @@ class QuoteExport extends Model
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                             'status' => 1,
                             'user_id' => Auth::user()->id,
+                            'workspace_id' => Auth::user()->current_workspace,
                         ];
                         //Mảng thông tin từ bảng quoteExport
                         $currentValues = [
@@ -288,6 +300,7 @@ class QuoteExport extends Model
                             'product_note' => $quoteExport->product_note,
                             'status' => $quoteExport->status,
                             'user_id' => Auth::user()->id,
+                            'workspace_id' => Auth::user()->current_workspace,
                         ];
 
                         if ($currentValues != $dataQuote) {
@@ -324,6 +337,7 @@ class QuoteExport extends Model
                             'updated_at' => Carbon::now(),
                             'status' => 1,
                             'user_id' => Auth::user()->id,
+                            'workspace_id' => Auth::user()->current_workspace,
                         ];
                         DB::table($this->table)->insert($dataQuote);
                         //Cập nhật tồn kho sản phẩm
@@ -354,6 +368,7 @@ class QuoteExport extends Model
             ->whereIn('product_id', $id)
             ->join('products', 'quoteexport.product_id', '=', 'products.id')
             ->select('products.product_inventory', 'quoteexport.*', 'quoteexport.product_qty', 'quoteexport.product_unit')
+            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
             ->get();
         return $products;
     }
@@ -366,6 +381,8 @@ class QuoteExport extends Model
                 $query->where('quoteexport.product_delivery', null)
                     ->orWhere('quoteexport.product_delivery', 0);
             })
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->where('products.workspace_id', Auth::user()->current_workspace)
             ->orderBy('quoteexport.created_at', 'desc')
             ->select('quoteexport.*', 'quoteexport.created_at as ngayChinhSua', 'quoteexport.product_unit as product_unit', 'products.product_inventory')
             ->get();

@@ -127,7 +127,7 @@ class ProvidesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $workspace, string $id)
+    public function destroy(string $id)
     {
         $provides = Provides::find($id);
         $checkDebt = DetailImport::where('provide_id', $provides->id)->first();

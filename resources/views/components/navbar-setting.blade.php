@@ -244,7 +244,7 @@
                             <p class="text-nav ml-2">Cài đặt</p>
                         </a>
                     </li>
-                    <li class="nav-item" style="pointer-events: none">
+                    {{-- <li class="nav-item" style="pointer-events: none">
                         <a href="{{ route('history.index', $workspacename) }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'history') active @endif">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
@@ -260,8 +260,8 @@
                                 <p class="text-nav">Workspace</p>
                             </div>
                         </a>
-                    </li>
-                    @if (Auth::user()->origin_workspace === Auth::user()->current_workspace)
+                    </li> --}}
+                    {{-- @if (Auth::user()->origin_workspace === Auth::user()->current_workspace)
                         <li class="nav-item">
                             <a href="{{ route('overview', $workspacename) }}"
                                 class="nav-link
@@ -269,7 +269,7 @@
                                 <p class="text-nav ml-2">Tổng quan</p>
                             </a>
                         </li>
-                    @endif
+                    @endif --}}
                     <li class="nav-item">
                         <a href="{{ route('viewCompany', $workspacename) }}"
                             class="nav-link
@@ -277,14 +277,14 @@
                             <p class="text-nav ml-2">Thông tin doanh nghiệp</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('settings.index', $workspacename) }}"
                             class="nav-link
                                     @if (!empty($activeName) && $activeName == 'members') active @endif">
                             <p class="text-nav ml-2">Thành viên</p>
                         </a>
-                    </li>
-                    <li class="nav-item" style="pointer-events: none">
+                    </li> --}}
+                    {{-- <li class="nav-item" style="pointer-events: none">
                         <a href="{{ route('history.index', $workspacename) }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'history') active @endif">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
@@ -302,12 +302,18 @@
                                 <p class="text-nav">My account</p>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a href="{{ route('viewUser', $workspacename) }}"
                             class="nav-link
                                     @if (!empty($activeName) && $activeName == 'user') active @endif">
                             <p class="text-nav ml-2">Thông tin cá nhân</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('users.index') }}"
+                            class="nav-link @if (!empty($activeName) && $activeName == 'users') active @endif">
+                            <p class="text-nav ml-2">Nhân viên</p>
                         </a>
                     </li>
                 </ul>

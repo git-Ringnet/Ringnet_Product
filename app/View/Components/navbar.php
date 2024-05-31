@@ -20,7 +20,7 @@ class navbar extends Component
     public $activeGroup;
     public $workspacename;
 
-    public function __construct($title = 'Ringnet', $activeName = 'activeName', $activeGroup = 'activeGroup', $workspacename = 'worksapcename')
+    public function __construct($title = 'Ringnet', $activeName = 'activeName', $activeGroup = 'activeGroup', $workspacename = 'workspacename')
     {
         // If you are not logged in, navigate to the login page
         if (!Auth::check()) {

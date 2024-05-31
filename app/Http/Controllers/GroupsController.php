@@ -18,12 +18,14 @@ class GroupsController extends Controller
     private $groups;
     private $userFlow;
     private $products;
+    private $workspaces;
 
     public function __construct()
     {
         $this->groups = new Groups();
         $this->userFlow = new userFlow();
         $this->products = new Products();
+        $this->workspaces = new Workspace();
     }
     public function index()
     {
@@ -111,7 +113,9 @@ class GroupsController extends Controller
         if (!$group) {
             return back()->with('warning', 'Không tìm nhóm sản phẩm để xóa');
         }
-        $check = Products::where('group_id', $id)->get();
+        $check = Products::where('group_id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
         if (!$check->isEmpty()) {
             return back()->with('warning', 'Xóa thất bại do nhóm sản phẩm có sản phẩm!');
         }

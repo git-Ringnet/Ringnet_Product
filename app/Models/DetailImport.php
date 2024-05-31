@@ -93,11 +93,9 @@ class DetailImport extends Model
             } else {
                 if ($data['promotion_type'][$i] == 1) {
                     $price_export = (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i])) - $promotion;
-                }
-                else if ($data['promotion_type'][$i] == 2) {
+                } else if ($data['promotion_type'][$i] == 2) {
                     $price_export = (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i])) - ((str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]) * $promotion) / 100);
-                }
-                else{
+                } else {
                     $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
                 }
                 $total += $price_export;
@@ -129,7 +127,8 @@ class DetailImport extends Model
             'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
             'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
             'status_debt' => 0,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'workspace_id' => Auth::user()->current_workspace,
         ];
         $checkQuotation = DetailImport::where('provide_id', $data['provides_id'])
             ->where('quotation_number', $data['quotation_number'])->first();
@@ -298,6 +297,7 @@ class DetailImport extends Model
             ->whereIn('id', $dataImport['product_id'])
             ->where('type', 1)
             ->orderByRaw("FIELD(id, " . implode(", ", $dataImport['product_id']) . ")")
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
         return $data;
     }
@@ -305,6 +305,7 @@ class DetailImport extends Model
     {
         $import = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
             ->select('provides.provide_name_display as provide_name_display', 'detailimport.*', 'provides.*')
+            ->where('provides.workspace_id', Auth::user()->current_workspace)
             ->get();
         return $import;
     }
@@ -313,13 +314,15 @@ class DetailImport extends Model
         $import = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
             ->leftJoin('users', 'users.id', 'detailimport.user_id')->distinct('guest.id')
             ->select('provides.provide_name_display as provide_name_display', 'detailimport.*', 'users.*')
+            ->where('provides.workspace_id', Auth::user()->current_workspace)
             ->get();
         return $import;
     }
     public function ajax($data)
     {
         $import = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
-            ->select('provides.provide_name_display as provide_name_display', 'detailimport.*');
+            ->select('provides.provide_name_display as provide_name_display', 'detailimport.*')
+            ->where('provides.workspace_id', Auth::user()->current_workspace);
 
         if (isset($data['search'])) {
             $import = $import->where(function ($query) use ($data) {
@@ -378,6 +381,7 @@ class DetailImport extends Model
     public function checkStatus($id)
     {
         $detail = DetailImport::where('id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($detail) {
             return true;

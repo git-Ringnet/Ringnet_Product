@@ -85,6 +85,7 @@ class Attachment extends Model
         $backupPath = storage_path('backup/' . $table_name . '/');
         $attachments = Attachment::where('table_id', $table_id)
             ->where('table_name', $table_name)
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
         foreach ($attachments as $attachment) {
             if (file_exists($backupPath . $attachment->file_name)) {
@@ -95,6 +96,7 @@ class Attachment extends Model
         // Xóa các dữ liệu attachment từ cơ sở dữ liệu
         Attachment::where('table_id', $table_id)
             ->where('table_name', $table_name)
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->delete();
     }
 }

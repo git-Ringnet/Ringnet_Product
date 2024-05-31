@@ -1,4 +1,4 @@
-<x-navbar activeName="users"></x-navbar>
+<x-navbar-setting title="Nhân viên" activeName="users"></x-navbar-setting>
 <div class="content-wrapper m-0 min-height--none">
     <div class="content-header-fixed p-0 margin-250 border-bottom-0">
         <div class="content__header--inner margin-left32">

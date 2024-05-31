@@ -54,8 +54,15 @@ class UserWorkspacesController extends Controller
             $account->roleid = 2;
             $account->provider = 'login';
             $account->provider_id = 1;
-            $account->current_workspace = 1;
+            $account->current_workspace = Auth::user()->current_workspace;
             $account->save();
+
+            //
+            $userWorkspaces = new UserWorkspaces();
+            $userWorkspaces->user_id = $account->id;
+            $userWorkspaces->workspace_id = Auth::user()->current_workspace;
+            $userWorkspaces->roleid = 1;
+            $userWorkspaces->save();
 
             return redirect()->route('users.index')->with('msg', 'Tài khoản đã được thêm thành công.');
         } else {

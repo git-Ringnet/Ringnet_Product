@@ -26,6 +26,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserFlowController;
 use App\Http\Controllers\UserWorkspacesController;
 use App\Http\Middleware\CheckLogin;
+use App\Http\Middleware\CheckUserWorkspace;
 use App\Models\DetailImport;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -326,13 +327,8 @@ Route::resource('/userflow', UserFlowController::class)->middleware(CheckLogin::
 //Thêm nhân viên
 Route::resource('/users', UserWorkspacesController::class)->middleware(CheckLogin::class);
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', CheckUserWorkspace::class])->group(function () {
     Route::get('/dashboard', function () {
-        return view('welcome');
-        // return redirect()->route('workspace.index');
+        return view('dashboard');
     })->name('dashboard');
 });

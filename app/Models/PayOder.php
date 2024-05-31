@@ -144,7 +144,8 @@ class PayOder extends Model
                     ]);
             } else {
                 // Lây mã thanh toán hiện tại
-                $count = PayOder::count();
+                $count = PayOder::where('workspace_id', Auth::user()->current_workspace)
+                    ->count();
 
                 $lastReceive = PayOder::orderBy('id', 'desc')
                     ->first();
@@ -173,7 +174,8 @@ class PayOder extends Model
                     'payment_code' => isset($data['payment_code']) ? $data['payment_code'] : $resultNumber,
                     'payment_day' => isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now(),
                     'payment_type' => isset($data['payment_type']) && $data['payment_type'] != null ? $data['payment_type'] : "Tiền mặt",
-                    'user_id' => Auth::user()->id
+                    'user_id' => Auth::user()->id,
+                    'workspace_id' => Auth::user()->current_workspace,
                 ];
                 $payment_id = DB::table($this->table)->insertGetId($dataReciept);
                 for ($i = 0; $i < count($data['product_name']); $i++) {
@@ -473,6 +475,7 @@ class PayOder extends Model
         return QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
             ->leftJoin('pay_order', 'detailimport.id', 'pay_order.detailimport_id')
             ->where('quoteimport.detailimport_id', $id)
+            ->where('detailimport.workspace_id', Auth::user()->current_workspace)
             // ->where('product_qty', '>', DB::raw('COALESCE(payment_qty,0)'))
             ->get();
     }
@@ -559,6 +562,7 @@ class PayOder extends Model
     {
         $pay_order = PayOder::leftJoin('detailimport', 'pay_order.detailimport_id', 'detailimport.id')
             ->leftJoin('users', 'pay_order.user_id', 'users.id')->distinct('guest.id')
+            ->where('detailimport.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'users.*')
             ->get();
         return $pay_order;

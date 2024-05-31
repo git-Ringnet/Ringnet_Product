@@ -36,6 +36,7 @@ class Products extends Model
     public function getAllProducts()
     {
         return DB::table($this->table)
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->orderBy('id', 'desc')
             ->get();
     }
@@ -64,7 +65,9 @@ class Products extends Model
     public function addProductDefault($data)
     {
         for ($i = 0; $i < count($data['product_name']); $i++) {
-            $checkProductName = Products::where('product_name', $data['product_name'][$i])->first();
+            $checkProductName = Products::where('product_name', $data['product_name'][$i])
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
             if (!$checkProductName) {
                 $product  = [
                     'product_code' => $data['product_code'][$i],
@@ -77,6 +80,7 @@ class Products extends Model
                     'product_trade' => 0,
                     'product_available' => 0,
                     'type' => 1,
+                    'workspace_id' => Auth::user()->current_workspace,
                     'created_at' => Carbon::now(),
                     'user_id' => Auth::user()->id
                 ];
@@ -95,6 +99,7 @@ class Products extends Model
         $return  = 0;
         isset($data['check_seri']) ? $check = 1 : $check = 0;
         $checkProductName = DB::table($this->table)->where('product_name', $data['product_name'])
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($checkProductName) {
             $return = 0;
@@ -113,6 +118,7 @@ class Products extends Model
                 'product_available' => 0,
                 'product_tax' => $data['product_tax'],
                 'group_id' => $data['group_id'],
+                'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'user_id' => Auth::user()->id
             ];
@@ -157,6 +163,7 @@ class Products extends Model
             $checkProductName = DB::table($this->table)
                 ->where('id', '!=', $product->id)
                 ->where('product_name', $data['product_name'])
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($checkProductName) {
                 $return = 0;
@@ -241,7 +248,7 @@ class Products extends Model
                                 $getSN = Serialnumber::where('serinumber', $productSN[$j])
                                     ->where('receive_id', $receive->id)
                                     ->where('quoteImport_id', $getProduct->id)
-                
+
                                     ->get();
                                 $dataSN = [
                                     'product_id' => $list_id[$i],
@@ -317,6 +324,7 @@ class Products extends Model
         $result = [];
         for ($i = 0; $i < count($data['listName']); $i++) {
             $checkProduct = DB::table($this->table)->where('product_name', $data['listName'][$i])
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($checkProduct) {
                 if ($checkProduct->product_tax != $data['listTax'][$i]) {
@@ -341,7 +349,7 @@ class Products extends Model
     public function checkProductName($data)
     {
         $result = [];
-        $check = DB::table($this->table)->where('product_name', $data['name']);
+        $check = DB::table($this->table)->where('product_name', $data['name'])->where('workspace_id', Auth::user()->current_workspace);
         if (isset($data['action'])) {
             $check->where('id', '!=', $data['id']);
         }

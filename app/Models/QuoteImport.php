@@ -56,7 +56,9 @@ class QuoteImport extends Model
     public function addQuoteImport($data, $id)
     {
         for ($i = 0; $i < count($data['product_name']); $i++) {
-            $checkProductName = Products::where('product_name', $data['product_name'][$i])->first();
+            $checkProductName = Products::where('product_name', $data['product_name'][$i])
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
             if (!$checkProductName) {
                 $productData  = [
                     'product_code' => $data['product_code'][$i],
@@ -70,7 +72,8 @@ class QuoteImport extends Model
                     'product_available' => 0,
                     'type' => 1,
                     'created_at' => Carbon::now(),
-                    'user_id' => Auth::user()->id
+                    'user_id' => Auth::user()->id,
+                    'workspace_id' => Auth::user()->current_workspace,
                 ];
                 $productId = DB::table('products')->insertGetId($productData);
             } else {
@@ -100,6 +103,7 @@ class QuoteImport extends Model
                 'receive_qty' => 0,
                 'reciept_qty' => 0,
                 'payment_qty' => 0,
+                'workspace_id' => Auth::user()->current_workspace,
             ];
             $quote_id = DB::table($this->table)->insertGetId($dataQuote);
             $getProvide = DetailImport::where('id', $id)->first();
@@ -118,7 +122,8 @@ class QuoteImport extends Model
                     'version' => 1,
                     'created_at' => Carbon::now(),
                     'provide_id' => $getProvide->provide_id,
-                    'user_id' => Auth::user()->id
+                    'user_id' => Auth::user()->id,
+                    'workspace_id' => Auth::user()->current_workspace,
                 ];
                 DB::table('history_import')->insert($dataHistory);
             }
@@ -130,6 +135,7 @@ class QuoteImport extends Model
     {
         if ($data['action'] == 'action_1') {
             $id_detail = DB::table($this->table)->where('detailimport_id', $id)
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->whereNotIn('id', $data['listProduct'])
                 ->delete();
         }
@@ -137,6 +143,7 @@ class QuoteImport extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             // Kiểm tra và thêm sản phẩm mới vào kho hàng
             $checkProduct = Products::where('product_name', $data['product_name'][$i])
+                ->where('products.workspace_id', Auth::user()->current_workspace)
                 ->first();
 
             $productId = null;
@@ -150,6 +157,7 @@ class QuoteImport extends Model
                     'product_inventory' => str_replace(',', '', $data['product_qty'][$i]),
                     'check_seri' => 1,
                     'created_at' => now(),
+                    'workspace_id' => Auth::user()->current_workspace,
                 ];
                 $productId = DB::table('products')->insertGetId($dataProduct);
             } else {
@@ -158,6 +166,7 @@ class QuoteImport extends Model
 
             // Lấy sản phẩm cần sửa
             $dataUpdate = QuoteImport::where('id', $data['listProduct'][$i])
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             $price_export = floatval(str_replace(',', '', $data['price_export'][$i]));
             $total_price = floatval(str_replace(',', '', $data['product_qty'][$i])) * $price_export;
@@ -199,7 +208,8 @@ class QuoteImport extends Model
                     'created_at' => Carbon::now(),
                     'receive_qty' => 0,
                     'reciept_qty' => 0,
-                    'payment_qty' => 0
+                    'payment_qty' => 0,
+                    'workspace_id' => Auth::user()->current_workspace,
                 ];
                 DB::table($this->table)->insert($dataQuote);
             }

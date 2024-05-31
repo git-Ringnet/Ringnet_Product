@@ -1,4 +1,4 @@
-<x-navbar activeName="users"></x-navbar>
+<x-navbar-setting title="Nhân viên" activeName="users"></x-navbar-setting>
 <form action="{{ route('users.store') }}" method="POST">
     @csrf
     <div class="content-wrapper m-0 min-height--none">

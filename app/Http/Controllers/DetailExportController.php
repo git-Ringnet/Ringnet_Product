@@ -383,6 +383,7 @@ class DetailExportController extends Controller
             $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
                 ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_payment,0)'))
                 ->select('detailexport.quotation_number', 'detailexport.id')
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                 ->distinct()
                 ->get();
             $data = $request->all();
@@ -435,7 +436,7 @@ class DetailExportController extends Controller
             $dataImport = $this->detailImport->dataImport($request->all());
             $title = "Tạo đơn mua hàng";
             // $provides = Provides::all();
-            $provides = Provides::all();
+            $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
             $project = Project::all();
             $arrCapNhatKH = [
                 'name' => 'BG',
@@ -451,9 +452,15 @@ class DetailExportController extends Controller
      */
     public function destroy(string $id)
     {
-        $delivery = Delivery::where('detailexport_id', $id)->get();
-        $billSale = BillSale::where('detailexport_id', $id)->get();
-        $pay = PayExport::where('detailexport_id', $id)->get();
+        $delivery = Delivery::where('detailexport_id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
+        $billSale = BillSale::where('detailexport_id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
+        $pay = PayExport::where('detailexport_id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
 
         if ($delivery->isEmpty() && $billSale->isEmpty() && $pay->isEmpty()) {
             $detailExport = DetailExport::find($id);
@@ -483,6 +490,7 @@ class DetailExportController extends Controller
         $result = [];
         $data = $request->all();
         $guest = Guest::where('id', $data['idGuest'])
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
 
         if ($guest) {
@@ -492,6 +500,7 @@ class DetailExportController extends Controller
             // Lấy số lớn nhất của quotation_number cho ngày hiện tại
             $lastNumber = DetailExport::where('guest_id', $guest->id)
                 ->where('quotation_number', 'like', $currentDate . '/%')
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->max(DB::raw("CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(quotation_number, '-', -1), '/', -1) AS UNSIGNED)"));
 
             // Nếu không có số lớn nhất, bắt đầu với số 01
@@ -534,7 +543,8 @@ class DetailExportController extends Controller
     {
         $result = [];
         $data = $request->all();
-        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number']);
+        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number'])
+            ->where('workspace_id', Auth::user()->current_workspace);
         if (isset($data['detail_id'])) {
             $checkQuotetion->where('id', '!=', $data['detail_id']);
         }
@@ -554,7 +564,8 @@ class DetailExportController extends Controller
     {
         $result = [];
         $data = $request->all();
-        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number']);
+        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number'])
+            ->where('workspace_id', Auth::user()->current_workspace);
         if (isset($data['detailexport_id'])) {
             $checkQuotetion->where('id', '!=', $data['detailexport_id']);
         }
@@ -573,14 +584,16 @@ class DetailExportController extends Controller
     //Thêm khách hàng
     public function addGuest(Request $request)
     {
-        $check = Guest::where(function ($query) use ($request) {
-            $query->where('guest_code', $request->guest_code)
-                ->orWhere('guest_name_display', $request->guest_name_display);
-        })
+        $check = Guest::where('workspace_id', Auth::user()->current_workspace)
+            ->where(function ($query) use ($request) {
+                $query->where('guest_code', $request->guest_code)
+                    ->orWhere('guest_name_display', $request->guest_name_display);
+            })
             ->first();
 
         if ($check === null) {
-            $checkKey = Guest::where('key', $request->key)
+            $checkKey = Guest::where('workspace_id', Auth::user()->current_workspace)
+                ->where('key', $request->key)
                 ->first();
 
             if ($checkKey) {
@@ -588,7 +601,10 @@ class DetailExportController extends Controller
                 $newKey = $request->key;
 
                 // Tăng số đằng sau cho đến khi không còn trùng
-                while (Guest::where('key', $newKey)->exists()) {
+                while (Guest::where('workspace_id', Auth::user()->current_workspace)
+                    ->where('key', $newKey)
+                    ->exists()
+                ) {
                     // Kiểm tra xem key có kết thúc bằng số không
                     if (preg_match('/\d+$/', $newKey)) {
                         // Tăng số đằng sau
@@ -621,6 +637,7 @@ class DetailExportController extends Controller
                     'guest_email_personal' => $request->guest_email_personal,
                     'guest_phone_receiver' => $request->guest_phone_receiver,
                     'guest_debt' => 0,
+                    'workspace_id' => Auth::user()->current_workspace,
                     'guest_note' => $request->guest_note,
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -646,6 +663,7 @@ class DetailExportController extends Controller
                     $dataRepresent = [
                         'guest_id' => $new_guest,
                         'represent_name' => $request->represent_guest_name,
+                        'workspace_id' => Auth::user()->current_workspace,
                         'user_id' => Auth::user()->id,
                         'created_at' => now(),
                         'updated_at' => now(),
@@ -737,13 +755,15 @@ class DetailExportController extends Controller
     //Thêm dự án
     public function addProject(Request $request)
     {
-        $check = Project::where(function ($query) use ($request) {
-            $query->where('project_name', $request->project_name);
-        })
+        $check = Project::where('workspace_id', Auth::user()->current_workspace)
+            ->where(function ($query) use ($request) {
+                $query->where('project_name', $request->project_name);
+            })
             ->first();
         if ($check == null) {
             $data = [
                 'project_name' => $request->project_name,
+                'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
@@ -793,10 +813,11 @@ class DetailExportController extends Controller
     //Thêm người đại diện
     public function addRepresentGuest(Request $request)
     {
-        $check = representGuest::where(function ($query) use ($request) {
-            $query->where('represent_name', $request->represent_name)
-                ->where('guest_id', $request->guest_id);
-        })
+        $check = representGuest::where('workspace_id', Auth::user()->current_workspace)
+            ->where(function ($query) use ($request) {
+                $query->where('represent_name', $request->represent_name)
+                    ->where('guest_id', $request->guest_id);
+            })
             ->first();
         if ($check == null) {
             $data = [
@@ -807,6 +828,7 @@ class DetailExportController extends Controller
                 'guest_id' => $request->guest_id,
                 'default_guest' => 0,
                 'user_id' => Auth::user()->id,
+                'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
@@ -924,6 +946,7 @@ class DetailExportController extends Controller
     {
         $recentTransaction = QuoteExport::where('product_id', $data['idProduct'])
             ->leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->where('detailexport.status', '!=', 1)
             ->where('quoteexport.status', 1)
             ->get();
@@ -1028,6 +1051,7 @@ class DetailExportController extends Controller
     {
         $data = $request->all();
         $product = Products::where('product_name', $data['productName'])
+            ->where('products.workspace_id', Auth::user()->current_workspace)
             ->first();
         return $product;
     }
@@ -1059,6 +1083,8 @@ class DetailExportController extends Controller
                                 ->where('detailexport.id', $request->id)
                                 ->where('quoteexport.status', 1)
                                 ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) > 0')
+                                ->where('products.workspace_id', Auth::user()->current_workspace)
+                                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                                 ->get();
 
                             // Group dữ liệu theo ID sản phẩm để có danh sách seri cho mỗi sản phẩm
@@ -1106,6 +1132,8 @@ class DetailExportController extends Controller
                         $payExport = DetailExport::where('detailexport.id', $request->id)
                             ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
                             ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
+                            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+                            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
                             ->select(
                                 'detailexport.id',
                                 'detailexport.guest_id',
@@ -1128,8 +1156,10 @@ class DetailExportController extends Controller
                             )
                             ->first();
                         $tongThanhToan = PayExport::where('detailexport_id', $payExport->id)
+                            ->where('workspace_id', Auth::user()->current_workspace)
                             ->first();
                         $lastPayExportId = DB::table('pay_export')
+                            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
                             ->max(DB::raw('CAST(SUBSTRING_INDEX(code_payment, "-", -1) AS UNSIGNED)'));
                         $idLast =  $lastPayExportId;
                         $data['status'] = true;

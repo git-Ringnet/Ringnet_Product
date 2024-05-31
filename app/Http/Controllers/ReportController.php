@@ -51,12 +51,15 @@ class ReportController extends Controller
             DB::raw('SUM(quantity_remaining * price_export) as total_inventory_value')
         )
             ->where('quantity_remaining', '>', 0)
+            ->where('products.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('products', 'products.id', 'quoteimport.product_id')
             ->groupBy('quoteimport.product_id', 'quoteimport.product_name', 'products.product_inventory')
             ->get();
         //Tổng tiền toàn bộ sản phẩm tồn kho
         $detailExport = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
+            ->where('products.workspace_id', Auth::user()->current_workspace)
+            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
             ->get();
         $guest = $this->payExport->guestStatistics();
         return view('report.index', compact(

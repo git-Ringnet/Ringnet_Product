@@ -66,9 +66,11 @@ class ProductImport extends Model
             $qty = 0;
             $product = QuoteImport::where('detailimport_id', $id)
                 ->where('product_name', $data['product_name'][$i])
+                ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
                 ->first();
             // Lưu thông tin bảo hành vào sản phẩm
             $productGuarantee = Products::where('product_name', $data['product_name'][$i])
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
 
             if (!isset($data['id_import']) && $columQuote == "receive_qty" && $productGuarantee && $productGuarantee->product_guarantee == null && $productGuarantee->type == 1) {
@@ -96,11 +98,14 @@ class ProductImport extends Model
                 } else {
                     $checkCBSN = Products::where('product_name', $data['product_name'][$i])
                         ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
+                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
                     $productExist = QuoteImport::where('product_name', $data['product_name'][$i])
+                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
                     if ($productExist) {
                         $checkCBImport = ProductImport::where('quoteImport_id', $productExist->id)
+                            ->where('workspace_id', Auth::user()->current_workspace)
                             ->where('receive_id', '!=', 'null')
                             ->first();
                         if ($checkCBSN) {
@@ -118,6 +123,7 @@ class ProductImport extends Model
                             'cbSN' => $cbSN,
                             'created_at' => Carbon::now(),
                             'user_id' => Auth::user()->id,
+                            'workspace_id' => Auth::user()->current_workspace,
                         ];
                     }
                 }
