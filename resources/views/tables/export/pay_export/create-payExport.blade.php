@@ -544,7 +544,7 @@
                                 style="height:49px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
                                 <input class="border-0 w-100 bg-input-guest py-2 px-2" placeholder="Nhập thông tin"
-                                    name="code_payment"
+                                    name="code_payment" required
                                     style="flex:2;outline:none;background-color:#F0F4FF; border-radius:4px;" />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"

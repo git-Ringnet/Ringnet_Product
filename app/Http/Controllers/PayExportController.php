@@ -394,7 +394,6 @@ class PayExportController extends Controller
             ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
             ->leftJoin('history_payment_export', 'history_payment_export.pay_id', 'pay_export.id')
-            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
             ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'detailexport.guest_id',

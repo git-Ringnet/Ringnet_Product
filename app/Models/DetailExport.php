@@ -145,7 +145,6 @@ class DetailExport extends Model
             )
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->where('guest.workspace_id', Auth::user()->current_workspace)
-            ->where('represent_guest.workspace_id', Auth::user()->current_workspace)
             ->first();
         return $detailExport;
     }

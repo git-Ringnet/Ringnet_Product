@@ -68,7 +68,7 @@ class GuestController extends Controller
     {
         $result = $this->guests->addGuest($request->all());
         if ($result == true) {
-            $msg = redirect()->back()->with('msg', 'Khách hàng đã tồn tại');
+            $msg = redirect()->back()->with('warning', 'Khách hàng đã tồn tại');
         } else {
             $arrCapNhatKH = [
                 'name' => 'KH',

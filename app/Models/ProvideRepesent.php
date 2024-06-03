@@ -49,10 +49,6 @@ class ProvideRepesent extends Model
                     DB::table($this->table)->insertGetId($dataRepesent);
                 }
             }
-        } else {
-            // dd(1);
-        }
-        // var_dump($provide_id);
-        // dd($data);
+        } 
     }
 }

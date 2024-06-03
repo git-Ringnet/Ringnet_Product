@@ -541,7 +541,7 @@
                                                             {{ number_format($item->product_price_import) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->product_price_import) }}
+                                                            {{ number_format($item->product_price_import * $item->product_qty) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             {{ number_format($item->price_export) }}

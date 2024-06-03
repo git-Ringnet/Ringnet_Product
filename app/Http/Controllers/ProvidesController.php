@@ -186,6 +186,7 @@ class ProvidesController extends Controller
                 ->first();
             if ($check == null) {
                 $checkKey = Provides::where('key', $request->key)
+                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
                 if ($checkKey) {
                     // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
@@ -193,7 +194,7 @@ class ProvidesController extends Controller
 
                     // Kiểm tra xem key mới đã tồn tại chưa
                     $counter = 1;
-                    while (Provides::where('key', $newKey)->exists()) {
+                    while (Provides::where('key', $newKey)->where('workspace_id', Auth::user()->current_workspace)->exists()) {
                         // Kiểm tra xem key có kết thúc bằng số không
                         if (preg_match('/\d+$/', $newKey)) {
                             // Tăng số đằng sau
@@ -230,17 +231,20 @@ class ProvidesController extends Controller
                         ->orWhere('provide_name_display', $data['provide_name_display']);
                 })
                 ->where('id', '!=', $request->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
 
             if ($check) {
                 return response()->json(['success' => false, 'msg' => 'Thông tin khách hàng đã tồn tại']);
             } else {
                 $provide = Provides::where('id', $request->id)
+                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
 
                 if ($provide) {
                     $checkKey = Provides::where('id', '!=', $request->id)
                         ->where('key', $data['key'])
+                        ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
 
                     if ($checkKey) {

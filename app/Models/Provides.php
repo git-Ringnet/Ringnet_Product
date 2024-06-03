@@ -53,9 +53,12 @@ class Provides extends Model
     public function addProvide($data)
     {
         $result = [];
-        $provides = DB::table($this->table)->where('provide_code', $data['provide_code'])
-            ->orWhere('provide_name_display', $data['provide_name_display'])
+            $provides = DB::table($this->table)
             ->where('workspace_id', Auth::user()->current_workspace)
+            ->where(function ($query) use ($data) {
+                $query->where('provide_code', $data['provide_code'])
+                    ->orWhere('provide_name_display', $data['provide_name_display']);
+            })
             ->first();
         if ($provides) {
             $result = [
