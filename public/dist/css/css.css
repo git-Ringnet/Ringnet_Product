@@ -2851,3 +2851,9 @@ input[type="checkbox"]:checked {
 .hover-tr-table tbody tr:hover {
     background-color: #e9ecef;
 }
+
+.sumInventory{
+    padding: 0px 7px;
+    background-color: #407DD9;
+    border-radius: 50%;
+}

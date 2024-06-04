@@ -339,6 +339,7 @@ class PayExport extends Model
             ->leftJoin('pay_export', 'product_pay.pay_id', 'pay_export.id')
             ->where('pay_export.workspace_id', Auth::user()->current_workspace)
             ->count();
+
         if ($PayCount > 0) {
             DetailExport::where('id', $payExport->detailexport_id)
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -355,7 +356,7 @@ class PayExport extends Model
         history_Pay_Export::where('pay_id', $id)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->delete();
-        PayExport::find($id)
+        PayExport::where('id', $id)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->delete();
     }

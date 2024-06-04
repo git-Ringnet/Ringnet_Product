@@ -111,7 +111,7 @@ class GroupsController extends Controller
     {
         $group = Groups::find($id);
         if (!$group) {
-            return back()->with('warning', 'Không tìm nhóm sản phẩm để xóa');
+            return back()->with('warning', 'Không tìm thấy nhóm sản phẩm để xóa');
         }
         $check = Products::where('group_id', $id)
             ->where('workspace_id', Auth::user()->current_workspace)

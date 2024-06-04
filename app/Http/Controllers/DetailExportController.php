@@ -1132,8 +1132,7 @@ class DetailExportController extends Controller
                         $payExport = DetailExport::where('detailexport.id', $request->id)
                             ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
                             ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
-                            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
-                            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                             ->select(
                                 'detailexport.id',
                                 'detailexport.guest_id',
@@ -1207,5 +1206,25 @@ class DetailExportController extends Controller
             }
         }
         return $data;
+    }
+    public function getInventoryProduct(Request $request)
+    {
+        $quoteImports = DB::table('quoteimport')
+            ->where('product_id', $request->idProduct)
+            ->where('quantity_remaining', '>', 0)
+            ->join('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
+            ->join('provides', 'provides.id', 'detailimport.provide_id')
+            ->orderBy('quoteimport.created_at', 'asc')
+            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
+            ->select(
+                'quoteimport.product_name',
+                'provides.provide_name_display',
+                'quoteimport.quantity_remaining',
+                'quoteimport.price_export',
+                'quoteimport.product_tax',
+                'quoteimport.created_at',
+            )
+            ->get();
+        return $quoteImports;
     }
 }

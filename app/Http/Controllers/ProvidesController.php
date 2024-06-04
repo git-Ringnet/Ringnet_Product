@@ -179,10 +179,11 @@ class ProvidesController extends Controller
     public function checkKeyProvide(Request $request)
     {
         if ($request->status == "add") {
-            $check = Provides::where(function ($query) use ($request) {
-                $query->where('provide_code', $request->provide_code)
-                    ->orWhere('provide_name_display', $request->provide_name_display);
-            })
+            $check = Provides::where('workspace_id', Auth::user()->current_workspace)
+                ->where(function ($query) use ($request) {
+                    $query->where('provide_code', $request->provide_code)
+                        ->orWhere('provide_name_display', $request->provide_name_display);
+                })
                 ->first();
             if ($check == null) {
                 $checkKey = Provides::where('key', $request->key)

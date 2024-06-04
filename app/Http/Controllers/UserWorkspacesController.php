@@ -23,7 +23,9 @@ class UserWorkspacesController extends Controller
     }
     public function index()
     {
-        $users = User::where('roleid', '!=', 1)->get();
+        $users = User::where('users.roleid', '!=', 1)
+            ->where('users.current_workspace', Auth::user()->current_workspace)
+            ->get();
         return view('users.index', compact(
             'users',
         ));
@@ -55,13 +57,14 @@ class UserWorkspacesController extends Controller
             $account->provider = 'login';
             $account->provider_id = 1;
             $account->current_workspace = Auth::user()->current_workspace;
+            $account->origin_workspace = Auth::user()->current_workspace;
             $account->save();
 
             //
             $userWorkspaces = new UserWorkspaces();
             $userWorkspaces->user_id = $account->id;
             $userWorkspaces->workspace_id = Auth::user()->current_workspace;
-            $userWorkspaces->roleid = 1;
+            $userWorkspaces->roleid = 2;
             $userWorkspaces->save();
 
             return redirect()->route('users.index')->with('msg', 'Tài khoản đã được thêm thành công.');
@@ -94,10 +97,6 @@ class UserWorkspacesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'email' => 'required|email|unique:users,email,' . $id,
-        ]);
-
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;

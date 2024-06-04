@@ -25,6 +25,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserFlowController;
 use App\Http\Controllers\UserWorkspacesController;
+use App\Http\Controllers\WarehouseController;
 use App\Http\Middleware\CheckLogin;
 use App\Http\Middleware\CheckUserWorkspace;
 use App\Models\DetailImport;
@@ -326,6 +327,12 @@ Route::resource('/userflow', UserFlowController::class)->middleware(CheckLogin::
 
 //Thêm nhân viên
 Route::resource('/users', UserWorkspacesController::class)->middleware(CheckLogin::class);
+
+//Kho hàng
+Route::resource('/warehouse', WarehouseController::class)->middleware(CheckLogin::class);
+
+//Xem tồn kho
+Route::get('/getInventoryProduct', [DetailExportController::class, 'getInventoryProduct'])->name('getInventoryProduct');
 
 Route::middleware(['auth:sanctum', 'verified', CheckUserWorkspace::class])->group(function () {
     Route::get('/dashboard', function () {
