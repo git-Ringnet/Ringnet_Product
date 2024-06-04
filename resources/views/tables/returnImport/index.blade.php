@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="buy" activeName="receive"></x-navbar>
+<x-navbar :title="$title" activeGroup="buy" activeName="returnImport"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0  min-height--none">
     <!-- Content Header (Page header) -->
@@ -18,7 +18,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('receive.create', $workspacename) }}" class="user_flow mr-3" data-type="DNH"
+                    <a href="{{ route('returnImport.create', $workspacename) }}" class="user_flow mr-3" data-type="DNH"
                         data-des="Tạo mới">
                         <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
@@ -129,12 +129,12 @@
                                         </div>
                                     </div>
                                     <x-filter-text name="quotenumber" title="Đơn mua hàng" />
-                                    <x-filter-checkbox :dataa='$receive' name="delivery_code" title="Mã nhận hàng"
+                                    <x-filter-checkbox :dataa='$data' name="delivery_code" title="Mã nhận hàng"
                                         namedisplay="delivery_code" />
                                     <x-filter-text name="provides" title="Nhà cung cấp" />
                                     <x-filter-text name="shipping_unit" title="Đơn vị vận chuyển" />
-                                    <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
-                                        namedisplay="name" />
+                                    {{-- <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
+                                        namedisplay="name" /> --}}
                                     <x-filter-status name="status" key1="1" value1="Chưa giao" key2="2"
                                         value2="Đã nhận" color1="#858585" color2="#08AA36BF" title="Trạng thái" />
                                     <x-filter-compare name="total" title="Tổng tiền" />
@@ -172,13 +172,13 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="delivery_code" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Mã nhận
-                                                            hàng#</button>
+                                                        <button class="btn-sort text-13" type="submit">Phiếu nhập
+                                                            kho#</button>
                                                     </a>
                                                     <div class="icon" id="icon-delivery_code"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width: 10%;">
+                                            {{-- <th scope="col" class="border-bottom" style="width: 10%;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
@@ -187,20 +187,20 @@
                                                     </a>
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
 
                                             <th scope="col" class="border-bottom" style="width: 10%;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="created_at" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Ngày nhận
+                                                            class="btn-sort text-13" type="submit">Ngày trả
                                                             hàng</button>
                                                     </a>
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="border-bottom" style="width: 14%;">
+                                            {{-- <th scope="col" class="border-bottom" style="width: 14%;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display"
@@ -210,8 +210,8 @@
                                                     </a>
                                                     <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
-                                            </th>
-                                            @can('isAdmin')
+                                            </th> --}}
+                                            {{-- @can('isAdmin') --}}
                                                 <th scope="col" class="border-bottom" style="width: 10%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="users"
@@ -221,8 +221,8 @@
                                                         <div class="icon" id="icon-users"></div>
                                                     </span>
                                                 </th>
-                                            @endcan
-                                            <th scope="col" class="border-bottom" style="width: 10%;">
+                                            {{-- @endcan --}}
+                                            {{-- <th scope="col" class="border-bottom" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="shipping_unit" data-sort-type="DESC"><button
@@ -231,8 +231,8 @@
                                                     </a>
                                                     <div class="icon" id="icon-shipping_unit"></div>
                                                 </span>
-                                            </th>
-                                            <th scope="col" class="border-bottom" style="width: 10%;">
+                                            </th> --}}
+                                            {{-- <th scope="col" class="border-bottom" style="width: 10%;">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="delivery_charges" data-sort-type="DESC"><button
@@ -241,7 +241,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-delivery_charges"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                             <th scope="col" class="border-bottom" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -257,7 +257,7 @@
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_tax" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Tổng tiền</button>
+                                                            class="btn-sort text-13" type="submit">Nội dung trả hàng</button>
                                                     </a>
                                                     <div class="icon" id="icon-total_tax"></div>
                                                 </span>
@@ -265,7 +265,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-receive">
-                                        @foreach ($receive as $item)
+                                        @foreach ($data as $item)
                                             <tr class="position-relative receive-info height-52">
                                                 <input type="hidden" name="id-receive" class="id-receive"
                                                     id="id-receive" value="{{ $item->id }}">
@@ -289,54 +289,34 @@
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom text-wrap">
-                                                    <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
+                                                    @if ($item->getReceive)
+                                                    <a href="{{ route('returnImport.edit', ['workspace' => $workspacename, 'returnImport' => $item->id]) }}"
                                                         class="duongdan text-13-blue user_flow" data-type="DNH"
                                                         data-des="Xem đơn nhận hàng">
-                                                        {{ $item->delivery_code }}
+                                                        {{ $item->getReceive->id }}
                                                     </a>
-                                                </td>
-                                                <td class="text-13-black border-top-0 border-bottom text-wrap">
-                                                    @if ($item->getQuotation)
-                                                        {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
                                                     @endif
                                                 </td>
-
+                                            
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
 
-                                                <td class="text-13-black border-top-0 border-bottom text-wrap">
-                                                    @if (isset($item->getQuotation))
-                                                        {{ $item->getQuotation->provide_name }}
-                                                    @else
-                                                        @if (isset($item->getNameProvide))
-                                                            {{ $item->getNameProvide->provide_name_display }}
-                                                        @endif
+                                                <td class="text-13-black border-top-0 border-bottom">
+                                                    @if($item->getUser)
+                                                    {{ $item->getUser->name }}
                                                     @endif
                                                 </td>
-                                                @can('isAdmin')
-                                                    <td class="text-13-black border-top-0 border-bottom">
-                                                        @if ($item->getNameUser)
-                                                            {{ $item->getNameUser->name }}
-                                                        @endif
-                                                    </td>
-                                                @endcan
 
-                                                <td class="text-13-black border-top-0 border-bottom text-wrap">
-                                                    {{ $item->shipping_unit }}
-                                                </td>
-                                                <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    {{ number_format($item->delivery_charges) }}
-                                                </td>
                                                 <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($item->status == 1)
-                                                        <span style="color: #858585">Chưa nhận</span>
+                                                        <span style="color: #858585">Đơn nháp</span>
                                                     @else
-                                                        <span style="color: #08AA36">Đã nhận</span>
+                                                        <span style="color: #08AA36">Đã trả</span>
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    {{ number_format($item->total_tax) }}
+                                                    {{ $item->description }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-top-0 border-bottom align-items-center"
                                                     style="right: 10px; top: 10%; bottom:0;">
@@ -345,7 +325,7 @@
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
                                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                    action="{{ route('receive.destroy', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
+                                                                    action="{{ route('returnImport.destroy', ['workspace' => $workspacename, 'returnImport' => $item->id]) }}"
                                                                     method="post">
                                                                     @csrf
                                                                     @method('DELETE')

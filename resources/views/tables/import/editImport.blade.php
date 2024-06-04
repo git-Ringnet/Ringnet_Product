@@ -135,6 +135,9 @@
                                                 <th class="border-right p-0 px-2 text-right text-13"style="width:15%;">
                                                     Thành tiền
                                                 </th>
+                                                <th class="border-right p-0 px-2 text-right text-13"style="width:10%;">
+                                                    Kho hàng
+                                                </th>
                                                 <th class="border-right p-0 px-2 text-left note text-13"
                                                     style="width:15%;">
                                                     Ghi chú sản phẩm
@@ -257,7 +260,7 @@
                                                             $promotionArray = json_decode($item->promotion, true);
                                                             $promotionValue = isset($promotionArray['value'])
                                                                 ? $promotionArray['value']
-                                                                : '';
+                                                                : 0;
                                                             $promotionOption = isset($promotionArray['type'])
                                                                 ? $promotionArray['type']
                                                                 : '';
@@ -304,6 +307,33 @@
                                                             class="text-right border-0 px-2 py-1 w-100 total_price height-32"
                                                             readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total - $promotionValue, 2, '.', ',') : number_format($item->product_total - $promotionValue) }}">
+                                                    </td>
+                                                    <td
+                                                        class='border-right p-2 text-13 align-top border-bottom border-top-0 position-relative'>
+                                                        <input id="searchWarehouse" type="text"
+                                                            placeholder="Chọn kho"
+                                                            class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse"
+                                                            name="warehouse[]"
+                                                            value="@if (isset($item->getWareHouse)) {{ $item->getWareHouse->warehouse_name }} @endif">
+                                                        <input type="hidden" placeholder="Chọn kho"
+                                                            class="border-0 py-1 w-100 height-32 text-13-black warehouse_id"
+                                                            name="warehouse_id[]" value="{{ $item->warehouse_id }}">
+                                                        <ul id="listWarehouse"
+                                                            class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
+                                                            style="z-index: 99; left: 0%; top: 44%; display: none;">
+                                                            @foreach ($warehouse as $item)
+                                                                <li class="w-100">
+                                                                    <a data-id="{{ $item->id }}"
+                                                                        data-value="{{ $item->warehouse_name }}"
+                                                                        href="javascript:void(0)"
+                                                                        class="text-dark d-flex w-100 justify-content-between p-2 search-warehouse"
+                                                                        name="search-warehouse">
+                                                                        <span
+                                                                            class="w-100 text-13-black">{{ $item->warehouse_name }}</span>
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
                                                     </td>
                                                     <td
                                                         class="border-right border-top-0 p-2 text-13 align-top border-bottom">
@@ -825,27 +855,17 @@
                 data) {
                 $('#recentModal .modal-body tbody')
                     .empty()
-                if (data[
-                        'history'
-                    ]) {
-                    data[
-                            'history'
-                        ]
-                        .forEach(
-                            element => {
-                                var tr = `
-                                            <tr>
-                                                <td>` + element.product_name + `</td>
-                                                <td>` + formatCurrency(element.price_export) + `</td>
-                                                <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax +
-                                    "%") + `</td>
-                                                <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
-                                            </tr> `;
-                                $('#recentModal .modal-body tbody')
-                                    .append(
-                                        tr
-                                    );
-                            })
+                if (data['history']) {
+                    data['history'].forEach(element => {
+                        var tr = `
+                        <tr>
+                        <td>` + element.product_name + `</td>
+                        <td>` + formatCurrency(element.price_export) + `</td>
+                        <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") + `</td>
+                        <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                        </tr> `;
+                        $('#recentModal .modal-body tbody').append(tr);
+                    })
                 }
             }
         })
@@ -1838,6 +1858,16 @@
             }
         })
     })
+
+    $(document).on('click', '.search-warehouse', function() {
+        var tr = $(this).closest('tr');
+        $(tr).find('#searchWarehouse').val($(this).data('value'));
+        $(tr).find('.warehouse_id').val($(this).data('id'));
+        $(tr).find('#listWarehouse').hide();
+        // console.log($(this).data('value'));
+        // console.log($(this).data('id'));
+    })
+
 
     $('form').on('submit', function(e) {
         e.preventDefault();

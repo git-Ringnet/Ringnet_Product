@@ -43,34 +43,38 @@ class Receive_bill extends Model
         return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
     }
 
-    public function addReceiveBill($data, $id)
+    public function addReceiveBill($data, $id, $list_id)
     {
         // $check_status = true;
         $total = 0;
         $total_tax = 0;
         $sum = 0;
+        $count = Receive_bill::where('workspace_id', Auth::user()->current_workspace)->count();
+        $lastReceive = Receive_bill::where('workspace_id', Auth::user()->current_workspace)
+            ->orderBy('id', 'desc')
+            ->first();
+        if ($lastReceive) {
+            $parts = explode('-', $lastReceive->delivery_code);
+            $getNumber = end($parts);
+            $count = (int)$getNumber + 1;
+        } else {
+            $count = $count == 0 ? $count += 1 : $count;
+        }
+        if ($count < 10) {
+            $count = "0" . $count;
+        }
+        $resultNumber = "PNH-" . $count;
         if (isset($data['id_import'])) {
-            $count = Receive_bill::where('workspace_id', Auth::user()->current_workspace)->count();
-            $lastReceive = Receive_bill::where('workspace_id', Auth::user()->current_workspace)
-                ->orderBy('id', 'desc')
-                ->first();
-            if ($lastReceive) {
-                $parts = explode('-', $lastReceive->delivery_code);
-                $getNumber = end($parts);
-                $count = (int)$getNumber + 1;
-            } else {
-                $count = $count == 0 ? $count += 1 : $count;
-            }
-            if ($count < 10) {
-                $count = "0" . $count;
-            }
-            $resultNumber = "MNH-" . $count;
+
             $delivery_code = $resultNumber;
         } else {
-            $delivery_code =  isset($data['delivery_code']) ? $data['delivery_code'] : "";
+            if (isset($data['provide_id'])) {
+                $delivery_code = $resultNumber;
+            } else {
+                $delivery_code =  isset($data['delivery_code']) ? $data['delivery_code'] : "";
+            }
         }
-
-        $detail =  DetailImport::findOrFail($id);
+        $detail = DetailImport::where('id', $id)->first();
         if ($detail) {
             $dataReceive = [
                 'detailimport_id' => $id,
@@ -84,10 +88,28 @@ class Receive_bill extends Model
                 'user_id' => Auth::user()->id
             ];
             $receive_id = DB::table($this->table)->insertGetId($dataReceive);
+
+            $dataupdate = [
+                'receive_id' => $receive_id,
+            ];
+
+
+            // Cập nhật theo đơn hàng
+            DB::table('products_import')->whereIn('id', $list_id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->update($dataupdate);
+
+            // Cập nhật receive_id tại quoteImport
+            $getProductImport = DB::table('products_import')->whereIn('id', $list_id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
+            if ($getProductImport) {
+                foreach ($getProductImport as $item) {
+                    DB::table('quoteimport')->where('id', $item->quoteImport_id)->update($dataupdate);
+                }
+            }
+
             for ($i = 0; $i < count($data['product_name']); $i++) {
-                $dataupdate = [
-                    'receive_id' => $receive_id,
-                ];
                 $checkQuote = QuoteImport::where('detailimport_id', $detail->id)
                     ->where('workspace_id', Auth::user()->current_workspace)
                     ->get();
@@ -97,47 +119,130 @@ class Receive_bill extends Model
                             ->where('workspace_id', Auth::user()->current_workspace)
                             ->where('receive_id', 0)->first();
                         if ($productImport) {
-                            DB::table('products_import')->where('id', $productImport->id)
-                                ->where('workspace_id', Auth::user()->current_workspace)
-                                ->update($dataupdate);
+                            // DB::table('products_import')->where('id', $productImport->id)
+                            //     ->where('workspace_id', Auth::user()->current_workspace)
+                            //     ->update($dataupdate);
 
                             $product = QuoteImport::where('id', $productImport->quoteImport_id)
                                 ->where('workspace_id', Auth::user()->current_workspace)
                                 ->first();
 
                             $price_export = $product->price_export;
-                            $total += $price_export * $productImport->product_qty;
+                            if ($data['promotion-option'][$i] == 1) {
+                                $total += $price_export * $productImport->product_qty - $data['promotion'][$i];
+                            } else {
+                                $total += $price_export * $productImport->product_qty - $price_export * $productImport->product_qty * $data['promotion'][$i] / 100;
+                            }
 
-                            $total_tax += (($price_export * $productImport->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
+                            $total_tax += (($total) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
                         }
                     }
                     $sum =  round($total_tax) + round($total);
                 }
             }
+        } else {
+            $dataReceive = [
+                'detailimport_id' => 0,
+                'provide_id' => isset($data['provide_id']) ? $data['provide_id'] : 1,
+                'shipping_unit' => isset($data['shipping_unit']) ? $data['shipping_unit'] : "",
+                'delivery_charges' => isset($data['delivery_charges']) ? str_replace(',', '', $data['delivery_charges']) : 0,
+                'status' => 1,
+                'created_at' => isset($data['received_date']) ? $data['received_date'] : Carbon::now(),
+                'workspace_id' => Auth::user()->current_workspace,
+                'delivery_code' => $delivery_code,
+                'user_id' => Auth::user()->id
+            ];
+            $receive_id = DB::table($this->table)->insertGetId($dataReceive);
 
-            DB::table('receive_bill')->where('id', $receive_id)->update([
-                'total_tax' => $sum
-            ]);
-            // Cập nhật trạng thái đơn hàng
-            if (isset($data['action']) && $data['action'] == 'action_2') {
-                $dataDetail = [
-                    'status' => 0
-                ];
-                // $detail->status = 2;
-            }else{
-                $dataDetail['status_receive'] = 3;
-            }
-            if ($detail->status == 1) {
-                $dataDetail['status_debt'] = 1;
-                // $detail->status_debt = 1;
-                // $detail->save();
-                DB::table('detailimport')->where('id', $detail->id)->update($dataDetail);
+            $dataupdate = [
+                'receive_id' => $receive_id,
+            ];
 
-                // Cập nhật dư nợ nhà cung cấp
-                $this->calculateDebt($detail->provide_id, $sum);
+            // Cập nhật theo đơn hàng
+            DB::table('products_import')->whereIn('id', $list_id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->update($dataupdate);
+
+            // Cập nhật receive_id tại quoteImport
+            $getProductImport = DB::table('products_import')->whereIn('id', $list_id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
+            if ($getProductImport) {
+                foreach ($getProductImport as $item) {
+                    DB::table('quoteimport')->where('id', $item->quoteImport_id)->update($dataupdate);
+                }
             }
-            return $receive_id;
+
+            for ($i = 0; $i < count($data['product_name']); $i++) {
+                $getProductImport = DB::table('products_import')->where('id', $list_id[$i])
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->get();
+
+                if ($getProductImport) {
+                    foreach ($getProductImport as $item) {
+                        $product = QuoteImport::where('id', $item->quoteImport_id)
+                            ->where('workspace_id', Auth::user()->current_workspace)
+                            ->first();
+
+                        $price_export = $product->price_export;
+
+                        if ($data['promotion-option'][$i] == 1) {
+                            $total += $price_export * $item->product_qty - $data['promotion'][$i];
+                        } else {
+                            $total += $price_export * $item->product_qty - $price_export * $item->product_qty * $data['promotion'][$i] / 100;
+                        }
+
+                        // $total_tax += (($price_export * $item->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
+                        $total_tax += (($total) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
+                    }
+                    $sum =  round($total_tax) + round($total);
+                }
+
+
+                // $checkQuote = QuoteImport::where('detailimport_id', $detail->id)
+                //     ->where('workspace_id', Auth::user()->current_workspace)
+                //     ->get();
+                // if ($checkQuote) {
+                //     foreach ($checkQuote as $value) {
+                //         $productImport = ProductImport::where('quoteImport_id', $value->id)
+                //             ->where('workspace_id', Auth::user()->current_workspace)
+                //             ->where('receive_id', 0)->first();
+                //         if ($productImport) {
+
+                //             $product = QuoteImport::where('id', $productImport->quoteImport_id)
+                //                 ->where('workspace_id', Auth::user()->current_workspace)
+                //                 ->first();
+
+
+                //         }
+                //     }
+                // }
+            }
         }
+
+
+        DB::table('receive_bill')->where('id', $receive_id)->update([
+            'total_tax' => $sum
+        ]);
+        // Cập nhật trạng thái đơn hàng
+        if (isset($data['action']) && $data['action'] == 'action_2') {
+            $dataDetail = [
+                'status' => 0
+            ];
+            // $detail->status = 2;
+        } else {
+            $dataDetail['status_receive'] = 3;
+        }
+        if (isset($detail) && $detail->status == 1) {
+            $dataDetail['status_debt'] = 1;
+            // $detail->status_debt = 1;
+            // $detail->save();
+            DB::table('detailimport')->where('id', $detail->id)->update($dataDetail);
+
+            // Cập nhật dư nợ nhà cung cấp
+            $this->calculateDebt($detail->provide_id, $sum);
+        }
+        return $receive_id;
     }
 
     public function updateReceive($data, $id)
@@ -180,16 +285,16 @@ class Receive_bill extends Model
             $sum =  round($total) + round($total_tax);
 
             // Cập nhập dư nợ
-            $detail = DetailImport::findOrFail($receive->detailimport_id);
+            $detail = DetailImport::where('id', $receive->detailimport_id)->first();
 
             if ($detail && $detail->status == 1) {
                 $detail->status = 0;
                 $detail->save();
             }
-
-            // Cập nhật trạng thái nhận hàng
-            $this->updateStatus($detail->id, Receive_bill::class, 'receive_qty', 'status_receive');
-
+            if ($detail) {
+                // Cập nhật trạng thái nhận hàng
+                $this->updateStatus($detail->id, Receive_bill::class, 'receive_qty', 'status_receive');
+            }
 
             $result = true;
         } else {
@@ -333,6 +438,19 @@ class Receive_bill extends Model
                         ->where('workspace_id', Auth::user()->current_workspace)
                         ->delete();
 
+
+                    // Cập nhật lại receive_id và xóa sản phẩm đã thêm không theo đơn
+                    $getQuoteImport = QuoteImport::where('receive_id', $receive->id)->where('workspace_id', Auth::user()->current_workspace)->get();
+                    if ($getQuoteImport) {
+                        foreach ($getQuoteImport as $item) {
+                            if ($item->detailimport_id == 0) {
+                                $item->delete();
+                            } else {
+                                $item->receive_id = 0;
+                                $item->save();
+                            }
+                        }
+                    }
                     // Xóa file đính kèm theo đơn nhận hàng
                     // DB::table('attachment')->where('table_id', $receive->id)
                     //     ->where('table_name', 'DNH')

@@ -139,7 +139,7 @@
                         </div>
                     </section>
                 </div>
-                <?php $import = '123'; ?>
+                <?php $import = ''; ?>
                 <x-formsynthetic :import="$import"></x-formsynthetic>
             </section>
         </div>

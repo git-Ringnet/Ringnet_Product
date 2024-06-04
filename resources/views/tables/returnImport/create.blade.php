@@ -1,7 +1,7 @@
-<x-navbar :title="$title" activeGroup="buy" activeName="receive"></x-navbar>
+<x-navbar :title="$title" activeGroup="buy" activeName="returnImport"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <?php $import = ''; ?>
-<form action="{{ route('receive.store', $workspacename) }}" method="POST">
+<form action="{{ route('returnImport.store', $workspacename) }}" method="POST">
     @csrf
     <div class="content-wrapper--2Column m-0">
         <!-- Content Header (Page header) -->
@@ -213,31 +213,6 @@
                         </div>
                     </section>
                 </div>
-                <div class="ml-4 mt-1">
-                    <span class="text-perpage">
-                        <section class="content">
-                            <div class="container-fluided">
-                                <div class="d-flex">
-                                    <button type="button" data-toggle="dropdown"
-                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded user_flow"
-                                        id="addRowTable" style="margin-right:10px" data-type="DMH"
-                                        data-des="Thêm sản phẩm" value="3">
-                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
-                                            height="12" viewBox="0 0 18 18" fill="none">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                        <span class="text-table">Thêm sản phẩm</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </section>
-                    </span>
-                </div>
                 <x-formsynthetic :import="$import"></x-formsynthetic>
             </section>
         </div>
@@ -251,7 +226,7 @@
                     </div>
                     <div class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left text-nowrap position-relative"
                         style="height:48px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Đơn mua hàng
+                        <span class="text-13 btn-click" style="flex: 1.5;">Phiếu nhập kho
                         </span>
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin" id="myInput1"
@@ -303,108 +278,21 @@
                         </div>
                     </div>
 
-                    {{-- Nhà cung cấp --}}
-                    <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:43px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
-                        <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin"
-                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
-                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                                readonly="" name="provides_name">
-                            <input type="hidden" id="provide_id" name="provide_id">
-                        </span>
-                        <div class="">
-                            <div id="myUL"
-                                class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block list-guest"
-                                style="z-index: 99; display: block;">
-                                <ul class="m-0 p-0 scroll-data">
-                                    <div class="p-1">
-                                        <div class="position-relative">
-                                            <input type="text" placeholder="Nhập nhà cung cấp"
-                                                class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
-                                            <span id="search-icon" class="search-icon">
-                                                <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    @foreach ($provide as $item)
-                                        <li class="p-2 align-items-center text-wrap"
-                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                            <a href="javascript:void(0)" style="flex:2" id="1"
-                                                name="search-info" class="search-info">
-                                                <span class="text-13-black">{{ $item->provide_name_display }}</span>
-                                            </a>
-                                            {{-- <a id="" class="search-infoEdit" type="button" data-toggle="modal"
-                                            data-target="#editProvide" data-id="1">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    viewBox="0 0 14 14" fill="none">
-                                                    <path
-                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                        fill="black"></path>
-                                                    <path
-                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                        fill="black"></path>
-                                                    <path
-                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                        fill="black"></path>
-                                                </svg>
-                                            </span>
-                                        </a> --}}
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                     <div id="more_info" style="display:none;">
                         <ul class="p-0 m-0">
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:48px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
-                                <input type="text"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest py-2 px-2"
-                                    style="flex:2;" readonly id="provide_name"
-                                    value="@isset($yes){{ $show_receive['provide_name'] }}@endisset"
-                                    placeholder="Chọn thông tin" />
-                            </li>
+
 
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:48px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input type="text"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                    style="flex:2;" id="represent" readonly name="represent" />
-                            </li>
-
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:48px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận hàng</span>
-                                <input type="text" placeholder="Chọn thông tin" name="delivery_code"
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nội dung trả hàng</span>
+                                <input type="text" placeholder="Nhập thông tin" name="content"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
                             </li>
 
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:48px;">
-                                <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
-                                <input type="text" placeholder="Nhập thông tin"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                    name="shipping_unit" />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:48px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
-                                <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
-                            </li>
-
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:48px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận hàng</span>
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày trả hàng</span>
                                 <input type="text" placeholder="Nhập thông tin"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
                                     style="flex:2;" value="{{ date('Y-m-d') }}" id="datePicker" />
@@ -441,7 +329,6 @@
     // deleteRow()
     $('#listReceive').hide();
     // $('.search_quotation').on('click', function() {
-    //     console.log($('#listReceive'));
     //     $('#listReceive').show();
     // })
     $(document).on('click', '.search_quotation', function() {
@@ -469,45 +356,28 @@
             detail_id = $(this).attr('id');
             table = "receive";
             $.ajax({
-                url: "{{ route('show_receive') }}",
+                url: "{{ route('show_receiveBill') }}",
                 type: "get",
                 data: {
                     detail_id: detail_id,
                     table: table
                 },
                 success: function(data) {
-                    $('#myInput1').val(data.quotation_number == null ? data.id :
-                        data
-                        .quotation_number);
-                    $('input[name^="delivery_code"]').val(data.resultNumber)
-                    $('#provide_name').val(data.provide_name);
-                    $('#represent').val(data.represent)
-                    $('#detailimport_id').val(data.id)
-                    $('#listReceive').hide();
-                    $('.d-flex.border-left-0.justify-content-between.py-2.px-3.border.align-items-center.text-left.text-nowrap.position-relative')
-                        .attr('style', 'display:none !important;');
-                    $('#list_modal').empty();
-                    $.ajax({
-                        url: "{{ route('getProduct_receive') }}",
-                        type: "get",
-                        data: {
-                            id: data.id
-                        },
-                        success: function(product) {
-                            $('#product').html(product)
-                            $('#inputcontent tbody').empty();
-                            product.quoteImport.forEach((element, index) => {
-                                if (element.product_qty - element
-                                    .receive_qty > 0) {
-                                    var promotionObject = JSON.parse(
-                                        element.promotion);
-                                    var tr =
-                                        `<tr class="bg-white position-relative" style="height:80px;">
+                    $('#detailimport_id').val(data.product[0].receive_id);
+                    $('#myInput1').val(data.product[0].receive_id);
+                    $('#inputcontent tbody').empty();
+                    data.product.forEach((element, index) => {
+                        if (element.product_qty - element
+                            .receive_qty > 0) {
+                            var promotionObject = JSON.parse(
+                                element.promotion);
+                            var tr =
+                                `<tr class="bg-white position-relative" style="height:80px;">
                                                 <td class="border-top-0 border-bottom border-right bg-white align-top text-13-black" style="width:5%;padding-left: 2rem !important;">
                                                     <input type="hidden" readonly value="` + element.id + `" name="listProduct[]">
                                                     <input type="text" readonly name="product_code[]" class="border-0 py-1 w-75 searchProduct height-32" 
                                                         value="` + (element.product_code == null ? "" : element
-                                            .product_code) + `">
+                                    .product_code) + `">
                                                     <ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 75%;">
                                                     </ul>
                                                 </td> 
@@ -534,18 +404,20 @@
 
                                                 <td class="p-2 text-13 align-top border-top-0 border-bottom border-right" width: 15%;>
                                                     <div>
-                                                        <input oninput="checkQty(this,` + (element.product_qty -
-                                            element.receive_qty) + `)" 
+                                                        <input oninput="checkQty(this,` + (parseFloat(element
+                                        .product_qty) -
+                                    parseFloat(data['qty'][index])) + `)" 
                                                                 type="text" name="product_qty[]" 
                                                                 class="text-right border-0 px-2 py-1 w-100 quantity-input height-32" 
-                                                                value="` + formatCurrency(element.product_qty - element
-                                            .receive_qty) + `">
+                                                                value="` + formatCurrency(parseFloat(element
+                                    .product_qty) - parseFloat(data[
+                                    'qty'][index])) + `">
 
                                                         <div class="mt-3 text-13-blue inventory text-right" tyle="top: 68%;">Tồn kho:
                                                             <span class="pl-1 soTonKho">
-                                                                ` + (product.inventory[index] == "null" ? 0 :
-                                            formatCurrency(product
-                                                .inventory[index])) + `
+                                                                ` + (element.product_inventory == "null" ? 0 :
+                                    formatCurrency(element
+                                        .product_inventory)) + `
                                                             </span>
                                                         </div>
                                                     </div>
@@ -577,28 +449,29 @@
                                                 <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <select class="product_tax border-0 w-100 text-center height-32" name="product_tax[]">
                                                         <option value="0" ` + (element.product_tax == 0 ? "selected" :
-                                            "") + `>0%</option>
+                                    "") + `>0%</option>
                                                         <option value="8" ` + (element.product_tax == 8 ? "selected" :
-                                            "") + `>8%</option>
+                                    "") + `>8%</option>
                                                         <option value="10" ` + (element.product_tax == 10 ?
-                                            "selected" : "") + `>10%</option>
+                                    "selected" : "") + `>10%</option>
                                                         <option value="99" ` + (element.product_tax == 99 ?
-                                            "selected" : "") + `>NOVAT</option>
+                                    "selected" : "") + `>NOVAT</option>
                                                     </select>
                                                 </td>
-
 
                                                 <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly="" name="total_price[]"
                                                     value="` + formatCurrency(promotionObject[
-                                                'type'] == 1 ? element
-                                            .product_total -
-                                            promotionObject['value'] :
-                                            element.product_total *
-                                            promotionObject['value'] /
-                                            100) + `" readonly>
+                                        'type'] == 1 ? (parseFloat(element
+                                        .product_qty) - parseFloat(data['qty'][
+                                        index
+                                    ])) * element.price_export - promotionObject[
+                                        'value'] :
+                                    (parseFloat(element.product_qty) - parseFloat(
+                                        data['qty'][index])) * element
+                                    .price_export * promotionObject['value'] / 100
+                                ) + `" readonly>
                                                 </td>
-
 
                                                 <td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">
                                                     <input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]"
@@ -610,27 +483,19 @@
                                                 </td>
 
 
-
-
                                                 <td class="p-2 text-13 align-top text-center border-top-0 border-bottom border-right">
                                                     <div style="margin-top: 6px;">
                                                         <input onclick="getDataCheckbox(this)" 
-                                                            type="checkbox" ` + (product.checked[index] == 'endable' ||
-                                            product.cb[index] == 1 ?
-                                            'checked' : '') + ` ` + (
-                                            product.checked[index]) + ` >
+                                                            type="checkbox"  ` + (element.check_seri == 1 ?
+                                    "checked disabled" : "") + ` >
                                                         <input type="hidden" name="cbSeri[]" 
-                                                                value="` + (product.checked[index] == 'endable' ||
-                                            product.cb[index] == 1 ? 1 :
-                                            0) + `">
+                                                                value="` + (element.check_seri == 1 ? 1 : 0) + `">
 
                                             <a class="duongdan" data-toggle="modal" 
-                                                            data-target="#exampleModal` + element.id + `" ` + (product
-                                            .checked[index] ==
-                                            'endable' ||
-                                            product.cb[index] == 1 ?
-                                            'style="opacity:1"' :
-                                            'style="opacity:0"') + ` >
+                                                            data-target="#exampleModal` + element.id + `" 
+                                                            ` + (element.check_seri == 1 ? "style='opacity : 1;'" :
+                                    "style='opacity : 1;") + `
+                                                            >
                                             <div class="sn--modal mt-3">
                                                     <span class="border-span--modal">SN</span>
                                                     </div>
@@ -640,37 +505,58 @@
 
                                                 <td class="p-2 note text-13 align-top border-top-0 border-bottom border-right">
                                                     <input type="text" name="product_guarantee[]" class="border-0 py-1 w-100 height-32" placeholder="Nhập bảo hành"
-                                                    value="` + (product.value[index] == null ? "" : product.value[
-                                            index]) + `" ` + (product
-                                            .value[index] == null ? "" :
-                                            "readonly") + `>
+                                                    value="">
                                                 </td>
 
                                                 <td class="p-2 note text-13 align-top border-top-0 border-bottom border-right">
                                                     <input readonly type="text" name="product_note[]" class="border-0 py-1 w-100 height-32" 
                                                         placeholder='Nhập ghi chú'
-                                                        value="` + (element.product_note == null ? "" : element
-                                            .product_note) + `">
+                                                        value="">
                                                 </td>
                                                     <input type="hidden" class="product_tax1">  
                                                 <td class="p-2 align-top border-top-0 border-bottom deleteRow text-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z" fill="#6B6F76"></path></svg>
                                                 </td>
                                         </tr>`;
-                                    $('#inputcontent tbody').append(tr);
-                                }
-                                // deleteRow()
-                                updateTaxAmount()
-                                calculateTotalAmount()
-                                calculateTotalTax()
-                                calculateGrandTotal()
-                                createModal(element.id)
-                            });
-                            deleteRow()
-                            $('#more_info').show();
-                            $('#more_info1').show();
+                            $('#inputcontent tbody').append(tr);
                         }
-                    })
+                        updateTaxAmount()
+                        calculateTotalAmount()
+                        calculateTotalTax()
+                        calculateGrandTotal()
+                        createModal(element.id)
+
+                        $.ajax({
+                            url: "{{ route('getSNByBill') }}",
+                            type: "get",
+                            data: {
+                                id: element.id,
+                            },
+                            success: function(data) {
+                                var tableBody = $('#list_modal').find(
+                                    '#exampleModal' + element.id +
+                                    ' tbody');
+                                $('.btn-destroy.btn-light.addRow').attr(
+                                    'style', 'display: none');
+                                tableBody.empty();
+                                data.forEach((element, index) => {
+                                    var serinumber = `
+                                    <tr>
+                                    <td><input type="checkbox" name="seri0[]" value="` + element.serinumber + `"></td>
+                                    <td><input class="form-control w-100 border-0 pl-0" " value="` + element
+                                        .serinumber + `"></td>
+                                    <td></td>
+                                    </tr>
+                                    `;
+                                    tableBody.append(serinumber)
+                                })
+                            }
+                        })
+                    });
+                    deleteRow()
+                    $('#more_info').show();
+                    $('#more_info1').show();
+
                 }
             })
         })
@@ -686,122 +572,143 @@
     // Kiểm tra Serial Number
     $('form').on('submit', function(e) {
         e.preventDefault();
-        var productSN = {}
         var formSubmit = true;
-        var listProductName = [];
-        var listQty = [];
-        var listSN = [];
-        var checkSN = [];
-
-        $('.searchProductName').each(function() {
-            checkSN.push($(this).closest('tr').find('input[name^="cbSeri"]').val())
-            listProductName.push($(this).val().trim());
-            listQty.push($(this).closest('tr').find('.quantity-input').val().trim());
-            var count = $($(this).closest('tr').find('.duongdan').attr('data-target')).find(
-                'input[name^="seri"]').filter(
-                function() {
-                    return $(this).val() !== '';
-                }).length;
-            listSN.push(count);
-            var oldValue = $(this).val().trim();
-            productSN[oldValue] = {
-                sn: []
-            };
-            SerialNumbers = $($(this).closest('tr').find('.duongdan').attr('data-target')).find(
-                'input[name^="seri"]').map(function() {
-                return $(this).val().trim();
-            }).get();
-            // Kiểm tra trùng seri 1 sản phẩm
-            if (checkDuplicateSerialNumbers(SerialNumbers) !== null) {
-                showNotification('warning', 'Sản phảm' + $(this).val() + 'đã trùng seri' +
-                    checkDuplicateSerialNumbers(SerialNumbers))
-                formSubmit = false
-            } else {
-                productSN[oldValue].sn.push(...SerialNumbers)
-            }
-
-        });
-
-        if ($('#detailimport_id').val() != "") {
-            if ($('input[name="quotation_number"]').val() == "" || $('input[name^="delivery_code"]').val() ==
-                "") {
-                formSubmit = false;
-                $('input[name="quotation_number"]').val() == "" ? showAutoToast('warning',
-                    "Vui lòng chọn đơn mua hàng") : showAutoToast('warning', "Vui lòng nhập mã nhận hàng")
-            }
-        }
-
-
-        if (!checkProduct()) {
-            formSubmit = false
-        }
-
-        if (formSubmit) {
-            $.ajax({
-                url: "{{ route('checkSN') }}",
-                type: "get",
-                data: {
-                    listProductName: listProductName,
-                    listQty: listQty,
-                    listSN: listSN,
-                    checkSN: checkSN,
-                },
-                success: function(data) {
-                    if (data['status'] == 'false') {
-                        showAutoToast('warning', "Vui lòng nhập đủ seri cho các sản phẩm:\n" +
-                            data['list']
-                            .join(
-                                ', '
-                            ));
-                    } else {
-                        // Kiểm tra sản phẩm đã tồn tại seri chưa
-                        $.ajax({
-                            url: "{{ route('checkduplicateSN') }}",
-                            type: "get",
-                            data: {
-                                value: productSN,
-                            },
-                            success: function(data) {
-                                if (data['success'] == false) {
-                                    showNotification('warning', 'Sản phảm' + data[
-                                            'msg'] +
-                                        'đã tồn tại seri' + data['data'])
-                                } else {
-                                    if ($('#detailimport_id').val() != "") {
-                                        // Kiểm tra Mã nhận hàng
-                                        var delivery_code = $(
-                                                "input[name='delivery_code']")
-                                            .val();
-                                        $.ajax({
-                                            url: "{{ route('checkQuotetion') }}",
-                                            type: "get",
-                                            data: {
-                                                delivery_code: delivery_code,
-                                            },
-                                            success: function(data) {
-                                                if (!data['status']) {
-                                                    showNotification(
-                                                        'warning',
-                                                        'Mã nhận hàng đã tồn tại'
-                                                    )
-                                                } else {
-                                                    updateProductSN()
-                                                    $('form')[1].submit();
-                                                }
-                                            }
-                                        })
-                                    } else {
-                                        updateProductSN()
-                                        $('form')[1].submit();
-                                    }
-
-                                }
-                            }
-                        })
-                    }
+        // Kiểm tra số lượng sản phẩm và số lượng SN
+        $('.searchProductName').each(function(item, index) {
+            cbseri = $(this).closest('tr').find('input[name^="cbSeri"]').val();
+            if (cbseri == 1) {
+                count = $('input[name="seri' + item + '[]"]:checked').length;
+                qty = $(this).closest('tr').find('.quantity-input').val().trim();
+                if (qty != count) {
+                    showNotification('warning', "Sản phẩm <b>" + $(this).val() + "</b> chưa chọn đủ số lượng sn")
+                    formSubmit = false;
+                    return false;
                 }
-            })
+            }
+
+        })
+        if (formSubmit) {
+            updateProductSN()
+            $('form')[1].submit();
         }
+
+
+        // var productSN = {}
+        // var formSubmit = true;
+        // var listProductName = [];
+        // var listQty = [];
+        // var listSN = [];
+        // var checkSN = [];
+
+        // $('.searchProductName').each(function() {
+        //     checkSN.push($(this).closest('tr').find('input[name^="cbSeri"]').val())
+        //     listProductName.push($(this).val().trim());
+        //     listQty.push($(this).closest('tr').find('.quantity-input').val().trim());
+        //     var count = $($(this).closest('tr').find('.duongdan').attr('data-target')).find(
+        //         'input[name^="seri"]').filter(
+        //         function() {
+        //             return $(this).val() !== '';
+        //         }).length;
+        //     listSN.push(count);
+        //     var oldValue = $(this).val().trim();
+        //     productSN[oldValue] = {
+        //         sn: []
+        //     };
+        //     SerialNumbers = $($(this).closest('tr').find('.duongdan').attr('data-target')).find(
+        //         'input[name^="seri"]').map(function() {
+        //         return $(this).val().trim();
+        //     }).get();
+        //     // Kiểm tra trùng seri 1 sản phẩm
+        //     if (checkDuplicateSerialNumbers(SerialNumbers) !== null) {
+        //         showNotification('warning', 'Sản phảm' + $(this).val() + 'đã trùng seri' +
+        //             checkDuplicateSerialNumbers(SerialNumbers))
+        //         formSubmit = false
+        //     } else {
+        //         productSN[oldValue].sn.push(...SerialNumbers)
+        //     }
+
+        // });
+
+        // if ($('#detailimport_id').val() != "") {
+        //     if ($('input[name="quotation_number"]').val() == "" || $('input[name^="delivery_code"]').val() ==
+        //         "") {
+        //         formSubmit = false;
+        //         $('input[name="quotation_number"]').val() == "" ? showAutoToast('warning',
+        //             "Vui lòng chọn đơn mua hàng") : showAutoToast('warning', "Vui lòng nhập mã nhận hàng")
+        //     }
+        // }
+
+
+        // if (!checkProduct()) {
+        //     formSubmit = false
+        // }
+
+        // if (formSubmit) {
+        //     $.ajax({
+        //         url: "{{ route('checkSN') }}",
+        //         type: "get",
+        //         data: {
+        //             listProductName: listProductName,
+        //             listQty: listQty,
+        //             listSN: listSN,
+        //             checkSN: checkSN,
+        //         },
+        //         success: function(data) {
+        //             if (data['status'] == 'false') {
+        //                 showAutoToast('warning', "Vui lòng nhập đủ seri cho các sản phẩm:\n" +
+        //                     data['list']
+        //                     .join(
+        //                         ', '
+        //                     ));
+        //             } else {
+        //                 // Kiểm tra sản phẩm đã tồn tại seri chưa
+        //                 $.ajax({
+        //                     url: "{{ route('checkduplicateSN') }}",
+        //                     type: "get",
+        //                     data: {
+        //                         value: productSN,
+        //                     },
+        //                     success: function(data) {
+        //                         if (data['success'] == false) {
+        //                             showNotification('warning', 'Sản phảm' + data[
+        //                                     'msg'] +
+        //                                 'đã tồn tại seri' + data['data'])
+        //                         } else {
+        //                             if ($('#detailimport_id').val() != "") {
+        //                                 // Kiểm tra Mã nhận hàng
+        //                                 var delivery_code = $(
+        //                                         "input[name='delivery_code']")
+        //                                     .val();
+        //                                 $.ajax({
+        //                                     url: "{{ route('checkQuotetion') }}",
+        //                                     type: "get",
+        //                                     data: {
+        //                                         delivery_code: delivery_code,
+        //                                     },
+        //                                     success: function(data) {
+        //                                         if (!data['status']) {
+        //                                             showNotification(
+        //                                                 'warning',
+        //                                                 'Mã nhận hàng đã tồn tại'
+        //                                             )
+        //                                         } else {
+        //                                             updateProductSN()
+        //                                             $('form')[1].submit();
+        //                                         }
+        //                                     }
+        //                                 })
+        //                             } else {
+        //                                 updateProductSN()
+        //                                 $('form')[1].submit();
+        //                             }
+
+        //                         }
+        //                     }
+        //                 })
+        //             }
+        //         }
+        //     })
+        // }
     })
 
 

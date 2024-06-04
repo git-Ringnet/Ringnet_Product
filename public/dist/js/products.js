@@ -62,9 +62,17 @@ showForm("#terms_pay", "#listTermsPay");
 // $("#inputProject").on("click", function () {
 //     $("#listProject").show();
 // });
+
 // $("#myInput").on("click", function () {
 //     $("#myUL").show();
 // });
+
+function showListWarehouse() {
+    $("#inputcontent tbody").on("click", ".searchWarehouse", function () {
+        $(this).closest("tr").find("#listWarehouse").show();
+    });
+}
+showListWarehouse()
 
 function showListProductCode() {
     $("#inputcontent tbody").on("click", ".searchProduct", function () {
@@ -89,13 +97,20 @@ $(document).click(function (event) {
     if ($(event.target).closest("#inputProject").length == 0) {
         $("#listProject").hide();
     }
+    if ($(event.target).closest(".searchWarehouse").length == 0) {
+        $("#listWarehouse").hide();
+    }
+    // if ($(event.target).closest(".search_quotation").length == 0) {
+    //     $("#listReceive").hide();
+    // }
 });
 
 //ẩn danh sách khách hàng
 $(document).click(function (event) {
     if (
         !$(event.target).closest("#myInput").length &&
-        !$(event.target).closest("#provideFilter").length
+        !$(event.target).closest("#provideFilter").length &&
+        !$(event.target).closest("#myInput1").length
     ) {
         $("#myUL").hide();
         $("#listReceive").hide();
@@ -112,6 +127,7 @@ $(document).click(function (event) {
 //         });
 //     });
 // });
+
 // search tên sản phẩm
 function searchProductName() {
     $(".searchProductName").on("keyup", function () {
@@ -219,7 +235,8 @@ var rowCount = $("#inputContainer tbody tr").length + 1;
 $("#addRowTable")
     .off("click")
     .on("click", function () {
-        addRowTable(1);
+        // console.log();
+        addRowTable($(this).val());
         $(".listProductCode").hide();
         $(".listProductName").hide();
     });
@@ -340,23 +357,27 @@ $("#addRowRepesent").on("click", function () {
 });
 
 function addRowTable(status) {
+    count = $("#inputcontent tbody tr").length + 1;
     var tr =
         '<tr class="bg-white" style="height:80px;">' +
         '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
-        '<input type="hidden" name="listProduct[]" value="0">' +
-        "<span class='ml-1 mr-2'>" +
-        "<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>" +
-        "<g clip-path='url(#clip0_1710_10941)'>" +
-        "<path fill-rule='evenodd' clip-rule='evenodd' d='M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z' fill='#282A30'/>" +
-        "</g>" +
-        "<defs>" +
-        "<clipPath id='clip0_1710_10941'>" +
-        "<rect width='6' height='10' fill='white'/>" +
-        "</clipPath>" +
-        "</defs>" +
-        "</svg>" +
-        "</span>" +
-        '<input type="checkbox" class="cb-element checkall-btn ml-1 mr-1">' +
+        '<input type="hidden" name="listProduct[]" value="0">';
+    if (status != 3) {
+        tr += "<span class='ml-1 mr-2'>" +
+            "<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>" +
+            "<g clip-path='url(#clip0_1710_10941)'>" +
+            "<path fill-rule='evenodd' clip-rule='evenodd' d='M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z' fill='#282A30'/>" +
+            "</g>" +
+            "<defs>" +
+            "<clipPath id='clip0_1710_10941'>" +
+            "<rect width='6' height='10' fill='white'/>" +
+            "</clipPath>" +
+            "</defs>" +
+            "</svg>" +
+            "</span>" +
+            '<input type="checkbox" class="cb-element checkall-btn ml-1 mr-1">';
+    }
+    tr +=
         '<input type="text" id="searchProduct" class="border-0 pl-1 pr-2 py-1 w-50 height-32 searchProduct" name="product_code[]" autocomplete="off" ' +
         (status == 2 ? "readonly" : "") +
         " >" +
@@ -379,7 +400,7 @@ function addRowTable(status) {
         tr +=
             '<button type="button" class="btn btn-primary" data-toggle="modal" ' +
             'data-target="#exampleModal' +
-            rowCount +
+            count +
             '" ' +
             'style="background:transparent; border:none;"> ' +
             '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" ' +
@@ -433,18 +454,37 @@ function addRowTable(status) {
             '<option value="99">NOVAT</option>' +
             "</select>";
     }
+    if (status == 3) {
+        tr +=
+            "</td>" +
+            '<input type="hidden" class="product_tax1">' +
+            '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
+            '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly name="total_price[]">' +
+            "</td>" +
+            '<td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">' +
+            '<input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]" >' +
+            '<input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]" >' +
+            '<ul id="listWarehouse" class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
+            "</ul>" +
+            "</td>";
+    }
+    if (status == 3) {
+        tr += "<td class='p-2 text-13 align-top text-center border-top-0 border-bottom border-right'> " +
+            "<div style='margin-top: 6px;'> " +
+            "<input onclick='getDataCheckbox(this)' type='checkbox' checked='' endable=''> " +
+            "<input type='hidden' name='cbSeri[]' value='1'>" +
+            "<a class='duongdan' data-toggle='modal' data-target='#exampleModal" + count + "' style='opacity:1'>" +
+            "<div class='sn--modal mt-3'>" +
+            "<span class='border-span--modal'>SN</span>" +
+            "</div>" +
+            "</a>" +
+            "</div>" +
+            "</td>" +
+            "<td class='p-2 note text-13 align-top border-top-0 border-bottom border-right'> " +
+            "<input type='text' name='product_guarantee[]' class='border-0 py-1 w-100 height-32' placeholder='Nhập bảo hành' value=''> " +
+            "</td>";
+    }
     tr +=
-        "</td>" +
-        '<input type="hidden" class="product_tax1">' +
-        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
-        '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly name="total_price[]">' +
-        "</td>" +
-        '<td class="border-right note p-2 align-top border-bottom border-top-0">' +
-        '<input type="text" placeholder="Nhập ghi chú" class="border-0 py-1 w-100 height-32 text-13-black" name="product_note[]" ' +
-        " >" +
-        '<ul id="listWarehouse" class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
-        "</ul>" +
-        "</td>" +
         '<td class="border-right note p-2 align-top border-bottom border-top-0">' +
         '<input type="text" placeholder="Nhập ghi chú" class="border-0 py-1 w-100 height-32 text-13-black" name="product_note[]" ' +
         (status == 2 ? "readonly" : "") +
@@ -476,6 +516,9 @@ function addRowTable(status) {
     deleteRow();
     if (status == 2) {
         createModal(rowCount);
+    }
+    if (status == 3) {
+        createModal(count);
     }
     getProduct("searchProductName");
     rowCount++;

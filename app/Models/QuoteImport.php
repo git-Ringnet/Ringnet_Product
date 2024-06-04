@@ -29,6 +29,10 @@ class QuoteImport extends Model
     {
         return $this->hasMany(Serialnumber::class, 'product_id', 'product_id');
     }
+    public function getSerialNumberByID()
+    {
+        return $this->hasMany(Serialnumber::class, 'product_id', 'product_id')->where('quoteimport.id','serialnumber.quoteImport_id');
+    }
 
     public function getAllQuote()
     {
@@ -72,7 +76,7 @@ class QuoteImport extends Model
                 'price_export' => str_replace(',', '', $data['price_export'][$i]),
                 'product_note' => $data['product_note'][$i],
                 'receive_id' => 0,
-                'warehouse_id' => 1,
+                'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1,
                 'version' => 1,
                 'created_at' => Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,
@@ -144,14 +148,15 @@ class QuoteImport extends Model
                 ->first();
             $price_export = floatval(str_replace(',', '', $data['price_export'][$i]));
             $total_price = floatval(str_replace(',', '', $data['product_qty'][$i])) * $price_export;
+            $promotion['type'] = $data['promotion-option'][$i];
+            $promotion['value'] = isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0;
             if ($dataUpdate) {
                 if (
                     $dataUpdate->product_code != $data['product_code'][$i] || $dataUpdate->product_name != $data['product_name'][$i] || $dataUpdate->product_unit != $data['product_unit'][$i] ||
                     $dataUpdate->product_qty != str_replace(',', '', $data['product_qty'][$i]) || $dataUpdate->product_tax != $data['product_tax'][$i] ||
                     $dataUpdate->product_total != $total_price || $dataUpdate->price_export != $price_export || $dataUpdate->product_note != $data['product_note'][$i] || $dataUpdate->promotion != $promotion
                 ) {
-                    $promotion['type'] = $data['promotion-option'][$i];
-                    $promotion['value'] = isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0;
+
                     $dataQuoteUpdate = [
                         'product_code' => $data['product_code'][$i],
                         'product_name' => $data['product_name'][$i],
@@ -162,7 +167,8 @@ class QuoteImport extends Model
                         'price_export' => $price_export,
                         'version' => ($dataUpdate->version + 1),
                         'product_note' => $data['product_note'][$i],
-                        'promotion' => json_encode($promotion)
+                        'promotion' => json_encode($promotion),
+                        'warehouse_id' => (isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1)
                     ];
                     DB::table($this->table)->where('id', $dataUpdate->id)->update($dataQuoteUpdate);
                 }
@@ -178,13 +184,14 @@ class QuoteImport extends Model
                     'price_export' => $price_export,
                     'product_note' => $data['product_note'][$i],
                     'receive_id' => 0,
-                    'warehouse_id' => 1,
+                    'warehouse_id' => (isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1),
                     'version' => 1,
                     'created_at' => Carbon::now(),
                     'workspace_id' => Auth::user()->current_workspace,
                     'receive_qty' => 0,
                     'reciept_qty' => 0,
-                    'payment_qty' => 0
+                    'payment_qty' => 0,
+                    'promotion' => json_encode($promotion),
                 ];
                 DB::table($this->table)->insert($dataQuote);
             }

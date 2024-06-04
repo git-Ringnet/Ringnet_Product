@@ -423,6 +423,12 @@
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
+                                                <th scope="col" class="border border-bottom border-right-0">
+                                                    <span class="d-flex text-13 justify-content-end">
+                                                        Kho hàng
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
                                                 <th scope="col" class="border border-right-0">
                                                     <span class="d-flex justify-content-start text-13">
                                                         Ghi chú sản phẩm
@@ -523,7 +529,7 @@
                                                             $promotionArray = json_decode($item->promotion, true);
                                                             $promotionValue = isset($promotionArray['value'])
                                                                 ? $promotionArray['value']
-                                                                : '';
+                                                                : 0;
                                                             $promotionOption = isset($promotionArray['type'])
                                                                 ? $promotionArray['type']
                                                                 : '';
@@ -578,6 +584,12 @@
                                                             readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total - $promotionValue, 2, '.', ',') : number_format($item->product_total - $promotionValue) }}"
                                                             @if ($import->status == 2) echo readonly @endif>
+                                                    </td>
+                                                    <td
+                                                        class='border-left p-2 text-13 align-top border-bottom border-top-0 position-relative'>
+                                                        <input type="text"
+                                                            class="border-0 py-1 w-100" readonly
+                                                            value="@if(isset($item->getWareHouse)) {{ $item->getWareHouse->warehouse_name }} @endif">
                                                     </td>
                                                     <td
                                                         class="border-left p-2 text-13 align-top border-bottom border-top-0">
@@ -648,6 +660,12 @@
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
+                                                {{-- <th scope="col" class="border border-bottom border-right-0">
+                                                    <span class="d-flex text-13 justify-content-end">
+                                                        Kho hàng
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th> --}}
                                                 <th scope="col" class="border-bottom border-left">
                                                     <span class="d-flex text-13">
                                                         Ghi chú sản phẩm

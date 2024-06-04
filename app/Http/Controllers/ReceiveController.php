@@ -7,6 +7,7 @@ use App\Models\DetailImport;
 use App\Models\PayOder;
 use App\Models\ProductImport;
 use App\Models\Products;
+use App\Models\Provides;
 use App\Models\QuoteImport;
 use App\Models\Receive_bill;
 use App\Models\Reciept;
@@ -84,7 +85,8 @@ class ReceiveController extends Controller
             $listDetail->where('detailimport.user_id', Auth::user()->id);
         }
         $listDetail = $listDetail->get();
-        return view('tables.receive.insertReceive', compact('title', 'listDetail', 'workspacename'));
+        $provide = Provides::where('workspace_id',Auth::user()->current_workspace)->get();
+        return view('tables.receive.insertReceive', compact('title', 'listDetail', 'workspacename','provide'));
     }
 
     /**
@@ -103,12 +105,12 @@ class ReceiveController extends Controller
         if ($request->action == 'action_1') {
             // Tạo sản phẩm theo đơn nhận hàng
             $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
-            if ($status) {
+            if ($status['status']) {
                 // Tạo đơn nhận hàng mới
-                $receive_id = $this->receive->addReceiveBill($request->all(), $id);
+                $receive_id = $this->receive->addReceiveBill($request->all(), $id, $status['id']);
 
                 // Thêm SN
-                $this->sn->addSN($request->all(), $receive_id, $id);
+                $this->sn->addSN($request->all(), $receive_id, $id, $status['id']);
 
                 // Thêm user flow
                 $dataUserFlow = [
@@ -131,10 +133,10 @@ class ReceiveController extends Controller
             $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
             if ($status) {
                 // Tạo đơn nhận hàng mới
-                $receive_id = $this->receive->addReceiveBill($request->all(), $id);
+                $receive_id = $this->receive->addReceiveBill($request->all(), $id, $status['id']);
 
                 // Thêm SN
-                $this->sn->addSN($request->all(), $receive_id, $id);
+                $this->sn->addSN($request->all(), $receive_id, $id, $status['id']);
 
                 // Cập nhật đơn hàng
                 $this->receive->updateReceive($request->all(), $receive_id);
@@ -191,7 +193,7 @@ class ReceiveController extends Controller
         $workspacename = $workspacename->workspace_name;
         $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
             ->join('products', 'quoteimport.product_name', 'products.product_name')
-            ->where('products_import.detailimport_id', $receive->detailimport_id)
+            // ->where('products_import.detailimport_id', $receive->detailimport_id)
             ->where('products_import.receive_id', $receive->id)
             ->where('products.workspace_id', Auth::user()->current_workspace)
             ->select(
@@ -208,10 +210,11 @@ class ReceiveController extends Controller
                 'products_import.quoteImport_id',
                 'products_import.product_guarantee',
                 'products.product_inventory as inventory',
+                'quoteimport.promotion',
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->with('getSerialNumber')->get();
-        return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename', 'nameRepresent'));
+        return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename', 'nameRepresent','detail'));
     }
 
     /**
@@ -336,6 +339,7 @@ class ReceiveController extends Controller
             'represent' => isset($nameRepresent) ? $nameRepresent : "",
             'provide_name' => isset($nameProvide) ? $nameProvide : "",
             'id' => isset($detail) ? $detail->id : "",
+            'promotion' => isset($detail) ? $detail->promotion : "",
             'resultNumber' => $resultNumber
         ];
         return $data;

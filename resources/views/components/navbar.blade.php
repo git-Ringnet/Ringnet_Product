@@ -523,13 +523,13 @@
                             <li class="nav-item user_flow_nav" data-type="DMH" data-des="DMH">
                                 <a href="{{ route('import.index', $workspacename) }}"
                                     class="nav-link  @if (!empty($activeName) && $activeName == 'import') active @endif">
-                                    <p class="text-nav ml-2">Đơn mua hàng</p>
+                                    <p class="text-nav ml-2">Đặt hàng NCC</p>
                                 </a>
                             </li>
                             <li class="nav-item user_flow_nav" data-type="DNH" data-des="DNH">
                                 <a href="{{ route('receive.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'receive') active @endif ">
-                                    <p class="text-nav ml-2">Đơn nhận hàng</p>
+                                    <p class="text-nav ml-2">Phiếu nhập kho</p>
                                 </a>
                             </li>
                             <li class="nav-item user_flow_nav" data-type="HDMH" data-des="HDMH">
@@ -541,7 +541,13 @@
                             <li class="nav-item user_flow_nav" data-type="TTMH" data-des="TTMH">
                                 <a href="{{ route('paymentOrder.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'paymentorder') active @endif ">
-                                    <p class="text-nav ml-2">Thanh toán mua hàng</p>
+                                    <p class="text-nav ml-2">Phiếu chi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item user_flow_nav" data-type="THNCC" data-des="THNCC">
+                                <a href="{{ route('returnImport.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'returnImport') active @endif ">
+                                    <p class="text-nav ml-2">Trả hàng NCC</p>
                                 </a>
                             </li>
                             <li class="nav-item user_flow_nav" data-type="NCC" data-des="NCC">

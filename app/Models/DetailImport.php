@@ -89,13 +89,35 @@ class DetailImport extends Model
                 $total += $price_export * str_replace(',', '', $data['product_qty'][$i]);
             } else {
                 $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
+                if ($data['promotion-option'][$i] == 1) {
+                    // var_dump($data['promotion-option'][$i]);
+                    // var_dump(isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0);
+                    $price_export = $price_export - (isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0);
+                } else {
+                    $price_export = $price_export * (isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0) / 100;
+                }
+
                 $total += $price_export;
             }
+
+            // Tính tổng KM
+            // if ($data['promotion-option'][$i] == 1) {
+            //     $promotionAll += str_replace(',', '', $data['price_export'][$i]) *  str_replace(',', '', $data['product_qty'][$i]) - isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0;
+            // } else {
+            //     $promotionAll += str_replace(',', '', $data['price_export'][$i]) *  str_replace(',', '', $data['product_qty'][$i]) * isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0 / 100;
+            // }
             $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
         }
         $total_tax = round($total_tax) + round($total);
         $promotion['type'] = $data['promotion-option-total'];
         $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
+
+        if ($data['promotion-option-total'] == 1) {
+            $total_tax = $total_tax - $promotion['value'];
+        } else {
+            $total_tax = $total_tax - ($total_tax * $promotion['value'] / 100);
+        }
+
         $dataImport = [
             'provide_id' => $data['provides_id'],
             'project_id' => 1,
@@ -106,7 +128,7 @@ class DetailImport extends Model
             'status' => 1,
             'created_at' => $data['date_quote'],
             'total_price' => $total,
-            'total_tax' => $total_tax - $promotion['value'],
+            'total_tax' => $total_tax,
             'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
             'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
             'status_receive' => 0,
@@ -165,6 +187,11 @@ class DetailImport extends Model
                         $total += $price_export * str_replace(',', '', $data['product_qty'][$i]);
                     } else {
                         $price_export = floatval(str_replace(',', '', $data['product_qty'][$i])) * floatval(str_replace(',', '', $data['price_export'][$i]));
+                        if ($data['promotion-option'][$i] == 1) {
+                            $price_export = $price_export - (isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0);
+                        } else {
+                            $price_export = $price_export * (isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0) / 100;
+                        }
                         $total += $price_export;
                     }
                     $total_tax += ($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export / 100;
@@ -189,8 +216,16 @@ class DetailImport extends Model
                 }
             }
             if ($check_status && $detail->status == 1) {
+                $total_tax = round($total_tax) + round($total);
                 $promotion['type'] = $data['promotion-option-total'];
                 $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
+
+                if ($data['promotion-option-total'] == 1) {
+                    $total_tax = $total_tax - $promotion['value'];
+                } else {
+                    $total_tax = $total_tax - ($total_tax * $promotion['value'] / 100);
+                }
+
                 $dataImport = [
                     'provide_id' => $data['provides_id'],
                     'represent_id' => $data['represent_id'],
@@ -202,7 +237,7 @@ class DetailImport extends Model
                     'status' => $status,
                     'created_at' => $data['date_quote'],
                     'total_price' => round($total),
-                    'total_tax' => (round($total_tax) + round($total)),
+                    'total_tax' => $total_tax,
                     'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
                     'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
                     'terms_pay' => $data['terms_pay'],

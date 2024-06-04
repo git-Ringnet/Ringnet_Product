@@ -25,6 +25,7 @@ use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RecieptController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReturnImportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserFlowController;
 use App\Http\Controllers\UserWorkspacesController;
@@ -99,8 +100,16 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/dataObj', [GroupsController::class, 'dataObj'])->name('dataObj');
     Route::get('/updateDataGroup', [GroupsController::class, 'updateDataGroup'])->name('updateDataGroup');
     Route::resource('funds', FundController::class);
+
+    Route::get('/getWarehouse', [DetailImportController::class, 'getWarehouse'])->name('getWarehouse');
 });
 
+
+
+// Trả hàng NCC
+Route::resource('{workspace}/returnImport', ReturnImportController::class);
+Route::get('/show_receiveBill',[ReturnImportController::class, 'show_receiveBill'])->name('show_receiveBill');
+Route::get('/getSNByBill',[ReturnImportController::class, 'getSNByBill'])->name('getSNByBill');
 
 Route::get('/checkQuotetionExport', [DetailExportController::class, 'checkQuotetionExport'])->name('checkQuotetionExport');
 Route::get('/checkQuotetionExportEdit', [DetailExportController::class, 'checkQuotetionExportEdit'])->name('checkQuotetionExportEdit');

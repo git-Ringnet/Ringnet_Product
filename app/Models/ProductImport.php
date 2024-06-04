@@ -62,6 +62,8 @@ class ProductImport extends Model
     public function addProductImport($data, $id, $colum, $columQuote)
     {
         $status = false;
+        $result = [];
+        $list_id = [];
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $qty = 0;
             $product = QuoteImport::where('detailimport_id', $id)
@@ -131,7 +133,8 @@ class ProductImport extends Model
                     $dataProductImport['product_guarantee'] = $data['product_guarantee'][$i];
                 }
 
-                DB::table($this->table)->insert($dataProductImport);
+                $id_proImport = DB::table($this->table)->insertGetId($dataProductImport);
+                array_push($list_id,$id_proImport);
                 // Thêm số lượng sản phẩm đã nhập
                 if ($columQuote == "receive_qty") {
                     $receive_qty = $product->receive_qty;
@@ -148,9 +151,101 @@ class ProductImport extends Model
                     ->where('workspace_id', Auth::user()->current_workspace)
                     ->update($dataQuote);
                 $status = true;
+            } else {
+                $promotion = [];
+                $promotion['type'] = $data['promotion-option'][$i];
+                $promotion['value'] = $data['promotion'][$i];
+                $dataQuote = [
+                    // 'detailimport_id' => $id,
+                    'detailimport_id' => 0,
+                    'product_code' => $data['product_code'][$i],
+                    'product_name' => $data['product_name'][$i],
+                    'product_unit' => $data['product_unit'][$i],
+                    'product_qty' => $data['product_qty'][$i],
+                    'product_tax' => $data['product_tax'][$i],
+                    'product_total' => (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i])),
+                    'price_export' => str_replace(',', '', $data['price_export'][$i]),
+                    'product_note' => $data['product_note'][$i],
+                    'product_id' => isset($data['product_id'][$i]) ? $data['product_id'][$i] : null,
+                    'receive_qty' => 0,
+                    'reciept_qty' => 0,
+                    'payment_qty' => 0,
+                    'version' => 1,
+                    'workspace_id' => Auth::user()->current_workspace,
+                    'user_id' => Auth::user()->id,
+                    'receive_id' => 0,
+                    'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1,
+                    'promotion' => json_encode($promotion),
+                ];
+
+                // Thêm quoteImport
+                $id_quote = DB::table('quoteimport')->insertGetId($dataQuote);
+
+
+                // Thêm sản phẩm
+                $dataProduct = [
+                    'type' => 1,
+                    'product_code' => $data['product_code'][$i],
+                    'product_name' => $data['product_name'][$i],
+                    'product_unit' => $data['product_unit'][$i],
+                    'product_price_import' => str_replace(',', '', $data['price_export'][$i]),
+                    'product_tax' => $data['product_tax'][$i],
+                    'check_seri' => $data['cbSeri'][$i],
+                    'workspace_id' => Auth::user()->current_workspace,
+                    'user_id' => Auth::user()->id,
+                    'group_id' => 0,
+                    'created_at' => Carbon::now()
+                ];
+                $checkProduct = Products::where('product_name', $data['product_name'][$i])->where('workspace_id', Auth::user()->current_workspace)->first();
+                if (!isset($checkProduct)) {
+                    DB::table('products')->insert($dataProduct);
+                }
+
+                // Thêm productImport
+                $checkCBSN = Products::where('product_name', $data['product_name'][$i])
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
+                    ->first();
+                $productExist = QuoteImport::where('product_name', $data['product_name'][$i])
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
+                if ($productExist) {
+                    $checkCBImport = ProductImport::where('quoteImport_id', $productExist->id)
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->where('receive_id', '!=', 'null')
+                        ->first();
+                    if ($checkCBSN) {
+                        $cbSN = $checkCBSN->check_seri;
+                    } else if ($checkCBImport) {
+                        $cbSN = $checkCBImport->cbSN;
+                    } else {
+                        $cbSN = isset($data['cbSeri'][$i]) ? $data['cbSeri'][$i] : 0;
+                    }
+
+                    $dataProductImport = [
+                        // 'detailimport_id' => $id,
+                        'detailimport_id' => 0,
+                        'quoteImport_id' => $id_quote,
+                        'product_qty' => $data['product_qty'][$i],
+                        $colum => 0,
+                        'cbSN' => $cbSN,
+                        'created_at' => Carbon::now(),
+                        'workspace_id' => Auth::user()->current_workspace,
+                        'user_id' => Auth::user()->id,
+                    ];
+
+                    if (isset($data['product_guarantee'])) {
+                        $dataProductImport['product_guarantee'] = $data['product_guarantee'][$i];
+                    }
+                    $id_proImport = DB::table($this->table)->insertGetId($dataProductImport);
+                    array_push($list_id,$id_proImport);
+                }
+                $status = true;
             }
         }
-        return $status;
+        $result['status'] = $status;
+        $result['id'] = $list_id;
+        return $result;
     }
 
     public function addProductQuickAction($data, $id)

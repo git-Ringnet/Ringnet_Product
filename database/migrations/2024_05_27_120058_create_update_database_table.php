@@ -13,16 +13,23 @@ return new class extends Migration
     {
         Schema::table('quoteimport', function (Blueprint $table) {
             $table->string('promotion')->nullable();
-            $table->timestamps();
+            // $table->timestamps();
         });
         Schema::table('detailimport', function (Blueprint $table) {
             $table->string('promotion')->nullable();
-            $table->timestamps();
+            // $table->timestamps();
         });
         Schema::table('history_import', function (Blueprint $table) {
             $table->string('promotion')->nullable();
-            $table->timestamps();
+            // $table->timestamps();
         });
+
+        Schema::table('quoteimport', function (Blueprint $table) {
+            $table->dropForeign(['detailimport_id']);
+            // $table->foreign('warehouse_id')->references('id')->on('detailimport');
+        });
+
+
     }
 
     /**
