@@ -66,8 +66,7 @@ class WarehouseController extends Controller
     {
         $title = "Xem nhóm sản phẩm";
         $warehouse = Warehouse::find($id);
-        $products = $this->products->getAllProducts();
-        return view('warehouse.show', compact('title', 'warehouse', 'products'));
+        return view('warehouse.show', compact('title', 'warehouse'));
     }
 
     /**
@@ -121,5 +120,16 @@ class WarehouseController extends Controller
         ];
         $this->userFlow->addUserFlow($arrCapNhatKH);
         return back()->with('msg', 'Xóa kho hàng thành công');
+    }
+    public function listWarehousse()
+    {
+        return Warehouse::where('workspace_id', Auth::user()->current_workspace)
+            ->get();
+    }
+    public function selectWareHouse(Request $data)
+    {
+        return Warehouse::where('workspace_id', Auth::user()->current_workspace)
+            ->where('id', $data["warehouse_id"])
+            ->first();
     }
 }

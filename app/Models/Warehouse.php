@@ -19,8 +19,21 @@ class Warehouse extends Model
         return DB::table('warehouse')
             ->leftjoin('products', 'products.warehouse_id', '=', 'warehouse.id')
             ->where('warehouse.workspace_id', Auth::user()->current_workspace)
-            ->groupBy('warehouse.id', 'warehouse.warehouse_name', 'warehouse.workspace_id')
-            ->select('warehouse.id', 'warehouse.warehouse_name', 'warehouse.workspace_id', DB::raw('SUM(products.product_inventory) AS total_inventory'))
+            ->groupBy(
+                'warehouse.id',
+                'warehouse.warehouse_name',
+                'warehouse.workspace_id',
+                'warehouse.warehouse_code',
+                'warehouse.warehouse_address',
+            )
+            ->select(
+                'warehouse.id',
+                'warehouse.warehouse_name',
+                'warehouse.warehouse_code',
+                'warehouse.warehouse_address',
+                'warehouse.workspace_id',
+                DB::raw('SUM(products.product_inventory) AS total_inventory')
+            )
             ->get();
     }
     public function getAllProducts()
@@ -53,6 +66,8 @@ class Warehouse extends Model
         if (!$check) {
             $dataWarehouse = [
                 'warehouse_name' => $data['warehouse_name'],
+                'warehouse_code' => $data['warehouse_code'],
+                'warehouse_address' => $data['warehouse_address'],
                 'user_id' => Auth::user()->id,
                 'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => now(),
@@ -76,6 +91,8 @@ class Warehouse extends Model
             if ($warehouse) {
                 $dataWarehouse = [
                     'warehouse_name' => $data['warehouse_name'],
+                    'warehouse_code' => $data['warehouse_code'],
+                    'warehouse_address' => $data['warehouse_address'],
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];

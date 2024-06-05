@@ -123,6 +123,17 @@ function searchProductName() {
     });
 }
 
+// search tên kho hàng
+function searchWareHouse() {
+    $(".searchWareHouse").on("keyup", function () {
+        var value = $(this).val().toUpperCase();
+        $(".listWarehouse li").each(function () {
+            var text = $(this).find("a").text().toUpperCase();
+            $(this).toggle(text.indexOf(value) > -1);
+        });
+    });
+}
+
 // Hàm search thông tin nhà cung cấp
 function filterFunction() {
     var filter = $(".search_product").val().toUpperCase();
@@ -440,6 +451,11 @@ function addRowTable(status) {
         "</td>" +
         '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
         '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly name="total_price[]">' +
+        '<td class="border-right p-2 text-13 align-top position-relative border-bottom border-top-0"> ' +
+        '<input type="hidden" name="warehouse_id[]" class="border-0 px-2 py-1 w-100 height-32 warehouse_id"></input>' +
+        '<input autocomplete="off" required type="text" id="searchWareHouse" class="searchWareHouse border-0 px-2 py-1 w-100 height-32">' +
+        '<ul id="listWarehouse" class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
+        "</ul>" +
         "</td>" +
         '<td class="border-right note p-2 align-top border-bottom border-top-0">' +
         '<input type="text" placeholder="Nhập ghi chú" class="border-0 py-1 w-100 height-32 text-13-black" name="product_note[]" ' +
@@ -468,12 +484,29 @@ function addRowTable(status) {
         }
     });
 
+    //Kho hàng
+    $(".listWarehouse").hide();
+    $(".searchWareHouse").on("click", function (e) {
+        e.stopPropagation();
+        $(".listWarehouse").hide();
+
+        var listWarehouse = $(this).closest("tr").find(".listWarehouse");
+        listWarehouse.toggle();
+    });
+    $(document).on("click", function (e) {
+        if (!$(e.target).is(".searchWareHouse")) {
+            $(".listWarehouse").hide();
+        }
+    });
+
     searchProductName();
     deleteRow();
     if (status == 2) {
         createModal(rowCount);
     }
     getProduct("searchProductName");
+    //kho hàng
+    getWareHouse("searchWareHouse");
     rowCount++;
 }
 
@@ -574,6 +607,7 @@ function deleteRowRepesent() {
 }
 
 searchProductName();
+searchWareHouse();
 deleteRow();
 showListProductCode();
 // showListProductName();

@@ -73,6 +73,19 @@
                                                 data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
                                                     <span class="text-13">
+                                                        Mã kho hàng
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <div class="icon" id="icon-product_code"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link btn-submit" data-sort-by="product_code"
+                                                data-sort-type="DESC">
+                                                <button class="btn-sort" type="submit">
+                                                    <span class="text-13">
                                                         Kho hàng
                                                     </span>
                                                 </button>
@@ -86,7 +99,7 @@
                                                 data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
                                                     <span class="text-13">
-                                                        Số lượng sản phẩm trong kho
+                                                        Địa chỉ kho hàng
                                                     </span>
                                                 </button>
                                             </a>
@@ -118,12 +131,15 @@
                                                 id="checkbox" value="">
                                         </td>
                                         <td class="py-2 text-13-black pl-0 border-bottom border-top-0">
+                                            <span>{{ $item->warehouse_code }}</span>
+                                        </td>
+                                        <td class="py-2 text-13-black pl-0 border-bottom border-top-0">
                                             <a href="{{ route('warehouse.show', $item->id) }}">
                                                 {{ $item->warehouse_name }}
                                             </a>
                                         </td>
                                         <td class="py-2 text-13-black pl-0 border-bottom border-top-0">
-                                            {{-- <span>{{ number_format($item->total_inventory) }}</span> --}}
+                                            <span>{{ $item->warehouse_address }}</span>
                                         </td>
                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0"
                                             style="right: 10px; top: 7px;">

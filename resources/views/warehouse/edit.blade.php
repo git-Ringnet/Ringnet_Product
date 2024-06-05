@@ -74,11 +74,27 @@
                         <div class="content-info">
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info height-100 py-2 border border-left-0">
+                                    <p class="p-0 m-0 text-13-black margin-left32">Mã kho hàng</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="warehouse_code"
+                                    value="{{ $warehouse->warehouse_code }}"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                            </div>
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info height-100 py-2 border border-left-0">
                                     <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên kho hàng</p>
                                 </div>
                                 <input type="hidden" name="warehouse_id" value="{{ $warehouse->id }}">
                                 <input type="text" required placeholder="Nhập thông tin" name="warehouse_name"
                                     value="{{ $warehouse->warehouse_name }}"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                            </div>
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info height-100 py-2 border border-left-0">
+                                    <p class="p-0 m-0 text-13-black margin-left32">Địa chỉ</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="warehouse_address"
+                                    value="{{ $warehouse->warehouse_address }}"
                                     class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                             </div>
                         </div>

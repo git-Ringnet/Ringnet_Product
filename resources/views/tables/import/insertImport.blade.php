@@ -105,12 +105,15 @@
                                             <span class="text-table text-secondary">Thuế</span>
                                         </th>
                                         <th class="border-right px-2 p-0 text-center" style="width: 10%;">
-                                            <span class="text-table text-secondary">Khuyến mãi</span>
+                                            <span class="text-table text-secondary">KM</span>
                                         </th>
                                         <th class="border-right px-2 p-0 text-right" style="width: 10%;">
                                             <span class="text-table text-secondary">Thành tiền</span>
                                         </th>
-                                        <th class="border-right note px-2 p-0 text-left" style="width: 15%;">
+                                        <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                            <span class="text-table text-secondary">Kho hàng</span>
+                                        </th>
+                                        <th class="border-right note px-2 p-0 text-left">
                                             <span class="text-table text-secondary">Ghi chú</span>
                                         </th>
                                         <th class=""></th>
@@ -155,7 +158,6 @@
                                                             style="z-index: 99; left: 24%; top: 75%;">
                                                         </ul>
                                                     </div> --}}
-
                                                     <span class="ml-1 mr-2"><svg xmlns="http://www.w3.org/2000/svg"
                                                             width="6" height="10" viewBox="0 0 6 10"
                                                             fill="none">
@@ -1863,7 +1865,6 @@
         }
     })
 
-
     $(document).on('click', '.user_flow', function(e) {
         var type = $(this).attr('data-type')
         var des = $(this).attr('data-des');
@@ -1877,6 +1878,49 @@
             success: function(data) {}
         })
     })
+    //Kho hàng
+    function getWareHouse(name) {
+        $('#inputcontent tbody tr .' + name).on('click', function() {
+            listWarehouse = $(this).closest('tr').find('#listWarehouse');
+            inputWareHouseID = $(this).closest('tr').find('.warehouse_id');
+            inputWareHouseName = $(this).closest('tr').find('.searchWareHouse');
+            $.ajax({
+                url: "{{ route('listWarehousse') }}",
+                type: "get",
+                success: function(data) {
+                    listWarehouse.empty();
+                    data.forEach(element => {
+                        var UL = '<li class="w-100">' +
+                            '<a' + ' data-id="' +
+                            element.id +
+                            '" href="javascript:void(0)" class="text-dark d-flex w-100 justify-content-between p-2 search-name"' +
+                            ' name="search-warehouse">' +
+                            '<span class="w-100 text-13-black" data-id="' +
+                            element.id + '">' + element
+                            .warehouse_name + '</span>' +
+                            '</a>' +
+                            '</li>';
+                        listWarehouse.append(UL);
+                    })
+                    $('.search-name').on('click', function() {
+                        listWarehouse.hide();
+                        var warehouse_id = $(this).data("id") ;
+                        $.ajax({
+                            url: "{{ route('selectWareHouse') }}",
+                            type: "get",
+                            data: {
+                                warehouse_id: warehouse_id,
+                            },
+                            success: function(data) {
+                                inputWareHouseID.val(data.id);
+                                inputWareHouseName.val(data.warehouse_name);
+                            }
+                        })
+                    })
+                }
+            })
+        })
+    }
 </script>
 </body>
 

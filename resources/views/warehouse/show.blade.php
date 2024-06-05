@@ -74,6 +74,13 @@
                     <div class="content-info">
                         <div class="d-flex align-items-center height-60-mobile">
                             <div class="title-info height-100 py-2 border border-left-0">
+                                <p class="p-0 m-0 text-13-black margin-left32">Mã kho hàng</p>
+                            </div>
+                            <input type="text" placeholder="Nhập thông tin" disabled name="warehouse_code" value="{{ $warehouse->warehouse_code }}"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                        </div>
+                        <div class="d-flex align-items-center height-60-mobile">
+                            <div class="title-info height-100 py-2 border border-left-0">
                                 <p class="p-0 m-0 margin-left32 text-13-black">
                                     <b>Tên kho hàng</b>
                                 </p>
@@ -81,29 +88,12 @@
                             <input type="text" placeholder="Nhập thông tin" value="{{ $warehouse->warehouse_name }}" disabled
                                 class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluided">
-                <div class="info-chung">
-                    <div class="content-info">
-                        <div class="title-info height-100 w-100 py-2 border-bottom">
-                            <p class="p-0 m-0 margin-left32 text-13-black">
-                                <b>Sản phẩm</b>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="content-info">
-                        <div class="title-info height-100 w-100 py-2 border-bottom scrollbar">
-                            @foreach ($products as $item)
-                                @if ($item->warehouse_id == $warehouse->id)
-                                    <div class="d-flex align-items-center py-2">
-                                        <input type="checkbox" class="p-0 m-0 margin-left32 text-13-black" disabled
-                                            checked value="{{ $item->id }}">
-                                        <p class="p-0 m-0 margin-left32 text-13-black">{{ $item->product_name }}</p>
-                                    </div>
-                                @endif
-                            @endforeach
+                        <div class="d-flex align-items-center height-60-mobile">
+                            <div class="title-info height-100 py-2 border border-left-0">
+                                <p class="p-0 m-0 text-13-black margin-left32">Địa chỉ</p>
+                            </div>
+                            <input type="text" placeholder="Nhập thông tin" name="warehouse_address" value="{{ $warehouse->warehouse_address }}" disabled
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
                     </div>
                 </div>

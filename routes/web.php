@@ -333,6 +333,8 @@ Route::resource('/warehouse', WarehouseController::class)->middleware(CheckLogin
 
 //Xem tồn kho
 Route::get('/getInventoryProduct', [DetailExportController::class, 'getInventoryProduct'])->name('getInventoryProduct');
+Route::get('/listWarehousse', [WarehouseController::class, 'listWarehousse'])->name('listWarehousse');
+Route::get('/selectWareHouse', [WarehouseController::class, 'selectWareHouse'])->name('selectWareHouse');
 
 Route::middleware(['auth:sanctum', 'verified', CheckUserWorkspace::class])->group(function () {
     Route::get('/dashboard', function () {

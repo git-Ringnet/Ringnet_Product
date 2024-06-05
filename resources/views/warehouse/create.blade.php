@@ -34,8 +34,8 @@
                                 </button>
                             </a>
                         </div>
-                        <button type="submit"
-                            class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                        <button type="submit" class="custom-btn d-flex align-items-center h-100"
+                            style="margin-right:10px">
                             <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -58,9 +58,23 @@
                         <div class="content-info">
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info height-100 py-2 border border-left-0">
+                                    <p class="p-0 m-0 text-13-black margin-left32">Mã kho hàng</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="warehouse_code"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                            </div>
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info height-100 py-2 border border-left-0">
                                     <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên kho hàng</p>
                                 </div>
                                 <input type="text" required placeholder="Nhập thông tin" name="warehouse_name"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                            </div>
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info height-100 py-2 border border-left-0">
+                                    <p class="p-0 m-0 text-13-black margin-left32">Địa chỉ</p>
+                                </div>
+                                <input type="text" placeholder="Nhập thông tin" name="warehouse_address"
                                     class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                             </div>
                         </div>
