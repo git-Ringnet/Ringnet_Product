@@ -28,22 +28,32 @@ class Serialnumber extends Model
     {
         return $this->hasOne(Delivery::class, 'id', 'delivery_id');
     }
-    public function getDetailImport(){
+    public function getDetailImport()
+    {
         return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
     }
-    public function getHistoryImport(){
+    public function getHistoryImport()
+    {
         return $this->hasOne(HistoryImport::class, 'detailimport_id', 'detailImport_id')
-        ->where('product_id','product_id')
-        ->where('user_id',Auth::user()->id);
+            ->where('product_id', 'product_id')
+            ->where('user_id', Auth::user()->id);
     }
 
-    public function addSN($data, $receive_id, $detail_id)
+    public function addSN($data, $receive_id, $detail_id, $list_id)
     {
-        // dd($data);
         for ($i = 0; $i < count($data['product_name']); $i++) {
-            $getProduct = QuoteImport::where('product_name', $data['product_name'][$i])
-                ->where('detailimport_id', $detail_id)
-                ->where('workspace_id', Auth::user()->current_workspace)
+            $getProduct = QuoteImport::where('product_name', $data['product_name'][$i]);
+            if ($detail_id != "") {
+                $product_import = ProductImport::where('id', $list_id[$i])->first();
+                if ($product_import) {
+                    $getProduct = $getProduct->where('id', $product_import->quoteImport_id);
+                }
+                // $getProduct = $getProduct->where('detailimport_id', $detail_id);
+            } else {
+                $getProduct = $getProduct->where('receive_id', $receive_id);
+            }
+            // ->where('id',$list_id[$i])
+            $getProduct = $getProduct->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($getProduct) {
                 if (isset($data['seri' . $i]) && $data['cbSeri'][$i] == 1) {
@@ -53,7 +63,7 @@ class Serialnumber extends Model
                             $dataSN = [
                                 'serinumber' => $productSN[$j],
                                 'receive_id' => $receive_id,
-                                'detailimport_id' => $detail_id,
+                                'detailimport_id' => ($detail_id != "" ? $detail_id : 0),
                                 'quoteImport_id' => $getProduct->id,
                                 'detailexport_id' => 0,
                                 'status' => 0,

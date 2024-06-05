@@ -190,7 +190,6 @@ class Products extends Model
     }
     public function addProductTowarehouse($data, $id)
     {
-        // dd($data);
         $status = true;
         $receive = Receive_bill::where('id', $id)->first();
         if ($receive) {
@@ -198,9 +197,14 @@ class Products extends Model
             $list_id = [];
             // Lấy hết sản phẩm theo đơn mua hàng
             for ($i = 0; $i < count($data['product_name']); $i++) {
-                $products = QuoteImport::where('product_name', $data['product_name'][$i])
-                    ->where('detailimport_id', $receive->detailimport_id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
+                $products = QuoteImport::where('product_name', $data['product_name'][$i]);
+                $products = $products->where('receive_id', $receive->id);
+                // if ($receive->detailimport_id == 0) {
+                //     $products = $products->where('receive_id', $receive->id);
+                // } else {
+                //     $products = $products->where('detailimport_id', $receive->detailimport_id);
+                // }
+                $products = $products->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
                 array_push($array_id, $products->id); //4
             }
@@ -252,9 +256,14 @@ class Products extends Model
 
             // Cập nhật serial number theo sản phẩm
             for ($i = 0; $i < count($data['product_name']); $i++) {
-                $getProduct = QuoteImport::where('product_name', $data['product_name'][$i])
-                    ->where('detailimport_id', $receive->detailimport_id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
+                $getProduct = QuoteImport::where('product_name', $data['product_name'][$i]);
+                // if ($receive->detailimport_id == 0) {
+                //     $getProduct = $getProduct->where('receive_id', $receive->id);
+                // } else {
+                //     $getProduct = $getProduct->where('detailimport_id', $receive->detailimport_id);
+                // }
+                $getProduct = $getProduct->where('receive_id', $receive->id);
+                $getProduct = $getProduct->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
                 if ($getProduct) {
                     if (isset($data['seri' . $i])) {

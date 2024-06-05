@@ -21,6 +21,7 @@ use App\Models\Reciept;
 use App\Models\Serialnumber;
 use App\Models\User;
 use App\Models\userFlow;
+use App\Models\Warehouse;
 use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -189,10 +190,11 @@ class DetailImportController extends Controller
                 ->where('products.workspace_id', Auth::user()->current_workspace)
                 ->get();
             $project = Project::all();
+            $warehouse = Warehouse::where('workspace_id', Auth::user()->current_workspace)->get();
             $history = HistoryImport::where('detailImport_id', $id)
                 ->orderBy('id', 'desc')
                 ->get();
-            return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay'));
+            return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay', 'warehouse'));
         } else {
             return redirect()->route('import.index', $workspacename)->with('warning', 'Không tìm thấy trang hợp lệ !');
         }
@@ -1359,5 +1361,12 @@ class DetailImportController extends Controller
             }
         }
         return $data;
+    }
+
+
+
+    public function getWarehouse()
+    {
+        return Warehouse::where('workspace_id', Auth::user()->current_workspace)->get();
     }
 }

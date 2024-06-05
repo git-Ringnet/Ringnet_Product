@@ -160,7 +160,7 @@ function createRowInput(name) {
 
 // Tìm kiếm thông tin nhà cung cấp
 function searchInput(input, list) {
-    $(input).on("keyup", function () {
+    $(document).on("keyup", input, function () {
         var value = $(this).val().toUpperCase();
         $(list).each(function () {
             var text = $(this).find("a").text().toUpperCase();
@@ -173,6 +173,7 @@ searchInput(".input-search", "#listReceive li");
 searchInput("#searchRepresent", "#listRepresent li");
 searchInput("#searchPriceEffect", "#listPriceEffect li");
 searchInput("#searchTermsPay", "#listTermsPay li");
+searchInput("#searchWarehouse", "#listWarehouse li");
 // Cập nhật tổng tiền
 function calculateAll() {
     var total_amount = $('#total-amount-sum').text().replace(/[^0-9.-]+/g, "") || 0;
@@ -180,14 +181,12 @@ function calculateAll() {
     var total = parseFloat(total_amount) + parseFloat(product_tax);
     var option = $("[name^='promotion-option-total']").val();
     var promotion = $("input[name^='promotion-total']").val().replace(/[^0-9.-]+/g, "") || 0;
-    console.log(option);
     if (option == 1) {
         var cal = total - promotion;
     } else {
         var cal = total - (total * promotion / 100);
     }
     $('#grand-total').text(formatCurrency(cal))
-    console.log(cal);
 }
 
 $(document).on(
@@ -262,13 +261,14 @@ function updateTaxAmount() {
         );
         var option_promotion = $(this).closest('tr').find('.promotion-option').val();
         var promotion =
-            parseFloat(
-                $(this)
-                    .closest("tr")
-                    .find("[name^='promotion']")
-                    .val()
-                    .replace(/[^0-9.-]+/g, "")
-            ) || 0;
+            $(this)
+                .closest("tr")
+                .find("[name^='promotion']")
+                .val()
+            || 0;
+        if (promotion) {
+            promotion = promotion.replace(/[^0-9.-]+/g, "")
+        }
         var taxValue = parseFloat($(this).find(".product_tax").val());
         if (taxValue == 99) {
             taxValue = 0;

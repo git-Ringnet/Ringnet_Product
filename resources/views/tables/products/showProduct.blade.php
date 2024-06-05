@@ -601,8 +601,8 @@
                                         {{ number_format($totalPrice + $totalTax) }}
                                     </td>
                                     <td class="text-13-black text-center border-top-0 border-bottom">
-                                        @if (
-                                            $htr->getQuotetion->status_receive == 2 &&
+                                        @if (isset($htr->getQuotetion) &&
+                                                $htr->getQuotetion->status_receive == 2 &&
                                                 $htr->getQuotetion->status_reciept == 2 &&
                                                 $htr->getQuotetion->status_pay == 2)
                                             <span style="color: #08AA36">Close</span>
