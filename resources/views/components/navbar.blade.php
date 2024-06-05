@@ -332,12 +332,6 @@
                                     <p class="text-nav ml-2">Nhóm sản phẩm</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('warehouse.index') }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'warehouse') active @endif">
-                                    <p class="text-nav ml-2">Kho hàng</p>
-                                </a>
-                            </li>
                         </ul>
                     </li>
                     <li
