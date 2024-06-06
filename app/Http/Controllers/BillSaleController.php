@@ -91,7 +91,7 @@ class BillSaleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(string $workspace, Request $request)
+    public function store(Request $request)
     {
         if ($request->action == 1) {
             $billSale_id = $this->billSale->addBillSale($request->all());
@@ -105,7 +105,7 @@ class BillSaleController extends Controller
                 // Sau khi lưu xong tất cả thông tin, set session export_id
                 $request->session()->put('pdf_info.billsale_id', $billSale_id);
             }
-            return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', ' Tạo mới hóa đơn bán hàng thành công !');
+            return redirect()->route('billSale.index')->with('msg', ' Tạo mới hóa đơn bán hàng thành công !');
         }
         if ($request->action == 2) {
             $billSale_id = $this->billSale->acceptBillSale($request->all());
@@ -117,9 +117,9 @@ class BillSaleController extends Controller
             // Thêm số hoá đơn ra cho lịch sử giao dịch
             $history = $this->history->updateHdr($billSale_id->id, $request->detailexport_id, $request->number_bill);
             if ($request->redirect == 'billSale') {
-                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
+                return redirect()->route('detailExport.index')->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
             } else {
-                return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
+                return redirect()->route('billSale.index')->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
             }
         }
     }
@@ -230,7 +230,7 @@ class BillSaleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $workspace, string $id)
+    public function edit(string $id)
     {
         $title = "Hóa đơn bán hàng";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
@@ -291,7 +291,7 @@ class BillSaleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace, Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         if ($request->action == "action_1") {
             $billSale = BillSale::find($id);
@@ -311,7 +311,7 @@ class BillSaleController extends Controller
                 //Thêm số hoá đơn ra cho lịch sử giao dịch
                 $detailexport_id = BillSale::where('id', $id)->pluck('detailexport_id')->first();
                 $this->history->updateHdr($id, $detailexport_id, $request->number_bill);
-                return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
+                return redirect()->route('billSale.index')->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
             }
         }
         if ($request->action == "action_2") {
@@ -328,14 +328,14 @@ class BillSaleController extends Controller
                 'des' => 'Xóa hóa đơn bán hàng'
             ];
             $this->userFlow->addUserFlow($arrCapNhatKH);
-            return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xóa hóa đơn bán hàng thành công!');
+            return redirect()->route('billSale.index')->with('msg', 'Xóa hóa đơn bán hàng thành công!');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $workspace, string $id)
+    public function destroy(string $id)
     {
         // Xoá hoá đơn lịch sử
         $detailexport_id = BillSale::where('id', $id)->pluck('detailexport_id')->first();
@@ -350,7 +350,7 @@ class BillSaleController extends Controller
             'des' => 'Xóa hóa đơn bán hàng'
         ];
         $this->userFlow->addUserFlow($arrCapNhatKH);
-        return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xóa hóa đơn bán hàng thành công!');
+        return redirect()->route('billSale.index')->with('msg', 'Xóa hóa đơn bán hàng thành công!');
     }
     public function getInfoDelivery(Request $request)
     {

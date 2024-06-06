@@ -64,6 +64,7 @@ class QuoteExport extends Model
     }
     public function addQuoteExport($data, $id)
     {
+        $productIds = [];
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
             if (!empty($data['price_import'][$i])) {
@@ -92,6 +93,10 @@ class QuoteExport extends Model
                 if (!$checkProduct) {
                     $product = new Products($dataProduct);
                     $product->save();
+                    $productIds[] = $product->id;
+                }
+                else{
+                    $productIds[] = $checkProduct->id;
                 }
                 $dataQuote = [
                     'detailexport_id' => $id,
@@ -138,45 +143,10 @@ class QuoteExport extends Model
                     'workspace_id' => Auth::user()->current_workspace,
                 ];
                 DB::table($this->table)->insert($dataQuote);
-                //Cập nhật tồn kho sản phẩm
-                $product = Products::where('id', $data['product_id'][$i])
-                    ->where('workspace_id', Auth::user()->current_workspace)
-                    ->first();
-                $product->product_inventory = $product->product_inventory - $data['product_qty'][$i];
-                $product->save();
-                //Cập nhật số lượng còn lại của đơn nhập sản phẩm
-                $productId = $data['product_id'][$i];
-                $quantitySold = $data['product_qty'][$i];
-                $remainingQuantityToDeduct = $quantitySold;
-
-                $quoteImports = DB::table('quoteimport')
-                    ->where('product_id', $productId)
-                    ->where('quantity_remaining', '>', 0)
-                    ->orderBy('created_at', 'asc')
-                    ->where('workspace_id', Auth::user()->current_workspace)
-                    ->get();
-
-                foreach ($quoteImports as $quoteImport) {
-                    if ($remainingQuantityToDeduct <= 0) {
-                        break;
-                    }
-
-                    if ($quoteImport->quantity_remaining >= $remainingQuantityToDeduct) {
-                        DB::table('quoteimport')
-                            ->where('id', $quoteImport->id)
-                            ->where('workspace_id', Auth::user()->current_workspace)
-                            ->update(['quantity_remaining' => $quoteImport->quantity_remaining - $remainingQuantityToDeduct]);
-                        $remainingQuantityToDeduct = 0;
-                    } else {
-                        $remainingQuantityToDeduct -= $quoteImport->quantity_remaining;
-                        DB::table('quoteimport')
-                            ->where('id', $quoteImport->id)
-                            ->where('workspace_id', Auth::user()->current_workspace)
-                            ->update(['quantity_remaining' => 0]);
-                    }
-                }
+                $productIds[] = $data['product_id'][$i];
             }
         }
+        return $productIds = array_map('intval', $productIds);
     }
     public function updateQuoteExport($data, $id)
     {

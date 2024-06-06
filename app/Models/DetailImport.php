@@ -258,14 +258,6 @@ class DetailImport extends Model
                 $quoteExport = QuoteExport::whereIn('product_id', $productIds)->get();
                 if ($quoteExport->isEmpty()) {
                     HistoryImport::where('detailImport_id', $detail->id)->delete();
-                    if ($quote) {
-                        foreach ($quote as $qt) {
-                            //Cập nhật tồn kho
-                            $product = Products::where('id', $qt->product_id)->first();
-                            $product->product_inventory = $product->product_inventory - $qt->product_qty;
-                            $product->save();
-                        }
-                    }
                     QuoteImport::where('detailimport_id', $detail->id)->delete();
 
                     // Xóa đơn mua hàng

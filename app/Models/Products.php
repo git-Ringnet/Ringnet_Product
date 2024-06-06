@@ -205,6 +205,9 @@ class Products extends Model
                     $checkProduct->check_seri = $item->cbSN;
                     $checkProduct->save();
                     $product_id = $checkProduct->id;
+                    //Cập nhật số lượng còn lại của đơn nhập
+                    $getProductName->quantity_remaining += $item->product_qty;
+                    $getProductName->save();
                 } else {
                     $dataProduct = [
                         'product_code' => $getProductName->product_code,
@@ -219,6 +222,9 @@ class Products extends Model
                         'user_id' => Auth::user()->id
                     ];
                     $product_id = DB::table($this->table)->insertGetId($dataProduct);
+                    //Cập nhật số lượng còn lại của đơn nhập
+                    $getProductName->quantity_remaining += $item->product_qty;
+                    $getProductName->save();
                 }
                 array_push($list_id, $product_id);
                 HistoryImport::where('quoteImport_id', $getProductName->id)->update([

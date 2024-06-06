@@ -248,6 +248,37 @@ class Delivery extends Model
                     $product->update([
                         'product_inventory' => $result,
                     ]);
+                    //Cập nhật số lượng còn lại của đơn nhập sản phẩm
+                    $productId = $data['product_id'][$i];
+                    $quantitySold = $data['product_qty'][$i];
+                    $remainingQuantityToDeduct = $quantitySold;
+
+                    $quoteImports = DB::table('quoteimport')
+                        ->where('product_id', $productId)
+                        ->where('quantity_remaining', '>', 0)
+                        ->orderBy('created_at', 'asc')
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->get();
+
+                    foreach ($quoteImports as $quoteImport) {
+                        if ($remainingQuantityToDeduct <= 0) {
+                            break;
+                        }
+
+                        if ($quoteImport->quantity_remaining >= $remainingQuantityToDeduct) {
+                            DB::table('quoteimport')
+                                ->where('id', $quoteImport->id)
+                                ->where('workspace_id', Auth::user()->current_workspace)
+                                ->update(['quantity_remaining' => $quoteImport->quantity_remaining - $remainingQuantityToDeduct]);
+                            $remainingQuantityToDeduct = 0;
+                        } else {
+                            $remainingQuantityToDeduct -= $quoteImport->quantity_remaining;
+                            DB::table('quoteimport')
+                                ->where('id', $quoteImport->id)
+                                ->where('workspace_id', Auth::user()->current_workspace)
+                                ->update(['quantity_remaining' => 0]);
+                        }
+                    }
                 }
             }
             if ($product) {
@@ -543,6 +574,39 @@ class Delivery extends Model
                     }
                 }
             }
+            $quoteExports = QuoteExport::where('detailexport_id', $id)->where('status', 1)->get();
+            //Cập nhật tồn kho sản phẩm, Cập nhật số lượng còn lại của đơn nhập
+            foreach ($quoteExports as $detail) {
+                $productId = $detail->product_id;
+                $quantityToRestore = $detail->product_qty;
+
+                // Khôi phục lại số lượng còn lại của các đơn nhập
+                $remainingQuantityToRestore = $quantityToRestore;
+
+                $quoteImports = DB::table('quoteimport')
+                    ->where('product_id', $productId)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+
+                foreach ($quoteImports as $quoteImport) {
+                    if ($remainingQuantityToRestore <= 0) {
+                        break;
+                    }
+
+                    $quantityRemaining = $quoteImport->quantity_remaining;
+
+                    // Cập nhật lại số lượng còn lại
+                    if ($quantityRemaining < $quoteImport->product_qty) {
+                        $restoredQuantity = min($quoteImport->product_qty - $quantityRemaining, $remainingQuantityToRestore);
+
+                        DB::table('quoteimport')
+                            ->where('id', $quoteImport->id)
+                            ->update(['quantity_remaining' => $quantityRemaining + $restoredQuantity]);
+
+                        $remainingQuantityToRestore -= $restoredQuantity;
+                    }
+                }
+            }
             Delivered::where('delivery_id', $id)->delete();
             $deliveredCount = Delivered::where('delivery.detailexport_id', $delivery->detailexport_id)
                 ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
@@ -659,6 +723,7 @@ class Delivery extends Model
                 'delivery.created_at'
             )
             ->get();
+        $quoteExports = QuoteExport::where('detailexport_id', $id)->where('status', 1)->get();
         foreach ($product as $item) {
             $quoteExport = QuoteExport::where('detailexport_id', $delivery->detailexport_id)
                 ->where('status', 1)
@@ -680,6 +745,39 @@ class Delivery extends Model
                     if ($product->type != 2) {
                         $product->product_inventory += $deliveredItem->deliver_qty;
                         $product->save();
+                    }
+                }
+            }
+
+            //Cập nhật tồn kho sản phẩm, Cập nhật số lượng còn lại của đơn nhập
+            foreach ($quoteExports as $detail) {
+                $productId = $detail->product_id;
+                $quantityToRestore = $detail->product_qty;
+
+                // Khôi phục lại số lượng còn lại của các đơn nhập
+                $remainingQuantityToRestore = $quantityToRestore;
+
+                $quoteImports = DB::table('quoteimport')
+                    ->where('product_id', $productId)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+
+                foreach ($quoteImports as $quoteImport) {
+                    if ($remainingQuantityToRestore <= 0) {
+                        break;
+                    }
+
+                    $quantityRemaining = $quoteImport->quantity_remaining;
+
+                    // Cập nhật lại số lượng còn lại
+                    if ($quantityRemaining < $quoteImport->product_qty) {
+                        $restoredQuantity = min($quoteImport->product_qty - $quantityRemaining, $remainingQuantityToRestore);
+
+                        DB::table('quoteimport')
+                            ->where('id', $quoteImport->id)
+                            ->update(['quantity_remaining' => $quantityRemaining + $restoredQuantity]);
+
+                        $remainingQuantityToRestore -= $restoredQuantity;
                     }
                 }
             }
@@ -1170,6 +1268,37 @@ class Delivery extends Model
                         History::whereIn('id', $id_history)->where('delivery_id', $item->delivery_id)->where('product_id', $item->product_id)->update([
                             'delivered_id' => $item->id
                         ]);
+                    }
+                }
+                //Cập nhật số lượng còn lại của đơn nhập sản phẩm
+                $productId = $data['product_id'][$i];
+                $quantitySold = $data['product_qty'][$i];
+                $remainingQuantityToDeduct = $quantitySold;
+
+                $quoteImports = DB::table('quoteimport')
+                    ->where('product_id', $productId)
+                    ->where('quantity_remaining', '>', 0)
+                    ->orderBy('created_at', 'asc')
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->get();
+
+                foreach ($quoteImports as $quoteImport) {
+                    if ($remainingQuantityToDeduct <= 0) {
+                        break;
+                    }
+
+                    if ($quoteImport->quantity_remaining >= $remainingQuantityToDeduct) {
+                        DB::table('quoteimport')
+                            ->where('id', $quoteImport->id)
+                            ->where('workspace_id', Auth::user()->current_workspace)
+                            ->update(['quantity_remaining' => $quoteImport->quantity_remaining - $remainingQuantityToDeduct]);
+                        $remainingQuantityToDeduct = 0;
+                    } else {
+                        $remainingQuantityToDeduct -= $quoteImport->quantity_remaining;
+                        DB::table('quoteimport')
+                            ->where('id', $quoteImport->id)
+                            ->where('workspace_id', Auth::user()->current_workspace)
+                            ->update(['quantity_remaining' => 0]);
                     }
                 }
             }

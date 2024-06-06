@@ -1,6 +1,6 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="billsale" :workspacename="$workspacename">
+<x-navbar :title="$title" activeGroup="sell" activeName="billsale">
 </x-navbar>
-<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('billSale.store', ['workspace' => $workspacename]) }}"
+<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('billSale.store') }}"
     method="POST">
     @csrf
     <input type="hidden" name="detailexport_id" id="detailexport_id"
@@ -33,7 +33,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('billSale.index', $workspacename) }}" class="activity" data-name1="HDBH"
+                        <a href="{{ route('billSale.index') }}" class="activity" data-name1="HDBH"
                             data-des="Hủy">
                             <button type="button" class="btn-destroy btn-light mx-2 d-flex align-items-center h-100">
                                 <span>

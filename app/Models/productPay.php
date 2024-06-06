@@ -21,11 +21,18 @@ class productPay extends Model
     ];
     protected $table = 'product_pay';
 
-    public function addProductPay($data, $id, $export_id)
+    public function addProductPay($data, $id, $export_id, $products_id)
     {
-        for ($i = 0; $i < count($data['product_name']); $i++) {
-            if ($data['product_id'][$i] != null) {
-                $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])
+        if (count($products_id) != count($data['product_name'])) {
+            throw new \Exception("Mismatch between product IDs and product data entries.");
+        }
+
+        for ($i = 0; $i < count($products_id); $i++) {
+            // Use product ID from $products_id
+            $product_id = $products_id[$i];
+
+            if ($product_id != null) {
+                $quoteExport = QuoteExport::where('product_id', $product_id)
                     ->where('detailexport_id', $export_id)
                     ->where('workspace_id', Auth::user()->current_workspace)
                     ->where('status', 1)
@@ -39,7 +46,7 @@ class productPay extends Model
             $dataPay = [
                 'pay_id' => $id,
                 'user_id' => Auth::user()->id,
-                'product_id' => $data['product_id'][$i],
+                'product_id' => $product_id,
                 'pay_qty' => $data['product_qty'][$i],
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

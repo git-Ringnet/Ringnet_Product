@@ -124,9 +124,9 @@ class DetailExportController extends Controller
     public function store(Request $request)
     {
         $export_id = $this->detailExport->addExport($request->all());
-        $this->quoteExport->addQuoteExport($request->all(), $export_id);
+        $products_id = $this->quoteExport->addQuoteExport($request->all(), $export_id);
         $pay_id = $this->payExport->addPayExport($request->all(), $export_id);
-        $this->productPay->addProductPay($request->all(), $pay_id, $export_id);
+        $this->productPay->addProductPay($request->all(), $pay_id, $export_id, $products_id);
         $arrLuuNhap = [
             'name' => 'BG',
             'des' => 'Xác nhận bán hàng'

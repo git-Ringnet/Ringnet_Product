@@ -685,7 +685,7 @@
                         <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng </span>
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin" name="guestName"
-                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="myInput" readonly
+                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="myInput"
                                 style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
                             <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                         </span>
@@ -765,7 +765,7 @@
                         </div>
                     </div>
                     <div class="">
-                        <div class="content-info--common" id="show-info-guest" style="display: none;">
+                        <div class="content-info--common" id="show-info-guest">
                             <ul class="p-0 m-0">
                                 <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left position-relative"
                                     style="height:44px;">
@@ -1374,7 +1374,7 @@
                 "<input type='number' class='text-right border-0 px-2 py-1 w-100 quantity-input height-32' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "</div>" +
-                "<div class='mt-3 text-13-blue inventory text-right inventory-info' data-toggle='modal' data-target='#inventoryModal'>Tồn kho: <span class='pl-1 soTonKho'>0</span></div>" +
+                "<div class='mt-3 text-13-blue inventory text-right inventory-info' data-toggle='modal' data-target='#inventoryModal'>Tồn kho: <span class='pl-1 soTonKho'></span></div>" +
                 "</td>"
             );
             const donGia = $(
@@ -1811,7 +1811,6 @@
                                     .val(dateFormId);
                                 $('#myInput-' + key).val(formDesc);
                             });
-                            $('#show-info-guest').show();
                             $('#show-title-guest').show();
                         }
                     });
@@ -2115,7 +2114,6 @@
                             $('#represent_guest').val('');
                             $('.represent_guest_id').val('');
                         }
-                        $('#show-info-guest').show();
                         $('#show-title-guest').show();
                     } else {
                         if (data.key) {
@@ -2745,7 +2743,6 @@
         var hasProducts = false;
         var previousProductNames = [];
         var invalidProductNames = [];
-        var invalidInventoryProducts = [];
 
         function normalizeProductName(name) {
             var lowercaseName = name.toLowerCase();
@@ -2763,21 +2760,6 @@
                     var productNameInput = rows[i].querySelector('.product_name');
                     var productName = productNameInput.value;
                     var normalizedProductName = normalizeProductName(productName).trim();
-
-                    // Kiểm tra số lượng tồn kho
-                    if (type != 2) {
-                        if (quantity > soTonKho) {
-                            invalidInventoryProducts.push(productNameInput.value);
-                        }
-                    }
-
-                    if (invalidInventoryProducts.length > 0) {
-                        showAutoToast('warning', "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
-                            invalidInventoryProducts.join(', '));
-                        $('#excel_export').val(0);
-                        $('#pdf_export').val(0);
-                        return false;
-                    }
 
                     // Kiểm tra trùng lặp tên sản phẩm
                     if (previousProductNames.includes(normalizedProductName)) {
@@ -2826,7 +2808,7 @@
                 return;
             }
 
-            var inputValue = $('.idGuest').val();
+            var inputValue = $('.nameGuest').val();
             var shouldSubmit = true;
 
             if ($.trim(inputValue) === '') {

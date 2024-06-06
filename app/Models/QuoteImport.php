@@ -59,15 +59,15 @@ class QuoteImport extends Model
             $checkProductName = Products::where('product_name', $data['product_name'][$i])
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
+
             if (!$checkProductName) {
-                $productData  = [
+                $productData = [
                     'product_code' => $data['product_code'][$i],
                     'product_name' => $data['product_name'][$i],
                     'product_unit' => $data['product_unit'][$i],
                     'product_price_import' => str_replace(',', '', $data['price_export'][$i]),
                     'product_tax' => $data['product_tax'][$i],
                     'check_seri' => 1,
-                    'product_inventory' => $data['product_qty'][$i],
                     'product_trade' => 0,
                     'product_available' => 0,
                     'type' => 1,
@@ -77,10 +77,9 @@ class QuoteImport extends Model
                 ];
                 $productId = DB::table('products')->insertGetId($productData);
             } else {
-                $checkProductName->product_inventory += $data['product_qty'][$i];
-                $checkProductName->save();
                 $productId = $checkProductName->id;
             }
+
             $dataQuote = [
                 'detailimport_id' => $id,
                 'product_id' => $productId,
@@ -88,7 +87,6 @@ class QuoteImport extends Model
                 'product_name' => $data['product_name'][$i],
                 'product_unit' => $data['product_unit'][$i],
                 'product_qty' => str_replace(',', '', $data['product_qty'][$i]),
-                'quantity_remaining' => $data['product_qty'][$i],
                 'product_tax' => $data['product_tax'][$i],
                 'product_total' => str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]),
                 'price_export' => str_replace(',', '', $data['price_export'][$i]),
@@ -106,6 +104,7 @@ class QuoteImport extends Model
                 'workspace_id' => Auth::user()->current_workspace,
             ];
             $quote_id = DB::table($this->table)->insertGetId($dataQuote);
+
             $getProvide = DetailImport::where('id', $id)->first();
             if ($quote_id && $getProvide) {
                 $dataHistory = [
@@ -154,7 +153,6 @@ class QuoteImport extends Model
                     'product_name' => $data['product_name'][$i],
                     'product_unit' => $data['product_unit'][$i],
                     'product_tax' => $data['product_tax'][$i],
-                    'product_inventory' => str_replace(',', '', $data['product_qty'][$i]),
                     'check_seri' => 1,
                     'created_at' => now(),
                     'workspace_id' => Auth::user()->current_workspace,

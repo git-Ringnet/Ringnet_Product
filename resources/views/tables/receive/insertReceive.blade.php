@@ -168,7 +168,7 @@
                     </section>
                 </div>
 
-                <x-formsynthetic :import="$import"></x-formsynthetic>
+                <x-formsynthetic :import="''"></x-formsynthetic>
             </section>
         </div>
         <div class="content-wrapper2 px-0 py-0">

@@ -106,7 +106,7 @@ class PayExport extends Model
         $dataPay = [
             'detailexport_id' => $export_id,
             'user_id' => Auth::user()->id,
-            'guest_id' => $data['guest_id'],
+            'guest_id' => $detailExport->guest_id,
             'code_payment' => isset($data['code_payment']) && $data['code_payment'] != null ? $data['code_payment'] : "MTT-" . $lastPayExportId,
             'payment_date' => $date_pay,
             'total' => $total,
@@ -330,35 +330,46 @@ class PayExport extends Model
             ->update([
                 'qty_payment' => 0,
             ]);
-        productPay::where('pay_id', $id)->delete();
         DetailExport::where('id', $payExport->detailexport_id)
             ->update([
                 'amount_owed' => $payExport->total,
             ]);
+        PayExport::where('id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->delete();
+        productPay::where('pay_id', $id)->delete();
         $PayCount = productPay::where('pay_export.detailexport_id', $payExport->detailexport_id)
             ->leftJoin('pay_export', 'product_pay.pay_id', 'pay_export.id')
             ->where('pay_export.workspace_id', Auth::user()->current_workspace)
             ->count();
-
+        $deliveredCount = Delivered::where('delivery.detailexport_id', $payExport->detailexport_id)
+            ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+            ->count();
+        $BillCount = productBill::where('bill_sale.detailexport_id', $payExport->detailexport_id)
+            ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
+            ->count();
+        history_Pay_Export::where('pay_id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->delete();
+        if ($deliveredCount == 0 && $BillCount == 0 && $PayCount == 0) {
+            DetailExport::where('id', $payExport->detailexport_id)
+                ->update([
+                    'status' => 1,
+                ]);
+        }
         if ($PayCount > 0) {
             DetailExport::where('id', $payExport->detailexport_id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->update([
+                    'status' => 2,
                     'status_pay' => 3,
                 ]);
         } else {
             DetailExport::where('id', $payExport->detailexport_id)
-                ->where('workspace_id', Auth::user()->current_workspace)
                 ->update([
+                    'status' => 1,
                     'status_pay' => 0,
                 ]);
         }
-        history_Pay_Export::where('pay_id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->delete();
-        PayExport::where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->delete();
     }
     public function sumPay($id)
     {

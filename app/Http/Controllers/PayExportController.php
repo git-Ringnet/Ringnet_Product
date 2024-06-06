@@ -113,7 +113,7 @@ class PayExportController extends Controller
     public function store(Request $request)
     {
         $pay_id = $this->payExport->addPayExport($request->all(), $request->detailexport_id);
-        $this->productPay->addProductPay($request->all(), $pay_id, $request->detailexport_id);
+        $this->productPay->addProductPay($request->all(), $pay_id, $request->detailexport_id, $request->product_id);
         $arrCapNhatKH = [
             'name' => 'TT',
             'des' => 'Xác nhận'

@@ -92,8 +92,6 @@ class ReceiveController extends Controller
      */
     public function store(Request $request)
     {
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         // Quick Action
         if (isset($request->id_import)) {
             $id = $request->id_import;
@@ -119,12 +117,12 @@ class ReceiveController extends Controller
                 ];
                 DB::table('user_flow')->insert($dataUserFlow);
                 if (isset($request->id_import)) {
-                    return redirect()->route('import.index', $workspacename)->with('msg', 'Tạo mới đơn nhận hàng thành công !');
+                    return redirect()->route('import.index')->with('msg', 'Tạo mới đơn nhận hàng thành công !');
                 } else {
-                    return redirect()->route('receive.index', $workspacename)->with('msg', 'Tạo mới đơn nhận hàng thành công !');
+                    return redirect()->route('receive.index')->with('msg', 'Tạo mới đơn nhận hàng thành công !');
                 }
             } else {
-                return redirect()->route('receive.index', $workspacename)->with('warning', 'Đơn nhận hàng đã tạo hết sản phẩm !');
+                return redirect()->route('receive.index')->with('warning', 'Đơn nhận hàng đã tạo hết sản phẩm !');
             }
         } else {
             // Tạo sản phẩm theo đơn nhận hàng
@@ -151,12 +149,12 @@ class ReceiveController extends Controller
                 ];
                 DB::table('user_flow')->insert($dataUserFlow);
                 if (isset($request->id_import)) {
-                    return redirect()->route('import.index', $workspacename)->with('msg', 'Nhận hàng thành công !');
+                    return redirect()->route('import.index')->with('msg', 'Nhận hàng thành công !');
                 } else {
-                    return redirect()->route('receive.index', $workspacename)->with('msg', 'Nhận hàng thành công !');
+                    return redirect()->route('receive.index')->with('msg', 'Nhận hàng thành công !');
                 }
             } else {
-                return redirect()->route('receive.index', $workspacename)->with('warning', 'Đơn nhận hàng đã tạo hết sản phẩm !');
+                return redirect()->route('receive.index')->with('warning', 'Đơn nhận hàng đã tạo hết sản phẩm !');
             }
         }
     }
@@ -177,7 +175,7 @@ class ReceiveController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $workspace, string $id)
+    public function edit(string $id)
     {
         $receive = Receive_bill::findOrFail($id);
         $detail = DetailImport::where('id', $receive->detailimport_id)->first();
@@ -217,11 +215,9 @@ class ReceiveController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace, Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         // Cập nhật trạng thái
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $result = $this->receive->updateReceive($request->all(), $id);
         if ($result) {
             // Thêm sản phẩm, seri vào tồn kho
@@ -236,19 +232,17 @@ class ReceiveController extends Controller
             ];
             DB::table('user_flow')->insert($dataUserFlow);
 
-            return redirect()->route('receive.index', $workspacename)->with('msg', 'Nhận hàng thành công !');
+            return redirect()->route('receive.index')->with('msg', 'Nhận hàng thành công !');
         } else {
-            return redirect()->route('receive.index', $workspacename)->with('warning', 'Đơn hàng đã được nhận trước đó !');
+            return redirect()->route('receive.index')->with('warning', 'Đơn hàng đã được nhận trước đó !');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $workspace, string $id)
+    public function destroy(string $id)
     {
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
         $result = $this->receive->deleteReceive($id);
         if ($result) {
             $this->attachment->deleteFileAll($id, 'DNH');
@@ -261,9 +255,9 @@ class ReceiveController extends Controller
             ];
 
             DB::table('user_flow')->insert($dataUserFlow);
-            return redirect()->route('receive.index', $workspacename)->with('msg', 'Xóa đơn nhận hàng thành công !');
+            return redirect()->route('receive.index')->with('msg', 'Xóa đơn nhận hàng thành công !');
         } else {
-            return redirect()->route('receive.index', $workspacename)->with('warning', 'Sản phẩm đã được tạo trong đơn bán hàng !');
+            return redirect()->route('receive.index')->with('warning', 'Sản phẩm đã được tạo trong đơn bán hàng !');
         }
     }
     public function show_receive(Request $request)

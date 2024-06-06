@@ -94,6 +94,39 @@
                                 style="z-index: 9999;width:250px!important;transform: translate3d(-65px, 38px, 0px) !important;">
                                 <ul class="m-0 p-0 scroll-data">
                                     <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
+                                        <a href="#" onclick="getAction(this)" id="btnNhan">
+                                            <button name="action" value="action_2" type="submit"
+                                                style="background-color: transparent;"
+                                                class="align-items-left h-100 border-0 w-100 rounded hover-button text-center">
+                                                <span style="color: #282A30; font-size:14px">
+                                                    Chuyển đổi thành đơn giao hàng
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
+                                        <a href="#" onclick="getAction(this)" id="btnHoaDon">
+                                            <button name="action" value="action_3" type="submit"
+                                                style="background-color: transparent;"
+                                                class="align-items-left h-100 border-0 w-100 rounded hover-button">
+                                                <span style="color: #282A30; font-size:14px">
+                                                    Chuyển đổi thành hóa đơn
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
+                                        <a href="#" onclick="getAction(this)" id="btnThanhToan">
+                                            <button name="action" value="action_4" type="submit"
+                                                style="background-color: transparent;"
+                                                class="align-items-left h-100 border-0 w-100 rounded hover-button">
+                                                <span style="color: #282A30; font-size:14px">
+                                                    Chuyển đổi thành thanh toán
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
                                         <a href="#" onclick="getAction(this)" id="btnMuaHang">
                                             <button name="action" value="action_6" type="submit"
                                                 style="background-color: transparent;"

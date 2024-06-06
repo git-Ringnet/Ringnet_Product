@@ -124,7 +124,7 @@ class DeliveryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(string $workspace, Request $request)
+    public function store(Request $request)
     {
         if ($request->action == 1) {
             $delivery_id = $this->delivery->addDelivery($request->all());
@@ -139,9 +139,9 @@ class DeliveryController extends Controller
                 $request->session()->put('pdf_info1.delivery_id', $delivery_id);
             }
             if ($request->redirect == "delivery") {
-                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', ' Tạo mới đơn giao hàng thành công !');
+                return redirect()->route('detailExport.index')->with('msg', ' Tạo mới đơn giao hàng thành công !');
             } else {
-                return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', ' Tạo mới đơn giao hàng thành công !');
+                return redirect()->route('delivery.index')->with('msg', ' Tạo mới đơn giao hàng thành công !');
             }
         }
         if ($request->action == 2) {
@@ -152,9 +152,9 @@ class DeliveryController extends Controller
             ];
             $this->userFlow->addUserFlow($arrLuuNhap);
             if ($request->redirect == "delivery") {
-                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
+                return redirect()->route('detailExport.index')->with('msg', 'Xác nhận đơn giao hàng thành công!');
             } else {
-                return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
+                return redirect()->route('delivery.index')->with('msg', 'Xác nhận đơn giao hàng thành công!');
             }
         }
     }
@@ -240,7 +240,7 @@ class DeliveryController extends Controller
         //
     }
 
-    public function watchDelivery(string $workspace, string $id)
+    public function watchDelivery(string $id)
     {
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
@@ -262,7 +262,7 @@ class DeliveryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace, Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         if ($request->action == "action_1") {
             $delivery = Delivery::find($id);
@@ -289,7 +289,7 @@ class DeliveryController extends Controller
                     'des' => 'Xác nhận'
                 ];
                 $this->userFlow->addUserFlow($arrCapNhatKH);
-                return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
+                return redirect()->route('delivery.index')->with('msg', 'Xác nhận đơn giao hàng thành công!');
             }
         }
         if ($request->action == "action_2") {
@@ -303,14 +303,14 @@ class DeliveryController extends Controller
                 'des' => 'Xóa đơn giao hàng'
             ];
             $this->userFlow->addUserFlow($arrCapNhatKH);
-            return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn giao hàng thành công!');
+            return redirect()->route('delivery.index')->with('msg', 'Xóa đơn giao hàng thành công!');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $workspace, string $id)
+    public function destroy(string $id)
     {
         $this->delivery->deleteDeliveryItem($id);
         $table_id = $id;
@@ -322,7 +322,7 @@ class DeliveryController extends Controller
             'des' => 'Xóa đơn giao hàng'
         ];
         $this->userFlow->addUserFlow($arrCapNhatKH);
-        return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn giao hàng thành công!');
+        return redirect()->route('delivery.index')->with('msg', 'Xóa đơn giao hàng thành công!');
     }
 
     public function getInfoQuote(Request $request)

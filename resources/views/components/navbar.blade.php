@@ -374,21 +374,37 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('detailExport.index') }}" data-name1="BH" data-des="Đơn báo giá"
+                                <a href="{{ route('detailExport.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn bán hàng"
                                     class="nav-link activity1
                                     @if (!empty($activeName) && $activeName == 'quote') active @endif">
                                     <p class="text-nav ml-2">Đơn bán hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('payExport.index') }}" data-name1="BH"
+                                <a href="{{ route('delivery.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
+                                    <p class="text-nav ml-2">Đơn giao hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('billSale.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Hóa đơn bán hàng"
+                                    class="nav-link activity1  @if (!empty($activeName) && $activeName == 'billsale') active @endif">
+                                    <p class="text-nav ml-2">Hóa đơn bán hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('payExport.index', $workspacename) }}" data-name1="BH"
                                     data-des="Thanh toán bán hàng"
                                     class="nav-link activity1 @if (!empty($activeName) && $activeName == 'payexport') active @endif">
                                     <p class="text-nav ml-2">Thanh toán bán hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('guests.index') }}" data-name1="BH" data-des="Khách hàng"
+                                <a href="{{ route('guests.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Khách hàng"
                                     class="nav-link activity1  @if (!empty($activeName) && $activeName == 'guest') active @endif">
                                     <p class="text-nav ml-2">Khách hàng</p>
                                 </a>
@@ -439,6 +455,18 @@
                                 <a href="{{ route('import.index') }}"
                                     class="nav-link  @if (!empty($activeName) && $activeName == 'import') active @endif">
                                     <p class="text-nav ml-2">Đơn mua hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item user_flow_nav" data-type="DNH" data-des="DNH">
+                                <a href="{{ route('receive.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'receive') active @endif ">
+                                    <p class="text-nav ml-2">Đơn nhận hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item user_flow_nav" data-type="HDMH" data-des="HDMH">
+                                <a href="{{ route('reciept.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'reciept') active @endif ">
+                                    <p class="text-nav ml-2">Hóa đơn mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item user_flow_nav" data-type="TTMH" data-des="TTMH">

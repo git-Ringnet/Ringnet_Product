@@ -89,7 +89,7 @@ class DetailImportController extends Controller
         if ($result['status']) {
             // 
             $import_id = $result['detail_id'];
-            // Thêm sản phẩm theo đơn hàng, thêm vào lịch sử, Thêm sản phẩm vào tồn kho
+            // Thêm sản phẩm theo đơn hàng, thêm vào lịch sử
             $this->quoteImport->addQuoteImport($request->all(), $import_id);
             //
             // Tạo sản phẩm theo đơn nhận hàng
@@ -109,7 +109,7 @@ class DetailImportController extends Controller
                 // Lưu lịch sử
                 $this->historyPayment->addHistoryPayment($request->all(), $payment);
             }
-            return redirect()->route('import.index')->with('msg', 'Tạo mới đơn nhập hàng thành công !');
+            return redirect()->route('import.index')->with('msg', 'Tạo mới đơn mua hàng thành công !');
         } else {
             return redirect()->route('import.index')->with('warning', 'Số đơn mua hàng đã tồn tại !');
         }
@@ -344,7 +344,8 @@ class DetailImportController extends Controller
                 ];
             }
         } elseif (isset($data['delivery_code'])) {
-            $delivery_code = Receive_bill::where('delivery_code', $data['delivery_code']);
+            $delivery_code = Receive_bill::where('delivery_code', $data['delivery_code'])
+                ->where('workspace_id', Auth::user()->current_workspace)->first();
             if ($delivery_code) {
                 $result = [
                     'status' => false,
@@ -356,7 +357,7 @@ class DetailImportController extends Controller
             }
         } elseif (isset($data['number_bill'])) {
             $number_bill = Reciept::where('number_bill', $data['number_bill'])
-                ->where('workspace_id', Auth::user()->current_workspace);
+                ->where('workspace_id', Auth::user()->current_workspace)->first();
             if ($number_bill->isEmpty()) {
                 $result = [
                     'status' => false,

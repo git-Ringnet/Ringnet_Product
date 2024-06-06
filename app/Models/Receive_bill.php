@@ -307,6 +307,9 @@ class Receive_bill extends Model
                             foreach ($SN as $sn) {
                                 $sn->delete();
                             }
+                            //Cập nhật số lượng còn lại của sản phẩm
+                            $quoteImport->quantity_remaining = $quoteImport->quantity_remaining - $item->product_qty;
+                            $quoteImport->save();
                         }
                         // Trừ sản phẩm khỏi tồn kho
                         $product = Products::where('id', $item->product_id)

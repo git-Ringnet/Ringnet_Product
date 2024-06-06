@@ -95,8 +95,24 @@ class DetailExport extends Model
                 $voucher = (($totalBeforeTax + $totalTax) * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
             }
         }
+        $guestID = 0;
+        if (isset($data['guestName'])) {
+            $guestName = Guest::where('guest_name_display', $data['guestName'])
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+            if (!$guestName) {
+                $guest = new Guest();
+                $guest->guest_name_display = $data['guestName'];
+                $guest->workspace_id = Auth::user()->current_workspace;
+                $guest->user_id = Auth::user()->id;
+                $guest->save();
+                $guestID = $guest->id;
+            } else {
+                $guestID = $guestName->id;
+            }
+        }
         $dataExport = [
-            'guest_id' => $data['guest_id'],
+            'guest_id' => $data['guest_id'] == null ? $guestID : $data['guest_id'],
             'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,
             'user_id' => Auth::user()->id,
             'represent_id' => $data['represent_guest_id'],
@@ -348,46 +364,6 @@ class DetailExport extends Model
     public function deleteDetailExport($id)
     {
         $detailExport = DetailExport::find($id);
-        $quoteExports = QuoteExport::where('detailexport_id', $id)->where('status', 1)->get();
-        //Cập nhật tồn kho sản phẩm, Cập nhật số lượng còn lại của đơn nhập
-        foreach ($quoteExports as $detail) {
-            $productId = $detail->product_id;
-            $quantityToRestore = $detail->product_qty;
-
-            // Cập nhật lại tồn kho sản phẩm
-            $product = Products::find($productId);
-            if ($product) {
-                $product->product_inventory += $quantityToRestore;
-                $product->save();
-            }
-
-            // Khôi phục lại số lượng còn lại của các đơn nhập
-            $remainingQuantityToRestore = $quantityToRestore;
-
-            $quoteImports = DB::table('quoteimport')
-                ->where('product_id', $productId)
-                ->orderBy('created_at', 'asc')
-                ->get();
-
-            foreach ($quoteImports as $quoteImport) {
-                if ($remainingQuantityToRestore <= 0) {
-                    break;
-                }
-
-                $quantityRemaining = $quoteImport->quantity_remaining;
-
-                // Cập nhật lại số lượng còn lại
-                if ($quantityRemaining < $quoteImport->product_qty) {
-                    $restoredQuantity = min($quoteImport->product_qty - $quantityRemaining, $remainingQuantityToRestore);
-
-                    DB::table('quoteimport')
-                        ->where('id', $quoteImport->id)
-                        ->update(['quantity_remaining' => $quantityRemaining + $restoredQuantity]);
-
-                    $remainingQuantityToRestore -= $restoredQuantity;
-                }
-            }
-        }
         QuoteExport::where('detailexport_id', $id)->delete();
         $detailExport->delete();
     }

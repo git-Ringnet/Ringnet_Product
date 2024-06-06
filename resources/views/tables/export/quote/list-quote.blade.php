@@ -12,12 +12,12 @@
                             fill="#26273B" fill-opacity="0.8" />
                     </svg>
                 </span>
-                <span class="font-weight-bold text-secondary">Đơn bán hàng</span>
+                <span class="font-weight-bold text-secondary">Đơn báo giá</span>
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('detailExport.create') }}" class="activity mr-3" data-name1="BG"
-                        data-des="Tạo mới">
+                    <a href="{{ route('detailExport.create') }}" class="activity mr-3"
+                        data-name1="BG" data-des="Tạo mới">
                         <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -104,7 +104,7 @@
                                         </div>
                                         <div class="scrollbar">
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-date"
-                                                data-button="date" type="button">Ngày bán hàng
+                                                data-button="date" type="button">Ngày báo giá
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-quotenumber" data-button="quotenumber" type="button">Số báo
@@ -122,6 +122,9 @@
                                                     data-button="users" type="button">Người tạo
                                                 </button>
                                             @endcan
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-status"
+                                                data-button="status" type="button">Trạng thái
+                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-receive"
                                                 data-button="receive" type="button">Giao hàng
                                             </button>
@@ -147,6 +150,9 @@
                                     <x-filter-text name="guests" title="Khách hàng" />
                                     <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
                                         namedisplay="name" />
+                                    <x-filter-status name="status" key1="1" value1="Draft" color1="#858585"
+                                        key2="2" value2="Approved" color2="#E8B600" key3="3"
+                                        value3="Close" color3="#08AA36BF" title="Trạng thái" />
                                     <x-filter-status name="receive" key1="1" value1="Chưa giao"
                                         color1="#858585" key2="2" value2="Đã giao" color2="#08AA36BF"
                                         key3="3" value3="Một phần" color3="#E8B600" title="Giao hàng" />
@@ -183,29 +189,39 @@
                                                 class="height-52">
                                                 <input type="checkbox" name="all" id="checkall">
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 18%;">
+                                            <th scope="col" class="height-52" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
-                                                            Mã bán hàng#
+                                                            Số báo giá#
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 18%;">
+                                            <th scope="col" class="height-52" style="width: 12%;">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="reference_number" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Số tham
+                                                            chiếu</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-reference_number"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="ngayBG" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
-                                                            Ngày bán hàng
+                                                            Ngày báo giá
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-ngayBG"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 18%;">
+                                            <th scope="col" class="height-52" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="guest_name_display"
@@ -217,7 +233,7 @@
                                                 </span>
                                             </th>
                                             @can('isAdmin')
-                                                <th scope="col" class="height-52" style="width: 15%;">
+                                                <th scope="col" class="height-52" style="width: 10%;">
                                                     <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link btn-submit" data-sort-by=""
                                                             data-sort-type="DESC">
@@ -229,13 +245,40 @@
                                                     </span>
                                                 </th>
                                             @endcan
-                                            <th scope="col" class="height-52" style="width: 15%;">
+                                            <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="status_pay" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">
-                                                            Thanh toán
-                                                        </button>
+                                                        data-sort-by="status" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Trạng
+                                                            thái</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-status"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52" style="width: 8%;">
+                                                <span class="d-flex justify-content-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="status_receive" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Giao hàng</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-status_receive"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52" style="width: 8%;">
+                                                <span class="d-flex justify-content-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="status_reciept" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Hóa đơn</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-status_reciept"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52" style="width: 8%;">
+                                                <span class="d-flex justify-content-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="status_pay" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Thanh
+                                                            toán</button>
                                                     </a>
                                                     <div class="icon" id="icon-status_pay"></div>
                                                 </span>
@@ -285,6 +328,10 @@
                                                             data-des="Xem đơn báo giá">{{ $value_export->quotation_number }}</a>
                                                     </div>
                                                 </td>
+                                                <td
+                                                    class="text-13-black max-width120 text-left border-top-0 border-bottom">
+                                                    {{ $value_export->reference_number }}
+                                                </td>
                                                 <td class="text-13-black text-left border-top-0 border-bottom">
                                                     {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
                                                 <td
@@ -297,6 +344,85 @@
                                                         {{ $value_export->name }}
                                                     </td>
                                                 @endcan
+                                                <td class="text-13-black text-center border-top-0 border-bottom">
+                                                    @if ($value_export->tinhTrang === 1)
+                                                        <span class="text-secondary">Draft</span>
+                                                    @elseif($value_export->tinhTrang === 2)
+                                                        <span class="text-warning">Approved</span>
+                                                    @elseif($value_export->tinhTrang === 3)
+                                                        <span class="text-success">Close</span>
+                                                    @endif
+                                                </td>
+                                                <td class="text-13-black text-center border-top-0 border-bottom">
+                                                    @if ($value_export->status_receive === 1)
+                                                        <svg width="16" height="16" viewBox="0 0 16 16"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                                                fill="#858585" />
+                                                        </svg>
+                                                    @elseif ($value_export->status_receive === 3)
+                                                        <svg width="16" height="16" viewBox="0 0 16 16"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g clip-path="url(#clip0_1699_20021)">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
+                                                                    fill="#E8B600" />
+                                                                <path
+                                                                    d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
+                                                                    fill="#E8B600" />
+                                                            </g>
+                                                            <defs>
+                                                                <clipPath id="clip0_1699_20021">
+                                                                    <rect width="16" height="16"
+                                                                        fill="white" />
+                                                                </clipPath>
+                                                            </defs>
+                                                        </svg>
+                                                    @elseif($value_export->status_receive === 2)
+                                                        <svg width="16" height="16" viewBox="0 0 16 16"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                                                fill="#08AA36" fill-opacity="0.75" />
+                                                        </svg>
+                                                    @endif
+                                                </td>
+                                                <td class="text-13-black text-center border-top-0 border-bottom">
+                                                    @if ($value_export->status_reciept === 1)
+                                                        <svg width="16" height="16" viewBox="0 0 16 16"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                                                fill="#858585" />
+                                                        </svg>
+                                                    @elseif ($value_export->status_reciept === 3)
+                                                        <svg width="16" height="16" viewBox="0 0 16 16"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g clip-path="url(#clip0_1699_20021)">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
+                                                                    fill="#E8B600" />
+                                                                <path
+                                                                    d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
+                                                                    fill="#E8B600" />
+                                                            </g>
+                                                            <defs>
+                                                                <clipPath id="clip0_1699_20021">
+                                                                    <rect width="16" height="16"
+                                                                        fill="white" />
+                                                                </clipPath>
+                                                            </defs>
+                                                        </svg>
+                                                    @elseif($value_export->status_reciept === 2)
+                                                        <svg width="16" height="16" viewBox="0 0 16 16"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                                                fill="#08AA36" fill-opacity="0.75" />
+                                                        </svg>
+                                                    @endif
+                                                </td>
                                                 <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($value_export->status_pay === 1)
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
@@ -333,19 +459,7 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    @php
-                                                        $discount = 0;
-                                                        if ($value_export->discount_type == 1) {
-                                                            $discount = $value_export->discount;
-                                                        } else {
-                                                            $discount =
-                                                                (($value_export->total_price +
-                                                                    $value_export->total_tax) *
-                                                                    $value_export->discount) /
-                                                                100;
-                                                        }
-                                                    @endphp
-                                                    {{ number_format($value_export->total_price + $value_export->total_tax - $discount) }}
+                                                    {{ number_format($value_export->total_price + $value_export->total_tax) }}
                                                 </td>
                                                 <td
                                                     class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
@@ -417,6 +531,72 @@
 </div>
 <div class="menu bg-hover rounded"
     style="display: none; background: #ffffff; position: absolute; width:13%;  padding: 3px 10px;  box-shadow: 0 0 10px -3px rgba(0, 0, 0, .3);   border: 1px solid #ccc;">
+    <a href="#" class="text-dark">
+        <p class="quickAction p-2 rounded my-1 text-13-black" data-type="receive" data-toggle="modal"
+            data-target="#exampleModal">
+            <span class="mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14"
+                    fill="none">
+                    <path
+                        d="M3.78596 0.285463C3.20002 0.359682 2.50471 0.625307 1.98127 0.972963C1.63752 1.19953 1.09064 1.7464 0.852362 2.10187C0.180487 3.11359 -0.0226381 4.34406 0.289862 5.53546C0.532049 6.45343 1.19611 7.3675 2.01642 7.91437L2.35627 8.13703L2.36799 9.94171C2.37971 11.7152 2.37971 11.7503 2.46564 11.9066C2.60236 12.1644 2.73908 12.3011 2.96174 12.4105C3.14533 12.5003 3.23908 12.5159 3.67658 12.5355L4.18049 12.5589L4.2508 12.7503C4.33674 13.0003 4.72345 13.4105 4.98908 13.5433C5.78595 13.93 6.74299 13.5862 7.11408 12.7777L7.21955 12.5472H10.411H13.5985L13.7195 12.7933C14.036 13.43 14.7039 13.7933 15.3641 13.68C15.9266 13.5862 16.3445 13.2659 16.5633 12.762C16.6727 12.5081 16.6766 12.5081 16.8328 12.5081C17.2078 12.5081 17.5399 12.305 17.7313 11.9573L17.8485 11.7464L17.8602 10.2777L17.8719 8.81281L17.4578 7.66437C17.2274 7.03156 16.9969 6.43 16.9461 6.32453C16.7391 5.92218 16.3328 5.61359 15.8836 5.51984C15.7586 5.4925 15.1961 5.47687 14.45 5.47687H13.2195V4.89875C13.2195 4.23468 13.1727 4.01984 12.9695 3.75421C12.8992 3.65656 12.743 3.52765 12.6297 3.46515L12.4188 3.34796L10.3836 3.33625L8.34455 3.32453L8.25861 3.06281C7.64142 1.22296 5.73517 0.0393696 3.78596 0.285463ZM4.76642 1.10578C5.4422 1.19953 6.07892 1.4964 6.57502 1.94953C6.91486 2.25812 7.15705 2.59015 7.35627 3.02375C7.59064 3.53156 7.64924 3.8089 7.64924 4.44171C7.64533 4.92218 7.63361 5.03156 7.54377 5.33234C7.23908 6.32843 6.6258 7.04328 5.71174 7.46515C5.29377 7.66046 4.96955 7.7425 4.50861 7.76984C2.66486 7.87921 1.07892 6.46515 0.965643 4.6175C0.840643 2.53156 2.69611 0.816713 4.76642 1.10578ZM12.3055 4.2464L12.3992 4.34015L12.3914 8.02375L12.3797 11.7073L9.79767 11.7191L7.21955 11.7269L7.1297 11.512C6.92658 11.0237 6.37189 10.6175 5.83674 10.5706C5.55549 10.5433 5.20783 10.6136 4.93439 10.7542C4.68439 10.8792 4.40314 11.1878 4.26642 11.4769L4.14533 11.7347L3.74299 11.7191C3.1258 11.6995 3.18049 11.8597 3.18049 10.0081V8.45734L3.40705 8.51203C3.77814 8.60578 4.66486 8.6214 5.07111 8.54718C6.99299 8.1839 8.39142 6.57843 8.48127 4.62531L8.5047 4.14875H10.3563H12.2078L12.3055 4.2464ZM15.8563 6.3714C16.1492 6.50812 16.2 6.59796 16.6375 7.80109L17.0477 8.9339V10.2269C17.0477 11.6605 17.0477 11.6527 16.7938 11.7073C16.6805 11.7269 16.6688 11.7191 16.5672 11.4964C16.2625 10.8284 15.5399 10.4495 14.8406 10.5941C14.282 10.7073 13.8602 11.0706 13.6531 11.6214C13.6141 11.7152 13.5945 11.7269 13.4149 11.7269H13.2195V9.01203V6.29718H14.4617C15.5828 6.29718 15.7156 6.305 15.8563 6.3714ZM6.02814 11.4886C6.25861 11.5941 6.39533 11.8089 6.41486 12.0784C6.43439 12.3636 6.38361 12.5042 6.18439 12.68C5.90705 12.9339 5.54767 12.9534 5.2508 12.7386C4.98517 12.5472 4.8797 12.223 4.98517 11.9183C5.13752 11.4612 5.59064 11.2777 6.02814 11.4886ZM15.3875 11.4417C15.5399 11.4808 15.7313 11.6605 15.8055 11.8362C16.0594 12.4105 15.5438 13.0237 14.9461 12.8597C14.368 12.7073 14.2039 11.9183 14.6727 11.5589C14.8797 11.3987 15.0945 11.3636 15.3875 11.4417Z"
+                        fill="black" />
+                    <path
+                        d="M4.77368 3.94181L3.64868 5.0629L3.18774 4.60587C2.68774 4.10978 2.58227 4.05118 2.36743 4.16447C2.29711 4.19962 2.21508 4.28165 2.17993 4.34806C2.05883 4.58243 2.10961 4.66447 2.82055 5.36759C3.47289 6.01993 3.58618 6.09806 3.77368 6.04337C3.82446 6.02775 4.44946 5.434 5.16039 4.72306C6.55102 3.34025 6.57055 3.31681 6.46118 3.05118C6.39086 2.89103 6.27758 2.82072 6.07446 2.82072H5.89868L4.77368 3.94181Z"
+                        fill="black" />
+                    <path
+                        d="M8.92669 6.78906C8.77825 6.91406 8.73529 7.10156 8.82122 7.26953C8.93841 7.49609 9.01263 7.50781 10.0947 7.50781C11.1767 7.50781 11.2509 7.49609 11.3681 7.26953C11.454 7.10156 11.4111 6.91406 11.2626 6.78906L11.1415 6.6875H10.0947H9.04779L8.92669 6.78906Z"
+                        fill="black" />
+                    <path
+                        d="M5.58227 8.51953C5.32836 8.625 5.26195 8.98047 5.45727 9.17578L5.56273 9.28516H8.37523H11.1877L11.2932 9.17578C11.4495 9.02344 11.4495 8.76562 11.2932 8.61328L11.1877 8.50391L8.42211 8.49609C6.90258 8.49219 5.62523 8.50391 5.58227 8.51953Z"
+                        fill="black" />
+                    <path
+                        d="M13.8477 6.74219C13.6602 6.84375 13.6523 6.91016 13.6484 8.00781V9.03906L13.7812 9.17188L13.9141 9.30469H15.043C16.082 9.30469 16.1758 9.29688 16.2891 9.23047C16.3633 9.18359 16.4336 9.09766 16.457 9.01953C16.5 8.89453 16.4766 8.81641 16.1875 7.99609C16.0117 7.50391 15.8242 7.04688 15.7734 6.97656C15.582 6.72656 15.4297 6.6875 14.6406 6.6875C14.1367 6.69141 13.9141 6.70312 13.8477 6.74219ZM15.2969 7.9375C15.3789 8.16406 15.457 8.37891 15.4687 8.41406C15.4883 8.48047 15.4492 8.48438 14.9805 8.48438H14.4687V7.99609V7.50391L14.8086 7.51562L15.1523 7.52734L15.2969 7.9375Z"
+                        fill="black" />
+                </svg>
+            </span>
+            <span class="title_delivery">Tạo đơn giao hàng</span>
+        </p>
+    </a>
+    <a href="#" class="text-dark">
+        <p class="quickAction p-2 rounded my-1 text-13-black" data-type="reciept" data-toggle="modal"
+            data-target="#exampleModal">
+            <span class="mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                    fill="none">
+                    <path
+                        d="M16.6667 9.16667V4.16667C16.6667 3.72464 16.4911 3.30072 16.1785 2.98816C15.866 2.67559 15.442 2.5 15 2.5H4.16667C3.72464 2.5 3.30072 2.67559 2.98816 2.98816C2.67559 3.30072 2.5 3.72464 2.5 4.16667V15.8333C2.5 16.2754 2.67559 16.6993 2.98816 17.0118C3.30072 17.3244 3.72464 17.5 4.16667 17.5H8.33333"
+                        stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M7.70898 12.5H8.33398" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M14.584 11.5146V14.1663" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M17.5007 18.333H11.7715C11.5228 18.333 11.2844 18.2342 11.1086 18.0584C10.9328 17.8826 10.834 17.6441 10.834 17.3955V13.8055C10.8341 13.5803 10.8798 13.3576 10.9682 13.1505L11.424 12.0838C11.4963 11.9149 11.6165 11.771 11.7698 11.6698C11.9231 11.5686 12.1028 11.5147 12.2865 11.5146H16.8815C17.0651 11.5147 17.2446 11.5687 17.3978 11.6699C17.5509 11.7711 17.671 11.915 17.7432 12.0838L18.1998 13.1521C18.2883 13.3592 18.334 13.582 18.334 13.8071V17.4996C18.334 17.7207 18.2462 17.9326 18.0899 18.0889C17.9336 18.2452 17.7217 18.333 17.5007 18.333Z"
+                        stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path
+                        d="M18.334 15.0003C18.334 14.7793 18.2462 14.5673 18.0899 14.4111C17.9336 14.2548 17.7217 14.167 17.5007 14.167H11.6673C11.4463 14.167 11.2343 14.2548 11.0781 14.4111C10.9218 14.5673 10.834 14.7793 10.834 15.0003"
+                        stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M7.70898 9.16699H10.834" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M7.70898 5.9375H13.334" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M5.625 6.5C5.74861 6.5 5.86945 6.46334 5.97223 6.39467C6.07501 6.32599 6.15512 6.22838 6.20242 6.11418C6.24973 5.99997 6.26211 5.87431 6.23799 5.75307C6.21388 5.63183 6.15435 5.52046 6.06694 5.43306C5.97953 5.34565 5.86817 5.28613 5.74693 5.26201C5.62569 5.23789 5.50003 5.25027 5.38582 5.29757C5.27162 5.34488 5.17401 5.42499 5.10533 5.52777C5.03666 5.63055 5 5.75139 5 5.875C5 6.04076 5.06585 6.19973 5.18306 6.31694C5.30027 6.43415 5.45924 6.5 5.625 6.5Z"
+                        fill="#26273B" fill-opacity="0.8" />
+                    <path
+                        d="M5.625 9.83301C5.74861 9.83301 5.86945 9.79635 5.97223 9.72767C6.07501 9.659 6.15512 9.56139 6.20242 9.44718C6.24973 9.33298 6.26211 9.20731 6.23799 9.08608C6.21388 8.96484 6.15435 8.85347 6.06694 8.76606C5.97953 8.67866 5.86817 8.61913 5.74693 8.59502C5.62569 8.5709 5.50003 8.58328 5.38582 8.63058C5.27162 8.67789 5.17401 8.75799 5.10533 8.86077C5.03666 8.96355 5 9.08439 5 9.20801C5 9.37377 5.06585 9.53274 5.18306 9.64995C5.30027 9.76716 5.45924 9.83301 5.625 9.83301Z"
+                        fill="#26273B" fill-opacity="0.8" />
+                    <path
+                        d="M5.625 13.083C5.74861 13.083 5.86945 13.0464 5.97223 12.9777C6.07501 12.909 6.15512 12.8114 6.20242 12.6972C6.24973 12.583 6.26211 12.4573 6.23799 12.3361C6.21388 12.2148 6.15435 12.1035 6.06694 12.0161C5.97953 11.9287 5.86817 11.8691 5.74693 11.845C5.62569 11.8209 5.50003 11.8333 5.38582 11.8806C5.27162 11.9279 5.17401 12.008 5.10533 12.1108C5.03666 12.2136 5 12.3344 5 12.458C5 12.6238 5.06585 12.7827 5.18306 12.8999C5.30027 13.0172 5.45924 13.083 5.625 13.083Z"
+                        fill="#26273B" fill-opacity="0.8" />
+                </svg>
+            </span>
+            <span class="title_billsale">Tạo hóa đơn</span>
+        </p>
+    </a>
     <a href="#" class="text-dark">
         <p class="quickAction p-2 rounded my-1 text-13-black" data-type="payorder" data-toggle="modal"
             data-target="#exampleModal">

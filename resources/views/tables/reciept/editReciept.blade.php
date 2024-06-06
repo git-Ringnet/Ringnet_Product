@@ -358,8 +358,7 @@
                                 </table>
                             </div>
                         </section>
-                        <?php $import = '123'; ?>
-                        <x-formsynthetic :import="$import"></x-formsynthetic>
+                        <x-formsynthetic :import="''"></x-formsynthetic>
                     </div>
 
                     <div id="files" class="tab-pane fade">

@@ -157,10 +157,7 @@ class Guest extends Model
         $exist = false;
         $guests = DB::table($this->table)
             ->where('workspace_id', Auth::user()->current_workspace)
-            ->where(function ($query) use ($data) {
-                $query->where('guest_code', $data['guest_code'])
-                    ->orWhere('guest_name_display', $data['guest_name_display']);
-            })
+            ->where('guest_name_display', $data['guest_name_display'])
             ->first();
         if ($guests) {
             $exist = true;
@@ -231,10 +228,7 @@ class Guest extends Model
     {
         $checkGuest = DB::table($this->table)
             ->where('workspace_id', Auth::user()->current_workspace)
-            ->where(function ($query) use ($data) {
-                $query->where('guest_code', $data['guest_code'])
-                    ->orWhere('guest_name_display', $data['guest_name_display']);
-            })
+            ->Where('guest_name_display', $data['guest_name_display'])
             ->where('id', '!=', $data['guest_id'])
             ->first();
         if ($checkGuest) {
