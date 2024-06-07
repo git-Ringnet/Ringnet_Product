@@ -222,14 +222,14 @@
     <!-- Main Sidebar Container -->
     <div class="header-fixed border-bottom-0">
         <div class="d-flex align-items-center justify-content-between w-100 px-3 py-2">
-            <a href="{{ route('welcome', $workspacename) }}">
+            <a href="{{ route('welcome') }}">
                 <img src="{{ asset('dist/img/logo_ringnetOC_small.png') }}" alt="">
             </a>
         </div>
         <!-- Main Sidebar Container -->
         <div class="d-flex align-items-center justify-content-between w-100 border" style="background: #F3F5F7;">
             <div class="p-1 d-flex content__heading--right">
-                <a href="{{ route('welcome', $workspacename) }}" class="height-36">
+                <a href="{{ route('welcome') }}" class="height-36">
                     <button type="button"
                         class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'member') active @endif">
                         <i class="fas fa-angle-left"></i>
@@ -237,20 +237,20 @@
                     </button>
                 </a>
                 @if (Auth::user()->origin_workspace === Auth::user()->current_workspace)
-                    <a href="{{ route('overview', $workspacename) }}" class="height-36">
+                    <a href="{{ route('overview') }}" class="height-36">
                         <button type="button"
                             class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'overview') active @endif">
                             Tổng quan
                         </button>
                     </a>
                 @endif
-                <a href="{{ route('viewCompany', $workspacename) }}" class="height-36">
+                <a href="{{ route('viewCompany') }}" class="height-36">
                     <button type="button"
                         class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewCompany') active @endif">
                         Thông tin doanh nghiệp
                     </button>
                 </a>
-                <a href="{{ route('viewUser', $workspacename) }}" class="height-36">
+                <a href="{{ route('viewUser') }}" class="height-36">
                     <button type="button"
                         class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'user') active @endif">
                         Thông tin cá nhân

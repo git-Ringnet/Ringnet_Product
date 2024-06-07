@@ -248,7 +248,7 @@
         </nav>
         <div class="header-fixed border-bottom-0">
             <div class="d-flex align-items-center justify-content-between w-100 px-3 py-2">
-                <a href="{{ route('welcome', $workspacename) }}">
+                <a href="{{ route('welcome') }}">
                     <img src="{{ asset('dist/img/logo_ringnetOC_small.png') }}" alt="">
                 </a>
                 <div class="align-baseline setting">
