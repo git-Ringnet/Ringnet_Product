@@ -8,7 +8,7 @@
         <input type="hidden" id="provides_id" name="provides_id" value="{{ $import->provide_id }}">
         <input type="hidden" id="project_id" name="project_id" value="{{ $import->project_id }}">
         <input type="hidden" id="represent_id" name="represent_id" value="{{ $import->represent_id }}">
-        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
+        <div class="content-header-fixed p-0 border-bottom-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Mua hàng</span>
@@ -84,7 +84,7 @@
         <x-formprovides> </x-formprovides>
 
         <div class="content margin-top-38" id="main">
-            <section class="content margin-250">
+            <section class="content">
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">

@@ -10,7 +10,7 @@
         <input type="hidden" name="table_name" value="DMH">
         <input type="hidden" id="provides_id" name="provides_id" value="{{ $import->provide_id }}">
         <input type="hidden" id="project_id" name="project_id" value="{{ $import->project_id }}">
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 m-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Mua hàng</span>
@@ -232,7 +232,7 @@
             </section>
         </div>
         <div class="content margin-top-68" id="main">
-            <section class="content margin-250">
+            <section class="content">
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">
@@ -603,7 +603,7 @@
             </section>
         </div>
         <div class="content">
-            <div id="mySidenav" class="sidenav border" style="top:109px !important;">
+            <div id="mySidenav" class="sidenav border" style="top:220px !important;">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-0 text-center border-custom">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">

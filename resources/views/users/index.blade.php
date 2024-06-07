@@ -1,6 +1,6 @@
 <x-navbar-setting title="Nhân viên" activeName="users"></x-navbar-setting>
 <div class="content-wrapper m-0 min-height--none">
-    <div class="content-header-fixed p-0 margin-250 border-bottom-0">
+    <div class="content-header-fixed p-0 m-0 border-bottom-0">
         <div class="content__header--inner margin-left32">
             <div class="content__heading--left">
                 <span class="font-weight-bold text-secondary">Nhân viên</span>
@@ -136,7 +136,7 @@
         </div>
     </div>
     <div class="content margin-top-75">
-        <section class="content margin-250">
+        <section class="content">
             <div class="container-fluided">
                 <div class="row result-filter-detailExport margin-left30 my-1">
                 </div>

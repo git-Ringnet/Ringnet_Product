@@ -1,7 +1,7 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="payexport"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
-    <div class="content-header-fixed p-0 margin-250 border-0">
-        <div class="content__header--inner margin-left32">
+    <div class="content-header-fixed p-0 border-0">
+        <div class="content__header--inner">
             <div class="content__heading--left">
                 <span>Bán hàng</span>
                 <span>
@@ -164,7 +164,7 @@
         </div>
     </div>
     <div class="content margin-top-75">
-        <section class="content margin-250">
+        <section class="content">
             <div class="container-fluided">
                 <div class="row result-filter-payExport margin-left30 my-1">
                 </div>

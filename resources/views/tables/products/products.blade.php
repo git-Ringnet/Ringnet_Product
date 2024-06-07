@@ -2,8 +2,8 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
-    <div class="content-header-fixed p-0 margin-250 border-bottom-0">
-        <div class="content__header--inner margin-left32">
+    <div class="content-header-fixed p-0 border-bottom-0">
+        <div class="content__header--inner">
             <div class="content__heading--left">
                 <span>Kho hàng</span>
                 <span>
@@ -112,13 +112,13 @@
             </div>
         </div>
     </div>
-    <a href="{{ route('exportDatabase') }}">
+    <a href="{{ route('exportDatabase') }}" class="d-none">
         Export
     </a>
 </div>
 <!-- Main content -->
 <section class="content margin-top-75">
-    <div class="container-fluided margin-250">
+    <div class="container-fluided">
         <div class="row result-filter-product margin-left30 my-1">
         </div>
         <div class="row p-0 m-0">

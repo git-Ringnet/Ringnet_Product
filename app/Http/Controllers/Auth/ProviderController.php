@@ -67,7 +67,7 @@ class ProviderController extends Controller
             $nameCurrentWP = Workspace::where('id', $currentUser->current_workspace)->select('workspace_name')->first();
             auth()->login($user);
 
-            return redirect()->route('dashboardProduct.index', $nameCurrentWP->workspace_name);
+            return redirect()->route('welcome', $nameCurrentWP->workspace_name);
         }
         Session::forget('workspace_id');
         Session::forget('token');
@@ -134,6 +134,6 @@ class ProviderController extends Controller
             'workspace_id' => $workspace->id,
             'token' => $token,
         ]);
-        return redirect()->route('dashboardProduct.index', $workspaceName)->with('success', 'Workspace đã được tạo thành công!');
+        return redirect()->route('welcome', $workspaceName)->with('success', 'Workspace đã được tạo thành công!');
     }
 }

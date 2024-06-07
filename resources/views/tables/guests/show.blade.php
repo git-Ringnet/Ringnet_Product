@@ -4,8 +4,8 @@
     @method('PUT')
     <input type="hidden" name="table_name" value="KH">
     <input type="hidden" name="detail_id" value="{{ $guest->id }}">
-    <div class="content-wrapper editGuest min-height--none">
-        <div class="content-header-fixed p-0 margin-250">
+    <div class="content-wrapper editGuest min-height--none m-0">
+        <div class="content-header-fixed p-0 m-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Bán hàng</span>
@@ -111,7 +111,7 @@
                 </ul>
             </section>
         </div>
-        <div class="content editGuest" style="margin-top: 7.5rem;">
+        <div class="content editGuest" style="margin-top: 14.5rem;">
             <div class="tab-content mt-3">
                 <div id="info" class="content tab-pane in active">
                     {{-- THÔNG TIN CHUNG --}}
@@ -283,7 +283,7 @@
                 </div>
                 <div id="history" class="tab-pane fade">
                     <div
-                        class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed margin-250 border-custom">
+                        class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed border-custom">
                         <div class="w-100">
                             <div class="row mr-0">
                                 <div class="col-md-5 d-flex align-items-center">
@@ -468,7 +468,7 @@
                 <div class="tab-pane fade" id="files">
                     <div id="title--fixed"
                         class="content-title--fixed top-109 bg-filter-search border-top-0 text-center"
-                        style="right: 0 !important; top: 116px !important;">
+                        style="right: 0 !important; top: 230px !important;">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính kèm</p>
                     </div>
                     <x-form-attachment :value="$guest" name="KH"></x-form-attachment>

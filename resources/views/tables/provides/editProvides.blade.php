@@ -4,9 +4,9 @@
     @csrf
     @method('PUT')
     {{-- <div class="content-wrapper m-0"> --}}
-    <div class="content-wrapper editGuest min-height--none p-0" style="min-height: 502px;">
+    <div class="content-wrapper editGuest min-height--none p-0 m-0" style="min-height: 502px;">
         <!-- Content Header (Page header) -->
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 m-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Mua hàng</span>
@@ -33,7 +33,7 @@
                     </span>
                     <span class="last-span">Sửa nhà cung cấp</span>
                 </div>
-                <div class="content__heading--rightFixed">
+                <div class="content__heading--rightFixed" style="top: 108px;">
                     <div class="row m-0">
                         <a href="{{ route('provides.index') }}" class="user_flow" data-type="NCC"
                             data-des="Hủy chỉnh sửa nhà cung cấp">
@@ -76,7 +76,7 @@
                 </div>
             </div>
         </div>
-        <div id="info" class="content margin-top-38">
+        <div id="info" class="content margin-top-107">
             <div class="container-fluided">
                 <div class="container-fluided">
                     <div class="tab-content">

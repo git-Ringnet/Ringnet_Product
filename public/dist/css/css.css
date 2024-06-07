@@ -139,11 +139,11 @@ li {
 /* Container - content - title */
 .content-title--fixed {
     position: fixed;
-    left: 250px;
-    top: 61px;
+    left: 0;
+    top: 170px;
     right: 310px;
     background-color: #ffff;
-    z-index: 99;
+    z-index: 9;
     transition: 0.5s;
 }
 
@@ -179,7 +179,7 @@ li {
     top: 0;
     position: sticky;
     background-color: white;
-    z-index: 999;
+    z-index: 99;
 }
 
 .outer4 {
@@ -485,6 +485,7 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
     padding: 0px 10px 0px 0px;
     height: 100%;
     position: relative;
+    z-index: 99;
 }
 
 .content-wrapper--2Column {
@@ -507,9 +508,8 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
 
 .content-filter-all {
     position: fixed;
-    top: 61px;
-    padding-left: 250px;
-    z-index: 1000;
+    top: 170px;
+    z-index: 10;
     width: 100%;
 }
 .has-filters {
@@ -893,6 +893,16 @@ td p {
 }
 
 .content-header-fixed {
+    position: fixed;
+    top: 110px;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-bottom: 1px solid #dfe1e4;
+    background-color: white;
+}
+
+.header-fixed{
     position: fixed;
     top: 0;
     left: 0;
@@ -2498,7 +2508,7 @@ input[type="checkbox"]:checked {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 61px;
+    top: 170px;
     right: 0;
     background-color: #ffff;
     transition: 0.5s;
@@ -2657,7 +2667,7 @@ input[type="checkbox"]:checked {
 
 /* MARGIN-TOPP */
 .margin-top-38 {
-    margin-top: 3.8rem;
+    margin-top: 14.1rem;
 }
 
 .margin-top-68 {
@@ -2669,7 +2679,7 @@ input[type="checkbox"]:checked {
 }
 
 .margin-top-75 {
-    margin-top: 6.5rem;
+    margin-top: 13.3rem;
 }
 
 .margin-top-72 {
@@ -2689,7 +2699,7 @@ input[type="checkbox"]:checked {
 }
 
 .margin-top-103 {
-    margin-top: 10.3rem;
+    margin-top: 17.2rem;
 }
 
 .margin-top-fixed10 {
@@ -2717,11 +2727,11 @@ input[type="checkbox"]:checked {
 }
 
 .top-109 {
-    top: 109px !important;
+    top: 220px !important;
 }
 
 .top-111 {
-    top: 111px !important;
+    top: 221px !important;
 }
 
 .top-120 {
@@ -2753,8 +2763,8 @@ input[type="checkbox"]:checked {
 .dropdown-content {
     display: none;
     position: fixed;
-    top: 75px;
-    left: 255px;
+    top: 55px;
+    right: 15px;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -2856,4 +2866,23 @@ input[type="checkbox"]:checked {
     padding: 0px 7px;
     background-color: #407DD9;
     border-radius: 50%;
+}
+
+.height-36{
+    height: 36px;
+}
+
+.margin-top-17{
+    margin-top: 17.1rem;
+}
+
+.menu {
+    z-index: 99;
+}
+.margin-top-107{
+    margin-top: 10.7rem;
+}
+
+.content__heading--right .active{
+    background-color: #F0F3F9 !important;
 }

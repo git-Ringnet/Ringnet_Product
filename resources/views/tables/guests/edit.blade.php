@@ -4,7 +4,7 @@
     @csrf
     @method('PUT')
     <div class="content-wrapper m-0">
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 m-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left text-long-special">
                     <span>Bán hàng</span>
@@ -42,7 +42,7 @@
                                             d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
                                             fill="#6D7075"></path>
                                     </svg>
-                                    <span class="text-button">Hủy</span>
+                                    <p class="p-0 m-0 text-button">Hủy</p>
                                 </button>
                             </a>
                         </div>
@@ -74,8 +74,8 @@
                 </div>
             </div>
         </div>
-        <div class="content editGuest" style="margin-top:3.8rem">
-            <section class="margin-250">
+        <div class="content editGuest" style="margin-top:10.8rem">
+            <section>
                 <div id="info" class="content tab-pane in active">
                     <section class="content">
                         <div class="container-fluided">

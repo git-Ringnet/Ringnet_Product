@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="products" activeName="product"></x-navbar>
-<div class="content-wrapper min-height--none" style="background: none;">
-    <div class="content-header-fixed p-0 margin-250 border-bottom-0">
+<div class="content-wrapper min-height--none m-0" style="background: none;">
+    <div class="content-header-fixed p-0 border-bottom-0 m-0">
         <div class="content__header--inner margin-left32">
             <div class="content__heading--left">
                 <span>Kho hàng</span>
@@ -69,7 +69,7 @@
                             </div>
                         </a> --}}
                 @endif
-                <div class="btn-option" type="button">
+                {{-- <div class="btn-option" type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -85,7 +85,7 @@
                             fill="#42526E">
                         </path>
                     </svg>
-                </div>
+                </div> --}}
             </div>
         </div>
         <section class="content-header--options p-0">
@@ -102,7 +102,7 @@
             </ul>
         </section>
     </div>
-    <div class="tab-content editGuest" style="margin-top: 7.5rem;">
+    <div class="tab-content editGuest" style="margin-top: 14.4rem;">
         <div id="info" class="content tab-pane in active">
             <section class="content">
                 <div class="container-fluided">
@@ -349,7 +349,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div
-                                class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed margin-250">
+                                class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed">
                                 <form class="w-100" action="" method="get" id="search-filter">
                                     <div class="row mr-0">
                                         <div class="col-md-5 d-flex">

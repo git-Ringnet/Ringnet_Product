@@ -25,7 +25,7 @@ class CheckUserWorkspace
             if ($exitsUserWP) {
                 $currentUser = $user->current_workspace;
                 $nameCurrentWP = Workspace::where('id', $currentUser)->select('workspace_name')->first();
-                return redirect()->route('dashboardProduct.index', $nameCurrentWP->workspace_name);
+                return redirect()->route('welcome', $nameCurrentWP->workspace_name);
             } else {
                 return redirect()->route('workspace.index');
             }

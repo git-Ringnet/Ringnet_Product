@@ -220,14 +220,56 @@
     </div>
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-light-primary border-right">
-        <!-- Sidebar -->
+    <div class="header-fixed border-bottom-0">
+        <div class="d-flex align-items-center justify-content-between w-100 px-3 py-2">
+            <a href="{{ route('welcome', $workspacename) }}">
+                <img src="{{ asset('dist/img/logo_ringnetOC_small.png') }}" alt="">
+            </a>
+        </div>
+        <!-- Main Sidebar Container -->
+        <div class="d-flex align-items-center justify-content-between w-100 border" style="background: #F3F5F7;">
+            <div class="p-1 d-flex content__heading--right">
+                <a href="{{ route('welcome', $workspacename) }}" class="height-36">
+                    <button type="button"
+                        class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'member') active @endif">
+                        <i class="fas fa-angle-left"></i>
+                        Cài đặt
+                    </button>
+                </a>
+                @if (Auth::user()->origin_workspace === Auth::user()->current_workspace)
+                    <a href="{{ route('overview', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'overview') active @endif">
+                            Tổng quan
+                        </button>
+                    </a>
+                @endif
+                <a href="{{ route('viewCompany', $workspacename) }}" class="height-36">
+                    <button type="button"
+                        class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewCompany') active @endif">
+                        Thông tin doanh nghiệp
+                    </button>
+                </a>
+                <a href="{{ route('viewUser', $workspacename) }}" class="height-36">
+                    <button type="button"
+                        class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'user') active @endif">
+                        Thông tin cá nhân
+                    </button>
+                </a>
+                <a href="{{ route('users.index') }}" class="height-36">
+                    <button type="button"
+                        class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'users') active @endif">
+                        Nhân viên
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {{-- <aside class="main-sidebar sidebar-light-primary border-right">
         <div class="sidebar p-0">
-            <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
-                    {{-- Logo --}}
                     <li class="">
                         <a href="{{ route('welcome', $workspacename) }}" class="nav-link">
                             <div class="d-flex align-items-center justify-content-center w-100">
@@ -244,7 +286,7 @@
                             <p class="text-nav ml-2">Cài đặt</p>
                         </a>
                     </li>
-                    {{-- <li class="nav-item" style="pointer-events: none">
+                    <li class="nav-item" style="pointer-events: none">
                         <a href="{{ route('history.index', $workspacename) }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'history') active @endif">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
@@ -260,8 +302,8 @@
                                 <p class="text-nav">Workspace</p>
                             </div>
                         </a>
-                    </li> --}}
-                    {{-- @if (Auth::user()->origin_workspace === Auth::user()->current_workspace)
+                    </li>
+                    @if (Auth::user()->origin_workspace === Auth::user()->current_workspace)
                         <li class="nav-item">
                             <a href="{{ route('overview', $workspacename) }}"
                                 class="nav-link
@@ -269,7 +311,7 @@
                                 <p class="text-nav ml-2">Tổng quan</p>
                             </a>
                         </li>
-                    @endif --}}
+                    @endif
                     <li class="nav-item">
                         <a href="{{ route('viewCompany', $workspacename) }}"
                             class="nav-link
@@ -277,14 +319,14 @@
                             <p class="text-nav ml-2">Thông tin doanh nghiệp</p>
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('settings.index', $workspacename) }}"
                             class="nav-link
                                     @if (!empty($activeName) && $activeName == 'members') active @endif">
                             <p class="text-nav ml-2">Thành viên</p>
                         </a>
-                    </li> --}}
-                    {{-- <li class="nav-item" style="pointer-events: none">
+                    </li>
+                    <li class="nav-item" style="pointer-events: none">
                         <a href="{{ route('history.index', $workspacename) }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'history') active @endif">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
@@ -302,7 +344,7 @@
                                 <p class="text-nav">My account</p>
                             </div>
                         </a>
-                    </li> --}}
+                    </li>
                     <li class="nav-item">
                         <a href="{{ route('viewUser', $workspacename) }}"
                             class="nav-link
@@ -321,7 +363,7 @@
             <!-- /.sidebar-menu -->
         </div>
         <!-- /.sidebar -->
-    </aside>
+    </aside> --}}
     <div class="w-100 messagesss">
         <div class="container message-success justify-content-center align-items-center m-0 w-100"
             style="display:flex !important;z-index: 99999; position: fixed;top:5%;left:15%;">

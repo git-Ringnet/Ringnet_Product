@@ -2,8 +2,8 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
-    <div class="content-header-fixed p-0 margin-250 border-bottom-0">
-        <div class="content__header--inner margin-left32">
+    <div class="content-header-fixed p-0 border-bottom-0">
+        <div class="content__header--inner">
             <div class="content__heading--left">
                 <span>Mua hàng</span>
                 <span>
@@ -160,7 +160,7 @@
     </div>
     <div class="content margin-top-75">
         {{-- Content --}}
-        <section class="content margin-250">
+        <section class="content">
             <div class="container-fluided">
                 <div class="row result-filter-import margin-left30 my-1">
                 </div>
@@ -221,7 +221,7 @@
                                                     </span>
                                                 </th>
                                             @endcan
-                                            {{-- <th scope="col" class="border-bottom" style="width: 8%;">
+                                            <th scope="col" class="border-bottom" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -248,7 +248,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-status_reciept"></div>
                                                 </span>
-                                            </th> --}}
+                                            </th>
                                             <th scope="col" class="border-bottom" style="width: 15%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -322,7 +322,7 @@
                                                         @endif
                                                     </td>
                                                 @endcan
-                                                {{-- <td class="text-center py-2 border-bottom border-top-0">
+                                                <td class="text-center py-2 border-bottom border-top-0">
                                                     @if ($item->status == 1)
                                                         <span style="color: #858585">Draft</span>
                                                     @elseif($item->status == 0)
@@ -386,7 +386,7 @@
                                                                 fill="#858585" />
                                                         </svg>
                                                     @endif
-                                                </td> --}}
+                                                </td>
                                                 <td class="text-center py-2 border-bottom border-top-0">
                                                     @if ($item->status_pay == 0)
                                                     @elseif ($item->status_pay == 1)

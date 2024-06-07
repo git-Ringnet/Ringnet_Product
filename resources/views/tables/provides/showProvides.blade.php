@@ -1,9 +1,9 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="provide">
 </x-navbar>
 {{-- <div class="content-wrapper m-0"> --}}
-<div class="content-wrapper editGuest min-height--none">
+<div class="content-wrapper editGuest min-height--none m-0">
     <!-- Content Header (Page header) -->
-    <div class="content-header-fixed p-0 margin-250">
+    <div class="content-header-fixed p-0 m-0">
         <div class="content__header--inner margin-left32">
             <div class="content__heading--left">
                 <span>Mua hàng</span>
@@ -94,7 +94,7 @@
             </ul>
         </section>
     </div>
-    <section class="content editGuest" style="margin-top: 7.5rem;">
+    <section class="content editGuest" style="margin-top: 14.5rem;">
         <div class="container-fluided">
             <div class="tab-content mt-3">
                 <div id="info" class="content tab-pane in active">

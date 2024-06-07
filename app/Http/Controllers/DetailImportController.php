@@ -358,7 +358,7 @@ class DetailImportController extends Controller
         } elseif (isset($data['number_bill'])) {
             $number_bill = Reciept::where('number_bill', $data['number_bill'])
                 ->where('workspace_id', Auth::user()->current_workspace)->first();
-            if ($number_bill->isEmpty()) {
+            if ($number_bill) {
                 $result = [
                     'status' => false,
                 ];

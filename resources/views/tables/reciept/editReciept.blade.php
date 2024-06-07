@@ -10,7 +10,7 @@
         <input type="hidden" name="detailimport_id" id="detailimport_id" value="{{ $reciept->detailimport_id }}">
         <input type="hidden" name="detail_id" value="{{ $reciept->id }}">
         <input type="hidden" name="table_name" value="HDMH">
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 m-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Mua hàng</span>
@@ -176,7 +176,7 @@
 
         </div>
         <div class="content margin-top-38" id="main">
-            <div class="container-fluided margin-250">
+            <div class="container-fluided">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
                         <div id="title--fixed" class="content-title--fixed top-111">

@@ -2,8 +2,8 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
-    <div class="content-header-fixed p-0 margin-250">
-        <div class="content__header--inner margin-left32">
+    <div class="content-header-fixed p-0">
+        <div class="content__header--inner">
             <div class="content__heading--left">
                 <span>Báo cáo</span>
             </div>
@@ -13,7 +13,7 @@
     </div>
     <div class="content-filter-all bg-white">
         <section class="content-header--options p-0 border-custom">
-            <div class="h-100" style="width: 38%;">
+            <div class="h-100" style="width: 24%;">
                 <ul class="header-options--nav-1 nav nav-tabs margin-left32 border-bottom-0 w-100 custom-nav"
                     style="margin: 13px 0 0 0 !important;height: 40px !important;">
                     <li>
@@ -204,9 +204,9 @@
     <div class="tab-content">
         {{-- Tổng tiền tồn kho --}}
         <div id="ttTonKho" class="content tab-pane in active">
-            <div class="content margin-top-fixed10">
+            <div class="content margin-top-17">
                 <!-- Main content -->
-                <section class="content margin-250">
+                <section class="content">
                     <div class="container-fluided">
                         <div class="row result-filter-import margin-left30 my-1">
                         </div>
@@ -348,9 +348,9 @@
         </div>
         {{-- Lợi nhuận bán hàng --}}
         <div id="lnBanHang" class="tab-pane fade">
-            <div class="content margin-top-fixed10">
+            <div class="content margin-top-17">
                 <!-- Main content -->
-                <section class="content margin-250">
+                <section class="content">
                     <div class="container-fluided">
                         <div class="row result-filter-import margin-left30 my-1">
                         </div>
@@ -571,9 +571,9 @@
         </div>
         {{-- Dư nợ khách hàng --}}
         <div id="dnKH" class="tab-pane fade">
-            <div class="content margin-top-fixed10">
+            <div class="content margin-top-17">
                 <!-- Main content -->
-                <section class="content margin-250">
+                <section class="content">
                     <div class="container-fluided">
                         <div class="row result-filter-export margin-left30 my-1">
                         </div>

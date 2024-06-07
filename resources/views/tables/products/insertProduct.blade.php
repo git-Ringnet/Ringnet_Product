@@ -2,8 +2,8 @@
 <form action="{{ route('inventory.store') }}" method="POST">
     @csrf
     <div class="content-wrapper m-0 min-height--none" style="background: none;">
-        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0 border-bottom-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
                     <span>Kho hàng</span>
                     <span>
@@ -52,8 +52,8 @@
                 </div>
             </div>
         </div>
-        <div class="content margin-top-38" style="background: none;">
-            <section class="content margin-250">
+        <div class="content margin-top-107" style="background: none;">
+            <section class="content">
                 <section class="container-fluided">
                     <div class="info-chung">
                         <p class="font-weight-bold text-uppercase info-chung--heading border-custom">Thông tin chung</p>

@@ -7,7 +7,7 @@
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">
         <input type="hidden" name="action" id="getAction">
-        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
+        <div class="content-header-fixed p-0 border-bottom-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Mua hàng</span>
@@ -91,7 +91,7 @@
         </div>
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-38" id="main">
-            <section class="content margin-250">
+            <section class="content">
                 <div id="title--fixed"
                     class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>

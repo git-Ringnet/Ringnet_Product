@@ -5,8 +5,8 @@
     <input type="hidden" name="excel_export" id="excel_export">
     <input type="hidden" name="pdf_export" id="pdf_export">
     <div class="content-wrapper--2Column m-0 min-height--none">
-        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0 border-bottom-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
                     <span>Bán hàng</span>
                     <span>
@@ -85,7 +85,7 @@
         </div>
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-38" id="main">
-            <section class="content margin-250">
+            <section class="content">
                 <div id="title--fixed"
                     class="content-title--fixed bg-filter-search text-center border-custom border-0">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>

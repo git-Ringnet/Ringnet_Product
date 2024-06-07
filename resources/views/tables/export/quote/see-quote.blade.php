@@ -7,7 +7,7 @@
     <input type="hidden" name="table_name" value="BG">
     <input type="hidden" value="{{ $detailExport->maBG }}" name="detailexport_id">
     <div class="content-wrapper--2Column m-0">
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 m-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span class="font-weight-bold">Bán hàng</span>
@@ -290,7 +290,7 @@
         </div>
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-68" id="main">
-            <section class="content margin-250">
+            <section class="content">
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active ">

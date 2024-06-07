@@ -3,8 +3,8 @@
     @method('PUT')
     @csrf
     <input type="hidden" name="type_product" value="{{ $product->type }}">
-    <div class="content-wrapper editGuest min-height--none" style="background: none;">
-        <div class="content-header-fixed p-0 margin-250">
+    <div class="content-wrapper editGuest min-height--none m-0" style="background: none;">
+        <div class="content-header-fixed p-0 m-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Kho hàng</span>
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="content editGuest margin-top-38">
+        <div class="content editGuest margin-top-107">
             <section class="content">
                 <section class="container-fluided">
                     <div class="row">

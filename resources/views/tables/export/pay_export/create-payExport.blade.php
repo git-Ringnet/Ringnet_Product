@@ -6,7 +6,7 @@
     <input type="hidden" name="billSale_id" id="billSale_id">
     <input type="hidden" name="pdf_export" id="pdf_export">
     <div class="content-wrapper--2Column m-0">
-        <div class="content-header-fixed p-0 margin-250 border-0">
+        <div class="content-header-fixed p-0 m-0 border-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span class="">Bán hàng</span>
@@ -85,7 +85,7 @@
         </div>
         <div class="content margin-top-38" id="main">
             <!-- Main content -->
-            <section class="content margin-250">
+            <section class="content">
                 <div id="title--fixed"
                     class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>

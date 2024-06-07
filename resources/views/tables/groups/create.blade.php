@@ -2,7 +2,7 @@
 <form action="{{ route('groups.store') }}" method="POST">
     @csrf
     <div class="content-wrapper m-0 min-height--none">
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 m-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left text-long-special">
                     <span>
@@ -48,8 +48,8 @@
                 </div>
             </div>
         </div>
-        <div class="content" style="margin-top:3.8rem;">
-            <section class="content margin-250">
+        <div class="content" style="margin-top:10.8rem;">
+            <section class="content">
                 <div class="container-fluided mb-2">
                     <div class="bg-filter-search border-0 text-left">
                         <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN CHUNG</p>

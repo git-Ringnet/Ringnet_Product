@@ -4,7 +4,7 @@
     @method('PUT')
     <input type="hidden" value="{{ $detailExport->maBG }}" name="detailexport_id">
     <div class="content-wrapper--2Column m-0">
-        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
+        <div class="content-header-fixed p-0 border-bottom-0 m-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Bán hàng</span>
@@ -73,8 +73,8 @@
                 </div>
             </div>
         </div>
-        <div class="content" style="margin-top: 3.8rem;" id="main">
-            <section class="content margin-250">
+        <div class="content" style="margin-top: 13.8rem;" id="main">
+            <section class="content">
                 <div id="title--fixed"
                     class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">

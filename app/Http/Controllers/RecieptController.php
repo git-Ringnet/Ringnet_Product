@@ -134,7 +134,7 @@ class RecieptController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $workspace, string $id)
+    public function edit(string $id)
     {
         $reciept = Reciept::findOrFail($id);
         $title = $reciept->id;
@@ -169,7 +169,7 @@ class RecieptController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace, Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         $result = $this->reciept->updateReciept($request->all(), $id);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
@@ -192,7 +192,7 @@ class RecieptController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $workspace, string $id)
+    public function destroy(string $id)
     {
         $status = $this->reciept->deleteReciept($id);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
