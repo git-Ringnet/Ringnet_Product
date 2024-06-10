@@ -1210,10 +1210,10 @@ class DetailExportController extends Controller
     public function getInventoryProduct(Request $request)
     {
         $quoteImports = DB::table('quoteimport')
-            ->where('product_id', $request->idProduct)
-            ->where('quantity_remaining', '>', 0)
+            ->where('quoteimport.product_id', $request->idProduct)
             ->join('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
             ->join('provides', 'provides.id', 'detailimport.provide_id')
+            ->join('products', 'products.id', 'quoteimport.product_id')
             ->orderBy('quoteimport.created_at', 'asc')
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->select(
@@ -1223,6 +1223,7 @@ class DetailExportController extends Controller
                 'quoteimport.price_export',
                 'quoteimport.product_tax',
                 'quoteimport.created_at',
+                'products.listed'
             )
             ->get();
         return $quoteImports;

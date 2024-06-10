@@ -1,7 +1,7 @@
 // Format giá tiền
 $("body").on(
     "input",
-    '.price_export , .price_import ,.payment_input,.payment_input,input[name="delivery_charges"], .promotion, #voucher',
+    '.price_export , .price_import ,.payment_input,.payment_input,input[name="delivery_charges"], .promotion, #voucher, .listed',
     function (event) {
         // Lấy giá trị đã nhập
         var value = event.target.value;
