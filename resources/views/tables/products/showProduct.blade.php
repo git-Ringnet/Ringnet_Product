@@ -123,8 +123,8 @@
                                                 style="margin-right:10px;">
                                             <label for="html" class="m-0">Hàng hóa</label>
                                             <input type="radio" id="dichvu" name="type_product" value="2"
-                                                class="py-2" @if ($product->type == 2) checked @endif disabled
-                                                style="margin-left:40px; margin-right:10px;">
+                                                class="py-2" @if ($product->type == 2) checked @endif
+                                                disabled style="margin-left:40px; margin-right:10px;">
                                             <label for="html" class="m-0">Dịch vụ</label>
                                         </div>
                                     </div>
@@ -135,7 +135,8 @@
                                             <p class="p-0 m-0 required-label text-danger margin-left32 text-13">Tên sản
                                                 phẩm</p>
                                         </div>
-                                        <input readonly type="text" placeholder="Nhập thông tin" name="product_name"
+                                        <input readonly type="text" placeholder="Nhập thông tin"
+                                            name="product_name"
                                             class="border w-100 height-100 py-2 border-left-0 border-right-0 px-3 text-13-black"
                                             autocomplete="off" required value="{{ $product->product_name }}" />
                                     </div>
@@ -198,14 +199,6 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <div class="title-info py-2 border border-top-0 border-left-0">
-                                            <p class="p-0 m-0 margin-left32 text-13">Giá niêm yết</p>
-                                        </div>
-                                        <input type="text" placeholder="Nhập thông tin" name="listed"
-                                            value="{{ number_format($product->listed) }}"
-                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                                     </div>
                                     @if ($product->type == 1)
                                         <div class="d-flex align-items-center height-60-mobile">
@@ -355,7 +348,8 @@
                 <div class="container-fluided">
                     <div class="row">
                         <div class="col-12">
-                            <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed">
+                            <div
+                                class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed">
                                 <form class="w-100" action="" method="get" id="search-filter">
                                     <div class="row mr-0">
                                         <div class="col-md-5 d-flex">

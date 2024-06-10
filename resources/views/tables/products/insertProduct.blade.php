@@ -119,13 +119,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 margin-left32 text-13">Giá niêm yết</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="listed"
-                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black listed">
-                            </div>
                             <div class="d-flex align-items-center height-60-mobile option-radio">
                                 <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Loại sản phẩm</p>
@@ -314,7 +307,6 @@
 
 </form>
 </div>
-<script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
     $(document).on('click', '#dichvu', function() {
         $('.option-radio').attr('style', 'display:none !important;');

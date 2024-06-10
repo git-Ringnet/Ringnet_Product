@@ -32,7 +32,6 @@ class Products extends Model
         'check_seri',
         'workspace_id',
         'type',
-        'listed',
     ];
     public function getAllProducts()
     {
@@ -93,6 +92,8 @@ class Products extends Model
         }
     }
 
+
+
     public function addProduct($data)
     {
         $return  = 0;
@@ -108,7 +109,6 @@ class Products extends Model
                 'product_name' => $data['product_name'],
                 'product_unit' => $data['product_unit'],
                 'product_code' => $data['product_code'],
-                'listed' => isset($data['listed']) ? str_replace(',', '', $data['listed']) : 0,
                 'product_price_import' => isset($data['product_price_import']) ? $data['product_price_import'] : 0,
                 'product_price_export' => isset($data['product_price_export']) ? $data['product_price_export'] : 0,
                 'product_ratio' => isset($data['product_ratio']) ? $data['product_ratio'] : 0,
@@ -147,7 +147,6 @@ class Products extends Model
                 'product_unit' => $data['product_unit'],
                 'product_price_import' => isset($data['product_price_import']) ? str_replace(',', '', $data['product_price_import']) : 0,
                 'product_price_export' => isset($data['product_price_export']) ? str_replace(',', '', $data['product_price_export']) : 0,
-                'listed' => isset($data['listed']) ? str_replace(',', '', $data['listed']) : 0,
                 // 'product_ratio' => $data['product_ratio'],
                 'product_tax' => $data['product_tax'],
                 'check_seri' => $data['type_product'] == 1 ? $check : 0,

@@ -173,7 +173,8 @@
                             </thead>
                             <tbody class="tbody-product">
                                 @foreach ($product as $item)
-                                    <tr class="position-relative product-info">
+                                    <tr class="position-relative product-info"
+                                        onclick="handleRowClick('checkbox', event);">
                                         <input type="hidden" name="id-product" class="id-product" id="id-product"
                                             value="{{ $item->id }}">
                                         <td class="border-bottom border-top-0">
@@ -210,12 +211,6 @@
                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                             style="right: 10px; top: 7px;">
                                             <div class="d-flex w-100">
-                                                <a href="#" class="inventory-info" data-toggle="modal"
-                                                    data-target="#inventoryModal">
-                                                    <div class="m-0 px-2 py-1 mx-2 rounded">
-                                                        <i class="fa-regular fa-eye text-secondary py-1"></i>
-                                                    </div>
-                                                </a>
                                                 <a href="{{ route('inventory.edit', ['inventory' => $item->id]) }}">
                                                     <div class="m-0 px-2 py-1 mx-2 rounded">
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
@@ -275,104 +270,6 @@
         </div>
     </div>
 </section>
-{{-- Modal sản phẩm --}}
-<div class="modal fade" id="inventoryModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-bold">Sản phẩm</h5>
-                <span class="text-white ml-2 sumInventory" id="sumInventory"></span>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="outer text-nowrap" style="scrollbar-width: inherit;">
-                    <table id="example2" class="table table-hover bg-white rounded">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="height-52">
-                                    <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
-                                            <button class="btn-sort text-13" type="submit">
-                                                Tên sản phẩm
-                                            </button>
-                                        </a>
-                                        <div class="icon" id="icon-id"></div>
-                                    </span>
-                                </th>
-                                <th scope="col" class="height-52">
-                                    <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
-                                            <button class="btn-sort text-13" type="submit">
-                                                Nhà cung cấp
-                                            </button>
-                                        </a>
-                                        <div class="icon" id="icon-id"></div>
-                                    </span>
-                                </th>
-                                <th scope="col" class="height-52">
-                                    <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
-                                            <button class="btn-sort text-13" type="submit">
-                                                Tồn kho
-                                            </button>
-                                        </a>
-                                        <div class="icon" id="icon-id"></div>
-                                    </span>
-                                </th>
-                                <th scope="col" class="height-52">
-                                    <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
-                                            <button class="btn-sort text-13" type="submit">
-                                                Giá nhập
-                                            </button>
-                                        </a>
-                                        <div class="icon" id="icon-id"></div>
-                                    </span>
-                                </th>
-                                <th scope="col" class="height-52">
-                                    <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
-                                            <button class="btn-sort text-13" type="submit">
-                                                Giá bán
-                                            </button>
-                                        </a>
-                                        <div class="icon" id="icon-id"></div>
-                                    </span>
-                                </th>
-                                <th scope="col" class="height-52">
-                                    <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
-                                            <button class="btn-sort text-13" type="submit">
-                                                Thuế
-                                            </button>
-                                        </a>
-                                        <div class="icon" id="icon-id"></div>
-                                    </span>
-                                </th>
-                                <th scope="col" class="height-52">
-                                    <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
-                                            <button class="btn-sort text-13" type="submit">
-                                                Ngày nhập
-                                            </button>
-                                        </a>
-                                        <div class="icon" id="icon-id"></div>
-                                    </span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </div>
 {{-- Content --}}
 
@@ -548,85 +445,6 @@
         $.ajaxSetup({
             headers: {
                 'csrftoken': '{{ csrf_token() }}'
-            }
-        });
-    });
-
-    function formatCurrency(value) {
-        value = Math.round(value * 100) / 100;
-
-        var parts = value.toString().split(".");
-        var integerPart = parts[0];
-        var formattedValue = "";
-
-        var count = 0;
-        for (var i = integerPart.length - 1; i >= 0; i--) {
-            formattedValue = integerPart.charAt(i) + formattedValue;
-            count++;
-            if (count % 3 === 0 && i !== 0) {
-                formattedValue = "," + formattedValue;
-            }
-        }
-
-        if (parts.length > 1) {
-            formattedValue += "." + parts[1];
-        }
-        return formattedValue;
-    }
-    //Xem tồn kho
-    $('.inventory-info').click(function() {
-        var idProduct = $(this).closest('tr').find('.id-product').val();
-        $.ajax({
-            url: '{{ route('getInventoryProduct') }}',
-            type: 'GET',
-            data: {
-                idProduct: idProduct
-            },
-            success: function(data) {
-                if (Array.isArray(data) && data.length > 0) {
-                    $('#inventoryModal .modal-body tbody').empty();
-                    var sum = 0;
-                    data.forEach(function(productData) {
-                        sum += parseInt(productData.quantity_remaining, 10) || 0;
-                        var newRow = $(
-                            '<tr class="position-relative">' +
-                            '<td class="text-13-black" id="productName"></td>' +
-                            '<td class="text-13-black" id="provideName"></td>' +
-                            '<td class="text-13-black text-right" id="inventoryProduct"></td>' +
-                            '<td class="text-13-black" id="productPrice"></td>' +
-                            '<td class="text-13-black" id="productPriceExport"></td>' +
-                            '<td class="text-13-black" id="productTax"></td>' +
-                            '<td class="text-13-black" id="dateProduct"></td>' +
-                            '</tr>');
-                        newRow.find('#productName').text(productData
-                            .product_name);
-                        newRow.find('#provideName').text(productData
-                            .provide_name_display);
-                        newRow.find('#inventoryProduct').text(
-                            formatCurrency(productData
-                                .quantity_remaining));
-                        newRow.find('#productPrice').text(
-                            formatCurrency(productData
-                                .price_export));
-                        newRow.find('#productPriceExport').text(
-                            formatCurrency(productData
-                                .listed));
-                        newRow.find('#productTax').text(
-                            productData.product_tax == 99 ?
-                            'NOVAT' : productData.product_tax +
-                            '%');
-                        var formattedDate = new Date(productData
-                            .created_at).toLocaleDateString(
-                            'vi-VN');
-                        newRow.find('#dateProduct').text(
-                            formattedDate);
-                        newRow.appendTo(
-                            '#inventoryModal .modal-body tbody');
-                    });
-                    $('#sumInventory').text(sum);
-                } else {
-                    $('#inventoryModal .modal-body tbody').empty();
-                }
             }
         });
     });
