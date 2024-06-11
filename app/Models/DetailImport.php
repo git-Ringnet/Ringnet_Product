@@ -65,12 +65,19 @@ class DetailImport extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
+    public function getAllReceiveBill(){
+        return $this->hasMany(Receive_bill::class, 'detailimport_id', 'id');
+    }
+
     public function getAllImport()
     {
         return DB::table($this->table)->get();
     }
 
-
+    public function getPayOrders()
+    {
+        return $this->hasMany(PayOder::class, 'detailimport_id', 'id');
+    }
 
     public function addImport($data)
     {

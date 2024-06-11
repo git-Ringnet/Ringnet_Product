@@ -33,6 +33,10 @@ class Receive_bill extends Model
         return $this->hasOne(Provides::class, 'id', 'provide_id');
     }
 
+    public function getReturnImport(){
+        return $this->hasMany(ReturnImport::class, 'receive_id', 'id');
+    }
+
     public function getNameUser()
     {
         return $this->hasOne(User::class, 'id', 'user_id');

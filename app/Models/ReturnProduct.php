@@ -22,20 +22,26 @@ class ReturnProduct extends Model
         'returnImport_id',
     ];
 
+    public function getQuoteImport()
+    {
+        return $this->hasOne(QuoteImport::class, 'id', 'quoteimport_id');
+    }
 
-    public function addReturnProduct($data,$id) {
+
+    public function addReturnProduct($data, $id)
+    {
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $SN = [];
-            if (isset($data['seri' . $i])){
+            if (isset($data['seri' . $i])) {
                 $productSN = $data['seri' . $i];
                 for ($j = 0; $j < count($productSN); $j++) {
                     if (!empty($productSN[$j])) {
-                        array_push($SN,$productSN[$j]);
+                        array_push($SN, $productSN[$j]);
                     }
                 }
             }
-            $getQuoteImport = QuoteImport::where('product_name',$data['product_name'][$i])->where('receive_id',$data['detailimport_id'])->first();
-            if($getQuoteImport){
+            $getQuoteImport = QuoteImport::where('product_name', $data['product_name'][$i])->where('receive_id', $data['detailimport_id'])->first();
+            if ($getQuoteImport) {
                 $dataReturnProduct = [
                     'quoteimport_id' => $getQuoteImport->id,
                     'qty' => $data['product_qty'][$i],

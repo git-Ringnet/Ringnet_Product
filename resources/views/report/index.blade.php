@@ -96,6 +96,10 @@
                         <a class="text-secondary px-1 text-15" data-toggle="tab" href="#debtProvide">Công nợ
                             nhà cung cấp</a>
                     </li>
+                    <li>
+                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#changeFund">Chuyển tiền nội bộ
+                        </a>
+                    </li>
                 </ul>
             </div>
         </section>
@@ -1096,12 +1100,10 @@
                                                             value="{{ $item_delivery->maGiaoHang }}">
                                                         <td class="text-13-black border-bottom border-top-0">
                                                             <span class="margin-Right10">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    width="6" height="10"
-                                                                    viewBox="0 0 6 10" fill="none">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="6"
+                                                                    height="10" viewBox="0 0 6 10" fill="none">
                                                                     <g clip-path="url(#clip0_1710_10941)">
-                                                                        <path fill-rule="evenodd"
-                                                                            clip-rule="evenodd"
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
                                                                             d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
                                                                             fill="#282A30" />
                                                                     </g>
@@ -1967,7 +1969,8 @@
                                                                     <span class="text-13">Tổng tiền</span>
                                                                 </button>
                                                             </a>
-                                                            <div class="icon" id="icon-export-sumAmountOwed"></div>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="bg-white pl-0">
@@ -2555,8 +2558,215 @@
 
 
 
-        {{-- Thông tin công nợ Nhà cung cấp --}}
-        <div id="debtProvide" class="tab-pane fade">
+        {{-- Chuyển tiền nội bộ --}}
+        <div id="changeFund" class="tab-pane fade">
+            <div class="content margin-top-fixed10">
+                <!-- Main content -->
+                <section class="content margin-250">
+                    <div class="container-fluided">
+                        <div class="row result-filter-export margin-left30 my-1">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 p-0 m-0 pl-2">
+                                <div class="card">
+                                    <!-- /.card-header -->
+                                    <div class="outer2 text-nowrap">
+                                        <table id="example2" class="table table-hover">
+                                            <thead class="sticky-head">
+                                                <tr>
+                                                    <th scope="col" style="padding-left: 2rem;"
+                                                        class="bg-white">
+                                                        <input type="checkbox" name="all" id="checkall"
+                                                            class="checkall-btn">
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="guest_name"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Ngày lập</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-guest_name"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="guest_name"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Mã phiếu</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-guest_name"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Người lập</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Số tiền</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Từ quỹ</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Đến quỹ</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Ghi chú</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    {{-- <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex justify-content-end">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Thanh toán</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th> --}}
+                                                    {{-- <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex justify-content-end">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Cuối kỳ</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th> --}}
+                                                </tr>
+                                            </thead>
+                                            <tbody id="import" class="tbody-export">
+                                                @foreach ($content as $item)
+                                                    <tr class="position-relative guests-info"
+                                                        onclick="handleRowClick('checkbox', event);">
+                                                        <input type="hidden" name="id-guest" class="id-guest"
+                                                            id="id-guest" value="{{ $item->id }}">
+                                                        <td>
+                                                            <span class="margin-Right10">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    width="6" height="10"
+                                                                    viewBox="0 0 6 10" fill="none">
+                                                                    <g clip-path="url(#clip0_1710_10941)">
+                                                                        <path fill-rule="evenodd"
+                                                                            clip-rule="evenodd"
+                                                                            d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
+                                                                            fill="#282A30" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_1710_10941">
+                                                                            <rect width="6" height="10"
+                                                                                fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </span>
+                                                            <input type="checkbox" class="p-0 m-0 checkall-btn"
+                                                                name="ids[]" id="checkbox" value=""
+                                                                onclick="event.stopPropagation();">
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            {{ date_format(new DateTime($item->payment_day), 'd/m/Y') }}
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            {{ $item->form_code }}
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 text-wrap">
+                                                            @if ($item->getUser)
+                                                                {{ $item->getUser->name }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 text-wrap">
+                                                            {{ number_format($item->qty_money) }}
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 text-wrap">
+                                                            @if ($item->getFromFund)
+                                                                {{ $item->getFromFund->name }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 text-wrap">
+                                                            @if ($item->getToFund)
+                                                                {{ $item->getToFund->name }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            {{ $item->notes }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        {{-- Thống kê thu chi tồn quỹ --}}
+        <div id="debtFunds" class="tab-pane fade">
             <div class="content margin-top-fixed10">
                 <!-- Main content -->
                 <section class="content margin-250">
@@ -2719,6 +2929,9 @@
                 </section>
             </div>
         </div>
+
+
+
     </div>
 </div>
 

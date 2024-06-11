@@ -145,8 +145,6 @@ class PayOder extends Model
         $temp = 0;
         $detail =  DetailImport::where('id', $id)->first();
 
-
-
         // Lây mã thanh toán hiện tại
         $count = PayOder::where('workspace_id', Auth::user()->current_workspace)->count();
 

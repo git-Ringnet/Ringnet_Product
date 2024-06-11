@@ -97,6 +97,8 @@ class PayOrderController extends Controller
         } else {
             $id = $request->detailimport_id;
         }
+
+        // dd($id);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($id) {

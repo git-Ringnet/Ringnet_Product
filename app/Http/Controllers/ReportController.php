@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContentImportExport;
 use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
@@ -231,6 +232,13 @@ class ReportController extends Controller
 
         // Khách hàng còn nợ
 
+
+
+
+
+
+        // Chuyển tiền nội bộ
+        $content = ContentImportExport::where('workspace_id',Auth::user()->current_workspace)->get();
         // dd($doanhso);
         return view('report.index', compact(
             'title',
@@ -258,7 +266,8 @@ class ReportController extends Controller
             'quoteExport',
             'tonggiavon',
             'totalSales',
-            'dondathang'
+            'dondathang',
+            'content'
         ));
     }
     public function view()

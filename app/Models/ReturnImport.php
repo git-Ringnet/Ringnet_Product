@@ -33,7 +33,9 @@ class ReturnImport extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-
+    public function getAllReturnProduct(){
+        return $this->hasMany(ReturnProduct::class, 'returnImport_id', 'id');
+    }
 
     public function addReturnImport($data)
     {

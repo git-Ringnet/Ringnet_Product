@@ -489,14 +489,14 @@
                                                     <div style="margin-top: 6px;">
                                                         <input onclick="getDataCheckbox(this)" 
                                                             type="checkbox"  ` + (element.check_seri == 1 ?
-                                    "checked disabled" : "") + ` >
+                                    "checked disabled" : "disabled") + ` >
                                                         <input type="hidden" name="cbSeri[]" 
                                                                 value="` + (element.check_seri == 1 ? 1 : 0) + `">
 
                                             <a class="duongdan" data-toggle="modal" 
                                                             data-target="#exampleModal` + element.id + `" 
                                                             ` + (element.check_seri == 1 ? "style='opacity : 1;'" :
-                                    "style='opacity : 1;") + `
+                                    "style='opacity : 0;'") + `
                                                             >
                                             <div class="sn--modal mt-3">
                                                     <span class="border-span--modal">SN</span>
