@@ -367,8 +367,10 @@
                     $('#myInput1').val(data.product[0].receive_id);
                     $('#inputcontent tbody').empty();
                     data.product.forEach((element, index) => {
-                        if (element.product_qty - element
-                            .receive_qty > 0) {
+                        // if (element.product_qty - element
+                        //     .receive_qty > 0) 
+                        if (element.product_qty - parseFloat(data['qty'][index]) >
+                            0) {
                             var promotionObject = JSON.parse(
                                 element.promotion);
                             var tr =
@@ -573,6 +575,12 @@
     $('form').on('submit', function(e) {
         e.preventDefault();
         var formSubmit = true;
+        if ($('#inputcontent tbody tr').length == 0) {
+            showNotification('warning', "Vui lòng chọn ít nhất 1 sản phẩm")
+            formSubmit = false;
+            return false;
+        }
+
         // Kiểm tra số lượng sản phẩm và số lượng SN
         $('.searchProductName').each(function(item, index) {
             cbseri = $(this).closest('tr').find('input[name^="cbSeri"]').val();
@@ -580,7 +588,8 @@
                 count = $('input[name="seri' + item + '[]"]:checked').length;
                 qty = $(this).closest('tr').find('.quantity-input').val().trim();
                 if (qty != count) {
-                    showNotification('warning', "Sản phẩm <b>" + $(this).val() + "</b> chưa chọn đủ số lượng sn")
+                    showNotification('warning', "Sản phẩm <b>" + $(this).val() +
+                        "</b> chưa chọn đủ số lượng sn")
                     formSubmit = false;
                     return false;
                 }

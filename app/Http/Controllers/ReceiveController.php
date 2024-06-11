@@ -294,7 +294,7 @@ class ReceiveController extends Controller
             if ($count < 10) {
                 $count = "0" . $count;
             }
-            $resultNumber = "MNH-" . $count;
+            $resultNumber = "PNK-" . $count;
         } elseif ($request->table == "reciept") {
             $count = Reciept::where('workspace_id', Auth::user()->current_workspace)->count();
 
@@ -330,7 +330,7 @@ class ReceiveController extends Controller
             if ($count < 10) {
                 $count = "0" . $count;
             }
-            $resultNumber = "MTT-" . $count;
+            $resultNumber = "PC-" . $count;
         }
 
 

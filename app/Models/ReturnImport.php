@@ -175,7 +175,7 @@ class ReturnImport extends Model
                     }
                 }
                 // Xóa thông tin sản phẩm trả hàng
-                ReturnProduct::where('id',$returnProduct->id)->delete();
+                ReturnProduct::where('id',$item->id)->delete();
             }
             // Xóa đơn trả hàng
             ReturnImport::where('id', $returnImport->id)->delete();

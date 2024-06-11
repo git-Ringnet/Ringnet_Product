@@ -71,7 +71,7 @@ class Receive_bill extends Model
             if (isset($data['provide_id'])) {
                 $delivery_code = $resultNumber;
             } else {
-                $delivery_code =  isset($data['delivery_code']) ? $data['delivery_code'] : "";
+                $delivery_code =  isset($data['delivery_code']) ? $data['delivery_code'] : $resultNumber;
             }
         }
         $detail = DetailImport::where('id', $id)->first();

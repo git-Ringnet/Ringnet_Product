@@ -267,6 +267,7 @@ class DetailImport extends Model
         $checkReceive = Receive_bill::where('detailimport_id', $id)->get();
         $checkReciept = Reciept::where('detailimport_id', $id)->get();
         $checkPayOrder = PayOder::where('detailimport_id', $id)->get();
+        $checkReturn = ReturnImport::where('receive_id',$id)->get();
         if (count($checkReceive) > 0) {
             $result = [
                 'status' => false,
@@ -281,6 +282,11 @@ class DetailImport extends Model
             $result = [
                 'status' => false,
                 'msg' => 'Vui lòng xóa thanh toán mua hàng'
+            ];
+        }elseif(count($checkReturn) > 0){
+            $result = [
+                'status' => false,
+                'msg' => 'Vui lòng xóa đơn trả hàng'
             ];
         } else {
             $detail = DetailImport::where('id', $id)->first();

@@ -389,28 +389,28 @@ function calculateGrandTotal() {
     $("#total").val(totalAmount);
 }
 
-// function updateTaxAmount() {
-//     console.log(123);
-//     $("#inputcontent tbody tr").each(function () {
-//         var productQty = parseFloat($(this).find(".quantity-input").val());
-//         var productPrice = $(this).find('input[name^="price_export"]');
-//         if (productPrice.length > 0) {
-//             productPrice = parseFloat(
-//                 productPrice.val().replace(/[^0-9.-]+/g, "")
-//             );
-//         }
-//         var taxValue = parseFloat($(this).find(".product_tax").val());
-//         if (taxValue == 99) {
-//             taxValue = 0;
-//         }
+function updateTaxAmount() {
+    console.log(123);
+    $("#inputcontent tbody tr").each(function () {
+        var productQty = parseFloat($(this).find(".quantity-input").val());
+        var productPrice = $(this).find('input[name^="price_export"]');
+        if (productPrice.length > 0) {
+            productPrice = parseFloat(
+                productPrice.val().replace(/[^0-9.-]+/g, "")
+            );
+        }
+        var taxValue = parseFloat($(this).find(".product_tax").val());
+        if (taxValue == 99) {
+            taxValue = 0;
+        }
 
-//         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
-//             var totalAmount = productQty * productPrice;
-//             var taxAmount = (totalAmount * taxValue) / 100;
-//             $(this).find(".product_tax1").text(Math.round(taxAmount));
-//         }
-//     });
-// }
+        if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
+            var totalAmount = productQty * productPrice;
+            var taxAmount = (totalAmount * taxValue) / 100;
+            $(this).find(".product_tax1").text(Math.round(taxAmount));
+        }
+    });
+}
 
 // Edit
 updateTaxAmount();

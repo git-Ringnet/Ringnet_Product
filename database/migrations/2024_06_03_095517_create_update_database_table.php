@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->integer('workspace_id')->nullable();
             $table->integer('user_id')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
         Schema::create('returnProduct', function (Blueprint $table) {
