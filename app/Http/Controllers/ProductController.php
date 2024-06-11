@@ -34,6 +34,8 @@ class ProductController extends Controller
         $this->provides = new Provides();
         $this->warehouse = new Warehouse();
         $this->workspaces = new Workspace();
+
+        
     }
 
     public function index()

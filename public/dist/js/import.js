@@ -180,7 +180,10 @@ function calculateAll() {
     var product_tax = $('#product-tax').text().replace(/[^0-9.-]+/g, "") || 0;
     var total = parseFloat(total_amount) + parseFloat(product_tax);
     var option = $("[name^='promotion-option-total']").val();
-    var promotion = $("input[name^='promotion-total']").val().replace(/[^0-9.-]+/g, "") || 0;
+    var promotion = $("input[name^='promotion-total']").val();
+    if(promotion){
+        promotion. replace(/[^0-9.-]+/g, "") || 0;
+    }
     if (option == 1) {
         var cal = total - promotion;
     } else {
@@ -257,8 +260,11 @@ function updateTaxAmount() {
             $(this)
                 .find('input[name^="price_export"]')
                 .val()
-                .replace(/[^0-9.-]+/g, "")
         );
+        if (productPrice) {
+            productPrice.replace(/[^0-9.-]+/g, "")
+        }
+
         var option_promotion = $(this).closest('tr').find('.promotion-option').val();
         var promotion =
             $(this)

@@ -74,6 +74,13 @@ function showListWarehouse() {
 }
 showListWarehouse()
 
+function showListGuest(){
+    $("#inputcontent tbody").on("click", ".search_guest", function () {
+        $(this).closest("tr").find("#listGuest").show();
+    })
+}
+showListGuest()
+
 function showListProductCode() {
     $("#inputcontent tbody").on("click", ".searchProduct", function () {
         $(this).closest("tr").find("#listProductCode").show();
@@ -100,9 +107,12 @@ $(document).click(function (event) {
     if ($(event.target).closest(".searchWarehouse").length == 0) {
         $("#listWarehouse").hide();
     }
-    // if ($(event.target).closest(".search_quotation").length == 0) {
-    //     $("#listReceive").hide();
-    // }
+    if ($(event.target).closest(".search_guest").length == 0) {
+        $("#listGuest").hide();
+    }
+    if ($(event.target).closest(".search_funds").length == 0) {
+        $("#listFunds").hide();
+    }
 });
 
 //ẩn danh sách khách hàng
@@ -110,7 +120,8 @@ $(document).click(function (event) {
     if (
         !$(event.target).closest("#myInput").length &&
         !$(event.target).closest("#provideFilter").length &&
-        !$(event.target).closest("#myInput1").length
+        !$(event.target).closest("#myInput1").length && 
+        !$(event.target).closest("#listGuest").length
     ) {
         $("#myUL").hide();
         $("#listReceive").hide();
@@ -441,7 +452,6 @@ function addRowTable(status) {
         "</div>" +
         "</td>" +
         '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">';
-
     if (status == 2) {
         tr +=
             '<input type="text" class="border-0 px-2 py-1 w-100 product_tax" name="product_tax[]" readonly >';
@@ -454,7 +464,7 @@ function addRowTable(status) {
             '<option value="99">NOVAT</option>' +
             "</select>";
     }
-    if (status == 3) {
+    // if (status == 3) {
         tr +=
             "</td>" +
             '<input type="hidden" class="product_tax1">' +
@@ -467,7 +477,7 @@ function addRowTable(status) {
             '<ul id="listWarehouse" class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
             "</ul>" +
             "</td>";
-    }
+    // }
     if (status == 3) {
         tr += "<td class='p-2 text-13 align-top text-center border-top-0 border-bottom border-right'> " +
             "<div style='margin-top: 6px;'> " +

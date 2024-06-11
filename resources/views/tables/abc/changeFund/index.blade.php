@@ -17,7 +17,7 @@
                 <span class="font-weight-bold text-secondary">Nội dung thu chi</span>
             </div>
             <div class="d-flex content__heading--right">
-                <a href="{{ route('content.create', $workspacename) }}" class="mr-1">
+                <a href="{{ route('changeFund.create', $workspacename) }}" class="mr-1">
                     <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                         <svg width="12" height="12" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -126,35 +126,96 @@
                         <table id="example2" class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="border-bottom border-top-0"
-                                        style="width:5%;padding-left: 2rem;" class="border-top-0 bg-white">
+                                    <th scope="col" class="border-bottom border-top-0" style="padding-left: 2rem;"
+                                        class="border-top-0 bg-white">
                                         <input type="checkbox" name="all" id="checkall" class="checkall-btn">
 
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom"
-                                        style="width: 10%;">
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_code" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">STT
+                                                    <span class="text-13">Ngày lập
                                                     </span>
                                                 </button>
                                             </a>
                                             <div class="icon" id="icon-product_code"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
-                                                data-sort-by="product_name" data-sort-type="DESC">
+                                                data-sort-by="product_code" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Nội dung thu chi</span>
+                                                    <span class="text-13">Mã phiếu
+                                                    </span>
                                                 </button>
                                             </a>
-                                            <div class="icon" id="icon-product_name"></div>
+                                            <div class="icon" id="icon-product_code"></div>
                                         </span>
                                     </th>
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="product_code" data-sort-type="DESC">
+                                                <button class="btn-sort" type="submit">
+                                                    <span class="text-13">Người lập
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <div class="icon" id="icon-product_code"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="product_code" data-sort-type="DESC">
+                                                <button class="btn-sort" type="submit">
+                                                    <span class="text-13">Số tiền
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <div class="icon" id="icon-product_code"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="product_code" data-sort-type="DESC">
+                                                <button class="btn-sort" type="submit">
+                                                    <span class="text-13">Từ quỹ
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <div class="icon" id="icon-product_code"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="product_code" data-sort-type="DESC">
+                                                <button class="btn-sort" type="submit">
+                                                    <span class="text-13">Đến quỹ
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <div class="icon" id="icon-product_code"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="product_code" data-sort-type="DESC">
+                                                <button class="btn-sort" type="submit">
+                                                    <span class="text-13">Ghi chú
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <div class="icon" id="icon-product_code"></div>
+                                        </span>
+                                    </th>
+
                                 </tr>
                             </thead>
                             <tbody class="tbody-product">
@@ -186,16 +247,37 @@
                                                 id="checkbox" value="" onclick="event.stopPropagation();">
                                         </td>
                                         <td class="py-2 text-13-black pl-0 border-bottom border-top-0">
-                                            {{ $stt }}
+                                            {{ date_format(new DateTime($item->payment_day), 'd/m/Y') }}
                                         </td>
                                         <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
-                                            {{ $item->name }}
+                                            {{ $item->form_code }}
+                                        </td>
+                                        <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
+                                            @if ($item->getUser)
+                                                {{ $item->getUser->name }}
+                                            @endif
+                                        </td>
+                                        <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
+                                            {{ number_format($item->qty_money) }}
+                                        </td>
+                                        <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
+                                            @if ($item->getFromFund)
+                                                {{ $item->getFromFund->name }}
+                                            @endif
+                                        </td>
+                                        <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
+                                            @if ($item->getToFund)
+                                                {{ $item->getToFund->name }}
+                                            @endif
+                                        </td>
+                                        <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
+                                            {{ $item->notes }}
                                         </td>
                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0"
                                             style="right: 10px; top: 7px;">
                                             <div class="d-flex w-100">
                                                 <a
-                                                    href="{{ route('content.edit', ['workspace' => $workspacename, 'content' => $item->id]) }}">
+                                                    href="{{ route('changeFund.edit', ['workspace' => $workspacename, 'changeFund' => $item->id]) }}">
                                                     <div class="m-0 px-2 py-1 mx-2 rounded">
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -214,7 +296,7 @@
                                             <a href="#">
                                                 <div class="m-0 mx-2 rounded">
                                                     <form onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                        action="{{ route('content.destroy', ['workspace' => $workspacename, 'content' => $item->id]) }}"
+                                                        action="{{ route('changeFund.destroy', ['workspace' => $workspacename, 'changeFund' => $item->id]) }}"
                                                         method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')

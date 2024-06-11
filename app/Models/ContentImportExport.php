@@ -35,64 +35,50 @@ class ContentImportExport extends Model
     //     ]
     // }
 
-
+    public function formatDate($data)
+    {
+        return Carbon::parse($data);
+    }
+    public function getUser()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+    public function getFromFund()
+    {
+        return $this->hasOne(Fund::class, 'id', 'from_fund_id');
+    }
+    public function getToFund()
+    {
+        return $this->hasOne(Fund::class, 'id', 'to_fund_id');
+    }
 
     public function createContent($data)
     {
-
-        // dd($data);
         $status = [];
-        // $check = $this->checkFund($data['fund_id'], $data['qty_money']);
-        // if ($check) {
+        $check = $this->checkFund($data['from_fund'], $data['qty_money']);
+        if ($check) {
             $dataContent = [
-                'document' => $data['document'],
-                'name' => $data['name'],
-                'content' => $data['content'],
-                'qty_money' => $data['qty_money'],
-                'fund_id' => $data['fund_id'],
-                'notes' => $data['notes'],
-                'type' => $data['type'],
-                'created_at' => isset($data['date']) ? $data['date'] : Carbon::now(),
+                'payment_day' => isset($data['payment_day']) ?  $data['payment_day'] : Carbon::now(),
+                'form_code' => $data['form_code'],
                 'user_id' => Auth::user()->id,
-                'workspace_id' => Auth::user()->current_workspace
+                'qty_money' => str_replace(',', '', $data['qty_money']),
+                'from_fund_id' => $data['from_fund'],
+                'to_fund_id' => $data['to_fund'],
+                'notes' => isset($data['notes']) ? $data['notes'] : "",
+                'workspace_id' => Auth::user()->current_workspace,
+                'created_at' => Carbon::now(),
             ];
+            // Thêm mới nội dung thu chi
             $id = DB::table($this->table)->insertGetId($dataContent);
-            if ($data['type'] == 1) {
-                $this->plus_funds($data['fund_id'], str_replace(',', '', $data['qty_money']));
-            } else {
-                $this->deduction($data['fund_id'], $data['qty_money']);
-            }
+
+            // Trừ tiền quỹ chuyển
+            $this->deduction($data['from_fund'],  str_replace(',', '', $data['qty_money']), 1);
+            // Cộng tiền vào quỹ cần chuyển
+            $this->plus_funds($data['to_fund'], str_replace(',', '', $data['qty_money']), 1);
+
             $status = [
                 'status' => true,
                 'id' => $id,
-            ];
-        // } else {
-        //     $status = [
-        //         'status' => false,
-        //     ];
-        // }
-        return $status;
-    }
-
-
-    public function updateContent($id, $data)
-    {
-        // Kiểm tra quỹ
-        $money =  str_replace(',', '', $data['qty_money']);
-        $status = $this->checkUpdate($id, $money, $data['fund_id']);
-        if ($status['status']) {
-            $dataUpdate = [
-                'document' => $data['document'],
-                'type' => $data['type'],
-                'name' => $data['name'],
-                'content' => $data['content'],
-                'qty_money' => $money,
-                'fund_id' => $data['fund_id'],
-                'created_at' => isset($data['date']) ? $data['date'] : Carbon::now()
-            ];
-            DB::table($this->table)->update($dataUpdate);
-            $status = [
-                'status' => true,
             ];
         } else {
             $status = [
@@ -102,11 +88,178 @@ class ContentImportExport extends Model
         return $status;
     }
 
+
+    public function updateContent($id, $data)
+    {
+        $update = true;
+        // Kiểm tra quỹ
+        $content = DB::table($this->table)->where('id', $id)->first();
+        if ($content) {
+            // Kiểm tra tiền chuyển
+            $money = str_replace(',', '', $data['qty_money']);
+            if ($content->qty_money > $money) {
+                $qty = $content->qty_money - $money;
+                $check = $this->checkFund($content->from_fund_id, $qty);
+                if ($check) {
+                    // Cộng tiền quỹ cũ
+                    $this->plus_funds($content->from_fund_id, $qty, 2);
+                    // Trừ tiền quỹ mới
+                    $this->deduction($content->to_fund_id,  $qty, 2);
+                } else {
+                    // Không cập nhật phiếu chuyển tiền
+                    $status['status'] = false;
+                    $update = false;
+                }
+            } elseif ($content->qty_money < $money) {
+                $qty =  $money - $content->qty_money;
+                $check = $this->checkFund($content->from_fund_id, $qty);
+                if ($check) {
+                    // Trừ tiền quỹ cũ
+                    $this->deduction($content->from_fund_id,  $qty, 2);
+
+                    // Cộng tiền quỹ mới
+                    $this->plus_funds($content->to_fund_id, $qty, 2);
+                } else {
+                    // Không cập nhật phiếu chuyển tiền
+                    $status['status'] = false;
+                    $update = false;
+                }
+            }
+            // else {
+            //     $qty = 0;
+            // }
+            // dd($qty);
+
+            // $check = $this->checkFund($content->from_fund_id, $qty);
+            // if ($check) {
+            //     // Trừ thêm tiền vào quỹ 
+            //     $this->deduction($content->from_fund_id,  $qty, 2);
+
+            //     // Cộng thêm tiền vào quỹ mới
+            //     $this->plus_funds($content->to_fund_id, $qty, 2);
+            // } else {
+            //     // Không cập nhật phiếu chuyển tiền
+            //     $status['status'] = false;
+            //     $update = false;
+            // }
+            if ($update) {
+                $money =  str_replace(',', '', $data['qty_money']);
+                $dataUpdate = [
+                    'payment_day' => isset($data['payment_day']) ? $data['payment_day'] : Carbon::now(),
+                    'form_code' => $data['form_code'],
+                    // 'name' => $data['name'],
+                    // 'content' => $data['content'],
+                    'qty_money' => $money,
+                    // 'from_fund_id' => $data['from_fund'],
+                    // 'to_fund_id' => $data['to_fund'],
+                    'notes' => $data['notes'],
+                ];
+                DB::table($this->table)->where('id', $id)->update($dataUpdate);
+                $status = [
+                    'status' => true,
+                ];
+            }
+        } else {
+            $status['status'] = false;
+        }
+
+
+        // if ($content) {
+        //     // Thay đổi quỹ cũ
+        //     if ($content->from_fund_id == $data['from_fund']) {
+        //         // Kiểm tra tiền chuyển
+        //         $money = str_replace(',', '', $data['qty_money']);
+        //         if ($content->qty_money > $money) {
+        //             $qty = $money - $content->qty_money;
+
+        //             $check = $this->checkFund($data['from_fund'], $qty);
+        //             if ($check) {
+        //                 // Trừ thêm tiền vào quỹ 
+        //                 $this->deduction($data['from_fund'],  $qty, 2);
+
+        //                 // Cộng thêm tiền vào quỹ mới
+        //                 $this->plus_funds($data['to_fund'], $qty, 2);
+        //             } else {
+        //                 // Không cập nhật phiếu chuyển tiền
+        //                 $update = false;
+        //             }
+        //         } elseif ($content->qty_money < $money) {
+        //             $qty = $content->qty_money - $money;
+        //             // Cộng thêm tiền vào quỹ cũ
+        //             $this->plus_funds($data['from_fund'], $qty, 2);
+
+        //             // Trừ tiền từ quỹ mới
+        //             $this->deduction($data['to_fund'],  $qty, 2);
+        //         } else {
+        //             $qty = $content->qty_money;
+        //             $check = $this->checkFund($data['from_fund'], $qty);
+        //             if ($check) {
+        //                 // Trừ thêm tiền vào quỹ 
+        //                 $this->deduction($data['from_fund'],  $qty, 2);
+
+        //                 // Cộng thêm tiền vào quỹ mới
+        //                 $this->plus_funds($data['to_fund'], $qty, 2);
+        //             } else {
+        //                 // Không cập nhật phiếu chuyển tiền
+        //                 $update = false;
+        //             }
+        //         }
+        //     } else {
+        //         $check = $this->checkFund($data['from_fund'], str_replace(',', '', $data['qty_money']));
+        //         if ($check) {
+        //             if ($content->to_fund_id == $data['from_fund']) {
+        //                 // dd(1);
+        //                 // Trừ tiền quỹ cũ
+        //                 $this->deduction($content->to_fund_id,  $content->qty_money, 1);
+        //                 // Cộng tiền vào quỹ mới
+        //                 $this->plus_funds($data['to_fund'], $content->qty_money, 1);
+        //             } else {
+        //                 // dd(2);
+        //                 // Cộng tiền vào quỹ cũ
+        //                 $this->plus_funds($content->from_fund_id, $content->qty_money, 1);
+        //                 // Trừ tiền từ quỹ mới
+        //                 $this->deduction($content->to_fund_id,  $content->qty_money, 1);
+
+
+        //                 // Trừ tiền từ quỹ mới
+        //                 $this->deduction($data['from_fund'],  str_replace(',', '', $data['qty_money']), 1);
+
+        //                 // Cộng tiền vào quỹ mới
+        //                 $this->plus_funds($data['from_fund'], str_replace(',', '', $data['qty_money']), 1);
+        //             }
+        //         } else {
+        //             $update = false;
+        //             $status['status'] = false;
+        //         }
+        //     }
+        //     // Thay đổi quỹ mới
+        //     // if ($content->to_fund_id != $data['to_fund']) {
+        //     //     // Trừ tiền quỹ cũ
+        //     //     $this->deduction($content->to_fund_id,  $content->qty_money, 1);
+        //     //     // Cộng tiền vào quỹ mới
+        //     //     $this->plus_funds($data['to_fund'], str_replace(',', '', $data['qty_money']), 1);
+        //     // }
+        // } else {
+        //     $update = false;
+        //     $status['status'] = false;
+        // }
+
+        // if ($update) {
+
+        // } else {
+        //     $status = [
+        //         'status' => false,
+        //     ];
+        // }
+        return $status;
+    }
+
     public function checkFund($id, $money)
     {
-        $fund = DB::table('quy')->where('id', $id)->first();
+        $fund = DB::table('funds')->where('id', $id)->first();
+        $money = str_replace(',', '', $money);
         if ($fund) {
-            if ($fund->qyt < $money) {
+            if ($fund->amount < $money) {
                 $status = false;
             } else {
                 $status = true;
@@ -117,29 +270,48 @@ class ContentImportExport extends Model
         return $status;
     }
 
-    public function deduction($fund_id, $money)
+    public function deduction($fund_id, $money, $status)
     {
-        $fund = DB::table('quy')->where('id', $fund_id)->first();
-        if ($fund) {
-            $debt = $fund->qyt - $money;
-            DB::table('quy')->where('id', $fund_id)->update(
-                ['qyt' => $debt]
-            );
-            $status = true;
+        $fund = DB::table('funds')->where('id', $fund_id)->first();
+        if ($status == 1) {
+            if ($fund) {
+                $debt = $fund->amount - $money;
+                DB::table('funds')->where('id', $fund_id)->update(
+                    ['amount' => $debt]
+                );
+                $status = true;
+            }
+        } else {
+            if ($fund) {
+                $debt = $fund->amount - $money;
+                DB::table('funds')->where('id', $fund_id)->update(
+                    ['amount' => $debt]
+                );
+                $status = true;
+            }
         }
-
         return $status;
     }
 
-    public function plus_funds($fund_id, $money)
+    public function plus_funds($fund_id, $money, $status)
     {
-        $fund = DB::table('quy')->where('id', $fund_id)->first();
-        if ($fund) {
-            $debt = $fund->qyt + $money;
-            DB::table('quy')->where('id', $fund_id)->update(
-                ['qyt' => $debt]
-            );
-            $status = true;
+        $fund = DB::table('funds')->where('id', $fund_id)->first();
+        if ($status == 1) {
+            if ($fund) {
+                $debt = $fund->amount + $money;
+                DB::table('funds')->where('id', $fund_id)->update(
+                    ['amount' => $debt]
+                );
+                $status = true;
+            }
+        } else {
+            if ($fund) {
+                $debt = $fund->amount + $money;
+                DB::table('funds')->where('id', $fund_id)->update(
+                    ['amount' => $debt]
+                );
+                $status = true;
+            }
         }
         return $status;
     }
@@ -198,17 +370,13 @@ class ContentImportExport extends Model
         // Lấy content
         $getContent = ContentImportExport::where('id', $id)->first();
         if ($getContent) {
-            $getQuy = DB::table('quy')->where('id', $getContent->fund_id)->first();
-            if ($getContent->type == 1) {
-                DB::table('quy')->where('id', $getQuy->id)->update([
-                    'qyt' => ($getQuy->qyt - $getContent->qty_money)
-                ]);
-            } else {
-                // Cộng lại tiền quỹ cũ
-                DB::table('quy')->where('id', $getQuy->id)->update([
-                    'qyt' => ($getQuy->qyt + $getContent->qty_money)
-                ]);
-            }
+            // Cộng tiền vào quỹ cũ
+            $this->plus_funds($getContent->from_fund_id, $getContent->qty_money, 1);
+
+            // Trừ tiền từ quỹ mới
+            $this->deduction($getContent->to_fund_id, $getContent->qty_money, 1);
+
+            // Xóa nội chuyển tiền
             $getContent->delete();
             $status = ['status' => true];
         } else {

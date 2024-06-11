@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\Auth\WorkspaceController;
 use App\Http\Controllers\BillSaleController;
+use App\Http\Controllers\ChangeInventoryController;
 use App\Http\Controllers\ContentGroupsController;
 use App\Http\Controllers\ContentImportExportController;
 use App\Http\Controllers\DashboardController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\UserFlowController;
 use App\Http\Controllers\UserWorkspacesController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Middleware\CheckLogin;
+use App\Models\ContentImportExport;
 use App\Models\DetailImport;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -57,6 +59,9 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::resource('{workspace}/content', ContentGroupsController::class);
 });
 
+Route::resource('{workspace}/changeFund',ContentImportExportController::class);
+// Route::resource('{workspace}/changeInventory',ChangeInventoryController::class);
+// Route::get('/checkInventory',[ChangeInventoryController::class,'checkInventory'])->name('checkInventory');
 
 // Nhà cung cấp
 Route::middleware([CheckLogin::class])->group(function () {

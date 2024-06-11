@@ -123,7 +123,7 @@ class Products extends Model
                 'product_weight' =>  isset($data['product_weight']) ? str_replace(',', '', $data['product_weight']) : 0,
                 'product_ratio' => isset($data['product_ratio']) ? $data['product_ratio'] : 0,
                 'check_seri' => $data['type_product'] == 1 ? $check : 0,
-                'category_id' => $data['category_id'],
+                'category_id' => isset($data['category_id']) ? $data['category_id'] : 0,
                 'product_inventory' => 0,
                 'product_trade' => 0,
                 'product_available' => 0,

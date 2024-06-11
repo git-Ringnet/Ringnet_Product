@@ -52,13 +52,23 @@ class PayOder extends Model
     public function getHistoryPay()
     {
         return $this->hasOne(HistoryPaymentOrder::class, 'payment_id', 'id')
-        ->orderBy('id','desc');
+            ->orderBy('id', 'desc');
         // ->latest();
     }
-    public function getAllHistoryPayments(){
+    public function getAllHistoryPayments()
+    {
         return $this->hasMany(HistoryPaymentOrder::class, 'payment_id', 'id');
     }
 
+
+    public function getGuest()
+    {
+        return $this->hasOne(Guest::class, 'id', 'guest_id');
+    }
+    public function getFund()
+    {
+        return $this->hasOne(Fund::class, 'id', 'fund_id');
+    }
 
     public function updatePayment($data, $id)
     {
@@ -89,7 +99,7 @@ class PayOder extends Model
             $prepay = (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0);
 
             // Tính công nợ nhà cung cấp
-            $this->calculateDebt($payment->provide_id, 0, $prepay, $payment->detailimport_id);
+            // $this->calculateDebt($payment->provide_id, 0, $prepay, $payment->detailimport_id);
             // Cập nhật trạng thái thanh toán
             $status = $this->updateStatusDebt($data, $payment->id, 2);
 
@@ -133,11 +143,36 @@ class PayOder extends Model
         $total_tax = 0;
         $sum = 0;
         $temp = 0;
-        $detail =  DetailImport::findOrFail($id);
+        $detail =  DetailImport::where('id', $id)->first();
+
+
+
+        // Lây mã thanh toán hiện tại
+        $count = PayOder::where('workspace_id', Auth::user()->current_workspace)->count();
+
+        $lastReceive = PayOder::where('workspace_id', Auth::user()->current_workspace)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if ($lastReceive) {
+            $parts = explode('-', $lastReceive->payment_code);
+            $getNumber = end($parts);
+            $count = (int)$getNumber + 1;
+        } else {
+            $count = $count == 0 ? $count += 1 : $count;
+        }
+        if ($count < 10) {
+            $count = "0" . $count;
+        }
+        $resultNumber = "PCT-" . $count;
+
+
+
         if ($detail) {
             $payment = PayOder::where('detailimport_id', $detail->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
+
             if ($payment) {
                 $payment_id = $payment->id;
                 DB::table($this->table)->where('id', $payment_id)
@@ -147,79 +182,69 @@ class PayOder extends Model
                         'debt' => $payment->debt - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0)
                     ]);
             } else {
-                // Lây mã thanh toán hiện tại
-                $count = PayOder::where('workspace_id', Auth::user()->current_workspace)->count();
-
-                $lastReceive = PayOder::where('workspace_id', Auth::user()->current_workspace)
-                    ->orderBy('id', 'desc')
-                    ->first();
-
-                if ($lastReceive) {
-                    $parts = explode('-', $lastReceive->payment_code);
-                    $getNumber = end($parts);
-                    $count = (int)$getNumber + 1;
-                } else {
-                    $count = $count == 0 ? $count += 1 : $count;
-                }
-                if ($count < 10) {
-                    $count = "0" . $count;
-                }
-                $resultNumber = "MTT-" . $count;
-
                 $dataReciept = [
                     'detailimport_id' => $detail->id,
                     'provide_id' => $detail->provide_id,
-                    'status' => ($data['payment'] > 0 ? 6 : 1),
+                    'status' => (isset($data['payment']) ? ($data['payment'] > 0 ? 6 : 1) : 2),
                     'payment_date' => isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now(),
-                    'total' => 0,
+                    'total' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
                     'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
                     'debt' => 0,
                     'created_at' => Carbon::now(),
                     'workspace_id' => Auth::user()->current_workspace,
-                    'payment_code' => isset($data['payment_code']) ? $data['payment_code'] : $resultNumber,
-                    'payment_day' => isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now(),
-                    'payment_type' => $data['payment_type'],
-                    'user_id' => Auth::user()->id
+                    'payment_code' => (isset($data['payment_code']) ? $data['payment_code'] : $resultNumber),
+                    'payment_day' => (isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now()),
+                    'payment_type' => (isset($data['payment_type']) ? $data['payment_type'] : ""),
+                    'user_id' => Auth::user()->id,
+                    'guest_id' => isset($data['guest_id']) ? $data['guest_id'] : "",
+                    'content_pay' => $data['content_pay'],
+                    'fund_id' => $data['fund_id'],
+                    'note' => $data['note'],
+                    'usercreate_id' => Auth::user()->id
                 ];
                 $payment_id = DB::table($this->table)->insertGetId($dataReciept);
-                for ($i = 0; $i < count($data['product_name']); $i++) {
-                    $dataupdate = [
-                        'payOrder_id' => $payment_id,
-                    ];
-                    $checkQuote = QuoteImport::where('detailimport_id', $detail->id)
-                        ->where('workspace_id', Auth::user()->current_workspace)
-                        ->get();
-                    if ($checkQuote) {
-                        foreach ($checkQuote as $value) {
-                            $productImport = ProductImport::where('quoteImport_id', $value->id)
-                                ->where('payOrder_id', 0)
-                                ->where('workspace_id', Auth::user()->current_workspace)
-                                ->first();
-                            if ($productImport) {
-                                DB::table('products_import')->where('id', $productImport->id)
-                                    ->where('workspace_id', Auth::user()->current_workspace)
-                                    ->update($dataupdate);
-                                $product = QuoteImport::where('id', $productImport->quoteImport_id)
-                                    ->where('workspace_id', Auth::user()->current_workspace)
-                                    ->first();
-                                $price_export = $product->price_export;
-                                $total += $price_export * $productImport->product_qty;
-                                $total_tax += ($price_export * $productImport->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax) / 100;
-                            }
-                        }
-                        $sum = round($total) + round($total_tax);
-                        $temp = $sum;
-                        DB::table($this->table)->where('id', $payment_id)
-                            ->where('workspace_id', Auth::user()->current_workspace)
-                            ->update([
-                                'total' => $sum,
-                                'debt' => $sum - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
-                            ]);
-                    }
-                }
+                // for ($i = 0; $i < count($data['product_name']); $i++) {
+                //     $dataupdate = [
+                //         'payOrder_id' => $payment_id,
+                //     ];
+                //     $checkQuote = QuoteImport::where('detailimport_id', $detail->id)
+                //         ->where('workspace_id', Auth::user()->current_workspace)
+                //         ->get();
+                //     if ($checkQuote) {
+                //         foreach ($checkQuote as $value) {
+                //             $productImport = ProductImport::where('quoteImport_id', $value->id)
+                //                 ->where('payOrder_id', 0)
+                //                 ->where('workspace_id', Auth::user()->current_workspace)
+                //                 ->first();
+                //             if ($productImport) {
+                //                 DB::table('products_import')->where('id', $productImport->id)
+                //                     ->where('workspace_id', Auth::user()->current_workspace)
+                //                     ->update($dataupdate);
+                //                 $product = QuoteImport::where('id', $productImport->quoteImport_id)
+                //                     ->where('workspace_id', Auth::user()->current_workspace)
+                //                     ->first();
+                //                 $price_export = $product->price_export;
+                //                 $total += $price_export * $productImport->product_qty;
+                //                 $total_tax += ($price_export * $productImport->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax) / 100;
+                //             }
+                //         }
+                //         $sum = round($total) + round($total_tax);
+                //         $temp = $sum;
+                //         DB::table($this->table)->where('id', $payment_id)
+                //             ->where('workspace_id', Auth::user()->current_workspace)
+                //             ->update([
+                //                 'total' => $sum,
+                //                 'debt' => $sum - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
+                //             ]);
+                //     }
+                // }
             }
-            // Cập nhật tình trạng thanh toán
-            $status = $this->updateStatusDebt($data, $payment_id, 1);
+
+            if (isset($data['payment'])) {
+                // Cập nhật tình trạng thanh toán
+                $status = $this->updateStatusDebt($data, $payment_id, 1);
+            }
+
             $prepay = isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0;
             // Cập nhật trạng thái đơn hàng
             // tính dư nợ nhà cung cấp
@@ -229,13 +254,35 @@ class PayOder extends Model
             }
 
             if ($detail) {
-                $this->calculateDebt($detail->provide_id, $temp, $prepay, $detail->id);
+                // $this->calculateDebt($detail->provide_id, $temp, $prepay, $detail->id);
                 $detail->status_debt = 1;
                 $detail->save();
             }
 
             // Cập nhật trạng thái
             $this->updateStatus($detail->id, PayOder::class, 'payment_qty', 'status_pay');
+        } else {
+            $dataReciept = [
+                'detailimport_id' => 0,
+                // 'provide_id' => $detail->provide_id,
+                'status' => (isset($data['payment']) ? ($data['payment'] > 0 ? 6 : 1) : 2),
+                'payment_date' => isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now(),
+                'total' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
+                'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
+                'debt' => 0,
+                'created_at' => Carbon::now(),
+                'workspace_id' => Auth::user()->current_workspace,
+                'payment_code' => isset($data['payment_code']) ? $data['payment_code'] : $resultNumber,
+                'payment_day' => isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now(),
+                'payment_type' => isset($data['payment_type']) ? $data['payment_type'] : "",
+                'user_id' => Auth::user()->id,
+                'guest_id' => isset($data['guest_id']) ? $data['guest_id'] : "",
+                'content_pay' => $data['content_pay'],
+                'fund_id' => $data['fund_id'],
+                'note' => $data['note'],
+                'usercreate_id' => Auth::user()->id
+            ];
+            $payment_id = DB::table($this->table)->insertGetId($dataReciept);
         }
         return $payment_id;
     }
@@ -288,6 +335,18 @@ class PayOder extends Model
             ->where('workspace_id', Auth::user()->current_workspace)
             ->update($dataUpdate);
     }
+
+    public function calculateFunds($id, $money)
+    {
+        // Lấy thông tin quỹ
+        $fund = Fund::where('id', $id)->first();
+        if ($fund) {
+            $total = $fund->amount - str_replace(',', '', $money);
+            $fund->amount = $total;
+            $fund->save();
+        }
+    }
+
 
 
     public function calculateDebt($provide_id, $temp, $total, $detail_id)
@@ -429,6 +488,17 @@ class PayOder extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->delete();
 
+            // Cộng lại tiền cho quỹ
+            // Lấy thông tin quỹ
+            $fund = Fund::where('id', $payment->fund_id)->first();
+            if ($fund) {
+                $qty = $fund->amount + $payment->total;
+                $fund->amount = $qty;
+                $fund->save();
+            }
+
+
+
             // Xóa thanh toán
             DB::table('pay_order')->where('id', $payment->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -467,19 +537,19 @@ class PayOder extends Model
                 ]);
 
             // Xóa dư nợ nhà cung cấp nếu tình trạng là 1  
-            if ($detailImport) {
-                if ($stDetail == 1) {
-                    $stDebt == $detailImport->status_debt ? $status_debt = 1 : $status_debt = 2;
-                    $this->updateDebtProvide($detailImport->provide_id, $detailImport->total_tax, $status_debt, $prepay);
-                } else {
-                    $provide = Provides::where('id', $detailImport->provide_id)->first();
-                    if ($provide) {
-                        $debt = $provide->provide_debt + $prepay;
-                        $provide->provide_debt = $debt;
-                        $provide->save();
-                    }
-                }
-            }
+            // if ($detailImport) {
+            //     if ($stDetail == 1) {
+            //         $stDebt == $detailImport->status_debt ? $status_debt = 1 : $status_debt = 2;
+            //         $this->updateDebtProvide($detailImport->provide_id, $detailImport->total_tax, $status_debt, $prepay);
+            //     } else {
+            //         $provide = Provides::where('id', $detailImport->provide_id)->first();
+            //         if ($provide) {
+            //             $debt = $provide->provide_debt + $prepay;
+            //             $provide->provide_debt = $debt;
+            //             $provide->save();
+            //         }
+            //     }
+            // }
 
             $status = true;
         } else {

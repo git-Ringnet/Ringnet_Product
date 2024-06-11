@@ -54,17 +54,21 @@ return new class extends Migration
 
         Schema::create('content-import-export', function (Blueprint $table) {
             $table->id();
-            $table->string('document')->nullable();
-            $table->string('type')->nullable();
-            $table->string('name')->nullable();
-            $table->string('content');
-            $table->decimal('qty_money', 20, 4)->nullable();
-            $table->integer('fund_id');
-            $table->string('fund_name')->nullable();
-            $table->string('notes')->nullable();
+            $table->dateTime('payment_day')->nullable();
+            $table->string('form_code')->nullable();
             $table->integer('user_id')->nullable();
+            $table->decimal('qty_money', 20, 4)->nullable();
+            $table->integer('from_fund_id')->nullable();
+            $table->integer('to_fund_id')->nullable();
+            $table->string('notes')->nullable();
             $table->integer('workspace_id')->nullable();
             $table->timestamps();
+
+            // $table->string('type')->nullable();
+            // $table->string('name')->nullable();
+            // $table->string('content');
+            // $table->string('fund_name')->nullable();
+         
         });
     }
 

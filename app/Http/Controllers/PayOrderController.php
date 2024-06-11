@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Attachment;
 use App\Models\DetailImport;
+use App\Models\Fund;
+use App\Models\Guest;
 use App\Models\HistoryPaymentOrder;
 use App\Models\PayOder;
 use App\Models\ProductImport;
@@ -66,7 +68,7 @@ class PayOrderController extends Controller
         $workspacename = $workspacename->workspace_name;
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
             // ->where('quoteimport.product_qty', '>', 'quoteimport.payment_qty')
-            ->where('quoteimport.product_qty','>',DB::raw('COALESCE(quoteimport.payment_qty,0)'))
+            ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.payment_qty,0)'))
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->where('detailimport.status_pay', '=', 0)
             ->distinct()
@@ -78,7 +80,11 @@ class PayOrderController extends Controller
 
         $reciept->select('detailimport.quotation_number', 'detailimport.id');
         $reciept = $reciept->get();
-        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename'));
+
+        $funds = Fund::all();
+
+        $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest'));
     }
 
     /**
@@ -91,13 +97,19 @@ class PayOrderController extends Controller
         } else {
             $id = $request->detailimport_id;
         }
-
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        // Tạo sản phẩm theo đơn nhận hàng
-        $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
+        if ($id) {
+            // Tạo sản phẩm theo đơn nhận hàng
+            $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
+        }
+
         // Tạo mới thanh toán hóa đơn
         $payment = $this->payment->addNewPayment($request->all(), $id);
+
+
+        // Trừ tiền vào quỹ
+        $payment = $this->payment->calculateFunds($payment, $request->total);
 
         if ($payment) {
             $dataUserFlow = [
@@ -109,8 +121,10 @@ class PayOrderController extends Controller
 
             DB::table('user_flow')->insert($dataUserFlow);
 
+
             // Lưu lịch sử
             $this->historyPayment->addHistoryPayment($request->all(), $payment);
+
             if (isset($request->id_import)) {
                 return redirect()->route('import.index', $workspacename)->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
             } else {

@@ -113,7 +113,7 @@ class Reciept extends Model
             DB::table('detailimport')->where('id', $detail->id)->update($dataDetail);
 
             // Cập nhật dư nợ nhà cung cấp
-            $this->calculateDebt($detail->provide_id, $sum);
+            // $this->calculateDebt($detail->provide_id, $sum);
         }
         return $reciept_id;
     }

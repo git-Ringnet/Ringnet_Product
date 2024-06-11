@@ -240,7 +240,7 @@ class Receive_bill extends Model
             DB::table('detailimport')->where('id', $detail->id)->update($dataDetail);
 
             // Cập nhật dư nợ nhà cung cấp
-            $this->calculateDebt($detail->provide_id, $sum);
+            // $this->calculateDebt($detail->provide_id, $sum);
         }
         return $receive_id;
     }

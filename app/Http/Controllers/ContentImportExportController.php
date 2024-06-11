@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContentImportExport;
+use App\Models\Fund;
 use App\Models\Warehouse;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
@@ -27,9 +28,10 @@ class ContentImportExportController extends Controller
             ->orderBy('id', 'desc')
             ->get();
         $title = "Kho";
+
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.abc.content.content', compact('title', 'workspacename', 'content'));
+        return view('tables.abc.changeFund.index', compact('title', 'workspacename', 'content'));
     }
 
     /**
@@ -41,7 +43,8 @@ class ContentImportExportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $type = DB::table('contenttype')->get();
-        return view('tables.abc.content.createContent', compact('title', 'workspacename', 'type'));
+        $fund = Fund::all();
+        return view('tables.abc.changeFund.create', compact('title', 'workspacename', 'type','fund'));
     }
 
     /**
@@ -49,16 +52,14 @@ class ContentImportExportController extends Controller
      */
     public function store(Request $request)
     {
-
-        $this->content->createContentGroup($request->all());
-        // $status = $this->content->createContent($request->all());
-        // $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        // $workspacename = $workspacename->workspace_name;
-        // if ($status['status']) {
-        //     return redirect()->route('content.index', $workspacename)->with('msg', 'Thêm mới nội dung thu chi !');
-        // } else {
-        //     return redirect()->route('content.index', $workspacename)->with('msg', 'Quỹ không đủ tiền !');
-        // }
+        $status = $this->content->createContent($request->all());
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        if ($status['status']) {
+            return redirect()->route('changeFund.index', $workspacename)->with('msg', 'Thêm mới nội dung thu chi !');
+        } else {
+            return redirect()->route('changeFund.index', $workspacename)->with('warning', 'Quỹ không đủ tiền !');
+        }
     }
 
     /**
@@ -78,8 +79,8 @@ class ContentImportExportController extends Controller
         $title = "Chỉnh sửa nội dung thu chi";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $quy = DB::table('quy')->get();
-        return view('tables.abc.content.editContent', compact('title', 'workspacename', 'content', 'quy'));
+        $fund = DB::table('funds')->get();
+        return view('tables.abc.changeFund.edit', compact('title', 'workspacename', 'content', 'fund'));
     }
 
     /**
@@ -92,9 +93,9 @@ class ContentImportExportController extends Controller
         $status = $this->content->updateContent($id, $request->all());
 
         if ($status['status']) {
-            return redirect()->route('content.index', $workspacename)->with('msg', 'Chỉnh sửa nội dung thu chi thành công !');
+            return redirect()->route('changeFund.index', $workspacename)->with('msg', 'Chỉnh sửa nội dung thu chi thành công !');
         } else {
-            return redirect()->route('content.index', $workspacename)->with('warning', 'Số tiền trong quỹ mới không đủ !');
+            return redirect()->route('changeFund.index', $workspacename)->with('warning', 'Số tiền trong quỹ mới không đủ !');
         }
     }
 
@@ -107,9 +108,9 @@ class ContentImportExportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($status['status']) {
-            return redirect()->route('content.index', $workspacename)->with('msg', 'Xóa nội dung thu chi thành công !');
+            return redirect()->route('changeFund.index', $workspacename)->with('msg', 'Xóa nội dung thu chi thành công !');
         } else {
-            return redirect()->route('content.index', $workspacename)->with('warning', 'Không tìm thấy nội dung thi chi cần xóa !');
+            return redirect()->route('changeFund.index', $workspacename)->with('warning', 'Không tìm thấy nội dung thi chi cần xóa !');
         }
     }
 }

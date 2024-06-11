@@ -134,7 +134,7 @@ class ProductImport extends Model
                 }
 
                 $id_proImport = DB::table($this->table)->insertGetId($dataProductImport);
-                array_push($list_id,$id_proImport);
+                array_push($list_id, $id_proImport);
                 // Thêm số lượng sản phẩm đã nhập
                 if ($columQuote == "receive_qty") {
                     $receive_qty = $product->receive_qty;
@@ -173,10 +173,21 @@ class ProductImport extends Model
                     'version' => 1,
                     'workspace_id' => Auth::user()->current_workspace,
                     'user_id' => Auth::user()->id,
-                    'receive_id' => 0,
+                    // 'receive_id' => 0,
                     'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1,
                     'promotion' => json_encode($promotion),
+                    'created_at' => Carbon::now()
                 ];
+
+                if ($columQuote == "receive_qty") {
+                    $dataQuote['receive_id'] = 0;
+                } else if ($columQuote == "reciept_qty") {
+                    $dataQuote['reciept_id'] = 0;
+                } else {
+                    $dataQuote['payorder_id'] = 0;
+                }
+
+
 
                 // Thêm quoteImport
                 $id_quote = DB::table('quoteimport')->insertGetId($dataQuote);
@@ -238,7 +249,7 @@ class ProductImport extends Model
                         $dataProductImport['product_guarantee'] = $data['product_guarantee'][$i];
                     }
                     $id_proImport = DB::table($this->table)->insertGetId($dataProductImport);
-                    array_push($list_id,$id_proImport);
+                    array_push($list_id, $id_proImport);
                 }
                 $status = true;
             }

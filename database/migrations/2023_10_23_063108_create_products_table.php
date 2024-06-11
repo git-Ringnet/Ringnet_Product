@@ -29,6 +29,7 @@ return new class extends Migration
             $table->decimal('product_available',20,4)->nullable();
             // $table->unsignedBigInteger('warehouse_id');
             $table->integer('check_seri')->nullable();
+            $table->integer('category_id')->nullable();
             $table->timestamps();
         });
     }

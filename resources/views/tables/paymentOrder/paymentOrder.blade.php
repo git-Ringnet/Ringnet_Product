@@ -175,8 +175,8 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment_code" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Mã thanh
-                                                            toán</button>
+                                                        <button class="btn-sort text-13" type="submit">Mã số
+                                                            phiếu</button>
                                                     </a>
                                                     <div class="icon" id="icon-payment_code"></div>
                                                 </span>
@@ -191,13 +191,32 @@
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
+                                            <th scope="col" class="my-0 py-2 height-52" style="width: 14%;">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="payment_code" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">Ngày</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-payment_code"></div>
+                                                </span>
+                                            </th>
+
                                             <th scope="col" class="my-0 py-2 height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display"
                                                         data-sort-type="DESC"><button class="btn-sort text-13"
-                                                            type="submit">Nhà cung
-                                                            cấp</button>
+                                                            type="submit">Khách hàng</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-provide_name_display"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="my-0 py-2 height-52" style="width: 10%;">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="provide_name_display"
+                                                        data-sort-type="DESC"><button class="btn-sort text-13"
+                                                            type="submit">Người nhận</button>
                                                     </a>
                                                     <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
@@ -219,7 +238,7 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Trạng thái</span>
+                                                            <span class="text-13">Số tiền</span>
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-status"></div>
@@ -231,7 +250,7 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment_date" data-sort-type="DESC"><button
                                                             class="btn-sort" type="submit">
-                                                            <span class="text-13">Hạn thanh toán </span>
+                                                            <span class="text-13">Nội dung</span>
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-payment_date"></div>
@@ -243,7 +262,7 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total" data-sort-type="DESC"><button
                                                             class="btn-sort" type="submit"><span
-                                                                class="text-13">Tổng tiền</span></button>
+                                                                class="text-13">Quỹ</span></button>
                                                     </a>
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
@@ -253,8 +272,9 @@
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment" data-sort-type="DESC"><button
-                                                            class="btn-sort" type="submit"><span class="text-13">Đã
-                                                                nhận</span></button>
+                                                            class="btn-sort" type="submit"><span
+                                                                class="text-13">Nhân viên
+                                                            </span></button>
                                                     </a>
                                                     <div class="icon" id="icon-payment"></div>
                                                 </span>
@@ -263,8 +283,9 @@
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="debt" data-sort-type="DESC"><button
-                                                            class="btn-sort" type="submit"><span class="text-13">Dư
-                                                                nợ</span></button>
+                                                            class="btn-sort" type="submit"><span class="text-13">Ghi
+                                                                chú
+                                                            </span></button>
                                                     </a>
                                                     <div class="icon" id="icon-debt"></div>
                                                 </span>
@@ -325,12 +346,20 @@
                                                     </a>
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">
-                                                    {{ $item->getQuotation->quotation_number }}
+                                                    @if ($item->getQuotation)
+                                                        {{ $item->getQuotation->quotation_number }}
+                                                    @endif
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">
-                                                    @if ($item->getQuotation)
-                                                        {{ $item->getQuotation->provide_name }}
+                                                    {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}</td>
+                                                </td>
+
+                                                <td class="text-13-black border-top-0 border-bottom max-width120">
+                                                    @if ($item->getGuest)
+                                                        {{ $item->getGuest->guest_name_display }}
                                                     @endif
+                                                </td>
+                                                <td class="text-13-black border-top-0 border-bottom max-width120">
                                                 </td>
                                                 @can('isAdmin')
                                                     <td class="text-13-black border-top-0 border-bottom">
@@ -340,7 +369,8 @@
                                                     </td>
                                                 @endcan
                                                 <td class="text-13-black text-center border-top-0 border-bottom">
-                                                    @if ($item->status == 1)
+                                                    {{ number_format($item->total) }}
+                                                    {{-- @if ($item->status == 1)
                                                         @if ($item->payment > 0)
                                                             <span style="color: #0052CC">Thanh toán một phần</span>
                                                         @else
@@ -350,30 +380,38 @@
                                                         <span style="color: #08AA36">Thanh toán đủ</span>
                                                     @elseif($item->status == 3)
                                                         <span style="color: #E8B600">Đến hạn trong
-                                                            {{-- {{ $item->formatDate($item->payment_date)->diffInDays($today) + 1 }} --}}
                                                             {{ Carbon\Carbon::parse($item->payment_date)->diffInDays(now()) + 1 }}
                                                             ngày</span>
                                                     @elseif($item->status == 4)
                                                         <span style="color:#EC212D">Quá hạn
-                                                            {{-- {{ $item->formatDate($item->payment_date)->diffInDays($today) }} --}}
                                                             {{ Carbon\Carbon::parse($item->payment_date)->diffInDays(now()) }}
                                                             ngày</span>
                                                     @elseif($item->status == 5)
                                                         <span style="color: #E8B600">Đến hạn</span>
                                                     @else
                                                         <span style="color: #858585">Đặt cọc</span>
-                                                    @endif
+                                                    @endif --}}
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom">
-                                                    {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}</td>
+                                                    {{-- {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }} --}}
+                                                    {{ $item->content_pay }}
+                                                </td>
 
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    {{ number_format($item->total) }}</td>
-                                                <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    {{ number_format($item->payment) }}
+                                                    @if ($item->getFund)
+                                                        {{ $item->getFund->name }}
+                                                    @endif
+                                                    {{-- {{ number_format($item->total) }} --}}
                                                 </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    {{ number_format($item->debt) }}
+                                                    @if($item->getNameUser)
+                                                        {{$item->getNameUser->name}}
+                                                    @endif
+                                                    {{-- {{ number_format($item->payment) }} --}}
+                                                </td>
+                                                <td class="text-13-black text-right border-top-0 border-bottom text-wrap">
+                                                    {{$item->note}}
+                                                    {{-- {{ number_format($item->debt) }} --}}
                                                 </td>
 
                                                 {{-- <td class="py-2 text-13-black text-right">

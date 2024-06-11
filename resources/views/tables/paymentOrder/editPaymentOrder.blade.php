@@ -212,48 +212,108 @@
             </section>
 
         </div>
-        <div class="content margin-top-38" id="main">
+        <div class="content margin-top-38" id="main" style="width: 100%;">
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div id="title--fixed" class="content-title--fixed top-111 text-center">
+                        <div id="title--fixed" class="content-title--fixed top-111 text-center" style="width: 87%;">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">
-                                THÔNG TIN SẢN PHẨM</p>
+                                THÔNG TIN PHIẾU CHI
+                            </p>
                         </div>
                         <section class="content margin-top-103">
                             <div class="content-info position-relative table-responsive text-nowrap">
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:44px;">
-                                            <th class="border-right p-2" style="width: 15%;">
-                                                <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox">
-                                                <span class="text-13 "> Mã sản phẩm</span>
+                                            <th class="border-right p-2" style="width: 12%;">
+                                                {{-- <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox"> --}}
+                                                <span class="text-13 ">Đơn đặt hàng</span>
                                             </th>
-                                            <th class="border-right p-2" style="width: 16%;">
-                                                <span class="text-13">Tên sản phẩm</span>
+                                            <th class="border-right p-2" style="width: 14%;">
+                                                <span class="text-13">Mã phiếu</span>
                                             </th>
-                                            <th class="border-right p-2" style="width: 10%;">
-                                                <span class="text-13"> Đơn vị</span>
+                                            <th class="border-right p-2" style="width: 8%;">
+                                                <span class="text-13">Ngày</span>
+                                            </th>
+                                            <th class="border-right p-2 text-left" style="width: 8%;">
+                                                <span class="text-13">Khách hàng</span>
+                                            </th>
+                                            <th class="border-right p-2 text-left" style="width: 8%;">
+                                                <span class="text-13">Người nhận</span>
                                             </th>
                                             <th class="border-right p-2 text-right" style="width: 10%;">
-                                                <span class="text-13"> Số lượng</span>
+                                                <span class="text-13">Số tiền</span>
                                             </th>
-                                            <th class="border-right p-2 text-right" style="width: 15%;">
-                                                <span class="text-13">Đơn giá</span>
+                                            <th class="border-right p-2 text-left" style="width: 10%;">
+                                                <span class="text-13">Nội dung</span>
                                             </th>
-                                            <th class="border-right p-2 text-center" style="width: 10%;">
-                                                <span class="text-13">Thuế</span>
+                                            <th class="border-right p-2 text-left" style="width: 8%;">
+                                                <span class="text-13">Quỹ</span>
                                             </th>
-                                            <th class="border-right p-2 text-right" style="width: 12%;">
-                                                <span class="text-13">Thành tiền</span>
+                                            <th class="border-right p-2 text-left" style="width: 8%;">
+                                                <span class="text-13">Nhân viên</span>
                                             </th>
                                             <th class="note p-2">
-                                                <span class="text-13">Ghi chú</span>
+                                                <span class="text-13 text-wrap">Ghi chú</span>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($product as $item)
+                                        <tr class="bg-white" style="height:80px;">
+                                            <td
+                                                class="border border-left-0 border-top-0 p-2 align-top position-relative">
+                                                <input readonly type="text"
+                                                    class="w-100 border-0 px-2 py-1 height-32"
+                                                    @if ($payment->getQuotation) value="{{ $payment->getQuotation->quotation_number }}" @endif>
+                                            </td>
+                                            <td class="border border-left-0 border-top-0 p-2 align-top">
+                                                <input readonly type="text"
+                                                    class="w-100 border-0 px-2 py-1 height-32"
+                                                    value="{{ $payment->payment_code }}">
+                                            </td>
+                                            <td class="border border-left-0 border-top-0 p-2 align-top">
+                                                <input readonly type="text"
+                                                    class="w-100 border-0 px-2 py-1 height-32"
+                                                    value="{{ date_format(new DateTime($payment->payment_date), 'd-m-Y') }}">
+                                            </td>
+                                            <td class="border border-left-0 border-top-0 p-2 align-top">
+                                                <input readonly type="text"
+                                                    class="w-100 border-0 px-2 py-1 height-32"
+                                                    @if ($payment->getGuest) value="{{ $payment->getGuest->guest_name_display }}" @endif>
+                                            </td>
+                                            <td class="border border-left-0 border-top-0 p-2 align-top">
+                                                <input readonly type="text"
+                                                    class="w-100 border-0 px-2 py-1 height-32">
+                                            </td>
+                                            <td class="border border-left-0 border-top-0 p-2 align-top">
+                                                <input readonly type="text"
+                                                    class="w-100 border-0 px-2 py-1 height-32 text-right"
+                                                    value="{{ number_format($payment->total) }}">
+                                            </td>
+                                            <td class="border border-left-0 border-top-0 p-2 align-top">
+                                                <input readonly type="text"
+                                                    class="w-100 border-0 px-2 py-1 height-32"
+                                                    value="{{ $payment->content_pay }}">
+                                            </td>
+                                            <td class="border border-left-0 border-top-0 p-2 align-top">
+                                                <input readonly type="text"
+                                                    class="w-100 border-0 px-2 py-1 height-32"
+                                                    @if ($payment->getFund) value="{{ $payment->getFund->name }}" @endif>
+                                            </td>
+                                            <td class="border border-left-0 border-top-0 p-2 align-top">
+                                                <input readonly type="text"
+                                                    class="w-100 border-0 px-2 py-1 height-32"
+                                                    @if ($payment->getNameUser) value="{{ $payment->getNameUser->name }}" @endif>
+                                            </td>
+                                            <td class="border border-left-0 border-top-0 p-2 align-top">
+                                                <input readonly type="text"
+                                                    class="w-100 border-0 px-2 py-1 height-32"
+                                                    value="{{ $payment->note }}">
+                                            </td>
+                                        </tr>
+
+                                        {{-- @foreach ($product as $item)
                                             <tr class="bg-white" style="height:80px;">
                                                 <td
                                                     class="border border-left-0 border-top-0 p-2 align-top position-relative">
@@ -349,13 +409,12 @@
                                                         value="{{ $item->product_note }}" placeholder='Nhập ghi chú'>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>
                         </section>
-                        <?php $import = '123'; ?>
-                        <x-formsynthetic :import="$import"></x-formsynthetic>
+                        {{-- <x-formsynthetic :import="$import"></x-formsynthetic> --}}
                     </div>
 
                     <div id="history" class="tab-pane fade">
@@ -429,7 +488,7 @@
             </div>
         </div>
         <div class="content-wrapper2 px-0 py-0">
-            <div id="mySidenav" class="sidenav border top-109">
+            {{-- <div id="mySidenav" class="sidenav border top-109">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
@@ -444,7 +503,7 @@
                             <input type="text" placeholder="Chọn thông tin" id="search_quotation"
                                 class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest search_quotation"
                                 style="background-color:#F0F4FF; border-radius:4px;" name="quotation_number"
-                                autocomplete="off" readonly value="{{ $payment->getQuotation->quotation_number }}">
+                                autocomplete="off" readonly value="@if ($payment->getQuotation) {{ $payment->getQuotation->quotation_number }}" @endif>
                         </span>
                     </div>
 
@@ -455,7 +514,7 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
                                 <input type="text"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                    style="flex:2;" readonly id="provide_name" {{-- value="{{ $payment->getProvideName->provide_name_display }}" --}}
+                                    style="flex:2;" readonly id="provide_name"
                                     value="@if ($payment->getQuotation) {{ $payment->getQuotation->provide_name }} @endif"
                                     placeholder="Chọn thông tin" />
                             </li>
@@ -541,7 +600,7 @@
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2;" value="{{ number_format($payment->debt) }}" />
                             </li>
-                            {{-- @dd($payment->debt) --}}
+            
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
@@ -565,7 +624,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </form>
@@ -684,7 +743,6 @@
     window.addEventListener('resize', function() {
         const currentDevicePixelRatio = window.devicePixelRatio;
         checkZoom(currentDevicePixelRatio)
-
     });
     $(document).ready(function() {
         const currentDevicePixelRatio = window.devicePixelRatio;
@@ -692,97 +750,97 @@
     })
 
     // Hiển thị sản phẩm
-    $(document).on('click', '.info-product', function() {
-        $('#productModal .product_show').empty()
-        var nameProduct = $(this).closest('td').find('input[name^="product_name"]').val()
-        $.ajax({
-            url: "{{ route('getHistoryImport') }}",
-            type: 'GET',
-            data: {
-                product_name: nameProduct,
-                type: "product"
-            },
-            success: function(data) {
-                var modal_body = `
-                <b>Tên sản phẩm: </b> ` + data['product'].product_name + `<br> 
-                <b>Đơn vị: </b> ` + data['product'].product_unit + ` <br>
-                <b>Tồn kho: </b> ` + formatCurrency(data['product'].product_inventory) + ` <br>
-                <b>Thuế: </b> ` + (data['product'].product_tax == 99 ? "NOVAT" : data['product'].product_tax + '%') + `
-                `;
-                $('.product_show').append(modal_body)
-            },
-        });
-    })
+    // $(document).on('click', '.info-product', function() {
+    //     $('#productModal .product_show').empty()
+    //     var nameProduct = $(this).closest('td').find('input[name^="product_name"]').val()
+    //     $.ajax({
+    //         url: "{{ route('getHistoryImport') }}",
+    //         type: 'GET',
+    //         data: {
+    //             product_name: nameProduct,
+    //             type: "product"
+    //         },
+    //         success: function(data) {
+    //             var modal_body = `
+    //             <b>Tên sản phẩm: </b> ` + data['product'].product_name + `<br> 
+    //             <b>Đơn vị: </b> ` + data['product'].product_unit + ` <br>
+    //             <b>Tồn kho: </b> ` + formatCurrency(data['product'].product_inventory) + ` <br>
+    //             <b>Thuế: </b> ` + (data['product'].product_tax == 99 ? "NOVAT" : data['product'].product_tax + '%') + `
+    //             `;
+    //             $('.product_show').append(modal_body)
+    //         },
+    //     });
+    // })
 
 
-    $(document).on('click', '.transaction', function() {
-        nameProduct = $(this).closest('tr').find('.searchProductName').val()
-        $.ajax({
-            url: "{{ route('getHistoryImport') }}",
-            type: "get",
-            data: {
-                product_name: nameProduct,
-            },
-            success: function(data) {
-                $('#recentModal .modal-body tbody').empty()
-                if (data['history']) {
-                    data['history'].forEach(
-                        element => {
-                            var tr = `
-                                <tr>
-                                    <td class="border-bottom">` + element.product_name + `</td>
-                                    <td class="border-bottom">` + element.nameProvide + `</td>
-                                    <td class="border-bottom">` + formatCurrency(element.price_export) + `</td>
-                                    <td class="border-bottom">` + (element.product_tax == 99 ? "NOVAT" : element
-                                .product_tax + "%") + `</td>
-                                    <td class="border-bottom">` + new Date(element.created_at).toLocaleDateString(
-                                'vi-VN'); + `</td>
-                                </tr> `;
-                            $('#recentModal .modal-body tbody').append(tr);
-                        })
-                }
-            }
-        })
-    })
+    // $(document).on('click', '.transaction', function() {
+    //     nameProduct = $(this).closest('tr').find('.searchProductName').val()
+    //     $.ajax({
+    //         url: "{{ route('getHistoryImport') }}",
+    //         type: "get",
+    //         data: {
+    //             product_name: nameProduct,
+    //         },
+    //         success: function(data) {
+    //             $('#recentModal .modal-body tbody').empty()
+    //             if (data['history']) {
+    //                 data['history'].forEach(
+    //                     element => {
+    //                         var tr = `
+    //                             <tr>
+    //                                 <td class="border-bottom">` + element.product_name + `</td>
+    //                                 <td class="border-bottom">` + element.nameProvide + `</td>
+    //                                 <td class="border-bottom">` + formatCurrency(element.price_export) + `</td>
+    //                                 <td class="border-bottom">` + (element.product_tax == 99 ? "NOVAT" : element
+    //                             .product_tax + "%") + `</td>
+    //                                 <td class="border-bottom">` + new Date(element.created_at).toLocaleDateString(
+    //                             'vi-VN'); + `</td>
+    //                             </tr> `;
+    //                         $('#recentModal .modal-body tbody').append(tr);
+    //                     })
+    //             }
+    //         }
+    //     })
+    // })
 
-    flatpickr("#datePicker", {
-        locale: "vn",
-        dateFormat: "d/m/Y",
-        onChange: function(selectedDates, dateStr, instance) {
-            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
-        },
-        onReady: function(selectedDates, dateStr, instance) {
-            // Cập nhật giá trị của trường ẩn khi mở date picker
-            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
-        },
-    });
+    // flatpickr("#datePicker", {
+    //     locale: "vn",
+    //     dateFormat: "d/m/Y",
+    //     onChange: function(selectedDates, dateStr, instance) {
+    //         // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+    //         updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+    //     },
+    //     onReady: function(selectedDates, dateStr, instance) {
+    //         // Cập nhật giá trị của trường ẩn khi mở date picker
+    //         updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+    //     },
+    // });
 
-    flatpickr("#datePickerDay", {
-        locale: "vn",
-        dateFormat: "d/m/Y",
-        onChange: function(selectedDates, dateStr, instance) {
-            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            updateHiddenInput(selectedDates[0], instance, "hiddenDateInputDay");
-        },
-        onReady: function(selectedDates, dateStr, instance) {
-            // Cập nhật giá trị của trường ẩn khi mở date picker
-            updateHiddenInput(selectedDates[0], instance, "hiddenDateInputDay");
-        }
-    });
+    // flatpickr("#datePickerDay", {
+    //     locale: "vn",
+    //     dateFormat: "d/m/Y",
+    //     onChange: function(selectedDates, dateStr, instance) {
+    //         // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+    //         updateHiddenInput(selectedDates[0], instance, "hiddenDateInputDay");
+    //     },
+    //     onReady: function(selectedDates, dateStr, instance) {
+    //         // Cập nhật giá trị của trường ẩn khi mở date picker
+    //         updateHiddenInput(selectedDates[0], instance, "hiddenDateInputDay");
+    //     }
+    // });
 
-    function updateHiddenInput(selectedDate, instance, hiddenInputId) {
-        // Lấy thời gian hiện tại
-        var currentTime = new Date();
+    // function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+    //     // Lấy thời gian hiện tại
+    //     var currentTime = new Date();
 
-        // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
-        var selectedDateTime = new Date(selectedDate);
-        selectedDateTime.setHours(currentTime.getHours());
-        selectedDateTime.setMinutes(currentTime.getMinutes());
-        selectedDateTime.setSeconds(currentTime.getSeconds());
+    //     // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+    //     var selectedDateTime = new Date(selectedDate);
+    //     selectedDateTime.setHours(currentTime.getHours());
+    //     selectedDateTime.setMinutes(currentTime.getMinutes());
+    //     selectedDateTime.setSeconds(currentTime.getSeconds());
 
-        document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
-    }
+    //     document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
+    // }
 
     // Xóa đơn hàng
     deleteImport('#delete_payment',
