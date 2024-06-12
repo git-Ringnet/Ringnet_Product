@@ -17,7 +17,7 @@ return new class extends Migration
         });
         Schema::table('pay_order', function (Blueprint $table) {
             $table->integer('guest_id')->nullable();
-            $table->string('content_pay')->nullable();
+            $table->integer('content_pay')->nullable();
             $table->integer('fund_id')->nullable();
             $table->integer('usercreate_id')->nullable();
             $table->integer('detailimport_id')->nullable()->change();

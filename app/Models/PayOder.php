@@ -22,7 +22,8 @@ class PayOder extends Model
         'payment_date', 'payment_code', 'payment_day',
         'total',
         'payment',
-        'debt', 'created_at', 'workspace_id', 'payment_type'
+        'debt', 'created_at', 'workspace_id', 'payment_type',
+        'guest_id','content_pay','fund_id','usercreate_id','note'
     ];
 
     public function getProvideName()
@@ -60,6 +61,10 @@ class PayOder extends Model
         return $this->hasMany(HistoryPaymentOrder::class, 'payment_id', 'id');
     }
 
+    public function getContentPay()
+    {
+        return $this->hasOne(ContentGroups::class, 'id', 'content_pay');
+    }
 
     public function getGuest()
     {
@@ -194,48 +199,48 @@ class PayOder extends Model
                     'payment_day' => (isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now()),
                     'payment_type' => (isset($data['payment_type']) ? $data['payment_type'] : ""),
                     'user_id' => Auth::user()->id,
-                    'guest_id' => isset($data['guest_id']) ? $data['guest_id'] : "",
+                    'guest_id' => isset($data['guest_id']) ? $data['guest_id'] : 0,
                     'content_pay' => $data['content_pay'],
                     'fund_id' => $data['fund_id'],
                     'note' => $data['note'],
                     'usercreate_id' => Auth::user()->id
                 ];
                 $payment_id = DB::table($this->table)->insertGetId($dataReciept);
-                // for ($i = 0; $i < count($data['product_name']); $i++) {
-                //     $dataupdate = [
-                //         'payOrder_id' => $payment_id,
-                //     ];
-                //     $checkQuote = QuoteImport::where('detailimport_id', $detail->id)
-                //         ->where('workspace_id', Auth::user()->current_workspace)
-                //         ->get();
-                //     if ($checkQuote) {
-                //         foreach ($checkQuote as $value) {
-                //             $productImport = ProductImport::where('quoteImport_id', $value->id)
-                //                 ->where('payOrder_id', 0)
-                //                 ->where('workspace_id', Auth::user()->current_workspace)
-                //                 ->first();
-                //             if ($productImport) {
-                //                 DB::table('products_import')->where('id', $productImport->id)
-                //                     ->where('workspace_id', Auth::user()->current_workspace)
-                //                     ->update($dataupdate);
-                //                 $product = QuoteImport::where('id', $productImport->quoteImport_id)
-                //                     ->where('workspace_id', Auth::user()->current_workspace)
-                //                     ->first();
-                //                 $price_export = $product->price_export;
-                //                 $total += $price_export * $productImport->product_qty;
-                //                 $total_tax += ($price_export * $productImport->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax) / 100;
-                //             }
-                //         }
-                //         $sum = round($total) + round($total_tax);
-                //         $temp = $sum;
-                //         DB::table($this->table)->where('id', $payment_id)
-                //             ->where('workspace_id', Auth::user()->current_workspace)
-                //             ->update([
-                //                 'total' => $sum,
-                //                 'debt' => $sum - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
-                //             ]);
-                //     }
-                // }
+                for ($i = 0; $i < count($data['product_name']); $i++) {
+                    $dataupdate = [
+                        'payOrder_id' => $payment_id,
+                    ];
+                    $checkQuote = QuoteImport::where('detailimport_id', $detail->id)
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->get();
+                    if ($checkQuote) {
+                        foreach ($checkQuote as $value) {
+                            $productImport = ProductImport::where('quoteImport_id', $value->id)
+                                ->where('payOrder_id', 0)
+                                ->where('workspace_id', Auth::user()->current_workspace)
+                                ->first();
+                            if ($productImport) {
+                                DB::table('products_import')->where('id', $productImport->id)
+                                    ->where('workspace_id', Auth::user()->current_workspace)
+                                    ->update($dataupdate);
+                                $product = QuoteImport::where('id', $productImport->quoteImport_id)
+                                    ->where('workspace_id', Auth::user()->current_workspace)
+                                    ->first();
+                                $price_export = $product->price_export;
+                                $total += $price_export * $productImport->product_qty;
+                                $total_tax += ($price_export * $productImport->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax) / 100;
+                            }
+                        }
+                        $sum = round($total) + round($total_tax);
+                        $temp = $sum;
+                        DB::table($this->table)->where('id', $payment_id)
+                            ->where('workspace_id', Auth::user()->current_workspace)
+                            ->update([
+                                'total' => $sum,
+                                'debt' => $sum - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
+                            ]);
+                    }
+                }
             }
 
             if (isset($data['payment'])) {
@@ -274,7 +279,7 @@ class PayOder extends Model
                 'payment_day' => isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now(),
                 'payment_type' => isset($data['payment_type']) ? $data['payment_type'] : "",
                 'user_id' => Auth::user()->id,
-                'guest_id' => isset($data['guest_id']) ? $data['guest_id'] : "",
+                'guest_id' => isset($data['guest_id']) ? $data['guest_id'] : 0,
                 'content_pay' => $data['content_pay'],
                 'fund_id' => $data['fund_id'],
                 'note' => $data['note'],
@@ -339,7 +344,7 @@ class PayOder extends Model
         // Lấy thông tin quỹ
         $fund = Fund::where('id', $id)->first();
         if ($fund) {
-            $total = $fund->amount - str_replace(',', '', $money);
+            $total = $fund->amount - (str_replace(',', '', $money));
             $fund->amount = $total;
             $fund->save();
         }
@@ -465,6 +470,7 @@ class PayOder extends Model
             $productImport = ProductImport::where('payOrder_id', $payment->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->get();
+
             if ($productImport) {
                 foreach ($productImport as $item) {
                     $quoteImport = QuoteImport::where('id', $item->quoteImport_id)
@@ -495,7 +501,10 @@ class PayOder extends Model
                 $fund->save();
             }
 
-
+            // Xóa dữ liệu products_import
+            DB::table('products_import')->where('id', $payment->id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->delete();
 
             // Xóa thanh toán
             DB::table('pay_order')->where('id', $payment->id)

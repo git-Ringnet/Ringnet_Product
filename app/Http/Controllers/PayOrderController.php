@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attachment;
+use App\Models\ContentGroups;
 use App\Models\DetailImport;
 use App\Models\Fund;
 use App\Models\Guest;
@@ -84,7 +85,8 @@ class PayOrderController extends Controller
         $funds = Fund::all();
 
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest'));
+        $content = ContentGroups::where('contenttype_id',2)->get();
+        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest','content'));
     }
 
     /**
@@ -98,7 +100,6 @@ class PayOrderController extends Controller
             $id = $request->detailimport_id;
         }
 
-        // dd($id);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($id) {
@@ -111,7 +112,7 @@ class PayOrderController extends Controller
 
 
         // Trừ tiền vào quỹ
-        $payment = $this->payment->calculateFunds($payment, $request->total);
+        $payment = $this->payment->calculateFunds($request->fund_id, $request->total);
 
         if ($payment) {
             $dataUserFlow = [

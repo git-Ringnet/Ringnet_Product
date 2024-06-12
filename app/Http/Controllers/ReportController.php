@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContentGroups;
 use App\Models\ContentImportExport;
 use App\Models\Delivered;
 use App\Models\Delivery;
@@ -17,6 +18,7 @@ use App\Models\ProductImport;
 use App\Models\Provides;
 use App\Models\QuoteExport;
 use App\Models\QuoteImport;
+use App\Models\ReturnImport;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -170,7 +172,7 @@ class ReportController extends Controller
             ->get();
         // dd($quoteexport);
         // $detailE = DetailExport::where('workspace_id',Auth::user()->current_workspace)->get();
-        $guest = Guest::where('workspace_id',Auth::user()->current_workspace)->get();
+        $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
         // $quoteexport = QuoteExport::where('workspace_id', Auth::user()->current_workspace)->get();
         $countImport = QuoteImport::where('workspace_id', Auth::user()->current_workspace)->get();
         $dataImport = DetailImport::where('workspace_id', Auth::user()->current_workspace)->get();
@@ -238,7 +240,29 @@ class ReportController extends Controller
 
 
         // Chuyển tiền nội bộ
-        $content = ContentImportExport::where('workspace_id',Auth::user()->current_workspace)->get();
+        $content = ContentImportExport::where('workspace_id', Auth::user()->current_workspace)->get();
+
+
+        // Lấy tất cả nội dung chi
+        $contetnType = ContentGroups::where('contenttype_id', 2)
+            ->where('workspace_id', Auth::user()->current_workspace)->get();
+        $listIDContent = [];
+        foreach ($contetnType as $va) {
+            array_push($listIDContent, $va->id);
+        }
+
+        // Tổng hợp nội dung thu chi
+        $contentImport = PayOder::whereIn('content_pay', $listIDContent)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->select('id','payment_code','workspace_id','total','payment_date','content_pay','guest_id','fund_id','note')
+            ->orderBy('content_pay','asc')
+            ->get();
+
+        // Trả hàng NCC
+        $returnImport = ReturnImport::where('workspace_id',Auth::user()->current_workspace)->get();
+
+
+
         // dd($doanhso);
         return view('report.index', compact(
             'title',
@@ -267,7 +291,9 @@ class ReportController extends Controller
             'tonggiavon',
             'totalSales',
             'dondathang',
-            'content'
+            'content',
+            'contentImport',
+            'returnImport'
         ));
     }
     public function view()

@@ -113,6 +113,10 @@ $(document).click(function (event) {
     if ($(event.target).closest(".search_funds").length == 0) {
         $("#listFunds").hide();
     }
+    if ($(event.target).closest(".search_content").length == 0) {
+        $("#listContent").hide();
+    }
+
 });
 
 //ẩn danh sách khách hàng
