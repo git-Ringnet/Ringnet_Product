@@ -140,8 +140,8 @@ li {
 .content-title--fixed {
     position: fixed;
     left: 0;
-    top: 170px;
-    right: 310px;
+    top: 436px;
+    right: 0;
     background-color: #ffff;
     z-index: 9;
     transition: 0.5s;
@@ -2564,8 +2564,8 @@ input[type="checkbox"]:checked {
 }
 
 .list-guest {
-    top: 0;
-    right: 320px;
+    top: 45px;
+    right: 0;
     width: 65%;
 }
 
@@ -2683,7 +2683,7 @@ input[type="checkbox"]:checked {
 }
 
 .margin-top-72 {
-    margin-top: 7.2rem;
+    margin-top: 3.2rem;
 }
 
 .margin-top-88 {
@@ -2881,6 +2881,10 @@ input[type="checkbox"]:checked {
 }
 .margin-top-107{
     margin-top: 10.7rem;
+}
+
+.margin-top-11-1{
+    margin-top: 10.6rem;
 }
 
 .content__heading--right .active{
