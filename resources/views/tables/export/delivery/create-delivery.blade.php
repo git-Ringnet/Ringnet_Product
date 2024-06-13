@@ -1,7 +1,6 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="delivery">
 </x-navbar>
-<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('delivery.store') }}"
-    method="POST">
+<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('delivery.store') }}" method="POST">
     @csrf
     <input type="hidden" name="detailexport_id" id="detailexport_id"
         value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
@@ -33,8 +32,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('delivery.index') }}" class="activity" data-name1="GH"
-                            data-des="Hủy">
+                        <a href="{{ route('delivery.index') }}" class="activity" data-name1="GH" data-des="Hủy">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <span>
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -134,6 +132,9 @@
                                         <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
                                             Thuế
                                         </th>
+                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
+                                            Khuyến mãi
+                                        </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
                                             Thành tiền
                                         </th>
@@ -164,48 +165,6 @@
                                     </svg>
                                     <span class="text-table">Thêm sản phẩm</span>
                                 </button>
-                                {{-- <button type="button" data-toggle="dropdown"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                        height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                    <span class="text-table">Thêm đầu mục</span>
-                                </button>
-                                <button type="button" data-toggle="dropdown"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                        height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                    <span class="text-table">Thêm hàng loạt</span>
-                                </button>
-                                <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </button> --}}
                             </div>
                         </div>
                     </section>
@@ -215,32 +174,33 @@
                             <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
                                 <div class="m-3 ">
                                     <div class="d-flex justify-content-between">
-                                        <span class="text-13-black">Giá trị trước thuế:</span>
-                                        <span id="total-amount-sum" class="text-table">
-                                            @isset($yes)
-                                                {{ number_format($getInfoQuote->total_price) }}
-                                            @endisset
-                                        </span>
+                                        <span class="text-13-black">Giá trị trước thuế: </span>
+                                        <span id="total-amount-sum" class="text-table">0đ</span>
                                     </div>
                                     <div class="d-flex justify-content-between mt-2 align-items-center">
-                                        <span class="text-13-black">Thuế VAT:</span>
-                                        <span id="product-tax" class="text-table">
-                                            @isset($yes)
-                                                {{ number_format($getInfoQuote->total_tax) }}
-                                            @endisset
-                                        </span>
+                                        <span class="text-13-black">Khuyến mãi:</span>
+                                        <div class="d-flex align-items-center">
+                                            <input id="voucher" type="text" name="voucher" readonly
+                                                class="text-right text-13-black border-0 py-1 w-100 height-32 bg-input-guest"
+                                                placeholder="Nhập số tiền">
+                                            <span class="percent_discount d-none">%</span>
+                                            <select id="discount_type" disabled
+                                                class="border-0 height-32 text-13-blue text-center discount_type bg-input-guest">
+                                                <option value="1">Nhập tiền</option>
+                                                <option value="2">Nhập %</option>
+                                            </select>
+                                        </div>
                                     </div>
-
                                     <div class="d-flex justify-content-between mt-2">
-                                        <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
-                                        <span id="grand-total" data-value="0"
-                                            class="text-13-bold text-lg font-weight-bold text-right">
-                                            @isset($yes)
-                                                {{ number_format($getInfoQuote->total_tax + $getInfoQuote->total_price) }}
-                                            @endisset
-                                        </span>
-                                        <input type="text" hidden="" name="totalValue"
-                                            value="0"id="total">
+                                        <span class="text-13-black">Thuế VAT: </span>
+                                        <span id="product-tax" class="text-table">0đ</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <span class="text-13-bold text-lg font-weight-bold">Tổng cộng: </span>
+                                        <span class="text-13-bold text-lg font-weight-bold text-right"
+                                            id="grand-total" data-value="0">0đ</span>
+                                        <input type="text" hidden="" name="totalValue" value="0"
+                                            id="total">
                                     </div>
                                 </div>
                             </div>
@@ -768,6 +728,17 @@
                 "</select>" +
                 "</td>"
             );
+            const khuyenMai = $(
+                "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
+                "<div class='d-flex align-item-center'>" +
+                "<input type='text' name='promotion[]' readonly class='text-right border-0 px-2 py-1 w-100 height-32 promotion' autocomplete='off'>" +
+                "<span class='mt-2 percent d-none'>%</span>" +
+                "</div>" +
+                "<div class='text-right'>" +
+                "<select name='promotion_type[]' class='border-0 mt-3 text-13-blue text-center promotion_type' required=''><option value='1'>Nhập tiền</option><option value='2'>Nhập %</option></select>" +
+                "</div>" +
+                "</td>"
+            );
             const thanhTien = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
                 "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>" +
@@ -789,7 +760,8 @@
             );
             // 
             // Gắn các phần tử vào hàng mới
-            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, quanLySN, donGia, thue, thanhTien,
+            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, quanLySN, donGia, thue, khuyenMai,
+                thanhTien,
                 ghiChu,
                 option);
             $("#dynamic-fields").before(newRow);
@@ -1069,7 +1041,7 @@
                                                             var checkbox =
                                                                 $(
                                                                     this
-                                                                    )
+                                                                )
                                                                 .find(
                                                                     ".check-item"
                                                                 );
@@ -1079,7 +1051,7 @@
                                                                 )
                                                                 .is(
                                                                     checkbox
-                                                                    )
+                                                                )
                                                             ) {
                                                                 // Đảo ngược trạng thái checked của checkbox
                                                                 checkbox
@@ -1946,6 +1918,19 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
+                    if (data.discount_type == 2) {
+                        $('.percent_discount').removeClass('d-none');
+                    } else {
+                        $('.percent_discount').addClass('d-none');
+                    }
+                    $("#discount_type").val(data.discount_type);
+                    $("#voucher").val(
+                        formatCurrency(data.discount));
+                    $("#total-amount-sum").text(
+                        formatCurrency(data.total_price));
+                    $("#grand-total").text(formatCurrency(
+                        data.amount_owed));
+                    $("#product-tax").text(formatCurrency(data.total_tax));
                     $('.idRepresent').val(data.represent_id)
                     $('.numberQute').val(data.quotation_number)
                     $('.nameGuest').val(data.guest_name)
@@ -1960,23 +1945,10 @@
                             idQuote: idQuote
                         },
                         success: function(data) {
+                            console.log(data);
                             $(".addProduct").remove();
-                            var totalProductTotal = 0;
-                            var totalTax1 = 0;
                             $.each(data, function(index, item) {
-                                var totalTax = parseFloat(item
-                                    .total_tax) || 0;
-                                var totalPrice = parseFloat(item
-                                    .total_price) || 0;
-                                var grandTotal = totalTax + totalPrice;
-                                var tax = (item.price_export * item
-                                    .soLuongCanGiao * (item
-                                        .thueSP == 99 ? 0 :
-                                        item.thueSP)) / 100;
-                                totalProductTotal += parseFloat(item
-                                    .price_export * item
-                                    .soLuongCanGiao) || 0;
-                                totalTax1 += tax;
+                                var tax = (((item.promotion_type == 1 ? item.product_total - item.promotion : item.product_total - (item.product_total * (item.promotion / 100))) * (item.thueSP == 99 ? 0 : item.thueSP))) / 100;
                                 $(".idGuest").val(item.guest_id);
                                 $("#detailexport_id").val(item.maXuat);
                                 $("#voucher").val(formatCurrency(item
@@ -2055,7 +2027,22 @@
                                         <input type="hidden" class="product_tax" value="${(item.thueSP)}" name="product_tax[]">
                                     </td>
                                     <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                        <input type="text" value="${formatCurrency(item.product_total)}" readonly 
+                                <div class="d-flex align-item-center">
+                                    <input value="${formatCurrency(item.promotion)}" readonly type="text" name="promotion[]" class="text-right border-0 px-2 py-1 w-100 height-32 promotion" autocomplete="off">
+                                    <span class="mt-2 percent d-none">%</span>
+                                </div>
+                                <div class="text-right">
+                                    <select class="border-0 mt-3 text-13-blue text-center" disabled>
+                                        <option value='1' ${(item.promotion_type == 1) ? 'selected' : ''}>Nhập tiền</option>
+                                        <option value='2' ${(item.promotion_type == 2) ? 'selected' : ''}>
+                                            Nhập %
+                                        </option>
+                                    </select>
+                                    <input type="hidden" name='promotion_type[]' value="${item.promotion_type}">
+                                </div>
+                            </td>
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                        <input type="text" value="${formatCurrency(Math.round(item.promotion_type == 1 ? item.product_total - item.promotion : item.product_total - (item.product_total * (item.promotion / 100))))}" readonly 
                                             class="border-0 px-2 text-right py-1 w-100 total-amount height-32">
                                     </td>
                                     <td class="border-top border-secondary p-0 bg-secondary Daydu d-none border-top-0" style="width:1%;"></td>
@@ -2389,7 +2376,7 @@
                                                     $('#pdf_export')
                                                         .val(0);
                                                     e
-                                                .preventDefault();
+                                                        .preventDefault();
                                                 } else {
                                                     // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
                                                     var allFieldsFilled =
@@ -2456,7 +2443,8 @@
                                                                 'warning',
                                                                 'Vui lòng điền đủ thông tin sản phẩm'
                                                             );
-                                                        e.preventDefault();
+                                                        e
+                                                            .preventDefault();
                                                     }
                                                 }
 
@@ -2630,7 +2618,7 @@
                                                     $('#pdf_export')
                                                         .val(0);
                                                     e
-                                                .preventDefault();
+                                                        .preventDefault();
                                                 } else {
                                                     // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
                                                     var allFieldsFilled =
@@ -2697,7 +2685,8 @@
                                                                 'warning',
                                                                 'Vui lòng điền đủ thông tin sản phẩm'
                                                             );
-                                                        e.preventDefault();
+                                                        e
+                                                            .preventDefault();
                                                     }
                                                 }
 
@@ -3330,13 +3319,6 @@
                                         });
                                     });
                             });
-                            //
-                            $("#total-amount-sum").text(
-                                formatCurrency(totalProductTotal));
-                            $("#grand-total").text(formatCurrency(
-                                totalProductTotal + totalTax1));
-                            $("#product-tax").text(formatCurrency(
-                                totalTax1));
                         }
                     });
                 }
@@ -3352,7 +3334,7 @@
         calculateTotals();
     });
 
-    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax', function() {
+    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap', function() {
         calculateTotals();
     });
 
@@ -3362,10 +3344,14 @@
 
         // Lặp qua từng hàng
         $('tr').each(function() {
-            var productQty = parseFloat($(this).find('.quantity-input').val());
+            var productQty = parseFloat($(this).find('[name^="product_qty"]').val());
             var productPriceElement = $(this).find('[name^="product_price"]');
             var productPrice = 0;
-            var taxValue = parseFloat($(this).find('.product_tax option:selected').val());
+            var promotionElement = $(this).find('[name^="promotion"]');
+            var promotion = 0;
+            var taxValue = parseFloat($(this).find('[name^="product_tax"]').val());
+            var promotionType = parseFloat($(this).find('[name^="promotion_type"]').val());
+
             if (taxValue == 99) {
                 taxValue = 0;
             }
@@ -3375,10 +3361,22 @@
                     productPrice = parseFloat(rawPrice.replace(/,/g, ''));
                 }
             }
+            if (promotionElement.length > 0) {
+                var rawPromotion = promotionElement.val();
+                if (rawPromotion !== "") {
+                    promotion = parseFloat(rawPromotion.replace(/,/g, ''));
+                }
+            }
 
             if (!isNaN(productQty) && !isNaN(taxValue)) {
                 var donGia = productPrice;
                 var rowTotal = productQty * donGia;
+                // Trừ khuyến mãi
+                if (promotionType == "1") {
+                    rowTotal -= promotion;
+                } else if (promotionType == "2") {
+                    rowTotal *= (1 - promotion / 100);
+                }
                 var rowTax = (rowTotal * taxValue) / 100;
 
                 // Làm tròn từng thuế
@@ -3404,14 +3402,21 @@
     }
 
     function calculateGrandTotal(totalAmount, totalTax) {
+        var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
+        var discountType = $('.discount_type').val();
         if (!isNaN(totalAmount) || !isNaN(totalTax)) {
             var grandTotal = totalAmount + totalTax;
-            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
-        }
+            if (discountType === "2") { // Nhập %
+                voucher = (grandTotal * voucher) / 100;
+            }
 
-        // Cập nhật giá trị data-value
-        $('#grand-total').attr('data-value', grandTotal);
-        $('#total').val(totalAmount);
+            grandTotal -= voucher;
+            grandTotal = Math.round(grandTotal);
+            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
+            // Cập nhật giá trị data-value
+            $('#grand-total').attr('data-value', grandTotal);
+            $('#total').val(totalAmount);
+        }
     }
 
     function formatCurrency(value) {

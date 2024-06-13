@@ -291,6 +291,15 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border-right border-bottom">
+                                                    <span class="d-flex justify-content-center">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Khuyến mãi</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
@@ -410,6 +419,34 @@
                                                         </select>
                                                     </td>
                                                     <td
+                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                        <div class='d-flex align-item-center'>
+                                                            <input type='text' name='promotion[]'
+                                                                value="{{ number_format($item->promotion) }}"
+                                                                class='text-right border-0 px-2 py-1 w-100 height-32 promotion'
+                                                                readonly autocomplete='off'>
+                                                            <span class='mt-1 <?php if ($item->promotion_type == 1) {
+                                                                echo 'd-none';
+                                                            } ?> percent'>%</span>
+                                                        </div>
+                                                        <div class='text-right'>
+                                                            <select
+                                                                class='border-0 mt-3 text-13-blue text-center promotion_type'
+                                                                disabled>
+                                                                <option value='1' <?php if ($item->promotion_type == 1) {
+                                                                    echo 'selected';
+                                                                } ?>>Nhập
+                                                                    tiền</option>
+                                                                <option value='2' <?php if ($item->promotion_type == 2) {
+                                                                    echo 'selected';
+                                                                } ?>>Nhập %
+                                                                </option>
+                                                            </select>
+                                                            <input type="hidden" name='promotion_type[]'
+                                                                value="{{ $item->promotion_type }}">
+                                                        </div>
+                                                    </td>
+                                                    <td
                                                         class='border-right border-top-0 p-2 border-bottom text-13 align-top text-right'>
                                                         <input type="text" readonly="" value=""
                                                             class="border-0 px-2 py-1 w-100 total-amount text-right height-32">
@@ -446,15 +483,38 @@
                                         <div class="m-3 ">
                                             <div class="d-flex justify-content-between">
                                                 <span class="text-13-black">Giá trị trước thuế: </span>
-                                                <span id="total-amount-sum">0đ</span>
+                                                <span id="total-amount-sum" class="text-table">0đ</span>
                                             </div>
                                             <div class="d-flex justify-content-between mt-2 align-items-center">
+                                                <span class="text-13-black">Khuyến mãi:</span>
+                                                <div class="d-flex align-items-center">
+                                                    <input id="voucher" type="text" name="voucher"
+                                                        class="text-right text-13-black border-0 py-1 w-100 height-32 bg-input-guest"
+                                                        value="{{ number_format($billSale->discount) }}" readonly>
+                                                    @if ($billSale->discount_type == 2)
+                                                        <span class="percent_discount">%</span>
+                                                    @endif
+                                                    <select name="discount_type" disabled
+                                                        class="border-0 height-32 text-13-blue text-center bg-input-guest">
+                                                        <option value="1" <?php if ($billSale->discount_type == 1) {
+                                                            echo 'selected';
+                                                        } ?>>Nhập tiền</option>
+                                                        <option value="2" <?php if ($billSale->discount_type == 2) {
+                                                            echo 'selected';
+                                                        } ?>>Nhập %</option>
+                                                    </select>
+                                                    <input type="hidden" class="discount_type"
+                                                        value="{{ $billSale->discount_type }}">
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between mt-2">
                                                 <span class="text-13-black">Thuế VAT: </span>
-                                                <span id="product-tax">0đ</span>
+                                                <span id="product-tax" class="text-table">0đ</span>
                                             </div>
                                             <div class="d-flex justify-content-between mt-2">
                                                 <span class="text-13-bold text-lg font-weight-bold">Tổng cộng: </span>
-                                                <span class="text-13-bold text-lg font-weight-bold text-right"
+                                                <span
+                                                    class="text-13-bold text-lg font-weight-bold text-right text-table"
                                                     id="grand-total" data-value="0">0đ</span>
                                                 <input type="text" hidden="" name="totalValue"
                                                     value="0" id="total">
@@ -514,8 +574,8 @@
                     <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                         style="height:48px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số hóa đơn</span>
-                        <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2" required
-                            style="flex:2;" placeholder="Nhập thông tin" name="number_bill"
+                        <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
+                            required style="flex:2;" placeholder="Nhập thông tin" name="number_bill"
                             value="{{ $billSale->number_bill }}" />
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
@@ -1252,13 +1312,14 @@
 
         // Lặp qua từng hàng
         $('tr').each(function() {
-            var productQty = parseFloat($(this).find('.quantity-input').val());
+            var productQty = parseFloat($(this).find('[name^="product_qty"]').val());
             var productPriceElement = $(this).find('[name^="product_price"]');
             var productPrice = 0;
-            var giaNhap = 0;
-            var taxValue = parseFloat($(this).find('.product_tax option:selected').val());
-            var heSoNhan = parseFloat($(this).find('.heSoNhan').val()) || 0;
-            var giaNhapElement = $(this).find('.giaNhap');
+            var promotionElement = $(this).find('[name^="promotion"]');
+            var promotion = 0;
+            var taxValue = parseFloat($(this).find('[name^="product_tax"]').val());
+            var promotionType = parseFloat($(this).find('[name^="promotion_type"]').val());
+
             if (taxValue == 99) {
                 taxValue = 0;
             }
@@ -1268,20 +1329,22 @@
                     productPrice = parseFloat(rawPrice.replace(/,/g, ''));
                 }
             }
-            if (giaNhapElement.length > 0) {
-                var rawGiaNhap = giaNhapElement.val();
-                if (rawGiaNhap !== "") {
-                    giaNhap = parseFloat(rawGiaNhap.replace(/,/g, ''));
+            if (promotionElement.length > 0) {
+                var rawPromotion = promotionElement.val();
+                if (rawPromotion !== "") {
+                    promotion = parseFloat(rawPromotion.replace(/,/g, ''));
                 }
             }
 
             if (!isNaN(productQty) && !isNaN(taxValue)) {
-                if (giaNhap > 0) {
-                    var donGia = ((heSoNhan + 100) * giaNhap) / 100;
-                } else {
-                    var donGia = productPrice;
-                }
+                var donGia = productPrice;
                 var rowTotal = productQty * donGia;
+                // Trừ khuyến mãi
+                if (promotionType == "1") {
+                    rowTotal -= promotion;
+                } else if (promotionType == "2") {
+                    rowTotal *= (1 - promotion / 100);
+                }
                 var rowTax = (rowTotal * taxValue) / 100;
 
                 // Làm tròn từng thuế
@@ -1290,11 +1353,7 @@
 
                 // Hiển thị kết quả
                 $(this).find('.total-amount').val(formatCurrency(Math.round(rowTotal)));
-
-                if (status_form == 0) {
-                    // Đơn giá
-                    $(this).find('.product_price').val(formatCurrency(donGia));
-                }
+                $(this).find('.product_price').val(formatCurrency(donGia));
 
                 // Cộng dồn vào tổng totalAmount và totalTax
                 totalAmount += rowTotal;
@@ -1311,14 +1370,21 @@
     }
 
     function calculateGrandTotal(totalAmount, totalTax) {
+        var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
+        var discountType = $('.discount_type').val();
         if (!isNaN(totalAmount) || !isNaN(totalTax)) {
             var grandTotal = totalAmount + totalTax;
-            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
-        }
+            if (discountType === "2") { // Nhập %
+                voucher = (grandTotal * voucher) / 100;
+            }
 
-        // Cập nhật giá trị data-value
-        $('#grand-total').attr('data-value', grandTotal);
-        $('#total').val(totalAmount);
+            grandTotal -= voucher;
+            grandTotal = Math.round(grandTotal);
+            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
+            // Cập nhật giá trị data-value
+            $('#grand-total').attr('data-value', grandTotal);
+            $('#total').val(totalAmount);
+        }
     }
 
     function formatCurrency(value) {

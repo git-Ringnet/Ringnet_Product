@@ -183,10 +183,10 @@
                                 <table class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:44px;">
-                                            <th class="border-right p-0 px-2 text-13" style="width:15%;">
+                                            <th class="border-right p-0 px-2 text-13" style="width:12%;">
                                                 <span class="text-left ml-2">Mã sản phẩm</span>
                                             </th>
-                                            <th class="border-right p-0 px-2 text-13" style="width:15%;">
+                                            <th class="border-right p-0 px-2 text-13" style="width:12%;">
                                                 Tên sản phẩm
                                             </th>
                                             <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
@@ -198,6 +198,8 @@
                                                 Đơn giá</th>
                                             <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
                                                 Thuế</th>
+                                            <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
+                                                Khuyến mãi</th>
                                             <th class="border-right p-0 px-1 text-center text-13"style="width:10%;">
                                                 Thành tiền</th>
                                             <th class="p-0 px-2 text-center note text-13">Ghi chú sản phẩm
@@ -328,6 +330,34 @@
                                                 </td>
                                                 <td
                                                     class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    <div class='d-flex align-item-center'>
+                                                        <input type='text' name='promotion[]'
+                                                            value="{{ number_format($item_quote->promotion) }}"
+                                                            class='text-right border-0 px-2 py-1 w-100 height-32 promotion'
+                                                            readonly autocomplete='off'>
+                                                        <span class='mt-1 <?php if ($item_quote->promotion_type == 1) {
+                                                            echo 'd-none';
+                                                        } ?> percent'>%</span>
+                                                    </div>
+                                                    <div class='text-right'>
+                                                        <select
+                                                            class='border-0 mt-3 text-13-blue text-center promotion_type'
+                                                            disabled>
+                                                            <option value='1' <?php if ($item_quote->promotion_type == 1) {
+                                                                echo 'selected';
+                                                            } ?>>Nhập
+                                                                tiền</option>
+                                                            <option value='2' <?php if ($item_quote->promotion_type == 2) {
+                                                                echo 'selected';
+                                                            } ?>>Nhập %
+                                                            </option>
+                                                        </select>
+                                                        <input type="hidden" name='promotion_type[]'
+                                                            value="{{ $item_quote->promotion_type }}">
+                                                    </div>
+                                                </td>
+                                                <td
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type="text" readonly=""
                                                         value="{{ number_format($item_quote->product_total) }}"
                                                         class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>
@@ -348,8 +378,7 @@
                                                         name="price_import[]"
                                                         value="{{ number_format($item_quote->price_import) }}">
                                                 </td> -->
-                                                <td
-                                                    class="p-2 note text-13 align-top border-bottom border-top-0">
+                                                <td class="p-2 note text-13 align-top border-bottom border-top-0">
                                                     <input type="text" class='border-0 py-1 w-100 height-32'
                                                         readonly name="product_note[]"
                                                         value="{{ $item_quote->product_note }}">
@@ -374,15 +403,37 @@
                                     <div class="m-3">
                                         <div class="d-flex justify-content-between">
                                             <span class="text-13-black">Giá trị trước thuế: </span>
-                                            <span id="total-amount-sum">0đ</span>
+                                            <span id="total-amount-sum" class="text-table">0đ</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mt-2 align-items-center">
+                                            <span class="text-13-black">Khuyến mãi:</span>
+                                            <div class="d-flex align-items-center">
+                                                <input id="voucher" type="text" name="voucher"
+                                                    class="text-right text-13-black border-0 py-1 w-100 height-32 bg-input-guest"
+                                                    value="{{ number_format($delivery->discount) }}" readonly>
+                                                @if ($delivery->discount_type == 2)
+                                                    <span class="percent_discount">%</span>
+                                                @endif
+                                                <select name="discount_type" disabled
+                                                    class="border-0 height-32 text-13-blue text-center bg-input-guest">
+                                                    <option value="1" <?php if ($delivery->discount_type == 1) {
+                                                        echo 'selected';
+                                                    } ?>>Nhập tiền</option>
+                                                    <option value="2" <?php if ($delivery->discount_type == 2) {
+                                                        echo 'selected';
+                                                    } ?>>Nhập %</option>
+                                                </select>
+                                                <input type="hidden" class="discount_type"
+                                                    value="{{ $delivery->discount_type }}">
+                                            </div>
                                         </div>
                                         <div class="d-flex justify-content-between mt-2">
                                             <span class="text-13-black">Thuế VAT: </span>
-                                            <span id="product-tax">0đ</span>
+                                            <span id="product-tax" class="text-table">0đ</span>
                                         </div>
                                         <div class="d-flex justify-content-between mt-2">
                                             <span class="text-13-bold text-lg font-weight-bold">Tổng cộng: </span>
-                                            <span class="text-13-bold text-lg font-weight-bold text-right"
+                                            <span class="text-13-bold text-lg font-weight-bold text-right text-table"
                                                 id="grand-total" data-value="0">0đ</span>
                                             <input type="text" hidden="" name="totalValue" value="0"
                                                 id="total">
@@ -394,8 +445,7 @@
                     </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div id="title--fixed"
-        class="content-title--fixed top-111">
+    <div id="title--fixed" class="content-title--fixed top-111">
         <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
     </div>
     <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
@@ -749,10 +799,14 @@
 
         // Lặp qua từng hàng
         $('tr').each(function() {
-            var productQty = parseFloat($(this).find('.quantity-input').val());
+            var productQty = parseFloat($(this).find('[name^="product_qty"]').val());
             var productPriceElement = $(this).find('[name^="product_price"]');
             var productPrice = 0;
-            var taxValue = parseFloat($(this).find('.product_tax option:selected').val());
+            var promotionElement = $(this).find('[name^="promotion"]');
+            var promotion = 0;
+            var taxValue = parseFloat($(this).find('[name^="product_tax"]').val());
+            var promotionType = parseFloat($(this).find('[name^="promotion_type"]').val());
+
             if (taxValue == 99) {
                 taxValue = 0;
             }
@@ -762,10 +816,22 @@
                     productPrice = parseFloat(rawPrice.replace(/,/g, ''));
                 }
             }
+            if (promotionElement.length > 0) {
+                var rawPromotion = promotionElement.val();
+                if (rawPromotion !== "") {
+                    promotion = parseFloat(rawPromotion.replace(/,/g, ''));
+                }
+            }
 
             if (!isNaN(productQty) && !isNaN(taxValue)) {
                 var donGia = productPrice;
                 var rowTotal = productQty * donGia;
+                // Trừ khuyến mãi
+                if (promotionType == "1") {
+                    rowTotal -= promotion;
+                } else if (promotionType == "2") {
+                    rowTotal *= (1 - promotion / 100);
+                }
                 var rowTax = (rowTotal * taxValue) / 100;
 
                 // Làm tròn từng thuế
@@ -791,14 +857,21 @@
     }
 
     function calculateGrandTotal(totalAmount, totalTax) {
+        var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
+        var discountType = $('.discount_type').val();
         if (!isNaN(totalAmount) || !isNaN(totalTax)) {
             var grandTotal = totalAmount + totalTax;
-            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
-        }
+            if (discountType === "2") { // Nhập %
+                voucher = (grandTotal * voucher) / 100;
+            }
 
-        // Cập nhật giá trị data-value
-        $('#grand-total').attr('data-value', grandTotal);
-        $('#total').val(totalAmount);
+            grandTotal -= voucher;
+            grandTotal = Math.round(grandTotal);
+            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
+            // Cập nhật giá trị data-value
+            $('#grand-total').attr('data-value', grandTotal);
+            $('#total').val(totalAmount);
+        }
     }
 
     function formatCurrency(value) {

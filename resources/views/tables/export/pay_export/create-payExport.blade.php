@@ -1124,7 +1124,7 @@
                                 </div>
                             </td>
                             <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                <input type="text" value="${formatCurrency(Math.round(item.product_total))}" readonly="" class="height-32 text-13-black text-right border-0 px-2 py-1 w-100 total-amount">
+                                <input type="text" value="${formatCurrency(Math.round(item.promotion_type == 1 ? item.product_total - item.promotion : item.product_total - (item.product_total * (item.promotion / 100))))}" readonly="" class="height-32 text-13-black text-right border-0 px-2 py-1 w-100 total-amount">
                             </td>
                             <td class="border-top-0 p-2 text-13 align-top border-bottom">
                                 <input type="text" readonly

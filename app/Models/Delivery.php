@@ -143,6 +143,8 @@ class Delivery extends Model
                 'delivery.created_at as ngayGiao',
                 'products.type',
                 'products.check_seri',
+                'quoteexport.promotion',
+                'quoteexport.promotion_type',
             )
             ->groupBy(
                 'quoteexport.product_code',
@@ -160,6 +162,8 @@ class Delivery extends Model
                 'delivery.created_at',
                 'products.type',
                 'products.check_seri',
+                'quoteexport.promotion',
+                'quoteexport.promotion_type',
             )
             ->get();
         return $product;
@@ -1149,7 +1153,6 @@ class Delivery extends Model
                     }
                 }
             }
-
 
             //thêm sản phẩm từ đơn giao hàng
             $checkProduct = Products::where('product_name', $data['product_name'][$i])->first();

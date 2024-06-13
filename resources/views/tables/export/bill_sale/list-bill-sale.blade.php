@@ -230,7 +230,7 @@
                                                     <div class="icon" id="icon-tinhTrang"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            {{-- <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="price_total" data-sort-type="DESC"><button
@@ -238,7 +238,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-price_total"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-billSale">
@@ -303,10 +303,10 @@
                                                         <span class="text-success text-center">Chính thức</span>
                                                     @endif
                                                 </td>
-                                                <td
+                                                {{-- <td
                                                     class=" text-13-black height-52 text-right border-bottom border-top-0">
                                                     {{ number_format($item_bill->price_total) }}
-                                                </td>
+                                                </td> --}}
                                                 <td
                                                     class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">

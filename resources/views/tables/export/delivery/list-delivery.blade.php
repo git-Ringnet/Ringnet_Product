@@ -259,7 +259,7 @@
                                                     <div class="icon" id="icon-trangThai"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            {{-- <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="totalProductVat" data-sort-type="DESC"><button
@@ -267,7 +267,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-totalProductVat"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-delivery">
@@ -334,9 +334,9 @@
                                                         <span class="text-success">Đã giao</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-right border-bottom border-top-0">
+                                                {{-- <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item_delivery->totalProductVat) }}
-                                                </td>
+                                                </td> --}}
                                                 <td
                                                     class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">

@@ -268,7 +268,9 @@ class BillSaleController extends Controller
                 'quoteexport.product_total',
                 'quoteexport.product_ratio',
                 'quoteexport.price_import',
-                'product_bill.billSale_qty'
+                'product_bill.billSale_qty',
+                'quoteexport.promotion',
+                'quoteexport.promotion_type',
             )
             ->groupBy(
                 'quoteexport.product_id',
@@ -281,7 +283,9 @@ class BillSaleController extends Controller
                 'quoteexport.product_total',
                 'quoteexport.product_ratio',
                 'quoteexport.price_import',
-                'product_bill.billSale_qty'
+                'product_bill.billSale_qty',
+                'quoteexport.promotion',
+                'quoteexport.promotion_type',
             )
             ->get();
         $quoteExport = $this->detailExport->getProductToId($billSale->detailexport_id);

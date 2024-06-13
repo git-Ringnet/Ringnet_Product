@@ -16,8 +16,8 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('detailExport.create') }}" class="activity mr-3"
-                        data-name1="BG" data-des="Tạo mới">
+                    <a href="{{ route('detailExport.create') }}" class="activity mr-3" data-name1="BG"
+                        data-des="Tạo mới">
                         <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -459,7 +459,17 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    {{ number_format($value_export->total_price + $value_export->total_tax) }}
+                                                    <?php
+                                                    $totalPriceWithTax = $value_export->total_price + $value_export->total_tax;
+                                                    
+                                                    if ($value_export->discount_type == 1) {
+                                                        $discountedTotal = $totalPriceWithTax - $value_export->discount;
+                                                    } else {
+                                                        $discountedTotal = $totalPriceWithTax * (1 - $value_export->discount / 100);
+                                                    }
+                                                    
+                                                    echo number_format($discountedTotal);
+                                                    ?>
                                                 </td>
                                                 <td
                                                     class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">

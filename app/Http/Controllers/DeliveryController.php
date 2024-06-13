@@ -81,7 +81,7 @@ class DeliveryController extends Controller
                     'users.name',
                     'delivery.created_at',
                     'delivery.status',
-                    'detailexport.guest_name'
+                    'detailexport.guest_name',
                 )
                 ->orderBy('delivery.id', 'desc');
             if (Auth::check()) {
