@@ -249,7 +249,7 @@
                                                     <div class="icon" id="icon-shipping_fee"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 8%;">
+                                            <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="trangThai" data-sort-type="DESC"><button

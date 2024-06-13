@@ -220,7 +220,7 @@
                                                     </span>
                                                 </th>
                                             @endcan
-                                            <th scope="col" class="height-52" style="width: 8%">
+                                            <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="tinhTrang" data-sort-type="DESC"><button
@@ -304,7 +304,7 @@
                                                     @endif
                                                 </td>
                                                 {{-- <td
-                                                    class=" text-13-black height-52 text-right border-bottom border-top-0">
+                                                    class="text-13-black height-52 text-right border-bottom border-top-0">
                                                     {{ number_format($item_bill->price_total) }}
                                                 </td> --}}
                                                 <td
