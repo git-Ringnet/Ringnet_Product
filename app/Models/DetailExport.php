@@ -69,32 +69,42 @@ class DetailExport extends Model
         $totalBeforeTax = 0;
         $totalTax = 0;
         $voucher = 0;
-        for ($i = 0; $i < count($data['product_name']); $i++) {
-            $price = str_replace(',', '', $data['product_price'][$i]);
-            $promotion = isset($data['promotion'][$i]) && $data['promotion'][$i] !== '' ? str_replace(',', '', $data['promotion'][$i]) : 0;
-            $tax = 0;
 
-            if ($data['product_tax'][$i] == 99) {
-                $tax = 0;
-            } else {
-                $tax = $data['product_tax'][$i];
-            }
-            if ($data['promotion_type'][$i] == 1) {
-                $subtotal = ($data['product_qty'][$i] * (float) $price) - $promotion;
-            } else if ($data['promotion_type'][$i] == 2) {
-                $subtotal = ($data['product_qty'][$i] * (float) $price) - ($data['product_qty'][$i] * (float) $price * $promotion) / 100;
-            } else {
-                $subtotal = $data['product_qty'][$i] * (float) $price;
-            }
-            $subTax = ($subtotal * $tax) / 100;
-            $totalBeforeTax += $subtotal;
-            $totalTax += $subTax;
-            if ($data['discount_type'] == 1) {
-                $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
-            } else {
-                $voucher = (($totalBeforeTax + $totalTax) * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
+        for ($i = 0; $i < count($data['product_name']); $i++) {
+            // Tách chuỗi tên sản phẩm
+            $productNames = explode('|', $data['product_name'][$i]);
+            // Số lượng cho mỗi sản phẩm là giống nhau
+            $productQty = $data['product_qty'][$i];
+
+            foreach ($productNames as $productName) {
+                $price = str_replace(',', '', $data['product_price'][$i]);
+                $promotion = isset($data['promotion'][$i]) && $data['promotion'][$i] !== '' ? str_replace(',', '', $data['promotion'][$i]) : 0;
+                $tax = $data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i];
+
+                // Tính toán subtotal dựa trên loại khuyến mãi
+                if ($data['promotion_type'][$i] == 1) {
+                    $subtotal = ($productQty * (float)$price) - $promotion;
+                } else if ($data['promotion_type'][$i] == 2) {
+                    $subtotal = ($productQty * (float)$price) - ($productQty * (float)$price * $promotion) / 100;
+                } else {
+                    $subtotal = $productQty * (float)$price;
+                }
+
+                // Tính toán thuế
+                $subTax = ($subtotal * $tax) / 100;
+                $totalBeforeTax += $subtotal;
+                $totalTax += $subTax;
             }
         }
+
+        // Tính toán voucher
+        if ($data['discount_type'] == 1) {
+            $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
+        } else {
+            $voucher = (($totalBeforeTax + $totalTax) * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
+        }
+
+        // Thực hiện các bước còn lại
         $guestID = 0;
         if (isset($data['guestName'])) {
             $guestName = Guest::where('guest_name_display', $data['guestName'])
@@ -111,6 +121,7 @@ class DetailExport extends Model
                 $guestID = $guestName->id;
             }
         }
+
         $dataExport = [
             'guest_id' => $data['guest_id'] == null ? $guestID : $data['guest_id'],
             'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,

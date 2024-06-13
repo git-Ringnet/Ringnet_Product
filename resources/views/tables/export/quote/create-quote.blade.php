@@ -5,9 +5,9 @@
     <input type="hidden" name="excel_export" id="excel_export">
     <input type="hidden" name="pdf_export" id="pdf_export">
     <div class="content-wrapper--2Column m-0 min-height--none">
-        <div class="content-header-fixed p-0 m-0">
+        <div class="content-header-fixed p-0 border-bottom-0">
             <div class="content__header--inner">
-                <div class="content__heading--left pl-4">
+                <div class="content__heading--left">
                     <span>Bán hàng</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -28,7 +28,7 @@
                     </span>
                     <span class="last-span">Tạo đơn bán hàng</span>
                 </div>
-                <div class="d-flex content__heading--right pr-3">
+                <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <a href="{{ route('detailExport.index') }}" class="activity" data-name1="BG" data-des="Hủy">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
@@ -69,200 +69,25 @@
                             </svg>
                             <span class="text-btnIner-primary ml-2">Xác nhận</span>
                         </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- Thông tin khách hàng --}}
-        <div class="content-wrapper2 px-0 py-0 margin-top-11-1">
-            <div class="border">
-                <div>
-                    <div class="bg-filter-search border-0 text-center">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
-                        </p>
-                    </div>
-                    <div class="d-flex w-100">
-                        <div class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                            style="height:43px;">
-                            <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng </span>
-                            <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" placeholder="Chọn thông tin" name="guestName"
-                                    class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="myInput"
-                                    style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
-                                <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
-                            </span>
-                            <div class="">
-                                <div id="myUL"
-                                    class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block"
-                                    style="z-index: 99;display: none;">
-                                    <div class="p-1">
-                                        <div class="position-relative">
-                                            <input type="text" placeholder="Nhập công ty"
-                                                class="pr-4 w-100 input-search bg-input-guest" id="companyFilter">
-                                            <span id="search-icon" class="search-icon">
-                                                <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <ul class="m-0 p-0 scroll-data">
-                                        @foreach ($guest as $guest_value)
-                                            <li class="p-2 align-items-center text-wrap border-top"
-                                                data-id="{{ $guest_value->id }}"
-                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                <a href="#" title="{{ $guest_value->guest_name_display }}"
-                                                    style="flex:2;" id="{{ $guest_value->id }}" name="search-info"
-                                                    class="search-info">
-                                                    <span
-                                                        class="text-13-black">{{ $guest_value->guest_name_display }}</span>
-                                                </a>
-                                                <div class="dropdown">
-                                                    <button type="button" data-toggle="dropdown"
-                                                        class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu date-form-setting"
-                                                        style="z-index: 1000;">
-                                                        <a class="dropdown-item edit-guest w-50" href="#"
-                                                            data-toggle="modal" data-target="#guestModal"
-                                                            data-id="{{ $guest_value->id }}">
-                                                            <span>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                    height="14" viewBox="0 0 14 14"
-                                                                    fill="none">
-                                                                    <path
-                                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                                        fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                        <a class="dropdown-item delete-guest w-50" href="#"
-                                                            data-id="{{ $guest_value->id }}" data-name="guest">
-                                                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                    <a type="button"
-                                        class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
-                                        data-toggle="modal" data-target="#guestModal"
-                                        style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                        <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                viewBox="0 0 16 16" fill="none">
-                                                <path
-                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                    fill="#282A30" />
-                                            </svg>
-                                        </span>
-                                        <span class="text-13-black pl-3 pt-1"
-                                            style="font-weight: 600 !important;">Thêm
-                                            khách hàng</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest" id="represent_guest"
-                                name="representName" readonly autocomplete="off" style="flex:2;"
-                                placeholder="Chọn thông tin">
-                            <input type="hidden" class="represent_guest_id" name="represent_guest_id"
-                                autocomplete="off">
-                            <div id="myUL7"
-                                class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
-                                style="z-index: 99;">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập người đại diện"
-                                            class="pr-4 w-100 input-search bg-input-guest text-13-black"
-                                            id="companyFilter7">
-                                        <span id="search-icon" class="search-icon"><i
-                                                class="fas fa-search text-table" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <ul class="m-0 p-0 scroll-data" id="representativeList"></ul>
-                                <a type="button"
-                                    class="d-flex align-items-center p-2 position-sticky addRepresentNew mt-2"
-                                    data-toggle="modal" data-target="#representModal"
-                                    style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                fill="#282A30" />
-                                        </svg>
-                                    </span>
-                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm
-                                        người đại diện</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex w-100">
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
-                            <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Mã bán hàng</span>
-                            <input
-                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;"
-                                name="quotation_number" />
-                        </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày bán hàng</span>
-                            <input type="text" id="datePicker" style="flex:2;" placeholder="Chọn thông tin"
-                                class="text-13-black w-50 border-0 bg-input-guest">
-                            <input type="hidden" id="hiddenDateInput" name="date_quote" value="">
-                        </div>
-                    </div>
-                    <div class="d-flex w-100">
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
-                            <input type="text" id="dayPicker" style="flex:2;" placeholder="Chọn thông tin"
-                                class="text-13-black w-50 border-0 bg-input-guest">
-                            <input type="hidden" id="hiddenDayInput" name="payment_day" value="">
-                        </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
-                                style="flex:2;" readonly>
-                        </div>
-                    </div>
-                    <div class="d-flex w-100">
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
-                            <input
-                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2 payment"
-                                style="flex:2;" placeholder="Nhập số tiền" name="payment">
-                        </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
-                            <div class="text-13 d-flex align-items-center py-2 px-2" style="width: 58%;">
-                                <input type="checkbox" class="mr-2 cbPayment" value="1" name="checkPayment">
-                                <span>Thanh toán đủ</span>
-                            </div>
-                        </div>
+                        <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)"
+                                    fill="#ECEEFA" />
+                                <path
+                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
+                                    fill="#26273B" fill-opacity="0.8" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
         {{-- Thông tin sản phẩm --}}
-        <div class="content">
+        <div class="content margin-top-38" id="main">
             <section class="content">
-                <div id="title--fixed" class="bg-filter-search text-center border-custom border-0">
+                <div id="title--fixed"
+                    class="content-title--fixed bg-filter-search text-center border-custom border-0">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
                 <div class="container-fluided margin-top-72">
@@ -302,11 +127,84 @@
                                     <th class=""></th>
                                 </tr>
                             </thead>
-                            <tbody id="product-tbody">
+                            <tbody>
                                 <tr id="dynamic-fields" class="bg-white"></tr>
                             </tbody>
                         </table>
                     </section>
+                    <!-- <section class="multiple_action border shadow" style="display: none;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex mx-4 align-items-center">
+                                <div class="count_checkbox text-table border-dott m-0 p-0 border-right-0"></div>
+                                <svg style="height: 24px;" class="border-dott cancal_action" width="16"
+                                    height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
+                                        fill="#6D7075" />
+                                </svg>
+                            </div>
+                            <div class="row action">
+                                <div class="btn-chotdon my-2 mr-3">
+                                    <button type="button" id="btn-chot"
+                                        class="border bg-transparent rounded d-flex align-items-center h-100">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M12.1339 5.19461L10.7197 3.7804L6.52812 7.97196C5.77185 8.72823 5.25635 9.69144 5.0466 10.7402C5.03144 10.816 5.09828 10.8828 5.17409 10.8677C6.22285 10.6579 7.18606 10.1424 7.94233 9.38618L12.1339 5.19461Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
+                                                fill="#6D7075" />
+                                        </svg>
+                                        <span class="px-1 text-table text-secondary">Nhân hệ số</span>
+                                    </button>
+                                </div>
+                                <div class="btn-xoahang my-2 mr-3">
+                                    <button id="deleteExports" type="button"
+                                        class="border bg-transparent rounded d-flex align-items-center h-100">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M12.1339 5.19461L10.7197 3.7804L6.52812 7.97196C5.77185 8.72823 5.25635 9.69144 5.0466 10.7402C5.03144 10.816 5.09828 10.8828 5.17409 10.8677C6.22285 10.6579 7.18606 10.1424 7.94233 9.38618L12.1339 5.19461Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
+                                                fill="#6D7075" />
+                                        </svg>
+                                        <span class="px-1 text-table text-secondary">Thuế</span>
+                                    </button>
+                                </div>
+                                <div class="btn-huy my-2">
+                                    <button id="cancelBillExport"
+                                        class="border bg-transparent rounded d-flex align-items-center h-100">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
+                                                fill="#6D7075" />
+                                        </svg>
+                                        <span class="px-1 text-table text-secondary">Xóa</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="btn ml-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
+                                    <path d="M18 18L6 6" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                    <path d="M18 6L6 18" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </section> -->
                 </div>
                 <section class="content mt-2">
                     <div class="container-fluided">
@@ -807,6 +705,191 @@
                 </div>
             </div>
         </div>
+        {{-- Thông tin khách hàng --}}
+        <div class="content-wrapper2 px-0 py-0">
+            <div id="mySidenav" class="sidenav border">
+                <div id="show_info_Guest">
+                    <div class="bg-filter-search border-0 text-center">
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
+                        </p>
+                    </div>
+                    <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                        style="height:43px;">
+                        <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng </span>
+                        <span class="mx-1 text-13" style="flex: 2;">
+                            <input type="text" placeholder="Chọn thông tin" name="guestName"
+                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="myInput"
+                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
+                            <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
+                        </span>
+                        <div class="">
+                            <div id="myUL"
+                                class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block"
+                                style="z-index: 99;display: none;">
+                                <div class="p-1">
+                                    <div class="position-relative">
+                                        <input type="text" placeholder="Nhập công ty"
+                                            class="pr-4 w-100 input-search bg-input-guest" id="companyFilter">
+                                        <span id="search-icon" class="search-icon">
+                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <ul class="m-0 p-0 scroll-data">
+                                    @foreach ($guest as $guest_value)
+                                        <li class="p-2 align-items-center text-wrap border-top"
+                                            data-id="{{ $guest_value->id }}"
+                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <a href="#" title="{{ $guest_value->guest_name_display }}"
+                                                style="flex:2;" id="{{ $guest_value->id }}" name="search-info"
+                                                class="search-info">
+                                                <span
+                                                    class="text-13-black">{{ $guest_value->guest_name_display }}</span>
+                                            </a>
+                                            <div class="dropdown">
+                                                <button type="button" data-toggle="dropdown"
+                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
+                                                    <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                </button>
+                                                <div class="dropdown-menu date-form-setting" style="z-index: 1000;">
+                                                    <a class="dropdown-item edit-guest w-50" href="#"
+                                                        data-toggle="modal" data-target="#guestModal"
+                                                        data-id="{{ $guest_value->id }}">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                height="14" viewBox="0 0 14 14" fill="none">
+                                                                <path
+                                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                                    fill="black" />
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                    <a class="dropdown-item delete-guest w-50" href="#"
+                                                        data-id="{{ $guest_value->id }}" data-name="guest">
+                                                        <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <a type="button"
+                                    class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                                    data-toggle="modal" data-target="#guestModal"
+                                    style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
+                                            <path
+                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                fill="#282A30" />
+                                        </svg>
+                                    </span>
+                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm
+                                        khách hàng</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="content-info--common" id="show-info-guest">
+                            <ul class="p-0 m-0">
+                                <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left position-relative"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
+                                    <input class="text-13-black w-50 border-0 bg-input-guest" id="represent_guest"
+                                        name="representName" readonly autocomplete="off" style="flex:2;"
+                                        placeholder="Chọn thông tin">
+                                    <input type="hidden" class="represent_guest_id" name="represent_guest_id"
+                                        autocomplete="off">
+                                    <div id="myUL7"
+                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
+                                        style="z-index: 99;">
+                                        <div class="p-1">
+                                            <div class="position-relative">
+                                                <input type="text" placeholder="Nhập người đại diện"
+                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black"
+                                                    id="companyFilter7">
+                                                <span id="search-icon" class="search-icon"><i
+                                                        class="fas fa-search text-table" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <ul class="m-0 p-0 scroll-data" id="representativeList"></ul>
+                                        <a type="button"
+                                            class="d-flex align-items-center p-2 position-sticky addRepresentNew mt-2"
+                                            data-toggle="modal" data-target="#representModal"
+                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    viewBox="0 0 16 16" fill="none">
+                                                    <path
+                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                        fill="#282A30" />
+                                                </svg>
+                                            </span>
+                                            <span class="text-13-black pl-3 pt-1"
+                                                style="font-weight: 600 !important;">Thêm người đại diện</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Mã bán hàng</span>
+                                    <input
+                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;"
+                                        name="quotation_number" />
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày bán hàng</span>
+                                    <input type="text" id="datePicker" style="flex:2;"
+                                        placeholder="Chọn thông tin"
+                                        class="text-13-black w-50 border-0 bg-input-guest">
+                                    <input type="hidden" id="hiddenDateInput" name="date_quote" value="">
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
+                                    <input type="text" id="dayPicker" style="flex:2;"
+                                        placeholder="Chọn thông tin"
+                                        class="text-13-black w-50 border-0 bg-input-guest">
+                                    <input type="hidden" id="hiddenDayInput" name="payment_day" value="">
+                                </li>
+                                <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                                    <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
+                                        style="flex:2;" readonly>
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
+                                    <input
+                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2 payment"
+                                        style="flex:2;" placeholder="Nhập số tiền" name="payment">
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap" style="flex: 1.5;"></span>
+                                    <div class="text-13 d-flex align-items-center py-2 px-2" style="width: 58%;">
+                                        <input type="checkbox" class="mr-2 cbPayment" value="1"
+                                            name="checkPayment">
+                                        <span>Thanh toán đủ</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </form>
 <x-date-form-modal title="Điều khoản thanh toán" name="payment" idModal="formModalpayment"></x-date-form-modal>
 <x-date-form-modal title="Hiệu lực báo giá" name="quote" idModal="formModalquote"></x-date-form-modal>
@@ -836,51 +919,59 @@
 <x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script type="text/javascript">
-    //Checked sản phẩm gom nhóm
+    // Khi nhấp vào hàng trong modal để chọn sản phẩm
     $("#groupProductModal .modal-body tbody tr").click(function(event) {
         var checkbox = $(this).find(".check-item");
+        // Nếu nhấp vào hàng mà không phải checkbox, chuyển đổi trạng thái checkbox
         if (!$(event.target).is(checkbox)) {
             checkbox.prop("checked", !checkbox.prop("checked"));
+            checkbox.trigger("change"); // Kích hoạt sự kiện change
         }
     });
+
+    // Khi nhấp vào checkbox chính để chọn/deselect tất cả các checkbox khác
     $('#main-checkbox').on('change', function() {
         $('.check-item').prop('checked', this.checked);
+        $('.check-item').trigger("change"); // Kích hoạt sự kiện change
     });
-    //Tìm kiếm sản phẩm ở nhóm
+
+    // Đảm bảo sự kiện click của checkbox không dừng lại sự kiện của hàng
+    $(document).on('click', '.check-item', function(event) {
+        event.stopPropagation();
+    });
+    let selectedProducts = [];
+
     $(document).ready(function() {
-        $('#search-input').on('input', function() {
-            let query = $(this).val().toLowerCase();
+        // Sự kiện khi thay đổi trạng thái của checkbox
+        $(document).on('change', '.check-item', function() {
+            let checkbox = $(this);
+            let productName = checkbox.closest('tr').find('.text-13').text().trim();
 
-            // Lặp qua tất cả các hàng trong tbody
-            $('#search-results tr').each(function() {
-                let productName = $(this).find('td:eq(1) span').text().toLowerCase();
-
-                // Kiểm tra nếu tên sản phẩm có chứa chuỗi truy vấn
-                if (productName.includes(query)) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        });
-    });
-    
-    //add sản phẩm vào nhóm
-    $(document).on('click', '#add-group', function(e) {
-        // Tạo một mảng để lưu trữ các giá trị của checkbox được chọn
-        let checkedValues = [];
-
-        // Lặp qua tất cả các checkbox có class 'check-item' và được chọn
-        $('.check-item:checked').each(function() {
-            checkedValues.push($(this).val());
+            // Cập nhật mảng selectedProducts
+            if (checkbox.is(':checked')) {
+                selectedProducts.push(productName);
+            } else {
+                selectedProducts = selectedProducts.filter(name => name !== productName);
+            }
         });
 
-        if (checkedValues.length > 0) {
-            $('.modal [data-dismiss="modal"]').click();
-            addProductRow();
-        } else {
-            showAutoToast('warning', "Chưa có sản phẩm nào được chọn!");
-        }
+        // Sự kiện khi nhấn nút #add-group
+        $(document).on('click', '#add-group', function(e) {
+            if (selectedProducts.length > 0) {
+                $('.modal [data-dismiss="modal"]').click();
+                let productNames = selectedProducts.join('|');
+
+                addProductRow(productNames);
+
+                // Làm rỗng mảng selectedProducts sau khi thêm sản phẩm
+                selectedProducts = [];
+
+                // Bỏ chọn tất cả các checkbox
+                $('.check-item').prop('checked', false);
+            } else {
+                showAutoToast('warning', "Chưa có sản phẩm nào được chọn!");
+            }
+        });
     });
 
     //
@@ -1773,7 +1864,6 @@
             });
         });
     });
-
     //Lấy thông tin khách hàng
     $(document).ready(function() {
         $(document).on('click', '.search-info', function(e) {
@@ -2019,6 +2109,7 @@
                     represent_guest_name: represent_guest_name,
                 },
                 success: function(data) {
+                    console.log(data);
                     if (data.success) {
                         quotation = getQuotation1(data.key, '1');
                         $('input[name="quotation_number"]').val(quotation);
@@ -2127,7 +2218,6 @@
             });
         }
     });
-
     //Cập nhật khách hàng
     $(document).ready(function() {
         $(document).on('click', '.edit-guest', function(e) {
@@ -2214,7 +2304,6 @@
             });
         });
     });
-
     //Xóa khách hàng
     $(document).on('click', '.delete-guest', function(e) {
         e.preventDefault();
@@ -2241,7 +2330,6 @@
             }
         });
     });
-
     //Thêm dự án
     $(document).on('click', '#addProject', function(e) {
         var project_name = $('#project_name').val().trim();
@@ -2509,160 +2597,6 @@
             }
         });
     });
-
-    //tính thành tiền của sản phẩm
-    $(document).on('input', '.quantity-input, [name^="product_price"], .promotion, .promotion_type, #voucher', function(
-        e) {
-        var $row = $(this).closest('tr');
-        var productQty = parseFloat($row.find('.quantity-input').val()?.replace(/[^0-9.-]+/g, "")) || 0;
-        var productPrice = parseFloat($row.find('input[name^="product_price"]').val()?.replace(/[^0-9.-]+/g,
-            "")) || 0;
-        var promotionValue = parseFloat($row.find('.promotion').val()?.replace(/[^0-9.-]+/g, "")) || 0;
-        var percent = $row.find('.percent');
-        var promotionType = $row.find('.promotion_type').val();
-
-        updateTaxAmount($row);
-
-        if (!isNaN(productQty) && !isNaN(productPrice)) {
-            var totalAmount;
-            if (promotionType === "1") {
-                // Fixed amount promotion
-                totalAmount = (productQty * productPrice) - promotionValue;
-                percent.hide();
-            } else if (promotionType === "2") {
-                // Percentage promotion
-                totalAmount = (productQty * productPrice) * (1 - promotionValue / 100);
-                percent.show();
-            }
-
-            $row.find('.total-amount').val(formatCurrency(Math.round(totalAmount)));
-            calculateTotalAmount();
-            calculateTotalTax();
-            calculateGrandTotal();
-        }
-    });
-
-    $(document).on('change', '.product_tax', function() {
-        updateTaxAmount($(this).closest('tr'));
-        calculateTotalAmount();
-        calculateTotalTax();
-        calculateGrandTotal();
-    });
-
-    $(document).on('change', '.promotion_type', function(e) {
-        var $row = $(this).closest('tr');
-        var promotionType = $row.find('.promotion_type').val();
-
-        $row.find('.promotion').val('');
-
-        if (promotionType === "2") {
-            $row.find('.percent').removeClass('d-none').show(); // Show the percent span
-        } else {
-            $row.find('.percent').addClass('d-none').hide(); // Hide the percent span
-        }
-
-        updateTaxAmount($row);
-        calculateTotalAmount();
-        calculateTotalTax();
-        calculateGrandTotal();
-    });
-
-    $(document).on('change', '.discount_type', function(e) {
-        var discountType = $('select[name="discount_type"]').val();
-
-        $('#voucher').val('');
-
-        if (discountType === "2") {
-            $('.percent_discount').removeClass('d-none').show(); // Show the percent span
-        } else {
-            $('.percent_discount').addClass('d-none').hide(); // Hide the percent span
-        }
-
-        calculateTotalAmount();
-        calculateTotalTax();
-        calculateGrandTotal();
-    });
-
-    function updateTaxAmount(row) {
-        var productQty = parseFloat(row.find('.quantity-input').val());
-        var productPrice = parseFloat(row.find('input[name^="product_price"]').val()?.replace(/[^0-9.-]+/g,
-            "")) || 0;
-        var promotionValue = parseFloat(row.find('.promotion').val()?.replace(/[^0-9.-]+/g, "")) || 0;
-        var promotionType = row.find('.promotion_type').val();
-        var taxValue = parseFloat(row.find('.product_tax').val());
-        if (taxValue == 99) {
-            taxValue = 0;
-        }
-
-        if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
-            var totalAmount = productQty * productPrice;
-
-            if (promotionType === "1") {
-                // Fixed amount promotion
-                totalAmount -= promotionValue;
-            } else if (promotionType === "2") {
-                // Percentage promotion
-                totalAmount *= (1 - promotionValue / 100);
-            }
-
-            var taxAmount = totalAmount * (taxValue / 100);
-
-            row.find('.total-amount').val(formatCurrency(Math.round(totalAmount)));
-            row.find('.product_tax1').text(formatCurrency(Math.round(taxAmount)));
-        }
-    }
-
-    function calculateTotalAmount() {
-        var totalAmount = 0;
-        $('tr').each(function() {
-            var rowTotal = parseFloat(String($(this).find('.total-amount').val()).replace(/[^0-9.-]+/g,
-                ""));
-            if (!isNaN(rowTotal)) {
-                totalAmount += rowTotal;
-            }
-        });
-        totalAmount = Math.round(totalAmount); // Làm tròn thành số nguyên
-        $('#total-amount-sum').text(formatCurrency(totalAmount));
-        calculateTotalTax();
-        calculateGrandTotal();
-    }
-
-    function calculateTotalTax() {
-        var totalTax = 0;
-        $('tr').each(function() {
-            var rowTax = parseFloat($(this).find('.product_tax1').text().replace(/[^0-9.-]+/g, ""));
-            if (!isNaN(rowTax)) {
-                totalTax += rowTax;
-            }
-        });
-        totalTax = Math.round(totalTax); // Round to the nearest integer
-        $('#product-tax').text(formatCurrency(totalTax));
-
-        calculateGrandTotal();
-    }
-
-    function calculateGrandTotal() {
-        var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
-        var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
-        var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
-        var discountType = $('select[name="discount_type"]').val();
-
-        var grandTotal = totalAmount + totalTax;
-
-        if (discountType === "2") { // Nhập %
-            voucher = (grandTotal * voucher) / 100;
-        }
-
-        grandTotal -= voucher;
-        grandTotal = Math.round(grandTotal);
-
-        $('#grand-total').text(formatCurrency(grandTotal));
-        $('#TongTien').val(formatCurrency(grandTotal));
-
-        // Update data-value attribute
-        $('#grand-total').attr('data-value', grandTotal);
-        $('#total').val(grandTotal);
-    }
 
     function formatCurrency(value) {
         value = Math.round(value * 100) / 100;

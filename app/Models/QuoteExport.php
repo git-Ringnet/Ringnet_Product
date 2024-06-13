@@ -67,59 +67,60 @@ class QuoteExport extends Model
         $productIds = [];
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
-            if (!empty($data['price_import'][$i])) {
-                $priceImport = str_replace(',', '', $data['price_import'][$i]);
-            } else {
-                $priceImport = null;
-            }
+            $priceImport = !empty($data['price_import'][$i]) ? str_replace(',', '', $data['price_import'][$i]) : null;
             $subtotal = $data['product_qty'][$i] * (float) $price;
+
             if ($data['product_id'][$i] == null) {
-                $dataProduct = [
-                    'product_code' => $data['product_code'][$i],
-                    'product_name' => $data['product_name'][$i],
-                    'product_unit' => $data['product_unit'][$i],
-                    'product_tax' => $data['product_tax'][$i],
-                    'product_guarantee' => 1,
-                    'product_price_export' => $price,
-                    'product_price_import' => isset($priceImport) ? $priceImport : 0,
-                    'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
-                    'check_seri' => 1,
-                    'type' => 1,
-                    'user_id' => Auth::user()->id,
-                    'workspace_id' => Auth::user()->current_workspace,
-                ];
-                $checkProduct = Products::where('product_name', $data['product_name'][$i])
-                    ->first();
-                if (!$checkProduct) {
-                    $product = new Products($dataProduct);
-                    $product->save();
+                $productNames = explode('|', $data['product_name'][$i]);
+
+                foreach ($productNames as $key => $productName) {
+                    $product = Products::where('product_name', $productName)->first();
+
+                    if (!$product) {
+                        $product = new Products([
+                            'product_code' => $data['product_code'][$i],
+                            'product_name' => $productName,
+                            'product_unit' => $data['product_unit'][$i],
+                            'product_tax' => $data['product_tax'][$i],
+                            'product_guarantee' => 1,
+                            'product_price_export' => $price,
+                            'product_price_import' => $priceImport ?? 0,
+                            'product_ratio' => $data['product_ratio'][$i] ?? 0,
+                            'check_seri' => 1,
+                            'type' => 1,
+                            'user_id' => Auth::user()->id,
+                            'workspace_id' => Auth::user()->current_workspace,
+                        ]);
+
+                        $product->save();
+                    }
+
+                    $dataQuote = [
+                        'detailexport_id' => $id,
+                        'product_code' => $data['product_code'][$i],
+                        'product_id' => $product->id,
+                        'product_name' => $productName,
+                        'product_unit' => $data['product_unit'][$i],
+                        'product_qty' => $data['product_qty'][$i],
+                        'product_tax' => $data['product_tax'][$i],
+                        'product_total' => $subtotal,
+                        'price_export' => $price,
+                        'product_ratio' => $data['product_ratio'][$i] ?? 0,
+                        'price_import' => $priceImport,
+                        'product_note' => $data['product_note'][$i] ?? null,
+                        'promotion' => !empty($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
+                        'promotion_type' => $data['promotion_type'][$i],
+                        'user_id' => Auth::user()->id,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                        'status' => 1,
+                        'workspace_id' => Auth::user()->current_workspace,
+                    ];
+
+                    DB::table($this->table)->insert($dataQuote);
+
                     $productIds[] = $product->id;
                 }
-                else{
-                    $productIds[] = $checkProduct->id;
-                }
-                $dataQuote = [
-                    'detailexport_id' => $id,
-                    'product_code' => $data['product_code'][$i],
-                    'product_id' => $checkProduct == null ? $product->id : $checkProduct->id,
-                    'product_name' => $data['product_name'][$i],
-                    'product_unit' => $data['product_unit'][$i],
-                    'product_qty' => $data['product_qty'][$i],
-                    'product_tax' => $data['product_tax'][$i],
-                    'product_total' => $subtotal,
-                    'price_export' => $price,
-                    'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
-                    'price_import' => $priceImport,
-                    'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
-                    'promotion' => isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
-                    'promotion_type' => $data['promotion_type'][$i],
-                    'user_id' => Auth::user()->id,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                    'status' => 1,
-                    'workspace_id' => Auth::user()->current_workspace,
-                ];
-                DB::table($this->table)->insert($dataQuote);
             } else {
                 $dataQuote = [
                     'detailexport_id' => $id,

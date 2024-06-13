@@ -23,10 +23,6 @@ class productPay extends Model
 
     public function addProductPay($data, $id, $export_id, $products_id)
     {
-        if (count($products_id) != count($data['product_name'])) {
-            throw new \Exception("Mismatch between product IDs and product data entries.");
-        }
-
         for ($i = 0; $i < count($products_id); $i++) {
             // Use product ID from $products_id
             $product_id = $products_id[$i];
@@ -38,7 +34,7 @@ class productPay extends Model
                     ->where('status', 1)
                     ->first();
                 if ($quoteExport) {
-                    $quoteExport->qty_payment += $data['product_qty'][$i];
+                    $quoteExport->qty_payment += $quoteExport->product_qty;
                     $quoteExport->save();
                 }
             }
@@ -47,7 +43,7 @@ class productPay extends Model
                 'pay_id' => $id,
                 'user_id' => Auth::user()->id,
                 'product_id' => $product_id,
-                'pay_qty' => $data['product_qty'][$i],
+                'pay_qty' => $quoteExport->product_qty,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,

@@ -130,7 +130,7 @@ function checkQty(value, odlQty) {
     }
 }
 
-function addProductRow() {
+function addProductRow(productName) {
     let fieldCounter = 1;
     // Tạo các phần tử HTML mới
     const newRow = $("<tr>", {
@@ -159,7 +159,9 @@ function addProductRow() {
     const tenSanPham = $(
         `<td class='border-right p-2 text-13 align-top position-relative border-bottom border-top-0'>` +
             `<div class='d-flex align-items-center'>` +
-            `<input type='text' class='border-0 px-2 py-1 w-100 product_name height-32' autocomplete='off' required name='product_name[]'>` +
+            `<input type='text' class='border-0 px-2 py-1 w-100 product_name height-32' value="` +
+            productName +
+            `" autocomplete='off' required name='product_name[]'>` +
             `<input type='hidden' class='product_id' autocomplete='off' name='product_id[]'>` +
             `<div class='info-product' style='display: none;' data-toggle='modal' data-target='#productModal'>` +
             `<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'>` +
@@ -180,7 +182,7 @@ function addProductRow() {
     );
     const dvTinh = $(
         "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
-            "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit height-32' required name='product_unit[]'>" +
+            "<input type='text' autocomplete='off' value='Cái' class='border-0 px-2 py-1 w-100 product_unit height-32' required name='product_unit[]'>" +
             "</td>"
     );
     const soLuong = $(
@@ -232,7 +234,7 @@ function addProductRow() {
             "</td>"
     );
     const option = $(
-        "<td class='p-2 align-top activity border-bottom border-top-0' data-name1='BG' data-des='Xóa sản phẩm'>" +
+        "<td class='p-2 align-top activity border-bottom border-top-0 deleteProduct' data-name1='BG' data-des='Xóa sản phẩm'>" +
             "<svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
             "<path fill-rule='evenodd' clip-rule='evenodd' d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z' fill='#6B6F76'/>" +
             "</svg>" +
@@ -256,4 +258,246 @@ function addProductRow() {
     $("#dynamic-fields").before(newRow);
     // Tăng giá trị fieldCounter
     fieldCounter++;
+    //Xóa sản phẩm
+    option.click(function () {
+        $(this).closest("tr").remove();
+        fieldCounter--;
+        calculateTotalAmount();
+        calculateGrandTotal();
+    });
+}
+
+//tính thành tiền của sản phẩm
+$(document).on(
+    "input",
+    '.quantity-input, [name^="product_price"], .promotion, .promotion_type, #voucher',
+    function (e) {
+        var $row = $(this).closest("tr");
+
+        // Check if the product_name input has a value
+        var productNameValue = $row.find(".product_name").val();
+        if (productNameValue) {
+            // Split the product names and quantities
+            var productNames = productNameValue.split("|");
+        } else {
+            var productNames = [];
+        }
+
+        var productQty =
+            parseFloat(
+                $row
+                    .find(".quantity-input")
+                    .val()
+                    ?.replace(/[^0-9.-]+/g, "")
+            ) || 0;
+        var productPrice =
+            parseFloat(
+                $row
+                    .find('input[name^="product_price"]')
+                    .val()
+                    ?.replace(/[^0-9.-]+/g, "")
+            ) || 0;
+        var promotionValue =
+            parseFloat(
+                $row
+                    .find(".promotion")
+                    .val()
+                    ?.replace(/[^0-9.-]+/g, "")
+            ) || 0;
+        var percent = $row.find(".percent");
+        var promotionType = $row.find(".promotion_type").val();
+
+        updateTaxAmount($row);
+
+        if (!isNaN(productQty) && !isNaN(productPrice)) {
+            var totalAmount = 0;
+            productNames.forEach(() => {
+                var subtotal;
+                if (promotionType === "1") {
+                    // Fixed amount promotion
+                    subtotal = productQty * productPrice - promotionValue;
+                } else if (promotionType === "2") {
+                    // Percentage promotion
+                    subtotal =
+                        productQty * productPrice * (1 - promotionValue / 100);
+                } else {
+                    subtotal = productQty * productPrice;
+                }
+                totalAmount += subtotal;
+            });
+
+            $row.find(".total-amount").val(
+                formatCurrency(Math.round(totalAmount))
+            );
+            calculateTotalAmount();
+            calculateTotalTax();
+            calculateGrandTotal();
+        }
+    }
+);
+
+$(document).on("change", ".product_tax", function () {
+    updateTaxAmount($(this).closest("tr"));
+    calculateTotalAmount();
+    calculateTotalTax();
+    calculateGrandTotal();
+});
+
+$(document).on("change", ".promotion_type", function (e) {
+    var $row = $(this).closest("tr");
+    var promotionType = $row.find(".promotion_type").val();
+
+    $row.find(".promotion").val("");
+
+    if (promotionType === "2") {
+        $row.find(".percent").removeClass("d-none").show(); // Show the percent span
+    } else {
+        $row.find(".percent").addClass("d-none").hide(); // Hide the percent span
+    }
+
+    updateTaxAmount($row);
+    calculateTotalAmount();
+    calculateTotalTax();
+    calculateGrandTotal();
+});
+
+$(document).on("change", ".discount_type", function (e) {
+    var discountType = $('select[name="discount_type"]').val();
+
+    $("#voucher").val("");
+
+    if (discountType === "2") {
+        $(".percent_discount").removeClass("d-none").show(); // Show the percent span
+    } else {
+        $(".percent_discount").addClass("d-none").hide(); // Hide the percent span
+    }
+
+    calculateTotalAmount();
+    calculateTotalTax();
+    calculateGrandTotal();
+});
+
+function updateTaxAmount(row) {
+    var productNameValue = row.find(".product_name").val();
+    if (productNameValue) {
+        var productNames = productNameValue.split("|");
+    } else {
+        var productNames = [];
+    }
+
+    var productQty = parseFloat(row.find(".quantity-input").val()) || 0;
+    var productPrice =
+        parseFloat(
+            row
+                .find('input[name^="product_price"]')
+                .val()
+                ?.replace(/[^0-9.-]+/g, "")
+        ) || 0;
+    var promotionValue =
+        parseFloat(
+            row
+                .find(".promotion")
+                .val()
+                ?.replace(/[^0-9.-]+/g, "")
+        ) || 0;
+    var promotionType = row.find(".promotion_type").val();
+    var taxValue = parseFloat(row.find(".product_tax").val());
+    if (taxValue == 99) {
+        taxValue = 0;
+    }
+
+    if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
+        var totalAmount = 0;
+        productNames.forEach(() => {
+            var subtotal = productQty * productPrice;
+            if (promotionType === "1") {
+                // Fixed amount promotion
+                subtotal -= promotionValue;
+            } else if (promotionType === "2") {
+                // Percentage promotion
+                subtotal *= 1 - promotionValue / 100;
+            }
+            totalAmount += subtotal;
+        });
+
+        var taxAmount = totalAmount * (taxValue / 100);
+
+        row.find(".total-amount").val(formatCurrency(Math.round(totalAmount)));
+        row.find(".product_tax1").text(formatCurrency(Math.round(taxAmount)));
+    }
+}
+
+function calculateTotalAmount() {
+    var totalAmount = 0;
+    $("tr").each(function () {
+        var rowTotal = parseFloat(
+            String($(this).find(".total-amount").val()).replace(
+                /[^0-9.-]+/g,
+                ""
+            )
+        );
+        if (!isNaN(rowTotal)) {
+            totalAmount += rowTotal;
+        }
+    });
+    totalAmount = Math.round(totalAmount); // Round to the nearest integer
+    $("#total-amount-sum").text(formatCurrency(totalAmount));
+    calculateTotalTax();
+    calculateGrandTotal();
+}
+
+function calculateTotalTax() {
+    var totalTax = 0;
+    $("tr").each(function () {
+        var rowTax = parseFloat(
+            $(this)
+                .find(".product_tax1")
+                .text()
+                .replace(/[^0-9.-]+/g, "")
+        );
+        if (!isNaN(rowTax)) {
+            totalTax += rowTax;
+        }
+    });
+    totalTax = Math.round(totalTax); // Round to the nearest integer
+    $("#product-tax").text(formatCurrency(totalTax));
+
+    calculateGrandTotal();
+}
+
+function calculateGrandTotal() {
+    var totalAmount = parseFloat(
+        $("#total-amount-sum")
+            .text()
+            .replace(/[^0-9.-]+/g, "")
+    );
+    var totalTax = parseFloat(
+        $("#product-tax")
+            .text()
+            .replace(/[^0-9.-]+/g, "")
+    );
+    var voucher =
+        parseFloat(
+            $("#voucher")
+                .val()
+                ?.replace(/[^0-9.-]+/g, "")
+        ) || 0;
+    var discountType = $('select[name="discount_type"]').val();
+
+    var grandTotal = totalAmount + totalTax;
+
+    if (discountType === "2") {
+        // Nhập %
+        voucher = (grandTotal * voucher) / 100;
+    }
+
+    grandTotal -= voucher;
+    grandTotal = Math.round(grandTotal);
+
+    $("#grand-total").text(formatCurrency(grandTotal));
+    $("#TongTien").val(formatCurrency(grandTotal));
+
+    // Update data-value attribute
+    $("#grand-total").attr("data-value", grandTotal);
+    $("#total").val(grandTotal);
 }
