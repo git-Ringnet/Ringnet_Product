@@ -223,6 +223,24 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-right border-bottom">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Kho hàng</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Khuyến mãi</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -316,13 +334,17 @@
                                                             </a>
                                                         @endif
                                                     </div>
-
                                                 </td>
                                                 <td
                                                     class="align-top text-center border-top-0 border-bottom border-right">
                                                     <input class="border-0 px-2 py-1 w-100 price_export"
                                                         type="text" value="{{ $item->product_guarantee }}"
                                                         readonly>
+                                                </td>
+                                                <td
+                                                    class="align-top text-center border-top-0 border-bottom border-right">
+                                                    <input class="border-0 px-2 py-1 w-100" type="text"
+                                                        value="{{ $item->warehouse_name }}" readonly>
                                                 </td>
                                                 <td
                                                     class="bg-white align-top text-13-black d-none border-top-0 border-bottom border-right">
@@ -365,6 +387,34 @@
                                                         name="total_price[]"
                                                         value="{{ fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
                                                         readonly>
+                                                </td>
+                                                <td
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    <div class='d-flex align-item-center'>
+                                                        <input type='text' name='promotion[]'
+                                                            value="{{ number_format($item->promotion) }}"
+                                                            class='text-right border-0 px-2 py-1 w-100 height-32 promotion'
+                                                            readonly autocomplete='off'>
+                                                        <span class='mt-1 <?php if ($item->promotion_type == 1) {
+                                                            echo 'd-none';
+                                                        } ?> percent'>%</span>
+                                                    </div>
+                                                    <div class='text-right'>
+                                                        <select
+                                                            class='border-0 mt-3 text-13-blue text-center promotion_type'
+                                                            disabled>
+                                                            <option value='1' <?php if ($item->promotion_type == 1) {
+                                                                echo 'selected';
+                                                            } ?>>Nhập
+                                                                tiền</option>
+                                                            <option value='2' <?php if ($item->promotion_type == 2) {
+                                                                echo 'selected';
+                                                            } ?>>Nhập %
+                                                            </option>
+                                                        </select>
+                                                        <input type="hidden" name='promotion_type[]'
+                                                            value="{{ $item->promotion_type }}">
+                                                    </div>
                                                 </td>
                                                 <td
                                                     class="text-center bg-white align-top text-13-black border-top-0 border-bottom border-right">

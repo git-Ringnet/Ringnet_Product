@@ -336,6 +336,9 @@ Route::get('/getInventoryProduct', [DetailExportController::class, 'getInventory
 Route::get('/listWarehousse', [WarehouseController::class, 'listWarehousse'])->name('listWarehousse');
 Route::get('/selectWareHouse', [WarehouseController::class, 'selectWareHouse'])->name('selectWareHouse');
 
+Route::get('/getInventoryWarehouse', [DeliveryController::class, 'getInventoryWarehouse'])->name('getInventoryWarehouse');
+
+
 Route::middleware(['auth:sanctum', 'verified', CheckUserWorkspace::class])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');

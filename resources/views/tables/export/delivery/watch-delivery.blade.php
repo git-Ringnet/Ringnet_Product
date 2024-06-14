@@ -362,6 +362,7 @@
                                                         value="{{ number_format($item_quote->product_total) }}"
                                                         class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>
                                                 </td>
+                                                <input type="hidden" name="warehouse[]" value="{{ $item_quote->warehouse_id }}">
                                                 <!-- <td class="border-top border-secondary p-0 bg-secondary Daydu d-none"
                                                     style="width:1%;">
                                                 </td> -->

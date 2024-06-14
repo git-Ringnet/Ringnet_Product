@@ -113,17 +113,19 @@
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                        <th class="border-bottom border-right" style="width: 15%;padding-left:2rem;">
+                                        <th class="border-bottom border-right" style="width: 10%;padding-left:2rem;">
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">Tên sản
-                                            phẩm</th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">
+                                            Tên sản phẩm
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">
+                                            Đơn vị
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:8%;">
                                             Số lượng
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-center text-13" style="width:8%;">
                                             Quản lý SN
                                         </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
@@ -133,10 +135,13 @@
                                             Thuế
                                         </th>
                                         <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
-                                            Khuyến mãi
+                                            KM
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:12%;">
                                             Thành tiền
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-center text-13" style="width:15%;">
+                                            Kho hàng
                                         </th>
                                         <th class="border-right p-0 px-2 text-left note text-13">Ghi chú sản phẩm</th>
                                         <th></th>
@@ -739,6 +744,10 @@
                 "</div>" +
                 "</td>"
             );
+            const khoHang = $(
+                "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
+                "</td>"
+            );
             const thanhTien = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
                 "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>" +
@@ -761,9 +770,7 @@
             // 
             // Gắn các phần tử vào hàng mới
             newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, quanLySN, donGia, thue, khuyenMai,
-                thanhTien,
-                ghiChu,
-                option);
+                thanhTien, khoHang, ghiChu, option);
             $("#dynamic-fields").before(newRow);
             // Tăng giá trị fieldCounter
             fieldCounter++;
@@ -1945,9 +1952,12 @@
                             idQuote: idQuote
                         },
                         success: function(data) {
-                            console.log(data);
                             $(".addProduct").remove();
-                            $.each(data, function(index, item) {
+                            var warehouses = data.warehouse;
+                            $.each(data.processedDelivery, function(index, item) {
+                                var filteredWarehouses = warehouses.filter(function(warehouse) {
+                                    return warehouse.product_id === item.maSP;
+                                });
                                 var tax = (((item.promotion_type == 1 ? item.product_total - item.promotion : item.product_total - (item.product_total * (item.promotion / 100))) * (item.thueSP == 99 ? 0 : item.thueSP))) / 100;
                                 $(".idGuest").val(item.guest_id);
                                 $("#detailexport_id").val(item.maXuat);
@@ -1998,7 +2008,7 @@
                                         <input type="number" value="${formatNumber(item.soLuongCanGiao)}" data-product-id="${item.maSP}" class="height-32 border-0 px-2 text-right py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                         <input type="hidden" class="limit-quantity" value="${formatNumber(item.soLuongCanGiao)}" data-limit-quantity="${formatNumber(item.soLuongCanGiao)}">
                                         <input type="hidden" class="tonkho">
-                                        <p class="mt-3 text-13-blue inventory text-right mb-0 ${item.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
+                                        <p class="mt-3 text-13-blue inventory text-right mb-0 ${item.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">0</span></p>
                                         </div>  
                                         </div>
                                     </td>
@@ -2052,6 +2062,12 @@
                                     <td class="border border-bottom-0 position-relative price_import d-none border-top-0">
                                         <input type="text" value="${formatCurrency(item.price_import)}" readonly class="border-0 px-2 py-1 w-100 giaNhap" autocomplete="off" required="required" name="price_import[]">
                                     </td>
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                        <select class="border-0 py-1 w-100 text-center height-32 warehouse" name="warehouse[]" required>
+                                            <option>Chọn kho hàng</option>
+                                            ${filteredWarehouses.map(filteredWarehouse => `<option value="${filteredWarehouse.id}">${filteredWarehouse.warehouse_name}</option>`).join('')}
+                                        </select>
+                                    </td>
                                     <td class="border-right p-2 text-13 align-top note p-1 border-bottom border-top-0">
                                         <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100 height-32" name="product_note[]">
                                     </td>
@@ -2063,6 +2079,25 @@
                                     <td style="display:none;"><input type="text" class="type" value="${item.type}"></td>
                                 </tr>`;
                                 $("#dynamic-fields").before(newRow);
+                                //Cập nhật tồn kho theo kho hàng
+                                $('.warehouse').off('change').on('change', function() {
+                                    var $this = $(this);
+                                    var idProduct = $(this).closest('tr').find('.product_id').val();
+                                    var warehouse_id = $(this).val();
+                                    $.ajax({
+                                        url: '{{ route('getInventoryWarehouse') }}',
+                                        type: 'GET',
+                                        data: {
+                                            idProduct: idProduct,
+                                            warehouse_id: warehouse_id
+                                        },
+                                        context: $this,
+                                        success: function(data) {
+                                            var soTonKho = this.closest('tr').find('.soTonKho');
+                                            soTonKho.text(parseFloat(data.total_quantity_remaining == null ? 0 : data.total_quantity_remaining));
+                                        }
+                                    });
+                                });
                                 //giới hạn số lượng
                                 $("tr").on("input", ".quantity-input",
                                     function() {

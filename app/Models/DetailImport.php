@@ -113,7 +113,7 @@ class DetailImport extends Model
             'project_id' => 1,
             'user_id' => Auth::user()->id,
             'quotation_number' => $data['quotation_number'],
-            'status' => 2,
+            'status' => 0,
             'created_at' => $data['date_quote'],
             'total_price' => $total,
             'total_tax' => $voucher,

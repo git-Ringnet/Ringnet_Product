@@ -12,6 +12,7 @@ use App\Models\Receive_bill;
 use App\Models\Reciept;
 use App\Models\Serialnumber;
 use App\Models\User;
+use App\Models\Warehouse;
 use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -184,11 +185,12 @@ class ReceiveController extends Controller
         } else {
             $nameRepresent = "";
         }
-        $title = $receive->quotation_number;
+        $title = "Đơn nhận hàng";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
             ->join('products', 'quoteimport.product_name', 'products.product_name')
+            ->join('warehouse', 'warehouse.id', 'quoteimport.warehouse_id')
             ->where('products_import.detailimport_id', $receive->detailimport_id)
             ->where('products_import.receive_id', $receive->id)
             ->where('products.workspace_id', Auth::user()->current_workspace)
@@ -206,6 +208,9 @@ class ReceiveController extends Controller
                 'products_import.quoteImport_id',
                 'products_import.product_guarantee',
                 'products.product_inventory as inventory',
+                'warehouse.warehouse_name',
+                'quoteimport.promotion_type',
+                'quoteimport.promotion',
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->with('getSerialNumber')->get();
@@ -379,12 +384,14 @@ class ReceiveController extends Controller
                 array_push($checked, 'endable');
             }
         }
+        $warehouse = Warehouse::where('workspace_id', Auth::user()->current_workspace)->get();
         $data = [
             'checked' => $checked,
             'cb' => $list,
             'quoteImport' => $quote,
             'value' => $value,
-            'inventory' => $inventory
+            'inventory' => $inventory,
+            'warehouse' => $warehouse,
         ];
         return $data;
     }

@@ -240,6 +240,15 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-right border-bottom">
+                                                <span class="d-flex justify-content-center">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Khuyến mãi</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -340,6 +349,34 @@
                                                         disabled
                                                         value="{{ $item->product_tax == 99 ? 'NOVAT' : $item->product_tax }} %">
                                                 </td>
+                                                <td
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    <div class='d-flex align-item-center'>
+                                                        <input type='text' name='promotion[]'
+                                                            value="{{ number_format($item->promotion) }}"
+                                                            class='text-right border-0 px-2 py-1 w-100 height-32 promotion'
+                                                            readonly autocomplete='off'>
+                                                        <span class='mt-1 <?php if ($item->promotion_type == 1) {
+                                                            echo 'd-none';
+                                                        } ?> percent'>%</span>
+                                                    </div>
+                                                    <div class='text-right'>
+                                                        <select
+                                                            class='border-0 mt-3 text-13-blue text-center promotion_type'
+                                                            disabled>
+                                                            <option value='1' <?php if ($item->promotion_type == 1) {
+                                                                echo 'selected';
+                                                            } ?>>Nhập
+                                                                tiền</option>
+                                                            <option value='2' <?php if ($item->promotion_type == 2) {
+                                                                echo 'selected';
+                                                            } ?>>Nhập %
+                                                            </option>
+                                                        </select>
+                                                        <input type="hidden" name='promotion_type[]'
+                                                            value="{{ $item->promotion_type }}">
+                                                    </div>
+                                                </td>
                                                 <input type="hidden" class="product_tax1">
                                                 <td
                                                     class="border-right border-top-0 p-2 border-bottom text-13 align-top text-right">
@@ -362,8 +399,7 @@
                     </div>
 
                     <div id="files" class="tab-pane fade">
-                        <div id="title--fixed"
-                            class="content-title--fixed top-111">
+                        <div id="title--fixed" class="content-title--fixed top-111">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM
                             </p>
                         </div>

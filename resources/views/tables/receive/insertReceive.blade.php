@@ -153,6 +153,24 @@
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-13"
+                                                        type="submit">Kho hàng</button>
+                                                </a>
+                                                <div class="icon" id="icon-total"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="border-right border-bottom">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="total"
+                                                    data-sort-type=""><button class="btn-sort text-13"
+                                                        type="submit">KM</button>
+                                                </a>
+                                                <div class="icon" id="icon-total"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="border-right border-bottom">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="total"
+                                                    data-sort-type=""><button class="btn-sort text-13"
                                                         type="submit">Ghi chú sản phẩm</button>
                                                 </a>
                                                 <div class="icon" id="icon-total"></div>
@@ -353,6 +371,7 @@
                         success: function(product) {
                             $('#product').html(product)
                             $('#inputcontent tbody').empty();
+                            var warehouses = product.warehouse;
                             product.quoteImport.forEach((element, index) => {
                                 if (element.product_qty - element
                                     .receive_qty > 0) {
@@ -439,6 +458,27 @@
                                             .value[index] == null ? "" :
                                             "readonly") + `>
                                                 </td>
+
+                                                <td class="p-2 note text-13 align-top border-top-0 border-bottom border-right">
+                                                    <select class="border-0 py-1 w-100 text-center height-32" name="warehouse[]" required>
+                                                        ${warehouses.map(warehouse => `<option value="${warehouse.id}">${warehouse.warehouse_name}</option>`).join('')}
+                                                    </select>
+                                                </td>
+                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    <div class="d-flex align-item-center">
+                                                        <input value="` + formatCurrency(element.promotion) + `" type="text" name="promotion[]" class="text-right border-0 px-2 py-1 w-100 height-32 promotion" autocomplete="off">
+                                                        <span class="mt-2 percent d-none">%</span>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <select class="border-0 mt-3 text-13-blue text-center" disabled="">
+                                                            <option value="1" ` + (element.promotion_type == 1 ? 'selected' : '') + `>Nhập tiền</option>
+                                                            <option value="2" ` + (element.promotion_type == 2 ? 'selected' : '') + `>
+                                                                Nhập %
+                                                            </option>
+                                                        </select>
+                                                        <input type="hidden" class="promotion_type" name="promotion_type[]" value="` + (element.promotion_type) + `">
+                                                    </div>
+                                                 </td>
 
                                                 <td class="p-2 note text-13 align-top border-top-0 border-bottom border-right">
                                                     <input readonly type="text" name="product_note[]" class="border-0 py-1 w-100 height-32" 

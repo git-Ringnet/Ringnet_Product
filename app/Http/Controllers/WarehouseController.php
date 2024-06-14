@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductImport;
 use App\Models\Products;
+use App\Models\QuoteImport;
 use App\Models\UserFlow;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
@@ -107,7 +109,7 @@ class WarehouseController extends Controller
         if (!$warehouse) {
             return back()->with('warning', 'Không tìm thấy kho hàng để xóa');
         }
-        $check = Products::where('warehouse_id', $id)
+        $check = QuoteImport::where('warehouse_id', $id)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
         if (!$check->isEmpty()) {

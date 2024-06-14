@@ -160,6 +160,8 @@ class RecieptController extends Controller
                 'quoteimport.product_note',
                 'products_import.product_id',
                 'products.product_inventory as inventory',
+                'quoteimport.promotion_type',
+                'quoteimport.promotion',
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->get();

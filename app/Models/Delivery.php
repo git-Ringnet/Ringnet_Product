@@ -124,6 +124,7 @@ class Delivery extends Model
                 $join->on('delivered.product_id', '=', 'quoteexport.product_id');
             })
             ->join('products', 'products.id', 'delivered.product_id')
+            ->join('quoteimport', 'quoteimport.product_id', 'delivered.product_id')
             ->where('quoteexport.status', 1)
             ->where('delivery.id', $id)
             ->select(
@@ -145,6 +146,7 @@ class Delivery extends Model
                 'products.check_seri',
                 'quoteexport.promotion',
                 'quoteexport.promotion_type',
+                'quoteexport.warehouse_id'
             )
             ->groupBy(
                 'quoteexport.product_code',
@@ -164,6 +166,7 @@ class Delivery extends Model
                 'products.check_seri',
                 'quoteexport.promotion',
                 'quoteexport.promotion_type',
+                'quoteexport.warehouse_id'
             )
             ->get();
         return $product;
@@ -260,6 +263,7 @@ class Delivery extends Model
                     $quoteImports = DB::table('quoteimport')
                         ->where('product_id', $productId)
                         ->where('quantity_remaining', '>', 0)
+                        ->where('warehouse_id', $data['warehouse'][$i])
                         ->orderBy('created_at', 'asc')
                         ->where('workspace_id', Auth::user()->current_workspace)
                         ->get();
@@ -273,6 +277,7 @@ class Delivery extends Model
                             DB::table('quoteimport')
                                 ->where('id', $quoteImport->id)
                                 ->where('workspace_id', Auth::user()->current_workspace)
+                                ->where('warehouse_id', $data['warehouse'][$i])
                                 ->update(['quantity_remaining' => $quoteImport->quantity_remaining - $remainingQuantityToDeduct]);
                             $remainingQuantityToDeduct = 0;
                         } else {
@@ -280,6 +285,7 @@ class Delivery extends Model
                             DB::table('quoteimport')
                                 ->where('id', $quoteImport->id)
                                 ->where('workspace_id', Auth::user()->current_workspace)
+                                ->where('warehouse_id', $data['warehouse'][$i])
                                 ->update(['quantity_remaining' => 0]);
                         }
                     }
@@ -578,7 +584,7 @@ class Delivery extends Model
                     }
                 }
             }
-            $quoteExports = QuoteExport::where('detailexport_id', $id)->where('status', 1)->get();
+            $quoteExports = QuoteExport::where('detailexport_id', $delivery->detailexport_id)->where('status', 1)->get();
             //Cập nhật tồn kho sản phẩm, Cập nhật số lượng còn lại của đơn nhập
             foreach ($quoteExports as $detail) {
                 $productId = $detail->product_id;
@@ -589,6 +595,7 @@ class Delivery extends Model
 
                 $quoteImports = DB::table('quoteimport')
                     ->where('product_id', $productId)
+                    ->where('warehouse_id', $detail->warehouse_id)
                     ->orderBy('created_at', 'asc')
                     ->get();
 
@@ -605,6 +612,7 @@ class Delivery extends Model
 
                         DB::table('quoteimport')
                             ->where('id', $quoteImport->id)
+                            ->where('warehouse_id', $detail->warehouse_id)
                             ->update(['quantity_remaining' => $quantityRemaining + $restoredQuantity]);
 
                         $remainingQuantityToRestore -= $restoredQuantity;
@@ -727,7 +735,7 @@ class Delivery extends Model
                 'delivery.created_at'
             )
             ->get();
-        $quoteExports = QuoteExport::where('detailexport_id', $id)->where('status', 1)->get();
+        $quoteExports = QuoteExport::where('detailexport_id', $delivery->detailexport_id)->where('status', 1)->get();
         foreach ($product as $item) {
             $quoteExport = QuoteExport::where('detailexport_id', $delivery->detailexport_id)
                 ->where('status', 1)
@@ -763,6 +771,7 @@ class Delivery extends Model
 
                 $quoteImports = DB::table('quoteimport')
                     ->where('product_id', $productId)
+                    ->where('warehouse_id', $detail->warehouse_id)
                     ->orderBy('created_at', 'asc')
                     ->get();
 
@@ -779,8 +788,8 @@ class Delivery extends Model
 
                         DB::table('quoteimport')
                             ->where('id', $quoteImport->id)
+                            ->where('warehouse_id', $detail->warehouse_id)
                             ->update(['quantity_remaining' => $quantityRemaining + $restoredQuantity]);
-
                         $remainingQuantityToRestore -= $restoredQuantity;
                     }
                 }
@@ -931,6 +940,7 @@ class Delivery extends Model
                     ->first();
                 if ($quoteExport) {
                     $quoteExport->qty_delivery += $data['product_qty'][$i];
+                    $quoteExport->warehouse_id = $data['warehouse'][$i];
                     $quoteExport->save();
                 }
             }
@@ -1157,6 +1167,18 @@ class Delivery extends Model
             //thêm sản phẩm từ đơn giao hàng
             $checkProduct = Products::where('product_name', $data['product_name'][$i])->first();
             if (!$checkProduct) {
+                $dataProduct = [
+                    'product_code' => $data['product_code'][$i],
+                    'product_name' => $data['product_name'][$i],
+                    'product_unit' => $data['product_unit'][$i],
+                    'product_tax' => $data['product_tax'][$i],
+                    'product_guarantee' => 1,
+                    'product_price_export' => $price,
+                    'user_id' => Auth::user()->id,
+                    'workspace_id' => Auth::user()->current_workspace,
+                    'product_price_import' => isset($priceImport) ? $priceImport : 0,
+                    'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
+                ];
                 $product = new Products($dataProduct);
                 $product->save();
             }
@@ -1280,6 +1302,7 @@ class Delivery extends Model
 
                 $quoteImports = DB::table('quoteimport')
                     ->where('product_id', $productId)
+                    ->where('warehouse_id', $data['warehouse'][$i])
                     ->where('quantity_remaining', '>', 0)
                     ->orderBy('created_at', 'asc')
                     ->where('workspace_id', Auth::user()->current_workspace)
@@ -1293,6 +1316,7 @@ class Delivery extends Model
                     if ($quoteImport->quantity_remaining >= $remainingQuantityToDeduct) {
                         DB::table('quoteimport')
                             ->where('id', $quoteImport->id)
+                            ->where('warehouse_id', $data['warehouse'][$i])
                             ->where('workspace_id', Auth::user()->current_workspace)
                             ->update(['quantity_remaining' => $quoteImport->quantity_remaining - $remainingQuantityToDeduct]);
                         $remainingQuantityToDeduct = 0;
@@ -1301,6 +1325,7 @@ class Delivery extends Model
                         DB::table('quoteimport')
                             ->where('id', $quoteImport->id)
                             ->where('workspace_id', Auth::user()->current_workspace)
+                            ->where('warehouse_id', $data['warehouse'][$i])
                             ->update(['quantity_remaining' => 0]);
                     }
                 }

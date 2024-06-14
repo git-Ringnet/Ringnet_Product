@@ -124,7 +124,7 @@ class Receive_bill extends Model
                     'status' => 0
                 ];
                 // $detail->status = 2;
-            }else{
+            } else {
                 $dataDetail['status_receive'] = 3;
             }
             if ($detail->status == 1) {
@@ -308,7 +308,10 @@ class Receive_bill extends Model
                                 $sn->delete();
                             }
                             //Cập nhật số lượng còn lại của sản phẩm
-                            $quoteImport->quantity_remaining = $quoteImport->quantity_remaining - $item->product_qty;
+                            if ($receive->status == 2) {
+                                $quoteImport->quantity_remaining = $quoteImport->quantity_remaining - $item->product_qty;
+                            }
+                            $quoteImport->warehouse_id = 0;
                             $quoteImport->save();
                         }
                         // Trừ sản phẩm khỏi tồn kho

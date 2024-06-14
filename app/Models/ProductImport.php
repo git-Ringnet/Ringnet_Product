@@ -146,6 +146,12 @@ class ProductImport extends Model
                 ];
                 QuoteImport::where('id', $product->id)
                     ->update($dataQuote);
+                //Cập nhật kho cho sản phẩm nhập
+                if(isset( $data['warehouse']))
+                {
+                    $product->warehouse_id = $data['warehouse'][$i];
+                    $product->save();
+                }
                 $status = true;
             }
         }

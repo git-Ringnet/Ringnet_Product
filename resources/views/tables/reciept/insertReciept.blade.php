@@ -124,6 +124,10 @@
                                             style="width: 10%;">
                                             <span class="text-table text-secondary">Thuế</span>
                                         </th>
+                                        <th class="border-right border-bottom px-2 p-0 text-center text-13"
+                                            style="width: 10%;">
+                                            <span class="text-table text-secondary">Khuyến mãi</span>
+                                        </th>
                                         <th class="border-right border-bottom px-1 p-0 text-right text-13"
                                             style="width: 12%;">
                                             <span class="text-table text-secondary">Thành tiền</span>
@@ -498,6 +502,22 @@
                                                     class="border-0 px-2 py-1 w-100 product_tax text-center height-32" 
                                                     value="` + (element.product_tax == 99 ? "NOVAT" : element
                                             .product_tax + "%") + `">
+                                            </td>
+
+                                            <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                <div class="d-flex align-item-center">
+                                                    <input value="` + formatCurrency(element.promotion) + `" type="text" name="promotion[]" class="text-right border-0 px-2 py-1 w-100 height-32 promotion" autocomplete="off">
+                                                    <span class="mt-2 percent d-none">%</span>
+                                                </div>
+                                                <div class="text-right">
+                                                    <select class="border-0 mt-3 text-13-blue text-center" disabled="">
+                                                        <option value="1" ` + (element.promotion_type == 1 ? 'selected' : '') + `>Nhập tiền</option>
+                                                        <option value="2" ` + (element.promotion_type == 2 ? 'selected' : '') + `>
+                                                            Nhập %
+                                                        </option>
+                                                    </select>
+                                                    <input type="hidden" class="promotion_type" name="promotion_type[]" value="` + (element.promotion_type) + `">
+                                                </div>
                                             </td>
 
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">

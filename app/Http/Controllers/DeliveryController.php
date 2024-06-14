@@ -14,6 +14,7 @@ use App\Models\QuoteExport;
 use App\Models\Serialnumber;
 use App\Models\User;
 use App\Models\userFlow;
+use App\Models\Warehouse;
 use App\Models\Workspace;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -343,11 +344,24 @@ class DeliveryController extends Controller
     public function getProductQuote(Request $request)
     {
         $data = $request->all();
-
+        $warehouse = Warehouse::where('warehouse.workspace_id', Auth::user()->current_workspace)
+            ->Join('quoteimport', 'quoteimport.warehouse_id', 'warehouse.id')
+            ->where('quoteimport.quantity_remaining', '>', 0)
+            ->select('warehouse.id', 'warehouse.warehouse_name', 'quoteimport.product_id')
+            ->groupBy('warehouse.id', 'warehouse.warehouse_name', 'quoteimport.product_id')
+            ->get();
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
-            ->select('*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP', 'quoteexport.product_code as maCode', 'quoteexport.product_name as tenSP', 'quoteexport.product_tax as thueSP', 'quoteexport.product_unit as product_unit')
+            ->select(
+                '*',
+                'detailexport.id as maXuat',
+                'quoteexport.product_id as maSP',
+                'quoteexport.product_code as maCode',
+                'quoteexport.product_name as tenSP',
+                'quoteexport.product_tax as thueSP',
+                'quoteexport.product_unit as product_unit'
+            )
             ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
             ->leftJoin('serialnumber', function ($join) {
                 $join->on('serialnumber.product_id', '=', 'products.id');
@@ -368,7 +382,12 @@ class DeliveryController extends Controller
             return $product;
         });
 
-        return $processedDelivery;
+        $response = [
+            'warehouse' => $warehouse,
+            'processedDelivery' => $processedDelivery,
+        ];
+
+        return response()->json($response);
     }
 
     public function getProductFromQuote(Request $request)
@@ -420,6 +439,24 @@ class DeliveryController extends Controller
 
         return response()->json($response);
     }
+
+    public function getInventoryWarehouse(Request $request)
+    {
+        $inventory = Warehouse::where('warehouse.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('quoteimport', 'quoteimport.warehouse_id', '=', 'warehouse.id')
+            ->where('quoteimport.product_id', $request->idProduct)
+            ->where('quoteimport.warehouse_id', $request->warehouse_id)
+            ->select(
+                'warehouse.id as warehouse_id',
+                'warehouse.warehouse_name',
+                DB::raw('SUM(quoteimport.quantity_remaining) as total_quantity_remaining')
+            )
+            ->groupBy('warehouse.id', 'warehouse.warehouse_name')
+            ->first();
+
+        return $inventory;
+    }
+
     public function searchDelivery(Request $request)
     {
         $data = $request->all();
