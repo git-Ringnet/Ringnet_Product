@@ -394,7 +394,9 @@
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     {{-- {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }} --}}
-                                                    {{ $item->content_pay }}
+                                                    @if($item->getContentPay)
+                                                    {{ $item->getContentPay->name }}
+                                                    @endif
                                                 </td>
 
                                                 <td class="text-13-black text-right border-top-0 border-bottom">

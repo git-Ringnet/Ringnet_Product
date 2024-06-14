@@ -33,9 +33,15 @@ class ReturnImport extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    public function getAllReturnProduct(){
+    public function getAllReturnProduct()
+    {
         return $this->hasMany(ReturnProduct::class, 'returnImport_id', 'id');
     }
+
+    public function getPayment() {
+        return $this->hasOne(PayOder::class, 'return_id', 'id');
+    }
+
 
     public function addReturnImport($data)
     {
@@ -45,7 +51,8 @@ class ReturnImport extends Model
             'description' => $data['content'],
             'created_at' => isset($data['received_date']) ? $data['received_date'] : Carbon::now(),
             'workspace_id' => Auth::user()->current_workspace,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'return_code' => "PTH-" . $data['detailimport_id']
         ];
         if ($data['action'] == "action_1") {
             $dataReturn['status'] = 1;
@@ -177,7 +184,7 @@ class ReturnImport extends Model
                     }
                 }
                 // Xóa thông tin sản phẩm trả hàng
-                ReturnProduct::where('id',$item->id)->delete();
+                ReturnProduct::where('id', $item->id)->delete();
             }
             // Xóa đơn trả hàng
             ReturnImport::where('id', $returnImport->id)->delete();

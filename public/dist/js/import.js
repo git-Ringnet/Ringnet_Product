@@ -1,7 +1,7 @@
 // Format giá tiền
 $("body").on(
     "input",
-    '.price_export , .price_import ,.payment_input,.quantity-input,.payment_input,input[name="delivery_charges"]',
+    '.price_export , .price_import ,.payment_input,.quantity-input,.payment_input,input[name="delivery_charges"],.promotion,input[name="promotion-total"],input[name="payment"]',
     function (event) {
         // Lấy giá trị đã nhập
         var value = event.target.value;
@@ -181,15 +181,22 @@ function calculateAll() {
     var total = parseFloat(total_amount) + parseFloat(product_tax);
     var option = $("[name^='promotion-option-total']").val();
     var promotion = $("input[name^='promotion-total']").val();
-    if(promotion){
-        promotion. replace(/[^0-9.-]+/g, "") || 0;
+    if (promotion) {
+        promotion.replace(/[^0-9.-]+/g, "") || 0;
     }
-    if (option == 1) {
-        var cal = total - promotion;
-    } else {
-        var cal = total - (total * promotion / 100);
+
+    if (total_amount > 0) {
+        if ($("input[name^='promotion-total']")) {
+            var promotion = $("input[name^='promotion-total']").val().replace(/[^0-9.-]+/g, "") || 0;
+        }
+        if (option == 1) {
+            var cal = total - promotion;
+        } else {
+            var cal = total - (total * promotion / 100);
+        }
+        $('#grand-total').text(formatCurrency(cal))
     }
-    $('#grand-total').text(formatCurrency(cal))
+
 }
 
 $(document).on(
@@ -333,6 +340,12 @@ $(document).on("change", ".product_tax, .promotion-option,.promotion-option-tota
     calculateAll()
 });
 
+// function changeValuePromotion(){
+//     if($(''))
+// }
+
+
+
 function calculateTotalAmount() {
     var totalAmount = 0;
     $("tr").each(function () {
@@ -390,7 +403,6 @@ function calculateGrandTotal() {
 }
 
 function updateTaxAmount() {
-    console.log(123);
     $("#inputcontent tbody tr").each(function () {
         var productQty = parseFloat($(this).find(".quantity-input").val());
         var productPrice = $(this).find('input[name^="price_export"]');

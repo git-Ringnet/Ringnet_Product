@@ -172,6 +172,16 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="delivery_code" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">Phiếu trả hàng
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-delivery_code"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-bottom" style="width: 14%;">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="delivery_code" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Phiếu nhập
                                                             kho#</button>
                                                     </a>
@@ -212,15 +222,15 @@
                                                 </span>
                                             </th> --}}
                                             {{-- @can('isAdmin') --}}
-                                                <th scope="col" class="border-bottom" style="width: 10%;">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="users"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Người tạo</button>
-                                                        </a>
-                                                        <div class="icon" id="icon-users"></div>
-                                                    </span>
-                                                </th>
+                                            <th scope="col" class="border-bottom" style="width: 10%;">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="users"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Người tạo</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-users"></div>
+                                                </span>
+                                            </th>
                                             {{-- @endcan --}}
                                             {{-- <th scope="col" class="border-bottom" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
@@ -257,7 +267,8 @@
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_tax" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Nội dung trả hàng</button>
+                                                            class="btn-sort text-13" type="submit">Nội dung trả
+                                                            hàng</button>
                                                     </a>
                                                     <div class="icon" id="icon-total_tax"></div>
                                                 </span>
@@ -289,22 +300,27 @@
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom text-wrap">
-                                                    @if ($item->getReceive)
                                                     <a href="{{ route('returnImport.edit', ['workspace' => $workspacename, 'returnImport' => $item->id]) }}"
                                                         class="duongdan text-13-blue user_flow" data-type="DNH"
                                                         data-des="Xem đơn nhận hàng">
-                                                        {{ $item->getReceive->id }}
+                                                        {{ $item->return_code }}
                                                     </a>
+                                                </td>
+
+
+                                                <td class="text-13-black border-top-0 border-bottom text-wrap">
+                                                    @if ($item->getReceive)
+                                                        {{ $item->getReceive->delivery_code }}
                                                     @endif
                                                 </td>
-                                            
+
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
 
                                                 <td class="text-13-black border-top-0 border-bottom">
-                                                    @if($item->getUser)
-                                                    {{ $item->getUser->name }}
+                                                    @if ($item->getUser)
+                                                        {{ $item->getUser->name }}
                                                     @endif
                                                 </td>
 

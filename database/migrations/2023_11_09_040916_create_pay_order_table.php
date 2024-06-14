@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('total',20,4);
             $table->decimal('payment',20,4);
             $table->decimal('debt',20,4);
+            $table->integer('return_id')->nullable();
             $table->timestamps();
         });
     }

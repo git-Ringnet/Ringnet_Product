@@ -268,7 +268,7 @@
                                                     @if ($payment->getQuotation) value="{{ $payment->getQuotation->quotation_number }}" @endif>
                                             </td>
                                             <td class="border border-left-0 border-top-0 p-2 align-top">
-                                                <input readonly type="text"
+                                                <input type="text" name="payment_code"
                                                     class="w-100 border-0 px-2 py-1 height-32"
                                                     value="{{ $payment->payment_code }}">
                                             </td>
@@ -294,7 +294,7 @@
                                             <td class="border border-left-0 border-top-0 p-2 align-top">
                                                 <input readonly type="text"
                                                     class="w-100 border-0 px-2 py-1 height-32"
-                                                    value="{{ $payment->content_pay }}">
+                                                    value="@if($payment->getContentPay) {{ $payment->getContentPay->name }} @endif">
                                             </td>
                                             <td class="border border-left-0 border-top-0 p-2 align-top">
                                                 <input readonly type="text"
@@ -312,7 +312,6 @@
                                                     value="{{ $payment->note }}">
                                             </td>
                                         </tr>
-
                                         {{-- @foreach ($product as $item)
                                             <tr class="bg-white" style="height:80px;">
                                                 <td
@@ -414,6 +413,22 @@
                                 </table>
                             </div>
                         </section>
+                        <div class="d-flex align-items-center height-60-mobile">
+                            <div class="title-info py-2 border border-left-0 height-100">
+                                <p class="p-0 m-0 margin-left32 text-13">Đã thanh toán</p>
+                            </div>
+                            <input type="text" placeholder="Nhập thông tin" name="" readonly
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                value="{{ number_format($payment->payment) }}">
+                        </div>
+                        <div class="d-flex align-items-center height-60-mobile">
+                            <div class="title-info py-2 border border-left-0 height-100">
+                                <p class="p-0 m-0 margin-left32 text-13">Thanh toán thêm</p>
+                            </div>
+                            <input type="text" placeholder="Nhập thông tin" name="payment" oninput="checkQty(this,{{$payment->total - $payment->payment}})"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                value="">
+                        </div>
                         {{-- <x-formsynthetic :import="$import"></x-formsynthetic> --}}
                     </div>
 

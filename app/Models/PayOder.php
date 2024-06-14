@@ -23,7 +23,7 @@ class PayOder extends Model
         'total',
         'payment',
         'debt', 'created_at', 'workspace_id', 'payment_type',
-        'guest_id','content_pay','fund_id','usercreate_id','note'
+        'guest_id', 'content_pay', 'fund_id', 'usercreate_id', 'note'
     ];
 
     public function getProvideName()
@@ -81,16 +81,16 @@ class PayOder extends Model
         $payment = PayOder::where('id', $id)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
-
         if ($payment && $payment->status != 2) {
+
             $prepay = $payment->payment + (isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0);
             $dataPayment = [
-                'payment_date' => $data['payment_date'],
+                // 'payment_date' => $data['payment_date'],
                 'payment' => $prepay,
                 'debt' => ($payment->total - $prepay),
                 'payment_code' => $data['payment_code'],
-                'payment_day' => $data['payment_day'],
-                'payment_type' => $data['payment_type']
+                // 'payment_day' => $data['payment_day'],
+                // 'payment_type' => $data['payment_type']
             ];
             PayOder::where('id', $payment->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -112,10 +112,10 @@ class PayOder extends Model
             $this->updateStatus($payment->detailimport_id, PayOder::class, 'payment_qty', 'status_pay');
         } else {
             $dataPayment = [
-                'payment_date' => $data['payment_date'],
+                //     'payment_date' => $data['payment_date'],
                 'payment_code' => $data['payment_code'],
-                'payment_day' => $data['payment_day'],
-                'payment_type' => $data['payment_type']
+                //     'payment_day' => $data['payment_day'],
+                //     'payment_type' => $data['payment_type']
             ];
             PayOder::where('id', $payment->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -148,8 +148,13 @@ class PayOder extends Model
         $total_tax = 0;
         $sum = 0;
         $temp = 0;
-        $detail =  DetailImport::where('id', $id)->first();
 
+        // Kiểm tra thanh toán có chọn đơn đặt hàng không // nếu có set id vào detailImport // nếu không có thêm id vào đơn trả hàng
+        if (isset($data['id_import']) || isset($data['detailimport_id'])) {
+            $detail =  DetailImport::where('id', $id)->first();
+        } else {
+            $detail = "";
+        }
         // Lây mã thanh toán hiện tại
         $count = PayOder::where('workspace_id', Auth::user()->current_workspace)->count();
 
@@ -188,10 +193,11 @@ class PayOder extends Model
                 $dataReciept = [
                     'detailimport_id' => $detail->id,
                     'provide_id' => $detail->provide_id,
-                    'status' => (isset($data['payment']) ? ($data['payment'] > 0 ? 6 : 1) : 2),
+                    'status' => (isset($data['payment']) ? ($data['payment'] > 0 ? 6 : 1) : 1),
                     'payment_date' => isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now(),
                     'total' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
-                    'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
+                    // 'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
+                    'payment' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
                     'debt' => 0,
                     'created_at' => Carbon::now(),
                     'workspace_id' => Auth::user()->current_workspace,
@@ -243,12 +249,21 @@ class PayOder extends Model
                 }
             }
 
+            // Cập nhật lại trạng thái đơn hàng nếu thanh toán đủ tiền
+            if ($sum - str_replace(',', '', $data['total']) == 0) {
+                $dataUpdate = [
+                    'status' => 2,
+                ];
+                DB::table('pay_order')->where('id', $payment_id)->update($dataUpdate);
+            }
+
+
             if (isset($data['payment'])) {
                 // Cập nhật tình trạng thanh toán
                 $status = $this->updateStatusDebt($data, $payment_id, 1);
             }
 
-            $prepay = isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0;
+            $prepay = (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0);
             // Cập nhật trạng thái đơn hàng
             // tính dư nợ nhà cung cấp
             if ($detail->status == 1) {
@@ -265,13 +280,41 @@ class PayOder extends Model
             // Cập nhật trạng thái
             $this->updateStatus($detail->id, PayOder::class, 'payment_qty', 'status_pay');
         } else {
+            // Lấy tổng tiền đơn trả hàng
+            if (isset($data['returnImport_id'])) {
+                // lấy sản phẩm trả hàng
+                $returnProduct = ReturnProduct::where('returnImport_id', $data['returnImport_id'])->get();
+                if ($returnProduct) {
+                    $total = 0;
+                    foreach ($returnProduct as $item) {
+                        // Lấy thông tin quoteImport theo đơn trả hàng
+                        $quoteImport = QuoteImport::where('id', $item->quoteimport_id)->first();
+                        if ($quoteImport) {
+                            $promotionArray = json_decode($quoteImport->promotion, true);
+                            $promotionValue = isset($promotionArray['value'])
+                                ? $promotionArray['value']
+                                : 0;
+                            $promotionOption = isset($promotionArray['type'])
+                                ? $promotionArray['type']
+                                : '';
+                            $temp = 0;
+                            $temp = $item->qty * $quoteImport->price_export;
+                            $total += ($promotionOption == 1 ? ($temp - $promotionValue) : ($temp * $promotionValue / 100));
+                        }
+                    }
+                }
+            }
+
+
+
             $dataReciept = [
                 'detailimport_id' => 0,
                 // 'provide_id' => $detail->provide_id,
-                'status' => (isset($data['payment']) ? ($data['payment'] > 0 ? 6 : 1) : 2),
+                'status' => (isset($data['returnImport_id']) ? ($total - str_replace(',', '', $data['total']) == 0 ? 2 : 1)  : ((isset($data['payment']) ? ($data['payment'] > 0 ? 6 : 1) : 2))),
                 'payment_date' => isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now(),
-                'total' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
-                'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
+                'total' => (isset($data['returnImport_id']) ? $total : (isset($data['total']) ? str_replace(',', '', $data['total']) : 0)),
+                // 'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
+                'payment' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
                 'debt' => 0,
                 'created_at' => Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,
@@ -285,6 +328,8 @@ class PayOder extends Model
                 'note' => $data['note'],
                 'usercreate_id' => Auth::user()->id
             ];
+            // Thêm id của bảng trả hàng vào thanh toán
+            isset($data['returnImport_id']) ? $dataReciept['return_id'] = $data['returnImport_id'] : 0;
             $payment_id = DB::table($this->table)->insertGetId($dataReciept);
         }
         return $payment_id;
@@ -304,6 +349,7 @@ class PayOder extends Model
                 break;
             }
         }
+        // Trạng thái thanh toán của đơn hàng
         $receive = $table::where('detailimport_id', $detail->id)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
@@ -503,8 +549,8 @@ class PayOder extends Model
 
             // Xóa dữ liệu products_import
             DB::table('products_import')->where('id', $payment->id)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->delete();
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->delete();
 
             // Xóa thanh toán
             DB::table('pay_order')->where('id', $payment->id)

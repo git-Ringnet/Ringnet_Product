@@ -756,6 +756,19 @@ function checkProduct() {
     return hasProducts;
 }
 
+function checkQtyProduct(){
+    var check = true;
+    $('#inputcontent tbody tr').each(function(){
+        if($(this).find('.quantity-input').val() == 0){
+            check = false;
+            return false;
+        }
+    })
+    return check;
+}
+
+
+
 // Checkbox
 function getDataCheckbox(element) {
     var isChecked = $(element).is(':checked');

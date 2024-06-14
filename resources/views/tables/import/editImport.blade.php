@@ -1878,6 +1878,11 @@
         if (!checkProduct()) {
             formSubmit = false
         }
+        if(!checkQtyProduct()){
+            formSubmit = false;
+            showAutoToast('warning', 'Vui lòng nhập số lượng sản phẩm lớn hơn 0')
+        }
+
         if (formSubmit) {
             $.ajax({
                 url: "{{ route('checkQuotetion') }}",

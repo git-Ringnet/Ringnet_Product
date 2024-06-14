@@ -11,6 +11,8 @@ use App\Models\HistoryPaymentOrder;
 use App\Models\PayOder;
 use App\Models\ProductImport;
 use App\Models\QuoteImport;
+use App\Models\ReturnImport;
+use App\Models\ReturnProduct;
 use App\Models\User;
 use App\Models\Workspace;
 use Carbon\Carbon;
@@ -75,6 +77,13 @@ class PayOrderController extends Controller
             ->distinct()
             ->orderBy('id', 'desc');
 
+
+        // $reciept = DetailImport::leftJoin('pay_order', 'pay_order.detailimport_id', 'detailimport.id')
+        //     ->where('detailimport.workspace_id', Auth::user()->current_workspace)
+        //     ->where(DB::raw('COALESCE(pay_order.payment,0)'), '<',   DB::raw('COALESCE(detailimport.total_price,0)'))
+        //     ->distinct()
+        //     ->orderBy('detailimport.id', 'desc');
+
         if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
             $reciept->where('detailimport.user_id', Auth::user()->id);
         }
@@ -85,8 +94,10 @@ class PayOrderController extends Controller
         $funds = Fund::all();
 
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
-        $content = ContentGroups::where('contenttype_id',2)->get();
-        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest','content'));
+        $content = ContentGroups::where('contenttype_id', 2)->get();
+
+        $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'content', 'returnImport'));
     }
 
     /**
@@ -96,13 +107,15 @@ class PayOrderController extends Controller
     {
         if (isset($request->id_import)) {
             $id = $request->id_import;
-        } else {
+        } elseif (isset($request->detailimport_id)) {
             $id = $request->detailimport_id;
+        } else {
+            $id = $request->returnImport_id;
         }
 
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        if ($id) {
+        if (isset($request->id_import) || isset($request->detailimport_id)) {
             // Tạo sản phẩm theo đơn nhận hàng
             $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
         }
@@ -112,7 +125,7 @@ class PayOrderController extends Controller
 
 
         // Trừ tiền vào quỹ
-        $payment = $this->payment->calculateFunds($request->fund_id, $request->total);
+        $this->payment->calculateFunds($request->fund_id, $request->total);
 
         if ($payment) {
             $dataUserFlow = [
@@ -319,5 +332,33 @@ class PayOrderController extends Controller
             ]);
         }
         return false;
+    }
+
+
+
+    public function getReturnProduct(Request $request)
+    {
+        $data = [];
+        $returnProduct = ReturnProduct::where('returnImport_id', $request->detail_id)->get();
+        if ($returnProduct) {
+            $total = 0;
+            foreach ($returnProduct as $value) {
+                $getQuoteImport = QuoteImport::where('id', $value->quoteimport_id)->first();
+                if ($getQuoteImport) {
+                    $promotionArray = json_decode($getQuoteImport->promotion, true);
+                    $promotionValue = isset($promotionArray['value'])
+                        ? $promotionArray['value']
+                        : 0;
+                    $promotionOption = isset($promotionArray['type'])
+                        ? $promotionArray['type']
+                        : '';
+                    $temp = $getQuoteImport->price_export * $value->qty;
+                    $total += ($promotionOption == 1 ? ($temp - $promotionValue) : ($temp * $promotionValue / 100));
+                }
+            }
+        }
+        $data['total'] = $total;
+        $data['status'] = true;
+        return $data;
     }
 }

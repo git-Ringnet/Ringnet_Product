@@ -38,7 +38,7 @@ class HistoryPaymentOrder extends Model
                 'created_at' => isset($data['payment_day']) ? $data['payment_day'] : Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,
                 'provide_id' => $payment->provide_id,
-                'payment_type' => $data['payment_type'],
+                'payment_type' => isset($data['payment_type']) ? $data['payment_type'] : "",
                 'user_id' => Auth::user()->id
             ];
             $checkHistory = HistoryPaymentOrder::where('payment_id', $payment->id)

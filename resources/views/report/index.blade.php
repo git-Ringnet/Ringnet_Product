@@ -3309,7 +3309,6 @@
                                                     $isFirstItem = true;
                                                 @endphp
                                                 @foreach ($contentImport as $item)
-                                                    {{-- Tính tổng tiền  --}}
                                                     @if ($isFirstItem && $previousContentPay !== $item->content_pay)
                                                         <tr>
                                                             <td colspan="6">
@@ -3634,7 +3633,7 @@
                                                             {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-                                                            {{ $item->receive_id }}
+                                                            {{ $item->return_code }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-wrap">
                                                             @if ($item->getReceive && $item->getReceive->getNameProvide)
@@ -3753,8 +3752,16 @@
                                                             @endif
                                                             {{ number_format($totalReturn) }}
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0">Thanh toán</td>
-                                                        <td class="py-2 text-13-black pl-0">Còn lại</td>
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            @if($item->getPayment)
+                                                                {{number_format($item->getPayment->payment)}}
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            @if($item->getPayment)
+                                                            {{number_format($item->getPayment->total - $item->getPayment->payment)}}
+                                                            @endif
+                                                        </td>
                                                         <td class="py-2 text-13-black pl-0 text-wrap">
                                                             {{ $item->description }}
                                                         </td>

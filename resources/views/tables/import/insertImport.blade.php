@@ -1712,9 +1712,13 @@
 
 
         if (!checkProduct()) {
-            formSubmit = false
+            formSubmit = false;
         }
-
+        if(!checkQtyProduct()){
+            formSubmit = false;
+            showAutoToast('warning', 'Vui lòng nhập số lượng sản phẩm lớn hơn 0')
+        }
+      
         var quotetion_number = $('input[name="quotation_number"]').val();
         if (formSubmit) {
             provide_id = $('#provides_id').val();
