@@ -554,7 +554,7 @@
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                 <input type="text" value="${item.product_unit}" readonly autocomplete="off" 
-                                                    class="border-0 px-2 py-1 w-100 product_unit height-32" required="" name="product_unit[]">
+                                                    class="border-0 px-2 py-1 w-100 product_unit height-32" name="product_unit[]">
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div>

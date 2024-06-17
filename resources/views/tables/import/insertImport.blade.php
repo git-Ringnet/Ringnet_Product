@@ -1813,50 +1813,15 @@
                             listTax.push($(this).find('.product_tax').val())
                         })
                         $.ajax({
-                            url: "{{ route('checkProductTax') }}",
+                            url: "{{ route('addUserFlow') }}",
                             type: "get",
                             data: {
-                                listName: listName,
-                                listTax: listTax
+                                type: "DMH",
+                                des: "Tạo mới đơn mua hàng"
                             },
-                            success: function(data) {
-                                if (data.status == false) {
-                                    if (data.type) {
-                                        showAutoToast('warning', data.msg);
-                                    } else {
-                                        showAutoToast('warning', data.msg);
-                                        delayAndShowNotification('success',
-                                            "Đã cập nhật lại thuế cho sản phẩm :" +
-                                            data.product_name + "",
-                                            500);
-                                        rows.each(function() {
-                                            if ($(this).find(
-                                                    '.searchProductName')
-                                                .val() == data.product_name) {
-                                                $(this).find('.product_tax')
-                                                    .val(
-                                                        data.product_tax)
-                                            }
-                                        })
-                                    }
-                                    updateTaxAmount()
-                                    calculateTotalAmount()
-                                    calculateTotalTax()
-                                    calculateGrandTotal()
-                                } else {
-                                    $.ajax({
-                                        url: "{{ route('addUserFlow') }}",
-                                        type: "get",
-                                        data: {
-                                            type: "DMH",
-                                            des: "Tạo mới đơn mua hàng"
-                                        },
-                                        success: function(data) {}
-                                    })
-                                    $('form')[1].submit();
-                                }
-                            }
+                            success: function(data) {}
                         })
+                        $('form')[1].submit();
                     }
                 }
             })
