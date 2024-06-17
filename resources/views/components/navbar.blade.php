@@ -404,6 +404,92 @@
                     </svg>
                 </div>
             </div>
+            <div class="bg-white px-3 py-2 border-bottom">
+                <div class="@if (!empty($activeGroup) && $activeGroup == 'products') d-flex @else d-none @endif">
+                    <a href="{{ route('inventory.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'product') active @endif">
+                            Sản phẩm
+                        </button>
+                    </a>
+                    <a href="{{ route('groups.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'groups') active @endif">
+                            Nhóm sản phẩm
+                        </button>
+                    </a>
+                    <a href="{{ route('warehouse.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'warehouse') active @endif">
+                            Kho hàng
+                        </button>
+                    </a>
+                </div>
+                <div class="@if (!empty($activeGroup) && $activeGroup == 'sell') d-flex @else d-none @endif">
+                    <a href="{{ route('detailExport.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'quote') active @endif">
+                            Đơn bán hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('delivery.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
+                            Đơn giao hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('billSale.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'billsale') active @endif">
+                            Hóa đơn bán hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('payExport.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'payexport') active @endif">
+                            Thanh toán bán hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('guests.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'guest') active @endif">
+                            Khách hàng
+                        </button>
+                    </a>
+                </div>
+                <div class="@if (!empty($activeGroup) && $activeGroup == 'buy') d-flex @else d-none @endif">
+                    <a href="{{ route('import.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'import') active @endif">
+                            Đơn mua hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('receive.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'receive') active @endif">
+                            Đơn nhận hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('reciept.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'reciept') active @endif">
+                            Hóa đơn mua hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('paymentOrder.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'paymentorder') active @endif">
+                            Thanh toán mua hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('provides.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'provide') active @endif">
+                            Nhà cung cấp
+                        </button>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 

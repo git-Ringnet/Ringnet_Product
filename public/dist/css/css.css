@@ -140,7 +140,7 @@ li {
 .content-title--fixed {
     position: fixed;
     left: 0;
-    top: 170px;
+    top: 165px;
     right: 310px;
     background-color: #ffff;
     z-index: 9;
@@ -894,7 +894,7 @@ td p {
 
 .content-header-fixed {
     position: fixed;
-    top: 110px;
+    top: 105px;
     left: 0;
     right: 0;
     z-index: 99;
@@ -2508,7 +2508,7 @@ input[type="checkbox"]:checked {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 170px;
+    top: 165px;
     right: 0;
     background-color: #ffff;
     transition: 0.5s;
@@ -2667,7 +2667,7 @@ input[type="checkbox"]:checked {
 
 /* MARGIN-TOPP */
 .margin-top-38 {
-    margin-top: 14.1rem;
+    margin-top: 13.8rem;
 }
 
 .margin-top-68 {
@@ -2883,6 +2883,6 @@ input[type="checkbox"]:checked {
     margin-top: 10.7rem;
 }
 
-.content__heading--right .active{
+.header-fixed .active{
     background-color: #F0F3F9 !important;
 }
