@@ -161,7 +161,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::resource('{workspace}/paymentOrder', PayOrderController::class);
     Route::get('getPaymentOrder', [PayOrderController::class, 'getPaymentOrder'])->name('getPaymentOrder');
     Route::get('searchPaymentOrder', [PayOrderController::class, 'searchPaymentOrder'])->name('searchPaymentOrder');
-    Route::get('/getReturnProduct',[PayOrderController::class,'getReturnProduct'])->name('getReturnProduct');
+    Route::get('/getReturnProduct', [PayOrderController::class, 'getReturnProduct'])->name('getReturnProduct');
 });
 
 

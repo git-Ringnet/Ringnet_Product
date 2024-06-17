@@ -22,7 +22,7 @@ class Delivery extends Model
         'workspace_id',
         'status',
         'created_at',
-        'updated_at', 'promotion'
+        'updated_at', 'promotion', 'totalVat'
     ];
     protected $table = 'delivery';
 
@@ -85,6 +85,7 @@ class Delivery extends Model
             'created_at' => $date_deliver == null ? now() : $date_deliver,
             'user_id' => Auth::user()->id,
             'promotion' => json_encode($promotion),
+            'totalVat' => $data['totalValue'],
         ];
         $delivery = new Delivery($dataDelivery);
         $delivery->save();
@@ -792,6 +793,7 @@ class Delivery extends Model
             'status' => 2,
             'created_at' => $date_deliver,
             'promotion' => json_encode($promotion),
+            'totalVat' => $data['totalValue'],
         ];
         $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
         if ($detaiExport) {

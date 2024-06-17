@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             Workspace::class,
             RolesSeeder::class,
             ContentTypeSeeder::class,
+            GroupTypeSeeder::class,
         ]);
     }
 }

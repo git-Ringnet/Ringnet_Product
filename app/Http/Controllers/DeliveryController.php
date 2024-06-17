@@ -151,6 +151,7 @@ class DeliveryController extends Controller
      */
     public function store(string $workspace, Request $request)
     {
+        // dd($request->all());
         if ($request->action == 1) {
             $delivery_id = $this->delivery->addDelivery($request->all());
             $this->delivered->addDelivered($request->all(), $delivery_id);

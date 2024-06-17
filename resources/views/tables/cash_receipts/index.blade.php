@@ -253,6 +253,16 @@
                                                     <div class="icon" id="icon-total_tax"></div>
                                                 </span>
                                             </th>
+                                            <th scope="col" class="border-bottom">
+                                                <span class="d-flex justify-content-end">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="total_tax" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Trạng
+                                                            thái</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total_tax"></div>
+                                                </span>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-receive">
@@ -280,26 +290,24 @@
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom text-wrap">
-                                                    @if ($item->getDelivery)
-                                                        <a href="{{ route('cash_receipts.edit', ['workspace' => $workspacename, 'cash_receipts' => $item->id]) }}"
-                                                            class="duongdan text-13-blue user_flow" data-type="DNH"
-                                                            data-des="Xem đơn nhận hàng">
-                                                            {{ $item->receipt_code }}
-                                                        </a>
-                                                    @endif
+                                                    <a href="{{ route('cash_receipts.edit', ['workspace' => $workspacename, 'cash_receipt' => $item->id]) }}"
+                                                        class="duongdan text-13-blue user_flow" data-type="DNH"
+                                                        data-des="Xem đơn nhận hàng">
+                                                        {{ $item->receipt_code }}
+                                                    </a>
                                                 </td>
 
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     {{ date_format(new DateTime($item->date_created), 'd/m/Y') }}
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom">
-                                                    {{ $item->guest->name ?? 'N/A' }}
+                                                    {{ $item->guest->guest_name_display ?? 'N/A' }}
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     {{ $item->payer }}
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom">
-                                                    {{ $item->content }}
+                                                    {{ $item->content->name ?? 'N/A' }}
                                                 </td>
                                                 <td class="text-13-black text-center border-top-0 border-bottom">
                                                     {{ $item->amount }}
@@ -313,6 +321,13 @@
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ $item->note ?? 'N/A' }}
                                                 </td>
+                                                <td class="text-13-black text-right border-top-0 border-bottom">
+                                                    @if ($item->status == 1)
+                                                        <span>Nháp</span>
+                                                    @elseif ($item->status == 2)
+                                                        <span class="text-green">Đã thu</span>
+                                                    @endif
+                                                </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-top-0 border-bottom align-items-center"
                                                     style="right: 10px; top: 10%; bottom:0;">
                                                     <div class="d-flex w-100">
@@ -320,7 +335,7 @@
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
                                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                    action="{{ route('cash_receipts.destroy', ['workspace' => $workspacename, 'cash_receipts' => $item->id]) }}"
+                                                                    action="{{ route('cash_receipts.destroy', ['workspace' => $workspacename, 'cash_receipt' => $item->id]) }}"
                                                                     method="post">
                                                                     @csrf
                                                                     @method('DELETE')

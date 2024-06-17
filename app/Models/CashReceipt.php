@@ -18,11 +18,12 @@ class CashReceipt extends Model
         'guest_id',
         'payer',
         'amount',
-        'content',
+        'content_id',
         'fund_id',
         'user_id',
         'note',
-        'workspace_id'
+        'status',
+        'workspace_id', 'delivery_id'
     ];
     public function guest()
     {
@@ -33,6 +34,10 @@ class CashReceipt extends Model
     {
         return $this->belongsTo(Fund::class);
     }
+    public function content()
+    {
+        return $this->belongsTo(ContentGroups::class);
+    }
 
     public function user()
     {
@@ -42,6 +47,10 @@ class CashReceipt extends Model
     public function workspace()
     {
         return $this->belongsTo(Workspace::class);
+    }
+    public function delivery()
+    {
+        return $this->belongsTo(Delivery::class);
     }
     public function getQuoteCount()
     {
@@ -56,10 +65,12 @@ class CashReceipt extends Model
         $invoicenumber = "PTT{$countFormattedInvoice}-{$currentDate}";
         return $invoicenumber;
     }
-    public function getDelivery($data)
+    public function fetchDelivery($data)
     {
         $deliveries = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
             ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            ->where('delivery.id', $data['detail_id'])
+            ->where('delivery.totalVat', '>', 0)
             ->select(
                 'delivery.id',
                 'delivery.guest_id',
@@ -74,6 +85,7 @@ class CashReceipt extends Model
                 'guest.guest_name_display as nameGuest',
                 'detailexport.guest_name',
                 'delivery.promotion',
+                'delivery.totalVat as totalVat',
                 DB::raw('(SELECT 
                         CASE 
                             WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL) -- Giảm số tiền trực tiếp
@@ -85,7 +97,6 @@ class CashReceipt extends Model
             ->leftJoin('users', 'users.id', 'delivery.user_id')
             ->where('delivery.workspace_id', Auth::user()->current_workspace)
             ->where('delivery.status', 2)
-            ->where('delivery.id', $data['detail_id'])
             ->groupBy(
                 'delivery.id',
                 'delivery.guest_id',
@@ -99,6 +110,7 @@ class CashReceipt extends Model
                 'guest.guest_name_display',
                 'detailexport.guest_name',
                 'delivery.promotion',
+                'delivery.totalVat',
             )
             ->orderBy('delivery.id', 'desc');
         $deliveries = $deliveries->first();
@@ -107,17 +119,55 @@ class CashReceipt extends Model
     public function addCashReciept($data)
     {
         $dataCashRC = [
-            'receipt_code' => $data['quotation_number'],
+            'receipt_code' => $data['code_reciept'],
             'date_created' =>  $data['payment_date'],
             'guest_id' =>  $data['guest_id'],
-            'payer' =>  $data['fund_id'],
-            'amount' =>  $data['total'],
-            'content' =>  $data['content_pay'],
-            'fund_id' => $data['fund_id'],
+            'payer' =>  $data['fund_id'] ?? '',
+            'amount' =>  $data['total'] ?? 0,
+            'content_id' =>  $data['content_pay'] ?? 0,
+            'fund_id' => $data['fund_id'] ??  0,
             'user_id' => Auth::user()->id,
             'delivery_id' => $data['detail_id'] ?? 0,
             'note' => $data['note'],
+            'status' => $data['action'] == 1 ? 1 : 2,
             'workspace_id' => Auth::user()->current_workspace,
         ];
+        $cashRC = CashReceipt::create($dataCashRC);
+        if ($cashRC->status == 2) {
+            $delivery = $this->fetchDelivery($data);
+            if ($delivery) {
+                $conlai =  $delivery->totalVat - $cashRC->amount;
+                $delivery->totalVat = $conlai;
+                $delivery->save();
+            }
+        }
+    }
+    public function updateCashReceipt($data, $id)
+    {
+        $cashReceipt = CashReceipt::findOrFail($id);
+
+        $dataCashRC = [
+            'receipt_code' => $data['code_reciept'],
+            'date_created' => $data['payment_date'],
+            'guest_id' => $data['guest_id'],
+            'payer' => $data['fund_id'] ?? '',
+            'amount' => $data['total'] ?? 0,
+            'content_id' => $data['content_pay'] ?? 0,
+            'fund_id' => $data['fund_id'] ?? 0,
+            'user_id' => Auth::user()->id,
+            'delivery_id' => $data['detail_id'] ?? 0,
+            'note' => $data['note'],
+            'status' => 2,
+            'workspace_id' => Auth::user()->current_workspace,
+        ];
+        $cashReceipt->update($dataCashRC);
+
+        $delivery = $this->fetchDelivery($data);
+        if ($delivery) {
+            $conlai = $delivery->totalVat - $cashReceipt->amount;
+            $delivery->totalVat = $conlai;
+            $delivery->save();
+        }
+        return $cashReceipt;
     }
 }
