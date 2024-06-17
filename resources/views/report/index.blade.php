@@ -428,7 +428,7 @@
                                                             </div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="bg-white pl-0">
+                                                    {{-- <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex justify-content-end">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="export" data-sort-by="sumAmountOwed"
@@ -453,7 +453,7 @@
                                                             <div class="icon" id="icon-export-sumAmountOwed">
                                                             </div>
                                                         </span>
-                                                    </th>
+                                                    </th> --}}
                                                     <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex justify-content-end">
                                                             <a href="#" class="sort-link btn-submit"
@@ -480,7 +480,7 @@
                                                             </div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="bg-white pl-0">
+                                                    {{-- <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex justify-content-end">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="export" data-sort-by="sumAmountOwed"
@@ -492,7 +492,7 @@
                                                             <div class="icon" id="icon-export-sumAmountOwed">
                                                             </div>
                                                         </span>
-                                                    </th>
+                                                    </th> --}}
                                                 </tr>
                                             </thead>
                                             <tbody class="tbody-import">
@@ -537,21 +537,21 @@
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             {{ number_format($item->product_qty) }}
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 text-right">
+                                                        {{-- <td class="py-2 text-13-black pl-0 text-right">
                                                             {{ number_format($item->product_price_import) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             {{ number_format($item->product_price_import * $item->product_qty) }}
-                                                        </td>
+                                                        </td> --}}
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             {{ number_format($item->price_export) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             {{ number_format($item->price_export * $item->product_qty) }}
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 text-right">
+                                                        {{-- <td class="py-2 text-13-black pl-0 text-right">
                                                             {{ number_format($item->price_export - $item->product_price_import) }}
-                                                        </td>
+                                                        </td> --}}
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">
                                                             <div class="d-flex w-100">
