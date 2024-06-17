@@ -535,7 +535,6 @@
     </div>
 </form>
 <x-user-flow></x-user-flow>
-<script src="{{ asset('/dist/js/filter.js') }}"></script>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 
 <script>
