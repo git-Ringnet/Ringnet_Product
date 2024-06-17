@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('promotion')->nullable();
         });
         Schema::table('delivered', function (Blueprint $table) {
+            $table->integer('return_qty')->nullable();
             $table->string('promotion')->nullable();
         });
         Schema::table('quoteexport', function (Blueprint $table) {

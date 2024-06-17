@@ -1,10 +1,12 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="delivery">
+<x-navbar :title="$title" activeGroup="sell" activeName="returnexport">
 </x-navbar>
-<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('delivery.store', ['workspace' => $workspacename]) }}"
-    method="POST">
+<form onsubmit="return kiemTraFormGiaoHang(event);"
+    action="{{ route('returnExport.store', ['workspace' => $workspacename]) }}" method="POST">
     @csrf
     <input type="hidden" name="detailexport_id" id="detailexport_id"
         value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
+    <input type="hidden" name="delivery_id" id="delivery_id" value="">
+
     <input type="hidden" name="pdf_export" id="pdf_export">
     <div id="selectedSerialNumbersContainer"></div>
     <div class="content-wrapper--2Column m-0">
@@ -29,11 +31,11 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="font-weight-bold last-span">Tạo đơn giao hàng</span>
+                    <span class="font-weight-bold last-span">Tạo đơn trả hàng</span>
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('delivery.index', $workspacename) }}" class="activity" data-name1="GH"
+                        <a href="{{ route('returnExport.index', $workspacename) }}" class="activity" data-name1="GH"
                             data-des="Hủy">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <span>
@@ -85,7 +87,7 @@
                                             fill="white" />
                                     </svg>
                                 </span>
-                                <span class="text-btnIner-primary ml-2">Giao hàng</span>
+                                <span class="text-btnIner-primary ml-2">Xác nhận</span>
                             </button>
                         </div>
                         <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
@@ -153,62 +155,6 @@
                     <section class="content">
                         <div class="container-fluided">
                             <div class="d-flex ml-3">
-                                <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded activity"
-                                    style="margin-right:10px" data-name1="GH" data-des="Thêm sản phẩm">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                        height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                    <span class="text-table">Thêm sản phẩm</span>
-                                </button>
-                                {{-- <button type="button" data-toggle="dropdown"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                        height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                    <span class="text-table">Thêm đầu mục</span>
-                                </button>
-                                <button type="button" data-toggle="dropdown"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                        height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                    <span class="text-table">Thêm hàng loạt</span>
-                                </button>
-                                <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </button> --}}
                             </div>
                         </div>
                     </section>
@@ -590,12 +536,12 @@
                     </div>
                     <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
                         style="height:49px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
+                        <span class="text-13 btn-click" style="flex: 1.5;">Mã giao hàng</span>
                         <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin" name="quotation_number"
+                            <input type="text" placeholder="Chọn thông tin" name="code_delivery"
                                 class="border-0 w-100 bg-input-guest py-2 px-2 numberQute " id="myInput"
-                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                                value="@isset($yes) {{ $data['quotation_number'] }} @endisset">
+                                style="border-radius:4px;" autocomplete="off"
+                                value="@isset($yes) {{ $data['code_delivery'] }} @endisset">
                             <input type="hidden" name="detail_id" id="detail_id"
                                 value="@isset($yes) {{ $data['detail_id'] }} @endisset">
                         </span>
@@ -620,7 +566,7 @@
                                                 data-des="Lấy thông tin từ số báo giá" id="{{ $quote_value->id }}"
                                                 name="search-info" class="search-info activity">
                                                 <span
-                                                    class="text-13-black">{{ $quote_value->quotation_number }}</span></span>
+                                                    class="text-13-black">{{ $quote_value->code_delivery }}</span></span>
                                             </a>
                                             <a id="" class="search-infoEdit" type="button"
                                                 data-toggle="modal" data-target="#guestModalEdit">
@@ -674,10 +620,9 @@
                                         value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset"> --}}
                                     <span class="mx-1 text-13" style="flex: 2;">
                                         <input type="text" placeholder="Chọn thông tin" name="guestName"
-                                            class="border-0 w-100 bg-input-guest input-search py-2 px-2 nameGuest "
-                                            id="myInput1" readonly
-                                            style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                                            required>
+                                            class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="myInput1"
+                                            readonly style="background-color:#F0F4FF; border-radius:4px;"
+                                            autocomplete="off" required>
                                         <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                                     </span>
                                     <div class="">
@@ -767,10 +712,9 @@
                                 <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left position-relative"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                    <input
-                                        class="text-13-black w-50 border-0 bg-input-guest input-search bg-input-guest-blue"
-                                        id="represent_guest" name="representName" readonly autocomplete="off"
-                                        style="flex:2;" placeholder="Chọn thông tin">
+                                    <input class="text-13-black w-50 border-0 bg-input-guest" id="represent_guest"
+                                        name="representName" readonly autocomplete="off" style="flex:2;"
+                                        placeholder="Chọn thông tin">
                                     <input type="hidden" class="represent_guest_id" name="represent_guest_id"
                                         autocomplete="off">
                                     <div id="myUL7"
@@ -790,7 +734,7 @@
                                         <a type="button"
                                             class="d-flex align-items-center p-2 position-sticky addRepresentNew mt-2"
                                             data-toggle="modal" data-target="#representModal"
-                                            style="bottom: 0;border-radius:4px">
+                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     viewBox="0 0 16 16" fill="none">
@@ -804,13 +748,14 @@
                                         </a>
                                     </div>
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                {{-- <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã Giao Hàng</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" required
-                                        readonly placeholder="Nhập thông tin" style="flex:2;" name="code_delivery"
-                                        value="{{ $invoice }}" />
-                                </li>
+                                    <input
+                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2"
+                                        required readonly placeholder="Nhập thông tin" style="flex:2;"
+                                        name="code_delivery" />
+                                </li> --}}
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
@@ -827,7 +772,7 @@
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao hàng</span>
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày trả hàng</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker"
                                         required placeholder="Chọn thông tin" style="flex:2;" />
 
@@ -844,7 +789,6 @@
 <x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script>
-    //
     flatpickr("#datePicker", {
         locale: "vn",
         dateFormat: "d/m/Y",
@@ -1029,13 +973,12 @@
             );
             const thue = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
-                "<select id='product_tax' class='border-0 py-1 w-100 text-center product_tax height-32' required>" +
+                "<select name='product_tax[]' class='border-0 py-1 w-100 text-center product_tax height-32' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
                 "<option value='10'>10%</option>" +
                 "<option value='99'>NOVAT</option>" +
                 "</select>" +
-                '<input type="hidden" class="product_tax" value="" name="product_tax[]">' +
                 "</td>"
             );
             const thanhTien = $(
@@ -1223,7 +1166,7 @@
                                         .product_inventory));
                                 }
                                 type.val(productData.type);
-                                $('#product_tax').prop('disabled', true);
+                                thue.prop('disabled', true);
                                 productCode.prop('readonly', true);
                                 productUnit.prop('readonly', true);
                                 $('.list_product').hide();
@@ -1278,10 +1221,11 @@
                                             .empty();
 
                                         $.ajax({
-                                            url: "{{ route('getProductSeri') }}",
+                                            url: "{{ route('getProductSeribyIdDilivery') }}",
                                             method: 'GET',
                                             data: {
                                                 productId: productId,
+                                                delivery_id: idQuote
                                             },
                                             success: function(
                                                 response
@@ -1670,17 +1614,17 @@
                                                             ".product_name"
                                                         ).val();
                                                     // Kiểm tra số lượng tồn kho
-                                                    if (type !=
-                                                        2) {
-                                                        if (quantity >
-                                                            soTonKho
-                                                        ) {
-                                                            invalidInventoryProducts
-                                                                .push(
-                                                                    productNameInventory
-                                                                );
-                                                        }
-                                                    }
+                                                    // if (type !=
+                                                    //     2) {
+                                                    //     if (quantity >
+                                                    //         soTonKho
+                                                    //     ) {
+                                                    //         invalidInventoryProducts
+                                                    //             .push(
+                                                    //                 productNameInventory
+                                                    //             );
+                                                    //     }
+                                                    // }
 
                                                     if (checkbox
                                                         .prop(
@@ -1779,15 +1723,15 @@
                                             // Hiển thị thông báo nếu không đủ số lượng tồn kho
                                             if (invalidInventoryProducts
                                                 .length > 0) {
-                                                showAutoToast(
-                                                    'warning',
-                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
-                                                    invalidInventoryProducts
-                                                    .join(
-                                                        ', '
-                                                    ));
-                                                $('#pdf_export').val(0);
-                                                e.preventDefault();
+                                                // showAutoToast(
+                                                //     'warning',
+                                                //     "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                //     invalidInventoryProducts
+                                                //     .join(
+                                                //         ', '
+                                                //     ));
+                                                // $('#pdf_export').val(0);
+                                                // e.preventDefault();
                                             } else {
                                                 // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
                                                 var allFieldsFilled =
@@ -1906,17 +1850,17 @@
                                                             ".product_name"
                                                         ).val();
                                                     // Kiểm tra số lượng tồn kho
-                                                    if (type !=
-                                                        2) {
-                                                        if (quantity >
-                                                            soTonKho
-                                                        ) {
-                                                            invalidInventoryProducts
-                                                                .push(
-                                                                    productNameInventory
-                                                                );
-                                                        }
-                                                    }
+                                                    // if (type !=
+                                                    //     2) {
+                                                    //     if (quantity >
+                                                    //         soTonKho
+                                                    //     ) {
+                                                    //         invalidInventoryProducts
+                                                    //             .push(
+                                                    //                 productNameInventory
+                                                    //             );
+                                                    //     }
+                                                    // }
 
                                                     if (checkbox
                                                         .prop(
@@ -2015,15 +1959,15 @@
                                             // Hiển thị thông báo nếu không đủ số lượng tồn kho
                                             if (invalidInventoryProducts
                                                 .length > 0) {
-                                                showAutoToast(
-                                                    'warning',
-                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
-                                                    invalidInventoryProducts
-                                                    .join(
-                                                        ', '
-                                                    ));
-                                                $('#pdf_export').val(0);
-                                                e.preventDefault();
+                                                // showAutoToast(
+                                                //     'warning',
+                                                //     "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                //     invalidInventoryProducts
+                                                //     .join(
+                                                //         ', '
+                                                //     ));
+                                                // $('#pdf_export').val(0);
+                                                // e.preventDefault();
                                             } else {
                                                 // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
                                                 var allFieldsFilled =
@@ -2198,13 +2142,13 @@
         }
 
         toggleListGuest($("#myInput"), $("#myUL"), $("#companyFilter"));
-        toggleListGuest($("#myInput1"), $("#myUL1"), $("#companyFilter1"));
         toggleListGuest($("#represent_guest"), $("#myUL7"), $("#companyFilter7"));
     });
 
     //Lấy thông tin khách hàng
     $(document).ready(function() {
         $(document).on('click', '.search-info1', function(e) {
+            e.preventDefault();
             var idGuest = $(this).attr('id');
             $.ajax({
                 url: '{{ route('searchExport') }}',
@@ -2756,22 +2700,22 @@
                 idQuote = parseInt($(this).attr('id'), 10);
             }
             $.ajax({
-                url: '{{ route('getInfoQuote') }}',
+                url: '{{ route('getInfoDeliveryReturnExport') }}',
                 type: 'GET',
                 data: {
                     idQuote: idQuote
                 },
                 success: function(data) {
-                    // console.log(data.code_delivery);
-                    // $('input[name="code_delivery"]').val(data.code_delivery);
+                    $('input[name="code_delivery"]').val(data.code_delivery);
                     $('.idRepresent').val(data.represent_id)
-                    $('.numberQute').val(data.quotation_number)
                     $('.nameGuest').val(data.guest_name)
-                    $('.represent_name').val(data.represent_name)
+                    $('#represent_guest').val(data.represent_name)
+                    $('.represent_guest_id').val(data.represent_guest_id)
+                    $(".idGuest").val(data.guest_id);
                     $('#show-info-guest').show();
                     $('#show-title-guest').show();
                     $.ajax({
-                        url: '{{ route('getProductQuote') }}',
+                        url: '{{ route('getProductDeliveryRtExport') }}',
                         type: 'GET',
                         data: {
                             idQuote: idQuote
@@ -2782,24 +2726,20 @@
                             var promotion_total_quote = 0;
                             var promotion_total_option = 0;
                             var promotion_total_product = 0;
+                            var totalProductItem = 0;
                             var totalTax1 = 0;
                             var product_total = 0;
+                            var total_amount = 0;
                             $.each(data, function(index, item) {
                                 var totalTax = parseFloat(item
                                     .total_tax) || 0;
                                 var totalPrice = parseFloat(item
                                     .total_price) || 0;
                                 var grandTotal = totalTax + totalPrice;
-                                var tax = (item.product_total * (item
-                                    .thueSP == 99 ? 0 : item
-                                    .thueSP)) / 100;
-                                totalProductTotal += parseFloat(item
-                                    .price_export * item
-                                    .soLuongCanGiao) || 0;
-                                totalTax1 += tax;
+
                                 var productTotalValue = parseFloat(item
-                                    .product_total) || 0;
-                                product_total += productTotalValue;
+                                    .soLuongCanGiao * item
+                                    .price_export) || 0;
                                 // Tính toán promotion_total_product theo từng sản phẩm
                                 var promotion_total_product_item = 0;
                                 var promotion = item.promotion;
@@ -2809,29 +2749,51 @@
                                             promotion);
                                         var type = promotionData.type;
                                         var value = parseFloat(
-                                            promotionData.value);
+                                                promotionData.value) ||
+                                            0;
                                         // Tính toán dựa trên type của promotion
-                                        if (type === 2) {
+                                        if (type == 2) {
                                             promotion_total_product_item
                                                 = (item.price_export *
                                                     item.soLuongCanGiao
                                                 ) * (value / 100);
-                                            console.log(type === 2);
-                                        } else if (type ===
+                                        } else if (type ==
                                             1) {
                                             promotion_total_product_item
-                                                = value * item
-                                                .soLuongCanGiao;
+                                                = (value * item
+                                                    .soLuongCanGiao) -
+                                                value;
                                         }
+                                        totalProductTotal += parseFloat(
+                                            (
+                                                item
+                                                .price_export * item
+                                                .soLuongCanGiao) -
+                                            parseFloat(
+                                                promotion_total_product_item
+                                            ))
+                                        totalProductItem = parseFloat(
+                                            (
+                                                item
+                                                .price_export * item
+                                                .soLuongCanGiao) -
+                                            parseFloat(
+                                                promotion_total_product_item
+                                            ))
                                     } catch (error) {
                                         console.error(error);
                                     }
                                 }
+                                product_total +=
+                                    totalProductTotal;
+                                var tax = (totalProductItem * (item
+                                    .thueSP == 99 ? 0 : item
+                                    .thueSP)) / 100;
+                                totalTax1 += tax;
                                 promotion_total_product +=
                                     promotion_total_product_item;
-
-                                $(".idGuest").val(item.guest_id);
                                 $("#detailexport_id").val(item.maXuat);
+                                $("#delivery_id").val(item.maXuat);
                                 $("#voucher").val(formatCurrency(item
                                     .discount == null ? 0 : item
                                     .discount));
@@ -2849,11 +2811,13 @@
                                         promotion_total_quote =
                                             parseFloat(
                                                 promotion_total_Data
-                                                .value);
+                                                .value || 0);
                                     } catch (error) {
                                         console.error(error);
                                     }
                                 };
+                                total_amount += parseFloat(
+                                    totalProductItem);
                                 var newRow = `
                                 <tr id="dynamic-row-${item.maSP}" class="bg-white addProduct">
                                     <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
@@ -2900,7 +2864,7 @@
                                         </div>
                                     </td>
                                     <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                        <a class="open-modal-btn text-center" href="#" data-target="#exampleModal0" data-toggle="modal">
+                                        <a class="open-modal-btn text-center ${(item.check_seri == 1) ? 'd-block' : ''}" href="#" data-target="#exampleModal0" data-toggle="modal">
                                             <div class="sn--modal pt-2">
                                                 <span class="border-span--modal">SN</span>
                                             </div>
@@ -2937,7 +2901,7 @@
                                         <input type="hidden" class="product_tax" value="${(item.thueSP)}" name="product_tax[]">
                                     </td>
                                     <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                        <input type="text" value="${formatCurrency(item.product_total)}" readonly 
+                                        <input type="text" value="${formatCurrency(totalProductItem)}" readonly 
                                             class="border-0 px-2 text-right py-1 w-100 total-amount height-32">
                                     </td>
                                     <td class="border-top border-secondary p-0 bg-secondary Daydu d-none border-top-0" style="width:1%;"></td>
@@ -2986,7 +2950,7 @@
                                         url: '{{ route('getRecentTransaction') }}',
                                         type: 'GET',
                                         data: {
-                                            idProduct: idProduct
+                                            idProduct: idProduct,
                                         },
                                         success: function(
                                             data) {
@@ -3251,27 +3215,27 @@
                                             // Hiển thị thông báo nếu không đủ số lượng tồn kho
                                             if (invalidInventoryProducts
                                                 .length > 0) {
-                                                showAutoToast(
-                                                    'warning',
-                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
-                                                    invalidInventoryProducts
-                                                    .join(
-                                                        ', '
-                                                    ));
-                                                $('#pdf_export')
-                                                    .val(0);
-                                                e.preventDefault();
+                                                // showAutoToast(
+                                                //     'warning',
+                                                //     "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                //     invalidInventoryProducts
+                                                //     .join(
+                                                //         ', '
+                                                //     ));
+                                                // $('#pdf_export')
+                                                //     .val(0);
+                                                // e.preventDefault();
                                             } else {
                                                 if (invalidInventorySN
                                                     .length > 0) {
-                                                    showAutoToast(
-                                                        'warning',
-                                                        `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
-                                                    );
-                                                    $('#pdf_export')
-                                                        .val(0);
-                                                    e
-                                                        .preventDefault();
+                                                    // showAutoToast(
+                                                    //     'warning',
+                                                    //     `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
+                                                    // );
+                                                    // $('#pdf_export')
+                                                    //     .val(0);
+                                                    // e
+                                                    //     .preventDefault();
                                                 } else {
                                                     // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
                                                     var allFieldsFilled =
@@ -3494,27 +3458,27 @@
                                             // Hiển thị thông báo nếu không đủ số lượng tồn kho
                                             if (invalidInventoryProducts
                                                 .length > 0) {
-                                                showAutoToast(
-                                                    'warning',
-                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
-                                                    invalidInventoryProducts
-                                                    .join(
-                                                        ', '
-                                                    ));
-                                                $('#pdf_export')
-                                                    .val(0);
-                                                e.preventDefault();
+                                                // showAutoToast(
+                                                //     'warning',
+                                                //     "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                //     invalidInventoryProducts
+                                                //     .join(
+                                                //         ', '
+                                                //     ));
+                                                // $('#pdf_export')
+                                                //     .val(0);
+                                                // e.preventDefault();
                                             } else {
                                                 if (invalidInventorySN
                                                     .length > 0) {
-                                                    showAutoToast(
-                                                        'warning',
-                                                        `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
-                                                    );
-                                                    $('#pdf_export')
-                                                        .val(0);
-                                                    e
-                                                        .preventDefault();
+                                                    // showAutoToast(
+                                                    //     'warning',
+                                                    //     `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
+                                                    // );
+                                                    // $('#pdf_export')
+                                                    //     .val(0);
+                                                    // e
+                                                    //     .preventDefault();
                                                 } else {
                                                     // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
                                                     var allFieldsFilled =
@@ -3858,10 +3822,12 @@
                                             .empty();
 
                                         $.ajax({
-                                            url: "{{ route('getProductSeri') }}",
+                                            url: "{{ route('getProductSeribyIdDilivery') }}",
                                             method: 'GET',
                                             data: {
                                                 productId: productId,
+                                                delivery_id: item
+                                                    .maXuat
                                             },
                                             success: function(
                                                 response
@@ -4179,7 +4145,7 @@
                                                                 ) {
                                                                     showAutoToast
                                                                         ('warning',
-                                                                            'Vui lòng chọn đủ serial number theo số lượng xuất!'
+                                                                            'Vui lòng chọn đủ serial number!'
                                                                         );
                                                                     // Không cho phép đóng modal khi có lỗi
                                                                     return false;
@@ -4216,27 +4182,26 @@
                                     });
                             });
                             //
-                            product_total = parseFloat(product_total);
-                            promotion_total_quote = promotion_total_quote || 0;
+
                             var grandTotal =
-                                product_total + totalTax1;
+                                total_amount + totalTax1;
                             if (promotion_total_option == 1) {
                                 grandTotal -= promotion_total_quote;
                             } else if (promotion_total_option == 2) {
                                 grandTotal -= (grandTotal *
                                     promotion_total_quote) / 100;
                             }
-
                             $("#total-amount-sum").text(
                                 formatCurrency(
-                                    product_total));
+                                    total_amount));
                             $("#grand-total").text(formatCurrency(
                                 grandTotal));
+                            $("#total").val(
+                                grandTotal);
                             $("#product-tax").text(formatCurrency(
                                 totalTax1));
                             $("#promotion-total").val(
-                                promotion_total_quote ?
-                                promotion_total_quote : 0);
+                                promotion_total_quote);
                             $('select[name="promotion-option-total"]').val(
                                 promotion_total_option ?
                                 promotion_total_option : 1
@@ -4283,7 +4248,7 @@
             var giaNhapElement = $(this).find('.giaNhap');
             var discountInput = $(this).find('[name^="discount_input[]"]').val().replace(/[^0-9.-]+/g, "") ||
                 0;
-            var discountOption = $(this).find('[name^="discount_option[]"]').val() || 0;
+            var discountOption = $(this).find('[name^="discount_option[]"]').val() || 1;
             if (taxValue == 99) {
                 taxValue = 0;
             }
@@ -4413,10 +4378,17 @@
 
     function kiemTraFormGiaoHang(event) {
         var rows = document.querySelectorAll('tr');
-        // var numberValue = $('input[name="code_delivery"]').val();
+        var numberValue = $('input[name="code_delivery"]').val();
         var hasProducts = false;
         var ajaxSuccess = false;
         var previousProductNames = [];
+
+        // Check Seri trả về có đủ không
+        var isProductsMatch = checkProductsMatch();
+        console.log(isProductsMatch);
+        if (!isProductsMatch) {
+            return false;
+        }
 
         function normalizeProductName(name) {
             // Chuyển tất cả các ký tự thành chữ thường
@@ -4434,12 +4406,12 @@
                 numberValue: numberValue
             },
             success: function(data) {
-                if (!data.success) {
-                    showAutoToast('warning', 'Mã giao hàng đã tồn tại!');
-                    $('#pdf_export').val(0);
-                } else {
-                    ajaxSuccess = true;
-                }
+                // if (!data.success) {
+                //     showAutoToast('warning', 'Mã giao hàng đã tồn tại!');
+                //     $('#pdf_export').val(0);
+                // } else {
+                ajaxSuccess = true;
+                // }
             }
         });
 

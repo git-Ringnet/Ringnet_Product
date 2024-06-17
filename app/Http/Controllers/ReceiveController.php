@@ -85,8 +85,8 @@ class ReceiveController extends Controller
             $listDetail->where('detailimport.user_id', Auth::user()->id);
         }
         $listDetail = $listDetail->get();
-        $provide = Provides::where('workspace_id',Auth::user()->current_workspace)->get();
-        return view('tables.receive.insertReceive', compact('title', 'listDetail', 'workspacename','provide'));
+        $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('tables.receive.insertReceive', compact('title', 'listDetail', 'workspacename', 'provide'));
     }
 
     /**
@@ -214,7 +214,7 @@ class ReceiveController extends Controller
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->with('getSerialNumber')->get();
-        return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename', 'nameRepresent','detail'));
+        return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename', 'nameRepresent', 'detail'));
     }
 
     /**

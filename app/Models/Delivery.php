@@ -22,7 +22,7 @@ class Delivery extends Model
         'workspace_id',
         'status',
         'created_at',
-        'updated_at'
+        'updated_at', 'promotion'
     ];
     protected $table = 'delivery';
 
@@ -69,17 +69,22 @@ class Delivery extends Model
         } else {
             $date_deliver = Carbon::now();
         }
+        $promotion = [
+            'type' => $data['promotion-option-total'],
+            'value' => str_replace(',', '', $data['promotion-total']),
+        ];
         $dataDelivery = [
             'guest_id' => $data['guest_id'],
-            'quotation_number' => $data['quotation_number'],
+            'quotation_number' => $data['quotation_number'] ?? '',
             'code_delivery' => $data['code_delivery'],
             'shipping_unit' => $shipping_unit,
             'shipping_fee' => $shipping_fee,
-            'detailexport_id' => $data['detailexport_id'],
+            'detailexport_id' => $data['detailexport_id'] ?? 0,
             'status' => 1,
             'workspace_id' => Auth::user()->current_workspace,
             'created_at' => $date_deliver == null ? now() : $date_deliver,
             'user_id' => Auth::user()->id,
+            'promotion' => json_encode($promotion),
         ];
         $delivery = new Delivery($dataDelivery);
         $delivery->save();
@@ -112,7 +117,7 @@ class Delivery extends Model
             // ->leftJoin('guest', 'delivery.guest_id', 'guest.id')
             ->leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
             // ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
-            ->select('*', 'delivery.id as soGiaoHang', 'delivery.status as tinhTrang', 'delivery.created_at as ngayGiao')
+            ->select('*', 'delivery.id as soGiaoHang', 'delivery.status as tinhTrang', 'delivery.created_at as ngayGiao', 'delivery.promotion as promotion_delivery')
             ->first();
         return $delivery;
     }
@@ -140,6 +145,7 @@ class Delivery extends Model
                 'quoteexport.price_import',
                 'quoteexport.product_total',
                 'delivered.deliver_qty',
+                'delivered.promotion',
                 'delivery.created_at as ngayGiao',
                 'products.type',
                 'products.check_seri',
@@ -157,6 +163,7 @@ class Delivery extends Model
                 'quoteexport.product_tax',
                 'quoteexport.price_import',
                 'quoteexport.product_total',
+                'delivered.promotion',
                 'delivery.created_at',
                 'products.type',
                 'products.check_seri',
@@ -257,7 +264,7 @@ class Delivery extends Model
                 if ($product->type == 2) {
                     $history = new History();
                     $dataHistory = [
-                        'detailexport_id' => $data['detailexport_id'],
+                        'detailexport_id' => $data['detailexport_id'] ?? 0,
                         'delivered_id' => isset($getDelivered_id) ? $getDelivered_id->id : 0,
                         'provide_id' => 0,
                         'detailimport_id' => 0,
@@ -749,6 +756,7 @@ class Delivery extends Model
     }
     public function acceptDelivery($data)
     {
+
         //thêm delivery
         if (isset($data['shipping_fee'])) {
             $shipping_fee = $data['shipping_fee'];
@@ -768,17 +776,22 @@ class Delivery extends Model
         } else {
             $date_deliver = Carbon::now();
         }
+        $promotion = [
+            'type' => $data['promotion-option-total'],
+            'value' => str_replace(',', '', $data['promotion-total']),
+        ];
         $dataDelivery = [
             'guest_id' => $data['guest_id'],
             'user_id' => Auth::user()->id,
-            'quotation_number' => $data['quotation_number'],
+            'quotation_number' => $data['quotation_number'] ?? '',
             'code_delivery' => $data['code_delivery'],
             'shipping_unit' => $shipping_unit,
             'shipping_fee' => $shipping_fee,
-            'detailexport_id' => $data['detailexport_id'],
+            'detailexport_id' => $data['detailexport_id'] ?? 0,
             'workspace_id' => Auth::user()->current_workspace,
             'status' => 2,
             'created_at' => $date_deliver,
+            'promotion' => json_encode($promotion),
         ];
         $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
         if ($detaiExport) {
@@ -840,8 +853,37 @@ class Delivery extends Model
             } else {
                 $product_price = null;
             }
-            $priceTax = ($data['product_qty'][$i] * $product_price *  ($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i])) / 100;
-            $tolTax = ($data['product_qty'][$i] * $product_price) + $priceTax;
+            $promotionValue = str_replace(',', '', $data['discount_input'][$i]);
+            $promotion_product = [
+                'type' => $data['discount_option'][$i],
+                'value' => $promotionValue,
+            ];
+
+            // Tính giảm giá
+            if ($promotion_product['type'] == 1) { // Giảm số tiền trực tiếp
+                $discountAmount = (float)$promotion_product['value'];
+            } elseif ($promotion_product['type'] == 2) { // Giảm phần trăm trên giá trị sản phẩm
+                $discountAmount = ($data['product_qty'][$i] * $product_price * (float)$promotion_product['value']) / 100;
+            } else {
+                $discountAmount = 0; // Không có giảm giá
+            }
+
+            // Tính tổng tiền hàng sau giảm giá
+            $totalPrice = $data['product_qty'][$i] * $product_price;
+            $totalPriceAfterDiscount = $totalPrice - $discountAmount;
+
+            // Tính thuế
+            if (isset($data['product_tax'][$i])) {
+                $taxRate = $data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i];
+                $priceTax = ($totalPriceAfterDiscount * $taxRate) / 100;
+            } else {
+                // Nếu phần tử không tồn tại, xử lý giá trị mặc định
+                $priceTax = 0;
+            }
+            $tolTax = $totalPriceAfterDiscount + $priceTax;
+
+            // dd($data);
+
             $dataDelivered = [
                 'delivery_id' => $deliveryId,
                 'product_id' => $data['product_id'][$i],
@@ -852,6 +894,7 @@ class Delivery extends Model
                 'price_export' => $product_price,
                 'product_total_vat' => $tolTax,
                 'user_id' => Auth::user()->id,
+                'promotion' => json_encode($promotion_product),
             ];
             $delivered_id = DB::table('delivered')->insertGetId($dataDelivered);
             $de = Delivered::where('delivery_id', $deliveryId)->first();
@@ -1065,16 +1108,17 @@ class Delivery extends Model
                 ->first();
             if ($delivery) {
                 if (!$checkQuote) {
+                    // dd($data);
                     $dataQuote = [
-                        'detailexport_id' => $delivery->detailexport_id,
+                        'detailexport_id' => isset($delivery->detailexport_id) ? $delivery->detailexport_id : 0,
                         'product_code' => $data['product_code'][$i],
                         'product_id' => $checkProduct == null ? $product->id : $checkProduct->id,
                         'product_name' => $data['product_name'][$i],
                         'product_unit' => $data['product_unit'][$i],
                         'product_qty' => $data['product_qty'][$i],
-                        'product_tax' => 0,
-                        'product_total' => 0,
-                        'price_export' => 0,
+                        'product_tax' => $data['product_tax'][$i],
+                        'product_total' => (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['product_price'][$i])),
+                        'price_export' => str_replace(',', '', $data['product_price'][$i]),
                         'product_ratio' => 0,
                         'price_import' => 0,
                         'workspace_id' => Auth::user()->current_workspace,
@@ -1085,6 +1129,7 @@ class Delivery extends Model
                         'qty_delivery' => $data['product_qty'][$i],
                         'status' => 1,
                         'user_id' => Auth::user()->id,
+                        'promotion' => json_encode($promotion_product),
                     ];
                     DB::table('quoteexport')->insert($dataQuote);
                 }
@@ -1097,7 +1142,7 @@ class Delivery extends Model
                 $serialNumber = Serialnumber::find($serialNumberId);
                 if ($serialNumber) {
                     $serialNumber->update([
-                        'detailexport_id' => $data['detailexport_id'],
+                        'detailexport_id' => $data['detailexport_id'] ?? 0,
                         'status' => 2,
                         'delivery_id' => $deliveryId,
                     ]);

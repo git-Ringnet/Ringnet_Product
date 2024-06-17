@@ -70,4 +70,14 @@ class FundController extends Controller
         $fund->delete();
         return redirect()->route('funds.index')->with('success', 'Fund deleted successfully.');
     }
+    public function calculateFunds($id, $money)
+    {
+        // Lấy thông tin quỹ
+        $fund = Fund::where('id', $id)->first();
+        if ($fund) {
+            $total = $fund->amount + str_replace(',', '', $money);
+            $fund->amount = $total;
+            $fund->save();
+        }
+    }
 }

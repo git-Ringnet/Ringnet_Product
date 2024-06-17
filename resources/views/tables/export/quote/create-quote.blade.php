@@ -115,6 +115,9 @@
                                     <th class="border-right px-2 p-0 text-right" style="width: 13%;">
                                         <span class="text-table text-secondary">Đơn giá</span>
                                     </th>
+                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                        <span class="text-table text-secondary">KM</span>
+                                    </th>
                                     <th class="border-right px-2 p-0 text-center" style="width: 8%;">
                                         <span class="text-table text-secondary">Thuế</span>
                                     </th>
@@ -281,6 +284,18 @@
                                 <div class="d-flex justify-content-between mt-2 align-items-center">
                                     <span class="text-13-black">Thuế VAT:</span>
                                     <span id="product-tax" class="text-table">0</span>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2 align-items-center">
+                                    <span class="text-13-black">Khuyến mãi</span>
+                                    <input name="promotion-total" id="promotion-total" type="text"
+                                        class="text-table border-0 text-right" style="background-color:#F0F4FF">
+                                </div>
+                                <div class="d-flex justify-content-between mt-2 align-items-center">
+                                    <span class="text-13-black">Hình thức</span>
+                                    <select name="promotion-option-total" class="border-0 promotion-option-total">
+                                        <option value="1">Nhập tiền</option>
+                                        <option value="2">Nhập %</option>
+                                    </select>
                                 </div>
                                 <div class="d-flex justify-content-between mt-2">
                                     <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
@@ -1709,6 +1724,18 @@
                 "<a href='#'><div class='mt-3 text-right text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
                 "</td>"
             );
+            const chiTietChietKhau = $(
+                "<td class='border-right p-2 align-top border-bottom border-top-0'>" +
+                "<div class='d-flex flex-column align-items-center'>" +
+                "<input type='text' name='discount_input[]' class='discount_input text-13-black py-1 w-100 height-32 mt-1' placeholder='Giá trị chiết khấu' style='border: none;'>" +
+                "<select name='discount_option[]' class='discount_option border-0 mt-2'>" +
+                "<option value='' disabled>Chọn chiết khấu</option>" +
+                "<option value='1' selected>Nhập tiền</option>" +
+                "<option value='2'>Nhập %</option>" +
+                "</select>" +
+                "</div>" +
+                "</td>"
+            );
             const thue = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
                 "<select name='product_tax[]' class='border-0 py-1 w-100 text-center product_tax height-32' required>" +
@@ -1739,7 +1766,7 @@
             );
             // Gắn các phần tử vào hàng mới
             newRow.append(maSanPham, tenSanPham, dvTinh,
-                soLuong, donGia, thue, thanhTien, ghiChu, option
+                soLuong, donGia, chiTietChietKhau, thue, thanhTien, ghiChu, option
             );
             $("#dynamic-fields").before(newRow);
             // Tăng giá trị fieldCounter
@@ -1819,26 +1846,27 @@
                     $('.multiple_action').hide();
                 }
             }
-            //Hiển thị danh sách mã sản phẩm
-            // $(".list_code").hide();
-            // $('.product_code').on("click", function(e) {
-            //     e.stopPropagation();
-            //     $(this).closest('tr').find(".list_code").show();
-            // });
-            // $(document).on("click", function(e) {
-            //     if (!$(e.target).is(".product_code")) {
-            //         $(".list_code").hide();
-            //     }
-            // });
-            //search mã sản phẩm
-            // $(".product_code").on("keyup", function() {
-            //     var value = $(this).val().toUpperCase();
-            //     var $tr = $(this).closest("tr");
-            //     $tr.find(".list_code li").each(function() {
-            //         var text = $(this).find("a").text().toUpperCase();
-            //         $(this).toggle(text.indexOf(value) > -1);
-            //     });
-            // });
+            $(document).on('change', 'select[name="discount_option[]"]', function() {
+                const $row = $(this).closest('td');
+                const $discountInput = $row.find('input[name="discount_input[]"]');
+                if (this.value === '1') {
+                    $discountInput.attr('placeholder', 'Tiền chiết khấu');
+                } else if (this.value === '2') {
+                    $discountInput.attr('placeholder', '% Chiết khấu');
+                }
+            });
+            $(document).ready(function() {
+                $('select[name="discount_option[]"]').each(function() {
+                    const $row = $(this).closest('td');
+                    const $discountInput = $row.find('input[name="discount_input[]"]');
+
+                    if ($(this).val() === '1') {
+                        $discountInput.attr('placeholder', 'Tiền chiết khấu');
+                    } else if ($(this).val() === '2') {
+                        $discountInput.attr('placeholder', '% Chiết khấu');
+                    }
+                });
+            });
             //search tên sản phẩm
             $(".product_name").on("keyup", function() {
                 var value = $(this).val().toUpperCase();
@@ -2767,46 +2795,87 @@
     });
 
     //tính thành tiền của sản phẩm
-    $(document).on('input', '.quantity-input, [name^="product_price"]', function(e) {
-        var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
-        var productPrice = parseFloat($(this).closest('tr').find('input[name^="product_price"]').val()
-            .replace(
-                /[^0-9.-]+/g, "")) || 0;
-        updateTaxAmount($(this).closest('tr'));
+    // $(document).on('input', '.quantity-input, [name^="product_price"],input[name="discount_input[]"]', function(e) {
+    //     var $row = $(this).closest('tr');
+    //     var discountOption = $row.find('select[name="discount_option[]"]').val();
+    //     var discountInput = parseFloat($row.find('input[name="discount_input[]"]').val().replace(/[^0-9.-]+/g,
+    //         "")) || 0;
+    //     console.log(discountOption + "dasdas" + discountInput);
+    //     var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
+    //     var productPrice = parseFloat($(this).closest('tr').find('input[name^="product_price"]').val()
+    //         .replace(
+    //             /[^0-9.-]+/g, "")) || 0;
+    //     updateTaxAmount($(this).closest('tr'));
+    //     if (!isNaN(productQty) && !isNaN(productPrice)) {
+    //         if (discountOption == 1) {
+    //             var totalAmount = productQty * productPrice - discountInput;
+    //         } else {
+    //             var totalAmount = productQty * productPrice - (productQty * productPrice) * discountInput / 100;
+    //         }
+    //         $(this).closest('tr').find('.total-amount').val(formatCurrency(Math.round(totalAmount)));
+    //         calculateTotalAmount();
+    //         calculateTotalTax();
+    //     }
+    // });
+
+    // $(document).on('change', '.product_tax,select[name="discount_option[]"]', function() {
+    //     updateTaxAmount($(this).closest('tr'));
+    //     calculateTotalAmount();
+    //     calculateTotalTax();
+    // });
+    $(document).on('input', '.quantity-input, [name^="product_price"], input[name="discount_input[]"]', function(e) {
+        var $row = $(this).closest('tr');
+        updateRow($row);
+    });
+
+    $(document).on('change', '.product_tax, select[name="discount_option[]"]', function() {
+        var $row = $(this).closest('tr');
+        updateRow($row);
+    });
+
+    function updateRow($row) {
+        var discountOption = $row.find('select[name="discount_option[]"]').val();
+        var discountInput = parseFloat($row.find('input[name="discount_input[]"]').val().replace(/[^0-9.-]+/g, "")) ||
+            0;
+        var productQty = parseFloat($row.find('.quantity-input').val()) || 0;
+        var productPrice = parseFloat($row.find('input[name^="product_price"]').val().replace(/[^0-9.-]+/g, "")) || 0;
+
         if (!isNaN(productQty) && !isNaN(productPrice)) {
             var totalAmount = productQty * productPrice;
-            $(this).closest('tr').find('.total-amount').val(formatCurrency(Math.round(totalAmount)));
+            if (discountOption == 1) {
+                totalAmount -= discountInput;
+            } else if (discountOption == 2) {
+                totalAmount -= (totalAmount * discountInput) / 100;
+            }
+            $row.find('.total-amount').val(formatCurrency(Math.round(totalAmount)));
+            updateTaxAmount($row, totalAmount); // Gọi hàm updateTaxAmount với tham số totalAmount
             calculateTotalAmount();
             calculateTotalTax();
+            calculateGrandTotal();
         }
-    });
+    }
 
-    $(document).on('change', '.product_tax', function() {
-        updateTaxAmount($(this).closest('tr'));
-        calculateTotalAmount();
-        calculateTotalTax();
-    });
+    function updateTaxAmount($row, totalAmount) { // Thêm tham số totalAmount vào hàm updateTaxAmount
+        var productQty = parseFloat($row.find('.quantity-input').val());
+        var productPrice = parseFloat($row.find('input[name^="product_price"]').val().replace(/[^0-9.-]+/g, ""));
+        var taxValue = parseFloat($row.find('.product_tax').val());
 
-    function updateTaxAmount(row) {
-        var productQty = parseFloat(row.find('.quantity-input').val());
-        var productPrice = parseFloat(row.find('input[name^="product_price"]').val().replace(/[^0-9.-]+/g, ""));
-        var taxValue = parseFloat(row.find('.product_tax').val());
         if (taxValue == 99) {
             taxValue = 0;
         }
         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
-            var totalAmount = productQty * productPrice;
-            var taxAmount = (totalAmount * taxValue) / 100;
+            var taxAmount = (totalAmount * taxValue) /
+                100; // Tính thuế dựa trên totalAmount thay vì productQty * productPrice
 
-            row.find('.product_tax1').text(Math.round(taxAmount));
+            $row.find('.product_tax1').text(Math.round(taxAmount));
         }
     }
+
 
     function calculateTotalAmount() {
         var totalAmount = 0;
         $('tr').each(function() {
-            var rowTotal = parseFloat(String($(this).find('.total-amount').val()).replace(/[^0-9.-]+/g,
-                ""));
+            var rowTotal = parseFloat(String($(this).find('.total-amount').val()).replace(/[^0-9.-]+/g, ""));
             if (!isNaN(rowTotal)) {
                 totalAmount += rowTotal;
             }
@@ -2816,6 +2885,13 @@
         calculateTotalTax();
         calculateGrandTotal();
     }
+
+    $(document).on('input', '#promotion-total', function(e) {
+        calculateGrandTotal();
+    });
+    $(document).on('change', 'select[name="promotion-option-total"]', function() {
+        calculateGrandTotal();
+    });
 
     function calculateTotalTax() {
         var totalTax = 0;
@@ -2834,8 +2910,17 @@
     function calculateGrandTotal() {
         var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
         var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
-
         var grandTotal = totalAmount + totalTax;
+
+        var promotionOption = $('select[name="promotion-option-total"]').val();
+        var promotionTotal = parseFloat($('input[name="promotion-total"]').val().replace(/[^0-9.-]+/g, "")) || 0;
+
+        if (promotionOption == 1) {
+            grandTotal -= promotionTotal;
+        } else if (promotionOption == 2) {
+            grandTotal -= (grandTotal * promotionTotal) / 100;
+        }
+
         grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
         $('#grand-total').text(formatCurrency(grandTotal));
 
@@ -2914,14 +2999,6 @@
             formattedIntegerPart;
 
         return formattedNumber;
-    }
-
-    function validateInput(input) {
-        // Loại bỏ tất cả các ký tự ngoại trừ số và dấu "-"
-        input.value = input.value.replace(/[^0-9-]/g, '');
-
-        // Loại bỏ các dấu "-" liên tiếp
-        input.value = input.value.replace(/-{2,}/g, '');
     }
 
     function kiemTraFormGiaoHang(event) {

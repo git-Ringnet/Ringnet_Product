@@ -458,6 +458,20 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('returnExport.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'returnexport') active @endif">
+                                    <p class="text-nav ml-2">Trả hàng KH</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('cash_receipts.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'cash_receipts') active @endif">
+                                    <p class="text-nav ml-2">Phiếu thu</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('billSale.index', $workspacename) }}" data-name1="BH"
                                     data-des="Hóa đơn bán hàng"
                                     class="nav-link activity1  @if (!empty($activeName) && $activeName == 'billsale') active @endif">

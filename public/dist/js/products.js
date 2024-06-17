@@ -293,8 +293,8 @@ function handlePaste(input) {
                 checkbox.setAttribute("type", "checkbox");
                 var checkboxes = document.querySelectorAll(
                     ".div_value" +
-                    rowCount +
-                    ' table tbody input[type="checkbox"]'
+                        rowCount +
+                        ' table tbody input[type="checkbox"]'
                 );
                 var checkboxCount = checkboxes.length;
                 checkbox.setAttribute("id", "checkbox_" + checkboxCount);
@@ -721,30 +721,33 @@ function emptyData(
 //     });
 // }
 
-
-
 function normalizeProductName(name) {
     // Chuyển tất cả các ký tự thành chữ thường
     var lowercaseName = name.toLowerCase();
     // Loại bỏ các dấu
-    var normalized = lowercaseName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    var normalized = lowercaseName
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
     return normalized;
 }
 
-
 function checkProduct() {
-    var rows = $('#inputcontent tbody tr');
+    var rows = $("#inputcontent tbody tr");
     var hasProducts = true;
     var previousProductNames = [];
 
     for (var i = 0; i < rows.length; i++) {
-        var productNameInput = rows[i].querySelector('.searchProductName');
+        var productNameInput = rows[i].querySelector(".searchProductName");
         var productName = productNameInput.value;
 
         var normalizedProductName = normalizeProductName(productName);
 
         if (previousProductNames.includes(normalizedProductName)) {
-            showNotification('warning', 'Tên sản phẩm bị trùng: ' + productName);
+            showNotification(
+                "warning",
+                "Tên sản phẩm bị trùng: " + productName
+            );
             hasProducts = false;
             break;
         } else {
@@ -771,18 +774,18 @@ function checkQtyProduct(){
 
 // Checkbox
 function getDataCheckbox(element) {
-    var isChecked = $(element).is(':checked');
+    var isChecked = $(element).is(":checked");
     if (isChecked) {
-        $(element).closest('tr').find('input[name^="cbSeri"]').val(1)
+        $(element).closest("tr").find('input[name^="cbSeri"]').val(1);
         // $(element).closest('tr').find('a').show()
-        $(element).closest('tr').find('a').css('opacity', 1)
+        $(element).closest("tr").find("a").css("opacity", 1);
     } else {
-        $(element).closest('tr').find('input[name^="cbSeri"]').val(0)
+        $(element).closest("tr").find('input[name^="cbSeri"]').val(0);
         // $(element).closest('tr').find('a').hide();
-        $(element).closest('tr').find('a').css('opacity', 0)
-        var id = $(element).closest('tr').find('.duongdan').attr('data-target')
+        $(element).closest("tr").find("a").css("opacity", 0);
+        var id = $(element).closest("tr").find(".duongdan").attr("data-target");
         if (id) {
-            $(id).find('#table_SNS tbody .form-control.w-100').val('')
+            $(id).find("#table_SNS tbody .form-control.w-100").val("");
         }
     }
 }
@@ -803,8 +806,6 @@ function checkDuplicateSerialNumbers(serialNumbers) {
     return null;
 }
 
-
-
 function getAction(e) {
-    $('#getAction').val($(e).find('button').val());
+    $("#getAction").val($(e).find("button").val());
 }

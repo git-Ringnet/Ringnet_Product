@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\Auth\WorkspaceController;
 use App\Http\Controllers\BillSaleController;
+use App\Http\Controllers\CashReceiptController;
 use App\Http\Controllers\ChangeInventoryController;
 use App\Http\Controllers\ContentGroupsController;
 use App\Http\Controllers\ContentImportExportController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RecieptController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReturnExportController;
 use App\Http\Controllers\ReturnImportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserFlowController;
@@ -34,6 +36,7 @@ use App\Http\Controllers\WarehouseController;
 use App\Http\Middleware\CheckLogin;
 use App\Models\ContentImportExport;
 use App\Models\DetailImport;
+use App\Models\ReturnExport;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -59,7 +62,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::resource('{workspace}/content', ContentGroupsController::class);
 });
 
-Route::resource('{workspace}/changeFund',ContentImportExportController::class);
+Route::resource('{workspace}/changeFund', ContentImportExportController::class);
 // Route::resource('{workspace}/changeInventory',ChangeInventoryController::class);
 // Route::get('/checkInventory',[ChangeInventoryController::class,'checkInventory'])->name('checkInventory');
 
@@ -109,12 +112,17 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/getWarehouse', [DetailImportController::class, 'getWarehouse'])->name('getWarehouse');
 });
 
+// Trả hàng KH
+Route::resource('{workspace}/returnExport', ReturnExportController::class);
+// Phiếu Thu
+Route::resource('{workspace}/cash_receipts', CashReceiptController::class);
+Route::get('/getInfoDeliveryReciepts', [CashReceiptController::class, 'getInfoDeliveryReciepts'])->name('getInfoDeliveryReciepts');
 
 
 // Trả hàng NCC
 Route::resource('{workspace}/returnImport', ReturnImportController::class);
-Route::get('/show_receiveBill',[ReturnImportController::class, 'show_receiveBill'])->name('show_receiveBill');
-Route::get('/getSNByBill',[ReturnImportController::class, 'getSNByBill'])->name('getSNByBill');
+Route::get('/show_receiveBill', [ReturnImportController::class, 'show_receiveBill'])->name('show_receiveBill');
+Route::get('/getSNByBill', [ReturnImportController::class, 'getSNByBill'])->name('getSNByBill');
 
 Route::get('/checkQuotetionExport', [DetailExportController::class, 'checkQuotetionExport'])->name('checkQuotetionExport');
 Route::get('/checkQuotetionExportEdit', [DetailExportController::class, 'checkQuotetionExportEdit'])->name('checkQuotetionExportEdit');
@@ -240,6 +248,8 @@ Route::get('searchDelivery', [DeliveryController::class, 'searchDelivery'])->nam
 Route::get('/getInfoQuote', [DeliveryController::class, 'getInfoQuote'])->name('getInfoQuote');
 Route::get('/getProductQuote', [DeliveryController::class, 'getProductQuote'])->name('getProductQuote');
 Route::get('/getProductFromQuote', [DeliveryController::class, 'getProductFromQuote'])->name('getProductFromQuote');
+Route::get('/getInfoDeliveryReturnExport', [ReturnExportController::class, 'getInfoDeliveryReturnExport'])->name('getInfoDeliveryReturnExport');
+Route::get('/getProductDeliveryRtExport', [ReturnExportController::class, 'getProductDeliveryRtExport'])->name('getProductDeliveryRtExport');
 //Hóa đơn bán hàng
 Route::resource('{workspace}/billSale', BillSaleController::class);
 //lấy thông tin từ số báo giá trong hóa đơn
@@ -265,6 +275,7 @@ Route::middleware([CheckLogin::class])->group(function () {
 //danh sách serial number theo product
 Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/getProductSeri', [ProductController::class, 'getProductSeri'])->name('getProductSeri');
+    Route::get('/getProductSeribyIdDilivery', [ProductController::class, 'getProductSeribyIdDilivery'])->name('getProductSeribyIdDilivery');
     Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit'])->name('getProductSeriEdit');
 
     Route::get('exportDatabase', [ProductController::class, 'exportDatabase'])->name('exportDatabase');

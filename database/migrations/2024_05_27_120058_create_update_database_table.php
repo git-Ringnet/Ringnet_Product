@@ -28,8 +28,6 @@ return new class extends Migration
             $table->dropForeign(['detailimport_id']);
             // $table->foreign('warehouse_id')->references('id')->on('detailimport');
         });
-
-
     }
 
     /**

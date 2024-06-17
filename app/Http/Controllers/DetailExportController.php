@@ -130,6 +130,7 @@ class DetailExportController extends Controller
      */
     public function store(string $workspace, Request $request)
     {
+        // dd($request->all());
         $export_id = $this->detailExport->addExport($request->all());
         $this->quoteExport->addQuoteExport($request->all(), $export_id);
         $arrLuuNhap = [
@@ -252,6 +253,7 @@ class DetailExportController extends Controller
         }
         $quoteExport = $this->detailExport->getProductToId($id);
         $history = $this->quoteExport->history($id);
+        // dd($history);
         return view('tables.export.quote.see-quote', compact('title', 'history', 'guest', 'product', 'detailExport', 'quoteExport', 'workspacename'));
     }
 
@@ -489,22 +491,29 @@ class DetailExportController extends Controller
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->where('quotation_number', 'like', $currentDate . '/%')
                 ->max(DB::raw("CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(quotation_number, '-', -1), '/', -1) AS UNSIGNED)"));
-
             // Nếu không có số lớn nhất, bắt đầu với số 01
             $count = ($lastNumber ? ($lastNumber + 1) : 1);
-
             // Đảm bảo số cuối cùng có đúng định dạng (ví dụ: 05 thay vì 5)
             $countFormatted = str_pad($count, 2, '0', STR_PAD_LEFT);
-
             // Tạo chuỗi resultNumber mới
             $resultNumber = "{$currentDate}/RN-{$guest->key}-{$countFormatted}";
+
+            // Tạo DGH
+            $lastInvoiceNumber =
+                Delivery::where('workspace_id', Auth::user()->current_workspace)
+                ->whereDate('created_at', now())
+                ->count() + 1;
+            $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
+            $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
+            $invoicenumber = "PBH{$countFormattedInvoice}-{$currentDate}";
 
             $result = [
                 'guest' => $guest,
                 'count' => $countFormatted,
                 'key' => $guest->key,
                 'date' => $currentDate,
-                'resultNumber' => $resultNumber
+                'resultNumber' => $resultNumber,
+                'code_delivery' => $invoicenumber,
             ];
         }
 

@@ -33,7 +33,7 @@ class PayExport extends Model
     public function getHistoryPay()
     {
         return $this->hasOne(history_Pay_Export::class, 'pay_id', 'id')
-        ->orderBy('id','desc');
+            ->orderBy('id', 'desc');
         // ->latest();
     }
     public function checkSL($data)

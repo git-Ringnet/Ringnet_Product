@@ -21,7 +21,7 @@ class Delivered extends Model
         'product_total_vat',
         'workspace_id',
         'created_at',
-        'updated_at'
+        'updated_at', 'promotion',
     ];
     protected $table = 'delivered';
 
@@ -77,8 +77,30 @@ class Delivered extends Model
             } else {
                 $product_tax = $data['product_tax'][$i];
             }
-            $priceTax = ($data['product_qty'][$i] * $priceExport *  $product_tax) / 100;
-            $tolTax = ($data['product_qty'][$i] * $priceExport) + $priceTax;
+
+            $promotionValue = str_replace(',', '', $data['discount_input'][$i]);
+            $promotion = [
+                'type' => $data['discount_option'][$i],
+                'value' => $promotionValue,
+            ];
+
+            // Tính giảm giá
+            if ($promotion['type'] == 1) { // Giảm số tiền trực tiếp
+                $discountAmount = (float)$promotion['value'];
+            } elseif ($promotion['type'] == 2) { // Giảm phần trăm trên giá trị sản phẩm
+                $discountAmount = ($data['product_qty'][$i] * $priceExport * (float)$promotion['value']) / 100;
+            } else {
+                $discountAmount = 0; // Không có giảm giá
+            }
+
+            // Tính tổng tiền hàng sau giảm giá
+            $totalPrice = $data['product_qty'][$i] * $priceExport;
+            $totalPriceAfterDiscount = $totalPrice - $discountAmount;
+
+            // Tính thuế
+            $priceTax = ($totalPriceAfterDiscount * $product_tax) / 100;
+            $tolTax = $totalPriceAfterDiscount + $priceTax;
+
             $dataDelivered = [
                 'delivery_id' => $id,
                 'product_id' => $data['product_id'][$i] == null ? $productID : $data['product_id'][$i],
@@ -89,6 +111,7 @@ class Delivered extends Model
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'user_id' => Auth::user()->id,
+                'promotion' => json_encode($promotion),
             ];
             // DB::table($this->table)->insert($dataDelivered);
             $delivered_id = DB::table($this->table)->insertGetId($dataDelivered);
@@ -137,7 +160,7 @@ class Delivered extends Model
                 $serialNumber = Serialnumber::find($serialNumberId);
                 if ($serialNumber) {
                     $serialNumber->update([
-                        'detailexport_id' => $data['detailexport_id'],
+                        'detailexport_id' => $data['detailexport_id'] ?? 0,
                         'status' => 3,
                         'delivery_id' => $id,
                     ]);

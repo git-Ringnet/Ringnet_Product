@@ -34,8 +34,6 @@ class ProductController extends Controller
         $this->provides = new Provides();
         $this->warehouse = new Warehouse();
         $this->workspaces = new Workspace();
-
-        
     }
 
     public function index()
@@ -188,6 +186,16 @@ class ProductController extends Controller
             ->where('status', 1)
             ->where('detailexport_id', 0)
             ->get();
+        return response()->json($serinumber);
+    }
+    public function getProductSeribyIdDilivery(Request $request)
+    {
+        $data = $request->all();
+        $serinumber = Serialnumber::where('product_id', $data['productId'])
+            ->where('status', 2)
+            ->where('delivery_id', $data['delivery_id'])
+            ->get();
+        // dd($serinumber);
         return response()->json($serinumber);
     }
 

@@ -38,7 +38,9 @@ class DetailExport extends Model
         'guest_name',
         'represent_name',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'promotion',
+        'promotion_total_product'
     ];
     protected $table = 'detailexport';
 
@@ -50,7 +52,8 @@ class DetailExport extends Model
     {
         return $this->hasMany(QuoteExport::class, 'detailexport_id', 'id');
     }
-    public function getGuest(){
+    public function getGuest()
+    {
         return $this->hasOne(Guest::class, 'id', 'guest_id');
     }
 
@@ -72,19 +75,44 @@ class DetailExport extends Model
     {
         $totalBeforeTax = 0;
         $totalTax = 0;
+        $totalPromotion = 0;
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
-            $tax = 0;
-            if ($data['product_tax'][$i] == 99) {
-                $tax = 0;
-            } else {
-                $tax = $data['product_tax'][$i];
-            }
+            $tax = ($data['product_tax'][$i] == 99) ? 0 : $data['product_tax'][$i];
             $subtotal = $data['product_qty'][$i] * (float) $price;
+            // Lấy thông tin khuyến mãi
+            $promotionType = $data['discount_option'][$i];
+            $promotionValue = str_replace(',', '', $data['discount_input'][$i]);
+            // Tính toán giá trị khuyến mãi
+            $discountAmount = 0;
+            if ($promotionType == 1) { // Giảm số tiền trực tiếp
+                $discountAmount = (float) $promotionValue;
+            } elseif ($promotionType == 2) { // Giảm phần trăm trên giá trị sản phẩm
+                $discountAmount = ($subtotal * (float) $promotionValue) / 100;
+            }
+            // Cộng dồn tiền khuyến mãi vào tổng khuyến mãi
+            $totalPromotion += $discountAmount;
+            // Áp dụng khuyến mãi vào subtotal
+            $subtotal -= $discountAmount;
             $subTax = ($subtotal * $tax) / 100;
             $totalBeforeTax += $subtotal;
             $totalTax += $subTax;
         }
+        // Tính toán khuyến mãi
+        $promotion = [
+            'type' => $data['promotion-option-total'],
+            'value' => str_replace(',', '', $data['promotion-total']),
+        ];
+        if ($promotion['type'] == 1) { // Giảm số tiền trực tiếp
+            $totalBeforeTax -= (float)$promotion['value'];
+        } elseif ($promotion['type'] == 2) { // Giảm phần trăm trên tổng giá trị trước thuế
+            $discountAmount = ($totalBeforeTax * (float)$promotion['value']) / 100;
+            $totalBeforeTax -= $discountAmount;
+        }
+        // Tính toán tổng số tiền cuối cùng
+        $grandTotal = $totalBeforeTax + $totalTax;
+        // Làm tròn tổng số tiền
+        $grandTotal = round($grandTotal);
         $dataExport = [
             'guest_id' => $data['guest_id'],
             'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,
@@ -101,12 +129,14 @@ class DetailExport extends Model
             'total_price' => $totalBeforeTax,
             'terms_pay' => $data['terms_pay'],
             'total_tax' => $totalTax,
-            'amount_owed' => $totalBeforeTax + $totalTax,
+            'amount_owed' => $grandTotal,
             'goods' => $data['goods'],
             'delivery' => $data['delivery'],
             'location' => $data['location'],
             'guest_name' => $data['guestName'],
             'represent_name' => $data['representName'],
+            'promotion' => json_encode($promotion),
+            'promotion_total_product' => $totalPromotion,
         ];
         $detailexport = new DetailExport($dataExport);
         $detailexport->save();
@@ -159,23 +189,50 @@ class DetailExport extends Model
     }
     public function updateExport($data, $id)
     {
+        // dd($data);
         $detailExport = DetailExport::find($id);
         if ($detailExport) {
             $totalBeforeTax = 0;
             $totalTax = 0;
+            $totalPromotion = 0;
             for ($i = 0; $i < count($data['product_name']); $i++) {
                 $price = str_replace(',', '', $data['product_price'][$i]);
                 $tax = 0;
-                if ($data['product_tax'][$i] == 99) {
-                    $tax = 0;
-                } else {
-                    $tax = $data['product_tax'][$i];
-                }
+                $tax = ($data['product_tax'][$i] == 99) ? 0 : $data['product_tax'][$i];
                 $subtotal = $data['product_qty'][$i] * (float) $price;
+                // Lấy thông tin khuyến mãi
+                $promotionType = $data['promotion-option'][$i];
+                $promotionValue = str_replace(',', '', $data['promotion'][$i]);
+                // Tính toán giá trị khuyến mãi
+                $discountAmount = 0;
+                if ($promotionType == 1) { // Giảm số tiền trực tiếp
+                    $discountAmount = (float) $promotionValue;
+                } elseif ($promotionType == 2) { // Giảm phần trăm trên giá trị sản phẩm
+                    $discountAmount = ($subtotal * (float) $promotionValue) / 100;
+                }
+                // Cộng dồn tiền khuyến mãi vào tổng khuyến mãi
+                $totalPromotion += $discountAmount;
+                // Áp dụng khuyến mãi vào subtotal
+                $subtotal -= $discountAmount;
                 $subTax = ($subtotal * $tax) / 100;
                 $totalBeforeTax += $subtotal;
                 $totalTax += $subTax;
             }
+            // Tính toán khuyến mãi
+            $promotion = [
+                'type' => $data['promotion-option-total'],
+                'value' => str_replace(',', '', $data['promotion-total']),
+            ];
+            if ($promotion['type'] == 1) { // Giảm số tiền trực tiếp
+                $totalBeforeTax -= (float)$promotion['value'];
+            } elseif ($promotion['type'] == 2) { // Giảm phần trăm trên tổng giá trị trước thuế
+                $discountAmount = ($totalBeforeTax * (float)$promotion['value']) / 100;
+                $totalBeforeTax -= $discountAmount;
+            }
+            // Tính toán tổng số tiền cuối cùng
+            $grandTotal = $totalBeforeTax + $totalTax;
+            // Làm tròn tổng số tiền
+            $grandTotal = round($grandTotal);
             $detailExport->update([
                 'guest_id' => $data['guest_id'],
                 'represent_id' => $data['represent_guest_id'],
@@ -194,6 +251,8 @@ class DetailExport extends Model
                 'location' => $data['location'],
                 'guest_name' => $data['guestName'],
                 'represent_name' => $data['representName'],
+                'promotion' => json_encode($promotion),
+                'promotion_total_product' => $totalPromotion,
             ]);
         }
         return $detailExport->id;

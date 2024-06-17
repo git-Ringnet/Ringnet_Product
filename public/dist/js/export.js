@@ -34,6 +34,14 @@ function getUppercaseCharacters1(input) {
     return uppercaseChars ? uppercaseChars.join("") : "";
 }
 
+function validateInput(input) {
+    // Loại bỏ tất cả các ký tự ngoại trừ số và dấu "-"
+    input.value = input.value.replace(/[^0-9-]/g, "");
+
+    // Loại bỏ các dấu "-" liên tiếp
+    input.value = input.value.replace(/-{2,}/g, "");
+}
+
 function getQuotation(getName, count, date) {
     var currentDate = new Date();
     var day = currentDate.getDate();
@@ -122,3 +130,122 @@ function checkQty(value, odlQty) {
         $(value).val(odlQty);
     }
 }
+
+function checkProductsMatch() {
+    var productsArray = [];
+    var missingFields = []; // Mảng lưu trữ các trường bị thiếu
+
+    $(".addProduct").each(function () {
+        var productId = $(this).find(".product_id").val();
+        var productQty = $(this)
+            .find('input[name="product_qty[]"]')
+            .val()
+            .trim();
+        var productName = $(this)
+            .find('input[name="product_name[]"]')
+            .val()
+            .trim();
+        var checkSeri = $(this).find('input[name="cbSeri[]"]').val().trim();
+
+        // Kiểm tra các trường thiếu và thêm vào mảng missingFields
+        if (!productId) {
+            missingFields.push("Mã sản phẩm");
+        }
+        if (!productQty) {
+            missingFields.push("Số lượng sản phẩm");
+        }
+        if (!productName) {
+            missingFields.push("Tên sản phẩm");
+        }
+        // Nếu tất cả các trường đều có giá trị, thêm vào productsArray
+        if (productId && productQty && productName) {
+            productsArray.push({
+                key: productId,
+                name: productName,
+                value: productQty,
+                checkSeri: checkSeri,
+            });
+        }
+    });
+    // Nếu có trường thiếu, hiển thị thông báo và trả về false
+    if (missingFields.length > 0) {
+        var missingFieldsMsg =
+            "Vui lòng điền đầy đủ thông tin cho các trường sau:\n";
+        missingFields.forEach(function (field) {
+            missingFieldsMsg += "- " + field + "\n";
+        });
+        showAutoToast("warning", missingFieldsMsg);
+        return false;
+    }
+    var productCheckCount = [];
+    $(".check-item").each(function () {
+        var productId = $(this).data("product-id-sn");
+        if (!productCheckCount[productId]) {
+            productCheckCount[productId] = 0;
+        }
+        if ($(this).is(":checked")) {
+            productCheckCount[productId]++;
+        }
+    });
+    // Kiểm tra số lượng seri được chọn cho mỗi sản phẩm
+    for (var i = 0; i < productsArray.length; i++) {
+        var product = productsArray[i];
+        var productId = product.key;
+        var productQty = product.value;
+        var checkedCount = productCheckCount[productId];
+        // Nếu số lượng seri không khớp, hiển thị thông báo và trả về false
+        if (
+            checkedCount === undefined ||
+            parseInt(productQty) !== checkedCount
+        ) {
+            showAutoToast(
+                "warning",
+                "Vui lòng chọn seri để hoàn trả sản phẩm:\n" + product.name
+            );
+            return false;
+        }
+    }
+
+    // Nếu không có vấn đề gì, trả về true
+    return true;
+}
+$(document).ready(function () {
+    $(".search-receive").on("click", function (event, detail_id) {
+        if (detail_id) {
+            detail_id = detail_id;
+        } else {
+            detail_id = parseInt($(this).attr("id"), 10);
+        }
+        console.log(detail_id);
+        $("#detailimport_id").val(detail_id);
+        $("#myInput").val($(this).find("span").text());
+    });
+});
+
+$(document).ready(function () {
+    $(".search-guest").on("click", function (event, detail_id) {
+        if (detail_id) {
+            detail_id = detail_id;
+        } else {
+            detail_id = parseInt($(this).attr("id"), 10);
+        }
+        console.log(detail_id);
+
+        $("#guest_id").val(detail_id);
+        $("#myGuest").val($(this).find("span").text());
+    });
+});
+
+$(document).ready(function () {
+    $(".search-funds").on("click", function (event, detail_id) {
+        if (detail_id) {
+            detail_id = detail_id;
+        } else {
+            detail_id = parseInt($(this).attr("id"), 10);
+        }
+        console.log(detail_id);
+
+        $("#fund_id").val(detail_id);
+        $("#fund").val($(this).find("span").text());
+    });
+});

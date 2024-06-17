@@ -6,6 +6,7 @@ use App\Models\Attachment;
 use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
+use App\Models\Guest;
 use App\Models\History;
 use App\Models\productBill;
 use App\Models\productPay;
@@ -16,6 +17,7 @@ use App\Models\User;
 use App\Models\userFlow;
 use App\Models\Workspace;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -34,6 +36,7 @@ class DeliveryController extends Controller
     private $history;
     private $attachment;
     private $userFlow;
+    private $guest;
 
     public function __construct()
     {
@@ -46,6 +49,7 @@ class DeliveryController extends Controller
         $this->attachment = new Attachment();
         $this->userFlow = new userFlow();
         $this->users = new User();
+        $this->guest = new Guest();
     }
     public function index()
     {
@@ -67,7 +71,14 @@ class DeliveryController extends Controller
                     'delivery.status as trangThai',
                     'users.name',
                     'detailexport.guest_name',
-                    DB::raw('(SELECT COALESCE(SUM(product_total_vat), 0) FROM delivered WHERE delivery_id = delivery.id) as totalProductVat')
+                    'delivery.promotion',
+                    DB::raw('(SELECT 
+                        CASE 
+                            WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL) -- Giảm số tiền trực tiếp
+                            WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 2 THEN (COALESCE(SUM(product_total_vat), 0) * (100 - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) / 100) -- Giảm phần trăm trên tổng giá trị sản phẩm
+                            ELSE COALESCE(SUM(product_total_vat), 0) -- Không có khuyến mãi
+                        END
+                    FROM delivered WHERE delivered.delivery_id = delivery.id) as totalProductVat')
                 )
                 ->leftJoin('users', 'users.id', 'delivery.user_id')
                 ->where('delivery.workspace_id', Auth::user()->current_workspace)
@@ -81,7 +92,8 @@ class DeliveryController extends Controller
                     'users.name',
                     'delivery.created_at',
                     'delivery.status',
-                    'detailexport.guest_name'
+                    'detailexport.guest_name',
+                    'delivery.promotion',
                 )
                 ->orderBy('delivery.id', 'desc');
             if (Auth::check()) {
@@ -118,7 +130,20 @@ class DeliveryController extends Controller
         }
         $numberQuote = $numberQuote->get();
         $product = $this->product->getAllProducts();
-        return view('tables.export.delivery.create-delivery', compact('title', 'numberQuote', 'product', 'workspacename'));
+        $guest = $this->guest->getAllGuest();
+
+        // Tạo DGH
+        $currentDate = Carbon::now()->format('dmY');
+        $lastInvoiceNumber =
+            Delivery::where('workspace_id', Auth::user()->current_workspace)
+            ->whereDate('created_at', now())
+            ->count() + 1;
+        $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
+        $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
+        $invoicenumber = "PBH{$countFormattedInvoice}-{$currentDate}";
+        $invoice = $invoicenumber;
+
+        return view('tables.export.delivery.create-delivery', compact('title', 'guest', 'invoice', 'numberQuote', 'product', 'workspacename'));
     }
 
     /**
@@ -250,6 +275,7 @@ class DeliveryController extends Controller
             abort('404');
         }
         $product = $this->delivery->getProductToId($id);
+        // dd($delivery);
         $serinumber = Serialnumber::leftJoin('delivery', 'delivery.detailexport_id', 'serialnumber.detailexport_id')
             ->where('delivery.id', $id)
             ->where('serialnumber.delivery_id', $id)
@@ -271,19 +297,6 @@ class DeliveryController extends Controller
                     'status' => 2,
                 ]);
                 $this->delivery->updateDetailExport($request->all(), $delivery->detailexport_id);
-                // dd($request->all());
-                // Add lịch sử giao dịch
-                // $delivered = DB::table('delivered')->where('delivery_id', $id)->get();
-                // foreach ($delivered as $item) {
-                //     $history = new History();
-                //     $dataHistory = [
-                //         'detailexport_id' => $delivery->detailexport_id,
-                //         'delivered_id' => $item->id,
-                //     ];
-                //     $history->addHistory($dataHistory);
-                // }
-
-                //
                 $arrCapNhatKH = [
                     'name' => 'GH',
                     'des' => 'Xác nhận'
@@ -337,6 +350,17 @@ class DeliveryController extends Controller
             ->where('delivery.workspace_id', Auth::user()->current_workspace)
             ->max(DB::raw('CAST(SUBSTRING_INDEX(code_delivery, "-", -1) AS UNSIGNED)'));
         $delivery['lastDeliveryId'] = $lastDeliveryId == null ? 0 : $lastDeliveryId;
+
+        // Tạo DGH
+        $currentDate = Carbon::now()->format('dmY');
+        $lastInvoiceNumber =
+            Delivery::where('workspace_id', Auth::user()->current_workspace)
+            ->whereDate('created_at', now())
+            ->count() + 1;
+        $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
+        $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
+        $invoicenumber = "PBH{$countFormattedInvoice}-{$currentDate}";
+        $delivery['code_delivery '] = $invoicenumber;
         return $delivery;
     }
 
@@ -347,7 +371,7 @@ class DeliveryController extends Controller
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
-            ->select('*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP', 'quoteexport.product_code as maCode', 'quoteexport.product_name as tenSP', 'quoteexport.product_tax as thueSP', 'quoteexport.product_unit as product_unit')
+            ->select('*', 'detailexport.promotion as promotion_total', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP', 'quoteexport.product_code as maCode', 'quoteexport.product_name as tenSP', 'quoteexport.product_tax as thueSP', 'quoteexport.product_unit as product_unit')
             ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
             ->leftJoin('serialnumber', function ($join) {
                 $join->on('serialnumber.product_id', '=', 'products.id');

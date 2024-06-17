@@ -36,19 +36,23 @@ class QuoteExport extends Model
         'qty_bill_sale',
         'qty_bill_sale',
         'product_delivery',
+        'promotion',
     ];
     public function getAllQuoteExport()
     {
         $quoteExport = QuoteExport::all();
         return $quoteExport;
     }
-    public function getProduct(){
+    public function getProduct()
+    {
         return $this->hasOne(Products::class, 'id', 'product_id');
     }
-    public function getDetailExport(){
+    public function getDetailExport()
+    {
         return $this->hasOne(DetailExport::class, 'id', 'detailexport_id');
     }
-    public function getDelivery(){
+    public function getDelivery()
+    {
         return $this->hasOne(Delivery::class, 'id', 'deliver_id');
     }
 
@@ -67,6 +71,17 @@ class QuoteExport extends Model
                 $priceImport = null;
             }
             $subtotal = $data['product_qty'][$i] * (float) $price;
+            $promotion = [
+                'type' => $data['discount_option'][$i],
+                'value' => str_replace(',', '', $data['discount_input'][$i]),
+            ];
+
+            if ($promotion['type'] == 1) { // Giảm số tiền trực tiếp
+                $subtotal -= (float)$promotion['value'];
+            } elseif ($promotion['type'] == 2) { // Giảm phần trăm trên giá trị sản phẩm
+                $discountAmount = ($subtotal * (float)$promotion['value']) / 100;
+                $subtotal -= $discountAmount;
+            }
             if ($data['product_id'][$i] == null) {
                 $dataProduct = [
                     'product_code' => $data['product_code'][$i],
@@ -97,6 +112,7 @@ class QuoteExport extends Model
                     'product_unit' => $data['product_unit'][$i],
                     'product_qty' => $data['product_qty'][$i],
                     'product_tax' => $data['product_tax'][$i],
+                    'promotion' => json_encode($promotion),
                     'product_total' => $subtotal,
                     'price_export' => $price,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
@@ -118,6 +134,7 @@ class QuoteExport extends Model
                     'product_unit' => $data['product_unit'][$i],
                     'product_qty' => $data['product_qty'][$i],
                     'product_tax' => $data['product_tax'][$i],
+                    'promotion' => json_encode($promotion),
                     'product_total' => $subtotal,
                     'price_export' => $price,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
@@ -149,6 +166,17 @@ class QuoteExport extends Model
                     $priceImport = null;
                 }
                 $subtotal = $data['product_qty'][$i] * (float) $price;
+                $promotion = [
+                    'type' => $data['promotion-option'][$i],
+                    'value' => str_replace(',', '', $data['promotion'][$i]),
+                ];
+
+                if ($promotion['type'] == 1) { // Giảm số tiền trực tiếp
+                    $subtotal -= (float)$promotion['value'];
+                } elseif ($promotion['type'] == 2) { // Giảm phần trăm trên giá trị sản phẩm
+                    $discountAmount = ($subtotal * (float)$promotion['value']) / 100;
+                    $subtotal -= $discountAmount;
+                }
                 if ($data['product_id'][$i] == null) {
                     $checkProduct = Products::where('product_name', $data['product_name'][$i])
                         ->where('workspace_id', Auth::user()->current_workspace)
@@ -179,6 +207,7 @@ class QuoteExport extends Model
                             'product_unit' => $data['product_unit'][$i],
                             'product_qty' => $data['product_qty'][$i],
                             'product_tax' => $data['product_tax'][$i],
+                            'promotion' => json_encode($promotion),
                             'product_total' => $subtotal,
                             'price_export' => $price,
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
@@ -205,6 +234,7 @@ class QuoteExport extends Model
                             'product_unit' => $data['product_unit'][$i],
                             'product_qty' => $data['product_qty'][$i],
                             'product_tax' => $data['product_tax'][$i],
+                            'promotion' => json_encode($promotion),
                             'product_total' => $subtotal,
                             'price_export' => $price,
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
@@ -234,6 +264,7 @@ class QuoteExport extends Model
                             'product_unit' => $data['product_unit'][$i],
                             'product_qty' => $data['product_qty'][$i],
                             'product_tax' => $data['product_tax'][$i],
+                            'promotion' => json_encode($promotion),
                             'product_total' => $subtotal,
                             'price_export' => $price,
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
@@ -288,6 +319,7 @@ class QuoteExport extends Model
                             'product_unit' => $data['product_unit'][$i],
                             'product_qty' => $data['product_qty'][$i],
                             'product_tax' => $data['product_tax'][$i],
+                            'promotion' => json_encode($promotion),
                             'product_total' => $subtotal,
                             'price_export' => $price,
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,

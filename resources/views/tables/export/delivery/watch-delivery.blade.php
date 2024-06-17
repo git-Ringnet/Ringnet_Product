@@ -194,8 +194,10 @@
                                                 Số lượng</th>
                                             <th class="border-right p-0 px-2 text-center text-13" style="width:8%;">
                                                 Quản lý SN</th>
-                                            <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
+                                            <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                                 Đơn giá</th>
+                                            <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
+                                                %CK</th>
                                             <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
                                                 Thuế</th>
                                             <th class="border-right p-0 px-1 text-center text-13"style="width:10%;">
@@ -308,6 +310,35 @@
                                                     </a>
                                                 </td>
                                                 <td
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    @php
+                                                        $promotionArray = json_decode($item_quote->promotion, true);
+                                                        $promotionValue = isset($promotionArray['value'])
+                                                            ? $promotionArray['value']
+                                                            : '';
+                                                        $promotionOption = isset($promotionArray['type'])
+                                                            ? $promotionArray['type']
+                                                            : '';
+                                                    @endphp
+                                                    <div>
+                                                        <input type="text"
+                                                            class="border-0 px-2 py-1 w-100 text-right height-32 promotion"
+                                                            name="promotion[]"
+                                                            value="{{ $promotionValue ? number_format($promotionValue) : 0 }}">
+                                                    </div>
+                                                    <div class="mt-3 text-13-blue text-right">
+                                                        <select class="border-0 promotion-option"
+                                                            name="promotion-option[]">
+                                                            <option value="1"
+                                                                @if ($promotionOption == 1) selected @endif>
+                                                                Nhập tiền </option>
+                                                            <option value="2"
+                                                                @if ($promotionOption == 2) selected @endif>
+                                                                Nhập %</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td
                                                     class="border-right p-2 text-13 align-top text-center border-bottom border-top-0">
                                                     <select name="product_tax[]"
                                                         class="border-0 text-center product_tax height-32" disabled>
@@ -348,8 +379,7 @@
                                                         name="price_import[]"
                                                         value="{{ number_format($item_quote->price_import) }}">
                                                 </td> -->
-                                                <td
-                                                    class="p-2 note text-13 align-top border-bottom border-top-0">
+                                                <td class="p-2 note text-13 align-top border-bottom border-top-0">
                                                     <input type="text" class='border-0 py-1 w-100 height-32'
                                                         readonly name="product_note[]"
                                                         value="{{ $item_quote->product_note }}">
@@ -380,6 +410,41 @@
                                             <span class="text-13-black">Thuế VAT: </span>
                                             <span id="product-tax">0đ</span>
                                         </div>
+                                        @if ($delivery != '')
+                                            @php
+                                                $promotionArray = json_decode($delivery->promotion_delivery, true);
+                                                $promotionValue = isset($promotionArray['value'])
+                                                    ? $promotionArray['value']
+                                                    : '';
+                                                $promotionOption = isset($promotionArray['type'])
+                                                    ? $promotionArray['type']
+                                                    : '';
+                                            @endphp
+                                        @endif
+                                        <div class="d-flex justify-content-between mt-2 align-items-center">
+                                            <span class="text-13-black">Khuyến mãi</span>
+                                            <input name="promotion-total" type="text"
+                                                class="text-table border-0 text-right promotion-total"
+                                                style="background-color:#F0F4FF "
+                                                @if ($delivery != '') @php
+        $promotionValue = is_numeric($promotionValue) ? (float) $promotionValue : 0;
+    @endphp
+    value="{{ $promotionValue ? number_format($promotionValue) : 0 }}" @endif>
+                                        </div>
+                                        <div class="d-flex justify-content-between mt-2 align-items-center">
+                                            <span class="text-13-black">Hình thức</span>
+                                            <select name="promotion-option-total" id=""
+                                                class="border-0 promotion-option-total">
+                                                <option value="1"
+                                                    @if ($delivery != '' && $promotionOption == 1) selected @endif>
+                                                    Nhập tiền
+                                                </option>
+                                                <option value="2"
+                                                    @if ($delivery != '' && $promotionOption == 2) selected @endif>
+                                                    Nhập %
+                                                </option>
+                                            </select>
+                                        </div>
                                         <div class="d-flex justify-content-between mt-2">
                                             <span class="text-13-bold text-lg font-weight-bold">Tổng cộng: </span>
                                             <span class="text-13-bold text-lg font-weight-bold text-right"
@@ -394,8 +459,7 @@
                     </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div id="title--fixed"
-        class="content-title--fixed top-111">
+    <div id="title--fixed" class="content-title--fixed top-111">
         <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
     </div>
     <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
@@ -748,11 +812,16 @@
         var totalTax = 0;
 
         // Lặp qua từng hàng
-        $('tr').each(function() {
+        $('.addProduct').each(function() {
             var productQty = parseFloat($(this).find('.quantity-input').val());
             var productPriceElement = $(this).find('[name^="product_price"]');
             var productPrice = 0;
+            var giaNhap = 0;
             var taxValue = parseFloat($(this).find('.product_tax option:selected').val());
+            var heSoNhan = parseFloat($(this).find('.heSoNhan').val()) || 0;
+            var giaNhapElement = $(this).find('.giaNhap');
+            var discountInput = $(this).find('[name^="promotion[]"]').val().replace(/,/g, '') || 0;
+            var discountOption = $(this).find('[name^="promotion-option[]"]').val() || 0;
             if (taxValue == 99) {
                 taxValue = 0;
             }
@@ -762,21 +831,34 @@
                     productPrice = parseFloat(rawPrice.replace(/,/g, ''));
                 }
             }
+            if (giaNhapElement.length > 0) {
+                var rawGiaNhap = giaNhapElement.val();
+                if (rawGiaNhap !== "") {
+                    giaNhap = parseFloat(rawGiaNhap.replace(/,/g, ''));
+                }
+            }
 
-            if (!isNaN(productQty) && !isNaN(taxValue)) {
-                var donGia = productPrice;
+            if (!isNaN(productQty) && !isNaN(taxValue) && !isNaN(productPrice)) {
+                if (giaNhap > 0) {
+                    var donGia = ((heSoNhan + 100) * giaNhap) / 100;
+                } else {
+                    var donGia = productPrice;
+                }
                 var rowTotal = productQty * donGia;
+                // Apply discount
+                if (discountOption == 1) {
+                    rowTotal -= discountInput;
+                } else if (discountOption == 2) {
+                    rowTotal -= (rowTotal * discountInput) / 100;
+                }
                 var rowTax = (rowTotal * taxValue) / 100;
-
-                // Làm tròn từng thuế
+                // Round the tax
                 rowTax = Math.round(rowTax);
                 $(this).find('.product_tax1').val(formatCurrency(rowTax));
-
-                // Hiển thị kết quả
+                // Display the results
                 $(this).find('.total-amount').val(formatCurrency(Math.round(rowTotal)));
                 $(this).find('.product_price').val(formatCurrency(donGia));
-
-                // Cộng dồn vào tổng totalAmount và totalTax
+                // Accumulate into totalAmount and totalTax
                 totalAmount += rowTotal;
                 totalTax += rowTax;
             }
@@ -791,12 +873,19 @@
     }
 
     function calculateGrandTotal(totalAmount, totalTax) {
+        var promotionOption = $('select[name="promotion-option-total"]').val();
+        var promotionTotal = parseFloat($('input[name="promotion-total"]').val().replace(/[^0-9.-]+/g, "")) || 0;
         if (!isNaN(totalAmount) || !isNaN(totalTax)) {
             var grandTotal = totalAmount + totalTax;
+            if (promotionOption == 1) {
+                grandTotal -= promotionTotal;
+            } else if (promotionOption == 2) {
+                grandTotal -= (grandTotal * promotionTotal) / 100;
+            }
+            grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
             $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
+            // Cập nhật giá trị data-value
         }
-
-        // Cập nhật giá trị data-value
         $('#grand-total').attr('data-value', grandTotal);
         $('#total').val(totalAmount);
     }
