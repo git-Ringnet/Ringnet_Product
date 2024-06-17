@@ -89,7 +89,7 @@
                                 <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Đơn vị tính</p>
                                 </div>
-                                <input type="text" required="" placeholder="Nhập thông tin" name="product_unit"
+                                <input type="text" placeholder="Nhập thông tin" name="product_unit"
                                     class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                             </div>
                             <div class="d-flex align-items-center">

@@ -98,7 +98,7 @@
                 <div class="workspace_setting border-bottom">
                     @if (Auth::check())
                         @if (Auth::user()->origin_workspace === Auth::user()->current_workspace)
-                            <a href="{{ route('overview') }}">Cài đặt workspace</a>
+                            <a href="{{ route('viewCompany') }}">Cài đặt workspace</a>
                         @endif
                     @endif
                     {{-- <a href="{{ route('settings.index', $workspacename) }}">Mời và quản lý thành viên</a> --}}
