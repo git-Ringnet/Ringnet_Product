@@ -169,7 +169,7 @@ class GuestController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $workspace, string $id)
+    public function destroy(string $id)
     {
         $guest = Guest::find($id);
         if (!$guest) {
