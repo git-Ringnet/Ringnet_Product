@@ -94,7 +94,7 @@ class PayOrderController extends Controller
         $funds = Fund::all();
 
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
-        $content = ContentGroups::where('contenttype_id', 2)->get();
+        $content = ContentGroups::where('contenttype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
 
         $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
         return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'content', 'returnImport'));
