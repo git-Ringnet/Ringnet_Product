@@ -588,23 +588,17 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                <!-- <a type="button"
-                                            class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
-                                            data-toggle="modal" data-target="#guestModal"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm khách hàng</span>
-                                        </a> -->
                             </div>
                         </div>
+                    </div>
+                    <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                        style="height:49px;">
+                        <span class="text-13 btn-click" style="flex: 1.5;">Mã trả hàng</span>
+                        <span class="mx-1 text-13" style="flex: 2;">
+                            <input type="text" placeholder="Chọn thông tin" name="code_return"
+                                class="border-0 w-100 bg-input-guest py-2 px-2 code_return "
+                                style="border-radius:4px;" autocomplete="off" value="{{ $invoice }}" readonly>
+                        </span>
                     </div>
                     <div class="">
                         <div class="content-info--common" id="show-info-guest">
@@ -612,12 +606,6 @@
                                 <li class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                                    {{-- <input class="text-13-black w-50 border-0 bg-input-guest nameGuest"
-                                        style="flex:2;"
-                                        value="@isset($yes){{ $getGuestbyId[0]->guest_name }}@endisset" />
-
-                                    <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
-                                        value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset"> --}}
                                     <span class="mx-1 text-13" style="flex: 2;">
                                         <input type="text" placeholder="Chọn thông tin" name="guestName"
                                             class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="myInput1"
@@ -780,6 +768,25 @@
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="border-left-0 py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                        style="height:49px;">
+                        <span class="text-13 btn-click" style="flex: 1.5;">Tiền trả cho khách</span>
+                        <span class="mx-1 text-13" style="flex: 2;">
+                            <input type="number" placeholder="Nhập số tiền trả lại" name="payment"
+                                class="border-0 w-100 bg-input-guest py-2 px-2 payment" style="border-radius:4px;"
+                                autocomplete="off">
+
+                        </span>
+                    </div>
+                    <div class="border-left-0 py-2 px-3 border-top align-items-center text-left text-nowrap position-relative"
+                        style="height:49px;">
+                        <span class="text-13 btn-click" style="flex: 1.5;">Nội dung trả hàng</span>
+                        <br>
+                        <span class="mx-1 text-13" style="flex: 2;">
+                            <textarea placeholder="Nhập nội dung trả hàng" name="description"
+                                class="border w-100 bg-input-guest py-2 px-2 description" style="border-radius:4px;" autocomplete="off" required></textarea>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -2869,6 +2876,7 @@
                                                 <span class="border-span--modal">SN</span>
                                             </div>
                                         </a>
+                                        <input type="hidden" name="check_seri" class="check_seri" value="${(item.check_seri)}">
                                     </td>
                                     <td class="text-center d-none border-top-0">
                                         <input class="check-add-sn" data-seri="${item.maSP}" type="checkbox" name="cbSeri[]" value="1" ${(item.check_seri == 1) ? 'checked' : ''}>    
@@ -4383,13 +4391,6 @@
         var ajaxSuccess = false;
         var previousProductNames = [];
 
-        // Check Seri trả về có đủ không
-        var isProductsMatch = checkProductsMatch();
-        console.log(isProductsMatch);
-        if (!isProductsMatch) {
-            return false;
-        }
-
         function normalizeProductName(name) {
             // Chuyển tất cả các ký tự thành chữ thường
             var lowercaseName = name.toLowerCase();
@@ -4441,17 +4442,24 @@
         var inputValue = $('.idGuest').val();
 
         if ($.trim(inputValue) === '') {
-            showAutoToast('warning', 'Vui lòng chọn số báo giá từ danh sách!');
+            showAutoToast('warning', 'Vui lòng chọn đơn giao hàng để trả hàng!');
             $('#pdf_export').val(0);
             event.preventDefault();
         } else {
             // Hiển thị thông báo nếu không có sản phẩm
             if (!hasProducts) {
-                showAutoToast('warning', 'Không có sản phẩm để báo giá');
+                showAutoToast('warning', 'Lỗi không thể hoàn trả sản phẩm');
                 $('#pdf_export').val(0);
                 event.preventDefault();
             } else {
                 $('.product_tax').prop('disabled', false);
+            }
+        }
+        // Check Seri trả về có đủ không
+        if ($('.check_seri').val() != 0) {
+            var isProductsMatch = checkProductsMatch();
+            if (!isProductsMatch) {
+                return false;
             }
         }
     }

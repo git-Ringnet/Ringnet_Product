@@ -67,7 +67,8 @@ class ReturnExportController extends Controller
         // dd($numberQuote);
         $product = $this->product->getAllProducts();
         $guest = $this->guest->getAllGuest();
-        return view('tables.returnexport.create', compact('title', 'guest', 'numberQuote', 'product', 'workspacename'));
+        $invoice = $this->returnExport->getQuoteCount();
+        return view('tables.returnexport.create', compact('title', 'guest', 'invoice', 'numberQuote', 'product', 'workspacename'));
     }
 
     /**
@@ -126,7 +127,8 @@ class ReturnExportController extends Controller
             ->get();
 
         // dd($serinumber);
-        return view('tables.returnExport.show', compact('title', 'serinumber', 'returnExport', 'guest', 'numberQuote', 'product', 'workspacename'));
+        $invoice = $this->returnExport->getQuoteCount();
+        return view('tables.returnExport.show', compact('title', 'serinumber', 'invoice', 'returnExport', 'guest', 'numberQuote', 'product', 'workspacename'));
     }
 
     /**

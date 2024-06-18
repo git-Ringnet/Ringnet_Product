@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('delivery_id')->nullable();
             $table->integer('guest_id')->nullable();
+            $table->string('code_return')->nullable();
             $table->decimal('total_return', 20, 4)->nullable();
             $table->decimal('payment', 20, 4)->nullable();
             $table->string('description')->nullable();

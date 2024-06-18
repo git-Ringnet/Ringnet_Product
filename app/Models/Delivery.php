@@ -1322,4 +1322,54 @@ class Delivery extends Model
         // dd($delivery);
         return $delivery;
     }
+    public function getSumDelivery()
+    {
+        $deliveries = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
+            ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            ->select(
+                'delivery.id',
+                'delivery.guest_id',
+                'delivery.quotation_number',
+                'delivery.code_delivery as maPhieu',
+                'delivery.shipping_unit',
+                'delivery.shipping_fee',
+                'delivery.id as maGiaoHang',
+                'delivery.created_at as ngayTao',
+                'delivery.updated_at as ngayGiao',
+                'delivery.status as trangThai',
+                'users.name',
+                'guest.guest_name_display as nameGuest',
+                'detailexport.guest_name',
+                'delivery.promotion',
+                'delivery.totalVat as totalVat',
+                DB::raw('(SELECT 
+                        CASE 
+                            WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL) -- Giảm số tiền trực tiếp
+                            WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 2 THEN (COALESCE(SUM(product_total_vat), 0) * (100 - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) / 100) -- Giảm phần trăm trên tổng giá trị sản phẩm
+                            ELSE COALESCE(SUM(product_total_vat), 0) -- Không có khuyến mãi
+                        END
+                    FROM delivered WHERE delivered.delivery_id = delivery.id) as totalProductVat')
+            )
+            ->leftJoin('users', 'users.id', 'delivery.user_id')
+            ->where('delivery.workspace_id', Auth::user()->current_workspace)
+            ->groupBy(
+                'delivery.id',
+                'delivery.guest_id',
+                'delivery.quotation_number',
+                'delivery.code_delivery',
+                'delivery.shipping_unit',
+                'delivery.shipping_fee',
+                'users.name',
+                'delivery.created_at',
+                'delivery.updated_at',
+                'delivery.status',
+                'guest.guest_name_display',
+                'detailexport.guest_name',
+                'delivery.promotion',
+                'delivery.totalVat',
+            )
+            ->orderBy('delivery.id', 'desc');
+        $deliveries = $deliveries->get();
+        return $deliveries;
+    }
 }

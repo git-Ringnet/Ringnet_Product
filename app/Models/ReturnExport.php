@@ -21,7 +21,7 @@ class ReturnExport extends Model
         'updated_at',
         'workspace_id',
         'user_id',
-        'status', 'total_return', 'guest_id', 'payment'
+        'status', 'total_return', 'guest_id', 'payment', 'code_return'
     ];
     public function getDelivery()
     {
@@ -38,6 +38,19 @@ class ReturnExport extends Model
     public function getAttachment($name)
     {
         return $this->hasMany(Attachment::class, 'table_id', 'soGiaoHang')->where('table_name', $name)->get();
+    }
+    public function getQuoteCount()
+    {
+        // Tạo DGH
+        $currentDate = Carbon::now()->format('dmY');
+        $lastInvoiceNumber =
+            ReturnExport::where('workspace_id', Auth::user()->current_workspace)
+            ->whereDate('created_at', now())
+            ->count() + 1;
+        $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
+        $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
+        $invoicenumber = "PTH{$countFormattedInvoice}-{$currentDate}";
+        return $invoicenumber;
     }
     public function addReturnExport($data)
     {
@@ -61,6 +74,7 @@ class ReturnExport extends Model
             'workspace_id' => Auth::user()->current_workspace,
             'created_at' => $date_deliver == null ? now() : $date_deliver,
             'user_id' => Auth::user()->id,
+            'code_return' => $data['code_return'],
             // 'promotion' => json_encode($promotion),
         ];
         $returnExport = new ReturnExport($dataReturnExport);
@@ -280,6 +294,7 @@ class ReturnExport extends Model
             'workspace_id' => Auth::user()->current_workspace,
             'created_at' => $date_deliver == null ? now() : $date_deliver,
             'user_id' => Auth::user()->id,
+            'code_return' => $data['code_return']
         ];
         if (isset($data['return_id'])) {
             // Tìm kiếm bản ghi theo data['return_id'] và cập nhật

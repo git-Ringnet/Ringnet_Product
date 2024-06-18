@@ -33,7 +33,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="font-weight-bold last-span">Tạo đơn trả hàng</span>
+                    <span class="font-weight-bold last-span">Chi tiết đơn trả hàng</span>
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
@@ -317,62 +317,6 @@
             <section class="content">
                 <div class="container-fluided">
                     <div class="d-flex ml-3">
-                        {{-- <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded activity"
-                                    style="margin-right:10px" data-name1="GH" data-des="Thêm sản phẩm">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                        height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                    <span class="text-table">Thêm sản phẩm</span>
-                                </button> --}}
-                        {{-- <button type="button" data-toggle="dropdown"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                        height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                    <span class="text-table">Thêm đầu mục</span>
-                                </button>
-                                <button type="button" data-toggle="dropdown"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                        height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                    <span class="text-table">Thêm hàng loạt</span>
-                                </button>
-                                <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </button> --}}
                     </div>
                 </div>
             </section>
@@ -761,7 +705,7 @@
                         <input type="text" placeholder="Chọn thông tin" name="code_delivery"
                             class="border-0 w-100 bg-input-guest py-2 px-2 numberQute " id="myInput"
                             style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                            value="{{ $returnExport->code_delivery }}">
+                            value="{{ $returnExport->code_delivery }}" readonly>
                         <input type="hidden" name="detail_id" id="detail_id"
                             value="@isset($yes) {{ $data['detail_id'] }} @endisset">
                     </span>
@@ -825,6 +769,15 @@
                                         </a> -->
                         </div>
                     </div>
+                </div>
+                <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                    style="height:49px;">
+                    <span class="text-13 btn-click" style="flex: 1.5;">Mã trả hàng</span>
+                    <span class="mx-1 text-13" style="flex: 2;">
+                        <input type="text" placeholder="Chọn thông tin" name="code_return"
+                            class="border-0 w-100 bg-input-guest py-2 px-2 code_return " style="border-radius:4px;"
+                            autocomplete="off" value="{{ $returnExport->code_return }}" readonly>
+                    </span>
                 </div>
                 <div class="">
                     <div class="content-info--common" id="show-info-guest">
@@ -931,7 +884,8 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input class="text-13-black w-50 border-0 bg-input-guest" id="represent_guest"
                                     name="representName" readonly autocomplete="off" style="flex:2;"
-                                    placeholder="Chọn thông tin" value="{{ $returnExport->represent_name }}">
+                                    placeholder="Chọn thông tin" value="{{ $returnExport->represent_name }}"
+                                    {{ $returnExport->status == 2 ? 'disabled' : '' }}>
                                 <input type="hidden" class="represent_guest_id" name="represent_guest_id"
                                     autocomplete="off" value="{{ $returnExport->represent_guest_id }}">
                                 <div id="myUL7"
@@ -979,7 +933,8 @@
                                 <input
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 unit_ship"
                                     name="shipping_unit" placeholder="Nhập thông tin" style="flex:2;"
-                                    value="{{ $returnExport->shipping_unit }}" />
+                                    value="{{ $returnExport->shipping_unit }}"
+                                    {{ $returnExport->status == 2 ? 'disabled' : '' }} />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:48px;">
@@ -987,7 +942,8 @@
                                 <input
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 fee_ship"
                                     name="shipping_fee" placeholder="Nhập thông tin" style="flex:2;"
-                                    value="{{ $returnExport->shipping_fee }}" />
+                                    value="{{ $returnExport->shipping_fee }}"
+                                    {{ $returnExport->status == 2 ? 'disabled' : '' }} />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:48px;">
@@ -996,10 +952,32 @@
                                     placeholder="Chọn thông tin" style="flex:2;" />
 
                                 <input type="hidden" id="hiddenDateInput" name="date_deliver"
-                                    value="{{ $returnExport->ngayGiao }}">
+                                    value="{{ $returnExport->ngayGiao }}"
+                                    {{ $returnExport->status == 2 ? 'disabled' : '' }}>
                             </li>
                         </ul>
                     </div>
+                </div>
+                <div class="border-left-0 py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                    style="height:49px;">
+                    <span class="text-13 btn-click" style="flex: 1.5;">Tiền trả cho khách</span>
+                    <span class="mx-1 text-13" style="flex: 2;">
+                        <input type="number" placeholder="Nhập số tiền trả lại" name="payment"
+                            class="border-0 w-100 bg-input-guest py-2 px-2 payment" style="border-radius:4px;"
+                            autocomplete="off" value="{{ number_format($returnExport->payment) }}"
+                            {{ $returnExport->status == 2 ? 'readonly' : '' }}>
+
+                    </span>
+                </div>
+                <div class="border-left-0 py-2 px-3 border-top align-items-center text-left text-nowrap position-relative"
+                    style="height:49px;">
+                    <span class="text-13 btn-click" style="flex: 1.5;">Nội dung trả hàng</span>
+                    <br>
+                    <span class="mx-1 text-13" style="flex: 2;">
+                        <textarea placeholder="Nhập nội dung trả hàng" name="description"
+                            class="border w-100 bg-input-guest py-2 px-2 description" style="border-radius:4px;" autocomplete="off" required
+                            {{ $returnExport->status == 2 ? 'readonly' : '' }}>{{ $returnExport->description }}</textarea>
+                    </span>
                 </div>
             </div>
         </div>
@@ -2369,8 +2347,8 @@
             filterInput.on("keyup", applyFilter);
         }
 
-        toggleListGuest($("#myInput"), $("#myUL"), $("#companyFilter"));
-        toggleListGuest($("#myInput1"), $("#myUL1"), $("#companyFilter1"));
+        // toggleListGuest($("#myInput"), $("#myUL"), $("#companyFilter"));
+        // toggleListGuest($("#myInput1"), $("#myUL1"), $("#companyFilter1"));
         toggleListGuest($("#represent_guest"), $("#myUL7"), $("#companyFilter7"));
     });
 
