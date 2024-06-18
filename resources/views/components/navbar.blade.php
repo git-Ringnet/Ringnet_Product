@@ -801,7 +801,7 @@
                         </a>
                     </li>
 
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('changeWarehouse.index',$workspacename) }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -843,7 +843,7 @@
                                 <p class="text-nav">Phiếu chuyển kho</p>
                             </div>
                         </a>
-                    </li> --}}
+                    </li>
 
 
                     {{-- <li class="nav-item">

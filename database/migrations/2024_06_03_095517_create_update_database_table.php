@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('return_code')->nullable();
             $table->timestamps();
         });
-        Schema::create('returnProduct', function (Blueprint $table) {
+        Schema::create('returnproduct', function (Blueprint $table) {
             $table->id();
             $table->integer('quoteimport_id')->nullable();
             $table->decimal('qty', 20, 4)->nullable();
