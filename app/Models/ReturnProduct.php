@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class ReturnProduct extends Model
 {
     use HasFactory;
-    protected $table = "returnproduct";
+    protected $table = "returnProduct";
 
     protected $fillable = [
         'id',
