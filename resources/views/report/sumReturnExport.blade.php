@@ -247,6 +247,17 @@
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
+                                                                Ghi chú
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-guest_debt"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="height-52 border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="guest_debt"
+                                                            data-sort-type="ASC">
+                                                            <button class="btn-sort text-13" type="submit">
                                                                 Trạng thái giao
                                                             </button>
                                                         </a>
@@ -256,16 +267,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php
-                                                $totalVatSum = 0;
-                                                $totalAfterVatSum = 0;
-                                            @endphp
-
                                             @foreach ($sumReturnExport as $item)
-                                                @php
-                                                    $totalVatSum += $item->totalProductVat;
-                                                    $totalAfterVatSum += $item->totalProductVat - $item->totalVat;
-                                                @endphp
                                                 <tr class="position-relative">
                                                     <td class="text-13-black height-52 border">
                                                         {{ $item->ngayTao }}
@@ -277,13 +279,31 @@
                                                         {{ $item->nameGuest }}
                                                     </td>
                                                     <td class="text-13-black height-52 border">
+                                                        {{ $item->nameProduct }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ $item->unitProduct }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ $item->qtyReturn }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ number_format($item->priceProduct) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ number_format($item->product_total) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
                                                         {{ number_format($item->totalProductVat) }}
                                                     </td>
                                                     <td class="text-13-black height-52 border">
-                                                        {{ number_format($item->totalProductVat - $item->totalVat) }}
+                                                        {{ number_format($item->payment) }}
                                                     </td>
                                                     <td class="text-13-black height-52 border">
-                                                        {{ $item->ngayGiao }}
+                                                        {{ number_format($item->payment) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ $item->description }}
                                                     </td>
                                                     <td class="text-13-black height-52 border">
                                                         @if ($item->trangThai == 1)
@@ -300,10 +320,10 @@
                                                     Tổng cộng:
                                                 </td>
                                                 <td class="text-13-black height-52 border font-weight-bold">
-                                                    {{ number_format($totalVatSum) }}
+                                                    {{-- {{ number_format($totalVatSum) }} --}}
                                                 </td>
                                                 <td class="text-13-black height-52 border font-weight-bold">
-                                                    {{ number_format($totalAfterVatSum) }}
+                                                    {{-- {{ number_format($totalAfterVatSum) }} --}}
                                                 </td>
                                                 <td colspan="2" class="text-13-black height-52 border"></td>
                                             </tr>

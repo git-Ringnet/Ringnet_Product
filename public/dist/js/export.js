@@ -131,10 +131,75 @@ function checkQty(value, odlQty) {
     }
 }
 
+// Kiểm tra seri check chưa không?
+var productCheckedIfSeri = [];
+function countCheckedByProductId(productId) {
+    var count = 0;
+    productCheckedIfSeri.forEach(function (product) {
+        if (product.product_id === productId) {
+            count += product.checked;
+        }
+    });
+    return count;
+}
+
+var countChecked = [];
+$(document).on("click", "tr", function () {
+    var $checkItem = $(this).find(".check-item");
+    if ($checkItem.length > 0) {
+        var productId = $checkItem.data("product-id-sn");
+        var checkboxValue = $checkItem.val();
+
+        var existingProductIndex = productCheckedIfSeri.findIndex(function (
+            product
+        ) {
+            return (
+                product.product_id == productId &&
+                product.value == checkboxValue
+            );
+        });
+
+        if ($checkItem.is(":checked")) {
+            if (existingProductIndex === -1) {
+                productCheckedIfSeri.push({
+                    product_id: productId,
+                    value: checkboxValue,
+                    checked: 1,
+                });
+            } else {
+                productCheckedIfSeri[existingProductIndex].checked++;
+            }
+        } else {
+            if (existingProductIndex !== -1) {
+                productCheckedIfSeri[existingProductIndex].checked--;
+                if (productCheckedIfSeri[existingProductIndex].checked <= 0) {
+                    productCheckedIfSeri.splice(existingProductIndex, 1);
+                }
+            }
+        }
+        console.log(productCheckedIfSeri);
+        var checkedCount = countCheckedByProductId(productId);
+        // Kiểm tra xem product_id đã tồn tại trong mảng countChecked hay chưa
+        var existingCountIndex = countChecked.findIndex(function (item) {
+            return item.product_id === productId;
+        });
+
+        if (existingCountIndex !== -1) {
+            // Nếu đã tồn tại, cập nhật lại checkedCount
+            countChecked[existingCountIndex].checkedCount = checkedCount;
+        } else {
+            // Nếu chưa tồn tại, thêm mới vào mảng countChecked
+            countChecked.push({
+                product_id: productId,
+                checkedCount: checkedCount,
+            });
+        }
+    }
+});
+
 function checkProductsMatch() {
     var productsArray = [];
     var missingFields = []; // Mảng lưu trữ các trường bị thiếu
-
     $(".addProduct").each(function () {
         var productId = $(this).find(".product_id").val();
         var productQty = $(this)
@@ -147,7 +212,6 @@ function checkProductsMatch() {
             .trim();
         var checkSeri = $(this).find('input[name="cbSeri[]"]').val().trim();
 
-        // Kiểm tra các trường thiếu và thêm vào mảng missingFields
         if (!productId) {
             missingFields.push("Mã sản phẩm");
         }
@@ -157,7 +221,6 @@ function checkProductsMatch() {
         if (!productName) {
             missingFields.push("Tên sản phẩm");
         }
-        // Nếu tất cả các trường đều có giá trị, thêm vào productsArray
         if (productId && productQty && productName) {
             productsArray.push({
                 key: productId,
@@ -167,7 +230,6 @@ function checkProductsMatch() {
             });
         }
     });
-    // Nếu có trường thiếu, hiển thị thông báo và trả về false
     if (missingFields.length > 0) {
         var missingFieldsMsg =
             "Vui lòng điền đầy đủ thông tin cho các trường sau:\n";
@@ -177,40 +239,16 @@ function checkProductsMatch() {
         showAutoToast("warning", missingFieldsMsg);
         return false;
     }
-    var productCheckCount = [];
-
-    $(".check-item").each(function () {
-        var productId = $(this).data("product-id-sn");
-        var checked = $(this).is(":checked") ? 1 : 0;
-
-        console.log(productId);
-        // Kiểm tra nếu productId đã tồn tại trong mảng productCheckCount
-        var existingProduct = productCheckCount.find(function (product) {
-            return product.product_id === productId;
-        });
-
-        if (existingProduct) {
-            existingProduct.checked += checked;
-        } else {
-            productCheckCount.push({
-                product_id: productId,
-                checked: checked,
-            });
-        }
-    });
-    // console.log(productCheckCount);
-    // Kiểm tra số lượng seri được chọn cho mỗi sản phẩm
     for (var i = 0; i < productsArray.length; i++) {
         var product = productsArray[i];
         var productId = product.key;
         var productQty = product.value;
-        var checkedCount = productCheckCount[productId];
-        // console.log(productQty);
-        // console.log(checkedCount);
-        // Nếu số lượng seri không khớp, hiển thị thông báo và trả về false
+        var checkedCount = countChecked.find(function (item) {
+            return item.product_id == productId;
+        });
         if (
-            checkedCount === undefined ||
-            parseInt(productQty) !== checkedCount
+            !checkedCount ||
+            checkedCount.checkedCount != parseInt(productQty)
         ) {
             showAutoToast(
                 "warning",
@@ -219,9 +257,9 @@ function checkProductsMatch() {
             return false;
         }
     }
-    // Nếu không có vấn đề gì, trả về true
     return true;
 }
+//
 $(document).ready(function () {
     $(".search-receive").on("click", function (event, detail_id) {
         if (detail_id) {
@@ -229,6 +267,7 @@ $(document).ready(function () {
         } else {
             detail_id = parseInt($(this).attr("id"), 10);
         }
+        console.log(detail_id);
         $("#detailimport_id").val(detail_id);
         $("#myInput").val($(this).find("span").text());
     });
@@ -241,6 +280,8 @@ $(document).ready(function () {
         } else {
             detail_id = parseInt($(this).attr("id"), 10);
         }
+        console.log(detail_id);
+
         $("#guest_id").val(detail_id);
         $("#myGuest").val($(this).find("span").text());
     });
@@ -253,6 +294,8 @@ $(document).ready(function () {
         } else {
             detail_id = parseInt($(this).attr("id"), 10);
         }
+        console.log(detail_id);
+
         $("#fund_id").val(detail_id);
         $("#fund").val($(this).find("span").text());
     });

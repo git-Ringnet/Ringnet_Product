@@ -531,7 +531,6 @@
                                                     $deliveredId,
                                                 );
                                                 $count = $countData['count'];
-
                                                 // Nếu cặp product_id và delivered_id đã xuất hiện trước đó, không hiển thị count
                                                 if (in_array("$productId-$deliveredId", $previousIds)) {
                                                     $countClass = 'hidden'; // Lớp CSS để ẩn count

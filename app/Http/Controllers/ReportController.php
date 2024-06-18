@@ -327,7 +327,7 @@ class ReportController extends Controller
         $workspacename = $workspacename->workspace_name;
         // $sumDelivery = $this->delivery->getSumDelivery();
         $sumReturnExport = $this->product_returnE->sumReturnExport();
-        dd($sumReturnExport);
+        // dd($sumReturnExport);
         return view('report.sumReturnExport', compact('title', 'sumReturnExport'));
     }
     /**

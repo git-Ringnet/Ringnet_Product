@@ -4647,76 +4647,9 @@
                 $('.product_tax').prop('disabled', false);
             }
         }
-        var productsArray = [];
-        var missingFields = []; // Mảng lưu trữ các trường bị thiếu
-
-        $(".addProduct").each(function() {
-            var productId = $(this).find(".product_id").val();
-            var productQty = $(this)
-                .find('input[name="product_qty[]"]')
-                .val()
-                .trim();
-            var productName = $(this)
-                .find('input[name="product_name[]"]')
-                .val()
-                .trim();
-            var checkSeri = $(this).find('input[name="cbSeri[]"]').val().trim();
-
-            // Kiểm tra các trường thiếu và thêm vào mảng missingFields
-            if (!productId) {
-                missingFields.push("Mã sản phẩm");
-            }
-            if (!productQty) {
-                missingFields.push("Số lượng sản phẩm");
-            }
-            if (!productName) {
-                missingFields.push("Tên sản phẩm");
-            }
-            // Nếu tất cả các trường đều có giá trị, thêm vào productsArray
-            if (productId && productQty && productName) {
-                productsArray.push({
-                    key: productId,
-                    name: productName,
-                    value: productQty,
-                    checkSeri: checkSeri,
-                });
-            }
-        });
-        // Nếu có trường thiếu, hiển thị thông báo và trả về false
-        if (missingFields.length > 0) {
-            var missingFieldsMsg =
-                "Vui lòng điền đầy đủ thông tin cho các trường sau:\n";
-            missingFields.forEach(function(field) {
-                missingFieldsMsg += "- " + field + "\n";
-            });
-            showAutoToast("warning", missingFieldsMsg);
-            return false;
-        }
-        var productCheckCount = [];
-        $(".check-item").each(function() {
-            var productId = $(this).data("product-id-sn");
-            if (!productCheckCount[productId]) {
-                productCheckCount[productId] = 0;
-            }
-            if ($(this).is(":checked")) {
-                productCheckCount[productId]++;
-            }
-        });
-        // Kiểm tra số lượng seri được chọn cho mỗi sản phẩm
-        for (var i = 0; i < productsArray.length; i++) {
-            var product = productsArray[i];
-            var productId = product.key;
-            var productQty = product.value;
-            var checkedCount = productCheckCount[productId];
-            // Nếu số lượng seri không khớp, hiển thị thông báo và trả về false
-            if (
-                checkedCount === undefined ||
-                parseInt(productQty) !== checkedCount
-            ) {
-                showAutoToast(
-                    "warning",
-                    "Vui lòng chọn seri để hoàn trả sản phẩm:\n" + product.name
-                );
+        if ($('.check_seri').val() != 0) {
+            var isProductsMatch = checkProductsMatch();
+            if (!isProductsMatch) {
                 return false;
             }
         }
