@@ -172,8 +172,18 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="code_delivery" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">Mã
+                                                            phiếu#</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-code_delivery"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-bottom" style="width: 14%;">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="code_delivery" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Phiếu bán
-                                                            hàng#</button>
+                                                            hàng</button>
                                                     </a>
                                                     <div class="icon" id="icon-code_delivery"></div>
                                                 </span>
@@ -278,12 +288,15 @@
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom text-wrap">
+                                                    <a href="{{ route('returnExport.edit', ['workspace' => $workspacename, 'returnExport' => $item->id]) }}"
+                                                        class="duongdan text-13-blue user_flow" data-type="DNH"
+                                                        data-des="Xem đơn nhận hàng">
+                                                        {{ $item->code_return }}
+                                                    </a>
+                                                </td>
+                                                <td class="text-13-black border-top-0 border-bottom text-wrap">
                                                     @if ($item->getDelivery)
-                                                        <a href="{{ route('returnExport.edit', ['workspace' => $workspacename, 'returnExport' => $item->id]) }}"
-                                                            class="duongdan text-13-blue user_flow" data-type="DNH"
-                                                            data-des="Xem đơn nhận hàng">
-                                                            {{ $item->getDelivery->code_delivery }}
-                                                        </a>
+                                                        {{ $item->getDelivery->code_delivery }}
                                                     @endif
                                                 </td>
 

@@ -458,10 +458,24 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('viewReportDelivery', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
+                                    <p class="text-nav ml-2">Tổng kết giao hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('returnExport.index', $workspacename) }}" data-name1="BH"
                                     data-des="Đơn giao hàng"
                                     class="nav-link activity1 @if (!empty($activeName) && $activeName == 'returnexport') active @endif">
                                     <p class="text-nav ml-2">Trả hàng KH</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportSumReturnExport', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
+                                    <p class="text-nav ml-2">Tổng kết khách trả hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">

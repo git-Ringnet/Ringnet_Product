@@ -325,6 +325,8 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('searchReportGuests', [ReportController::class, 'searchReportGuests'])->name('searchReportGuests');
     Route::get('searchReportProvides', [ReportController::class, 'searchReportProvides'])->name('searchReportProvides');
     Route::get('/view', [ReportController::class, 'view'])->name('view');
+    Route::get('{workspace}/sumDelivery', [ReportController::class, 'viewReportDelivery'])->name('viewReportDelivery');
+    Route::get('{workspace}/viewReportSumReturnExport', [ReportController::class, 'viewReportSumReturnExport'])->name('viewReportSumReturnExport');
 });
 
 Route::middleware([CheckLogin::class])->group(function () {

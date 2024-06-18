@@ -178,21 +178,35 @@ function checkProductsMatch() {
         return false;
     }
     var productCheckCount = [];
+
     $(".check-item").each(function () {
         var productId = $(this).data("product-id-sn");
-        if (!productCheckCount[productId]) {
-            productCheckCount[productId] = 0;
-        }
-        if ($(this).is(":checked")) {
-            productCheckCount[productId]++;
+        var checked = $(this).is(":checked") ? 1 : 0;
+
+        console.log(productId);
+        // Kiểm tra nếu productId đã tồn tại trong mảng productCheckCount
+        var existingProduct = productCheckCount.find(function (product) {
+            return product.product_id === productId;
+        });
+
+        if (existingProduct) {
+            existingProduct.checked += checked;
+        } else {
+            productCheckCount.push({
+                product_id: productId,
+                checked: checked,
+            });
         }
     });
+    // console.log(productCheckCount);
     // Kiểm tra số lượng seri được chọn cho mỗi sản phẩm
     for (var i = 0; i < productsArray.length; i++) {
         var product = productsArray[i];
         var productId = product.key;
         var productQty = product.value;
         var checkedCount = productCheckCount[productId];
+        // console.log(productQty);
+        // console.log(checkedCount);
         // Nếu số lượng seri không khớp, hiển thị thông báo và trả về false
         if (
             checkedCount === undefined ||
@@ -205,7 +219,6 @@ function checkProductsMatch() {
             return false;
         }
     }
-
     // Nếu không có vấn đề gì, trả về true
     return true;
 }
@@ -216,7 +229,6 @@ $(document).ready(function () {
         } else {
             detail_id = parseInt($(this).attr("id"), 10);
         }
-        console.log(detail_id);
         $("#detailimport_id").val(detail_id);
         $("#myInput").val($(this).find("span").text());
     });
@@ -229,8 +241,6 @@ $(document).ready(function () {
         } else {
             detail_id = parseInt($(this).attr("id"), 10);
         }
-        console.log(detail_id);
-
         $("#guest_id").val(detail_id);
         $("#myGuest").val($(this).find("span").text());
     });
@@ -243,8 +253,6 @@ $(document).ready(function () {
         } else {
             detail_id = parseInt($(this).attr("id"), 10);
         }
-        console.log(detail_id);
-
         $("#fund_id").val(detail_id);
         $("#fund").val($(this).find("span").text());
     });

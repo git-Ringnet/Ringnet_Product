@@ -23,4 +23,11 @@ class ProductReturnExport extends Model
         'user_id',
         'promotion',
     ];
+    public function sumReturnExport()
+    {
+        $detailReturnExport = ProductReturnExport::leftJoin('return_export', 'product_return_export.return_export_id', 'return_export.id')
+            ->leftJoin('delivery', 'delivery.id', 'return_export.delivery_id')->select('*')->get();
+
+        return $detailReturnExport;
+    }
 }

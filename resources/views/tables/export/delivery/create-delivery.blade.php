@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="delivery">
 </x-navbar>
-<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('delivery.store', ['workspace' => $workspacename]) }}"
+<form onsubmit="return kiemTraFormGiaoHang(e);" action="{{ route('delivery.store', ['workspace' => $workspacename]) }}"
     method="POST">
     @csrf
     <input type="hidden" name="detailexport_id" id="detailexport_id"
@@ -844,6 +844,14 @@
 <x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script>
+    $(document).ready(function() {
+        $('#luuNhap, #giaoHang').click(function(event) {
+            if (!$('.idGuest').val()) {
+                showAutoToast('warning', 'Khách hàng chưa được chọn');
+                event.preventDefault();
+            }
+        });
+    });
     //
     flatpickr("#datePicker", {
         locale: "vn",
@@ -4411,7 +4419,7 @@
         return formattedNumber;
     }
 
-    function kiemTraFormGiaoHang(event) {
+    function kiemTraFormGiaoHang(e) {
         var rows = document.querySelectorAll('tr');
         // var numberValue = $('input[name="code_delivery"]').val();
         var hasProducts = false;
@@ -4425,6 +4433,7 @@
             var normalized = lowercaseName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             return normalized;
         }
+        return false;
 
         $.ajax({
             url: '{{ route('checkCodeDelivery') }}',
@@ -4467,7 +4476,7 @@
         }
 
         var inputValue = $('.idGuest').val();
-
+        return false;
         if ($.trim(inputValue) === '') {
             showAutoToast('warning', 'Vui lòng chọn số báo giá từ danh sách!');
             $('#pdf_export').val(0);

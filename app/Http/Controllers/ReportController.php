@@ -15,6 +15,7 @@ use App\Models\PayExport;
 use App\Models\PayOder;
 use App\Models\Products;
 use App\Models\ProductImport;
+use App\Models\ProductReturnExport;
 use App\Models\Provides;
 use App\Models\QuoteExport;
 use App\Models\QuoteImport;
@@ -36,6 +37,8 @@ class ReportController extends Controller
     private $provide;
     private $detailExport;
     private $workspaces;
+    private $delivery;
+    private $product_returnE;
 
     public function __construct()
     {
@@ -45,6 +48,8 @@ class ReportController extends Controller
         $this->provide = new Provides();
         $this->detailExport = new DetailExport();
         $this->workspaces = new Workspace();
+        $this->delivery = new Delivery();
+        $this->product_returnE = new ProductReturnExport();
     }
     public function index()
     {
@@ -254,12 +259,12 @@ class ReportController extends Controller
         // Tổng hợp nội dung thu chi
         $contentImport = PayOder::whereIn('content_pay', $listIDContent)
             ->where('workspace_id', Auth::user()->current_workspace)
-            ->select('id','payment_code','workspace_id','total','payment_date','content_pay','guest_id','fund_id','note')
-            ->orderBy('content_pay','asc')
+            ->select('id', 'payment_code', 'workspace_id', 'total', 'payment_date', 'content_pay', 'guest_id', 'fund_id', 'note')
+            ->orderBy('content_pay', 'asc')
             ->get();
 
         // Trả hàng NCC
-        $returnImport = ReturnImport::where('workspace_id',Auth::user()->current_workspace)->get();
+        $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
 
 
 
@@ -305,6 +310,26 @@ class ReportController extends Controller
         return view('report.index1', compact('title', 'guests', 'provides'));
     }
 
+    // Tổng kết giao hàng báo cáo
+    public function viewReportDelivery()
+    {
+        $title = 'Báo cáo tổng kết giao hàng';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        $sumDelivery = $this->delivery->getSumDelivery();
+        return view('report.sumDelivery', compact('title', 'sumDelivery'));
+    }
+    // Tổng kết khách trả hàng
+    public function viewReportSumReturnExport()
+    {
+        $title = 'Báo cáo tổng kết khách trả hàng';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        // $sumDelivery = $this->delivery->getSumDelivery();
+        $sumReturnExport = $this->product_returnE->sumReturnExport();
+        dd($sumReturnExport);
+        return view('report.sumReturnExport', compact('title', 'sumReturnExport'));
+    }
     /**
      * Show the form for creating a new resource.
      */

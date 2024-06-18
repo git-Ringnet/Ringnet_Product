@@ -951,7 +951,7 @@
 
         // Hiển thị thông báo nếu không có sản phẩm
         if (!hasProducts) {
-            showAutoToast("warning", "Không có sản phẩm để giao");
+            showAutoToast("warning", "Không có sản phẩm để trả");
             event.preventDefault();
         }
 
