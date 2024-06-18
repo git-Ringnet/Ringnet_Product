@@ -33,7 +33,8 @@ class Receive_bill extends Model
         return $this->hasOne(Provides::class, 'id', 'provide_id');
     }
 
-    public function getReturnImport(){
+    public function getReturnImport()
+    {
         return $this->hasMany(ReturnImport::class, 'receive_id', 'id');
     }
 
@@ -370,138 +371,148 @@ class Receive_bill extends Model
         $listID = [];
         $receive = DB::table($this->table)->where('id', $id)->first();
         if ($receive) {
-            $detail = $receive->detailimport_id;
-            // Lấy thông tin sản phẩm 
-            $productImport = ProductImport::where('receive_id', $receive->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->get();
-            if ($productImport) {
-                foreach ($productImport as $item) {
-                    $product = Products::where('id', $item->product_id)
-                        ->where('workspace_id', Auth::user()->current_workspace)
-                        ->first();
-                    if ($product) {
-                        array_push($listID, $product->id);
-                    }
-                }
-                // Kiểm tra đã tạo đơn bán hàng chưa
-                $checkExport = QuoteExport::whereIn('product_id', $listID)
+            $checkReturn = ReturnImport::where('id', $receive->id)->first();
+            if ($checkReturn) {
+                $status = false;
+            } else {
+                $detail = $receive->detailimport_id;
+                // Lấy thông tin sản phẩm 
+                $productImport = ProductImport::where('receive_id', $receive->id)
                     ->where('workspace_id', Auth::user()->current_workspace)
-                    ->first();
-                if ($checkExport) {
-                    $status = false;
-                } else {
-                    // Tiến hành xóa đơn
+                    ->get();
+                if ($productImport) {
                     foreach ($productImport as $item) {
-                        $quoteImport = QuoteImport::where('id', $item->quoteImport_id)
-                            ->where('workspace_id', Auth::user()->current_workspace)
-                            ->first();
-                        if ($quoteImport) {
-                            $total += $item->product_qty * $quoteImport->price_export;
-                            $total_tax += ($item->product_qty * $quoteImport->price_export) * ($quoteImport->product_tax == 99 ? 0 : $quoteImport->product_tax) / 100;
-                            $dataUpdate = [
-                                'receive_qty' => $quoteImport->receive_qty - $item->product_qty
-                            ];
-                            if ($quoteImport->receive_qty - $item->product_qty == 0) {
-                                $dataUpdate['product_id'] = null;
-                            }
-                            DB::table('quoteimport')->where('id', $quoteImport->id)
-                                ->where('workspace_id', Auth::user()->current_workspace)
-                                ->update($dataUpdate);
-                            // Xóa serial number
-                            $SN = Serialnumber::where('receive_id', $item->receive_id)
-                                ->where('quoteImport_id', $quoteImport->id)
-                                ->where('workspace_id', Auth::user()->current_workspace)
-                                ->get();
-                            foreach ($SN as $sn) {
-                                $sn->delete();
-                            }
-                        }
-                        // Trừ sản phẩm khỏi tồn kho
                         $product = Products::where('id', $item->product_id)
                             ->where('workspace_id', Auth::user()->current_workspace)
                             ->first();
                         if ($product) {
-                            $dataProduct = [
-                                'product_inventory' => ($product->product_inventory - $item->product_qty),
-                            ];
-                            DB::table('products')
-                                ->where('id', $product->id)
-                                ->where('workspace_id', Auth::user()->current_workspace)
-                                ->update($dataProduct);
+                            array_push($listID, $product->id);
                         }
-                        // Xóa đơn hàng
-                        $item->delete();
                     }
-
-                    // Cập nhật id product null khi xóa đơn
-
-
-                    // Xóa đơn nhận hàng
-                    DB::table('receive_bill')->where('id', $receive->id)
+                    // Kiểm tra đã tạo đơn bán hàng chưa
+                    $checkExport = QuoteExport::whereIn('product_id', $listID)
                         ->where('workspace_id', Auth::user()->current_workspace)
-                        ->delete();
+                        ->first();
+                    if ($checkExport) {
+                        $status = false;
+                    } else {
+                        // Tiến hành xóa đơn
+                        foreach ($productImport as $item) {
+                            $quoteImport = QuoteImport::where('id', $item->quoteImport_id)
+                                ->where('workspace_id', Auth::user()->current_workspace)
+                                ->first();
+                            if ($quoteImport) {
+                                $total += $item->product_qty * $quoteImport->price_export;
+                                $total_tax += ($item->product_qty * $quoteImport->price_export) * ($quoteImport->product_tax == 99 ? 0 : $quoteImport->product_tax) / 100;
+                              
+                                $dataUpdate = [
+                                    'receive_qty' => $quoteImport->receive_qty - $item->product_qty
+                                ];
 
 
-                    // Cập nhật lại receive_id và xóa sản phẩm đã thêm không theo đơn
-                    $getQuoteImport = QuoteImport::where('receive_id', $receive->id)->where('workspace_id', Auth::user()->current_workspace)->get();
-                    if ($getQuoteImport) {
-                        foreach ($getQuoteImport as $item) {
-                            if ($item->detailimport_id == 0) {
-                                $item->delete();
-                            } else {
-                                $item->receive_id = 0;
-                                $item->save();
+                                if ($quoteImport->receive_qty - $item->product_qty == 0) {
+                                    $dataUpdate['product_id'] = null;
+                                }
+
+                                // dd($dataUpdate);
+                                DB::table('quoteimport')->where('id', $quoteImport->id)
+                                    ->where('workspace_id', Auth::user()->current_workspace)
+                                    ->update($dataUpdate);
+                                // Xóa serial number
+                                $SN = Serialnumber::where('receive_id', $item->receive_id)
+                                    ->where('quoteImport_id', $quoteImport->id)
+                                    ->where('workspace_id', Auth::user()->current_workspace)
+                                    ->get();
+                                foreach ($SN as $sn) {
+                                    $sn->delete();
+                                }
+                            }
+                            // Trừ sản phẩm khỏi tồn kho
+                            $product = Products::where('id', $item->product_id)
+                                ->where('workspace_id', Auth::user()->current_workspace)
+                                ->first();
+                            if ($product) {
+                                $dataProduct = [
+                                    'product_inventory' => ($product->product_inventory - $item->product_qty),
+                                ];
+                                DB::table('products')
+                                    ->where('id', $product->id)
+                                    ->where('workspace_id', Auth::user()->current_workspace)
+                                    ->update($dataProduct);
+                            }
+                            // Xóa đơn hàng
+                            $item->delete();
+                        }
+
+                        // Cập nhật id product null khi xóa đơn
+
+
+                        // Xóa đơn nhận hàng
+                        DB::table('receive_bill')->where('id', $receive->id)
+                            ->where('workspace_id', Auth::user()->current_workspace)
+                            ->delete();
+
+
+                        // Cập nhật lại receive_id và xóa sản phẩm đã thêm không theo đơn
+                        $getQuoteImport = QuoteImport::where('receive_id', $receive->id)->where('workspace_id', Auth::user()->current_workspace)->get();
+                        if ($getQuoteImport) {
+                            foreach ($getQuoteImport as $item) {
+                                if ($item->detailimport_id == 0) {
+                                    $item->delete();
+                                } else {
+                                    $item->receive_id = 0;
+                                    $item->save();
+                                }
                             }
                         }
-                    }
-                    // Xóa file đính kèm theo đơn nhận hàng
-                    // DB::table('attachment')->where('table_id', $receive->id)
-                    //     ->where('table_name', 'DNH')
-                    //     ->where('workspace_id', Auth::user()->current_workspace)
-                    //     ->delete();
+                        // Xóa file đính kèm theo đơn nhận hàng
+                        // DB::table('attachment')->where('table_id', $receive->id)
+                        //     ->where('table_name', 'DNH')
+                        //     ->where('workspace_id', Auth::user()->current_workspace)
+                        //     ->delete();
 
-                    // Cập nhật lại trạng thái đơn hàng
-                    $checkReceive = Receive_bill::where('detailimport_id', $detail)
-                        ->where('workspace_id', Auth::user()->current_workspace)
-                        ->first();
-                    $checkReciept = Reciept::where('detailimport_id', $detail)
-                        ->where('workspace_id', Auth::user()->current_workspace)
-                        ->first();
-                    $checkPayment = PayOder::where('detailimport_id', $detail)
-                        ->where('workspace_id', Auth::user()->current_workspace)
-                        ->first();
-                    // Cập nhật trạng thái nhận hàng
-                    if ($checkReceive) {
-                        $st = 1;
-                    } else {
-                        $st = 0;
-                    }
-                    if ($checkReceive || $checkReciept || $checkPayment) {
-                        $stDetail = 0;
-                        $stDebt = 1;
-                    } else {
-                        $stDetail = 1;
-                        $stDebt = 0;
-                    }
-                    DB::table('detailimport')->where('id', $detail)
-                        ->where('workspace_id', Auth::user()->current_workspace)
-                        ->update([
-                            'status_receive' => $st,
-                            'status' => $stDetail,
-                            'status_debt' => $stDebt
-                        ]);
-
-                    // Xóa dư nợ nhà cung cấp nếu tình trạng là 1
-                    if ($stDetail == 1) {
-                        $detailImport = DetailImport::where('id', $detail)->first();
-                        if ($detailImport) {
-                            $this->updateDebtProvide($detailImport->provide_id, $detailImport->total_tax);
+                        // Cập nhật lại trạng thái đơn hàng
+                        $checkReceive = Receive_bill::where('detailimport_id', $detail)
+                            ->where('workspace_id', Auth::user()->current_workspace)
+                            ->first();
+                        $checkReciept = Reciept::where('detailimport_id', $detail)
+                            ->where('workspace_id', Auth::user()->current_workspace)
+                            ->first();
+                        $checkPayment = PayOder::where('detailimport_id', $detail)
+                            ->where('workspace_id', Auth::user()->current_workspace)
+                            ->first();
+                        // Cập nhật trạng thái nhận hàng
+                        if ($checkReceive) {
+                            $st = 1;
+                        } else {
+                            $st = 0;
                         }
+                        if ($checkReceive || $checkReciept || $checkPayment) {
+                            $stDetail = 0;
+                            $stDebt = 1;
+                        } else {
+                            $stDetail = 1;
+                            $stDebt = 0;
+                        }
+                        DB::table('detailimport')->where('id', $detail)
+                            ->where('workspace_id', Auth::user()->current_workspace)
+                            ->update([
+                                'status_receive' => $st,
+                                'status' => $stDetail,
+                                'status_debt' => $stDebt
+                            ]);
+
+                        // Xóa dư nợ nhà cung cấp nếu tình trạng là 1
+                        if ($stDetail == 1) {
+                            $detailImport = DetailImport::where('id', $detail)->first();
+                            if ($detailImport) {
+                                $this->updateDebtProvide($detailImport->provide_id, $detailImport->total_tax);
+                            }
+                        }
+
+
+                        $status = true;
                     }
-
-
-                    $status = true;
                 }
             }
         } else {

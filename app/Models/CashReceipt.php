@@ -30,6 +30,21 @@ class CashReceipt extends Model
         return $this->belongsTo(Guest::class);
     }
 
+    public function getGuest()
+    {
+        return $this->hasOne(Guest::class, 'id', 'guest_id');
+    }
+
+    public function getContentPay()
+    {
+        return $this->hasOne(ContentGroups::class, 'id', 'content_id');
+    }
+
+    public function getFund()
+    {
+        return $this->hasOne(Fund::class, 'id', 'fund_id');
+    }
+
     public function fund()
     {
         return $this->belongsTo(Fund::class);

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\WorkspaceController;
 use App\Http\Controllers\BillSaleController;
 use App\Http\Controllers\CashReceiptController;
 use App\Http\Controllers\ChangeInventoryController;
+use App\Http\Controllers\ChangeWarehouseController;
 use App\Http\Controllers\ContentGroupsController;
 use App\Http\Controllers\ContentImportExportController;
 use App\Http\Controllers\DashboardController;
@@ -118,6 +119,11 @@ Route::resource('{workspace}/returnExport', ReturnExportController::class);
 Route::resource('{workspace}/cash_receipts', CashReceiptController::class);
 Route::get('/getInfoDeliveryReciepts', [CashReceiptController::class, 'getInfoDeliveryReciepts'])->name('getInfoDeliveryReciepts');
 
+
+// Phiếu chuyển kho
+// Route::resource('{workspace}/changeWarehouse',[ChangeWarehouseController::class]);
+Route::resource('{workspace}/changeWarehouse', ChangeWarehouseController::class);
+Route::get('/getProductByWarehouse', [ChangeWarehouseController::class, 'getProductByWarehouse'])->name('getProductByWarehouse');
 
 // Trả hàng NCC
 Route::resource('{workspace}/returnImport', ReturnImportController::class);

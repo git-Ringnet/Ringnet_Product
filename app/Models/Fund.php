@@ -20,6 +20,15 @@ class Fund extends Model
     ];
     protected $table = 'funds';
 
+    public function getPayOrder()
+    {
+        return $this->hasMany(PayOder::class, 'fund_id', 'id');
+    }
+    public function getPayExport()
+    {
+        return $this->hasMany(CashReceipt::class, 'fund_id', 'id');
+    }
+
     public function calculateFunds($id, $money, $operation)
     {
         // Lấy thông tin quỹ

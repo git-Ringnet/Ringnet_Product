@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CashReceipt;
 use App\Models\ContentGroups;
 use App\Models\ContentImportExport;
 use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
 use App\Models\DetailImport;
+use App\Models\Fund;
 use App\Models\Guest;
 use App\Models\History;
 use App\Models\HistoryImport;
@@ -263,10 +265,25 @@ class ReportController extends Controller
             ->orderBy('content_pay', 'asc')
             ->get();
 
+        $contetnType1 = ContentGroups::where('contenttype_id', 1)
+            ->where('workspace_id', Auth::user()->current_workspace)->get();
+        $listIDContent1 = [];
+        foreach ($contetnType1 as $va) {
+            array_push($listIDContent1, $va->id);
+        }
+
+
+        $contentExport = CashReceipt::whereIn('content_id', $listIDContent1)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->select('id', 'receipt_code', 'workspace_id', 'amount', 'date_created', 'content_id', 'guest_id', 'fund_id', 'note')
+            ->orderBy('content_id', 'asc')
+            ->get();
+
         // Trả hàng NCC
         $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
 
-
+        // thu chi tồn quỹ
+        $inventoryDebt = Fund::all();
 
         // dd($doanhso);
         return view('report.index', compact(
@@ -298,7 +315,9 @@ class ReportController extends Controller
             'dondathang',
             'content',
             'contentImport',
-            'returnImport'
+            'returnImport',
+            'contentExport',
+            'inventoryDebt'
         ));
     }
     public function view()

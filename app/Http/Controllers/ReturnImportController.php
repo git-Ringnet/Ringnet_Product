@@ -142,10 +142,7 @@ class ReturnImportController extends Controller
         // Trừ số lượng nếu đã tạo đơn
         if ($quoteImport) {
             foreach ($quoteImport as $item) {
-                $productImport = ReturnProduct::
-                    // leftJoin('returnimport','returnimport.id','returnproduct.returnImport_id')
-                    // ->
-                    where('quoteimport_id', $item->id)
+                $productImport = ReturnProduct::where('quoteimport_id', $item->id)
                     ->sum('qty');
                 array_push($qty, $productImport);
 

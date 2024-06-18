@@ -109,6 +109,11 @@
                         <a class="text-secondary px-1 text-15" data-toggle="tab" href="#returnImport">Trả hàng NCC
                         </a>
                     </li>
+                    <li>
+                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#inventoryDebt">Thống kê thu chi
+                            tồn quỹ
+                        </a>
+                    </li>
                 </ul>
             </div>
         </section>
@@ -340,6 +345,7 @@
                 </section>
             </div>
         </div>
+
         {{-- Mua hàng --}}
         <div id="import" class="tab-pane fade">
             <div class="content margin-top-fixed10">
@@ -468,6 +474,7 @@
                 </section>
             </div>
         </div>
+
         {{-- Bán hàng --}}
         <div id="export" class="tab-pane fade">
             <div class="content margin-top-fixed10">
@@ -597,6 +604,7 @@
                 </section>
             </div>
         </div>
+
         {{-- Tổng kết bán hàng --}}
         <div id="tkbanhang" class="content tab-pane in active">
             <div class="content margin-top-fixed10">
@@ -981,6 +989,7 @@
                 </section>
             </div>
         </div>
+
         {{-- Tổng kết giao hàng --}}
         <div id="tkgiaohang" class="tab-pane fade">
             <div class="content margin-top-fixed10">
@@ -1232,6 +1241,8 @@
                 </section>
             </div>
         </div>
+
+
         {{-- Kết quả kinh doanh --}}
         {{-- <div id="kqkinhdoanh" class="content tab-pane in active">
             <div class="content margin-top-fixed10">
@@ -1387,6 +1398,7 @@
                 </section>
             </div>
         </div> --}}
+
         {{-- Tổng kết mua hàng --}}
         <div id="countInport" class="tab-pane fade">
             <div class="content margin-top-fixed10">
@@ -3411,6 +3423,109 @@
                                                 @endforeach
                                                 <tr>
                                                     <td colspan="8">Thu</td>
+                                                    @php
+                                                        $previousContentPay = null;
+                                                        $isFirstItem = true;
+                                                    @endphp
+                                                    @foreach ($contentExport as $item)
+                                                        @if ($isFirstItem && $previousContentPay !== $item->content_id)
+                                                <tr>
+                                                    <td colspan="6">
+                                                        <span
+                                                            style="color: #007bff; text-decoration: none; background-color: transparent">
+                                                            @if ($item->getContentPay)
+                                                                Nội dung : {{ $item->getContentPay->name }}
+                                                            @endif
+                                                        </span>
+                                                    </td>
+                                                    <td> </td>
+                                                    <td></td>
+                                                </tr>
+                                            @else
+                                                @if ($previousContentPay !== null && $previousContentPay !== $item->content_id)
+                                                    @php
+                                                        $previousContentPay !== $item->content_id
+                                                            ? ($total = 0)
+                                                            : ($total = $total);
+                                                    @endphp
+                                                    <tr>
+                                                        @if ($item->getContentPay)
+                                                            <td colspan="6">
+                                                                <span
+                                                                    style="color: #007bff; text-decoration: none; background-color: transparent">
+                                                                    Nội dung : {{ $item->getContentPay->name }}
+                                                                </span>
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        @endif
+                                                    </tr>
+                                                @endif
+                                                @endif
+
+                                                <tr class="position-relative guests-info"
+                                                    onclick="handleRowClick('checkbox', event);">
+                                                    <input type="hidden" name="id-guest" class="id-guest"
+                                                        id="id-guest" value="{{ $item->id }}">
+                                                    <td>
+                                                        <span class="margin-Right10">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="6"
+                                                                height="10" viewBox="0 0 6 10" fill="none">
+                                                                <g clip-path="url(#clip0_1710_10941)">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
+                                                                        fill="#282A30" />
+                                                                </g>
+                                                                <defs>
+                                                                    <clipPath id="clip0_1710_10941">
+                                                                        <rect width="6" height="10"
+                                                                            fill="white" />
+                                                                    </clipPath>
+                                                                </defs>
+                                                            </svg>
+                                                        </span>
+                                                        <input type="checkbox" class="p-0 m-0 checkall-btn"
+                                                            name="ids[]" id="checkbox" value=""
+                                                            onclick="event.stopPropagation();">
+                                                    </td>
+                                                    <td class="py-2 text-13-black pl-0">
+                                                        {{ date_format(new DateTime($item->date_created), 'd-m-Y') }}
+                                                    </td>
+                                                    <td class="py-2 text-13-black pl-0">
+                                                        {{ $item->receipt_code }}
+                                                    </td>
+                                                    <td class="py-2 text-13-black pl-0 text-wrap">
+                                                        @if ($item->getGuest)
+                                                            {{ $item->getGuest->guest_name_display }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="py-2 text-13-black pl-0 text-right">
+                                                        @if ($item->getContentPay)
+                                                            {{ $item->getContentPay->name }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="py-2 text-13-black pl-0 text-right">
+                                                        {{ number_format($item->amount) }}
+                                                    </td>
+                                                    <td class="py-2 text-13-black pl-0 text-right">
+                                                        @if ($item->getFund)
+                                                            {{ $item->getFund->name }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="py-2 text-13-black pl-0 text-right">
+                                                        {{ $item->note }}
+                                                    </td>
+                                                    <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
+                                                        style="right: 10px; top: 7px;">
+                                                        <div class="d-flex w-100">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                @php
+                                                    $previousContentPay = $item->content_pay;
+
+                                                @endphp
+                                                @endforeach
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -3753,13 +3868,13 @@
                                                             {{ number_format($totalReturn) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-                                                            @if($item->getPayment)
-                                                                {{number_format($item->getPayment->payment)}}
+                                                            @if ($item->getPayment)
+                                                                {{ number_format($item->getPayment->payment) }}
                                                             @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-                                                            @if($item->getPayment)
-                                                            {{number_format($item->getPayment->total - $item->getPayment->payment)}}
+                                                            @if ($item->getPayment)
+                                                                {{ number_format($item->getPayment->total - $item->getPayment->payment) }}
                                                             @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-wrap">
@@ -3767,6 +3882,367 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        {{-- Thống kê thu chi tồn quỹ --}}
+        <div id="inventoryDebt" class="tab-pane fade">
+            <div class="content margin-top-fixed10">
+                <!-- Main content -->
+                <section class="content margin-250">
+                    <div class="container-fluided">
+                        <div class="row result-filter-export margin-left30 my-1">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 p-0 m-0 pl-2">
+                                <div class="card">
+                                    <!-- /.card-header -->
+                                    <div class="outer2 text-nowrap">
+                                        <table id="example2" class="table table-hover">
+                                            <thead class="sticky-head">
+                                                <tr>
+                                                    <th scope="col" style="padding-left: 2rem;"
+                                                        class="bg-white">
+                                                        <input type="checkbox" name="all" id="checkall"
+                                                            class="checkall-btn">
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="guest_name"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Ngày</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-guest_name"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="guest_name"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Chứng từ</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-guest_name"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Tên</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Nội dung thu chi</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Đầu kỳ</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Thu</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Chi</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="bg-white pl-0">
+                                                        <span class="d-flex justify-content-end">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Cuối kỳ</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-export-sumAmountOwed">
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="import" class="tbody-export">
+                                                @foreach ($inventoryDebt as $va)
+                                                @php
+                                                    $total = 0;
+                                                @endphp
+                                                    <tr>
+                                                        <td colspan="9">{{ $va->name }}</td>
+                                                    </tr>
+                                                    {{-- Mua hàng --}}
+                                                    @if ($va->getPayOrder)
+                                                        @foreach ($va->getPayOrder as $item)
+                                                            <tr>
+                                                                <td></td>
+                                                                <td> {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                                </td>
+                                                                <td>{{ $item->payment_code }}</td>
+                                                                <td>
+                                                                    @if ($item->getGuest)
+                                                                        {{ $item->getGuest->guest_name_display }}
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if ($item->getContentPay)
+                                                                        {{ $item->getContentPay->name }}
+                                                                    @endif
+                                                                </td>
+                                                                <td>0</td>
+                                                                <td>0</td>
+                                                                <td>{{ number_format($item->total) }}</td>
+                                                                <td></td>
+                                                            </tr>
+                                                            @php
+                                                                $total -= $item->total
+                                                            @endphp
+                                                        @endforeach
+                                                    @endif
+                                                    @if ($va->getPayExport)
+                                                        @foreach ($va->getPayExport as $item)
+                                                            <tr>
+                                                                <td></td>
+                                                                <td>{{ date_format(new DateTime($item->date_created), 'd/m/Y') }}</td>
+                                                                <td>{{ $item->receipt_code}}</td>
+                                                                <td>@if($item->getGuest) {{$item->getGuest->guest_name_display}} @endif</td>
+                                                                <td>@if($item->getContentPay) {{$item->getContentPay->name}} @endif</td>
+                                                                <td>0</td>
+                                                                <td>{{ number_format($item->amount) }}</td>
+                                                                <td>0</td>
+                                                                <td></td>
+                                                            </tr>
+                                                            @php
+                                                            $total += $item->amount
+                                                        @endphp
+                                                        @endforeach
+                                                    @endif
+                                                    <tr>
+                                                        <td colspan="8" class="total"></td>
+                                                        <td class="text-right">{{ number_format($total) }}</td>
+                                                    </tr>
+                                                @endforeach
+                                                {{-- @foreach ($returnImport as $item)
+                                                    <tr class="position-relative guests-info"
+                                                        onclick="handleRowClick('checkbox', event);">
+                                                        <input type="hidden" name="id-guest" class="id-guest"
+                                                            id="id-guest" value="{{ $item->id }}">
+                                                        <td>
+                                                            <span class="margin-Right10">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    width="6" height="10"
+                                                                    viewBox="0 0 6 10" fill="none">
+                                                                    <g clip-path="url(#clip0_1710_10941)">
+                                                                        <path fill-rule="evenodd"
+                                                                            clip-rule="evenodd"
+                                                                            d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
+                                                                            fill="#282A30" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_1710_10941">
+                                                                            <rect width="6" height="10"
+                                                                                fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </span>
+                                                            <input type="checkbox" class="p-0 m-0 checkall-btn"
+                                                                name="ids[]" id="checkbox" value=""
+                                                                onclick="event.stopPropagation();">
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            {{ $item->return_code }}
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 text-wrap">
+                                                            @if ($item->getReceive && $item->getReceive->getNameProvide)
+                                                                {{ $item->getReceive->getNameProvide->provide_name_display }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 text-wrap">
+                                                            @if ($item->getAllReturnProduct)
+                                                                @foreach ($item->getAllReturnProduct as $value)
+                                                                    @if ($value->getQuoteImport)
+                                                                        <p class="m-0">
+                                                                            {{ $value->getQuoteImport->product_name }}
+                                                                        </p>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 text-wrap">
+                                                            @if ($item->getAllReturnProduct)
+                                                                @foreach ($item->getAllReturnProduct as $value)
+                                                                    @if ($value->getQuoteImport)
+                                                                        <p class="m-0">
+                                                                            {{ $value->getQuoteImport->product_unit }}
+                                                                        </p>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 text-wrap">
+                                                            @if ($item->getAllReturnProduct)
+                                                                @foreach ($item->getAllReturnProduct as $value)
+                                                                    <p class="m-0">
+                                                                        {{ number_format($value->qty) }}
+                                                                    </p>
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            @if ($item->getAllReturnProduct)
+                                                                @foreach ($item->getAllReturnProduct as $value)
+                                                                    @if ($value->getQuoteImport)
+                                                                        <p class="m-0">
+                                                                            {{ number_format($value->getQuoteImport->price_export) }}
+                                                                        </p>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            @if ($item->getAllReturnProduct)
+                                                                @foreach ($item->getAllReturnProduct as $value)
+                                                                    @if ($value->getQuoteImport)
+                                                                        @php
+                                                                            $promotionArray = json_decode(
+                                                                                $value->getQuoteImport->promotion,
+                                                                                true,
+                                                                            );
+                                                                            $promotionValue = isset(
+                                                                                $promotionArray['value'],
+                                                                            )
+                                                                                ? $promotionArray['value']
+                                                                                : 0;
+                                                                            $promotionOption = isset(
+                                                                                $promotionArray['type'],
+                                                                            )
+                                                                                ? $promotionArray['type']
+                                                                                : '';
+                                                                            $totalReturn = 0;
+                                                                            $temp = 0;
+                                                                            $temp =
+                                                                                $value->qty *
+                                                                                $value->getQuoteImport->price_export;
+                                                                            $totalReturn =
+                                                                                $promotionOption == 1
+                                                                                    ? $temp - $promotionValue
+                                                                                    : ($temp * $promotionValue) / 100;
+                                                                        @endphp
+                                                                        <p class="m-0">
+                                                                            {{ number_format($totalReturn) }}
+                                                                        </p>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            @if ($item->getAllReturnProduct)
+                                                                @foreach ($item->getAllReturnProduct as $value)
+                                                                    @if ($value->getQuoteImport)
+                                                                        @php
+                                                                            $promotionArray = json_decode(
+                                                                                $value->getQuoteImport->promotion,
+                                                                                true,
+                                                                            );
+                                                                            $promotionValue = isset(
+                                                                                $promotionArray['value'],
+                                                                            )
+                                                                                ? $promotionArray['value']
+                                                                                : 0;
+                                                                            $promotionOption = isset(
+                                                                                $promotionArray['type'],
+                                                                            )
+                                                                                ? $promotionArray['type']
+                                                                                : '';
+                                                                            $totalReturn = 0;
+                                                                            $temp = 0;
+                                                                            $temp +=
+                                                                                $value->qty *
+                                                                                $value->getQuoteImport->price_export;
+                                                                            $totalReturn +=
+                                                                                $promotionOption == 1
+                                                                                    ? $temp - $promotionValue
+                                                                                    : ($temp * $promotionValue) / 100;
+                                                                        @endphp
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                            {{ number_format($totalReturn) }}
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            @if ($item->getPayment)
+                                                                {{ number_format($item->getPayment->payment) }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0">
+                                                            @if ($item->getPayment)
+                                                                {{ number_format($item->getPayment->total - $item->getPayment->payment) }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 text-wrap">
+                                                            {{ $item->description }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach --}}
                                             </tbody>
                                         </table>
                                     </div>
