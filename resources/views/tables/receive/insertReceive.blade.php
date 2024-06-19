@@ -602,14 +602,8 @@
 
                                                 <td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">
                                                     <input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]"
-                                                    value="`+product.listWarehouse[index]+`" readonly>
-                                                    <input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]">
-                                                    <ul id="listWarehouse" class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%; display: none;"> 
-                                                    </ul>
+                                                    value="` + product.listWarehouse[index] + `" readonly>
                                                 </td>
-
-
-
 
                                                 <td class="p-2 text-13 align-top text-center border-top-0 border-bottom border-right">
                                                     <div style="margin-top: 6px;">
@@ -682,6 +676,40 @@
     // Tạo INPUT SERI
     createRowInput('seri');
 
+
+    // Hiển thị kho hàng
+    $(document).on('click', '.searchWarehouse', function(e) {
+        e.preventDefault();
+        var position = $(this);
+        $.ajax({
+            url: "{{ route('getWarehouse') }}",
+            type: "get",
+            data: {},
+            success: function(data) {
+                $(position).closest('tr').find('#listWarehouse li').remove()
+                data.forEach(item => {
+                    var li = `
+                        <li class="w-100">
+                            <a data-id="` + item.id + `" data-value="` + item.warehouse_name + `"
+                            href="javascript:void(0)" 
+                            class="text-dark d-flex w-100 justify-content-between p-2 search-warehouse" 
+                            name="search-warehouse">
+                            <span class="w-100 text-13-black">` + item.warehouse_name + `</span>
+                            </a>
+                        </li>`;
+                    $(position).closest('tr').find('#listWarehouse').append(li);
+                });
+            }
+        })
+    })
+
+    $(document).on('click', '.search-warehouse', function() {
+        var tr = $(this).closest('tr');
+        $(tr).find('#searchWarehouse').val($(this).data('value'));
+        $(tr).find('.warehouse_id').val($(this).data('id'));
+        $(tr).find('#listWarehouse').hide();
+    })
+
     // Kiểm tra Serial Number
     $('form').on('submit', function(e) {
         e.preventDefault();
@@ -734,11 +762,18 @@
         if (!checkProduct()) {
             formSubmit = false
         }
-        
+
         if (!checkQtyProduct()) {
             formSubmit = false;
             showAutoToast('warning', 'Vui lòng nhập số lượng sản phẩm lớn hơn 0')
         }
+
+        if (!checkWarehouse()) {
+            formSubmit = false;
+            showAutoToast('warning', 'Vui lòng chọn kho hàng cho sản phẩm')
+        }
+
+
 
         if (formSubmit) {
             $.ajax({

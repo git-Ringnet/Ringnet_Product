@@ -193,6 +193,7 @@ class ReceiveController extends Controller
         $workspacename = $workspacename->workspace_name;
         $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
             ->join('products', 'quoteimport.product_name', 'products.product_name')
+            ->join('warehouse','warehouse.id','quoteimport.warehouse_id')
             // ->where('products_import.detailimport_id', $receive->detailimport_id)
             ->where('products_import.receive_id', $receive->id)
             ->where('products.workspace_id', Auth::user()->current_workspace)
@@ -204,6 +205,7 @@ class ReceiveController extends Controller
                 'quoteimport.price_export',
                 'quoteimport.product_tax',
                 'quoteimport.product_note',
+                'warehouse.warehouse_name as nameHouse',
                 'products_import.product_id',
                 'products_import.cbSN',
                 'products_import.receive_id',
@@ -211,7 +213,7 @@ class ReceiveController extends Controller
                 'products_import.product_guarantee',
                 'products.product_inventory as inventory',
                 'quoteimport.promotion',
-                DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
+                DB::raw('products_import.product_qty * quoteimport.price_export as product_total'),
             )
             ->with('getSerialNumber')->get();
         return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename', 'nameRepresent', 'detail'));

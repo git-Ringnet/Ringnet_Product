@@ -40,13 +40,13 @@ class ProductController extends Controller
 
     public function index()
     {
-        $product = $this->products->getAllProducts();
+        // $product = $this->products->getAllProducts();
         $title = "Kho 1";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // Tất cả nhóm hàng hóa
         $groups = Groups::where('grouptype_id',4)->get();
-
+        $product = Products::where('category_id',0)->get();
         return view('tables.products.products', compact('product', 'title', 'workspacename','groups'));
     }
 

@@ -205,6 +205,7 @@ class ProductImport extends Model
                     'workspace_id' => Auth::user()->current_workspace,
                     'user_id' => Auth::user()->id,
                     'group_id' => 0,
+                    'category_id'=> 0,
                     'created_at' => Carbon::now()
                 ];
                 $checkProduct = Products::where('product_name', $data['product_name'][$i])->where('workspace_id', Auth::user()->current_workspace)->first();

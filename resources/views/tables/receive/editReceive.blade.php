@@ -411,7 +411,7 @@
                                                     class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                                     <input id="searchWarehouse" type="text" placeholder="Chọn kho"
                                                         class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse"
-                                                        name="warehouse[]" readonly>
+                                                        name="warehouse[]" readonly value="{{$item->nameHouse}}">
                                                 </td>
                                                 <td
                                                     class="align-top text-center border-top-0 border-bottom border-right">

@@ -239,6 +239,99 @@
                                 </tr>
                             </thead>
                             <tbody class="tbody-product">
+                                <tr>
+                                    <td colspan="10" class="border-bottom">Nhóm hàng hóa : Chưa chọn nhóm
+                                    </td>
+                                </tr>
+                                @foreach ($product as $item)
+                                    @php
+                                        $total = 0;
+                                    @endphp
+                                    <tr class="position-relative product-info"
+                                        onclick="handleRowClick('checkbox', event);">
+                                        <input type="hidden" name="id-product" class="id-product" id="id-product"
+                                            value="{{ $item->id }}">
+                                        <td class="border-bottom border-top-0">
+                                            <span class="margin-Right10">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10"
+                                                    viewBox="0 0 6 10" fill="none">
+                                                    <g clip-path="url(#clip0_1710_10941)">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
+                                                            fill="#282A30" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_1710_10941">
+                                                            <rect width="6" height="10" fill="white" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </span>
+                                            <input type="checkbox" class="checkall-btn" name="ids[]"
+                                                id="checkbox" value="" onclick="event.stopPropagation();">
+                                        </td>
+                                        <td class="py-2 text-13-black pl-0 border-bottom border-top-0">
+                                            {{ $item->product_code }}
+                                        </td>
+                                        <td class="py-2 text-13-black border-bottom border-top-0">
+                                            <a class="duongdan"
+                                                href="{{ route('inventory.show', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
+                                                {{ $item->product_name }}
+                                            </a>
+                                        </td>
+                                        <td class="py-2 text-13-black border-bottom border-top-0">
+                                            {{ $item->product_unit }}
+                                        </td>
+                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                            {{ number_format($item->product_price_import) }}
+                                        </td>
+                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                            {{ number_format($item->price_retail) }}
+                                        </td>
+                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                            {{ number_format($item->price_wholesale) }}
+                                        </td>
+                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                            {{ number_format($item->price_specialsale) }}
+                                        </td>
+                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                            {{ number_format($item->product_weight) }}
+                                        </td>
+                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                            {{ number_format($item->product_inventory) }}
+                                        </td>
+                                        <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0"
+                                            style="right: 10px; top: 7px;">
+                                            <div class="d-flex w-100">
+                                                <a
+                                                    href="{{ route('inventory.edit', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
+                                                    <div class="m-0 px-2 py-1 mx-2 rounded">
+                                                        <svg width="16" height="16" viewBox="0 0 16 16"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path opacity="0.985" fill-rule="evenodd"
+                                                                clip-rule="evenodd"
+                                                                d="M11.1719 1.04696C11.7535 0.973552 12.2743 1.11418 12.7344 1.46883C13.001 1.72498 13.2562 1.9906 13.5 2.26571C13.9462 3.00226 13.9358 3.73143 13.4688 4.45321C10.9219 7.04174 8.35416 9.60946 5.76563 12.1563C5.61963 12.245 5.46338 12.3075 5.29688 12.3438C4.59413 12.4153 3.891 12.483 3.1875 12.547C2.61265 12.4982 2.32619 12.1857 2.32813 11.6095C2.3716 10.8447 2.44972 10.0843 2.5625 9.32821C2.60666 9.22943 2.65874 9.13568 2.71875 9.04696C5.26563 6.50008 7.8125 3.95321 10.3594 1.40633C10.6073 1.22846 10.8781 1.10867 11.1719 1.04696ZM11.3594 2.04696C11.5998 2.02471 11.8185 2.08201 12.0156 2.21883C12.2188 2.42196 12.4219 2.62508 12.625 2.82821C12.8393 3.14436 12.8497 3.4673 12.6562 3.79696C12.4371 4.02136 12.2131 4.24011 11.9844 4.45321C11.4427 3.93236 10.9115 3.40111 10.3906 2.85946C10.5933 2.64116 10.8016 2.42762 11.0156 2.21883C11.1255 2.14614 11.2401 2.08885 11.3594 2.04696ZM9.60938 3.60946C10.1552 4.13961 10.6968 4.67608 11.2344 5.21883C9.21353 7.23968 7.19272 9.26049 5.17188 11.2813C4.571 11.3686 3.96684 11.4364 3.35938 11.4845C3.41572 10.8909 3.473 10.2971 3.53125 9.70321C5.56359 7.67608 7.58962 5.64483 9.60938 3.60946Z"
+                                                                fill="#6C6F74"></path>
+                                                            <path opacity="0.979" fill-rule="evenodd"
+                                                                clip-rule="evenodd"
+                                                                d="M1.17188 14.1406C5.71356 14.1354 10.2552 14.1406 14.7969 14.1563C15.0348 14.2355 15.1598 14.4022 15.1719 14.6563C15.147 14.915 15.0116 15.0816 14.7656 15.1563C10.2448 15.1771 5.72397 15.1771 1.20312 15.1563C0.807491 14.9903 0.708531 14.7143 0.90625 14.3281C0.978806 14.2377 1.06735 14.1752 1.17188 14.1406Z"
+                                                                fill="#6C6F74"></path>
+                                                        </svg>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @php
+                                        $total++;
+                                    @endphp
+                                    <tr>
+                                        <td colspan="2" class="bg-light"></td>
+                                        <td class="bg-light" style="color: #dc3545!important">Có {{ $total }}
+                                            hàng hóa</td>
+                                        <td colspan="7" class="bg-light "></td>
+                                    </tr>
+                                @endforeach
                                 @foreach ($groups as $value)
                                     <tr>
                                         <td colspan="10" class="border-bottom">Nhóm hàng hóa :{{ $value->name }}
@@ -328,13 +421,14 @@
                                                 </td>
                                             </tr>
                                             @php
-                                                $total ++;
+                                                $total++;
                                             @endphp
                                         @endforeach
                                     @endif
                                     <tr>
                                         <td colspan="2" class="bg-light"></td>
-                                        <td class="bg-light" style="color: #dc3545!important">Có {{ $total }} hàng hóa</td>
+                                        <td class="bg-light" style="color: #dc3545!important">Có {{ $total }}
+                                            hàng hóa</td>
                                         <td colspan="7" class="bg-light "></td>
                                     </tr>
                                 @endforeach

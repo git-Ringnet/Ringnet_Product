@@ -1831,8 +1831,6 @@
         $(tr).find('#searchWarehouse').val($(this).data('value'));
         $(tr).find('.warehouse_id').val($(this).data('id'));
         $(tr).find('#listWarehouse').hide();
-        // console.log($(this).data('value'));
-        // console.log($(this).data('id'));
     })
 
     $(document).on('click', '.user_flow', function(e) {
