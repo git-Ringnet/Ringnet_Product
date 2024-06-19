@@ -428,7 +428,7 @@
                                                 <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div>
                                                         <input type="text" required="" class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]"
-                                                        value="` + formatCurrency(element.price_export) + `">
+                                                        value="` + formatCurrency(element.price_export) + `" readonly>
                                                         </div>
                                                     <div class="mt-3 text-13-blue transaction text-right" id="transaction" data-toggle="modal" data-target="#recentModal">
                                                         Giao dịch gần đây
@@ -437,7 +437,7 @@
                                                 <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div>
                                                         <input type="text" class="border-0 px-2 py-1 w-100 text-right height-32 promotion" name="promotion[]"
-                                                        value="` + formatCurrency(promotionObject['value']) + `" name="promotion[]">
+                                                        value="` + formatCurrency(promotionObject['value']) + `" name="promotion[]" readonly>
                                                     </div>
                                                     <div class="mt-3 text-13-blue text-right"> 
                                                         <select class="border-0 promotion-option" name="promotion-option[]"> 
@@ -449,7 +449,7 @@
 
 
                                                 <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                                    <select class="product_tax border-0 w-100 text-center height-32" name="product_tax[]">
+                                                    <select class="product_tax border-0 w-100 text-center height-32" name="product_tax[]" disabled>
                                                         <option value="0" ` + (element.product_tax == 0 ? "selected" :
                                     "") + `>0%</option>
                                                         <option value="8" ` + (element.product_tax == 8 ? "selected" :
@@ -477,11 +477,7 @@
 
                                                 <td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">
                                                     <input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]"
-                                                        
-                                                    >
-                                                    <input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]">
-                                                    <ul id="listWarehouse" class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%; display: none;"> 
-                                                    </ul>
+                                                    readonly value="` + data['warehouse'][index] + `">
                                                 </td>
 
 

@@ -135,6 +135,7 @@ class ReturnImportController extends Controller
     {
         $data = [];
         $qty = [];
+        $warehouse = [];
         $quoteImport = QuoteImport::leftJoin('products', 'products.id', 'quoteimport.product_id')
             ->where('quoteimport.receive_id', $request->detail_id)
             ->select('quoteimport.*', 'products.check_seri', 'products.product_inventory')
@@ -142,17 +143,15 @@ class ReturnImportController extends Controller
         // Trừ số lượng nếu đã tạo đơn
         if ($quoteImport) {
             foreach ($quoteImport as $item) {
+                if ($item->getWareHouse) {
+                    array_push($warehouse, $item->getWareHouse->warehouse_name);
+                }
                 $productImport = ReturnProduct::where('quoteimport_id', $item->id)
                     ->sum('qty');
                 array_push($qty, $productImport);
-
-                // if (isset($productImport)) {
-                //     array_push($qty, $productImport->product_qty);
-                // } else {
-                //     array_push($qty, 0);
-                // }
             }
         }
+        $data['warehouse'] = $warehouse;
         $data['qty'] = $qty;
         $data['product'] = $quoteImport;
         return $data;
