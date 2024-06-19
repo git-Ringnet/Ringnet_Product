@@ -213,4 +213,11 @@ class Delivered extends Model
             }
         }
     }
+    public function sumDelivered()
+    {
+        $delivered = Delivered::leftJoin('products', 'products.id', 'delivered.product_id')
+            ->select('products.*', 'delivered.*')
+            ->get();
+        return $delivered;
+    }
 }

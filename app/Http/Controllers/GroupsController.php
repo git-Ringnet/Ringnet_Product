@@ -67,7 +67,7 @@ class GroupsController extends Controller
     {
         $result = $this->groups->addGroup($request->all());
         if ($result == true) {
-            $msg = redirect()->back()->with('msg', 'Nhóm đối tượng đã tồn tại');
+            $msg = redirect()->back()->with('warning', 'Nhóm đối tượng đã tồn tại');
         } else {
             $arrCapNhatKH = [
                 'name' => 'KH',

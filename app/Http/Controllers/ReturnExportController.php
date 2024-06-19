@@ -128,7 +128,7 @@ class ReturnExportController extends Controller
 
         // dd($serinumber);
         $invoice = $this->returnExport->getQuoteCount();
-        return view('tables.returnExport.show', compact('title', 'serinumber', 'invoice', 'returnExport', 'guest', 'numberQuote', 'product', 'workspacename'));
+        return view('tables.returnexport.show', compact('title', 'serinumber', 'invoice', 'returnExport', 'guest', 'numberQuote', 'product', 'workspacename'));
     }
 
     /**

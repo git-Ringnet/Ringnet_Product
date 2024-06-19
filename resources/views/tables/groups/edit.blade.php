@@ -105,7 +105,8 @@
                                             <p class="p-0 m-0 margin-left32 text-13">Mô tả</p>
                                         </div>
                                         <input type="text" placeholder="Nhập thông tin" name="group_desc"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                            value="{{ $group->description }}">
                                     </div>
                                     <a type="button"
                                         class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"

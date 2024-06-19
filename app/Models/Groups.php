@@ -33,25 +33,26 @@ class Groups extends Model
     }
     public function addGroup($data)
     {
-        $exist = false;
+        $existingGroup = Groups::where('name', $data['group_name_display'])
+            ->where('grouptype_id', $data['grouptype_id'])
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
+
+        if ($existingGroup) {
+            return true;
+        }
         $datagroup = [
             'name' => $data['group_name_display'],
             'grouptype_id' => $data['grouptype_id'],
             'description' => $data['group_desc'],
             'workspace_id' => Auth::user()->current_workspace,
         ];
-        DB::table($this->table)->insertGetId($datagroup);
-        $existingGroup = Groups::where('name', $datagroup['name'])
-            ->where('grouptype_id', $datagroup['grouptype_id'])
-            ->where('workspace_id', $datagroup['workspace_id'])
-            ->first();
 
-        if ($existingGroup) {
-            // If a duplicate group exists, return with an error message
-            $exist = true;
-        }
-        return $exist;
+        DB::table($this->table)->insertGetId($datagroup);
+
+        return false;
     }
+
     public function updateGroup($data, $id)
     {
         return DB::table($this->table)->where('id', $id)->update($data);

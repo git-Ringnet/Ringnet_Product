@@ -21,6 +21,7 @@ use App\Models\ProductReturnExport;
 use App\Models\Provides;
 use App\Models\QuoteExport;
 use App\Models\QuoteImport;
+use App\Models\ReturnExport;
 use App\Models\ReturnImport;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
@@ -41,6 +42,8 @@ class ReportController extends Controller
     private $workspaces;
     private $delivery;
     private $product_returnE;
+    private $returnExport;
+    private $delivered;
 
     public function __construct()
     {
@@ -51,7 +54,9 @@ class ReportController extends Controller
         $this->detailExport = new DetailExport();
         $this->workspaces = new Workspace();
         $this->delivery = new Delivery();
+        $this->delivered = new Delivered();
         $this->product_returnE = new ProductReturnExport();
+        $this->returnExport = new ReturnExport();
     }
     public function index()
     {
@@ -344,10 +349,35 @@ class ReportController extends Controller
         $title = 'Báo cáo tổng kết khách trả hàng';
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        // $sumDelivery = $this->delivery->getSumDelivery();
         $sumReturnExport = $this->product_returnE->sumReturnExport();
-        // dd($sumReturnExport);
-        return view('report.sumReturnExport', compact('title', 'sumReturnExport'));
+        $allReturn = $this->returnExport->getSumReport();
+        return view('report.sumReturnExport', compact('title', 'allReturn', 'sumReturnExport'));
+    }
+    // Tổng kết khách trả hàng
+    public function viewReportSell()
+    {
+        $title = 'Báo cáo tổng kết bán hàng';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        // Lấy sản phẩm trong đơn đó
+        $productDelivered = $this->delivered->sumDelivered();
+        // Get All đơn
+        $allDelivery = $this->delivery->getSumDelivery();
+
+        return view('report.sumSell', compact('title', 'productDelivered', 'allDelivery'));
+    }
+    // Báo cáo lợi nhuận bán hàng
+    public function viewReportSumSellProfit()
+    {
+        $title = 'Báo cáo lợi nhuận bán hàng';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        // Lấy sản phẩm trong đơn đó
+        $productDelivered = $this->delivered->sumDelivered();
+        // Get All đơn
+        $allDelivery = $this->delivery->getSumDelivery();
+
+        return view('report.sumSalesProfit', compact('title', 'productDelivered', 'allDelivery'));
     }
     /**
      * Show the form for creating a new resource.

@@ -479,6 +479,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('viewReportSell', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
+                                    <p class="text-nav ml-2">Tổng kết bán hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('cash_receipts.index', $workspacename) }}" data-name1="BH"
                                     data-des="Đơn giao hàng"
                                     class="nav-link activity1 @if (!empty($activeName) && $activeName == 'cash_receipts') active @endif">
@@ -497,6 +504,13 @@
                                     data-des="Thanh toán bán hàng"
                                     class="nav-link activity1 @if (!empty($activeName) && $activeName == 'payexport') active @endif">
                                     <p class="text-nav ml-2">Thanh toán bán hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportSumSellProfit', $workspacename) }}" data-name1="BH"
+                                    data-des="Báo cáo lợi nhuận bán hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'payexport') active @endif">
+                                    <p class="text-nav ml-2">Báo cáo lợi nhuận bán hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">

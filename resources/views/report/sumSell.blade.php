@@ -148,6 +148,17 @@
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
+                                                                Nhóm khách hàng
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-guest_name_display"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="height-52 border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link"
+                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                            <button class="btn-sort text-13" type="submit">
                                                                 Tên khách hàng
                                                             </button>
                                                         </a>
@@ -247,18 +258,7 @@
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Ghi chú
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_debt"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="guest_debt"
-                                                            data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Trạng thái giao
+                                                                Trạng thái
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_debt"></div>
@@ -267,49 +267,66 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($allReturn as $itemReturn)
+                                            @php
+                                                $totalDeliverQty = 0;
+                                                $totalPriceExport = 0;
+                                                $totalProductTotalVat = 0;
+                                                $totalItemDeliveryTotalProductVat = 0;
+                                            @endphp
+
+                                            @foreach ($allDelivery as $itemDelivery)
                                                 @php
-                                                    $matchedItems = $sumReturnExport->where(
-                                                        'idReturn',
-                                                        $itemReturn->id,
+                                                    $matchedItems = $productDelivered->where(
+                                                        'delivery_id',
+                                                        $itemDelivery->id,
                                                     );
                                                     $count = count($matchedItems);
                                                 @endphp
 
                                                 @if ($matchedItems->isNotEmpty())
                                                     @foreach ($matchedItems as $item)
+                                                        @php
+                                                            $totalDeliverQty += $item->deliver_qty;
+                                                            $totalPriceExport += $item->price_export;
+                                                            $totalProductTotalVat += $item->product_total_vat;
+                                                            $totalItemDeliveryTotalProductVat +=
+                                                                $itemDelivery->totalProductVat;
+                                                        @endphp
                                                         <tr class="position-relative">
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ $loop->first ? $itemReturn->created_at : '' }}
-
+                                                                {{ $loop->first ? $itemDelivery->ngayTao : '' }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ $loop->first ? $itemReturn->code_return : '' }}
+                                                                {{ $loop->first ? $itemDelivery->maPhieu : '' }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ $loop->first ? $itemReturn->nameGuest : '' }}
-                                                            </td>
-                                                            <td class="text-13-black height-52 border">
-                                                                {{ $item->nameProduct }}
-                                                            </td>
-                                                            <td class="text-13-black height-52 border">
-                                                                {{ $item->unitProduct }}
-                                                            </td>
-                                                            <td class="text-13-black height-52 border">
-                                                                {{ $item->qtyReturn }}
-                                                            </td>
-                                                            <td class="text-13-black height-52 border">
-                                                                {{ number_format($item->priceProduct) }}
-                                                            </td>
-                                                            <td class="text-13-black height-52 border">
-                                                                {{ number_format($item->product_total) }}
+                                                                {{ $loop->first ? $itemDelivery->nhomKH : '' }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ number_format($itemReturn->totalProductVat) }}
+                                                                {{ $loop->first ? $itemDelivery->nameGuest : '' }}
+                                                            </td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ $item->product_name }}
+                                                            </td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ $item->product_unit }}
+                                                            </td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ $item->deliver_qty }}
+                                                            </td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ number_format($item->price_export) }}
+                                                            </td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ number_format($item->product_total_vat) }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ number_format($itemDelivery->totalProductVat) }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
@@ -321,14 +338,10 @@
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ $loop->first ? $itemReturn->description : '' }}
-                                                            </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
                                                                 @if ($loop->first)
-                                                                    @if ($itemReturn->status == 1)
+                                                                    @if ($itemDelivery->status == 1)
                                                                         <span>Nháp</span>
-                                                                    @elseif ($itemReturn->status == 2)
+                                                                    @elseif ($itemDelivery->status == 2)
                                                                         <span class="text-green">Đã giao</span>
                                                                     @endif
                                                                 @endif
@@ -337,6 +350,24 @@
                                                     @endforeach
                                                 @endif
                                             @endforeach
+
+                                            <tr class="position-relative">
+                                                <td colspan="6" class="text-13-black height-52 border text-center">
+                                                    <strong>Tổng cộng</strong>
+                                                </td>
+                                                <td class="text-13-black height-52 border">
+                                                    {{ number_format($totalDeliverQty) }}</td>
+                                                <td class="text-13-black height-52 border">
+                                                    {{ number_format($totalPriceExport) }}</td>
+                                                <td class="text-13-black height-52 border">
+                                                    {{ number_format($totalProductTotalVat) }}</td>
+                                                <td class="text-13-black height-52 border">
+                                                    {{ number_format($totalItemDeliveryTotalProductVat) }}</td>
+                                                <td class="text-13-black height-52 border"></td>
+                                                <td class="text-13-black height-52 border"></td>
+                                                <td class="text-13-black height-52 border"></td>
+                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>

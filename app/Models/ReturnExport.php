@@ -393,4 +393,23 @@ class ReturnExport extends Model
             return false;
         }
     }
+    public function getSumReport()
+    {
+        $sumReturnExport = ReturnExport::leftJoin('delivery', 'delivery.id', 'return_export.delivery_id')
+            ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            ->select(
+                'delivery.*',
+                'return_export.*',
+                'guest.guest_name_display as nameGuest',
+                DB::raw('(SELECT 
+                        CASE 
+                            WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL) -- Giảm số tiền trực tiếp
+                            WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 2 THEN (COALESCE(SUM(product_total_vat), 0) * (100 - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) / 100) -- Giảm phần trăm trên tổng giá trị sản phẩm
+                            ELSE COALESCE(SUM(product_total_vat), 0) -- Không có khuyến mãi
+                        END
+                    FROM delivered WHERE delivered.delivery_id = delivery.id) as totalProductVat'),
+            )
+            ->get();
+        return $sumReturnExport;
+    }
 }

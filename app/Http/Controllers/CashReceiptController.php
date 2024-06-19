@@ -48,28 +48,27 @@ class CashReceiptController extends Controller
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
         $content = ContentGroups::where('contenttype_id', 1)->get();
 
-        $deliveries = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
-            ->select(
-                'delivery.id',
-                'delivery.guest_id',
-                'delivery.quotation_number',
-                'delivery.code_delivery',
-                'delivery.shipping_unit',
-                'delivery.shipping_fee',
-                'delivery.id as maGiaoHang',
-                'delivery.created_at as ngayGiao',
-                'delivery.status as trangThai',
-                'users.name',
-                'detailexport.guest_name',
-                'delivery.promotion',
-                DB::raw('(SELECT 
+        $deliveries = Delivery::select(
+            'delivery.id',
+            'delivery.guest_id',
+            'delivery.quotation_number',
+            'delivery.code_delivery',
+            'delivery.shipping_unit',
+            'delivery.shipping_fee',
+            'delivery.id as maGiaoHang',
+            'delivery.created_at as ngayGiao',
+            'delivery.status as trangThai',
+            'users.name',
+
+            'delivery.promotion',
+            DB::raw('(SELECT 
                         CASE 
                             WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL) -- Giảm số tiền trực tiếp
                             WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 2 THEN (COALESCE(SUM(product_total_vat), 0) * (100 - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) / 100) -- Giảm phần trăm trên tổng giá trị sản phẩm
                             ELSE COALESCE(SUM(product_total_vat), 0) -- Không có khuyến mãi
                         END
                     FROM delivered WHERE delivered.delivery_id = delivery.id) as totalProductVat')
-            )
+        )
             ->leftJoin('users', 'users.id', 'delivery.user_id')
             ->where('delivery.workspace_id', Auth::user()->current_workspace)
             ->where('delivery.status', 2)
@@ -84,7 +83,6 @@ class CashReceiptController extends Controller
                 'users.name',
                 'delivery.created_at',
                 'delivery.status',
-                'detailexport.guest_name',
                 'delivery.promotion',
             )
             ->orderBy('delivery.id', 'desc');

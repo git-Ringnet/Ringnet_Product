@@ -1326,6 +1326,7 @@ class Delivery extends Model
     {
         $deliveries = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
             ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            ->leftJoin('groups', 'groups.id', 'guest.group_id')
             ->select(
                 'delivery.id',
                 'delivery.guest_id',
@@ -1342,6 +1343,7 @@ class Delivery extends Model
                 'detailexport.guest_name',
                 'delivery.promotion',
                 'delivery.totalVat as totalVat',
+                'groups.name as nhomKH',
                 DB::raw('(SELECT 
                         CASE 
                             WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL) -- Giảm số tiền trực tiếp
@@ -1367,6 +1369,7 @@ class Delivery extends Model
                 'detailexport.guest_name',
                 'delivery.promotion',
                 'delivery.totalVat',
+                'groups.name',
             )
             ->orderBy('delivery.id', 'desc');
         $deliveries = $deliveries->get();
