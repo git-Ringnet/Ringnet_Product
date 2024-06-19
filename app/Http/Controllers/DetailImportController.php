@@ -19,6 +19,7 @@ use App\Models\Receive_bill;
 use App\Models\Reciept;
 use App\Models\Serialnumber;
 use App\Models\userFlow;
+use App\Models\Warehouse;
 use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -1250,9 +1251,11 @@ class DetailImportController extends Controller
                                 array_push($list, 0);
                                 array_push($checked, 'endable');
                             }
+                            $warehouse = Warehouse::where('workspace_id', Auth::user()->current_workspace)->get();
                             $data['checked'] = $checked;
                             $data['cb'] = $list;
                             $data['status'] = true;
+                            $data['warehouse'] = $warehouse;
                         }
                     } else if ($request->type == "reciept") {
                         if ($qt->reciept_qty != 0) {

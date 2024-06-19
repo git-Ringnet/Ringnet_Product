@@ -4,7 +4,7 @@
     @method('PUT')
     <input type="hidden" value="{{ $detailExport->maBG }}" name="detailexport_id">
     <div class="content-wrapper--2Column m-0">
-        <div class="content-header-fixed p-0 border-bottom-0 m-0">
+        <div class="content-header-fixed px-3 border-bottom-0 m-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Bán hàng</span>
@@ -258,7 +258,7 @@
                                             <td class='border-right p-2 text-13 align-top border-bottom border-top-0'>
                                                 <input type='text' autocomplete='off'
                                                     value="{{ $item_quote->product_unit }}"
-                                                    class='border-0 px-2 py-1 w-100 product_unit height-32' readonly
+                                                    class='border-0 px-2 py-1 w-100 product_unit height-32'
                                                     name='product_unit[]'>
                                             </td>
 
@@ -299,7 +299,9 @@
                                             </td>
 
                                             <td class='border-right p-2 text-13 align-top border-bottom border-top-0'>
-                                                <select name='product_tax[]'
+                                                <select name='product_tax[]' <?php if ($detailExport->tinhTrang != 1) {
+                                                    echo 'disabled';
+                                                } ?>
                                                     class='border-0 py-1 w-100 text-center product_tax height-32'
                                                     required="">
                                                     <option value="0" <?php if ($item_quote->product_tax == 0) {
@@ -321,15 +323,18 @@
                                                     <input type='text' name='promotion[]'
                                                         value="{{ number_format($item_quote->promotion) }}"
                                                         class='text-right border-0 px-2 py-1 w-100 height-32 promotion'
-                                                        readonly autocomplete='off'>
+                                                        autocomplete='off'>
                                                     <span class='mt-1 <?php if ($item_quote->promotion_type == 1) {
                                                         echo 'd-none';
                                                     } ?> percent'>%</span>
                                                 </div>
                                                 <div class='text-right'>
-                                                    <select
-                                                        class='border-0 mt-3 text-13-blue text-center promotion_type'
-                                                        disabled>
+                                                    <select <?php if ($detailExport->tinhTrang != 1) {
+                                                        echo 'disabled';
+                                                    } else {
+                                                        echo "name='promotion_type[]'";
+                                                    } ?>
+                                                        class='border-0 mt-3 text-13-blue text-center promotion_type'>
                                                         <option value='1' <?php if ($item_quote->promotion_type == 1) {
                                                             echo 'selected';
                                                         } ?>>Nhập
@@ -339,8 +344,10 @@
                                                         } ?>>Nhập %
                                                         </option>
                                                     </select>
-                                                    <input type="hidden" name='promotion_type[]'
-                                                        value="{{ $item_quote->promotion_type }}">
+                                                    @if ($detailExport->tinhTrang != 1)
+                                                        <input type="hidden" name='promotion_type[]'
+                                                            value="{{ $item_quote->promotion_type }}">
+                                                    @endif
                                                 </div>
                                             </td>
                                             <td class='border-right p-2 text-13 align-top border-bottom border-top-0'>
@@ -458,14 +465,14 @@
                                     <div class="d-flex justify-content-between mt-2 align-items-center">
                                         <span class="text-13-black">Khuyến mãi:</span>
                                         <div class="d-flex align-items-center">
-                                            <input id="voucher" type="text" name="voucher"
+                                            <input id="voucher" type="text" name="voucher" placeholder="Nhập số tiền"
                                                 class="text-right text-13-black border-0 py-1 w-100 height-32 bg-input-guest"
-                                                value="{{ number_format($detailExport->discount) }}" readonly>
+                                                value="{{ number_format($detailExport->discount) }}">
                                             @if ($detailExport->discount_type == 2)
                                                 <span class="percent_discount">%</span>
                                             @endif
-                                            <select name="discount_type" disabled
-                                                class="border-0 height-32 text-13-blue text-center bg-input-guest">
+                                            <select name="discount_type"
+                                                class="border-0 height-32 text-13-blue text-center bg-input-guest discount_type">
                                                 <option value="1" <?php if ($detailExport->discount_type == 1) {
                                                     echo 'selected';
                                                 } ?>>Nhập tiền</option>
@@ -650,34 +657,6 @@
                                         value="{{ date_format(new DateTime($detailExport->ngayBG), 'd/m/Y') }}" />
                                     <input type="hidden" id="hiddenDateInput" name="date_quote"
                                         value="{{ date_format(new DateTime($detailExport->ngayBG), 'Y-m-d') }}">
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
-                                    @if ($payExport && $payExport->payment_day)
-                                        <input type="text" id="dayPicker" style="flex:2;"
-                                            placeholder="Chọn thông tin" readonly
-                                            class="text-13-black w-50 border-0 bg-input-guest"
-                                            value="{{ date_format(new DateTime($payExport->payment_day), 'd/m/Y') }}">
-                                    @endif
-                                </li>
-                                <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
-                                    @if ($payExport && $payExport->total)
-                                        <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                            id="TongTien" value="{{ number_format($payExport->total) }}"
-                                            style="flex:2;" readonly>
-                                    @endif
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
-                                    @if ($payExport && $payExport->payment)
-                                        <input readonly value="{{ number_format($payExport->payment) }}"
-                                            class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2 payment"
-                                            style="flex:2;" placeholder="Nhập số tiền" name="payment">
-                                    @endif
                                 </li>
                             </ul>
                         </div>
@@ -1078,7 +1057,7 @@
                     "Y-m-d");
             },
             onReady: function(selectedDates, dateStr, instance) {
-                updateHiddenInput(selectedDates[0], instance, "hiddenDateInput" + number);
+                updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
             },
         });
 
@@ -1663,7 +1642,7 @@
             );
             const dvTinh = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
-                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit height-32' required name='product_unit[]'>" +
+                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit height-32' name='product_unit[]'>" +
                 "</td>"
             );
             const soLuong = $(
@@ -1691,6 +1670,17 @@
                 "<option value='10'>10%</option>" +
                 "<option value='99'>NOVAT</option>" +
                 "</select>" +
+                "</td>"
+            );
+            const khuyenMai = $(
+                "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
+                "<div class='d-flex align-item-center'>" +
+                "<input type='text' name='promotion[]' class='text-right border-0 px-2 py-1 w-100 height-32 promotion' autocomplete='off'>" +
+                "<span class='mt-2 percent d-none'>%</span>" +
+                "</div>" +
+                "<div class='text-right'>" +
+                "<select name='promotion_type[]' class='border-0 mt-3 text-13-blue text-center promotion_type' required=''><option value='1'>Nhập tiền</option><option value='2'>Nhập %</option></select>" +
+                "</div>" +
                 "</td>"
             );
             const thanhTien = $(
@@ -1722,7 +1712,8 @@
             //     "</td>"
             // );
             // Gắn các phần tử vào hàng mới
-            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, donGia, thue, thanhTien, ghiChu,
+            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, donGia, thue, khuyenMai, thanhTien,
+                ghiChu,
                 option
             );
             $("#dynamic-fields").before(newRow);
@@ -1962,7 +1953,6 @@
                             infoProduct.show();
                             $('.recentModal').show();
                             productCode.prop('readonly', true);
-                            productUnit.prop('readonly', true);
                             $(".list_product").hide();
                             arrProduct = [];
 
@@ -2799,7 +2789,7 @@
     });
 
     //format giá
-    $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher', function(event) {
+    $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher, .promotion', function(event) {
         // Lấy giá trị đã nhập
         var value = event.target.value;
 
@@ -2959,7 +2949,7 @@
         calculateTotals();
     });
 
-    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap', function() {
+    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap, .promotion, .promotion_type, #voucher', function() {
         calculateTotals();
     });
 
@@ -2996,12 +2986,14 @@
             if (!isNaN(productQty) && !isNaN(taxValue)) {
                 var donGia = productPrice;
                 var rowTotal = productQty * donGia;
+
                 // Trừ khuyến mãi
-                if (promotionType == "1") {
+                if (promotionType == 1) { // Khuyến mãi theo số tiền
                     rowTotal -= promotion;
-                } else if (promotionType == "2") {
+                } else if (promotionType == 2) { // Khuyến mãi theo phần trăm
                     rowTotal *= (1 - promotion / 100);
                 }
+
                 var rowTax = (rowTotal * taxValue) / 100;
 
                 // Làm tròn từng thuế
@@ -3030,12 +3022,10 @@
         var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
         var discountType = $('.discount_type').val();
         if (!isNaN(totalAmount) || !isNaN(totalTax)) {
-            var grandTotal = totalAmount + totalTax;
             if (discountType === "2") { // Nhập %
-                voucher = (grandTotal * voucher) / 100;
+                voucher = (totalAmount * voucher) / 100;
             }
-
-            grandTotal -= voucher;
+            var grandTotal = (totalAmount - voucher) + totalTax;
             grandTotal = Math.round(grandTotal);
             $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
             // Cập nhật giá trị data-value

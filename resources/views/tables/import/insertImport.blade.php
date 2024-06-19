@@ -236,6 +236,22 @@
                                                     </select>
                                                 </td>
                                                 <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    <div class="d-flex align-item-center">
+                                                        <input type="text" name="promotion[]"
+                                                            class="text-right border-0 px-2 py-1 w-100 height-32 promotion"
+                                                            autocomplete="off">
+                                                        <span class="mt-2 percent d-none">%</span>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <select name="promotion_type[]"
+                                                            class="border-0 mt-3 text-13-blue text-center promotion_type"
+                                                            required="">
+                                                            <option value="1">Nhập tiền</option>
+                                                            <option value="2">Nhập %</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type="text"
                                                         class="border-0 px-2 py-1 w-100 total_price text-right height-32"
                                                         readonly="" name="total_price[]">
@@ -1812,50 +1828,15 @@
                             listTax.push($(this).find('.product_tax').val())
                         })
                         $.ajax({
-                            url: "{{ route('checkProductTax') }}",
+                            url: "{{ route('addUserFlow') }}",
                             type: "get",
                             data: {
-                                listName: listName,
-                                listTax: listTax
+                                type: "DMH",
+                                des: "Tạo mới đơn mua hàng"
                             },
-                            success: function(data) {
-                                if (data.status == false) {
-                                    if (data.type) {
-                                        showAutoToast('warning', data.msg);
-                                    } else {
-                                        showAutoToast('warning', data.msg);
-                                        delayAndShowNotification('success',
-                                            "Đã cập nhật lại thuế cho sản phẩm :" +
-                                            data.product_name + "",
-                                            500);
-                                        rows.each(function() {
-                                            if ($(this).find(
-                                                    '.searchProductName')
-                                                .val() == data.product_name) {
-                                                $(this).find('.product_tax')
-                                                    .val(
-                                                        data.product_tax)
-                                            }
-                                        })
-                                    }
-                                    updateTaxAmount()
-                                    calculateTotalAmount()
-                                    calculateTotalTax()
-                                    calculateGrandTotal()
-                                } else {
-                                    $.ajax({
-                                        url: "{{ route('addUserFlow') }}",
-                                        type: "get",
-                                        data: {
-                                            type: "DMH",
-                                            des: "Tạo mới đơn mua hàng"
-                                        },
-                                        success: function(data) {}
-                                    })
-                                    $('form')[1].submit();
-                                }
-                            }
+                            success: function(data) {}
                         })
+                        $('form')[1].submit();
                     }
                 }
             })

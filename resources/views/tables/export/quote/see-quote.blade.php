@@ -236,7 +236,103 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="d-flex position-fixed" style="right: 10px; top: 70px;">
+                    <div class="d-flex position-fixed" style="right: 10px; top: 174px;">
+                        @if ($detailExport->status_receive == 1 || $detailExport->status_receive == 0)
+                            <div class="border text-secondary p-1 rounded">
+                                <span>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                            fill="#858585" />
+                                    </svg>
+                                </span>
+                                <span class="text-table">Giao hàng: Chưa giao</span>
+                            </div>
+                        @elseif($detailExport->status_receive == 2)
+                            <div class="border text-success p-1 rounded">
+                                <span>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                            fill="#08AA36" fill-opacity="0.75" />
+                                    </svg>
+                                </span>
+                                <span class="text-table">Giao hàng: Đã giao</span>
+                            </div>
+                        @else
+                            <div class="border text-warning p-1 rounded">
+                                <span>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_1699_20021)">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
+                                                fill="#E8B600" />
+                                            <path
+                                                d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
+                                                fill="#E8B600" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_1699_20021">
+                                                <rect width="16" height="16" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </span>
+                                <span class="text-table">Giao hàng: Một phần</span>
+                            </div>
+                        @endif
+                        <div class="line-vertical mx-2 my-1"></div>
+                        @if ($detailExport->status_reciept == 1 || $detailExport->status_reciept == 0)
+                            <div class="border text-secondary p-1 rounded">
+                                <span>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                            fill="#858585" />
+                                    </svg>
+                                </span>
+                                <span class="text-table">Hóa đơn: Chưa chính thức</span>
+                            </div>
+                        @elseif($detailExport->status_reciept == 2)
+                            <div class="border text-success p-1 rounded">
+                                <span>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                            fill="#08AA36" fill-opacity="0.75" />
+                                    </svg>
+                                </span>
+                                <span class="text-table">Hóa đơn: Chính thức</span>
+                            </div>
+                        @else
+                            <div class="border text-warning p-1 rounded">
+                                <span>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_1699_20021)">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
+                                                fill="#E8B600" />
+                                            <path
+                                                d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
+                                                fill="#E8B600" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_1699_20021">
+                                                <rect width="16" height="16" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </span>
+                                <span class="text-table">Hóa đơn: Một phần</span>
+                            </div>
+                        @endif
+                        <div class="line-vertical mx-2 my-1"></div>
                         @if ($detailExport->status_pay == 1 || $detailExport->status_pay == 0)
                             <div class="border text-secondary p-1 rounded">
                                 <span>
@@ -1079,7 +1175,8 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id"
+                                            data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Thuế
                                             </button>
@@ -1089,7 +1186,8 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id"
+                                            data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Ngày nhập
                                             </button>
@@ -1361,10 +1459,9 @@
         if (!isNaN(totalAmount) || !isNaN(totalTax)) {
             var grandTotal = totalAmount + totalTax;
             if (discountType === "2") { // Nhập %
-                voucher = (grandTotal * voucher) / 100;
+                voucher = (totalAmount * voucher) / 100;
             }
-
-            grandTotal -= voucher;
+            var grandTotal = (totalAmount - voucher) + totalTax;
             grandTotal = Math.round(grandTotal);
             $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
             // Cập nhật giá trị data-value

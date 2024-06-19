@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0  min-height--none">
     <!-- Content Header (Page header) -->
-    <div class="content-header-fixed p-0 border-bottom-0">
+    <div class="content-header-fixed px-3 border-bottom-0 m-0">
         <div class="content__header--inner">
             <div class="content__heading--left">
                 <span>Mua hàng</span>
@@ -18,7 +18,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('receive.create', $workspacename) }}" class="user_flow mr-3" data-type="DNH"
+                    <a href="{{ route('receive.create') }}" class="user_flow mr-3" data-type="DNH"
                         data-des="Tạo mới">
                         <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
@@ -242,7 +242,7 @@
                                                     <div class="icon" id="icon-delivery_charges"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width: 8%;">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -253,7 +253,7 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="border-bottom">
+                                            {{-- <th scope="col" class="border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_tax" data-sort-type="DESC"><button
@@ -261,7 +261,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-total_tax"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-receive">
@@ -289,7 +289,7 @@
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom text-wrap">
-                                                    <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
+                                                    <a href="{{ route('receive.edit', ['receive' => $item->id]) }}"
                                                         class="duongdan text-13-blue user_flow" data-type="DNH"
                                                         data-des="Xem đơn nhận hàng">
                                                         {{ $item->delivery_code }}
@@ -331,9 +331,9 @@
                                                         <span style="color: #08AA36">Đã nhận</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-right border-top-0 border-bottom">
+                                                {{-- <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($item->total_tax) }}
-                                                </td>
+                                                </td> --}}
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-top-0 border-bottom align-items-center"
                                                     style="right: 10px; top: 10%; bottom:0;">
                                                     <div class="d-flex w-100">
@@ -341,7 +341,7 @@
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
                                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                    action="{{ route('receive.destroy', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
+                                                                    action="{{ route('receive.destroy', ['receive' => $item->id]) }}"
                                                                     method="post">
                                                                     @csrf
                                                                     @method('DELETE')

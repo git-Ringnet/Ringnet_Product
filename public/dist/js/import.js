@@ -326,12 +326,11 @@ function calculateGrandTotal() {
         ) || 0;
     var discountType = $('select[name="discount_type"]').val();
 
-    var grandTotal = totalAmount + totalTax;
     if (discountType === "2") {
         // Nhập %
-        voucher = (grandTotal * voucher) / 100;
+        voucher = (totalAmount * voucher) / 100;
     }
-    grandTotal -= voucher;
+    grandTotal = (totalAmount - voucher) + totalTax;
     grandTotal = Math.round(grandTotal);
 
     $("#grand-total").text(formatCurrency(grandTotal));

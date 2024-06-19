@@ -135,6 +135,7 @@
                                 id: id
                             },
                             success: function(data) {
+                                var warehouses = data.warehouse;
                                 if (data.status) {
                                     $('#id_import').val(id)
                                     $('#listProduct tbody').empty();
@@ -195,6 +196,9 @@
                                                 </th>
                                                 <th class="border-bottom border-right border-top" style="width: 20%;">
                                                     <span class="text-table">Quản lý SN</span>
+                                                </th>
+                                                <th class="border-bottom border-right border-top" style="width: 20%;">
+                                                    <span class="text-table">Kho hàng</span>
                                                 </th>
                                             </thead>
                                             <tbody>
@@ -301,6 +305,11 @@
                                                     <span class="border-span--modal">SN</span>
                                                     </div>
                                                 </a>
+                                                </td>
+                                                <td class="text-center bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                    <select class="border-0 py-1 w-100 text-center height-32" name="warehouse[]" required>
+                                                        ${warehouses.map(warehouse => `<option value="${warehouse.id}">${warehouse.warehouse_name}</option>`).join('')}
+                                                    </select>
                                                 </td>
                                             </tr>`;
                                         $('#listProduct tbody').append(tr);

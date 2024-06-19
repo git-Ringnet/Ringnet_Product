@@ -71,7 +71,7 @@ class QuoteExport extends Model
             $subtotal = $data['product_qty'][$i] * (float) $price;
 
             if ($data['product_id'][$i] == null) {
-                $productNames = explode('|', $data['product_name'][$i]);
+                $productNames = preg_split('/;\s*\R*/', $data['product_name'][$i]);
 
                 foreach ($productNames as $key => $productName) {
                     $product = Products::where('product_name', $productName)->first();
@@ -200,6 +200,8 @@ class QuoteExport extends Model
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
+                            'promotion' => !empty($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
+                            'promotion_type' => $data['promotion_type'][$i],
                             'status' => 1,
                             'user_id' => Auth::user()->id,
                             'workspace_id' => Auth::user()->current_workspace,
@@ -223,6 +225,8 @@ class QuoteExport extends Model
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                             'price_import' => $priceImport,
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                            'promotion' => !empty($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
+                            'promotion_type' => $data['promotion_type'][$i],
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                             'status' => 1,
@@ -251,6 +255,8 @@ class QuoteExport extends Model
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                             'price_import' => $priceImport,
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                            'promotion' => !empty($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
+                            'promotion_type' => $data['promotion_type'][$i],
                             'status' => 1,
                             'user_id' => Auth::user()->id,
                             'workspace_id' => Auth::user()->current_workspace,
@@ -269,6 +275,8 @@ class QuoteExport extends Model
                             'product_ratio' => $quoteExport->product_ratio,
                             'price_import' => $quoteExport->price_import,
                             'product_note' => $quoteExport->product_note,
+                            'promotion' => $quoteExport->promotion,
+                            'promotion_type' => $quoteExport->promotion_type,
                             'status' => $quoteExport->status,
                             'user_id' => Auth::user()->id,
                             'workspace_id' => Auth::user()->current_workspace,
@@ -306,15 +314,13 @@ class QuoteExport extends Model
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
+                            'promotion' => !empty($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
+                            'promotion_type' => $data['promotion_type'][$i],
                             'status' => 1,
                             'user_id' => Auth::user()->id,
                             'workspace_id' => Auth::user()->current_workspace,
                         ];
                         DB::table($this->table)->insert($dataQuote);
-                        //Cập nhật tồn kho sản phẩm
-                        $product = Products::where('id', $data['product_id'][$i])->first();
-                        $product->product_inventory = $product->product_inventory - $data['product_qty'][$i];
-                        $product->save();
                     }
                 }
             }

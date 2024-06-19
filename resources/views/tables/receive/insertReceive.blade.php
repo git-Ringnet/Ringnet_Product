@@ -1,7 +1,7 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="receive"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <?php $import = '123'; ?>
-<form action="{{ route('receive.store', $workspacename) }}" method="POST">
+<form action="{{ route('receive.store') }}" method="POST">
     @csrf
     <div class="content-wrapper--2Column m-0">
         <!-- Content Header (Page header) -->
@@ -33,7 +33,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('receive.index', $workspacename) }}" class="user_flow" data-type="DNH"
+                        <a href="{{ route('receive.index') }}" class="user_flow" data-type="DNH"
                             data-des="Hủy">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
@@ -159,7 +159,7 @@
                                             </span>
                                         </th>
                                         <th scope="col" class="border-right border-bottom">
-                                            <span class="d-flex">
+                                            <span class="d-flex justify-content-end">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-13"
                                                         type="submit">KM</button>

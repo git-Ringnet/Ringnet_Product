@@ -159,9 +159,9 @@ function addProductRow(productName) {
     const tenSanPham = $(
         `<td class='border-right p-2 text-13 align-top position-relative border-bottom border-top-0'>` +
             `<div class='d-flex align-items-center'>` +
-            `<input type='text' class='border-0 px-2 py-1 w-100 product_name height-32' value="` +
+            `<textarea class="border-0 px-2 py-1 w-100 product_name height-auto" autocomplete="off" required name="product_name[]">` +
             productName +
-            `" autocomplete='off' required name='product_name[]'>` +
+            `</textarea>` +
             `<input type='hidden' class='product_id' autocomplete='off' name='product_id[]'>` +
             `<div class='info-product' style='display: none;' data-toggle='modal' data-target='#productModal'>` +
             `<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'>` +
@@ -278,7 +278,7 @@ $(document).on(
         var productNameValue = $row.find(".product_name").val();
         if (productNameValue) {
             // Split the product names and quantities
-            var productNames = productNameValue.split("|");
+            var productNames = productNameValue.split(";");
         } else {
             var productNames = [];
         }
@@ -380,7 +380,7 @@ $(document).on("change", ".discount_type", function (e) {
 function updateTaxAmount(row) {
     var productNameValue = row.find(".product_name").val();
     if (productNameValue) {
-        var productNames = productNameValue.split("|");
+        var productNames = productNameValue.split(";");
     } else {
         var productNames = [];
     }
@@ -483,16 +483,11 @@ function calculateGrandTotal() {
                 ?.replace(/[^0-9.-]+/g, "")
         ) || 0;
     var discountType = $('select[name="discount_type"]').val();
-
-    var grandTotal = totalAmount + totalTax;
-
     if (discountType === "2") {
         // Nhập %
-        voucher = (grandTotal * voucher) / 100;
+        voucher = (totalAmount * voucher) / 100;
     }
-
-    grandTotal -= voucher;
-    grandTotal = Math.round(grandTotal);
+    grandTotal = Math.round(totalAmount - voucher + totalTax);
 
     $("#grand-total").text(formatCurrency(grandTotal));
     $("#TongTien").val(formatCurrency(grandTotal));
@@ -500,4 +495,25 @@ function calculateGrandTotal() {
     // Update data-value attribute
     $("#grand-total").attr("data-value", grandTotal);
     $("#total").val(grandTotal);
+}
+//Tự động xuống dòng khi gom nhóm sản phẩm
+function setupAutoResizeTextarea(selector) {
+    var $textarea = $(selector);
+    var inputValue = $textarea.val();
+    var formattedValue = inputValue.replace(/;/g, ";\n");
+    $textarea.val(formattedValue);
+
+    // Function to adjust the height of the textarea
+    function adjustTextareaHeight(textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = textarea.scrollHeight + "px";
+    }
+
+    // Adjust the height after setting the value
+    adjustTextareaHeight($textarea[0]);
+
+    // Adjust the height on input
+    $textarea.on("input", function () {
+        adjustTextareaHeight(this);
+    });
 }

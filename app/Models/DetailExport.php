@@ -72,7 +72,7 @@ class DetailExport extends Model
 
         for ($i = 0; $i < count($data['product_name']); $i++) {
             // Tách chuỗi tên sản phẩm
-            $productNames = explode('|', $data['product_name'][$i]);
+            $productNames = preg_split('/;\s*\R*/', $data['product_name'][$i]);
             // Số lượng cho mỗi sản phẩm là giống nhau
             $productQty = $data['product_qty'][$i];
 
@@ -101,7 +101,7 @@ class DetailExport extends Model
         if ($data['discount_type'] == 1) {
             $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
         } else {
-            $voucher = (($totalBeforeTax + $totalTax) * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
+            $voucher = ($totalBeforeTax * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
         }
 
         // Thực hiện các bước còn lại
@@ -169,6 +169,8 @@ class DetailExport extends Model
                 'project.id as id_project',
                 'detailexport.guest_name as export_guest_name',
                 'detailexport.represent_name as export_represent_name',
+                'detailexport.discount',
+                'detailexport.discount_type',
             )
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->where('guest.workspace_id', Auth::user()->current_workspace)
@@ -198,34 +200,51 @@ class DetailExport extends Model
             $totalBeforeTax = 0;
             $totalTax = 0;
             for ($i = 0; $i < count($data['product_name']); $i++) {
-                $price = str_replace(',', '', $data['product_price'][$i]);
-                $tax = 0;
-                if ($data['product_tax'][$i] == 99) {
-                    $tax = 0;
-                } else {
-                    $tax = $data['product_tax'][$i];
+                // Tách chuỗi tên sản phẩm
+                $productNames = preg_split('/;\s*\R*/', $data['product_name'][$i]);
+                // Số lượng cho mỗi sản phẩm là giống nhau
+                $productQty = $data['product_qty'][$i];
+
+                foreach ($productNames as $productName) {
+                    $price = str_replace(',', '', $data['product_price'][$i]);
+                    $promotion = isset($data['promotion'][$i]) && $data['promotion'][$i] !== '' ? str_replace(',', '', $data['promotion'][$i]) : 0;
+                    $tax = $data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i];
+
+                    // Tính toán subtotal dựa trên loại khuyến mãi
+                    if ($data['promotion_type'][$i] == 1) {
+                        $subtotal = ($productQty * (float)$price) - $promotion;
+                    } else if ($data['promotion_type'][$i] == 2) {
+                        $subtotal = ($productQty * (float)$price) - ($productQty * (float)$price * $promotion) / 100;
+                    } else {
+                        $subtotal = $productQty * (float)$price;
+                    }
+
+                    // Tính toán thuế
+                    $subTax = ($subtotal * $tax) / 100;
+                    $totalBeforeTax += $subtotal;
+                    $totalTax += $subTax;
                 }
-                $subtotal = $data['product_qty'][$i] * (float) $price;
-                $subTax = ($subtotal * $tax) / 100;
-                $totalBeforeTax += $subtotal;
-                $totalTax += $subTax;
             }
+
+            // Tính toán voucher
+            if ($data['discount_type'] == 1) {
+                $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
+            } else {
+                $voucher = ($totalBeforeTax * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
+            }
+
             $detailExport->update([
                 'guest_id' => $data['guest_id'],
                 'represent_id' => $data['represent_guest_id'],
                 'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,
                 'user_id' => Auth::user()->id,
                 'quotation_number' => $data['quotation_number'],
-                'reference_number' => $data['reference_number'],
-                'price_effect' => $data['price_effect'],
                 'created_at' => $data['date_quote'],
                 'total_price' => $totalBeforeTax,
-                'terms_pay' => $data['terms_pay'],
                 'total_tax' => $totalTax,
-                'amount_owed' => $totalBeforeTax + $totalTax,
-                'goods' => $data['goods'],
-                'delivery' => $data['delivery'],
-                'location' => $data['location'],
+                'amount_owed' => ($totalBeforeTax - $voucher) + $totalTax,
+                'discount' => $data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']),
+                'discount_type' => $data['discount_type'],
                 'guest_name' => $data['guestName'],
                 'represent_name' => $data['representName'],
             ]);

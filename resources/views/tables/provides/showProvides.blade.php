@@ -81,20 +81,17 @@
             </div>
         </div>
         <section class="content-header--options p-0">
-            <ul class="header-options--nav nav nav-tabs margin-left32">
+            <ul class="header-options--nav-1 nav nav-tabs margin-left32">
                 <li class="user_flow" data-type="NCC" data-des="Xem thông tin">
                     <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông tin</a>
                 </li>
                 <li class="user_flow" data-type="NCC" data-des="Lịch sử mua hàng">
                     <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử mua hàng</a>
                 </li>
-                <li class="user_flow" data-type="NCC" data-des="File đính kèm">
-                    <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#">File đính kèm</a>
-                </li>
             </ul>
         </section>
     </div>
-    <section class="content editGuest" style="margin-top: 14.5rem;">
+    <section class="content editGuest" style="margin-top: 14rem;">
         <div class="container-fluided">
             <div class="tab-content mt-3">
                 <div id="info" class="content tab-pane in active">
@@ -441,9 +438,6 @@
                             </table>
                         </div>
                     </div>
-                </div>
-                <div id="files" class="tab-pane fade">
-                    ádasdsadsa
                 </div>
             </div>
         </div>

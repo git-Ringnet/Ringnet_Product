@@ -3,7 +3,7 @@
     @csrf
     <div class="content-wrapper m-0 min-height--none">
         <!-- Content Header (Page header) -->
-        <div class="content-header-fixed p-0">
+        <div class="content-header-fixed p-0 m-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Mua hàng</span>
@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div class="content" style="margin-top:10.8rem;">
+        <div class="content" style="margin-top:10.3rem;">
             <section class="content">
                 <div class="container-fluided">
                     <div class="bg-filter-search border-top-0 text-left border-custom">

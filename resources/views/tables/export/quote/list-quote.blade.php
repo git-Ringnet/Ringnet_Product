@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="quote"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
-    <div class="content-header-fixed p-0 border-bottom-0">
+    <div class="content-header-fixed px-3 border-bottom-0 m-0">
         <div class="content__header--inner">
             <div class="content__heading--left">
                 <span>Bán hàng</span>
@@ -460,12 +460,10 @@
                                                 </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
                                                     <?php
-                                                    $totalPriceWithTax = $value_export->total_price + $value_export->total_tax;
-                                                    
                                                     if ($value_export->discount_type == 1) {
-                                                        $discountedTotal = $totalPriceWithTax - $value_export->discount;
+                                                        $discountedTotal = $value_export->total_price - $value_export->discount + $value_export->total_tax;
                                                     } else {
-                                                        $discountedTotal = $totalPriceWithTax * (1 - $value_export->discount / 100);
+                                                        $discountedTotal = $value_export->total_price * (1 - $value_export->discount / 100) + $value_export->total_tax;
                                                     }
                                                     
                                                     echo number_format($discountedTotal);
@@ -725,7 +723,6 @@
     </div>
 </form>
 <x-user-flow></x-user-flow>
-<script src="{{ asset('/dist/js/filter.js') }}"></script>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 
 <script>
@@ -875,6 +872,9 @@
                                                 <th class="border" style="width: 20%;">
                                                     <span class="text-table">Quản lý SN</span>
                                                 </th>
+                                                <th class="border" style="width: 20%;">
+                                                    <span class="text-table">Kho hàng</span>
+                                                </th>
                                             </thead>
                                             <tbody>
                                             </tbody>
@@ -934,8 +934,16 @@
                                         .guest_id)
                                     $("input[name='code_delivery']").val('GH-' + (
                                         data.lastDeliveryId + 1))
-                                    $.each(data.product, function(productId,
+                                    var warehouses = data.product.warehouse;
+                                    $.each(data.product.processedDelivery, function(
+                                        productId,
                                         productData) {
+                                        var filteredWarehouses = warehouses
+                                            .filter(function(warehouse) {
+                                                return warehouse
+                                                    .product_id ===
+                                                    productData.maSP;
+                                            });
                                         var tr = `
                                             <tr class="bg-white addProduct" id="dynamic-row-` + productData
                                             .maSP + `">
@@ -961,7 +969,7 @@
                                                 .product_qty) +
                                             `" readonly>
                                                     </div>
-                                                    <p class="mt-3 text-13-blue inventory ${productData.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(productData.product_inventory == null ? 0 : productData.product_inventory)}</span></p>
+                                                    <p class="mt-3 text-13-blue inventory ${productData.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">0</span></p>
                                                 </td>
                                                 <td class="text-center d-none">
                                                     <input class="check-add-sn" data-seri="${productData.maSP}" type="checkbox" name="cbSeri[]" value="1" ${productData.check_seri == 1 ? 'checked' : ''}>    
@@ -973,6 +981,12 @@
                                                     </div>
                                                 </a>
                                                 </td>
+                                                <td class="border text-center border bg-white align-top text-13-black">
+                                                    <select class="border-0 py-1 w-100 text-center height-32 warehouse" name="warehouse[]" required="">
+                                                        <option>Chọn kho hàng</option>
+                                                        ${filteredWarehouses.map(filteredWarehouse => `<option value="${filteredWarehouse.id}">${filteredWarehouse.warehouse_name}</option>`).join('')}
+                                                    </select>
+                                                </td>
                                                 <td class="border border bg-white align-top text-13-black text-right d-none">
                                                     <input type="hidden" class="product_tax" value="` + productData
                                             .product_tax + `" name="product_tax[]">
@@ -982,6 +996,50 @@
                                             productData.type + `"></td>
                                             </tr>`;
                                         $('#listProduct tbody').append(tr);
+                                        //Cập nhật tồn kho từ kho hàng
+                                        $('.warehouse').off('change').on(
+                                            'change',
+                                            function() {
+                                                var $this = $(this);
+                                                var idProduct = $(this)
+                                                    .closest('tr').find(
+                                                        '.product_id')
+                                                    .val();
+                                                var warehouse_id = $(
+                                                    this).val();
+                                                $.ajax({
+                                                    url: '{{ route('getInventoryWarehouse') }}',
+                                                    type: 'GET',
+                                                    data: {
+                                                        idProduct: idProduct,
+                                                        warehouse_id: warehouse_id
+                                                    },
+                                                    context: $this,
+                                                    success: function(
+                                                        data
+                                                    ) {
+                                                        var soTonKho =
+                                                            this
+                                                            .closest(
+                                                                'tr'
+                                                            )
+                                                            .find(
+                                                                '.soTonKho'
+                                                            );
+                                                        soTonKho
+                                                            .text(
+                                                                parseFloat(
+                                                                    data
+                                                                    .total_quantity_remaining ==
+                                                                    null ?
+                                                                    0 :
+                                                                    data
+                                                                    .total_quantity_remaining
+                                                                )
+                                                            );
+                                                    }
+                                                });
+                                            });
                                         //Ẩn/hiện button S/N
                                         var seriPro = productData.seri_pro;
                                         if (seriPro && seriPro.length > 0 &&

@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-        <div class="content" style="margin-top:10.8rem;">
+        <div class="content" style="margin-top:10.3rem;">
             <section class="content">
                 <div class="container-fluided mb-2">
                     <div class="bg-filter-search border-0 text-left">

@@ -111,7 +111,7 @@
                 </ul>
             </section>
         </div>
-        <div class="content editGuest" style="margin-top: 14.5rem;">
+        <div class="content editGuest" style="margin-top: 14rem;">
             <div class="tab-content mt-3">
                 <div id="info" class="content tab-pane in active">
                     {{-- THÔNG TIN CHUNG --}}

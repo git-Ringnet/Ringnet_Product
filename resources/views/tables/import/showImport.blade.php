@@ -71,13 +71,40 @@
                                 </svg>
                                 <span class="text-button">Chuyển đổi</span>
                             </button>
+
                             <div class="dropdown-menu" style="z-index: 9999; width: 250px !important;right:-140px;"
                                 id="listBtnCreateFast">
                                 <ul class="m-0 p-0 scroll-data">
                                     <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
-                                        data-type="DMH" data-des="Tạo nhanh thanh toán mua hàng">
+                                        data-type="DMH" data-des="Tạo nhanh đơn nhận hàng">
                                         <a href="#" style="flex:2;" onclick="getAction(this)" name="search-info"
                                             class="search-info">
+                                            <button class="align-items-left h-100 border-0 w-100 rounded"
+                                                style="background-color: transparent;" name="action"
+                                                value="action_2" type="submit">
+                                                <span class="text-left" style="color: #282A30; font-size:14px">Chuyển
+                                                    đổi
+                                                    thành đơn nhận hàng</span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
+                                        data-type="DMH" data-des="Tạo nhanh hóa đơn mua hàng">
+                                        <a href="#" style="flex:2;" onclick="getAction(this)"
+                                            name="search-info" class="search-info">
+                                            <button class="align-items-left h-100 border-0 w-100 rounded "
+                                                style="background-color: transparent;" name="action"
+                                                value="action_3" type="submit">
+                                                <span class="text-left" style="color: #282A30; font-size:14px">Chuyển
+                                                    đổi
+                                                    thành hóa đơn</span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
+                                        data-type="DMH" data-des="Tạo nhanh thanh toán mua hàng">
+                                        <a href="#" style="flex:2;" onclick="getAction(this)"
+                                            name="search-info" class="search-info">
                                             <button class="align-items-left h-100 border-0 w-100 rounded"
                                                 style="background-color: transparent;" name="action"
                                                 value="action_4" type="submit">
@@ -603,7 +630,7 @@
             </section>
         </div>
         <div class="content">
-            <div id="mySidenav" class="sidenav border" style="top:220px !important;">
+            <div id="mySidenav" class="sidenav border" style="top:214px !important;">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-0 text-center border-custom">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">

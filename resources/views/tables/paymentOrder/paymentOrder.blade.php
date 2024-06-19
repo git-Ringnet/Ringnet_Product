@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
-    <div class="content-header-fixed p-0 border-0">
+    <div class="content-header-fixed px-3 border-0 m-0">
         <div class="content__header--inner">
             <div class="content__heading--left">
                 <span>Mua hàng</span>

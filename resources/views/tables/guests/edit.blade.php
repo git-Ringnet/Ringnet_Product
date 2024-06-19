@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div class="content editGuest" style="margin-top:10.8rem">
+        <div class="content editGuest" style="margin-top:10.3rem">
             <section>
                 <div id="info" class="content tab-pane in active">
                     <section class="content">

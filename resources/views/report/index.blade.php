@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
-    <div class="content-header-fixed p-0 border-0">
+    <div class="content-header-fixed px-3 border-0 m-0">
         <div class="content__header--inner">
             <div class="content__heading--left">
                 <span>Báo cáo</span>
@@ -538,10 +538,10 @@
                                                             {{ number_format($item->product_qty) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->product_price_import) }}
+                                                            {{ number_format($item->listed) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->product_price_import * $item->product_qty) }}
+                                                            {{ number_format($item->listed * $item->product_qty) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             {{ number_format($item->price_export) }}
@@ -550,7 +550,7 @@
                                                             {{ number_format($item->price_export * $item->product_qty) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format($item->price_export - $item->product_price_import) }}
+                                                            {{ number_format(($item->price_export * $item->product_qty) - ($item->listed * $item->product_qty)) }}
                                                         </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">

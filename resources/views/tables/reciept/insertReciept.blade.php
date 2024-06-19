@@ -1,13 +1,13 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="reciept"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<form action="{{ route('reciept.store', $workspacename) }}" method="POST">
+<form action="{{ route('reciept.store') }}" method="POST">
     @csrf
     <div class="content-wrapper--2Column m-0">
         <!-- Content Header (Page header) -->
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">
         <input type="hidden" name="action" id="getAction">
-        <div class="content-header-fixed p-0 border-bottom-0">
+        <div class="content-header-fixed px-3 border-bottom-0 m-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Mua hàng</span>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('reciept.index', $workspacename) }}" class="user_flow" data-type="HDMH"
+                        <a href="{{ route('reciept.index') }}" class="user_flow" data-type="HDMH"
                             data-des="Hủy">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"

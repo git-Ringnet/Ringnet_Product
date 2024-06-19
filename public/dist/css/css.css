@@ -171,7 +171,7 @@ li {
     width: 100%;
     overflow-x: auto;
     scrollbar-width: thin;
-    max-height: calc(100vh - 180px);
+    max-height: calc(100vh - 240px);
 }
 
 .outer2 th {
@@ -902,7 +902,7 @@ td p {
     background-color: white;
 }
 
-.header-fixed{
+.header-fixed {
     position: fixed;
     top: 0;
     left: 0;
@@ -938,7 +938,7 @@ td p {
 }
 
 .header-options--nav-1 {
-    width: 240px;
+    width: 270px;
     height: 34px;
     display: flex;
     justify-content: space-between;
@@ -2694,12 +2694,8 @@ input[type="checkbox"]:checked {
     margin-top: 10rem;
 }
 
-.margin-top-107 {
-    margin-top: 107px;
-}
-
 .margin-top-103 {
-    margin-top: 17.2rem;
+    margin-top: 16.9rem;
 }
 
 .margin-top-fixed10 {
@@ -2727,11 +2723,11 @@ input[type="checkbox"]:checked {
 }
 
 .top-109 {
-    top: 220px !important;
+    top: 214px !important;
 }
 
 .top-111 {
-    top: 221px !important;
+    top: 216px !important;
 }
 
 .top-120 {
@@ -2862,27 +2858,31 @@ input[type="checkbox"]:checked {
     background-color: #e9ecef;
 }
 
-.sumInventory{
+.sumInventory {
     padding: 0px 7px;
-    background-color: #407DD9;
+    background-color: #407dd9;
     border-radius: 50%;
 }
 
-.height-36{
+.height-36 {
     height: 36px;
 }
 
-.margin-top-17{
+.margin-top-17 {
     margin-top: 17.1rem;
 }
 
 .menu {
     z-index: 99;
 }
-.margin-top-107{
-    margin-top: 10.7rem;
+.margin-top-107 {
+    margin-top: 10.3rem;
 }
 
-.header-fixed .active{
-    background-color: #F0F3F9 !important;
+.header-fixed .active {
+    background-color: #f0f3f9 !important;
+}
+
+.height-auto {
+    resize: none;
 }

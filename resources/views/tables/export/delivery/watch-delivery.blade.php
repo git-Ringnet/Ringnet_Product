@@ -861,12 +861,10 @@
         var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
         var discountType = $('.discount_type').val();
         if (!isNaN(totalAmount) || !isNaN(totalTax)) {
-            var grandTotal = totalAmount + totalTax;
             if (discountType === "2") { // Nhập %
-                voucher = (grandTotal * voucher) / 100;
+                voucher = (totalAmount * voucher) / 100;
             }
-
-            grandTotal -= voucher;
+            var grandTotal = (totalAmount - voucher) + totalTax;
             grandTotal = Math.round(grandTotal);
             $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
             // Cập nhật giá trị data-value

@@ -2,7 +2,7 @@
 <form action="{{ route('inventory.store') }}" method="POST">
     @csrf
     <div class="content-wrapper m-0 min-height--none" style="background: none;">
-        <div class="content-header-fixed p-0 border-bottom-0">
+        <div class="content-header-fixed px-3 border-bottom-0 m-0">
             <div class="content__header--inner">
                 <div class="content__heading--left">
                     <span>Kho hàng</span>

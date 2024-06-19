@@ -23,6 +23,7 @@ use App\Models\DateForm;
 use App\Models\representGuest;
 use App\Models\User;
 use App\Models\userFlow;
+use App\Models\Warehouse;
 use App\Models\Workspace;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -301,13 +302,6 @@ class DetailExportController extends Controller
             if ($detailExport->status == 1) {
                 $export_id = $this->detailExport->updateExport($request->all(), $id);
                 $this->quoteExport->updateQuoteExport($request->all(), $export_id);
-                $dateForms = $request->idDate;
-                $fieldDates = $request->fieldDate;
-                $guestId = $request->guest_id;
-                foreach ($dateForms as $key => $dateFormId) {
-                    $formField = $fieldDates[$key];
-                    $this->guest_dateForm->insertFormGuest($guestId, $dateFormId, $formField);
-                }
                 return redirect()->route('detailExport.index')->with('msg', 'Cập nhật đơn báo giá thành công!');
             } else {
                 if ($detailExport) {
@@ -1087,6 +1081,13 @@ class DetailExportController extends Controller
                                 ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                                 ->get();
 
+                            $warehouse = Warehouse::where('warehouse.workspace_id', Auth::user()->current_workspace)
+                                ->Join('quoteimport', 'quoteimport.warehouse_id', 'warehouse.id')
+                                ->where('quoteimport.quantity_remaining', '>', 0)
+                                ->select('warehouse.id', 'warehouse.warehouse_name', 'quoteimport.product_id')
+                                ->groupBy('warehouse.id', 'warehouse.warehouse_name', 'quoteimport.product_id')
+                                ->get();
+
                             // Group dữ liệu theo ID sản phẩm để có danh sách seri cho mỗi sản phẩm
                             $groupedDelivery = $delivery->groupBy('maSP');
 
@@ -1096,7 +1097,11 @@ class DetailExportController extends Controller
                                 $product['seri_pro'] = $group->pluck('serinumber')->toArray();
                                 return $product;
                             });
-                            $quoteExport = $processedDelivery;
+                            $response = [
+                                'warehouse' => $warehouse,
+                                'processedDelivery' => $processedDelivery,
+                            ];
+                            $quoteExport = $response;
                             $lastDeliveryId = DB::table('delivery')
                                 ->max(DB::raw('CAST(SUBSTRING_INDEX(code_delivery, "-", -1) AS UNSIGNED)'));
                             $idLast =  $lastDeliveryId;

@@ -5,7 +5,7 @@
     <input type="hidden" name="excel_export" id="excel_export">
     <input type="hidden" name="pdf_export" id="pdf_export">
     <div class="content-wrapper--2Column m-0 min-height--none">
-        <div class="content-header-fixed p-0 border-bottom-0">
+        <div class="content-header-fixed px-3 border-bottom-0 m-0">
             <div class="content__header--inner">
                 <div class="content__heading--left">
                     <span>Bán hàng</span>
@@ -919,6 +919,23 @@
 <x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script type="text/javascript">
+    var arrProduct = [];
+    //Tìm kiếm sản phẩm trong nhóm sản phẩm
+    $('#search-input').on('input', function() {
+        let query = $(this).val().toLowerCase();
+
+        // Lặp qua tất cả các hàng trong tbody
+        $('#search-results tr').each(function() {
+            let productName = $(this).find('td:eq(1) span').text().toLowerCase();
+
+            // Kiểm tra nếu tên sản phẩm có chứa chuỗi truy vấn
+            if (productName.includes(query)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
     // Khi nhấp vào hàng trong modal để chọn sản phẩm
     $("#groupProductModal .modal-body tbody tr").click(function(event) {
         var checkbox = $(this).find(".check-item");
@@ -958,10 +975,21 @@
         // Sự kiện khi nhấn nút #add-group
         $(document).on('click', '#add-group', function(e) {
             if (selectedProducts.length > 0) {
+                // Đóng modal
                 $('.modal [data-dismiss="modal"]').click();
-                let productNames = selectedProducts.join('|');
 
+                // Thêm tên sản phẩm vào danh sách
+                let productNames = selectedProducts.join(';');
                 addProductRow(productNames);
+                setupAutoResizeTextarea("textarea.product_name");
+
+                // Thu thập ID của các sản phẩm được chọn
+                $('.check-item:checked').each(function() {
+                    // Lấy giá trị 'value' của phần tử input và chuyển đổi thành số nguyên
+                    var productId = parseInt($(this).val(), 10);
+                    // Thêm giá trị vào mảng arrProduct
+                    arrProduct.push(productId);
+                });
 
                 // Làm rỗng mảng selectedProducts sau khi thêm sản phẩm
                 selectedProducts = [];
@@ -1393,7 +1421,6 @@
         });
 
         let fieldCounter = 1;
-        var arrProduct = [];
         $("#add-field-btn").click(function() {
             let nextSoTT = $(".soTT").length + 1;
             // Tạo các phần tử HTML mới
@@ -1432,7 +1459,7 @@
                 `@endforeach` +
                 `</ul>` +
                 `<div class='d-flex align-items-center'>` +
-                `<input type='text' class='border-0 px-2 py-1 w-100 product_name height-32' autocomplete='off' required name='product_name[]'>` +
+                `<textarea class="border-0 px-2 py-1 w-100 product_name height-auto" autocomplete="off" required name="product_name[]"></textarea>` +
                 `<input type='hidden' class='product_id' autocomplete='off' name='product_id[]'>` +
                 `<div class='info-product' style='display: none;' data-toggle='modal' data-target='#productModal'>` +
                 `<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'>` +
@@ -1453,7 +1480,7 @@
             );
             const dvTinh = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
-                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit height-32' required name='product_unit[]'>" +
+                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit height-32' name='product_unit[]'>" +
                 "</td>"
             );
             const soLuong = $(
@@ -1715,7 +1742,6 @@
                                 inventory.show();
                             }
                             productCode.prop('readonly', true);
-                            productUnit.prop('readonly', true);
                             $(".list_product").hide();
                             arrProduct = [];
 
@@ -2680,8 +2706,11 @@
         var invalidProductNames = [];
 
         function normalizeProductName(name) {
+            if (!name) return ''; // Kiểm tra giá trị name, nếu undefined hoặc null trả về chuỗi rỗng
             var lowercaseName = name.toLowerCase();
             var normalized = lowercaseName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            // Xóa bỏ khoảng trắng, ký tự xuống dòng và dấu chấm phẩy
+            normalized = normalized.replace(/[\s;]/g, '');
             return normalized;
         }
 
@@ -2693,17 +2722,22 @@
                     var type = parseFloat($(rows[i]).find(".type").val());
                     var inputs = rows[i].querySelectorAll('input[required]');
                     var productNameInput = rows[i].querySelector('.product_name');
-                    var productName = productNameInput.value;
-                    var normalizedProductName = normalizeProductName(productName).trim();
+                    var productNames = productNameInput.value.split(';');
 
                     // Kiểm tra trùng lặp tên sản phẩm
-                    if (previousProductNames.includes(normalizedProductName)) {
-                        showAutoToast('warning', 'Tên sản phẩm bị trùng: ' + productName);
-                        $('#excel_export').val(0);
-                        $('#pdf_export').val(0);
-                        return;
-                    } else {
-                        previousProductNames.push(normalizedProductName);
+                    for (var x = 0; x < productNames.length; x++) {
+                        var productName = productNames[x].trim(); // Loại bỏ khoảng trắng đầu cuối
+                        var normalizedProductName = normalizeProductName(productName);
+
+                        // Kiểm tra trùng lặp tên sản phẩm
+                        if (previousProductNames.includes(normalizedProductName)) {
+                            showAutoToast('warning', 'Tên sản phẩm bị trùng: ' + productName);
+                            $('#excel_export').val(0);
+                            $('#pdf_export').val(0);
+                            return;
+                        } else {
+                            previousProductNames.push(normalizedProductName);
+                        }
                     }
 
                     // Kiểm tra các trường input sản phẩm

@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="payexport"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
-    <div class="content-header-fixed p-0 border-0">
+    <div class="content-header-fixed px-3 border-0 m-0">
         <div class="content__header--inner">
             <div class="content__heading--left">
                 <span>Bán hàng</span>

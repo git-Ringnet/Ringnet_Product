@@ -604,7 +604,7 @@
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                 <div class="d-flex align-item-center">
-                                    <input value="${formatCurrency(item.promotion)}" type="text" name="promotion[]" class="text-right border-0 px-2 py-1 w-100 height-32 promotion" autocomplete="off">
+                                    <input value="${formatCurrency(item.promotion)}" type="text" readonly name="promotion[]" class="text-right border-0 px-2 py-1 w-100 height-32 promotion" autocomplete="off">
                                     <span class="mt-2 percent d-none">%</span>
                                 </div>
                                 <div class="text-right">
@@ -1216,25 +1216,19 @@
     }
 
     function calculateGrandTotal(totalAmount, totalTax) {
-        var voucher = parseFloat($('#voucher').val()?.replace(/[^0-9.-]+/g, '')) || 0;
-        var discountType = $('select[name="discount_type"]').val();
-
-        var grandTotal = totalAmount + totalTax;
-
-        if (discountType === "2") {
-            // Nhập %
-            voucher = (grandTotal * voucher) / 100;
+        var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
+        var discountType = $('.discount_type').val();
+        if (!isNaN(totalAmount) || !isNaN(totalTax)) {
+            if (discountType === "2") { // Nhập %
+                voucher = (totalAmount * voucher) / 100;
+            }
+            var grandTotal = (totalAmount - voucher) + totalTax;
+            grandTotal = Math.round(grandTotal);
+            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
+            // Cập nhật giá trị data-value
+            $('#grand-total').attr('data-value', grandTotal);
+            $('#total').val(totalAmount);
         }
-
-        grandTotal -= voucher;
-        grandTotal = Math.round(grandTotal);
-
-        $('#grand-total').text(formatCurrency(grandTotal));
-        $('#TongTien').val(formatCurrency(grandTotal));
-
-        // Update data-value attribute
-        $('#grand-total').attr('data-value', grandTotal);
-        $('#total').val(grandTotal);
     }
 
     function formatCurrency(value) {

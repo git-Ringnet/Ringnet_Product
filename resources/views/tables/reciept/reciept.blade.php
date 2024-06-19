@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0  min-height--none">
     <!-- Content Header (Page header) -->
-    <div class="content-header-fixed p-0 border-bottom-0">
+    <div class="content-header-fixed px-3 border-bottom-0 m-0">
         <div class="content__header--inner">
             <div class="content__heading--left">
                 <span>Mua hàng</span>
@@ -211,7 +211,7 @@
                                                     </span>
                                                 </th>
                                             @endcan
-                                            <th scope="col" class="height-52 border-bottom" style="width:8%;">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -222,7 +222,7 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="height-52">
+                                            {{-- <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="price_total" data-sort-type="DESC"><button
@@ -230,7 +230,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-price_total"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-reciept">
@@ -312,9 +312,9 @@
                                                         <span style="color: #08AA36">Chính thức</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-right border-bottom border-top-0">
+                                                {{-- <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item->price_total) }}
-                                                </td>
+                                                </td> --}}
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0 align-items-center"
                                                     style="right: 10px; top: 3px; bottom:0;">
                                                     <div class="d-flex align-items-center">
