@@ -46,7 +46,6 @@ class ChangeWarehouse extends Model
     public function addChangeWarehouse($data)
     {
 
-        // dd($data);
         $result = [];
         $product = Products::where('id', $data['product_id'])->first();
         $SN = [];

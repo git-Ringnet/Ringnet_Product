@@ -93,8 +93,9 @@ class ReturnImportController extends Controller
         if ($returnImport) {
             $product = ReturnProduct::leftJoin('quoteimport', 'quoteimport.id', 'returnproduct.quoteimport_id')
                 ->leftJoin('products', 'products.id', 'quoteimport.product_id')
+                ->leftJoin('warehouse','warehouse.id','quoteimport.warehouse_id')
                 ->where('returnproduct.returnImport_id', $returnImport->id)
-                ->select('quoteimport.*', 'returnproduct.*', 'products.check_seri')
+                ->select('quoteimport.*', 'returnproduct.*', 'products.check_seri','warehouse.warehouse_name as nameWarehouse')
                 ->get();
         }
         return view('tables.returnImport.edit', compact('returnImport', 'title', 'workspacename', 'product'));
