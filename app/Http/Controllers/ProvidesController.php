@@ -32,12 +32,16 @@ class ProvidesController extends Controller
     public function index()
     {
         $title = "Nhà cung cấp";
-        $provides = $this->provides->getAllProvide();
+        // $provides = $this->provides->getAllProvide();
         $dataa = $this->provides->getAllProvide();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $users = $this->provides->getUserInProvides();
-        return view('tables.provides.provides', compact('title', 'users', 'provides', 'dataa', 'workspacename'));
+
+        $groups = Groups::where('grouptype_id',3)->get();
+
+        $provides = Provides::where('group_id',0)->get();
+        return view('tables.provides.provides', compact('title', 'users', 'provides', 'dataa', 'workspacename','groups'));
     }
 
     /**
