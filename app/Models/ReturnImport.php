@@ -182,6 +182,9 @@ class ReturnImport extends Model
                         ProductImport::where('product_id', $product->id)->where('receive_id', $returnImport->receive_id)
                             ->where('quoteImport_id', $quoteImport->id)->where('product_qty', '<', 0)->delete();
                     }
+
+                    
+                    $item->delete();
                 }
                 // Xóa thông tin sản phẩm trả hàng
                 ReturnProduct::where('id', $item->id)->delete();

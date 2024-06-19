@@ -114,9 +114,9 @@ class ChangeWarehouseController extends Controller
     public function destroy(string $workspacename, string $id)
     {
         $status = $this->changeWarehouse->deleteChangeWarehouse($id);
-        if($status['status']){
+        if ($status['status']) {
             return redirect()->route('changeWarehouse.index', ['workspace' => $workspacename])->with('msg', 'Xóa phiếu chuyển kho thành công!');
-        }else{
+        } else {
             return redirect()->route('changeWarehouse.index', ['workspace' => $workspacename])->with('warning', 'Không tìm thấy phiếu chuyển kho!');
         }
     }
@@ -139,6 +139,7 @@ class ChangeWarehouseController extends Controller
                 } elseif ($changeWarehouseQty < $item->product_qty) {
                     $item->product_inventory = $item->product_qty - $changeWarehouseQty;
                     return true; // Giữ lại phần tử này
+
                 }
             });
 

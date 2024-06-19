@@ -371,7 +371,8 @@
                     warehouse_id: id
                 },
                 success: function(data) {
-                    console.log(data);
+                    var qty_export = 0;
+                    $('#listProduct li').remove();
                     if (data['quoteImport']) {
                         data['quoteImport'].forEach(item => {
                             var li = `
@@ -383,6 +384,13 @@
                                             </li>
                             `;
                             $('#listProduct').append(li)
+                            qty_export = formatCurrency(item
+                                .product_inventory)
+
+                            $('.change_qty').on('input',
+                                function() {
+                                    checkQty(this, qty_export);
+                                })
                         })
                         // Gửi Ajax lấy thông tin sn
                         $('.search-product').on('click', function() {
@@ -413,15 +421,6 @@
                                         $('#searchProduct').val(data['product']
                                             .product_name)
 
-
-                                        // Chặn nhập quá số lượng
-                                        $(document).on('input', '.change_qty',
-                                            function() {
-                                                // Thực hiện xử lý logic checkQty với giá trị qty và dữ liệu từ data['product'].product_inventory
-                                                checkQty(this, data[
-                                                        'product']
-                                                    .product_inventory);
-                                            });
                                     }
 
 
