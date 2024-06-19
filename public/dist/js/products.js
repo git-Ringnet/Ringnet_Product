@@ -69,12 +69,12 @@ showForm("#terms_pay", "#listTermsPay");
 
 function showListWarehouse() {
     $("#inputcontent tbody").on("click", ".searchWarehouse", function () {
-        $(this).closest("tr").find("#listWarehouse").show();
+        $(this).closest("tr").find(".listWarehouse").show();
     });
 }
 showListWarehouse()
 
-function showListGuest(){
+function showListGuest() {
     $("#inputcontent tbody").on("click", ".search_guest", function () {
         $(this).closest("tr").find("#listGuest").show();
     })
@@ -105,7 +105,7 @@ $(document).click(function (event) {
         $("#listProject").hide();
     }
     if ($(event.target).closest(".searchWarehouse").length == 0) {
-        $("#listWarehouse").hide();
+        $(".listWarehouse").hide();
     }
     if ($(event.target).closest(".search_guest").length == 0) {
         $("#listGuest").hide();
@@ -116,7 +116,9 @@ $(document).click(function (event) {
     if ($(event.target).closest(".search_content").length == 0) {
         $("#listContent").hide();
     }
-
+    if ($(event.target).closest(".search_content").length == 0) {
+        $("#listContent").hide();
+    }
 });
 
 //ẩn danh sách khách hàng
@@ -124,7 +126,7 @@ $(document).click(function (event) {
     if (
         !$(event.target).closest("#myInput").length &&
         !$(event.target).closest("#provideFilter").length &&
-        !$(event.target).closest("#myInput1").length && 
+        !$(event.target).closest("#myInput1").length &&
         !$(event.target).closest("#listGuest").length
     ) {
         $("#myUL").hide();
@@ -293,8 +295,8 @@ function handlePaste(input) {
                 checkbox.setAttribute("type", "checkbox");
                 var checkboxes = document.querySelectorAll(
                     ".div_value" +
-                        rowCount +
-                        ' table tbody input[type="checkbox"]'
+                    rowCount +
+                    ' table tbody input[type="checkbox"]'
                 );
                 var checkboxCount = checkboxes.length;
                 checkbox.setAttribute("id", "checkbox_" + checkboxCount);
@@ -469,18 +471,30 @@ function addRowTable(status) {
             "</select>";
     }
     // if (status == 3) {
-        tr +=
-            "</td>" +
-            '<input type="hidden" class="product_tax1">' +
-            '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
-            '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly name="total_price[]">' +
-            "</td>" +
-            '<td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">' +
-            '<input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]" >' +
-            '<input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]" >' +
-            '<ul id="listWarehouse" class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
-            "</ul>" +
-            "</td>";
+    tr +=
+        "</td>" +
+        '<input type="hidden" class="product_tax1">' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
+        '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly name="total_price[]">' +
+        "</td>" +
+        '<td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">' +
+        '<input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]" readonly autocomplete="off">' +
+        '<div id="listWareH" class="bg-white position-absolute rounded shadow p-1 z-index-block" style="z-index: 99;">' +
+        '<ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse" style="display:none;">' +
+        '<div class="p-1">' +
+        '<div class="position-relative">' +
+        '<input type="text" placeholder="Nhập kho hàng" class="pr-4 w-100 input-search bg-input-guest searchWarehouse" id="a">' +
+        '<span id="search-icon" class="search-icon">' +
+        '<i class="fas fa-search text-table" aria-hidden="true"></i>' +
+        '</span>' +
+        '</div>' +
+        '</div>' +
+        '</ul>' +
+        '</div>' +
+        '<input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]" >' +
+        //'<ul id="listWarehouse" class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
+        //"</ul>" +
+        "</td>";
     // }
     if (status == 3) {
         tr += "<td class='p-2 text-13 align-top text-center border-top-0 border-bottom border-right'> " +
@@ -759,10 +773,10 @@ function checkProduct() {
     return hasProducts;
 }
 
-function checkQtyProduct(){
+function checkQtyProduct() {
     var check = true;
-    $('#inputcontent tbody tr').each(function(){
-        if($(this).find('.quantity-input').val() == 0){
+    $('#inputcontent tbody tr').each(function () {
+        if ($(this).find('.quantity-input').val() == 0) {
             check = false;
             return false;
         }
@@ -770,6 +784,16 @@ function checkQtyProduct(){
     return check;
 }
 
+function checkWarehouse(){
+    var check = true;
+    $('#inputcontent tbody tr').each(function () {
+        if ($(this).find('.warehouse_id').val() == "") {
+            check = false;
+            return false;
+        }
+    })
+    return check;
+}
 
 
 // Checkbox

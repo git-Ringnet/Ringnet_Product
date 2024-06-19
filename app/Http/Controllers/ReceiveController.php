@@ -351,11 +351,16 @@ class ReceiveController extends Controller
         $checked = [];
         $value = [];
         $inventory = [];
+        $listWarehouse = [];
         $quote = QuoteImport::where('detailimport_id', $request->id)
             ->where('product_qty', '>', DB::raw('COALESCE(receive_qty,0)'))
             ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
+
         foreach ($quote as $qt) {
+            if($qt->getWareHouse){
+                array_push($listWarehouse,$qt->getWareHouse->warehouse_name);
+            }
             $product = Products::where('product_name', $qt->product_name)
                 ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -394,7 +399,8 @@ class ReceiveController extends Controller
             'cb' => $list,
             'quoteImport' => $quote,
             'value' => $value,
-            'inventory' => $inventory
+            'inventory' => $inventory,
+            'listWarehouse' => $listWarehouse
         ];
         return $data;
     }

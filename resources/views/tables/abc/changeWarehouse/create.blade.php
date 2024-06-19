@@ -511,7 +511,7 @@
         }
 
         if (!check) {
-            console.log("submit");
+            $('form')[1].submit();
         }
 
     })

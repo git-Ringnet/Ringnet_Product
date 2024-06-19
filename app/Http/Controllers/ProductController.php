@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChangeWarehouse;
 use App\Models\Groups;
 use App\Models\HistoryImport;
 use App\Models\ImportDB;
@@ -15,6 +16,7 @@ use App\Models\Workspace;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpParser\Node\Expr\FuncCall;
 use ZipArchive;
@@ -42,7 +44,10 @@ class ProductController extends Controller
         $title = "Kho 1";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.products.products', compact('product', 'title', 'workspacename'));
+        // Tất cả nhóm hàng hóa
+        $groups = Groups::where('grouptype_id',4)->get();
+
+        return view('tables.products.products', compact('product', 'title', 'workspacename','groups'));
     }
 
     /**

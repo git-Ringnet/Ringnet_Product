@@ -340,7 +340,7 @@
                 </div>
             </section> --}}
             @if ($product->type == 1)
-                <section class="content">
+                {{-- <section class="content">
                     <div class="container-fluided">
                         <div class="row">
                             <div class="col-12 p-0">
@@ -395,7 +395,7 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> --}}
             @endif
         </div>
 

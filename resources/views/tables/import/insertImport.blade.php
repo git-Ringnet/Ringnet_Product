@@ -1719,6 +1719,12 @@
             showAutoToast('warning', 'Vui lòng nhập số lượng sản phẩm lớn hơn 0')
         }
       
+        if(!checkWarehouse()){
+            formSubmit = false;
+            showAutoToast('warning', 'Vui lòng chọn kho hàng cho sản phẩm')
+        }
+
+
         var quotetion_number = $('input[name="quotation_number"]').val();
         if (formSubmit) {
             provide_id = $('#provides_id').val();
@@ -1803,7 +1809,7 @@
             type: "get",
             data: {},
             success: function(data) {
-                $(position).closest('tr').find('#listWarehouse').empty()
+                $(position).closest('tr').find('#listWarehouse li').remove()
                 data.forEach(item => {
                     var li = `
                         <li class="w-100">

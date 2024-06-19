@@ -274,11 +274,11 @@
                                             <select name="groups_id" id=""
                                                 class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                                                 <option value="0"
-                                                    @if ($product->groups_id == 0) selected @endif>Chọn loại nhóm
+                                                    @if ($product->category_id == 0) selected @endif>Chọn loại nhóm
                                                 </option>
                                                 @foreach ($category as $item)
                                                     <option value="{{ $item->id }}"
-                                                        @if ($item->id == $product->groups_id) selected @endif>
+                                                        @if ($item->id == $product->category_id) selected @endif>
                                                         {{ $item->name }}</option>
                                                 @endforeach
                                             </select>

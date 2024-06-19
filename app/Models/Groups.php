@@ -23,6 +23,10 @@ class Groups extends Model
         return Groups::with('grouptype')->get();
     }
 
+    public function getAllProducts(){
+        return $this->hasMany(Products::class,'category_id','id');
+    }
+
     public function groupType()
     {
         return $this->belongsTo(Grouptype::class, 'grouptype_id', 'id');
