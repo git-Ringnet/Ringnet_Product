@@ -102,7 +102,7 @@
                                 <div class="title-info py-2 border border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Địa chỉ</p>
                                 </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="provide_address"
+                                <input type="text" placeholder="Nhập thông tin" name="provide_address"
                                     class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                             </div>
 
@@ -110,7 +110,7 @@
                                 <div class="title-info py-2 border border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Điện thoại</p>
                                 </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="provide_phone"
+                                <input type="number" placeholder="Nhập thông tin" name="provide_phone"
                                     class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                             </div>
 
@@ -119,14 +119,15 @@
                                     <p class="p-0 m-0  margin-left32 required-label text-13-red">Mã số thuế</p>
                                 </div>
                                 <input type="text" required placeholder="Nhập thông tin" name="provide_code"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100" 
+                                    oninput="validateNumberInput(this)">
                             </div>
 
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                     <p class="p-0 m-0  margin-left32 text-13">Email</p>
                                 </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="provide_email"
+                                <input type="text" placeholder="Nhập thông tin" name="provide_email"
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                             </div>
 
@@ -134,7 +135,7 @@
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                     <p class="p-0 m-0  margin-left32 text-13">Fax</p>
                                 </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="provide_fax"
+                                <input type="text" placeholder="Nhập thông tin" name="provide_fax"
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                             </div>
 
@@ -142,7 +143,7 @@
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                     <p class="p-0 m-0  margin-left32 text-13">Đỉnh mức nợ</p>
                                 </div>
-                                <input type="text" required placeholder="Nhập thông tin" name="quota_debt"
+                                <input type="text" placeholder="Nhập thông tin" name="quota_debt"
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                             </div>
 

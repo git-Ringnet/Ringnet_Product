@@ -90,6 +90,7 @@ class Products extends Model
                     'product_available' => 0,
                     'workspace_id' => Auth::user()->current_workspace,
                     'type' => 1,
+                    'category_id' => 0,
                     'created_at' => Carbon::now(),
                     'user_id' => Auth::user()->id
                 ];
