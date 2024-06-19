@@ -243,10 +243,10 @@
                                     <td colspan="10" class="border-bottom">Nhóm hàng hóa : Chưa chọn nhóm
                                     </td>
                                 </tr>
+                                @php
+                                    $total = 0;
+                                @endphp
                                 @foreach ($product as $item)
-                                    @php
-                                        $total = 0;
-                                    @endphp
                                     <tr class="position-relative product-info"
                                         onclick="handleRowClick('checkbox', event);">
                                         <input type="hidden" name="id-product" class="id-product" id="id-product"
@@ -325,13 +325,13 @@
                                     @php
                                         $total++;
                                     @endphp
-                                    <tr>
-                                        <td colspan="2" class="bg-light"></td>
-                                        <td class="bg-light" style="color: #dc3545!important">Có {{ $total }}
-                                            hàng hóa</td>
-                                        <td colspan="7" class="bg-light "></td>
-                                    </tr>
                                 @endforeach
+                                <tr>
+                                    <td colspan="2" class="bg-light"></td>
+                                    <td class="bg-light" style="color: #dc3545!important">Có {{ $total }}
+                                        hàng hóa</td>
+                                    <td colspan="7" class="bg-light "></td>
+                                </tr>
                                 @foreach ($groups as $value)
                                     <tr>
                                         <td colspan="10" class="border-bottom">Nhóm hàng hóa :{{ $value->name }}

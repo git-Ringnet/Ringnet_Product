@@ -97,7 +97,7 @@ class Provides extends Model
                 'provide_phone' => $data['provide_phone'],
                 'provide_fax' => $data['provide_fax'],
                 'quota_debt' => isset($data['quota_debt']) ? str_replace(',', '', $data['quota_debt']) : 0,
-                'groups_id' => isset($data['category_id']) ? $data['category_id'] : 0,
+                'group_id' => isset($data['category_id']) ? $data['category_id'] : 0,
                 'workspace_id' => Auth::user()->current_workspace,
                 'user_id' => Auth::user()->id,
                 'created_at' => Carbon::now()
