@@ -271,7 +271,7 @@
                                             <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 margin-left32 text-13">Nhóm</p>
                                             </div>
-                                            <select name="groups_id" id=""
+                                            <select name="group_id" id=""
                                                 class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                                                 <option value="0"
                                                     @if ($product->category_id == 0) selected @endif>Chọn loại nhóm

@@ -45,7 +45,7 @@ class Products extends Model
     }
     public function getGroup()
     {
-        return $this->hasOne(Groups::class, 'id', 'groups_id');
+        return $this->hasOne(Groups::class, 'id', 'group_id');
     }
 
 
@@ -158,7 +158,7 @@ class Products extends Model
                 'product_price_export' => isset($data['product_price_export']) ? str_replace(',', '', $data['product_price_export']) : 0,
                 'product_tax' => $data['product_tax'],
                 'check_seri' => $data['type_product'] == 1 ? $check : 0,
-                'groups_id' => $data['groups_id']
+                'group_id' => $data['group_id']
             ];
 
             if ($data['type_product'] == 1) {

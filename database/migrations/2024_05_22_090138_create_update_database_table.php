@@ -41,7 +41,7 @@ return new class extends Migration
 
         Schema::table('provides', function (Blueprint $table) {
             $table->decimal('quota_debt', 20, 4)->nullable()->after('provide_phone');
-            $table->integer('groups_id')->nullable()->after('provide_phone');
+            $table->integer('group_id')->nullable()->after('provide_phone');
             $table->string('provide_fax')->nullable()->after('provide_phone');
         });
         Schema::table('products', function (Blueprint $table) {
@@ -68,7 +68,7 @@ return new class extends Migration
             // $table->string('name')->nullable();
             // $table->string('content');
             // $table->string('fund_name')->nullable();
-         
+
         });
     }
 

@@ -23,10 +23,12 @@ class Provides extends Model
         'provide_phone',
         'provide_debt',
         'provide_address_delivery',
-        'workspace_id'
+        'workspace_id',
+        'group_id'
     ];
-    public function getGroup(){
-        return $this->hasOne(Groups::class, 'id', 'groups_id');
+    public function getGroup()
+    {
+        return $this->hasOne(Groups::class, 'id', 'group_id');
     }
 
 
@@ -95,7 +97,7 @@ class Provides extends Model
                 'provide_phone' => $data['provide_phone'],
                 'provide_fax' => $data['provide_fax'],
                 'quota_debt' => str_replace(',', '', $data['quota_debt']),
-                'groups_id' => $data['category_id'],
+                'group_id' => $data['category_id'],
                 'workspace_id' => Auth::user()->current_workspace,
                 'user_id' => Auth::user()->id,
                 'created_at' => Carbon::now()
@@ -135,8 +137,8 @@ class Provides extends Model
                 'provide_phone' => $data['provide_phone'],
                 'provide_email' => $data['provide_email'],
                 'provide_fax' => $data['provide_fax'],
-                'quota_debt' => str_replace(',','',$data['quota_debt']),
-                'groups_id' => $data['category_id']
+                'quota_debt' => str_replace(',', '', $data['quota_debt']),
+                'group_id' => $data['category_id']
             ];
             Provides::where('id', $id)->update($dataUpdate);
             if (isset($data['represent_name'])) {

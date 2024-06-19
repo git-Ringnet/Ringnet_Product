@@ -23,8 +23,9 @@ class Groups extends Model
         return Groups::with('grouptype')->get();
     }
 
-    public function getAllProducts(){
-        return $this->hasMany(Products::class,'category_id','id');
+    public function getAllProducts()
+    {
+        return $this->hasMany(Products::class, 'category_id', 'id');
     }
 
     public function groupType()
@@ -61,7 +62,10 @@ class Groups extends Model
     {
         $data = [];
         if ($idGr == 1) {
-            $data = [];
+            $data = [
+                'obj' => 'users',
+                'results' => User::where('group_id', 0)->select('users.id as id', 'users.name as name')->get()
+            ];
         } elseif ($idGr == 2) {
             $data = [
                 'obj' => 'guest',
@@ -89,7 +93,11 @@ class Groups extends Model
         $grouptype = $grouptype->grouptype_id;
         $dataRs = [];
         if ($grouptype == 1) {
-            $dataRs = [];
+            $dataRs = [
+                'obj' => 'users',
+                'results' => User::whereIn('id', $data['dataupdate'])
+                    ->select('users.id as id', 'users.name as name')->get()
+            ];
         } elseif ($grouptype == 2) {
             $dataRs = [
                 'obj' => 'guest',
@@ -117,7 +125,11 @@ class Groups extends Model
         $grouptype = $grouptype->grouptype_id;
         $data = [];
         if ($grouptype == 1) {
-            $data = [];
+            $data = [
+                'obj' => 'users',
+                'results' => User::where('group_id', $id)
+                    ->select('users.id as id', 'users.name as name')->get()
+            ];
         } elseif ($grouptype == 2) {
             $data = [
                 'obj' => 'guest',
