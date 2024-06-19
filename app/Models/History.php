@@ -95,7 +95,9 @@ class History extends Model
             ->leftJoin('delivered', 'history.delivered_id', 'delivered.id')
             // ->leftJoin('history_import', 'history_import.id', 'history.history_import')
             ->leftJoin('quoteimport', 'quoteimport.id', 'history.history_import')
+            ->leftJoin('delivery', 'delivery.id', 'delivered.delivery_id')
             ->select(
+                'delivery.code_delivery as code_delivery',
                 DB::raw('delivered.price_export * delivered.deliver_qty as giaban'),
                 'delivered.deliver_qty as slxuat',
                 DB::raw('CASE 
@@ -177,7 +179,8 @@ class History extends Model
         // ->where('detailexport_id','detailexport_id')->first();
         // return $this->hasOne(QuoteExport::class, 'detailexport_id', 'detailexport_id');
     }
-    public function getDataReport(){
+    public function getDataReport()
+    {
         return $this->hasOne(Delivered::class, 'id', 'delivered_id');
     }
     public function getProductToId($id_delivery, $idproduct)

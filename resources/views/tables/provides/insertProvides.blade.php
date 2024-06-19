@@ -119,7 +119,7 @@
                                     <p class="p-0 m-0  margin-left32 required-label text-13-red">Mã số thuế</p>
                                 </div>
                                 <input type="text" required placeholder="Nhập thông tin" name="provide_code"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100" 
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
                                     oninput="validateNumberInput(this)">
                             </div>
 

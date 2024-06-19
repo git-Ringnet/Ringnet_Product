@@ -31,6 +31,7 @@ class Products extends Model
         'warehouse_id',
         'check_seri',
         'workspace_id',
+        'group_id',
         'type',
     ];
     public function getAllProducts()
@@ -91,6 +92,7 @@ class Products extends Model
                     'workspace_id' => Auth::user()->current_workspace,
                     'type' => 1,
                     'category_id' => 0,
+                    'group_id' => 0,
                     'created_at' => Carbon::now(),
                     'user_id' => Auth::user()->id
                 ];
@@ -103,6 +105,7 @@ class Products extends Model
 
     public function addProduct($data)
     {
+        // dd($data);
         $return  = 0;
         isset($data['check_seri']) ? $check = 1 : $check = 0;
         $checkProductName = DB::table($this->table)->where('product_name', $data['product_name'])
@@ -124,7 +127,7 @@ class Products extends Model
                 'product_weight' =>  isset($data['product_weight']) ? str_replace(',', '', $data['product_weight']) : 0,
                 'product_ratio' => isset($data['product_ratio']) ? $data['product_ratio'] : 0,
                 'check_seri' => $data['type_product'] == 1 ? $check : 0,
-                'category_id' => isset($data['category_id']) ? $data['category_id'] : 0,
+                'group_id' => isset($data['category_id']) ? $data['category_id'] : 0,
                 'product_inventory' => 0,
                 'product_trade' => 0,
                 'product_available' => 0,

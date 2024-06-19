@@ -220,4 +220,47 @@ class Delivered extends Model
             ->get();
         return $delivered;
     }
+    public function getAllHistory()
+    {
+        $history = History::where('history.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('delivered', 'history.delivered_id', 'delivered.id')
+            ->leftJoin('products', 'products.id', 'delivered.product_id')
+            ->leftJoin('quoteimport', 'quoteimport.id', 'history.history_import')
+            ->leftJoin('delivery', 'delivery.id', 'delivered.delivery_id')
+            ->select(
+                'products.product_code as product_code',
+                'products.product_unit as product_unit',
+                'delivery.code_delivery as code_delivery',
+                'delivered.price_export as price_export',
+                'delivered.product_total_vat as product_total_vat',
+                DB::raw('delivered.price_export * delivered.deliver_qty as giaban'),
+                'delivered.deliver_qty as slxuat',
+                DB::raw('CASE 
+                    WHEN history.tax_import = 99 THEN 0
+                    ELSE (history.tax_import * delivered.price_export * delivered.deliver_qty) / 100 
+                END as thueXuatCalculated'),
+                DB::raw('delivered.price_export * delivered.deliver_qty + CASE 
+                    WHEN history.tax_import = 99 THEN 0 
+                    ELSE (history.tax_import * delivered.price_export * delivered.deliver_qty) / 100 
+                END as thanhtienxuat'),
+                DB::raw('quoteimport.product_qty * history.price_import as tienThue'),
+                DB::raw('CASE 
+                    WHEN history.tax_import = 99 THEN 0 
+                    ELSE (history.tax_import * history.price_import * quoteimport.product_qty) / 100 
+                END as thueNhapCalculated'),
+                DB::raw('history.price_import * quoteimport.product_qty + CASE 
+                    WHEN history.tax_import = 99 THEN 0 
+                    ELSE (history.tax_import * history.price_import * quoteimport.product_qty) / 100 
+                END as thanhtiennhap'),
+                'history.*'
+            );
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $history->where('history.user_id', Auth::user()->id);
+            }
+        }
+        $history = $history->orderBy('id', 'desc')->get();
+        // dd($history);
+        return $history;
+    }
 }

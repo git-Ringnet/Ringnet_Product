@@ -20,16 +20,16 @@ return new class extends Migration
             $table->string('product_manufacturer')->nullable();
             $table->string('product_origin')->nullable();
             $table->string('product_guarantee')->nullable();
-            $table->decimal('product_price_import',20,4)->nullable();
-            $table->decimal('product_price_export',20,4)->nullable();
+            $table->decimal('product_price_import', 20, 4)->nullable();
+            $table->decimal('product_price_export', 20, 4)->nullable();
             $table->string('product_ratio')->nullable();
             $table->integer('product_tax')->nullable();
-            $table->decimal('product_inventory',20,4)->nullable();
-            $table->decimal('product_trade',20,4)->nullable();
-            $table->decimal('product_available',20,4)->nullable();
+            $table->decimal('product_inventory', 20, 4)->nullable();
+            $table->decimal('product_trade', 20, 4)->nullable();
+            $table->decimal('product_available', 20, 4)->nullable();
             // $table->unsignedBigInteger('warehouse_id');
             $table->integer('check_seri')->nullable();
-            $table->integer('category_id')->nullable();
+            $table->integer('category_id')->default(0);
             $table->timestamps();
         });
     }

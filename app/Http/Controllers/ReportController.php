@@ -10,6 +10,7 @@ use App\Models\Delivery;
 use App\Models\DetailExport;
 use App\Models\DetailImport;
 use App\Models\Fund;
+use App\Models\Groups;
 use App\Models\Guest;
 use App\Models\History;
 use App\Models\HistoryImport;
@@ -44,6 +45,7 @@ class ReportController extends Controller
     private $product_returnE;
     private $returnExport;
     private $delivered;
+    private $history;
 
     public function __construct()
     {
@@ -57,6 +59,7 @@ class ReportController extends Controller
         $this->delivered = new Delivered();
         $this->product_returnE = new ProductReturnExport();
         $this->returnExport = new ReturnExport();
+        $this->history = new History();
     }
     public function index()
     {
@@ -372,12 +375,11 @@ class ReportController extends Controller
         $title = 'Báo cáo lợi nhuận bán hàng';
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        // Lấy sản phẩm trong đơn đó
-        $productDelivered = $this->delivered->sumDelivered();
-        // Get All đơn
-        $allDelivery = $this->delivery->getSumDelivery();
+        // Lấy sản phẩm đã bán
+        $allDeliveries = $this->delivered->getAllHistory();
+        $groups = Groups::where('grouptype_id', 4)->get();
 
-        return view('report.sumSalesProfit', compact('title', 'productDelivered', 'allDelivery'));
+        return view('report.sumSalesProfit', compact('title', 'groups', 'allDeliveries'));
     }
     /**
      * Show the form for creating a new resource.

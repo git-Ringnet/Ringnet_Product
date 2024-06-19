@@ -25,7 +25,7 @@ class Groups extends Model
 
     public function getAllProducts()
     {
-        return $this->hasMany(Products::class, 'category_id', 'id');
+        return $this->hasMany(Products::class, 'group_id', 'id');
     }
 
     public function getAllProvides()

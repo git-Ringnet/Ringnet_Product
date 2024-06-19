@@ -126,7 +126,7 @@
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Ngày
+                                                                Số chứng từ
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_name_display"></div>
@@ -137,7 +137,7 @@
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Mã phiếu
+                                                                Mã hàng
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_name_display"></div>
@@ -148,29 +148,7 @@
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Nhóm khách hàng
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Tên khách hàng
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Tên hàng hoá
+                                                                Tên hàng
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_name_display"></div>
@@ -192,7 +170,7 @@
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Số lượng
+                                                                Số lượng bán
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_name_display"></div>
@@ -203,7 +181,7 @@
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Đơn giá
+                                                                Đơn giá vốn
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_name_display"></div>
@@ -214,7 +192,7 @@
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Thành tiền
+                                                                Giá trị vốn
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_name_display"></div>
@@ -225,7 +203,7 @@
                                                         <a href="#" class="sort-link" data-sort-by="guest_name"
                                                             data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Tổng cộng
+                                                                Giá xuất
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_name"></div>
@@ -236,7 +214,7 @@
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Thanh toán
+                                                                Doanh số
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_debt"></div>
@@ -247,18 +225,7 @@
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Còn lại
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_debt"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="guest_debt"
-                                                            data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Trạng thái
+                                                                Chênh lệch
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_debt"></div>
@@ -267,107 +234,42 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php
-                                                $totalDeliverQty = 0;
-                                                $totalPriceExport = 0;
-                                                $totalProductTotalVat = 0;
-                                                $totalItemDeliveryTotalProductVat = 0;
-                                            @endphp
-
-                                            @foreach ($allDelivery as $itemDelivery)
-                                                @php
-                                                    $matchedItems = $productDelivered->where(
-                                                        'delivery_id',
-                                                        $itemDelivery->id,
-                                                    );
-                                                    $count = count($matchedItems);
-                                                @endphp
-
-                                                @if ($matchedItems->isNotEmpty())
-                                                    @foreach ($matchedItems as $item)
-                                                        @php
-                                                            $totalDeliverQty += $item->deliver_qty;
-                                                            $totalPriceExport += $item->price_export;
-                                                            $totalProductTotalVat += $item->product_total_vat;
-                                                            $totalItemDeliveryTotalProductVat +=
-                                                                $itemDelivery->totalProductVat;
-                                                        @endphp
-                                                        <tr class="position-relative">
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52  {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ $loop->first ? $itemDelivery->ngayTao : '' }}
-                                                            </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52  {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ $loop->first ? $itemDelivery->maPhieu : '' }}
-                                                            </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52  {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ $loop->first ? $itemDelivery->nhomKH : '' }}
-                                                            </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52  {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ $loop->first ? $itemDelivery->nameGuest : '' }}
-                                                            </td>
-                                                            <td class="text-13-black height-52 border">
-                                                                {{ $item->product_name }}
-                                                            </td>
-                                                            <td class="text-13-black height-52 border">
-                                                                {{ $item->product_unit }}
-                                                            </td>
-                                                            <td class="text-13-black height-52 border">
-                                                                {{ $item->deliver_qty }}
-                                                            </td>
-                                                            <td class="text-13-black height-52 border">
-                                                                {{ number_format($item->price_export) }}
-                                                            </td>
-                                                            <td class="text-13-black height-52 border">
-                                                                {{ number_format($item->product_total_vat) }}
-                                                            </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52  {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ number_format($itemDelivery->totalProductVat) }}
-                                                            </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52  {{ $loop->first ? '' : 'd-none' }}">
-                                                                Thanh toán
-                                                            </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52  {{ $loop->first ? '' : 'd-none' }}">
-                                                                Còn lại
-                                                            </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52  {{ $loop->first ? '' : 'd-none' }}">
-                                                                @if ($loop->first)
-                                                                    @if ($itemDelivery->status == 1)
-                                                                        <span>Nháp</span>
-                                                                    @elseif ($itemDelivery->status == 2)
-                                                                        <span class="text-green">Đã giao</span>
-                                                                    @endif
-                                                                @endif
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                @endif
+                                            @foreach ($allDeliveries as $item)
+                                                <tr class="position-relative">
+                                                    <td class="text-13-black height-52 ">
+                                                        {{ $item->code_delivery }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 ">
+                                                        {{ $item->product_code }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 ">
+                                                        @if ($item->getProduct)
+                                                            {{ $item->getProduct->product_name }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-13-black height-52 ">
+                                                        {{ $item->product_unit }}
+                                                    </td>
+                                                    <td class="text-13-black height-52">
+                                                        {{ number_format($item->slxuat) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52">
+                                                        {{ number_format($item->price_import) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52">
+                                                        {{ number_format($item->slxuat * $item->price_import) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52">
+                                                        {{ number_format($item->price_export) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52">
+                                                        {{ number_format($item->product_total_vat) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 ">
+                                                        {{ number_format($item->product_total_vat - $item->slxuat * $item->price_import) }}
+                                                    </td>
+                                                </tr>
                                             @endforeach
-
-                                            <tr class="position-relative">
-                                                <td colspan="6" class="text-13-black height-52  text-center">
-                                                    <strong>Tổng cộng</strong>
-                                                </td>
-                                                <td class="text-13-black height-52 ">
-                                                    {{ number_format($totalDeliverQty) }}</td>
-                                                <td class="text-13-black height-52 ">
-                                                    {{ number_format($totalPriceExport) }}</td>
-                                                <td class="text-13-black height-52 ">
-                                                    {{ number_format($totalProductTotalVat) }}</td>
-                                                <td class="text-13-black height-52 ">
-                                                    {{ number_format($totalItemDeliveryTotalProductVat) }}</td>
-                                                <td class="text-13-black height-52 "></td>
-                                                <td class="text-13-black height-52 "></td>
-                                                <td class="text-13-black height-52 "></td>
-                                            </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
