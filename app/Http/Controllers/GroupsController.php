@@ -130,16 +130,22 @@ class GroupsController extends Controller
     public function update(string $workspace, Request $request, string $id)
     {
         $id = session('idGr');
+        $currentGroup = $this->groups->find($id);
         $data = [
             'name' => $request->group_name_display,
-            'grouptype_id' => $request->grouptype_id,
             'description' => $request->group_desc,
             'workspace_id' => Auth::user()->current_workspace,
         ];
+        if (!empty($request->grouptype_id)) {
+            $data['grouptype_id'] = $request->grouptype_id;
+        } else {
+            $data['grouptype_id'] = $currentGroup->grouptype_id;
+        }
         $this->groups->updateGroup($data, $id);
         session()->forget('idGr');
         return redirect(route('groups.index', ['workspace' => $workspace]))->with('msg', 'Sửa nhóm đối tượng thành công');
     }
+
 
     /**
      * Remove the specified resource from storage.
