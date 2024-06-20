@@ -244,6 +244,27 @@ class Products extends Model
                     ];
                     $product_id = DB::table($this->table)->insertGetId($dataProduct);
                 }
+                // Thêm sản phẩm vào tồn kho theo kho hàng
+                $checkProductWarehouse = ProductWarehouse::where('product_id', $product_id)
+                    ->where('warehouse_id', $getProductName->warehouse_id)
+                    ->where('workspace_id', Auth::user()->current_workspace)->first();
+                if ($checkProductWarehouse) {
+                    $checkProductWarehouse->qty = $checkProductWarehouse->qty + $item->product_qty;
+                    $checkProductWarehouse->save();
+                } else {
+                    $dataProductWarehouse = [
+                        'product_id' => $product_id,
+                        'warehouse_id' => $getProductName->warehouse_id,
+                        'qty' => $item->product_qty,
+                        'workspace_id' => Auth::user()->current_workspace,
+                        'created_at' => Carbon::now(),
+                    ];
+
+                    DB::table('productwarehouse')->insertGetId($dataProductWarehouse);
+                }
+
+
+
                 array_push($list_id, $product_id);
                 HistoryImport::where('quoteImport_id', $getProductName->id)->update([
                     'product_id' => $product_id

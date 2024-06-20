@@ -197,6 +197,7 @@ class ReceiveController extends Controller
             // ->where('products_import.detailimport_id', $receive->detailimport_id)
             ->where('products_import.receive_id', $receive->id)
             ->where('products.workspace_id', Auth::user()->current_workspace)
+            ->where('products_import.product_qty','>',0)
             ->select(
                 'quoteimport.product_code',
                 'quoteimport.product_name',

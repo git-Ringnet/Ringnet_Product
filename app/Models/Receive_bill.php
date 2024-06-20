@@ -404,7 +404,7 @@ class Receive_bill extends Model
                             if ($quoteImport) {
                                 $total += $item->product_qty * $quoteImport->price_export;
                                 $total_tax += ($item->product_qty * $quoteImport->price_export) * ($quoteImport->product_tax == 99 ? 0 : $quoteImport->product_tax) / 100;
-                              
+
                                 $dataUpdate = [
                                     'receive_qty' => $quoteImport->receive_qty - $item->product_qty
                                 ];
@@ -414,7 +414,19 @@ class Receive_bill extends Model
                                     $dataUpdate['product_id'] = null;
                                 }
 
-                                // dd($dataUpdate);
+
+                                // Trừ số lượng sản phẩm theo kho
+                                $getProductWarehouse = ProductWarehouse::where('product_id', $quoteImport->product_id)
+                                    ->where('warehouse_id', $quoteImport->warehouse_id)
+                                    ->where('workspace_id', Auth::user()->current_workspace)
+                                    ->first();
+
+                                if ($getProductWarehouse) {
+                                    $getProductWarehouse->qty = $getProductWarehouse->qty - $item->product_qty;
+                                    $getProductWarehouse->save();
+                                }
+
+
                                 DB::table('quoteimport')->where('id', $quoteImport->id)
                                     ->where('workspace_id', Auth::user()->current_workspace)
                                     ->update($dataUpdate);
