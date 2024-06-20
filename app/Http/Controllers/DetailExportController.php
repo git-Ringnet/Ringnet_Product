@@ -405,11 +405,9 @@ class DetailExportController extends Controller
         }
         //Xóa đơn báo giá
         if ($request->action == "action_5") {
-            $delivery = Delivery::where('detailexport_id', $id)->get();
-            $billSale = BillSale::where('detailexport_id', $id)->get();
             $pay = PayExport::where('detailexport_id', $id)->get();
 
-            if ($delivery->isEmpty() && $billSale->isEmpty() && $pay->isEmpty()) {
+            if ($pay->isEmpty()) {
                 $detailExport = DetailExport::find($id);
 
                 if ($detailExport) {
@@ -452,17 +450,11 @@ class DetailExportController extends Controller
      */
     public function destroy(string $id)
     {
-        $delivery = Delivery::where('detailexport_id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->get();
-        $billSale = BillSale::where('detailexport_id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->get();
         $pay = PayExport::where('detailexport_id', $id)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
 
-        if ($delivery->isEmpty() && $billSale->isEmpty() && $pay->isEmpty()) {
+        if ($pay->isEmpty()) {
             $detailExport = DetailExport::find($id);
 
             if ($detailExport) {
