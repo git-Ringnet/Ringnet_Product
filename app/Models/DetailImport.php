@@ -65,7 +65,8 @@ class DetailImport extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    public function getAllReceiveBill(){
+    public function getAllReceiveBill()
+    {
         return $this->hasMany(Receive_bill::class, 'detailimport_id', 'id');
     }
 
@@ -87,25 +88,45 @@ class DetailImport extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $promotion = [];
             $product_ratio = 0;
-            $price_import = 0;
+            $price_vat = 0;
             $price_export = 0;
             isset($data['product_ratio']) ? $product_ratio = $data['product_ratio'][$i] : $product_ratio = 0;
             isset($data['price_import']) ? $price_import = str_replace(',', '', $data['price_import'][$i]) : $price_import = 0;
-            if ($product_ratio > 0 && $price_import > 0) {
-                $price_export = (($product_ratio + 100) * $price_import) / 100;
-                $total += $price_export * str_replace(',', '', $data['product_qty'][$i]);
-            } else {
-                $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
-                if ($data['promotion-option'][$i] == 1) {
-                    // var_dump($data['promotion-option'][$i]);
-                    // var_dump(isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0);
-                    $price_export = $price_export - (isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0);
-                } else {
-                    $price_export = $price_export * (isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0) / 100;
-                }
+            $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
 
-                $total += $price_export;
+            if ($data['promotion-option'][$i] == 1) {
+                $price_export = $price_export - (isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0);
+            } else {
+                $price_export = $price_export - $price_export * (isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0) / 100;
             }
+
+            // Tổng tiền sản phẩm chưa + VAT
+            $total += $price_export;
+
+
+            // $price_vat = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
+
+
+         
+
+            // Tổng tiền VAT
+            $total_tax += ($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export / 100;
+
+            // if ($product_ratio > 0 && $price_import > 0) {
+            //     $price_export = (($product_ratio + 100) * $price_import) / 100;
+            //     $total += $price_export * str_replace(',', '', $data['product_qty'][$i]);
+            // } else {
+            //     $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
+            //     if ($data['promotion-option'][$i] == 1) {
+            //         // var_dump($data['promotion-option'][$i]);
+            //         // var_dump(isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0);
+            //         $price_export = $price_export - (isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0);
+            //     } else {
+            //         $price_export = $price_export * (isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0) / 100;
+            //     }
+
+            //     $total += $price_export;
+            // }
 
             // Tính tổng KM
             // if ($data['promotion-option'][$i] == 1) {
@@ -113,7 +134,7 @@ class DetailImport extends Model
             // } else {
             //     $promotionAll += str_replace(',', '', $data['price_export'][$i]) *  str_replace(',', '', $data['product_qty'][$i]) * isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0 / 100;
             // }
-            $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
+            // $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
         }
         $total_tax = round($total_tax) + round($total);
         $promotion['type'] = $data['promotion-option-total'];
@@ -274,7 +295,7 @@ class DetailImport extends Model
         $checkReceive = Receive_bill::where('detailimport_id', $id)->get();
         $checkReciept = Reciept::where('detailimport_id', $id)->get();
         $checkPayOrder = PayOder::where('detailimport_id', $id)->get();
-        $checkReturn = ReturnImport::where('receive_id',$id)->get();
+        $checkReturn = ReturnImport::where('receive_id', $id)->get();
         if (count($checkReceive) > 0) {
             $result = [
                 'status' => false,
@@ -290,7 +311,7 @@ class DetailImport extends Model
                 'status' => false,
                 'msg' => 'Vui lòng xóa thanh toán mua hàng'
             ];
-        }elseif(count($checkReturn) > 0){
+        } elseif (count($checkReturn) > 0) {
             $result = [
                 'status' => false,
                 'msg' => 'Vui lòng xóa đơn trả hàng'

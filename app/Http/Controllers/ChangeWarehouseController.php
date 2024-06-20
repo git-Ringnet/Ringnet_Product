@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ChangeWarehouse;
 use App\Models\ContentImportExport;
 use App\Models\Products;
+use App\Models\ProductWarehouse;
 use App\Models\QuoteImport;
 use App\Models\Serialnumber;
 use App\Models\Warehouse;
@@ -126,35 +127,65 @@ class ChangeWarehouseController extends Controller
     {
         $data = [];
         if ($request->warehouse_id) {
-            $quoteImport = QuoteImport::where('warehouse_id', $request->warehouse_id)
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->get();
+            $productWarehosue = ProductWarehouse::where('warehouse_id', $request->warehouse_id)
+                ->where('workspace_id', Auth::user()->current_workspace)->get();
 
-            // Trừ số lượng nếu đã tạo đơn chuyển kho
-            $filteredQuoteImport = $quoteImport->filter(function ($item) {
-                $changeWarehouseQty = ChangeWarehouse::where('quoteImport_id', $item->id)->sum('qty');
 
-                if ($changeWarehouseQty >= $item->product_qty) {
-                    return false; // Loại bỏ phần tử này
-                } elseif ($changeWarehouseQty < $item->product_qty) {
-                    $item->product_inventory = $item->product_qty - $changeWarehouseQty;
-                    return true; // Giữ lại phần tử này
-
+            if ($productWarehosue) {
+                $product_id = [];
+                foreach ($productWarehosue as $item) {
+                    $product = Products::where('id', $item->product_id)->first();
+                    if ($product && $item->qty > 0) {
+                        array_push($product_id, $product->id);
+                    }
                 }
-            });
+            }
+            $quoteImport = Products::whereIn('id', $product_id)->get();
+            $data['quoteImport'] = $quoteImport;
 
-            $data['quoteImport'] = $filteredQuoteImport->values();
+            // $quoteImport = QuoteImport::where('warehouse_id', $request->warehouse_id)
+            //     ->where('workspace_id', Auth::user()->current_workspace)
+            //     ->get();
+
+            // // Trừ số lượng nếu đã tạo đơn chuyển kho
+            // $filteredQuoteImport = $quoteImport->filter(function ($item) {
+            //     $changeWarehouseQty = ChangeWarehouse::where('quoteImport_id', $item->id)->sum('qty');
+
+            //     if ($changeWarehouseQty >= $item->product_qty) {
+            //         return false; // Loại bỏ phần tử này
+            //     } elseif ($changeWarehouseQty < $item->product_qty) {
+            //         $item->product_inventory = $item->product_qty - $changeWarehouseQty;
+            //         return true; // Giữ lại phần tử này
+
+            //     }
+            // });
+
+            // $data['quoteImport'] = $filteredQuoteImport->values();
         } else {
-            $product = Products::where('id', $request->id_product)
-                ->where('product_inventory', '>', 0)
+            // Lấy số lượng sản phẩm tồn trong kho 
+            $product = ProductWarehouse::where('product_id', $request->id_product)
+                ->where('warehouse_id', $request->id_warehouse)
                 ->first();
-            if ($product && $product->check_seri == 1) {
+
+            $getProduct = Products::where('id', $product->product_id)
+                ->where('workspace_id', Auth::user()->current_workspace)->first();
+            if ($getProduct->check_seri == 1) {
                 $seri = Serialnumber::where('quoteImport_id', $request->id_quote)->where('product_id', $product->id)
+                    ->where('warehouse_id', $request->id_warehouse)
                     ->where('status', 1)
                     ->get();
                 $data['seri'] = $seri;
             }
-            $data['product'] = $product;
+
+            // $product = Products::where('id', $request->id_product)
+            //     ->where('product_inventory', '>', 0)
+            //     ->first();
+            // if ($product && $product->check_seri == 1) {
+
+            // }
+            $data['qty'] = $product->qty;
+
+            $data['product'] = $getProduct;
         }
 
         return $data;

@@ -114,9 +114,9 @@
                                         <input type="hidden"
                                             class="border-0 py-1 w-100 height-32 text-13-black product_id"
                                             name="product_id">
-                                        <input type="hidden"
+                                        {{-- <input type="hidden"
                                             class="border-0 py-1 w-100 height-32 text-13-black quoteImport"
-                                            name="quoteImport_id">
+                                            name="quoteImport_id"> --}}
                                         <ul id="listProduct"
                                             class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
                                             style="z-index: 99; right: 0px; width: 100%; display:none;">
@@ -371,37 +371,36 @@
                     warehouse_id: id
                 },
                 success: function(data) {
+                    // Xóa dữ liệu trường đã nhập trước
+                    $('#searchProduct').val('')
+                    $('.change_qty').val('')
+
                     var qty_export = 0;
                     $('#listProduct li').remove();
                     if (data['quoteImport']) {
                         data['quoteImport'].forEach(item => {
                             var li = `
                             <li class="p-2 align-items-center" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                <a href="javascript:void(0)" id="` + item.id + `" data-import=` + item
-                                .product_id + ` name="search-info" class="search-product" style="flex:2;">
+                                                <a href="javascript:void(0)" id="` + item.id + `" data-warehouse=` +
+                                id + ` name="search-info" class="search-product" style="flex:2;">
                                                     <span class="text-13-black">` + item.product_name + `</span>
                                                 </a>
                                             </li>
                             `;
                             $('#listProduct').append(li)
-                            qty_export = formatCurrency(item
-                                .product_inventory)
 
-                            $('.change_qty').on('input',
-                                function() {
-                                    checkQty(this, qty_export);
-                                })
+
                         })
                         // Gửi Ajax lấy thông tin sn
                         $('.search-product').on('click', function() {
                             id_product = $(this).attr('id');
-                            id_quote = $(this).attr('data-import')
+                            id_warehouse = $(this).attr('data-warehouse')
                             $.ajax({
                                 url: "{{ route('getProductByWarehouse') }}",
                                 type: "get",
                                 data: {
                                     id_product: id_product,
-                                    id_quote: id_quote
+                                    id_warehouse: id_warehouse
                                 },
                                 success: function(data) {
                                     if (data['product']) {
@@ -413,13 +412,19 @@
                                                 'display:none !important');
                                         }
                                         $('.product_id').val(data['product'].id)
-                                        $('.quoteImport').val(id_quote)
+                                        // $('.quoteImport').val(id_quote)
 
 
 
                                         // Đỗ dữ liệu vào input
                                         $('#searchProduct').val(data['product']
                                             .product_name)
+
+                                        qty_export = formatCurrency(data['qty'])
+                                        $('.change_qty').on('input',
+                                            function() {
+                                                checkQty(this, qty_export);
+                                            })
 
                                     }
 

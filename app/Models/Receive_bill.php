@@ -114,37 +114,67 @@ class Receive_bill extends Model
                 }
             }
 
-            for ($i = 0; $i < count($data['product_name']); $i++) {
-                $checkQuote = QuoteImport::where('detailimport_id', $detail->id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
-                    ->get();
-                if ($checkQuote) {
-                    foreach ($checkQuote as $value) {
-                        $productImport = ProductImport::where('quoteImport_id', $value->id)
+            // for ($i = 0; $i < count($data['product_name']); $i++) {
+            $checkQuote = QuoteImport::where('detailimport_id', $detail->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
+            if ($checkQuote) {
+                foreach ($checkQuote as $value) {
+                    $total1 = 0;
+                    $productImport = ProductImport::where('quoteImport_id', $value->id)
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        // ->where('receive_id', 0)->first();
+                        ->where('receive_id', $receive_id)->first();
+
+                    // var_dump($productImport->quoteImport_id);
+
+                    if ($productImport) {
+                        // DB::table('products_import')->where('id', $productImport->id)
+                        //     ->where('workspace_id', Auth::user()->current_workspace)
+                        //     ->update($dataupdate);
+
+                        $product = QuoteImport::where('id', $productImport->quoteImport_id)
                             ->where('workspace_id', Auth::user()->current_workspace)
-                            ->where('receive_id', 0)->first();
-                        if ($productImport) {
-                            // DB::table('products_import')->where('id', $productImport->id)
-                            //     ->where('workspace_id', Auth::user()->current_workspace)
-                            //     ->update($dataupdate);
+                            ->first();
 
-                            $product = QuoteImport::where('id', $productImport->quoteImport_id)
-                                ->where('workspace_id', Auth::user()->current_workspace)
-                                ->first();
+                        // $price_export = $product->price_export;
+                        // if ($data['promotion-option'][$i] == 1) {
+                        //     $total += $price_export * $productImport->product_qty - $data['promotion'][$i];
+                        // } else {
+                        //     $total += $price_export * $productImport->product_qty - $price_export * $productImport->product_qty * $data['promotion'][$i] / 100;
+                        // }
 
-                            $price_export = $product->price_export;
-                            if ($data['promotion-option'][$i] == 1) {
-                                $total += $price_export * $productImport->product_qty - $data['promotion'][$i];
-                            } else {
-                                $total += $price_export * $productImport->product_qty - $price_export * $productImport->product_qty * $data['promotion'][$i] / 100;
-                            }
+                        // $total_tax += (($total) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
 
-                            $total_tax += (($total) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
+
+                        $price_export = $product->price_export;
+
+                        $promotionArray = json_decode($product->promotion, true);
+                        $promotionValue = isset($promotionArray['value'])
+                            ? $promotionArray['value']
+                            : 0;
+                        $promotionOption = isset($promotionArray['type'])
+                            ? $promotionArray['type']
+                            : 1;
+
+                        $price_total = $price_export * $productImport->product_qty;
+
+                        if ($promotionOption == 1) {
+                            // $total = $price_export * $productImport->product_qty - isset($data['promotion'][$i]) ? str_replace(',','',$data['promotion'][$i]) : 0;
+                            $total1 += $price_total - $promotionValue;
+                        } else {
+                            $total1 += $price_total - ($price_total * $promotionValue / 100);
                         }
+                        $total += $total1;
+                        $total_tax += $total1 * ($product->product_tax == 99 ? 0 : $product->product_tax) / 100;
                     }
-                    $sum =  round($total_tax) + round($total);
                 }
             }
+
+            // }
+
+
+            $sum = round($total_tax) + round($total);
         } else {
             $dataReceive = [
                 'detailimport_id' => 0,
@@ -181,26 +211,45 @@ class Receive_bill extends Model
             for ($i = 0; $i < count($data['product_name']); $i++) {
                 $getProductImport = DB::table('products_import')->where('id', $list_id[$i])
                     ->where('workspace_id', Auth::user()->current_workspace)
-                    ->get();
-
+                    // ->get();
+                    ->first();
                 if ($getProductImport) {
-                    foreach ($getProductImport as $item) {
-                        $product = QuoteImport::where('id', $item->quoteImport_id)
-                            ->where('workspace_id', Auth::user()->current_workspace)
-                            ->first();
+                    // foreach ($getProductImport as $item) {
+                    $total1 = 0;
+                    $product = QuoteImport::where('id', $getProductImport->quoteImport_id)
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->first();
+                 
+                    $price_export = $product->price_export;
 
-                        $price_export = $product->price_export;
+                    // if ($data['promotion-option'][$i] == 1) {
+                    //     $total += $price_export * $item->product_qty - $data['promotion'][$i];
+                    // } else {
+                    //     $total += $price_export * $item->product_qty - $price_export * $item->product_qty * $data['promotion'][$i] / 100;
+                    // }
 
-                        if ($data['promotion-option'][$i] == 1) {
-                            $total += $price_export * $item->product_qty - $data['promotion'][$i];
-                        } else {
-                            $total += $price_export * $item->product_qty - $price_export * $item->product_qty * $data['promotion'][$i] / 100;
-                        }
+                    // // $total_tax += (($price_export * $item->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
+                    // $total_tax += (($total) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
 
-                        // $total_tax += (($price_export * $item->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
-                        $total_tax += (($total) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
+
+                    $promotionArray = json_decode($product->promotion, true);
+                    $promotionValue = isset($promotionArray['value'])
+                        ? $promotionArray['value']
+                        : 0;
+                    $promotionOption = isset($promotionArray['type'])
+                        ? $promotionArray['type']
+                        : 1;
+
+                    $price_total = $price_export * $item->product_qty;
+                    if ($promotionOption == 1) {
+                        // $total = $price_export * $productImport->product_qty - isset($data['promotion'][$i]) ? str_replace(',','',$data['promotion'][$i]) : 0;
+                        $total1 += $price_total - $promotionValue;
+                    } else {
+                        $total1 += $price_total - ($price_total * $promotionValue / 100);
                     }
-                    $sum =  round($total_tax) + round($total);
+                    $total += $total1;
+                    $total_tax += (($total1) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
+                    // }
                 }
 
 
@@ -223,8 +272,10 @@ class Receive_bill extends Model
                 //     }
                 // }
             }
+            $sum = round($total_tax) + round($total);
         }
 
+        // die();
 
         DB::table('receive_bill')->where('id', $receive_id)->update([
             'total_tax' => $sum

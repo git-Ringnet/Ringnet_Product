@@ -1656,6 +1656,8 @@
                 </section>
             </div>
         </div>
+
+
         {{-- <div id="countInport" class="tab-pane fade">
             <div class="content margin-top-fixed10">
                 <!-- Main content -->
@@ -4253,6 +4255,9 @@
                 </section>
             </div>
         </div>
+
+
+        {{-- Phiếu chuyển kho --}}
 
 
 

@@ -223,7 +223,7 @@
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <input
                                                 class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2 price_export "
-                                                name="total" placeholder="Nhập số tiền" style="flex:2;"
+                                                name="total" placeholder="Nhập số tiền" style="flex:2; background-color:#F0F4FF;"
                                                 id="prepayment" required />
                                         </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">

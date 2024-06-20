@@ -441,8 +441,8 @@
                                                     </div>
                                                     <div class="mt-3 text-13-blue text-right"> 
                                                         <select class="border-0 promotion-option" name="promotion-option[]"> 
-                                                        <option value="1">Nhập tiền </option>
-                                                        <option value="2">Nhập %</option> 
+                                                        <option value="1" `+(promotionObject['type'] == 1 ? "selected" : "")+`>Nhập tiền</option>
+                                                        <option value="2" `+(promotionObject['type'] == 2 ? "selected" : "")+`>Nhập %</option> 
                                                         </select> 
                                                     </div>
                                                 </td>

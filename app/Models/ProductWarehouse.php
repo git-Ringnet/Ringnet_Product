@@ -20,6 +20,9 @@ class ProductWarehouse extends Model
         'updated_at'
     ];
 
-
+    public function getWarehouse()
+    {
+        return $this->hasOne(Warehouse::class, 'id', 'warehouse_id');
+    }
 
 }

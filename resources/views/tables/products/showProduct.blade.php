@@ -340,7 +340,7 @@
                 </div>
             </section> --}}
             @if ($product->type == 1)
-                {{-- <section class="content">
+                <section class="content">
                     <div class="container-fluided">
                         <div class="row">
                             <div class="col-12 p-0">
@@ -365,37 +365,44 @@
                                     </div>
 
                                     <div class="content-info mb-3">
-                                        <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="py-2 border border-left-0 height-100" style="width:27%;">
-                                                <input type="text"
-                                                    class="py-2 border-0  p-0 text-13-black w-100 padding-left35"
-                                                    value="{{ $product->product_manufacturer }}">
-                                            </div>
-                                            <div class="title-info py-2 border border-left-0 height-100">
-                                                <input
-                                                    class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
-                                                    type="text"
-                                                    value="{{ number_format($product->product_inventory) }}">
-                                            </div>
-                                            <div class="title-info py-2 border border-left- height-100">
-                                                <input
-                                                    class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
-                                                    type="text"
-                                                    value="{{ number_format($product->product_trade) }}">
-                                            </div>
-                                            <div class="title-info py-2 border border-left-0 height-100">
-                                                <input
-                                                    class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
-                                                    type="text"
-                                                    value="{{ number_format($product->product_available) }}">
-                                            </div>
-                                        </div>
+                                        @if ($product->getProductByWarehouse)
+                                            @foreach ($product->getProductByWarehouse as $item)
+                                                @if ($item->qty > 0)
+                                                    <div class="d-flex align-items-center height-60-mobile">
+                                                        <div class="py-2 border border-left-0 height-100"
+                                                            style="width:27%;">
+                                                            <input type="text"
+                                                                class="py-2 border-0  p-0 text-13-black w-100 padding-left35"
+                                                                @if ($item->getWarehouse) value="{{ $item->getWarehouse->warehouse_name }}" @endif>
+                                                        </div>
+                                                        <div class="title-info py-2 border border-left-0 height-100">
+                                                            <input
+                                                                class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
+                                                                type="text"
+                                                                value="{{ number_format($item->qty) }}">
+                                                        </div>
+                                                        <div class="title-info py-2 border border-left- height-100">
+                                                            <input
+                                                                class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
+                                                                type="text"
+                                                                value="{{ number_format($product->product_trade) }}">
+                                                        </div>
+                                                        <div class="title-info py-2 border border-left-0 height-100">
+                                                            <input
+                                                                class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
+                                                                type="text"
+                                                                value="{{ number_format($product->product_available) }}">
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section> --}}
+                </section>
             @endif
         </div>
 

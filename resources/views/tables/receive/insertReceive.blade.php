@@ -494,6 +494,7 @@
                             id: data.id
                         },
                         success: function(product) {
+                            console.log(product);
                             $('#product').html(product)
                             $('#inputcontent tbody').empty();
                             product.quoteImport.forEach((element, index) => {
@@ -554,7 +555,7 @@
                                                 <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div>
                                                         <input type="text" required="" class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]"
-                                                        value="` + formatCurrency(element.price_export) + `">
+                                                        value="` + formatCurrency(element.price_export) + `" readonly>
                                                         </div>
                                                     <div class="mt-3 text-13-blue transaction text-right" id="transaction" data-toggle="modal" data-target="#recentModal">
                                                         Giao dịch gần đây
@@ -563,12 +564,14 @@
                                                 <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div>
                                                         <input type="text" class="border-0 px-2 py-1 w-100 text-right height-32 promotion" name="promotion[]"
-                                                        value="` + formatCurrency(promotionObject['value']) + `" name="promotion[]">
+                                                        value="` + formatCurrency(promotionObject['value']) + `" name="promotion[]" readonly>
                                                     </div>
                                                     <div class="mt-3 text-13-blue text-right"> 
                                                         <select class="border-0 promotion-option" name="promotion-option[]"> 
-                                                        <option value="1">Nhập tiền </option>
-                                                        <option value="2">Nhập %</option> 
+                                                        <option value="1" ` + (promotionObject['type'] == 1 ?
+                                            'selected' : '') + `>Nhập tiền </option>
+                                                        <option value="2"  ` + (promotionObject['type'] == 2 ?
+                                            'selected' : '') + `>Nhập %</option> 
                                                         </select> 
                                                     </div>
                                                 </td>
@@ -591,12 +594,15 @@
                                                 <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly="" name="total_price[]"
                                                     value="` + formatCurrency(promotionObject[
-                                                'type'] == 1 ? element
-                                            .product_total -
-                                            promotionObject['value'] :
-                                            element.product_total *
-                                            promotionObject['value'] /
-                                            100) + `" readonly>
+                                                'type'] == 1 ? (element
+                                                .product_total -
+                                                promotionObject['value']
+                                            ) :
+                                            (element.product_total -
+                                                element.product_total *
+                                                promotionObject[
+                                                    'value'] /
+                                                100)) + `" readonly>
                                                 </td>
 
 
@@ -956,20 +962,6 @@
             })
         })
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     $(document).on('click', '.user_flow', function(e) {

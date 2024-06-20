@@ -416,9 +416,23 @@ function updateTaxAmount() {
             taxValue = 0;
         }
 
+        var promotion_option = $(this).find('.promotion-option').val();
+        var promotion = $(this).find('.promotion');
+        if (promotion.length > 0) {
+            promotion = parseFloat(
+                promotion.val().replace(/[^0-9.-]+/g, "")
+            );
+        }
         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
             var totalAmount = productQty * productPrice;
             var taxAmount = (totalAmount * taxValue) / 100;
+            if (taxValue > 0) {
+                if (promotion_option == 1) {
+                    taxAmount = (totalAmount - promotion) * taxValue / 100;
+                } else {
+                    taxAmount = taxAmount - (taxAmount * promotion / 100)
+                }
+            }
             $(this).find(".product_tax1").text(Math.round(taxAmount));
         }
     });

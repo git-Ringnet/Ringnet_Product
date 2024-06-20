@@ -582,7 +582,7 @@
                                                         <input type="text" name="total_price[]"
                                                             class="text-right border-0 px-2 py-1 w-100 total_price height-32"
                                                             readonly
-                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total - $promotionValue, 2, '.', ',') : number_format($item->product_total - $promotionValue) }}"
+                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format(($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - $item->product_total * $promotionValue / 100), 2, '.', ',') : number_format(($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total -  $item->product_total * $promotionValue / 100)) }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                     </td>
                                                     <td

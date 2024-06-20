@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CashReceipt;
+use App\Models\ChangeWarehouse;
 use App\Models\ContentGroups;
 use App\Models\ContentImportExport;
 use App\Models\Delivered;
@@ -293,6 +294,10 @@ class ReportController extends Controller
         // thu chi tồn quỹ
         $inventoryDebt = Fund::all();
 
+
+        // Phiếu chuyển kho
+        $changeWarehouse = ChangeWarehouse::where('workspace_id',Auth::user()->current_workspace)->get();
+
         // dd($doanhso);
         return view('report.index', compact(
             'title',
@@ -325,7 +330,8 @@ class ReportController extends Controller
             'contentImport',
             'returnImport',
             'contentExport',
-            'inventoryDebt'
+            'inventoryDebt',
+            'changeWarehouse'
         ));
     }
     public function view()

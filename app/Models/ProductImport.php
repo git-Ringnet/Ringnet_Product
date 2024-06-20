@@ -154,7 +154,7 @@ class ProductImport extends Model
             } else {
                 $promotion = [];
                 $promotion['type'] = $data['promotion-option'][$i];
-                $promotion['value'] = $data['promotion'][$i];
+                $promotion['value'] = isset($data['promotion'][$i]) ? str_replace(',','',$data['promotion'][$i]) : 0;
                 $dataQuote = [
                     // 'detailimport_id' => $id,
                     'detailimport_id' => 0,

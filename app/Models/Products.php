@@ -49,6 +49,9 @@ class Products extends Model
         return $this->hasOne(Groups::class, 'id', 'group_id');
     }
 
+    public function getProductByWarehouse(){
+        return $this->hasMany(ProductWarehouse::class, 'product_id', 'id');
+    }
 
     public function getSerialNumber()
     {
