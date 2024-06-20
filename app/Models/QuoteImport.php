@@ -33,6 +33,18 @@ class QuoteImport extends Model
     {
         return DB::table($this->table)->get();
     }
+
+    public function getAllProductWareHouse($warehouse_id)
+    {
+        return DB::table($this->table)
+            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('warehouse', 'quoteimport.warehouse_id', '=', 'warehouse.id')
+            ->where('warehouse.id', $warehouse_id)
+            ->groupBy('quoteimport.product_id', 'quoteimport.product_code', 'quoteimport.product_name')
+            ->select('quoteimport.product_code', 'quoteimport.product_name', DB::raw('SUM(quoteimport.quantity_remaining) as total_quantity_remaining'))
+            ->get();
+    }
+
     public function getProductImport()
     {
         return $this->hasOne(ProductImport::class, 'quoteImport_id', 'id');
@@ -173,13 +185,15 @@ class QuoteImport extends Model
                 if (
                     $dataUpdate->product_code != $data['product_code'][$i] || $dataUpdate->product_name != $data['product_name'][$i] || $dataUpdate->product_unit != $data['product_unit'][$i] ||
                     $dataUpdate->product_qty != str_replace(',', '', $data['product_qty'][$i]) || $dataUpdate->product_tax != $data['product_tax'][$i] ||
-                    $dataUpdate->product_total != $total_price || $dataUpdate->price_export != $price_export || $dataUpdate->product_note != $data['product_note'][$i]
+                    $dataUpdate->product_total != $total_price || $dataUpdate->price_export != $price_export || $dataUpdate->product_note != $data['product_note'][$i] || $dataUpdate->promotion != $data['promotion'][$i] || $dataUpdate->promotion_type != $data['promotion_type'][$i]
                 ) {
                     $dataQuoteUpdate = [
                         'product_code' => $data['product_code'][$i],
                         'product_name' => $data['product_name'][$i],
                         'product_unit' => $data['product_unit'][$i],
                         'product_qty' => str_replace(',', '', $data['product_qty'][$i]),
+                        'promotion' => isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
+                        'promotion_type' => $data['promotion_type'][$i],
                         'product_tax' => $data['product_tax'][$i],
                         'product_total' => $total_price,
                         'price_export' => $price_export,
@@ -207,6 +221,8 @@ class QuoteImport extends Model
                     'receive_qty' => 0,
                     'reciept_qty' => 0,
                     'payment_qty' => 0,
+                    'promotion' => isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : null,
+                    'promotion_type' => $data['promotion_type'][$i],
                     'workspace_id' => Auth::user()->current_workspace,
                 ];
                 DB::table($this->table)->insert($dataQuote);

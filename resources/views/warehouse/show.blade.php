@@ -66,7 +66,7 @@
     </div>
     <div class="content" style="margin-top:10.3rem;">
         <section class="content">
-            <div class="container-fluided mb-2">
+            <div class="container-fluided">
                 <div class="bg-filter-search border-0 text-left">
                     <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN CHUNG</p>
                 </div>
@@ -76,7 +76,8 @@
                             <div class="title-info height-100 py-2 border border-left-0">
                                 <p class="p-0 m-0 text-13-black margin-left32">Mã kho hàng</p>
                             </div>
-                            <input type="text" placeholder="Nhập thông tin" disabled name="warehouse_code" value="{{ $warehouse->warehouse_code }}"
+                            <input type="text" placeholder="Nhập thông tin" disabled name="warehouse_code"
+                                value="{{ $warehouse->warehouse_code }}"
                                 class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
                         <div class="d-flex align-items-center height-60-mobile">
@@ -85,16 +86,87 @@
                                     <b>Tên kho hàng</b>
                                 </p>
                             </div>
-                            <input type="text" placeholder="Nhập thông tin" value="{{ $warehouse->warehouse_name }}" disabled
+                            <input type="text" placeholder="Nhập thông tin" value="{{ $warehouse->warehouse_name }}"
+                                disabled
                                 class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
                         <div class="d-flex align-items-center height-60-mobile">
                             <div class="title-info height-100 py-2 border border-left-0">
                                 <p class="p-0 m-0 text-13-black margin-left32">Địa chỉ</p>
                             </div>
-                            <input type="text" placeholder="Nhập thông tin" name="warehouse_address" value="{{ $warehouse->warehouse_address }}" disabled
+                            <input type="text" placeholder="Nhập thông tin" name="warehouse_address"
+                                value="{{ $warehouse->warehouse_address }}" disabled
                                 class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluided">
+                <div class="bg-filter-search border-0 text-left">
+                    <p class="font-weight-bold text-uppercase info-chung--heading">SẢN PHẨM TRONG KHO</p>
+                </div>
+                <div class="title-info height-100 w-100 py-2 scrollbar">
+                    <div class="outer2">
+                        <table id="example2" class="table px-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="product_code" data-sort-type="DESC">
+                                                <button class="btn-sort" type="submit">
+                                                    <span class="text-13">
+                                                        Mã sản phẩm
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <div class="icon" id="icon-product_code"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="product_code" data-sort-type="DESC">
+                                                <button class="btn-sort" type="submit">
+                                                    <span class="text-13">
+                                                        Tên sản phẩm
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <div class="icon" id="icon-product_code"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="product_code" data-sort-type="DESC">
+                                                <button class="btn-sort" type="submit">
+                                                    <span class="text-13">
+                                                        Số lượng
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <div class="icon" id="icon-product_code"></div>
+                                        </span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody-product">
+                                @foreach ($products as $item)
+                                    <tr class="position-relative product-info">
+                                        <td class="py-2 text-13-black pl-0 border-bottom border-top-0">
+                                            <span>{{ $item->product_code }}</span>
+                                        </td>
+                                        <td class="py-2 text-13-black pl-0 border-bottom border-top-0">
+                                            <span>{{ $item->product_name }}</span>
+                                        </td>
+                                        <td class="py-2 text-13-black pl-0 border-bottom border-top-0">
+                                            <span>{{ number_format($item->total_quantity_remaining ?? 0) }}</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

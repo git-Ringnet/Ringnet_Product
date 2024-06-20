@@ -325,7 +325,8 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="w-100 bg-filter-search" style="height: 30px;bottom: 0;">
+                                <div class="w-100 bg-filter-search position-fixed"
+                                    style="height: 30px;bottom: 0;left: 0;">
                                     <div class="position-relative">
                                         <div class="position-absolute px-4 pt-1 border bg-white" style="right: 0;">
                                             <span class="text-danger font-weight-bold">
@@ -335,7 +336,7 @@
                                                         $sumInventory += $item_inventory->total_inventory_value;
                                                     }
                                                 @endphp
-                                                {{number_format($sumInventory)}}
+                                                {{ number_format($sumInventory) }}
                                             </span>
                                         </div>
                                     </div>
@@ -550,7 +551,7 @@
                                                             {{ number_format($item->price_export * $item->product_qty) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
-                                                            {{ number_format(($item->price_export * $item->product_qty) - ($item->listed * $item->product_qty)) }}
+                                                            {{ number_format($item->price_export * $item->product_qty - $item->listed * $item->product_qty) }}
                                                         </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">
@@ -561,6 +562,24 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="w-100 bg-filter-search position-fixed"
+                                    style="height: 30px;bottom: 0;left: 0;">
+                                    <div class="position-relative">
+                                        <div class="position-absolute px-4 pt-1 border bg-white" style="right: 0;">
+                                            <span class="text-danger font-weight-bold">
+                                                @php
+                                                    $sumSales = 0;
+                                                    foreach ($detailExport as $item_detail) {
+                                                        $sumSales +=
+                                                            $item->price_export * $item->product_qty -
+                                                            $item->listed * $item->product_qty;
+                                                    }
+                                                @endphp
+                                                {{ number_format($sumSales) }}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -704,6 +723,22 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="w-100 bg-filter-search position-fixed"
+                                    style="height: 30px;bottom: 0;left: 0;">
+                                    <div class="position-relative">
+                                        <div class="position-absolute px-4 pt-1 border bg-white" style="right: 0;">
+                                            <span class="text-danger font-weight-bold">
+                                                @php
+                                                    $sumDebt = 0;
+                                                    foreach ($guest as $item_guest) {
+                                                        $sumDebt += $item_guest->sumAmountOwed;
+                                                    }
+                                                @endphp
+                                                {{ number_format($sumDebt) }}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

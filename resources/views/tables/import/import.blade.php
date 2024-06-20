@@ -717,7 +717,7 @@
                 }).get();
                 // Kiểm tra trùng seri 1 sản phẩm
                 if (checkDuplicateSerialNumbers(SerialNumbers) !== null) {
-                    showNotification('warning', 'Sản phảm' + $(this).val() + 'đã trùng seri' +
+                    showNotification('warning', 'Sản phẩm ' + $(this).val() + ' đã trùng seri ' +
                         checkDuplicateSerialNumbers(SerialNumbers))
                     formSubmit = false
                 } else {

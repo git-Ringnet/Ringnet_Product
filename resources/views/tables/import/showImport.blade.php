@@ -623,90 +623,86 @@
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính
                                     kèm</p>
                             </div>
-                            <x-form-attachment :value="$import" name="DMH"></x-form-attachment>
-                        </div>
-                    </div>
+</form>
+<x-form-attachment :value="$import" name="DMH"></x-form-attachment>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="content">
+    <div id="mySidenav" class="sidenav border" style="top:214px !important;">
+        <div id="show_info_Guest">
+            <div class="bg-filter-search border-0 text-center border-custom">
+                <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                    THÔNG TIN NHÀ CUNG CẤP
+                </p>
+            </div>
+            <div class="content-info">
+                <div class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left text-nowrap"
+                    style="height:44px;">
+                    <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
+                    <span class="mx-1 text-13" style="flex: 2;">
+                        <input type="text" placeholder="Chọn thông tin" readonly {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
+                            value="{{ $import->provide_name }}"
+                            class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
+                            style="background-color:#F0F4FF; border-radius:4px;" id="myInput" autocomplete="off">
+                    </span>
                 </div>
-            </section>
-        </div>
-        <div class="content">
-            <div id="mySidenav" class="sidenav border" style="top:214px !important;">
-                <div id="show_info_Guest">
-                    <div class="bg-filter-search border-0 text-center border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
-                            THÔNG TIN NHÀ CUNG CẤP
-                        </p>
-                    </div>
-                    <div class="content-info">
-                        <div class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left text-nowrap"
-                            style="height:44px;">
-                            <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
-                            <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" placeholder="Chọn thông tin" readonly {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
-                                    value="{{ $import->provide_name }}"
-                                    class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
-                                    style="background-color:#F0F4FF; border-radius:4px;" id="myInput"
-                                    autocomplete="off">
-                            </span>
-                        </div>
-                    </div>
-                    <div>
-                        <ul class="p-0 m-0 ">
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                    {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}} value="{{ $import->represent_name }}" style="flex:2;"
-                                    id="represent" readonly>
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã mua hàng</span>
-                                <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
-                                    placeholder="Nhập thông tin" name="quotation_number"
-                                    value="{{ $import->quotation_number }}" readonly />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày mua hàng</span>
-                                <input type="text" class="text-13-black w-50 border-0 px-2 py-2"
-                                    placeholder="Nhập thông tin" id="datePicker" name="date_quote" style="flex:2;"
-                                    value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}" />
-                            </li>
-                            <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
-                                @if ($payOrder && $payOrder->payment_day)
-                                    <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
-                                        placeholder="Chọn thông tin" style="flex:2;" readonly
-                                        value="{{ date_format(new DateTime($payOrder->payment_day), 'd/m/Y') }}" />
-                                @endif
-                            </li>
-                            <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
-                                @if ($payOrder && $payOrder->total)
-                                    <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
-                                        style="flex:2;" readonly=""
-                                        value="{{ number_format($payOrder->total) }}">
-                                @endif
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
-                                @if ($payOrder && $payOrder->payment)
-                                    <input
-                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
-                                        style="flex:2;" readonly value="{{ number_format($payOrder->payment) }}">
-                                @endif
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            </div>
+            <div>
+                <ul class="p-0 m-0 ">
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
+                        <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}}
+                            value="{{ $import->represent_name }}" style="flex:2;" id="represent" readonly>
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã mua hàng</span>
+                        <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
+                            placeholder="Nhập thông tin" name="quotation_number"
+                            value="{{ $import->quotation_number }}" readonly />
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày mua hàng</span>
+                        <input type="text" class="text-13-black w-50 border-0 px-2 py-2"
+                            placeholder="Nhập thông tin" id="datePicker" name="date_quote" style="flex:2;"
+                            value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}" />
+                    </li>
+                    <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
+                        @if ($payOrder && $payOrder->payment_day)
+                            <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                placeholder="Chọn thông tin" style="flex:2;" readonly
+                                value="{{ date_format(new DateTime($payOrder->payment_day), 'd/m/Y') }}" />
+                        @endif
+                    </li>
+                    <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                        @if ($payOrder && $payOrder->total)
+                            <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
+                                style="flex:2;" readonly="" value="{{ number_format($payOrder->total) }}">
+                        @endif
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
+                        @if ($payOrder && $payOrder->payment)
+                            <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
+                                style="flex:2;" readonly value="{{ number_format($payOrder->payment) }}">
+                        @endif
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-</form>
+</div>
+</div>
 <div class="modal fade" id="recentModal" tabindex="-1" aria-labelledby="productModalLabel" style="display: none;"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -785,7 +781,6 @@
         </div>
     </div>
 </div>
-
 
 <x-formprovides> </x-formprovides>
 

@@ -102,11 +102,10 @@ class DetailImport extends Model
                 $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
             }
         }
-        $total_amount = round($total_tax) + round($total);
         if ($data['discount_type'] == 1) {
-            $voucher = $total_amount - ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
+            $voucher = ($total - ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher'])) + round($total_tax));
         } else {
-            $voucher = $total_amount - (($total_amount * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100);
+            $voucher = ($total - (($total * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100)) + round($total_tax);
         }
         $dataImport = [
             'provide_id' => $data['provides_id'],
@@ -168,14 +167,26 @@ class DetailImport extends Model
                     $price_export = 0;
                     isset($data['product_ratio']) ? $product_ratio = $data['product_ratio'][$i] : $product_ratio = 0;
                     isset($data['price_import']) ? $price_import = str_replace(',', '', $data['price_import'][$i]) : $price_import = 0;
+                    $promotion = isset($data['promotion'][$i]) && $data['promotion'][$i] !== '' ? str_replace(',', '', $data['promotion'][$i]) : 0;
                     if ($product_ratio > 0 && $price_import > 0) {
                         $price_export = (($product_ratio + 100) * $price_import) / 100;
                         $total += $price_export * str_replace(',', '', $data['product_qty'][$i]);
                     } else {
-                        $price_export = floatval(str_replace(',', '', $data['product_qty'][$i])) * floatval(str_replace(',', '', $data['price_export'][$i]));
+                        if ($data['promotion_type'][$i] == 1) {
+                            $price_export = (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i])) - $promotion;
+                        } else if ($data['promotion_type'][$i] == 2) {
+                            $price_export = (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i])) - ((str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]) * $promotion) / 100);
+                        } else {
+                            $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
+                        }
                         $total += $price_export;
+                        $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
                     }
-                    $total_tax += ($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export / 100;
+                }
+                if ($data['discount_type'] == 1) {
+                    $voucher = ($total - ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher'])) + round($total_tax));
+                } else {
+                    $voucher = ($total - (($total * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100)) + round($total_tax);
                 }
             } else {
                 $product = QuoteImport::where('detailimport_id', $id)
@@ -204,9 +215,10 @@ class DetailImport extends Model
                     'quotation_number' => $data['quotation_number'],
                     'status' => $status,
                     'created_at' => $data['date_quote'],
-                    'total_price' => round($total),
-                    'total_tax' => (round($total_tax) + round($total)),
-                    'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
+                    'total_price' => $total,
+                    'total_tax' => $voucher,
+                    'discount' =>   isset($data['voucher']) ? str_replace(',', '', $data['voucher']) : 0,
+                    'discount_type' => $data['discount_type'],
                     'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
                     'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
                     'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",

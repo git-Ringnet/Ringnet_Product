@@ -300,35 +300,35 @@
                                     </p>
                                     <div class="content-info">
                                         <div class="d-flex align-items-center height-60-mobile">
-                                            <div class=" py-2 border border-left-0 height-100" style="width:27%;">
+                                            <div class=" py-2 border border-left-0 height-100 w-100">
                                                 <p class="p-0 m-0 margin-left32 text-13 text-left">Tên kho hàng</p>
                                             </div>
-                                            <div class="py-2 border border-left-0 height-100 title-info">
+                                            <div class="py-2 border border-left-0 height-100 title-info w-100">
                                                 <p class="p-0 m-0  text-13 text-right px-2">Tồn kho</p>
                                             </div>
-                                            <div class="py-2 border border-left-0 height-100 title-info">
+                                            {{-- <div class="py-2 border border-left-0 height-100 title-info">
                                                 <p class="p-0 m-0 text-13 text-right px-2">Đang giao dịch</p>
                                             </div>
                                             <div class="py-2 border border-left-0 height-100 title-info">
                                                 <p class="p-0 m-0 text-13 text-right px-2">Sẵn hàng</p>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
 
                                     <div class="content-info mb-3">
                                         <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="py-2 border border-left-0 height-100" style="width:27%;">
+                                            <div class="py-2 border border-left-0 height-100 w-100">
                                                 <input type="text"
                                                     class="py-2 border-0  p-0 text-13-black w-100 padding-left35"
                                                     value="{{ $product->product_manufacturer }}">
                                             </div>
-                                            <div class="title-info py-2 border border-left-0 height-100">
+                                            <div class="title-info py-2 border border-left-0 height-100 w-100">
                                                 <input
                                                     class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
                                                     type="text"
                                                     value="{{ number_format($product->product_inventory) }}">
                                             </div>
-                                            <div class="title-info py-2 border border-left- height-100">
+                                            {{-- <div class="title-info py-2 border border-left- height-100">
                                                 <input
                                                     class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
                                                     type="text"
@@ -339,7 +339,7 @@
                                                     class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
                                                     type="text"
                                                     value="{{ number_format($product->product_available) }}">
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>

@@ -395,7 +395,7 @@
                                 </table>
                             </div>
                         </section>
-                        <x-formsynthetic :import="''"></x-formsynthetic>
+                        <x-formsynthetic :import="$reciept"></x-formsynthetic>
                     </div>
 
                     <div id="files" class="tab-pane fade">

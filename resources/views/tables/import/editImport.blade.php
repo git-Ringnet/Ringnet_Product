@@ -135,7 +135,8 @@
                                                 <th class="border-right p-0 px-2 text-right text-13"style="width:15%;">
                                                     Thành tiền
                                                 </th>
-                                                <th class="border-right p-0 px-2 text-left note text-13" style="width:15%;">
+                                                <th class="border-right p-0 px-2 text-left note text-13"
+                                                    style="width:15%;">
                                                     Ghi chú sản phẩm
                                                 </th>
                                                 <th></th>
@@ -168,7 +169,7 @@
                                                         <input type="text" name="product_code[]"
                                                             class="border-0 w-75 px-2 py-1 w-75 searchProduct height-32"
                                                             value="{{ $item->product_code }}"
-                                                            @if ($import->status == 2) echo readonly @endif>
+                                                            @if ($import->status == 2) readonly @endif>
                                                         <ul id="listProductCode"
                                                             class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
                                                             style="z-index: 99; left: 24%; top: 75%;">
@@ -181,7 +182,7 @@
                                                                 name="product_name[]"
                                                                 class="@if ($import->status == 1) searchProductName @endif border-0 px-2 py-1 w-100 height-32"
                                                                 value="{{ $item->product_name }}"
-                                                                @if ($import->status != 1) echo readonly @endif
+                                                                @if ($import->status != 1) readonly @endif
                                                                 required>
                                                             <div class="info-product" data-toggle="modal"
                                                                 data-target="#productModal">
@@ -218,7 +219,7 @@
                                                         <input type="text" name="product_unit[]"
                                                             class="border-0 px-2 py-1 w-100 product_unit height-32"
                                                             value="{{ $item->product_unit }}"
-                                                            @if ($import->status != 1) echo readonly @endif
+                                                            @if ($import->status != 1) readonly @endif
                                                             required>
                                                     </td>
                                                     <td
@@ -228,7 +229,7 @@
                                                                 name="product_qty[]"
                                                                 class="border-0 px-2 py-1 w-100 quantity-input text-right height-32"
                                                                 value="{{ number_format($item->product_qty) }}"
-                                                                @if ($import->status != 1) echo readonly @endif>
+                                                                @if ($import->status != 1) readonly @endif>
                                                             <div class='mt-3 text-13-blue inventory text-right'
                                                                 tyle="top: 68%;">Tồn kho:
                                                                 <span class='pl-1 soTonKho'>
@@ -242,7 +243,7 @@
                                                         <input type="text" name="price_export[]"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right height-32"
                                                             value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
-                                                            @if ($import->status != 1) echo readonly @endif>
+                                                            @if ($import->status != 1) readonly @endif>
                                                         <div class='mt-3 text-13-blue text-right transaction'
                                                             id="transaction" data-toggle="modal"
                                                             data-target="#recentModal">Giao dịch gần đây
@@ -251,17 +252,21 @@
                                                     <input type="hidden" class="product_tax1">
                                                     <td
                                                         class="border-right pt-0 p-2 text-13 align-top border-top-0 border-bottom text-center">
-                                                        <select name="product_tax[]" id=""
+                                                        <select name="product_tax[]" @if ($import->status != 1) disabled @endif
                                                             class="border-0 py-1 w-100 text-center product_tax height-32">
-                                                            @if ($item->product_tax == 0)
-                                                                <option value="0">0%</option>
-                                                            @elseif($item->product_tax == 8)
-                                                                <option value="8">8%</option>
-                                                            @elseif($item->product_tax == 10)
-                                                                <option value="10">10%</option>
-                                                            @else
-                                                                <option value="99">NOVAT</option>
-                                                            @endif
+                                                            <option value="0" <?php if ($item->product_tax == 0) {
+                                                                echo 'selected';
+                                                            } ?>>0%
+                                                            </option>
+                                                            <option value="8" <?php if ($item->product_tax == 8) {
+                                                                echo 'selected';
+                                                            } ?>>8%</option>
+                                                            <option value="10" <?php if ($item->product_tax == 10) {
+                                                                echo 'selected';
+                                                            } ?>>10%</option>
+                                                            <option value="99" <?php if ($item->product_tax == 99) {
+                                                                echo 'selected';
+                                                            } ?>>NOVAT</option>
                                                         </select>
                                                     </td>
                                                     <td
@@ -270,7 +275,7 @@
                                                             <input type='text' name='promotion[]'
                                                                 value="{{ number_format($item->promotion) }}"
                                                                 class='text-right border-0 px-2 py-1 w-100 height-32 promotion'
-                                                                readonly autocomplete='off'>
+                                                                autocomplete='off' @if ($import->status != 1) readonly @endif>
                                                             <span class='mt-1 <?php if ($item->promotion_type == 1) {
                                                                 echo 'd-none';
                                                             } ?> percent'>%</span>
@@ -278,7 +283,7 @@
                                                         <div class='text-right'>
                                                             <select
                                                                 class='border-0 mt-3 text-13-blue text-center promotion_type'
-                                                                disabled>
+                                                                @if ($import->status != 1) disabled @endif>
                                                                 <option value='1' <?php if ($item->promotion_type == 1) {
                                                                     echo 'selected';
                                                                 } ?>>Nhập
@@ -299,14 +304,16 @@
                                                             readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                     </td>
-                                                    <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                    <td
+                                                        class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                                         <input placeholder="Nhập ghi chú" type="text"
                                                             name="product_note[]"
                                                             class="border-0 py-1 w-100 height-32"
                                                             value="{{ $item->product_note }}"
                                                             @if ($import->status != 1) echo readonly @endif>
                                                     </td>
-                                                    <td class="pt-0 p-2 text-13 align-top border-top-0 border-bottom text-center deleteRow">
+                                                    <td
+                                                        class="pt-0 p-2 text-13 align-top border-top-0 border-bottom text-center deleteRow">
                                                         <svg width='17' height='17' viewBox='0 0 17 17'
                                                             fill='none' xmlns='http://www.w3.org/2000/svg'>
                                                             <path fill-rule='evenodd' clip-rule='evenodd'
@@ -1591,82 +1598,82 @@
         }
     })
 
-    // getProduct('searchProductName');
+    getProduct('searchProductName');
     showListProductName()
 
-    // function getProduct(name) {
-    //     $('#inputcontent tbody tr .' + name).on('click', function() {
-    //         listProductCode = $(this).closest('tr').find('#listProductCode');
-    //         listProductName = $(this).closest('tr').find('#listProductName');
-    //         inputCode = $(this).closest('tr').find('.searchProduct');
-    //         inputName = $(this).closest('tr').find('.searchProductName');
-    //         inputUnit = $(this).closest('tr').find('.product_unit');
-    //         inputPriceExprot = $(this).closest('tr').find('.price_export');
-    //         inputRatio = $(this).closest('tr').find('.product_ratio');
-    //         inputPriceImport = $(this).closest('tr').find('.price_import');
-    //         selectTax = $(this).closest('tr').find('.product_tax');
-    //         $.ajax({
-    //             url: "{{ route('getAllProducts') }}",
-    //             type: "get",
-    //             success: function(result) {
-    //                 listProductName.empty()
-    //                 var createLi =
-    //                     '<a class="bg-dark d-flex justify-content-between p-2 position-sticky">' +
-    //                     '<span class="w-100 text-white">Thêm mới</span>' +
-    //                     '</a>';
-    //                 result.forEach(element => {
-    //                     var UL = '<li>' +
-    //                         '<a href="javascript:void(0)" class="text-dark d-flex justify-content-between w-100 p-2 search-name" id="' +
-    //                         element.id + ' "data-code="' + element.product_code +
-    //                         '"data-tax="' + element
-    //                         .product_tax +
-    //                         '"data-priceExport= "' +
-    //                         element.product_price_export +
-    //                         '"data-unit="' + element.product_unit + '" "data-name="' +
-    //                         element.product_name +
-    //                         '""name="search-product">' +
-    //                         '<span class="w-100" data-id="' + element.id + '">' + element
-    //                         .product_name + '</span>' +
-    //                         '</a>' +
-    //                         '</li>';
-    //                     listProductName.append(UL);
-    //                 });
+    function getProduct(name) {
+        $('#inputcontent tbody tr .' + name).on('click', function() {
+            listProductCode = $(this).closest('tr').find('#listProductCode');
+            listProductName = $(this).closest('tr').find('#listProductName');
+            inputCode = $(this).closest('tr').find('.searchProduct');
+            inputName = $(this).closest('tr').find('.searchProductName');
+            inputUnit = $(this).closest('tr').find('.product_unit');
+            inputPriceExprot = $(this).closest('tr').find('.price_export');
+            inputRatio = $(this).closest('tr').find('.product_ratio');
+            inputPriceImport = $(this).closest('tr').find('.price_import');
+            selectTax = $(this).closest('tr').find('.product_tax');
+            $.ajax({
+                url: "{{ route('getAllProducts') }}",
+                type: "get",
+                success: function(result) {
+                    listProductName.empty()
+                    var createLi =
+                        '<a class="bg-dark d-flex justify-content-between p-2 position-sticky">' +
+                        '<span class="w-100 text-white">Thêm mới</span>' +
+                        '</a>';
+                    result.forEach(element => {
+                        var UL = '<li>' +
+                            '<a href="javascript:void(0)" class="text-dark d-flex justify-content-between w-100 p-2 search-name" id="' +
+                            element.id + ' "data-code="' + element.product_code +
+                            '"data-tax="' + element
+                            .product_tax +
+                            '"data-priceExport= "' +
+                            element.product_price_export +
+                            '"data-unit="' + element.product_unit + '" "data-name="' +
+                            element.product_name +
+                            '""name="search-product">' +
+                            '<span class="w-100" data-id="' + element.id + '">' + element
+                            .product_name + '</span>' +
+                            '</a>' +
+                            '</li>';
+                        listProductName.append(UL);
+                    });
 
-    //                 $('.search-name').on('click', function() {
-    //                     console.log(inputCode);
-    //                     inputCode.val($(this).attr(
-    //                             'data-code') == "null" ?
-    //                         "" : $(this).attr(
-    //                             'data-code'))
-    //                     inputName.val($(this).closest('li')
-    //                         .find('span')
-    //                         .text());
-    //                     inputUnit.val($(this).attr(
-    //                             'data-unit') == null ?
-    //                         "" : $(this).attr(
-    //                             'data-unit'));
-    //                     inputPriceExprot.val($(this).attr(
-    //                             'data-priceExport') ==
-    //                         "null" ? "" :
-    //                         formatCurrency($(this).attr(
-    //                             'data-priceExport')))
-    //                     inputRatio.val($(this).attr(
-    //                             'data-ratio') ==
-    //                         "null" ? "" : $(this).attr(
-    //                             'data-ratio'))
-    //                     inputPriceImport.val($(this).attr(
-    //                             'data-priceImport') ==
-    //                         "null" ? "" :
-    //                         formatCurrency($(this).attr(
-    //                             'data-priceImport')))
-    //                     selectTax.val($(this).attr(
-    //                         'data-tax'))
-    //                     listProductName.hide();
-    //                 })
-    //             }
-    //         })
-    //     })
-    // }
+                    $('.search-name').on('click', function() {
+                        console.log(inputCode);
+                        inputCode.val($(this).attr(
+                                'data-code') == "null" ?
+                            "" : $(this).attr(
+                                'data-code'))
+                        inputName.val($(this).closest('li')
+                            .find('span')
+                            .text());
+                        inputUnit.val($(this).attr(
+                                'data-unit') == null ?
+                            "" : $(this).attr(
+                                'data-unit'));
+                        inputPriceExprot.val($(this).attr(
+                                'data-priceExport') ==
+                            "null" ? "" :
+                            formatCurrency($(this).attr(
+                                'data-priceExport')))
+                        inputRatio.val($(this).attr(
+                                'data-ratio') ==
+                            "null" ? "" : $(this).attr(
+                                'data-ratio'))
+                        inputPriceImport.val($(this).attr(
+                                'data-priceImport') ==
+                            "null" ? "" :
+                            formatCurrency($(this).attr(
+                                'data-priceImport')))
+                        selectTax.val($(this).attr(
+                            'data-tax'))
+                        listProductName.hide();
+                    })
+                }
+            })
+        })
+    }
 
     $('.project_name').on('click', function() {
         var project_id = $(this).attr('id');
@@ -1689,10 +1696,18 @@
         var detail_id = {{ $import->id }}
         var provide_id = $('#provides_id').val()
         var formSubmit = true;
+        if ($('#provides_id').val() == '') {
+            formSubmit = false;
+            showAutoToast('warning', 'Vui lòng chọn nhà cung cấp')
+            return false;
+        }
         if ($('#inputcontent tbody tr').length < 1) {
             formSubmit = false
             showAutoToast('warning', 'Vui lòng thêm ít nhất 1 sản phẩm')
             return false;
+        }
+        if (!checkProduct()) {
+            formSubmit = false
         }
         if (formSubmit) {
             $.ajax({
@@ -1771,7 +1786,6 @@
                     provide_name: provide_name,
                 },
                 success: function(data) {
-                    console.log(data);
                     if (data.success) {
                         $('.btn.btn-secondary').click()
                         if (data.provide_id == $('#provides_id').val()) {

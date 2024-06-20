@@ -17,6 +17,7 @@ class WarehouseController extends Controller
      */
     private $warehouse;
     private $userFlow;
+    private $quoteImport;
     private $products;
 
     public function __construct()
@@ -24,6 +25,7 @@ class WarehouseController extends Controller
         $this->warehouse = new Warehouse();
         $this->userFlow = new UserFlow();
         $this->products = new Products();
+        $this->quoteImport = new QuoteImport();
     }
 
     public function index()
@@ -68,7 +70,8 @@ class WarehouseController extends Controller
     {
         $title = "Xem nhóm sản phẩm";
         $warehouse = Warehouse::find($id);
-        return view('warehouse.show', compact('title', 'warehouse'));
+        $products = $this->quoteImport->getAllProductWareHouse($id);
+        return view('warehouse.show', compact('title', 'warehouse','products'));
     }
 
     /**
