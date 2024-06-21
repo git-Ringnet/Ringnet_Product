@@ -227,8 +227,12 @@ class Delivered extends Model
             ->leftJoin('products', 'products.id', 'delivered.product_id')
             ->leftJoin('quoteimport', 'quoteimport.id', 'history.history_import')
             ->leftJoin('delivery', 'delivery.id', 'delivered.delivery_id')
+            ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            // ->where('products.group_id', 0)
             ->select(
                 'products.product_code as product_code',
+                'products.group_id as group_id',
+                'guest.group_id as group_idGuest',
                 'products.product_unit as product_unit',
                 'delivery.code_delivery as code_delivery',
                 'delivered.price_export as price_export',
@@ -254,13 +258,7 @@ class Delivered extends Model
                 END as thanhtiennhap'),
                 'history.*'
             );
-        if (Auth::check()) {
-            if (Auth::user()->getRoleUser->roleid == 4) {
-                $history->where('history.user_id', Auth::user()->id);
-            }
-        }
         $history = $history->orderBy('id', 'desc')->get();
-        // dd($history);
         return $history;
     }
 }

@@ -958,7 +958,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="border-left-0 py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                {{-- <div class="border-left-0 py-2 px-3 border align-items-center text-left text-nowrap position-relative"
                     style="height:49px;">
                     <span class="text-13 btn-click" style="flex: 1.5;">Tiền trả cho khách</span>
                     <span class="mx-1 text-13" style="flex: 2;">
@@ -968,7 +968,7 @@
                             {{ $returnExport->status == 2 ? 'readonly' : '' }}>
 
                     </span>
-                </div>
+                </div> --}}
                 <div class="border-left-0 py-2 px-3 border-top align-items-center text-left text-nowrap position-relative"
                     style="height:49px;">
                     <span class="text-13 btn-click" style="flex: 1.5;">Nội dung trả hàng</span>

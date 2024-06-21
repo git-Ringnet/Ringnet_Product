@@ -384,8 +384,20 @@ class ReportController extends Controller
         // Lấy sản phẩm đã bán
         $allDeliveries = $this->delivered->getAllHistory();
         $groups = Groups::where('grouptype_id', 4)->get();
+        $groupGuests = Groups::where('grouptype_id', 2)->get();
 
-        return view('report.sumSalesProfit', compact('title', 'groups', 'allDeliveries'));
+        return view('report.sumSalesProfit', compact('title', 'groups', 'groupGuests', 'allDeliveries'));
+    }
+    public function viewReportDebtGuests()
+    {
+        $title = 'Thống kê công nợ khách hàng';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        // Lấy sản phẩm đã bán
+        $allDeliveries = $this->delivered->getAllHistory();
+        $groups = Groups::where('grouptype_id', 2)->get();
+        $debtGuests = $this->guest->debtGuest();
+        return view('report.debtGuests', compact('title', 'groups', 'debtGuests'));
     }
     /**
      * Show the form for creating a new resource.

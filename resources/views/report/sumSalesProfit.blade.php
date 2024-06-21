@@ -116,162 +116,674 @@
                 <div id="buy" class="content tab-pane in active">
                     <div class="row  p-0 m-0">
                         <div class="col-12 p-0 m-0">
-                            <div class="mt-5">
-                                <div class="outer table-responsive text-nowrap">
-                                    <table id="example2" class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Số chứng từ
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Mã hàng
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Tên hàng
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                ĐVT
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Số lượng bán
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Đơn giá vốn
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Giá trị vốn
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="guest_name"
-                                                            data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Giá xuất
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="guest_debt"
-                                                            data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Doanh số
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_debt"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 ">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="guest_debt"
-                                                            data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Chênh lệch
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_debt"></div>
-                                                    </span>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($allDeliveries as $item)
-                                                <tr class="position-relative">
-                                                    <td class="text-13-black height-52 ">
-                                                        {{ $item->code_delivery }}
+                            <div class="w-100">
+                                <ul class="header-options--nav-2 nav nav-tabs margin-left32 border-bottom-0 w-100 custom-nav"
+                                    style="margin: 13px 0 13px 0 !important;">
+                                    <li>
+                                        <a class="text-secondary px-1 text-15 active" data-toggle="tab"
+                                            href="#hanghoa">Nhóm hàng hoá</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-secondary px-1 text-15" data-toggle="tab"
+                                            href="#khachhang">Nhóm
+                                            khách
+                                            hàng</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div id="hanghoa" class="content tab-pane in active">
+                                    <div class="outer table-responsive text-nowrap">
+                                        <table id="example2" class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Số chứng từ
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Mã hàng
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Tên hàng
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    ĐVT
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Số lượng bán
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Đơn giá vốn
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Giá trị vốn
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name" data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Giá xuất
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_debt" data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Doanh số
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_debt"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_debt" data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Chênh lệch
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_debt"></div>
+                                                        </span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $totalUngrouped = 0;
+                                                    $totalGrouped = 0;
+
+                                                    $totalSlXuatUngrouped = 0;
+                                                    $totalPriceImportUngrouped = 0;
+                                                    $totalPriceExportUngrouped = 0;
+                                                    $totalProductTotalVatUngrouped = 0;
+                                                    $totalProfitUngrouped = 0;
+
+                                                    $grandTotalSlXuat = 0;
+                                                    $grandTotalPriceImport = 0;
+                                                    $grandTotalPriceExport = 0;
+                                                    $grandTotalProductTotalVat = 0;
+                                                    $grandTotalProfit = 0;
+                                                @endphp
+
+                                                <tr>
+                                                    <td colspan="10" class="border-bottom">Nhóm hàng hóa : Chưa chọn
+                                                        nhóm</td>
+                                                </tr>
+
+                                                @foreach ($allDeliveries as $item)
+                                                    @if ($item->group_id == 0)
+                                                        <tr class="position-relative">
+                                                            <td class="text-13-black height-52">
+                                                                {{ $item->code_delivery }}
+                                                            </td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ $item->product_code }}
+                                                            </td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ $item->getProduct ? $item->getProduct->product_name : '' }}
+                                                            </td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ $item->product_unit }}
+                                                            </td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ number_format($item->slxuat) }}</td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ number_format($item->price_import) }}</td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ number_format($item->slxuat * $item->price_import) }}
+                                                            </td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ number_format($item->price_export) }}</td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ number_format($item->product_total_vat) }}</td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ number_format($item->product_total_vat - $item->slxuat * $item->price_import) }}
+                                                            </td>
+                                                        </tr>
+                                                        @php
+                                                            $totalUngrouped++;
+                                                            $totalSlXuatUngrouped += $item->slxuat;
+                                                            $totalPriceImportUngrouped += $item->price_import;
+                                                            $totalPriceExportUngrouped += $item->price_export;
+                                                            $totalProductTotalVatUngrouped += $item->product_total_vat;
+                                                            $totalProfitUngrouped +=
+                                                                $item->product_total_vat -
+                                                                $item->slxuat * $item->price_import;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                <tr class="bg-light">
+                                                    <td colspan="4" class="text-right text-green">Tổng cộng:</td>
+                                                    <td class="height-52 text-green">
+                                                        {{ number_format($totalSlXuatUngrouped) }}</td>
+                                                    <td class="height-52 text-green">
+                                                        {{ number_format($totalPriceImportUngrouped) }}</td>
+                                                    <td class="height-52 text-green">
+                                                        {{ number_format($totalSlXuatUngrouped * $totalPriceImportUngrouped) }}
                                                     </td>
-                                                    <td class="text-13-black height-52 ">
-                                                        {{ $item->product_code }}
-                                                    </td>
-                                                    <td class="text-13-black height-52 ">
-                                                        @if ($item->getProduct)
-                                                            {{ $item->getProduct->product_name }}
+                                                    <td class="height-52 text-green">
+                                                        {{ number_format($totalPriceExportUngrouped) }}</td>
+                                                    <td class="height-52 text-green">
+                                                        {{ number_format($totalProductTotalVatUngrouped) }}</td>
+                                                    <td class="height-52 text-green">
+                                                        {{ number_format($totalProfitUngrouped) }}</td>
+                                                </tr>
+
+                                                @php
+                                                    $grandTotalSlXuat += $totalSlXuatUngrouped;
+                                                    $grandTotalPriceImport += $totalPriceImportUngrouped;
+                                                    $grandTotalPriceExport += $totalPriceExportUngrouped;
+                                                    $grandTotalProductTotalVat += $totalProductTotalVatUngrouped;
+                                                    $grandTotalProfit += $totalProfitUngrouped;
+                                                @endphp
+
+                                                @foreach ($groups as $value)
+                                                    @php
+                                                        $totalGroupItems = 0;
+
+                                                        $totalSlXuatGrouped = 0;
+                                                        $totalPriceImportGrouped = 0;
+                                                        $totalPriceExportGrouped = 0;
+                                                        $totalProductTotalVatGrouped = 0;
+                                                        $totalProfitGrouped = 0;
+                                                    @endphp
+
+                                                    <tr>
+                                                        <td colspan="10" class="border-bottom">Nhóm hàng hóa :
+                                                            {{ $value->name }}</td>
+                                                    </tr>
+
+                                                    @foreach ($allDeliveries as $item)
+                                                        @if ($item->group_id == $value->id)
+                                                            <tr class="position-relative">
+                                                                <td class="text-13-black height-52">
+                                                                    {{ $item->code_delivery }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ $item->product_code }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ $item->getProduct ? $item->getProduct->product_name : '' }}
+                                                                </td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ $item->product_unit }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ number_format($item->slxuat) }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ number_format($item->price_import) }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ number_format($item->slxuat * $item->price_import) }}
+                                                                </td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ number_format($item->price_export) }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ number_format($item->product_total_vat) }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ number_format($item->product_total_vat - $item->slxuat * $item->price_import) }}
+                                                                </td>
+                                                            </tr>
+                                                            @php
+                                                                $totalGroupItems++;
+                                                                $totalSlXuatGrouped += $item->slxuat;
+                                                                $totalPriceImportGrouped += $item->price_import;
+                                                                $totalPriceExportGrouped += $item->price_export;
+                                                                $totalProductTotalVatGrouped +=
+                                                                    $item->product_total_vat;
+                                                                $totalProfitGrouped +=
+                                                                    $item->product_total_vat -
+                                                                    $item->slxuat * $item->price_import;
+                                                            @endphp
                                                         @endif
+                                                    @endforeach
+                                                    <tr class="bg-light">
+                                                        <td colspan="4" class="text-right text-green">Tổng cộng:
+                                                        </td>
+                                                        <td class="height-52 text-green">
+                                                            {{ number_format($totalSlXuatGrouped) }}</td>
+                                                        <td class="height-52 text-green">
+                                                            {{ number_format($totalPriceImportGrouped) }}</td>
+                                                        <td class="height-52 text-green">
+                                                            {{ number_format($totalSlXuatGrouped * $totalPriceImportGrouped) }}
+                                                        </td>
+                                                        <td class="height-52 text-green">
+                                                            {{ number_format($totalPriceExportGrouped) }}</td>
+                                                        <td class="height-52 text-green">
+                                                            {{ number_format($totalProductTotalVatGrouped) }}</td>
+                                                        <td class="height-52 text-green">
+                                                            {{ number_format($totalProfitGrouped) }}</td>
+                                                    </tr>
+
+                                                    @php
+                                                        $grandTotalSlXuat += $totalSlXuatGrouped;
+                                                        $grandTotalPriceImport += $totalPriceImportGrouped;
+                                                        $grandTotalPriceExport += $totalPriceExportGrouped;
+                                                        $grandTotalProductTotalVat += $totalProductTotalVatGrouped;
+                                                        $grandTotalProfit += $totalProfitGrouped;
+                                                    @endphp
+                                                @endforeach
+
+                                            </tbody>
+                                            <tfoot id="total-footer">
+                                                <tr class="bg-light total-row">
+                                                    <td colspan="4" class="text-right text-red">Tổng của tất
+                                                        cả
+                                                        các
+                                                        nhóm:</td>
+                                                    <td class="height-52 text-red">
+                                                        {{ number_format($grandTotalSlXuat) }}
                                                     </td>
-                                                    <td class="text-13-black height-52 ">
-                                                        {{ $item->product_unit }}
+                                                    <td class="height-52 text-red">
+                                                        {{ number_format($grandTotalPriceImport) }}
                                                     </td>
-                                                    <td class="text-13-black height-52">
-                                                        {{ number_format($item->slxuat) }}
+                                                    <td class="height-52 text-red">
+                                                        {{ number_format($grandTotalSlXuat * $grandTotalPriceImport) }}
                                                     </td>
-                                                    <td class="text-13-black height-52">
-                                                        {{ number_format($item->price_import) }}
+                                                    <td class="height-52 text-red">
+                                                        {{ number_format($grandTotalPriceExport) }}
                                                     </td>
-                                                    <td class="text-13-black height-52">
-                                                        {{ number_format($item->slxuat * $item->price_import) }}
-                                                    </td>
-                                                    <td class="text-13-black height-52">
-                                                        {{ number_format($item->price_export) }}
-                                                    </td>
-                                                    <td class="text-13-black height-52">
-                                                        {{ number_format($item->product_total_vat) }}
-                                                    </td>
-                                                    <td class="text-13-black height-52 ">
-                                                        {{ number_format($item->product_total_vat - $item->slxuat * $item->price_import) }}
+                                                    <td class="height-52 text-red">
+                                                        {{ number_format($grandTotalProductTotalVat) }}</td>
+                                                    <td class="height-52 text-red">
+                                                        {{ number_format($grandTotalProfit) }}
                                                     </td>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                                {{-- Gom nhóm theo khác hàng --}}
+                                <div id="khachhang" class="tab-pane fade">
+                                    <div class="outer table-responsive text-nowrap">
+                                        <table id="example2" class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Số chứng từ
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Mã hàng
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Tên hàng
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    ĐVT
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Số lượng bán
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Đơn giá vốn
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Giá trị vốn
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name" data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Giá xuất
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_debt" data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Doanh số
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_debt"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 ">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_debt" data-sort-type="ASC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Chênh lệch
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_debt"></div>
+                                                        </span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $totalUngrouped = 0;
+                                                    $totalGrouped = 0;
+
+                                                    $totalSlXuatUngrouped = 0;
+                                                    $totalPriceImportUngrouped = 0;
+                                                    $totalPriceExportUngrouped = 0;
+                                                    $totalProductTotalVatUngrouped = 0;
+                                                    $totalProfitUngrouped = 0;
+
+                                                    $grandTotalSlXuat = 0;
+                                                    $grandTotalPriceImport = 0;
+                                                    $grandTotalPriceExport = 0;
+                                                    $grandTotalProductTotalVat = 0;
+                                                    $grandTotalProfit = 0;
+                                                @endphp
+
+                                                <tr>
+                                                    <td colspan="10" class="border-bottom">Nhóm khách hàng : Chưa
+                                                        chọn
+                                                        nhóm</td>
+                                                </tr>
+                                                @foreach ($allDeliveries as $item)
+                                                    @if ($item->group_idGuest == 0)
+                                                        <tr class="position-relative">
+                                                            <td class="text-13-black height-52">
+                                                                {{ $item->code_delivery }}
+                                                            </td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ $item->product_code }}
+                                                            </td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ $item->getProduct ? $item->getProduct->product_name : '' }}
+                                                            </td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ $item->product_unit }}
+                                                            </td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ number_format($item->slxuat) }}</td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ number_format($item->price_import) }}</td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ number_format($item->slxuat * $item->price_import) }}
+                                                            </td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ number_format($item->price_export) }}</td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ number_format($item->product_total_vat) }}</td>
+                                                            <td class="text-13-black height-52">
+                                                                {{ number_format($item->product_total_vat - $item->slxuat * $item->price_import) }}
+                                                            </td>
+                                                        </tr>
+                                                        @php
+                                                            $totalUngrouped++;
+                                                            $totalSlXuatUngrouped += $item->slxuat;
+                                                            $totalPriceImportUngrouped += $item->price_import;
+                                                            $totalPriceExportUngrouped += $item->price_export;
+                                                            $totalProductTotalVatUngrouped += $item->product_total_vat;
+                                                            $totalProfitUngrouped +=
+                                                                $item->product_total_vat -
+                                                                $item->slxuat * $item->price_import;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                <tr class="bg-light">
+                                                    <td colspan="4" class="text-right text-green">Tổng cộng:</td>
+                                                    <td class="height-52 text-green">
+                                                        {{ number_format($totalSlXuatUngrouped) }}</td>
+                                                    <td class="height-52 text-green">
+                                                        {{ number_format($totalPriceImportUngrouped) }}</td>
+                                                    <td class="height-52 text-green">
+                                                        {{ number_format($totalSlXuatUngrouped * $totalPriceImportUngrouped) }}
+                                                    </td>
+                                                    <td class="height-52 text-green">
+                                                        {{ number_format($totalPriceExportUngrouped) }}</td>
+                                                    <td class="height-52 text-green">
+                                                        {{ number_format($totalProductTotalVatUngrouped) }}</td>
+                                                    <td class="height-52 text-green">
+                                                        {{ number_format($totalProfitUngrouped) }}</td>
+                                                </tr>
+
+                                                @php
+                                                    $grandTotalSlXuat += $totalSlXuatUngrouped;
+                                                    $grandTotalPriceImport += $totalPriceImportUngrouped;
+                                                    $grandTotalPriceExport += $totalPriceExportUngrouped;
+                                                    $grandTotalProductTotalVat += $totalProductTotalVatUngrouped;
+                                                    $grandTotalProfit += $totalProfitUngrouped;
+                                                @endphp
+
+                                                @foreach ($groupGuests as $value)
+                                                    @php
+                                                        $totalGroupItems = 0;
+
+                                                        $totalSlXuatGrouped = 0;
+                                                        $totalPriceImportGrouped = 0;
+                                                        $totalPriceExportGrouped = 0;
+                                                        $totalProductTotalVatGrouped = 0;
+                                                        $totalProfitGrouped = 0;
+                                                    @endphp
+
+                                                    <tr>
+                                                        <td colspan="10" class="border-bottom">Nhóm khách hàng :
+                                                            {{ $value->name }}</td>
+                                                    </tr>
+
+                                                    @foreach ($allDeliveries as $item)
+                                                        @if ($item->group_idGuest == $value->id)
+                                                            <tr class="position-relative">
+                                                                <td class="text-13-black height-52">
+                                                                    {{ $item->code_delivery }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ $item->product_code }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ $item->getProduct ? $item->getProduct->product_name : '' }}
+                                                                </td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ $item->product_unit }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ number_format($item->slxuat) }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ number_format($item->price_import) }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ number_format($item->slxuat * $item->price_import) }}
+                                                                </td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ number_format($item->price_export) }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ number_format($item->product_total_vat) }}</td>
+                                                                <td class="text-13-black height-52">
+                                                                    {{ number_format($item->product_total_vat - $item->slxuat * $item->price_import) }}
+                                                                </td>
+                                                            </tr>
+                                                            @php
+                                                                $totalGroupItems++;
+                                                                $totalSlXuatGrouped += $item->slxuat;
+                                                                $totalPriceImportGrouped += $item->price_import;
+                                                                $totalPriceExportGrouped += $item->price_export;
+                                                                $totalProductTotalVatGrouped +=
+                                                                    $item->product_total_vat;
+                                                                $totalProfitGrouped +=
+                                                                    $item->product_total_vat -
+                                                                    $item->slxuat * $item->price_import;
+                                                            @endphp
+                                                        @endif
+                                                    @endforeach
+                                                    <tr class="bg-light">
+                                                        <td colspan="4" class="text-right text-green">Tổng cộng:
+                                                        </td>
+                                                        <td class="height-52 text-green">
+                                                            {{ number_format($totalSlXuatGrouped) }}</td>
+                                                        <td class="height-52 text-green">
+                                                            {{ number_format($totalPriceImportGrouped) }}</td>
+                                                        <td class="height-52 text-green">
+                                                            {{ number_format($totalSlXuatGrouped * $totalPriceImportGrouped) }}
+                                                        </td>
+                                                        <td class="height-52 text-green">
+                                                            {{ number_format($totalPriceExportGrouped) }}</td>
+                                                        <td class="height-52 text-green">
+                                                            {{ number_format($totalProductTotalVatGrouped) }}</td>
+                                                        <td class="height-52 text-green">
+                                                            {{ number_format($totalProfitGrouped) }}</td>
+                                                    </tr>
+
+                                                    @php
+                                                        $grandTotalSlXuat += $totalSlXuatGrouped;
+                                                        $grandTotalPriceImport += $totalPriceImportGrouped;
+                                                        $grandTotalPriceExport += $totalPriceExportGrouped;
+                                                        $grandTotalProductTotalVat += $totalProductTotalVatGrouped;
+                                                        $grandTotalProfit += $totalProfitGrouped;
+                                                    @endphp
+                                                @endforeach
+
+                                            </tbody>
+                                            <tfoot id="total-footer">
+                                                <tr class="bg-light total-row">
+                                                    <td colspan="4" class="text-right text-red">Tổng của tất
+                                                        cả
+                                                        các
+                                                        nhóm:</td>
+                                                    <td class="height-52 text-red">
+                                                        {{ number_format($grandTotalSlXuat) }}
+                                                    </td>
+                                                    <td class="height-52 text-red">
+                                                        {{ number_format($grandTotalPriceImport) }}
+                                                    </td>
+                                                    <td class="height-52 text-red">
+                                                        {{ number_format($grandTotalSlXuat * $grandTotalPriceImport) }}
+                                                    </td>
+                                                    <td class="height-52 text-red">
+                                                        {{ number_format($grandTotalPriceExport) }}
+                                                    </td>
+                                                    <td class="height-52 text-red">
+                                                        {{ number_format($grandTotalProductTotalVat) }}</td>
+                                                    <td class="height-52 text-red">
+                                                        {{ number_format($grandTotalProfit) }}
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

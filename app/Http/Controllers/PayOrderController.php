@@ -11,6 +11,7 @@ use App\Models\HistoryPaymentOrder;
 use App\Models\PayOder;
 use App\Models\ProductImport;
 use App\Models\QuoteImport;
+use App\Models\ReturnExport;
 use App\Models\ReturnImport;
 use App\Models\ReturnProduct;
 use App\Models\User;
@@ -96,8 +97,11 @@ class PayOrderController extends Controller
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
         $content = ContentGroups::where('contenttype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
 
-        $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'content', 'returnImport'));
+        // Lấy đơn trả hàng KH
+        $returnExport = ReturnExport::where('workspace_id', Auth::user()->current_workspace)
+            ->whereRaw('CAST(total_return AS DECIMAL(20, 2)) > CAST(payment AS DECIMAL(20, 2))')->get();
+        // dd($returnExport);
+        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'content', 'returnExport'));
     }
 
     /**
@@ -123,6 +127,12 @@ class PayOrderController extends Controller
         // Tạo mới thanh toán hóa đơn
         $payment = $this->payment->addNewPayment($request->all(), $id);
 
+        // Cập nhật tiền đã trả cho khách khi trả hàng
+        $returnE = ReturnExport::findOrFail($request->returnImport_id);
+        $total = (int) str_replace(',', '', $request->total);
+
+        $returnE->payment = $returnE->payment + $total;
+        $returnE->save();
 
         // Trừ tiền vào quỹ
         $this->payment->calculateFunds($request->fund_id, $request->total);
@@ -233,9 +243,18 @@ class PayOrderController extends Controller
      */
     public function destroy(string $workspace, string $id)
     {
+        // Cập nhật tiền đã trả cho khách khi trả hàng
+        $phieuChi = PayOder::findOrFail($id);
+        $returnE = ReturnExport::findOrFail($phieuChi->return_id);
+        $returnE->payment = $returnE->payment - $phieuChi->payment;
+        $returnE->save();
+
         $status = $this->payment->deletePayment($id);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
+
+
+
         if ($status) {
             $dataUserFlow = [
                 'user_id' => Auth::user()->id,
@@ -359,6 +378,10 @@ class PayOrderController extends Controller
                 }
             }
         }
+        $returnExport = ReturnExport::leftJoin('guest', 'guest.id', 'return_export.guest_id')
+            ->select('guest.guest_name_display as nameGuest', 'return_export.*')
+            ->where('return_export.id', $request->detail_id)->first();
+        $data['return'] = $returnExport;
         $data['total'] = $total;
         $data['status'] = true;
         return $data;

@@ -388,4 +388,40 @@ class Guest extends Model
         $guests = $guests->pluck('guest_name_display')->all();
         return $guests;
     }
+    public function debtGuest()
+    {
+        $guests = Guest::leftJoin('delivery', 'guest.id', '=', 'delivery.guest_id')
+            ->leftJoin('return_export', 'delivery.id', '=', 'return_export.delivery_id')
+            ->leftJoin('cash_receipts', 'delivery.id', '=', 'cash_receipts.delivery_id')
+            ->leftJoin('pay_order', 'return_export.id', '=', 'pay_order.return_id')
+            ->select(
+                'guest.key as maKhach',
+                'guest.guest_name_display as tenKhach',
+                // Tổng tiền đã bán
+                DB::raw('(SELECT 
+                    CASE 
+                        WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL) -- Giảm số tiền trực tiếp
+                        WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 2 THEN (COALESCE(SUM(product_total_vat), 0) * (100 - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) / 100) -- Giảm phần trăm trên tổng giá trị sản phẩm
+                        ELSE COALESCE(SUM(product_total_vat), 0) -- Không có khuyến mãi
+                    END
+                FROM delivered WHERE delivered.delivery_id = delivery.id) as totalProductVat'),
+                // Tổng tiền đơn hàng đã tính đã trả
+                DB::raw('(SELECT SUM(totalVat) FROM delivery WHERE guest_id = guest.id AND status = 2) as totalDelivery'),
+                // Tổng tiền đã trả đơn hàng
+                DB::raw('(SELECT SUM(amount) FROM cash_receipts WHERE guest_id = guest.id AND status = 2) as totalCashReciept'),
+                // Tổng tiền phải trả cho khách khi trả hàng
+                DB::raw('(SELECT SUM(total_return) FROM return_export WHERE guest_id = guest.id AND status = 2) as totalReturn'),
+                // Tổng tiền đã trả cho khách khi trả hàng
+                DB::raw('(SELECT SUM(payment) FROM return_export WHERE guest_id = guest.id AND status = 2) as daTraKH'),
+                // Tiền chi
+                DB::raw('(SELECT SUM(payment) FROM pay_order WHERE guest_id = guest.id) as chiKH'),
+                'guest.*'
+            )
+            ->distinct('guest.id')
+            ->get();
+
+
+        // dd($guests);
+        return $guests;
+    }
 }

@@ -181,6 +181,17 @@
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
+                                                                Còn lại
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-guest_debt"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="height-52 border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="guest_debt"
+                                                            data-sort-type="ASC">
+                                                            <button class="btn-sort text-13" type="submit">
                                                                 Ngày giao hàng
                                                             </button>
                                                         </a>
@@ -204,12 +215,16 @@
                                             @php
                                                 $totalVatSum = 0;
                                                 $totalAfterVatSum = 0;
+                                                $totalConlai = 0;
                                             @endphp
 
                                             @foreach ($sumDelivery as $item)
                                                 @php
                                                     $totalVatSum += $item->totalProductVat;
                                                     $totalAfterVatSum += $item->totalProductVat - $item->totalVat;
+                                                    $totalConlai +=
+                                                        $item->totalProductVat -
+                                                        ($item->totalProductVat - $item->totalVat);
                                                 @endphp
                                                 <tr class="position-relative">
                                                     <td class="text-13-black height-52 border">
@@ -226,6 +241,9 @@
                                                     </td>
                                                     <td class="text-13-black height-52 border">
                                                         {{ number_format($item->totalProductVat - $item->totalVat) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ number_format($item->totalProductVat - ($item->totalProductVat - $item->totalVat)) }}
                                                     </td>
                                                     <td class="text-13-black height-52 border">
                                                         {{ $item->ngayGiao }}
@@ -249,6 +267,9 @@
                                                 </td>
                                                 <td class="text-13-black height-52 border font-weight-bold">
                                                     {{ number_format($totalAfterVatSum) }}
+                                                </td>
+                                                <td class="text-13-black height-52 border font-weight-bold">
+                                                    {{ number_format($totalConlai) }}
                                                 </td>
                                                 <td colspan="2" class="text-13-black height-52 border"></td>
                                             </tr>

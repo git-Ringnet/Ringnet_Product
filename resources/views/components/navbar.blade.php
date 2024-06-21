@@ -499,7 +499,7 @@
                                     <p class="text-nav ml-2">Hóa đơn bán hàng</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item d-none">
                                 <a href="{{ route('payExport.index', $workspacename) }}" data-name1="BH"
                                     data-des="Thanh toán bán hàng"
                                     class="nav-link activity1 @if (!empty($activeName) && $activeName == 'payexport') active @endif">
@@ -511,6 +511,13 @@
                                     data-des="Báo cáo lợi nhuận bán hàng"
                                     class="nav-link activity1 @if (!empty($activeName) && $activeName == 'payexport') active @endif">
                                     <p class="text-nav ml-2">Báo cáo lợi nhuận bán hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportDebtGuests', $workspacename) }}" data-name1="BH"
+                                    data-des="Thông kê công nợ khách hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'payexport') active @endif">
+                                    <p class="text-nav ml-2">Thông kê công nợ khách hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -766,7 +773,7 @@
                                     </clipPath>
                                 </defs>
                             </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
+                            <div class="d-flex align-items-center justify-content-between w-100 d-none">
                                 <p class="text-nav">Nhân viên</p>
                             </div>
                         </a>
@@ -816,7 +823,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('changeWarehouse.index',$workspacename) }}"
+                        <a href="{{ route('changeWarehouse.index', $workspacename) }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
