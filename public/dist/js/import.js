@@ -14,6 +14,7 @@ $("body").on(
 
         event.target.value = formattedNumber;
     }
+  
 );
 
 function formatNumber(name) {
@@ -176,9 +177,10 @@ searchInput("#searchTermsPay", "#listTermsPay li");
 searchInput("#searchWarehouse", "#listWarehouse li");
 // Cập nhật tổng tiền
 function calculateAll() {
+    console.log(123);
     var total_amount = $('#total-amount-sum').text().replace(/[^0-9.-]+/g, "") || 0;
     var product_tax = $('#product-tax').text().replace(/[^0-9.-]+/g, "") || 0;
-    // var total = parseFloat(total_amount) + parseFloat(product_tax);
+    var total = parseFloat(total_amount) + parseFloat(product_tax);
     var option = $("[name^='promotion-option-total']").val();
     var promotion = $("input[name^='promotion-total']").val();
     if (promotion) {
@@ -189,12 +191,35 @@ function calculateAll() {
         if ($("input[name^='promotion-total']")) {
             var promotion = $("input[name^='promotion-total']").val().replace(/[^0-9.-]+/g, "") || 0;
         }
-        if (option == 1) {
-            var cal = parseFloat(total_amount - promotion) + parseFloat(product_tax);
+
+        // Nếu cùng thuế sẽ tính lại tổng cộng
+        if (checkTaxAll()) {
+            if (promotion > 0) {
+                // Tính lại tổng tiền trước thuế
+                if (option == 1) {
+                    var calpromotion = parseFloat(total_amount - promotion);
+                } else {
+                    var calpromotion = parseFloat(total_amount - (total_amount * promotion / 100));
+                }
+                // Lấy thuế đơn hàng 
+                var taxAll = $('.product_tax').val();
+
+                // Thuế VAT tổng đơn
+                $('#product-tax').text(formatCurrency(calpromotion * taxAll / 100))
+
+                // Tổng tiền 
+                var cal = calpromotion + (calpromotion * taxAll / 100);
+            } else {
+                var cal = total;
+                updateTaxAmount()
+                calculateTotalTax()
+            }
         } else {
-            var cal = parseFloat(total_amount - (total_amount * promotion / 100)) + parseFloat(product_tax);
+            var cal = total;
         }
+
         $('#grand-total').text(formatCurrency(cal))
+        $('#total_bill').val(cal)
     }
 
 }
@@ -263,13 +288,10 @@ $(document).on(
 function updateTaxAmount() {
     $("#inputcontent tbody tr").each(function () {
         var productQty = parseFloat($(this).find(".quantity-input").val());
-        var productPrice = parseFloat(
-            $(this)
-                .find('input[name^="price_export"]')
-                .val()
-        );
+        var productPrice = $(this).find('input[name^="price_export"]').val()
+
         if (productPrice) {
-            productPrice.replace(/[^0-9.-]+/g, "")
+            productPrice = parseFloat(productPrice.replace(/[^0-9.-]+/g, ""))
         }
 
         var option_promotion = $(this).closest('tr').find('.promotion-option').val();
@@ -277,21 +299,25 @@ function updateTaxAmount() {
             $(this)
                 .closest("tr")
                 .find("[name^='promotion']")
-                .val()
-            || 0;
+                .val();
         if (promotion) {
-            promotion = promotion.replace(/[^0-9.-]+/g, "")
+            promotion = parseFloat(promotion.replace(/[^0-9.-]+/g, ""))
         }
         var taxValue = parseFloat($(this).find(".product_tax").val());
         if (taxValue == 99) {
             taxValue = 0;
         }
         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
-            if (option_promotion == 1) {
-                var totalAmount = productQty * productPrice - promotion;
+            if (promotion > 0) {
+                if (option_promotion == 1) {
+                    var totalAmount = productQty * productPrice - promotion;
+                } else {
+                    var totalAmount = productQty * productPrice - (productQty * productPrice) * promotion / 100;
+                }
             } else {
-                var totalAmount = productQty * productPrice - (productQty * productPrice) * promotion / 100;
+                var totalAmount = productQty * productPrice;
             }
+
             var taxAmount = (totalAmount * taxValue) / 100;
             $(this).find(".product_tax1").text(Math.round(taxAmount));
         }
@@ -322,8 +348,38 @@ function updateTotalPrice(position) {
         .val(formatCurrency(total));
 }
 
+function checkTaxAll() {
+    var status = true;
+    var rows = $("#inputcontent tbody tr");
+
+    rows.each(function (index) {
+        var currentTax = $(this).find('.product_tax').val();
+
+        if (index < rows.length - 1) {
+            var nextTax = rows.eq(index + 1).find('.product_tax').val();
+
+            if (currentTax !== nextTax) {
+                // Chặn thêm khuyến mãi toàn đơn
+                $('input[name="promotion-total"]').val('').attr('readonly', true)
+                $('.promotion-option-total').attr('disabled', true)
+
+                status = false;
+                return false;
+            }
+        }
+    });
+    if (status) {
+        $('input[name="promotion-total"]').attr('readonly', false)
+        $('.promotion-option-total').attr('disabled', false)
+    }
+
+    return status;
+}
+
+
 
 $(document).on("change", ".product_tax, .promotion-option,.promotion-option-total", function () {
+    console.log(checkTaxAll())
     if ($(this).hasClass('promotion-option')) {
         // Xóa dữ liệu trường Khuyến Mãi
         $(this).closest('tr').find('input[name^="promotion"]').val("")
@@ -402,41 +458,41 @@ function calculateGrandTotal() {
     $("#total").val(totalAmount);
 }
 
-function updateTaxAmount() {
-    $("#inputcontent tbody tr").each(function () {
-        var productQty = parseFloat($(this).find(".quantity-input").val());
-        var productPrice = $(this).find('input[name^="price_export"]');
-        if (productPrice.length > 0) {
-            productPrice = parseFloat(
-                productPrice.val().replace(/[^0-9.-]+/g, "")
-            );
-        }
-        var taxValue = parseFloat($(this).find(".product_tax").val());
-        if (taxValue == 99) {
-            taxValue = 0;
-        }
+// function updateTaxAmount() {
+//     $("#inputcontent tbody tr").each(function () {
+//         var productQty = parseFloat($(this).find(".quantity-input").val());
+//         var productPrice = $(this).find('input[name^="price_export"]');
+//         if (productPrice.length > 0) {
+//             productPrice = parseFloat(
+//                 productPrice.val().replace(/[^0-9.-]+/g, "")
+//             );
+//         }
+//         var taxValue = parseFloat($(this).find(".product_tax").val());
+//         if (taxValue == 99) {
+//             taxValue = 0;
+//         }
 
-        var promotion_option = $(this).find('.promotion-option').val();
-        var promotion = $(this).find('.promotion');
-        if (promotion.length > 0) {
-            promotion = parseFloat(
-                promotion.val().replace(/[^0-9.-]+/g, "")
-            );
-        }
-        if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
-            var totalAmount = productQty * productPrice;
-            var taxAmount = (totalAmount * taxValue) / 100;
-            if (taxValue > 0) {
-                if (promotion_option == 1) {
-                    taxAmount = (totalAmount - promotion) * taxValue / 100;
-                } else {
-                    taxAmount = taxAmount - (taxAmount * promotion / 100)
-                }
-            }
-            $(this).find(".product_tax1").text(Math.round(taxAmount));
-        }
-    });
-}
+//         var promotion_option = $(this).find('.promotion-option').val();
+//         var promotion = $(this).find('.promotion');
+//         if (promotion.length > 0) {
+//             promotion = parseFloat(
+//                 promotion.val().replace(/[^0-9.-]+/g, "")
+//             );
+//         }
+//         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
+//             var totalAmount = productQty * productPrice;
+//             var taxAmount = (totalAmount * taxValue) / 100;
+//             if (taxValue > 0) {
+//                 if (promotion_option == 1) {
+//                     taxAmount = (totalAmount - promotion) * taxValue / 100;
+//                 } else {
+//                     taxAmount = taxAmount - (taxAmount * promotion / 100)
+//                 }
+//             }
+//             $(this).find(".product_tax1").text(Math.round(taxAmount));
+//         }
+//     });
+// }
 
 // Edit
 updateTaxAmount();
@@ -629,6 +685,7 @@ function deleteRow() {
             calculateTotalAmount();
             calculateTotalTax();
             calculateGrandTotal();
+            checkTaxAll()
         });
 }
 

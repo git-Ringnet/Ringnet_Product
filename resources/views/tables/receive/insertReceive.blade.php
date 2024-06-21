@@ -238,7 +238,61 @@
                         </section>
                     </span>
                 </div>
-                <x-formsynthetic :import="$import"></x-formsynthetic>
+                {{-- <x-formsynthetic :import="$import"></x-formsynthetic> --}}
+
+
+                <div class="">
+                    <div class="content">
+                        {{-- <div class="container-fluided"> --}}
+                        <div class="row" style="width:95%;">
+                            <div class="position-relative col-lg-4 px-0"></div>
+                            <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
+                                <div class="m-3 ">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-13-black">Giá trị trước thuế:</span>
+                                        <span id="total-amount-sum" class="text-table">0đ</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 align-items-center">
+                                        <span class="text-13-black">Thuế VAT:</span>
+                                        <span id="product-tax" class="text-table">0đ</span>
+                                    </div>
+                                  
+                                    <div class="d-flex justify-content-between mt-2 align-items-center">
+                                        <span class="text-13-black">Khuyến mãi</span>
+                                        <input name="promotion-total" type="text" class="text-table border-0 text-right"
+                                            style="background-color:#F0F4FF ">
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 align-items-center">
+                                        <span class="text-13-black">Hình thức</span>
+                                        <select name="promotion-option-total" id="" class="border-0 promotion-option-total">
+                                            <option value="1">Nhập tiền
+                                            </option>
+                                            <option value="2">Nhập %</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
+                                        <span id="grand-total" data-value="0" class="text-13-bold text-lg font-weight-bold text-right">
+                                            0đ
+                                        </span>
+                                        <input type="text" hidden="" name="totalValue" value="0"id="total">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- </div> --}}
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
             </section>
         </div>
         <div class="content-wrapper2 px-0 py-0">
@@ -476,6 +530,11 @@
                     table: table
                 },
                 success: function(data) {
+                    var promotionAll = JSON.parse(
+                        data.detail.promotion);
+                    $('input[name="promotion-total"]').val(promotionAll['value']).attr('readonly',true);
+                    $('.promotion-option-total').val(promotionAll['type']).attr('disabled',true);
+                    console.log(promotionAll);
                     $('#myInput1').val(data.quotation_number == null ? data.id :
                         data
                         .quotation_number);
@@ -494,7 +553,6 @@
                             id: data.id
                         },
                         success: function(product) {
-                            console.log(product);
                             $('#product').html(product)
                             $('#inputcontent tbody').empty();
                             product.quoteImport.forEach((element, index) => {
@@ -664,6 +722,7 @@
                                 calculateTotalTax()
                                 calculateGrandTotal()
                                 createModal(element.id)
+                                calculateAll()
                             });
                             deleteRow()
                             $('#more_info').show();

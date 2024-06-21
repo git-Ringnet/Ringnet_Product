@@ -550,6 +550,8 @@ function addRowTable(status) {
     }
     getProduct("searchProductName");
     rowCount++;
+    checkTaxAll()
+    calculateAll()
 }
 
 function createModal(stt) {

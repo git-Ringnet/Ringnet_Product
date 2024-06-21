@@ -16,24 +16,27 @@ class DetailImport extends Model
         'id',
         'provide_id',
         'project_id',
-        'product_id',
         'user_id',
         'quotation_number',
+        'represent_id',
         'reference_number',
         'price_effect',
         'status',
         'status_receive',
         'status_reciept',
         'status_pay',
-        'warehouse_id',
         'workspace_id',
+        'provide_name',
+        'represent_name',
+        'status_debt',
+        'created_at',
+        'updated_at',
+        'total_price',
         'total_tax',
         'discount',
         'transfer_fee',
         'terms_pay',
-        'created_at',
-        'updated_at',
-        'provide_name',
+        'promotion'
     ];
     public function getProvideName()
     {
@@ -107,7 +110,7 @@ class DetailImport extends Model
             // $price_vat = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
 
 
-         
+
 
             // Tổng tiền VAT
             $total_tax += ($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export / 100;
@@ -146,6 +149,8 @@ class DetailImport extends Model
             $total_tax = $total_tax - ($total_tax * $promotion['value'] / 100);
         }
         // dd($total_tax);
+
+
         $dataImport = [
             'provide_id' => $data['provides_id'],
             'project_id' => 1,
@@ -156,7 +161,8 @@ class DetailImport extends Model
             'status' => 1,
             'created_at' => $data['date_quote'],
             'total_price' => $total,
-            'total_tax' => $total_tax,
+            // 'total_tax' => $total_tax,
+            'total_tax' => isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0,
             'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
             'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
             'status_receive' => 0,
@@ -164,13 +170,14 @@ class DetailImport extends Model
             'status_pay' => 0,
             'terms_pay' => $data['terms_pay'],
             'workspace_id' => Auth::user()->current_workspace,
-            'represent_id' => $data['represent_id'],
+            'represent_id' => isset($data['represent_id']) ?? "",
             'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
             'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
             'status_debt' => 0,
             'user_id' => Auth::user()->id,
             'promotion' => json_encode($promotion)
         ];
+
         $checkQuotation = DetailImport::where('provide_id', $data['provides_id'])
             ->where('quotation_number', $data['quotation_number'])->first();
         if ($checkQuotation) {

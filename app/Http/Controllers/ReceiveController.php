@@ -345,7 +345,8 @@ class ReceiveController extends Controller
             'provide_name' => isset($nameProvide) ? $nameProvide : "",
             'id' => isset($detail) ? $detail->id : "",
             'promotion' => isset($detail) ? $detail->promotion : "",
-            'resultNumber' => $resultNumber
+            'resultNumber' => $resultNumber,
+            'detail' => $detail
         ];
         return $data;
     }

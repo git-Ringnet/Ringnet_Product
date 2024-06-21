@@ -526,6 +526,7 @@
     <x-form-modal-import title="Điều khoản thanh toán" name="termpay"
         idModal="formModalTermPay"></x-form-modal-import>
     {{-- <x-date-form-modal title="Hiệu lực báo giá" name="import" idModal="formModalquote"></x-date-form-modal> --}}
+    <input type="hidden" name="total_bill" id="total_bill">
 </form>
 <div class="modal fade" id="recentModal" tabindex="-1" aria-labelledby="productModalLabel" style="display: none;"
     aria-hidden="true">
@@ -594,6 +595,8 @@
             </div>
         </div>
     </div>
+
+
 </div>
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
