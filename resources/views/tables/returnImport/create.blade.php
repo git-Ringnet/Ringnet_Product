@@ -307,6 +307,7 @@
     </div>
 
     <?php $product = []; ?>
+    <input type="hidden" name="total_bill" id="total_bill">
     <x-formmodalseri :product="$product" :status="2" id="product"></x-formmodalseri>
 </form>
 </div>
@@ -441,8 +442,10 @@
                                                     </div>
                                                     <div class="mt-3 text-13-blue text-right"> 
                                                         <select class="border-0 promotion-option" name="promotion-option[]"> 
-                                                        <option value="1" `+(promotionObject['type'] == 1 ? "selected" : "")+`>Nhập tiền</option>
-                                                        <option value="2" `+(promotionObject['type'] == 2 ? "selected" : "")+`>Nhập %</option> 
+                                                        <option value="1" ` + (promotionObject['type'] == 1 ?
+                                    "selected" : "") + `>Nhập tiền</option>
+                                                        <option value="2" ` + (promotionObject['type'] == 2 ?
+                                    "selected" : "") + `>Nhập %</option> 
                                                         </select> 
                                                     </div>
                                                 </td>
@@ -554,6 +557,7 @@
                     deleteRow()
                     $('#more_info').show();
                     $('#more_info1').show();
+                    getTotalBill()
 
                 }
             })
@@ -727,4 +731,12 @@
             success: function(data) {}
         })
     })
+
+
+    function getTotalBill() {
+        var total_amount = $('#total-amount-sum').text().replace(/[^0-9.-]+/g, "") || 0;
+        var product_tax = $('#product-tax').text().replace(/[^0-9.-]+/g, "") || 0;
+        var total = parseFloat(total_amount) + parseFloat(product_tax);
+        $('#total_bill').val(total)
+    }
 </script>

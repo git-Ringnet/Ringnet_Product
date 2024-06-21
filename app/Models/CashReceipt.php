@@ -23,7 +23,8 @@ class CashReceipt extends Model
         'user_id',
         'note',
         'status',
-        'workspace_id', 'delivery_id'
+        'workspace_id', 'delivery_id',
+        'returnImport_id'
     ];
     public function guest()
     {
@@ -133,27 +134,53 @@ class CashReceipt extends Model
     }
     public function addCashReciept($data)
     {
-        $dataCashRC = [
-            'receipt_code' => $data['code_reciept'],
-            'date_created' =>  $data['payment_date'],
-            'guest_id' =>  $data['guest_id'],
-            'payer' =>  $data['fund_id'] ?? '',
-            'amount' =>  $data['total'] ?? 0,
-            'content_id' =>  $data['content_pay'] ?? 0,
-            'fund_id' => $data['fund_id'] ??  0,
-            'user_id' => Auth::user()->id,
-            'delivery_id' => $data['detail_id'] ?? 0,
-            'note' => $data['note'],
-            'status' => $data['action'] == 1 ? 1 : 2,
-            'workspace_id' => Auth::user()->current_workspace,
-        ];
-        $cashRC = CashReceipt::create($dataCashRC);
-        if ($cashRC->status == 2) {
-            $delivery = $this->fetchDelivery($data);
-            if ($delivery) {
-                $conlai =  $delivery->totalVat - $cashRC->amount;
-                $delivery->totalVat = $conlai;
-                $delivery->save();
+        if (isset($data['returnImport_id'])) {
+            $dataCashRC = [
+                'receipt_code' => $data['code_reciept'],
+                'date_created' =>  $data['payment_date'],
+                'guest_id' =>  $data['guest_id'],
+                'payer' =>  $data['fund_id'] ?? '',
+                'amount' =>  $data['total'] ?? 0,
+                'content_id' =>  $data['content_pay'] ?? 0,
+                'fund_id' => $data['fund_id'] ??  0,
+                'user_id' => Auth::user()->id,
+                'note' => $data['note'],
+                'status' => $data['action'] == 1 ? 1 : 2,
+                'workspace_id' => Auth::user()->current_workspace,
+                'returnImport_id' => isset($data['returnImport_id']) ? $data['returnImport_id'] : 0,
+            ];
+
+
+            $cashRC = CashReceipt::create($dataCashRC);
+            // Cộng tiền vào đơn trả hàng
+            $returnImport = ReturnImport::where('id',$data['returnImport_id'])->first();
+            if($returnImport){
+                $returnImport->payment = $returnImport->payment + $data['total'] ?? 0;
+                $returnImport->save();
+            }
+        } else {
+            $dataCashRC = [
+                'receipt_code' => $data['code_reciept'],
+                'date_created' =>  $data['payment_date'],
+                'guest_id' =>  $data['guest_id'],
+                'payer' =>  $data['fund_id'] ?? '',
+                'amount' =>  $data['total'] ?? 0,
+                'content_id' =>  $data['content_pay'] ?? 0,
+                'fund_id' => $data['fund_id'] ??  0,
+                'user_id' => Auth::user()->id,
+                'delivery_id' => $data['detail_id'] ?? 0,
+                'note' => $data['note'],
+                'status' => $data['action'] == 1 ? 1 : 2,
+                'workspace_id' => Auth::user()->current_workspace,
+            ];
+            $cashRC = CashReceipt::create($dataCashRC);
+            if ($cashRC->status == 2) {
+                $delivery = $this->fetchDelivery($data);
+                if ($delivery) {
+                    $conlai =  $delivery->totalVat - $cashRC->amount;
+                    $delivery->totalVat = $conlai;
+                    $delivery->save();
+                }
             }
         }
     }

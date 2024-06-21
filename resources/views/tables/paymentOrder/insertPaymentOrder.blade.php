@@ -168,7 +168,7 @@
                                         </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <input type="text"
-                                                class="border-0 text-13-black px-2 py-1 w-100 height-32 searchProductName">
+                                                class="border-0 text-13-black px-2 py-1 w-100 height-32 searchProductName" value="{{$getQuoteCount}}" readonly name="payment_code">
                                         </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <input
@@ -861,7 +861,7 @@
                     $('#myInput').val(data.quotation_number == null ? data.id :
                         data.quotation_number);
                     // $('input[name^="payment_code"]').val('MTT-' + data.id)
-                    $('input[name^="payment_code"]').val(data.resultNumber)
+                    // $('input[name^="payment_code"]').val(data.resultNumber)
                     $('#represent').val(data.represent)
                     $('#provide_name').val(data.provide_name);
                     $('#detailimport_id').val(data.id)
@@ -874,11 +874,12 @@
                             id: data.id
                         },
                         success: function(product) {
+                            console.log(product);
                             $('#prepayment').removeAttr('readonly')
                             var total = 0;
                             var total_tax = 0;
                             $('#inputcontent tbody tr:not(:first)').remove();
-                            product.forEach(function(element) {
+                            product.quoteImport.forEach(function(element) {
                                 var tr =
                                     `<tr class="bg-white d-none" style="height:80px">
                                             <td class='border-right border-top-0 p-2 text-13 align-top border-bottom'>
@@ -977,16 +978,16 @@
                                 total += element.price_export * element
                                     .product_qty
                             })
-                            $('#payment').val(product[0].payment == null ? 0 :
-                                formatCurrency(product[0].payment));
-                            $('#debt').val(product[0].payment == null ?
+                            $('#payment').val(product.quoteImport[0].payment == null ? 0 :
+                                formatCurrency(product.quoteImport[0].payment));
+                            $('#debt').val(product.quoteImport[0].payment == null ?
                                 formatCurrency(
                                     (Math.round(total) + Math.round(
                                         total_tax))) :
                                 formatCurrency(
                                     (Math.round(total) + Math.round(
                                         total_tax)) -
-                                    product[0].payment
+                                    product.quoteImport[0].payment
                                 ))
                             $('#total_bill').val(formatCurrency(Math.round(
                                     total) +
@@ -1004,17 +1005,16 @@
 
                             // Chặn quá số tiền
                             $('#prepayment').on('input', function() {
-                                checkQty(this,Math.round(product[0].total_tax));
+                                checkQty(this,(Math.round(product.quoteImport[0].total_tax) - Math.round(product.payment)));
                             })
-                            console.log(product.total_tax);
-                            $('.payment_all').text(product[0].payment == null ?
+                            $('.payment_all').text(product.quoteImport[0].payment == null ?
                                 formatCurrency(
                                     (Math.round(total) + Math.round(
                                         total_tax))) :
                                 formatCurrency(
                                     (Math.round(total) + Math.round(
                                         total_tax)) -
-                                    product[0].payment
+                                    product.quoteImport[0].payment
                                 ))
 
                             // $('input[name="total"]').val(product[0].payment ==
@@ -1027,7 +1027,7 @@
                             //             total_tax)) -
                             //         product[0].payment
                             //     ))
-                                $('input[name="total"]').val(formatCurrency(Math.round(product[0].total_tax)))
+                                $('input[name="total"]').val(formatCurrency(Math.round(product.quoteImport[0].total_tax) - Math.round(product.payment)))
                             updateTaxAmount()
                             calculateTotalAmount()
                             calculateTotalTax()

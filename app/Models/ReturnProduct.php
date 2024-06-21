@@ -47,7 +47,7 @@ class ReturnProduct extends Model
                     'qty' => $data['product_qty'][$i],
                     'created_at' => Carbon::now(),
                     'sn' => json_encode($SN),
-                    'returnImport_id' => $id
+                    'returnImport_id' => $id,
                 ];
                 DB::table($this->table)->insert($dataReturnProduct);
             }

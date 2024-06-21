@@ -12,6 +12,7 @@ use App\Models\productBill;
 use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
+use App\Models\ReturnImport;
 use App\Models\Serialnumber;
 use App\Models\User;
 use App\Models\userFlow;
@@ -120,6 +121,7 @@ class PayExportController extends Controller
             }
         }
         $numberQuote = $numberQuote->get();
+
         return view('tables.export.pay_export.create-payExport', compact('title', 'numberQuote', 'product', 'workspacename'));
     }
 

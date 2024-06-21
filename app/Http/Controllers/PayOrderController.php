@@ -48,12 +48,17 @@ class PayOrderController extends Controller
         $perPage = 10;
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $payment = PayOder::where('pay_order.workspace_id', Auth::user()->current_workspace)->orderBy('pay_order.id', 'desc');
+        $payment = PayOder::join('detailimport', 'detailimport.id', 'pay_order.detailimport_id')
+            ->where('pay_order.workspace_id', Auth::user()->current_workspace)
+            ->orderBy('pay_order.id', 'desc');
+
         if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
-            $payment->join('detailimport', 'detailimport.id', 'pay_order.detailimport_id')
-                ->where('detailimport.user_id', Auth::user()->id);
+            $payment->where('detailimport.user_id', Auth::user()->id);
         }
-        $payment->select('pay_order.*');
+        $payment->select(
+            'pay_order.*'
+            // DB::raw('SUM(pay_order.payment) as total_payment')
+        );
 
         $payment = $payment->get();
         // ->paginate($perPage);
@@ -70,27 +75,26 @@ class PayOrderController extends Controller
         $title = "Tạo mới hóa đơn thanh toán";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
-            // ->where('quoteimport.product_qty', '>', 'quoteimport.payment_qty')
-            ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.payment_qty,0)'))
-            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
-            ->where('detailimport.status_pay', '=', 0)
-            ->distinct()
-            ->orderBy('id', 'desc');
-
-
-        // $reciept = DetailImport::leftJoin('pay_order', 'pay_order.detailimport_id', 'detailimport.id')
-        //     ->where('detailimport.workspace_id', Auth::user()->current_workspace)
-        //     ->where(DB::raw('COALESCE(pay_order.payment,0)'), '<',   DB::raw('COALESCE(detailimport.total_price,0)'))
+        // $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
+        //     // ->where('quoteimport.product_qty', '>', 'quoteimport.payment_qty')
+        //     ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.payment_qty,0)'))
+        //     ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
+        //     ->where('detailimport.status_pay', '=', 0)
         //     ->distinct()
-        //     ->orderBy('detailimport.id', 'desc');
+        //     ->orderBy('id', 'desc');
 
-        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
-            $reciept->where('detailimport.user_id', Auth::user()->id);
-        }
 
-        $reciept->select('detailimport.quotation_number', 'detailimport.id');
-        $reciept = $reciept->get();
+        // if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+        //     $reciept->where('detailimport.user_id', Auth::user()->id);
+        // }
+
+        // $reciept->select('detailimport.quotation_number', 'detailimport.id');
+        // $reciept = $reciept->get();
+
+
+        $reciept = DetailImport::where('workspace_id', Auth::user()->current_workspace)
+        ->where('status_pay','!=',2)
+            ->get();
 
         $funds = Fund::all();
 
@@ -101,7 +105,10 @@ class PayOrderController extends Controller
         $returnExport = ReturnExport::where('workspace_id', Auth::user()->current_workspace)
             ->whereRaw('CAST(total_return AS DECIMAL(20, 2)) > CAST(payment AS DECIMAL(20, 2))')->get();
         // dd($returnExport);
-        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'content', 'returnExport'));
+
+        $getQuoteCount = $this->payment->getQuoteCount();
+
+        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'content', 'returnExport', 'getQuoteCount'));
     }
 
     /**
@@ -119,23 +126,30 @@ class PayOrderController extends Controller
 
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        if (isset($request->id_import) || isset($request->detailimport_id)) {
-            // Tạo sản phẩm theo đơn nhận hàng
-            $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
+        // if (isset($request->id_import) || isset($request->detailimport_id)) {
+        //     // Tạo sản phẩm theo đơn nhận hàng
+        //     $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
+        // }
+
+
+
+        if (isset($request->returnImport_id)) {
+            // Cập nhật tiền đã trả cho khách khi trả hàng
+            $returnE = ReturnExport::findOrFail($request->returnImport_id);
+            $total = (int) str_replace(',', '', $request->total);
+
+            $returnE->payment = $returnE->payment + $total;
+            $returnE->save();
+            return redirect()->route('import.index', $workspacename)->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
+        } else {
+            // Tạo mới thanh toán hóa đơn
+            $payment = $this->payment->addNewPayment($request->all(), $id);
+            // Trừ tiền vào quỹ
+            $this->payment->calculateFunds($request->fund_id, $request->total);
         }
 
-        // Tạo mới thanh toán hóa đơn
-        $payment = $this->payment->addNewPayment($request->all(), $id);
 
-        // Cập nhật tiền đã trả cho khách khi trả hàng
-        $returnE = ReturnExport::findOrFail($request->returnImport_id);
-        $total = (int) str_replace(',', '', $request->total);
 
-        $returnE->payment = $returnE->payment + $total;
-        $returnE->save();
-
-        // Trừ tiền vào quỹ
-        $this->payment->calculateFunds($request->fund_id, $request->total);
 
         if ($payment) {
             $dataUserFlow = [
@@ -243,17 +257,20 @@ class PayOrderController extends Controller
      */
     public function destroy(string $workspace, string $id)
     {
-        // Cập nhật tiền đã trả cho khách khi trả hàng
-        $phieuChi = PayOder::findOrFail($id);
-        $returnE = ReturnExport::findOrFail($phieuChi->return_id);
-        $returnE->payment = $returnE->payment - $phieuChi->payment;
-        $returnE->save();
-
-        $status = $this->payment->deletePayment($id);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
 
 
+
+        // Cập nhật tiền đã trả cho khách khi trả hàng
+        $phieuChi = PayOder::findOrFail($id);
+        if ($phieuChi->return_id != 0) {
+            $returnE = ReturnExport::findOrFail($phieuChi->return_id);
+            $returnE->payment = $returnE->payment - $phieuChi->payment;
+            $returnE->save();
+        } else {
+            $status = $this->payment->deletePayment($id);
+        }
 
         if ($status) {
             $dataUserFlow = [
@@ -273,7 +290,8 @@ class PayOrderController extends Controller
 
     public function getPaymentOrder(Request $request)
     {
-        return QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
+        $data = [];
+        $quoteImport = QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
             ->join('products', 'products.product_name', 'quoteimport.product_name')
             ->leftJoin('pay_order', 'detailimport.id', 'pay_order.detailimport_id')
             ->where('quoteimport.detailimport_id', $request->id)
@@ -281,6 +299,12 @@ class PayOrderController extends Controller
             ->where('products.workspace_id', Auth::user()->current_workspace)
             ->select('detailimport.*', 'pay_order.*', 'quoteimport.*', 'products.product_inventory as inventory')
             ->get();
+
+        // Lấy tổng tiền đã tạo đơn
+        $payment = PayOder::where('detailimport_id', $request->id)->sum('payment');
+        $data['payment'] = $payment;
+        $data['quoteImport'] = $quoteImport;
+        return $data;
     }
     public function searchPaymentOrder(Request $request)
     {
@@ -359,31 +383,38 @@ class PayOrderController extends Controller
     {
         $data = [];
         $total = 0;
-        $returnProduct = ReturnProduct::where('returnImport_id', $request->detail_id)->get();
-        if ($returnProduct) {
-            $total1 = 0;
-            foreach ($returnProduct as $value) {
-                $getQuoteImport = QuoteImport::where('id', $value->quoteimport_id)->first();
-                if ($getQuoteImport) {
-                    $promotionArray = json_decode($getQuoteImport->promotion, true);
-                    $promotionValue = isset($promotionArray['value'])
-                        ? $promotionArray['value']
-                        : 0;
-                    $promotionOption = isset($promotionArray['type'])
-                        ? $promotionArray['type']
-                        : '';
-                    $temp = $getQuoteImport->price_export * $value->qty;
-                    $total1 += ($promotionOption == 1 ? ($temp - $promotionValue) : ($temp * $promotionValue / 100));
-                    $total += $total1;
-                }
-            }
+        $returnImport = ReturnImport::where('id', $request->detail_id)->first();
+        if ($returnImport) {
+            // $total1 = 0;
+            // foreach ($returnProduct as $value) {
+            //     $getQuoteImport = QuoteImport::where('id', $value->quoteimport_id)->first();
+            //     if ($getQuoteImport) {
+            //         $promotionArray = json_decode($getQuoteImport->promotion, true);
+            //         $promotionValue = isset($promotionArray['value'])
+            //             ? $promotionArray['value']
+            //             : 0;
+            //         $promotionOption = isset($promotionArray['t ype'])
+            //             ? $promotionArray['type']
+            //             : '';
+            //         $temp = $getQuoteImport->price_export * $value->qty;
+            //         $total1 += ($promotionOption == 1 ? ($temp - $promotionValue) : ($temp * $promotionValue / 100));
+            //         $total += $total1;
+            //     }
+            // }
+            $data['payment'] = $returnImport->payment;
+            $data['total'] = $returnImport->total;
+            $data['status'] = true;
+        } else {
+            $data['status'] = false;
         }
+
         $returnExport = ReturnExport::leftJoin('guest', 'guest.id', 'return_export.guest_id')
             ->select('guest.guest_name_display as nameGuest', 'return_export.*')
             ->where('return_export.id', $request->detail_id)->first();
         $data['return'] = $returnExport;
         $data['total'] = $total;
         $data['status'] = true;
+
         return $data;
     }
 }

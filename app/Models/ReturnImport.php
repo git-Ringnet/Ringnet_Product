@@ -52,7 +52,8 @@ class ReturnImport extends Model
             'created_at' => isset($data['received_date']) ? $data['received_date'] : Carbon::now(),
             'workspace_id' => Auth::user()->current_workspace,
             'user_id' => Auth::user()->id,
-            'return_code' => "PTH-" . $data['detailimport_id']
+            'return_code' => "PTH-" . $data['detailimport_id'],
+            'total' => isset($data['total_bill']) ? str_replace(',','',$data['total_bill']) : 0,
         ];
         if ($data['action'] == "action_1") {
             $dataReturn['status'] = 1;

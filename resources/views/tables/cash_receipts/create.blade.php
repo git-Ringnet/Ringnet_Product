@@ -7,6 +7,7 @@
 
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">
+        <input type="hidden" name="returnImport_id" id="returnImport_id">
         <input type="hidden" name="code_reciept" id="code_reciept" value="{{ $invoiceAuto }}">
         <div class="content-header-fixed p-0 margin-250 border-0">
             <div class="content__header--inner margin-left32">
@@ -160,6 +161,18 @@
                                                             style="flex:2;">
                                                             <span
                                                                 class="text-13-black">{{ $value->code_delivery == null ? $value->id : $value->code_delivery }}</span>
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+
+                                                {{-- Danh sách đơn trả hàng NCC --}}
+                                                @foreach ($returnImport as $value)
+                                                    <li class="p-2 align-items-center"
+                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                        <a href="javascript:void(0)" id="{{ $value->id }}"
+                                                            name="search-info" class="search-return" style="flex:2;">
+                                                            <span
+                                                                class="text-13-black">{{ $value->return_code }}</span>
                                                         </a>
                                                     </li>
                                                 @endforeach
@@ -436,4 +449,47 @@
             $('.search-receipts').trigger('click', detail_id);
         }
     });
+
+    // Trả hàng NCC 
+    $(document).ready(function() {
+        $('.search-return').on('click', function(event, detail_id) {
+            if (detail_id) {
+                detail_id = detail_id
+            } else {
+                detail_id = parseInt($(this).attr('id'), 10);
+            }
+            $('#returnImport_id').val(detail_id);
+            $('#myInput').val($(this).find('span').text())
+            $('#listReceive').hide();
+            $.ajax({
+                url: "{{ route('getReturnProduct') }}",
+                type: "get",
+                data: {
+                    detail_id: detail_id,
+                },
+                success: function(data) {
+                    if (data['status']) {
+                        $('input[name="total"]').val(formatCurrency(data['total'] - data[
+                            'payment']));
+                        $('input[name="total"]').on('input', function() {
+                            checkQty(this,  Math.round(data['total']) - Math.round(data[
+                                'payment']))
+                        })
+                    }
+
+                }
+            })
+        })
+    })
+
+
+    function checkQty(value, odlQty) {
+        if (
+            $(value)
+            .val()
+            .replace(/[^0-9.-]+/g, "") > odlQty
+        ) {
+            $(value).val(odlQty);
+        }
+    }
 </script>

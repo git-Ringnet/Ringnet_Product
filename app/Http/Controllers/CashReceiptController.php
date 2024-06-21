@@ -8,6 +8,7 @@ use App\Models\ContentImportExport;
 use App\Models\Delivery;
 use App\Models\Fund;
 use App\Models\Guest;
+use App\Models\ReturnImport;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -94,7 +95,13 @@ class CashReceiptController extends Controller
         $deliveries = $deliveries->get();
         // dd($deliveries);
         $invoiceAuto = $this->cash_receipts->getQuoteCount();
-        return view('tables.cash_receipts.create', compact('title', 'invoiceAuto', 'deliveries', 'guest', 'funds', 'workspacename', 'content'));
+
+
+        // Trả hàng NCC
+        $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)
+            ->where(DB::raw('COALESCE(total,0)'), '!=', DB::raw('COALESCE(payment,0)'))
+            ->get();
+        return view('tables.cash_receipts.create', compact('title', 'invoiceAuto', 'deliveries', 'guest', 'funds', 'workspacename', 'content', 'returnImport'));
     }
 
     public function store(string $workspace, Request $request)
@@ -184,9 +191,18 @@ class CashReceiptController extends Controller
     public function destroy(string $workspace, $id)
     {
         $cashReceipt = CashReceipt::findOrFail($id);
-        if ($cashReceipt->status == 2) {
-            $this->fund->calculateFunds($cashReceipt->fund_id, $cashReceipt->amount, '-');
+        if ($cashReceipt->returnImport_id != null) {
+            $returnImport = ReturnImport::where('id', $cashReceipt->returnImport_id)->first();
+            if ($returnImport) {
+                $returnImport->payment = $returnImport->payment - $cashReceipt->amount;
+                $returnImport->save();
+            }
+        } else {
+            if ($cashReceipt->status == 2) {
+                $this->fund->calculateFunds($cashReceipt->fund_id, $cashReceipt->amount, '-');
+            }
         }
+
         $cashReceipt->delete();
         return redirect()->route('cash_receipts.index', ['workspace' => $workspace])->with('msg', 'Xóa phiếu thu thành công!');
     }
