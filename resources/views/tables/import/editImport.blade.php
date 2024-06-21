@@ -219,8 +219,7 @@
                                                         <input type="text" name="product_unit[]"
                                                             class="border-0 px-2 py-1 w-100 product_unit height-32"
                                                             value="{{ $item->product_unit }}"
-                                                            @if ($import->status != 1) readonly @endif
-                                                            required>
+                                                            @if ($import->status != 1) readonly @endif required>
                                                     </td>
                                                     <td
                                                         class="border-right p-2 text-13 align-top border-bottom border-top-0">
@@ -252,7 +251,8 @@
                                                     <input type="hidden" class="product_tax1">
                                                     <td
                                                         class="border-right pt-0 p-2 text-13 align-top border-top-0 border-bottom text-center">
-                                                        <select name="product_tax[]" @if ($import->status != 1) disabled @endif
+                                                        <select name="product_tax[]"
+                                                            @if ($import->status != 1) disabled @endif
                                                             class="border-0 py-1 w-100 text-center product_tax height-32">
                                                             <option value="0" <?php if ($item->product_tax == 0) {
                                                                 echo 'selected';
@@ -275,7 +275,8 @@
                                                             <input type='text' name='promotion[]'
                                                                 value="{{ number_format($item->promotion) }}"
                                                                 class='text-right border-0 px-2 py-1 w-100 height-32 promotion'
-                                                                autocomplete='off' @if ($import->status != 1) readonly @endif>
+                                                                autocomplete='off'
+                                                                @if ($import->status != 1) readonly @endif>
                                                             <span class='mt-1 <?php if ($item->promotion_type == 1) {
                                                                 echo 'd-none';
                                                             } ?> percent'>%</span>
@@ -552,29 +553,33 @@
                             <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
-                                @if ($payOrder && $payOrder->payment_day)
-                                    <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
-                                        placeholder="Chọn thông tin" style="flex:2;" readonly
-                                        value="{{ date_format(new DateTime($payOrder->payment_day), 'd/m/Y') }}" />
-                                @endif
+                                <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                    name="" placeholder="Chọn thông tin" style="flex:2;" id="dayPicker"
+                                    value="{{ date('Y-m-d') }}" />
+                                <input type="hidden" name="payment_day" id="hiddenDayInput"
+                                    value="{{ date('Y-m-d') }}">
                             </li>
                             <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
-                                @if ($payOrder && $payOrder->total)
-                                    <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
-                                        style="flex:2;" readonly=""
-                                        value="{{ number_format($payOrder->total) }}">
-                                @endif
+                                <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" id="TongTien"
+                                    style="flex:2;" readonly="">
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
-                                @if ($payOrder && $payOrder->payment)
-                                    <input
-                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
-                                        style="flex:2;" readonly value="{{ number_format($payOrder->payment) }}">
-                                @endif
+                                <input name="payment"
+                                    class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2 payment_input"
+                                    style="flex:2;" placeholder="Nhập số tiền">
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap" style="flex: 1.5;"></span>
+                                <div class="text-13 d-flex align-items-center py-2 px-2" style="width: 58%;">
+                                    <input type="checkbox" class="mr-2 cbPayment" name="checkPayment"
+                                        value="1">
+                                    <span>Thanh toán đủ</span>
+                                </div>
                             </li>
                         </ul>
                     </div>

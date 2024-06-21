@@ -362,7 +362,8 @@
                                                         value="{{ number_format($item_quote->product_total) }}"
                                                         class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>
                                                 </td>
-                                                <input type="hidden" name="warehouse[]" value="{{ $item_quote->warehouse_id }}">
+                                                <input type="hidden" name="warehouse[]"
+                                                    value="{{ $item_quote->warehouse_id }}">
                                                 <!-- <td class="border-top border-secondary p-0 bg-secondary Daydu d-none"
                                                     style="width:1%;">
                                                 </td> -->
@@ -857,15 +858,55 @@
         calculateGrandTotal(totalAmount, totalTax);
     }
 
+    function allTaxesAreSame() {
+        var taxValue;
+        var allSame = true;
+        $("tr.addProduct").each(function(index) {
+            var currentTax = parseFloat($(this).find(".product_tax").val());
+            if (currentTax == 99) {
+                currentTax = 0;
+            }
+            if (taxValue === undefined) {
+                taxValue = currentTax;
+            } else if (taxValue !== currentTax) {
+                allSame = false;
+                return false; // Exit the loop
+            }
+        });
+
+        // Enable or disable voucher and discount type based on the result
+        if (allSame) {
+            $("#voucher").prop("disabled", false);
+            $('select[name="discount_type"]').prop("disabled", false);
+        } else {
+            $("#voucher").prop("disabled", true);
+            $('select[name="discount_type"]').prop("disabled", true);
+        }
+
+        return allSame;
+    }
+
     function calculateGrandTotal(totalAmount, totalTax) {
         var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
         var discountType = $('.discount_type').val();
         if (!isNaN(totalAmount) || !isNaN(totalTax)) {
-            if (discountType === "2") { // Nhập %
-                voucher = (totalAmount * voucher) / 100;
+            if (allTaxesAreSame()) {
+                if (discountType == 2) {
+                    totalAmount -= (totalAmount * voucher) / 100;
+                } else {
+                    totalAmount -= voucher;
+                }
+
+                // Calculate tax amount after applying voucher
+                var taxRate = parseFloat(
+                    $(".addProduct:first").find(".product_tax").val()
+                );
+                totalTax = (totalAmount * (taxRate == 99 ? 0 : taxRate)) / 100;
+                $("#product-tax").text(formatCurrency(totalTax));
             }
-            var grandTotal = (totalAmount - voucher) + totalTax;
-            grandTotal = Math.round(grandTotal);
+
+            grandTotal = Math.round(totalAmount + totalTax);
+
             $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
             // Cập nhật giá trị data-value
             $('#grand-total').attr('data-value', grandTotal);

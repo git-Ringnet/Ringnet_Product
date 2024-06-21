@@ -12,23 +12,24 @@
         </div>
     </div>
     <div class="content-filter-all bg-white">
-        <section class="content-header--options p-0 border-custom">
-            <div class="h-100" style="width: 24%;">
-                <ul class="header-options--nav-1 nav nav-tabs margin-left32 border-bottom-0 w-100 custom-nav"
-                    style="margin: 13px 0 0 0 !important;height: 40px !important;">
-                    <li>
-                        <a class="text-secondary px-1 text-15 active" data-toggle="tab" href="#ttTonKho">Tổng tiền tồn
-                            kho</a>
-                    </li>
-                    <li>
-                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#lnBanHang">Lợi nhuận bán
-                            hàng</a>
-                    </li>
-                    <li>
-                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#dnKH">Dư nợ khách
-                            hàng</a>
-                    </li>
-                </ul>
+        <section class="border-top" style="height:50px">
+            <div class="d-flex justify-content-between align-items-center h-100">
+                <div class="content-header--options p-0 border-0">
+                    <ul class="header-options--nav nav nav-tabs margin-left32">
+                        <li>
+                            <a class="text-secondary px-1 text-15 active" data-toggle="tab" href="#ttTonKho">Tổng tiền tồn
+                                kho</a>
+                        </li>
+                        <li>
+                            <a class="text-secondary px-1 text-15" data-toggle="tab" href="#lnBanHang">Lợi nhuận bán
+                                hàng</a>
+                        </li>
+                        <li>
+                            <a class="text-secondary px-1 text-15" data-toggle="tab" href="#dnKH">Dư nợ khách
+                                hàng</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
         <div class="import">
@@ -80,7 +81,8 @@
                                             aria-labelledby="dropdownMenuButton">
                                             <div class="search-container px-2">
                                                 <input type="text" placeholder="Tìm kiếm" id="myInput"
-                                                    class="text-13" onkeyup="filterFunction()" style="outline: none;">
+                                                    class="text-13" onkeyup="filterFunction()"
+                                                    style="outline: none;">
                                                 <span class="search-icon mr-2">
                                                     <i class="fas fa-search"></i>
                                                 </span>

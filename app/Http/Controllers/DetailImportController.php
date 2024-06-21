@@ -195,6 +195,10 @@ class DetailImportController extends Controller
                     $this->quoteImport->updateImport($request->all(), $id);
                     // Lưu lịch sử
                     $this->history_import->addHistoryImport($request->all(), $id);
+                    // Tạo sản phẩm theo đơn nhận hàng
+                    $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
+                    // Tạo mới thanh toán hóa đơn
+                    $payment = $this->payment->addNewPayment($request->all(), $id);
                 }
                 return redirect()->route('import.index')->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
             }

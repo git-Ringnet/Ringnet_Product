@@ -231,14 +231,14 @@
                         Cài đặt
                     </button>
                 </a>
-                @if (Auth::user()->origin_workspace === Auth::user()->current_workspace)
+                {{-- @if (Auth::user()->origin_workspace === Auth::user()->current_workspace)
                     <a href="{{ route('overview') }}" class="height-36">
                         <button type="button"
                             class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'overview') active @endif">
                             Tổng quan
                         </button>
                     </a>
-                @endif
+                @endif --}}
                 <a href="{{ route('viewCompany') }}" class="height-36">
                     <button type="button"
                         class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewCompany') active @endif">

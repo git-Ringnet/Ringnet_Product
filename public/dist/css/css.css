@@ -186,7 +186,7 @@ li {
     width: 100%;
     overflow-x: auto;
     scrollbar-width: thin;
-    max-height: calc(95vh - 180px);
+    max-height: calc(100vh - 300px);
 }
 
 .outer4 th {
@@ -2869,7 +2869,7 @@ input[type="checkbox"]:checked {
 }
 
 .margin-top-17 {
-    margin-top: 17.1rem;
+    margin-top: 16.5rem;
 }
 
 .menu {

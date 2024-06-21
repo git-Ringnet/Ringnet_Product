@@ -658,7 +658,7 @@
 
 <x-form-modal-quick-action></x-form-modal-quick-action>
 </div>
-<script src="{{ asset('/dist/js/filter.js') }}"></script>
+{{-- <script src="{{ asset('/dist/js/filter.js') }}"></script> --}}
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script type="text/javascript">

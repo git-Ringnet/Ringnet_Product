@@ -130,7 +130,9 @@ class DetailImport extends Model
             'workspace_id' => Auth::user()->current_workspace,
         ];
         $checkQuotation = DetailImport::where('provide_id', $data['provides_id'])
-            ->where('quotation_number', $data['quotation_number'])->first();
+            ->where('quotation_number', $data['quotation_number'])
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
         if ($checkQuotation) {
             $result = [
                 'status' => false,

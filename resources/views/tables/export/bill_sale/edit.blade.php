@@ -321,7 +321,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($product as $item)
-                                                <tr class="bg-white" style="height:80px;">
+                                                <tr class="bg-white addProduct" style="height:80px;">
                                                     <td class='border-right border-top-0 p-2 text-13 align-top border-bottom'
                                                         style="padding-left: 2rem !important;">
                                                         <div
@@ -1369,15 +1369,55 @@
         calculateGrandTotal(totalAmount, totalTax);
     }
 
+    function allTaxesAreSame() {
+        var taxValue;
+        var allSame = true;
+        $("tr.addProduct").each(function(index) {
+            var currentTax = parseFloat($(this).find(".product_tax").val());
+            if (currentTax == 99) {
+                currentTax = 0;
+            }
+            if (taxValue === undefined) {
+                taxValue = currentTax;
+            } else if (taxValue !== currentTax) {
+                allSame = false;
+                return false; // Exit the loop
+            }
+        });
+
+        // Enable or disable voucher and discount type based on the result
+        if (allSame) {
+            $("#voucher").prop("disabled", false);
+            $('select[name="discount_type"]').prop("disabled", false);
+        } else {
+            $("#voucher").prop("disabled", true);
+            $('select[name="discount_type"]').prop("disabled", true);
+        }
+
+        return allSame;
+    }
+
     function calculateGrandTotal(totalAmount, totalTax) {
         var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
         var discountType = $('.discount_type').val();
         if (!isNaN(totalAmount) || !isNaN(totalTax)) {
-            if (discountType === "2") { // Nhập %
-                voucher = (totalAmount * voucher) / 100;
+            if (allTaxesAreSame()) {
+                if (discountType == 2) {
+                    totalAmount -= (totalAmount * voucher) / 100;
+                } else {
+                    totalAmount -= voucher;
+                }
+
+                // Calculate tax amount after applying voucher
+                var taxRate = parseFloat(
+                    $(".addProduct:first").find(".product_tax").val()
+                );
+                totalTax = (totalAmount * (taxRate == 99 ? 0 : taxRate)) / 100;
+                $("#product-tax").text(formatCurrency(totalTax));
             }
-            var grandTotal = (totalAmount - voucher) + totalTax;
-            grandTotal = Math.round(grandTotal);
+
+            grandTotal = Math.round(totalAmount + totalTax);
+
             $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
             // Cập nhật giá trị data-value
             $('#grand-total').attr('data-value', grandTotal);

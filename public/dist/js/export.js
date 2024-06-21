@@ -268,11 +268,39 @@ function addProductRow(productName) {
 }
 
 //tính thành tiền của sản phẩm
+function allTaxesAreSame() {
+    var taxValue;
+    var allSame = true;
+    $("tr.addProduct").each(function (index) {
+        var currentTax = parseFloat($(this).find(".product_tax").val());
+        if (currentTax == 99) {
+            currentTax = 0;
+        }
+        if (taxValue === undefined) {
+            taxValue = currentTax;
+        } else if (taxValue !== currentTax) {
+            allSame = false;
+            return false; // Exit the loop
+        }
+    });
+
+    // Enable or disable voucher and discount type based on the result
+    if (allSame) {
+        $("#voucher").prop("disabled", false);
+        $('select[name="discount_type"]').prop("disabled", false);
+    } else {
+        $("#voucher").prop("disabled", true);
+        $('select[name="discount_type"]').prop("disabled", true);
+    }
+
+    return allSame;
+}
+
 $(document).on(
     "input",
     '.quantity-input, [name^="product_price"], .promotion, .promotion_type, #voucher',
     function (e) {
-        var $row = $(this).closest("tr");
+        var $row = $(this).closest("tr.addProduct");
 
         // Check if the product_name input has a value
         var productNameValue = $row.find(".product_name").val();
@@ -337,14 +365,14 @@ $(document).on(
 );
 
 $(document).on("change", ".product_tax", function () {
-    updateTaxAmount($(this).closest("tr"));
+    updateTaxAmount($(this).closest("tr.addProduct"));
     calculateTotalAmount();
     calculateTotalTax();
     calculateGrandTotal();
 });
 
 $(document).on("change", ".promotion_type", function (e) {
-    var $row = $(this).closest("tr");
+    var $row = $(this).closest("tr.addProduct");
     var promotionType = $row.find(".promotion_type").val();
 
     $row.find(".promotion").val("");
@@ -425,11 +453,14 @@ function updateTaxAmount(row) {
         row.find(".total-amount").val(formatCurrency(Math.round(totalAmount)));
         row.find(".product_tax1").text(formatCurrency(Math.round(taxAmount)));
     }
+
+    // Check if all taxes are the same after updating tax amount
+    allTaxesAreSame();
 }
 
 function calculateTotalAmount() {
     var totalAmount = 0;
-    $("tr").each(function () {
+    $("tr.addProduct").each(function () {
         var rowTotal = parseFloat(
             String($(this).find(".total-amount").val()).replace(
                 /[^0-9.-]+/g,
@@ -448,7 +479,7 @@ function calculateTotalAmount() {
 
 function calculateTotalTax() {
     var totalTax = 0;
-    $("tr").each(function () {
+    $("tr.addProduct").each(function () {
         var rowTax = parseFloat(
             $(this)
                 .find(".product_tax1")
@@ -483,11 +514,24 @@ function calculateGrandTotal() {
                 ?.replace(/[^0-9.-]+/g, "")
         ) || 0;
     var discountType = $('select[name="discount_type"]').val();
-    if (discountType === "2") {
-        // Nhập %
-        voucher = (totalAmount * voucher) / 100;
+
+    // Check if all taxes are the same
+    if (allTaxesAreSame()) {
+        if (discountType == 2) {
+            totalAmount -= (totalAmount * voucher) / 100;
+        } else {
+            totalAmount -= voucher;
+        }
+
+        // Calculate tax amount after applying voucher
+        var taxRate = parseFloat(
+            $(".addProduct:first").find(".product_tax").val()
+        );
+        totalTax = (totalAmount * (taxRate == 99 ? 0 : taxRate)) / 100;
+        $("#product-tax").text(formatCurrency(totalTax));
     }
-    grandTotal = Math.round(totalAmount - voucher + totalTax);
+
+    grandTotal = Math.round(totalAmount + totalTax);
 
     $("#grand-total").text(formatCurrency(grandTotal));
     $("#TongTien").val(formatCurrency(grandTotal));
@@ -496,6 +540,7 @@ function calculateGrandTotal() {
     $("#grand-total").attr("data-value", grandTotal);
     $("#total").val(grandTotal);
 }
+
 //Tự động xuống dòng khi gom nhóm sản phẩm
 function setupAutoResizeTextarea(selector) {
     var $textarea = $(selector);
@@ -516,4 +561,74 @@ function setupAutoResizeTextarea(selector) {
     $textarea.on("input", function () {
         adjustTextareaHeight(this);
     });
+}
+
+//
+$(document).ready(function () {
+    $(".cbPayment").on("change", function () {
+        if ($(this).is(":checked")) {
+            $('input[name="payment"]').val("");
+            $('input[name="payment"]').prop("readonly", true);
+        } else {
+            $('input[name="payment"]').prop("readonly", false);
+        }
+    });
+});
+
+//Giới hạn số tiền
+document.querySelector(".payment").addEventListener("input", function () {
+    var duNoValue = document.querySelector("#TongTien").value;
+    var paymentInput = document.querySelector(".payment");
+    var paymentValue = paymentInput.value;
+    var duNoNumber = parseFloat(duNoValue.replace(/,/g, ""));
+    var paymentNumber = parseFloat(paymentValue.replace(/,/g, ""));
+
+    if (paymentNumber < 0 || paymentNumber > duNoNumber) {
+        paymentInput.value = duNoValue;
+    }
+});
+
+//
+flatpickr("#datePicker", {
+    locale: "vn",
+    dateFormat: "d/m/Y",
+    defaultDate: new Date(),
+    onChange: function (selectedDates, dateStr, instance) {
+        // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+        updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+    },
+    onReady: function (selectedDates, dateStr, instance) {
+        // Cập nhật giá trị của trường ẩn khi mở date picker
+        updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+    },
+});
+
+flatpickr("#dayPicker", {
+    locale: "vn",
+    dateFormat: "d/m/Y",
+    defaultDate: new Date(),
+    onChange: function (selectedDates, dateStr, instance) {
+        // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+        updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+    },
+    onReady: function (selectedDates, dateStr, instance) {
+        // Cập nhật giá trị của trường ẩn khi mở date picker
+        updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+    },
+});
+
+function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+    // Lấy thời gian hiện tại
+    var currentTime = new Date();
+
+    // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+    var selectedDateTime = new Date(selectedDate);
+    selectedDateTime.setHours(currentTime.getHours());
+    selectedDateTime.setMinutes(currentTime.getMinutes());
+    selectedDateTime.setSeconds(currentTime.getSeconds());
+
+    document.getElementById(hiddenInputId).value = instance.formatDate(
+        selectedDateTime,
+        "Y-m-d H:i:S"
+    );
 }

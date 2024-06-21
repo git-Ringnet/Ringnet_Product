@@ -302,6 +302,8 @@ class DetailExportController extends Controller
             if ($detailExport->status == 1) {
                 $export_id = $this->detailExport->updateExport($request->all(), $id);
                 $this->quoteExport->updateQuoteExport($request->all(), $export_id);
+                $pay_id = $this->payExport->addPayExport($request->all(), $export_id);
+                $this->productPay->addProductPay($request->all(), $pay_id, $export_id, $request->product_id);
                 return redirect()->route('detailExport.index')->with('msg', 'Cập nhật đơn báo giá thành công!');
             } else {
                 if ($detailExport) {
