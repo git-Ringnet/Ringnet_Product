@@ -178,7 +178,7 @@ searchInput("#searchWarehouse", "#listWarehouse li");
 function calculateAll() {
     var total_amount = $('#total-amount-sum').text().replace(/[^0-9.-]+/g, "") || 0;
     var product_tax = $('#product-tax').text().replace(/[^0-9.-]+/g, "") || 0;
-    var total = parseFloat(total_amount) + parseFloat(product_tax);
+    // var total = parseFloat(total_amount) + parseFloat(product_tax);
     var option = $("[name^='promotion-option-total']").val();
     var promotion = $("input[name^='promotion-total']").val();
     if (promotion) {
@@ -190,9 +190,9 @@ function calculateAll() {
             var promotion = $("input[name^='promotion-total']").val().replace(/[^0-9.-]+/g, "") || 0;
         }
         if (option == 1) {
-            var cal = total - promotion;
+            var cal = parseFloat(total_amount - promotion) + parseFloat(product_tax);
         } else {
-            var cal = total - (total * promotion / 100);
+            var cal = parseFloat(total_amount - (total_amount * promotion / 100)) + parseFloat(product_tax);
         }
         $('#grand-total').text(formatCurrency(cal))
     }

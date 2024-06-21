@@ -22,6 +22,9 @@ return new class extends Migration
         Schema::table('serialnumber', function (Blueprint $table) {
             $table->integer('warehouse_id')->nullable();
         });
+        Schema::table('receive_bill', function (Blueprint $table) {
+            $table->string('promotion')->nullable();
+        });
     }
 
     /**

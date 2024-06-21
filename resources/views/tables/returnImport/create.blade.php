@@ -413,7 +413,7 @@
                                                                 class="text-right border-0 px-2 py-1 w-100 quantity-input height-32" 
                                                                 value="` + formatCurrency(parseFloat(element
                                     .product_qty) - parseFloat(data[
-                                    'qty'][index])) + `">
+                                    'qty'][index])) + `" style="background-color:#F0F4FF;">
 
                                                         <div class="mt-3 text-13-blue inventory text-right" tyle="top: 68%;">Tồn kho:
                                                             <span class="pl-1 soTonKho">

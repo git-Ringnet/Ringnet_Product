@@ -339,9 +339,10 @@ class PayOrderController extends Controller
     public function getReturnProduct(Request $request)
     {
         $data = [];
+        $total = 0;
         $returnProduct = ReturnProduct::where('returnImport_id', $request->detail_id)->get();
         if ($returnProduct) {
-            $total = 0;
+            $total1 = 0;
             foreach ($returnProduct as $value) {
                 $getQuoteImport = QuoteImport::where('id', $value->quoteimport_id)->first();
                 if ($getQuoteImport) {
@@ -353,7 +354,8 @@ class PayOrderController extends Controller
                         ? $promotionArray['type']
                         : '';
                     $temp = $getQuoteImport->price_export * $value->qty;
-                    $total += ($promotionOption == 1 ? ($temp - $promotionValue) : ($temp * $promotionValue / 100));
+                    $total1 += ($promotionOption == 1 ? ($temp - $promotionValue) : ($temp * $promotionValue / 100));
+                    $total += $total1;
                 }
             }
         }

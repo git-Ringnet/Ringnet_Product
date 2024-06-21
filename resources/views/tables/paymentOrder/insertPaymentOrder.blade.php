@@ -986,16 +986,22 @@
                             $('#total_bill').val(formatCurrency(Math.round(
                                     total) +
                                 Math.round(total_tax)))
+                            // $('#prepayment').on('input', function() {
+                            //     checkQty(this, product[0].payment ==
+                            //         null ? (Math.round(total) + Math
+                            //             .round(
+                            //                 total_tax)) :
+                            //         (Math.round(total) + Math.round(
+                            //             total_tax)) - product[0]
+                            //         .payment
+                            //     );
+                            // })
+
+                            // Chặn quá số tiền
                             $('#prepayment').on('input', function() {
-                                checkQty(this, product[0].payment ==
-                                    null ? (Math.round(total) + Math
-                                        .round(
-                                            total_tax)) :
-                                    (Math.round(total) + Math.round(
-                                        total_tax)) - product[0]
-                                    .payment
-                                );
+                                checkQty(this,Math.round(product[0].total_tax));
                             })
+                            console.log(product.total_tax);
                             $('.payment_all').text(product[0].payment == null ?
                                 formatCurrency(
                                     (Math.round(total) + Math.round(
@@ -1006,16 +1012,17 @@
                                     product[0].payment
                                 ))
 
-                            $('input[name="total"]').val(product[0].payment ==
-                                null ?
-                                formatCurrency(
-                                    (Math.round(total) + Math.round(
-                                        total_tax))) :
-                                formatCurrency(
-                                    (Math.round(total) + Math.round(
-                                        total_tax)) -
-                                    product[0].payment
-                                ))
+                            // $('input[name="total"]').val(product[0].payment ==
+                            //     null ?
+                            //     formatCurrency(
+                            //         (Math.round(total) + Math.round(
+                            //             total_tax))) :
+                            //     formatCurrency(
+                            //         (Math.round(total) + Math.round(
+                            //             total_tax)) -
+                            //         product[0].payment
+                            //     ))
+                                $('input[name="total"]').val(formatCurrency(Math.round(product[0].total_tax)))
                             updateTaxAmount()
                             calculateTotalAmount()
                             calculateTotalTax()

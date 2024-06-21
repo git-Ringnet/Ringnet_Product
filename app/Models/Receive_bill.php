@@ -81,6 +81,11 @@ class Receive_bill extends Model
         }
         $detail = DetailImport::where('id', $id)->first();
         if ($detail) {
+            $promotion = [];
+
+            $promotion['type'] = $data['promotion-option-total'];
+            $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
+
             $dataReceive = [
                 'detailimport_id' => $id,
                 'provide_id' => $detail->provide_id,
@@ -90,7 +95,8 @@ class Receive_bill extends Model
                 'created_at' => isset($data['received_date']) ? $data['received_date'] : Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,
                 'delivery_code' => $delivery_code,
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'promotion' => json_encode($promotion)
             ];
             $receive_id = DB::table($this->table)->insertGetId($dataReceive);
 
@@ -173,6 +179,13 @@ class Receive_bill extends Model
 
             // }
 
+            if (isset($data['promotion-total']) > 0) {
+                if ($data['promotion-option-total'] == 1) {
+                    $total = $total - (isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0);
+                } else {
+                    $total = $total - $total * (isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0) / 100;
+                }
+            }
 
             $sum = round($total_tax) + round($total);
         } else {
@@ -219,7 +232,7 @@ class Receive_bill extends Model
                     $product = QuoteImport::where('id', $getProductImport->quoteImport_id)
                         ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
-                 
+
                     $price_export = $product->price_export;
 
                     // if ($data['promotion-option'][$i] == 1) {

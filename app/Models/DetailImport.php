@@ -145,7 +145,7 @@ class DetailImport extends Model
         } else {
             $total_tax = $total_tax - ($total_tax * $promotion['value'] / 100);
         }
-
+        // dd($total_tax);
         $dataImport = [
             'provide_id' => $data['provides_id'],
             'project_id' => 1,

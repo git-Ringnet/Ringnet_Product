@@ -496,7 +496,7 @@
                             </div>
                         </section>
                         <?php $import = $detail; ?>
-                        <x-formsynthetic :import="$detail"></x-formsynthetic>
+                        <x-formsynthetic :import="$receive"></x-formsynthetic>
                     </div>
                     <div id="files" class="tab-pane fade">
                         <div id="title--fixed" class="content-title--fixed top-111">
