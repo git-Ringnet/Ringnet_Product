@@ -446,7 +446,8 @@ class PayOder extends Model
             DB::table('detailimport')->where('id', $detail)
                 ->update([
                     'status_pay' => 0,
-                    'status_debt' => $stDebt
+                    'status_debt' => $stDebt,
+                    'status' => $stDetail
                 ]);
 
             // Xóa dư nợ nhà cung cấp nếu tình trạng là 1  

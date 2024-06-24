@@ -89,10 +89,21 @@ class DetailExport extends Model
             $subTax = ($subtotal * $tax) / 100;
             $totalBeforeTax += $subtotal;
             $totalTax += $subTax;
-            if ($data['discount_type'] == 1) {
+        }
+        // Tính toán voucher
+        if (isset($data['discount_type']) && $data['discount_type'] == 1) {
+            if (isset($data['voucher'])) {
                 $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
+                $totalTax = (($totalBeforeTax - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
             } else {
-                $voucher = (($totalBeforeTax + $totalTax) * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
+                $voucher = 0;
+            }
+        } else {
+            if (isset($data['voucher'])) {
+                $voucher = ($totalBeforeTax * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
+                $totalTax = (($totalBeforeTax - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+            } else {
+                $voucher = 0;
             }
         }
         $dataExport = [
@@ -105,11 +116,11 @@ class DetailExport extends Model
             'created_at' => $data['date_quote'] == null ? now() : $data['date_quote'],
             'total_price' => $totalBeforeTax,
             'total_tax' => $totalTax,
-            'discount' => $data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']),
-            'amount_owed' => ($totalBeforeTax + $totalTax) - $voucher,
+            'discount' => isset($data['voucher']) ? str_replace(',', '', $data['voucher']) : 0,
+            'amount_owed' => ($totalBeforeTax - $voucher) + $totalTax,
             'guest_name' => $data['guestName'],
             'represent_name' => $data['representName'],
-            'discount_type' => $data['discount_type'],
+            'discount_type' => isset($data['discount_type']) ? $data['discount_type'] : 0,
             'workspace_id' => Auth::user()->current_workspace,
         ];
         $detailexport = new DetailExport($dataExport);
@@ -183,24 +194,36 @@ class DetailExport extends Model
                 $totalBeforeTax += $subtotal;
                 $totalTax += $subTax;
             }
+            if (isset($data['discount_type']) && $data['discount_type'] == 1) {
+                if (isset($data['voucher'])) {
+                    $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
+                    $totalTax = (($totalBeforeTax - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+                } else {
+                    $voucher = 0;
+                }
+            } else {
+                if (isset($data['voucher'])) {
+                    $voucher = ($totalBeforeTax * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
+                    $totalTax = (($totalBeforeTax - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+                } else {
+                    $voucher = 0;
+                }
+            }
+
             $detailExport->update([
                 'guest_id' => $data['guest_id'],
                 'represent_id' => $data['represent_guest_id'],
                 'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,
                 'user_id' => Auth::user()->id,
                 'quotation_number' => $data['quotation_number'],
-                'reference_number' => $data['reference_number'],
-                'price_effect' => $data['price_effect'],
                 'created_at' => $data['date_quote'],
                 'total_price' => $totalBeforeTax,
-                'terms_pay' => $data['terms_pay'],
                 'total_tax' => $totalTax,
-                'amount_owed' => $totalBeforeTax + $totalTax,
-                'goods' => $data['goods'],
-                'delivery' => $data['delivery'],
-                'location' => $data['location'],
+                'amount_owed' => ($totalBeforeTax - $voucher) + $totalTax,
                 'guest_name' => $data['guestName'],
                 'represent_name' => $data['representName'],
+                'discount' => isset($data['voucher']) ? str_replace(',', '', $data['voucher']) : 0,
+                'discount_type' => isset($data['discount_type']) ? $data['discount_type'] : 0,
             ]);
         }
         return $detailExport->id;

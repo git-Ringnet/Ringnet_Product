@@ -305,7 +305,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($product as $item)
-                                                <tr class="bg-white" style="height:80px;">
+                                                <tr class="bg-white addProduct" style="height:80px;">
                                                     <td class='border-left p-2 text-13 align-top border-bottom border-top-0'
                                                         style="padding-left: 2rem !important;">
                                                         <input type="hidden" readonly value="{{ $item->id }}"
@@ -646,7 +646,7 @@
                                     placeholder="Nhập thông tin" id="datePicker" name="date_quote" style="flex:2;"
                                     value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}" />
                             </li>
-                            <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
+                            {{-- <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
                                 @if ($payOrder && $payOrder->payment_day)
@@ -672,7 +672,7 @@
                                         class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
                                         style="flex:2;" readonly value="{{ number_format($payOrder->payment) }}">
                                 @endif
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
@@ -811,31 +811,31 @@
     toggleList($("#btnCreateFast"), $("#listBtnCreateFast"));
     toggleList($("#btnCreateFast1"), $("#listBtnCreateFast1"));
 
-    flatpickr("#datePicker", {
-        locale: "vn",
-        dateFormat: "d/m/Y",
-        onChange: function(selectedDates, dateStr, instance) {
-            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
-        },
-        onReady: function(selectedDates, dateStr, instance) {
-            // Cập nhật giá trị của trường ẩn khi mở date picker
-            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
-        }
-    });
+    // flatpickr("#datePicker", {
+    //     locale: "vn",
+    //     dateFormat: "d/m/Y",
+    //     onChange: function(selectedDates, dateStr, instance) {
+    //         // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+    //         updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+    //     },
+    //     onReady: function(selectedDates, dateStr, instance) {
+    //         // Cập nhật giá trị của trường ẩn khi mở date picker
+    //         updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+    //     }
+    // });
 
-    flatpickr("#dayPicker", {
-        locale: "vn",
-        dateFormat: "d/m/Y",
-        onChange: function(selectedDates, dateStr, instance) {
-            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
-        },
-        onReady: function(selectedDates, dateStr, instance) {
-            // Cập nhật giá trị của trường ẩn khi mở date picker
-            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
-        }
-    });
+    // flatpickr("#dayPicker", {
+    //     locale: "vn",
+    //     dateFormat: "d/m/Y",
+    //     onChange: function(selectedDates, dateStr, instance) {
+    //         // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+    //         updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+    //     },
+    //     onReady: function(selectedDates, dateStr, instance) {
+    //         // Cập nhật giá trị của trường ẩn khi mở date picker
+    //         updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+    //     }
+    // });
 
     function updateHiddenInput(selectedDate, instance, hiddenInputId) {
         // Lấy thời gian hiện tại

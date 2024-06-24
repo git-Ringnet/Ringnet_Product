@@ -158,13 +158,52 @@ searchInput("#searchRepresent", "#listRepresent li");
 searchInput("#searchPriceEffect", "#listPriceEffect li");
 searchInput("#searchTermsPay", "#listTermsPay li");
 // Tính thuế, tổng tiền,...
+function allTaxesAreSame() {
+    var taxValue;
+    var allSame = true;
+    $("tr.addProduct").each(function (index) {
+        var currentTax = parseFloat($(this).find(".product_tax").val()) || 0;
+        if (currentTax == 99) {
+            currentTax = 0;
+        }
+        if (taxValue === undefined) {
+            taxValue = currentTax;
+        } else if (taxValue !== currentTax) {
+            allSame = false;
+            return false; // Exit the loop
+        }
+    });
+
+    // Enable or disable voucher and discount type based on the result
+    if (allSame) {
+        $("#voucher").prop("disabled", false);
+        $('select[name="discount_type"]').prop("disabled", false);
+    } else {
+        $("#voucher").prop("disabled", true);
+        $('select[name="discount_type"]').prop("disabled", true);
+    }
+
+    return allSame;
+}
+
 $(document).on(
     "input",
     '.quantity-input, [name^="price_export"], .promotion, .promotion_type, #voucher',
     function (e) {
-        var productPrice = parseFloat($(this).find('input[name^="product_price"]').val()?.replace(/[^0-9.-]+/g,
-            "")) || 0;
-        var productQty = parseFloat($(this).find('.quantity-input').val()?.replace(/[^0-9.-]+/g, "")) || 0;
+        var productPrice =
+            parseFloat(
+                $(this)
+                    .find('input[name^="product_price"]')
+                    .val()
+                    ?.replace(/[^0-9.-]+/g, "")
+            ) || 0;
+        var productQty =
+            parseFloat(
+                $(this)
+                    .find(".quantity-input")
+                    .val()
+                    ?.replace(/[^0-9.-]+/g, "")
+            ) || 0;
         var promotionValue =
             parseFloat(
                 $(this)
@@ -199,10 +238,15 @@ $(document).on(
 
 function updateTaxAmount() {
     $("#inputcontent tbody tr").each(function () {
-        var productQty = parseFloat($(this).find(".quantity-input").val());
-        var productPrice = parseFloat($(this).find('input[name^="price_export"]').val()?.replace(/[^0-9.-]+/g,
-        "")) || 0;
-        var taxValue = parseFloat($(this).find(".product_tax").val());
+        var productQty = parseFloat($(this).find(".quantity-input").val()) || 0;
+        var productPrice =
+            parseFloat(
+                $(this)
+                    .find('input[name^="price_export"]')
+                    .val()
+                    ?.replace(/[^0-9.-]+/g, "")
+            ) || 0;
+        var taxValue = parseFloat($(this).find(".product_tax").val()) || 0;
         var promotionValue =
             parseFloat(
                 $(this)
@@ -275,9 +319,13 @@ $(document).on("change", ".discount_type", function (e) {
 function calculateTotalAmount() {
     var totalAmount = 0;
     $("tr").each(function () {
-        var rowTotal = parseFloat(
-            String($(this).find(".total_price").val()).replace(/[^0-9.-]+/g, "")
-        );
+        var rowTotal =
+            parseFloat(
+                String($(this).find(".total_price").val()).replace(
+                    /[^0-9.-]+/g,
+                    ""
+                )
+            ) || 0;
         if (!isNaN(rowTotal)) {
             totalAmount += rowTotal;
         }
@@ -291,12 +339,13 @@ function calculateTotalAmount() {
 function calculateTotalTax() {
     var totalTax = 0;
     $("tr").each(function () {
-        var rowTax = parseFloat(
-            $(this)
-                .find(".product_tax1")
-                .text()
-                .replace(/[^0-9.-]+/g, "")
-        );
+        var rowTax =
+            parseFloat(
+                $(this)
+                    .find(".product_tax1")
+                    .text()
+                    .replace(/[^0-9.-]+/g, "")
+            ) || 0;
         if (!isNaN(rowTax)) {
             totalTax += rowTax;
         }
@@ -308,16 +357,18 @@ function calculateTotalTax() {
 }
 
 function calculateGrandTotal() {
-    var totalAmount = parseFloat(
-        $("#total-amount-sum")
-            .text()
-            .replace(/[^0-9.-]+/g, "")
-    );
-    var totalTax = parseFloat(
-        $("#product-tax")
-            .text()
-            .replace(/[^0-9.-]+/g, "")
-    );
+    var totalAmount =
+        parseFloat(
+            $("#total-amount-sum")
+                .text()
+                .replace(/[^0-9.-]+/g, "")
+        ) || 0;
+    var totalTax =
+        parseFloat(
+            $("#product-tax")
+                .text()
+                .replace(/[^0-9.-]+/g, "")
+        ) || 0;
     var voucher =
         parseFloat(
             $("#voucher")
@@ -326,13 +377,21 @@ function calculateGrandTotal() {
         ) || 0;
     var discountType = $('select[name="discount_type"]').val();
 
-    var grandTotal = totalAmount + totalTax;
-    if (discountType === "2") {
-        // Nhập %
-        voucher = (grandTotal * voucher) / 100;
+    if (allTaxesAreSame()) {
+        if (discountType == 2) {
+            totalAmount -= (totalAmount * voucher) / 100;
+        } else {
+            totalAmount -= voucher;
+        }
+
+        // Calculate tax amount after applying voucher
+        var taxRate =
+            parseFloat($(".addProduct:first").find(".product_tax").val()) || 0;
+        totalTax = (totalAmount * (taxRate == 99 ? 0 : taxRate)) / 100;
+        $("#product-tax").text(formatCurrency(totalTax));
     }
-    grandTotal -= voucher;
-    grandTotal = Math.round(grandTotal);
+
+    var grandTotal = Math.round(totalAmount + totalTax);
 
     $("#grand-total").text(formatCurrency(grandTotal));
     $("#TongTien").val(formatCurrency(grandTotal));

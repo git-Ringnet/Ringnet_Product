@@ -1734,7 +1734,8 @@
                             $('#inventoryModal .modal-body tbody').empty();
                             var sum = 0;
                             data.forEach(function(productData) {
-                                sum += parseInt(productData.quantity_remaining, 10) || 0;
+                                sum += parseInt(productData
+                                    .quantity_remaining, 10) || 0;
                                 var newRow = $(
                                     '<tr class="position-relative">' +
                                     '<td class="text-13-black" id="productName"></td>' +
@@ -2512,54 +2513,119 @@
     });
 
     //tính thành tiền của sản phẩm
-    $(document).on('input', '.quantity-input, [name^="product_price"], .promotion, .promotion_type, #voucher', function(
-        e) {
-        var $row = $(this).closest('tr');
-        var productQty = parseFloat($row.find('.quantity-input').val()?.replace(/[^0-9.-]+/g, "")) || 0;
-        var productPrice = parseFloat($row.find('input[name^="product_price"]').val()?.replace(/[^0-9.-]+/g,
-            "")) || 0;
-        var promotionValue = parseFloat($row.find('.promotion').val()?.replace(/[^0-9.-]+/g, "")) || 0;
-        var percent = $row.find('.percent');
-        var promotionType = $row.find('.promotion_type').val();
+    function allTaxesAreSame() {
+        var taxValue;
+        var allSame = true;
+        $("tr.addProduct").each(function(index) {
+            var currentTax = parseFloat($(this).find(".product_tax").val());
+            if (currentTax == 99) {
+                currentTax = 0;
+            }
+            if (taxValue === undefined) {
+                taxValue = currentTax;
+            } else if (taxValue !== currentTax) {
+                allSame = false;
+                return false; // Exit the loop
+            }
+        });
 
-        updateTaxAmount($row);
+        // Enable or disable voucher and discount type based on the result
+        if (allSame) {
+            $("#voucher").prop("disabled", false);
+            $('select[name="discount_type"]').prop("disabled", false);
+        } else {
+            $("#voucher").prop("disabled", true);
+            $('select[name="discount_type"]').prop("disabled", true);
+        }
 
-        if (!isNaN(productQty) && !isNaN(productPrice)) {
-            var totalAmount;
-            if (promotionType === "1") {
-                // Fixed amount promotion
-                totalAmount = (productQty * productPrice) - promotionValue;
-                percent.hide();
-            } else if (promotionType === "2") {
-                // Percentage promotion
-                totalAmount = (productQty * productPrice) * (1 - promotionValue / 100);
-                percent.show();
+        return allSame;
+    }
+
+    $(document).on(
+        "input",
+        '.quantity-input, [name^="product_price"], .promotion, .promotion_type, #voucher',
+        function(e) {
+            var $row = $(this).closest("tr.addProduct");
+
+            // Check if the product_name input has a value
+            var productNameValue = $row.find(".product_name").val();
+            if (productNameValue) {
+                // Split the product names and quantities
+                var productNames = productNameValue.split(";");
+            } else {
+                var productNames = [];
             }
 
-            $row.find('.total-amount').val(formatCurrency(Math.round(totalAmount)));
-            calculateTotalAmount();
-            calculateTotalTax();
-            calculateGrandTotal();
-        }
-    });
+            var productQty =
+                parseFloat(
+                    $row
+                    .find(".quantity-input")
+                    .val()
+                    ?.replace(/[^0-9.-]+/g, "")
+                ) || 0;
+            var productPrice =
+                parseFloat(
+                    $row
+                    .find('input[name^="product_price"]')
+                    .val()
+                    ?.replace(/[^0-9.-]+/g, "")
+                ) || 0;
+            var promotionValue =
+                parseFloat(
+                    $row
+                    .find(".promotion")
+                    .val()
+                    ?.replace(/[^0-9.-]+/g, "")
+                ) || 0;
+            var percent = $row.find(".percent");
+            var promotionType = $row.find(".promotion_type").val();
 
-    $(document).on('change', '.product_tax', function() {
-        updateTaxAmount($(this).closest('tr'));
+            updateTaxAmount($row);
+
+            if (!isNaN(productQty) && !isNaN(productPrice)) {
+                var totalAmount = 0;
+                productNames.forEach(() => {
+                    var subtotal;
+                    if (promotionType === "1") {
+                        // Fixed amount promotion
+                        subtotal = productQty * productPrice - promotionValue;
+                    } else if (promotionType === "2") {
+                        // Percentage promotion
+                        subtotal =
+                            productQty * productPrice * (1 - promotionValue / 100);
+                    } else {
+                        subtotal = productQty * productPrice;
+                    }
+                    totalAmount += subtotal;
+                });
+
+                $row.find(".total-amount").val(
+                    formatCurrency(Math.round(totalAmount))
+                );
+                calculateTotalAmount();
+                calculateTotalTax();
+                calculateGrandTotal();
+            }
+        }
+    );
+
+    $(document).on("change", ".product_tax", function() {
+        updateTaxAmount($(this).closest("tr.addProduct"));
         calculateTotalAmount();
         calculateTotalTax();
         calculateGrandTotal();
     });
 
-    $(document).on('change', '.promotion_type', function(e) {
-        var $row = $(this).closest('tr');
-        var promotionType = $row.find('.promotion_type').val();
+    $(document).on("change", ".promotion_type", function(e) {
+        var $row = $(this).closest("tr.addProduct");
+        var promotionType = $row.find(".promotion_type").val();
 
-        $row.find('.promotion').val('');
+        $row.find(".promotion").val("");
 
         if (promotionType === "2") {
-            $row.find('.percent').removeClass('d-none').show(); // Show the percent span
+            $row.find(".percent").removeClass("d-none").show(); // Show the percent span
         } else {
-            $row.find('.percent').addClass('d-none').hide(); // Hide the percent span
+            $row.find(".percent").addClass("d-none").hide(); // Hide the percent span
         }
 
         updateTaxAmount($row);
@@ -2568,15 +2634,15 @@
         calculateGrandTotal();
     });
 
-    $(document).on('change', '.discount_type', function(e) {
+    $(document).on("change", ".discount_type", function(e) {
         var discountType = $('select[name="discount_type"]').val();
 
-        $('#voucher').val('');
+        $("#voucher").val("");
 
         if (discountType === "2") {
-            $('.percent_discount').removeClass('d-none').show(); // Show the percent span
+            $(".percent_discount").removeClass("d-none").show(); // Show the percent span
         } else {
-            $('.percent_discount').addClass('d-none').hide(); // Hide the percent span
+            $(".percent_discount").addClass("d-none").hide(); // Hide the percent span
         }
 
         calculateTotalAmount();
@@ -2585,84 +2651,139 @@
     });
 
     function updateTaxAmount(row) {
-        var productQty = parseFloat(row.find('.quantity-input').val());
-        var productPrice = parseFloat(row.find('input[name^="product_price"]').val()?.replace(/[^0-9.-]+/g,
-            "")) || 0;
-        var promotionValue = parseFloat(row.find('.promotion').val()?.replace(/[^0-9.-]+/g, "")) || 0;
-        var promotionType = row.find('.promotion_type').val();
-        var taxValue = parseFloat(row.find('.product_tax').val());
+        var productNameValue = row.find(".product_name").val();
+        if (productNameValue) {
+            var productNames = productNameValue.split(";");
+        } else {
+            var productNames = [];
+        }
+
+        var productQty = parseFloat(row.find(".quantity-input").val()) || 0;
+        var productPrice =
+            parseFloat(
+                row
+                .find('input[name^="product_price"]')
+                .val()
+                ?.replace(/[^0-9.-]+/g, "")
+            ) || 0;
+        var promotionValue =
+            parseFloat(
+                row
+                .find(".promotion")
+                .val()
+                ?.replace(/[^0-9.-]+/g, "")
+            ) || 0;
+        var promotionType = row.find(".promotion_type").val();
+        var taxValue = parseFloat(row.find(".product_tax").val());
         if (taxValue == 99) {
             taxValue = 0;
         }
 
         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
-            var totalAmount = productQty * productPrice;
-
-            if (promotionType === "1") {
-                // Fixed amount promotion
-                totalAmount -= promotionValue;
-            } else if (promotionType === "2") {
-                // Percentage promotion
-                totalAmount *= (1 - promotionValue / 100);
-            }
+            var totalAmount = 0;
+            productNames.forEach(() => {
+                var subtotal = productQty * productPrice;
+                if (promotionType === "1") {
+                    // Fixed amount promotion
+                    subtotal -= promotionValue;
+                } else if (promotionType === "2") {
+                    // Percentage promotion
+                    subtotal *= 1 - promotionValue / 100;
+                }
+                totalAmount += subtotal;
+            });
 
             var taxAmount = totalAmount * (taxValue / 100);
 
-            row.find('.total-amount').val(formatCurrency(Math.round(totalAmount)));
-            row.find('.product_tax1').text(formatCurrency(Math.round(taxAmount)));
+            row.find(".total-amount").val(formatCurrency(Math.round(totalAmount)));
+            row.find(".product_tax1").text(formatCurrency(Math.round(taxAmount)));
         }
+
+        // Check if all taxes are the same after updating tax amount
+        allTaxesAreSame();
     }
 
     function calculateTotalAmount() {
         var totalAmount = 0;
-        $('tr').each(function() {
-            var rowTotal = parseFloat(String($(this).find('.total-amount').val()).replace(/[^0-9.-]+/g,
-                ""));
+        $("tr.addProduct").each(function() {
+            var rowTotal = parseFloat(
+                String($(this).find(".total-amount").val()).replace(
+                    /[^0-9.-]+/g,
+                    ""
+                )
+            );
             if (!isNaN(rowTotal)) {
                 totalAmount += rowTotal;
             }
         });
-        totalAmount = Math.round(totalAmount); // Làm tròn thành số nguyên
-        $('#total-amount-sum').text(formatCurrency(totalAmount));
+        totalAmount = Math.round(totalAmount); // Round to the nearest integer
+        $("#total-amount-sum").text(formatCurrency(totalAmount));
         calculateTotalTax();
         calculateGrandTotal();
     }
 
     function calculateTotalTax() {
         var totalTax = 0;
-        $('tr').each(function() {
-            var rowTax = parseFloat($(this).find('.product_tax1').text().replace(/[^0-9.-]+/g, ""));
+        $("tr.addProduct").each(function() {
+            var rowTax = parseFloat(
+                $(this)
+                .find(".product_tax1")
+                .text()
+                .replace(/[^0-9.-]+/g, "")
+            );
             if (!isNaN(rowTax)) {
                 totalTax += rowTax;
             }
         });
         totalTax = Math.round(totalTax); // Round to the nearest integer
-        $('#product-tax').text(formatCurrency(totalTax));
+        $("#product-tax").text(formatCurrency(totalTax));
 
         calculateGrandTotal();
     }
 
     function calculateGrandTotal() {
-        var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
-        var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
-        var voucher = parseFloat($('#voucher').val().replace(/[^0-9.-]+/g, "")) || 0;
+        var totalAmount = parseFloat(
+            $("#total-amount-sum")
+            .text()
+            .replace(/[^0-9.-]+/g, "")
+        );
+        var totalTax = parseFloat(
+            $("#product-tax")
+            .text()
+            .replace(/[^0-9.-]+/g, "")
+        );
+        var voucher =
+            parseFloat(
+                $("#voucher")
+                .val()
+                ?.replace(/[^0-9.-]+/g, "")
+            ) || 0;
         var discountType = $('select[name="discount_type"]').val();
 
-        var grandTotal = totalAmount + totalTax;
+        // Check if all taxes are the same
+        if (allTaxesAreSame()) {
+            if (discountType == 2) {
+                totalAmount -= (totalAmount * voucher) / 100;
+            } else {
+                totalAmount -= voucher;
+            }
 
-        if (discountType === "2") { // Nhập %
-            voucher = (grandTotal * voucher) / 100;
+            // Calculate tax amount after applying voucher
+            var taxRate = parseFloat(
+                $(".addProduct:first").find(".product_tax").val()
+            );
+            totalTax = (totalAmount * (taxRate == 99 ? 0 : taxRate)) / 100;
+            $("#product-tax").text(formatCurrency(totalTax));
         }
 
-        grandTotal -= voucher;
-        grandTotal = Math.round(grandTotal);
+        grandTotal = Math.round(totalAmount + totalTax);
 
-        $('#grand-total').text(formatCurrency(grandTotal));
-        $('#TongTien').val(formatCurrency(grandTotal));
+        $("#grand-total").text(formatCurrency(grandTotal));
+        $("#TongTien").val(formatCurrency(grandTotal));
 
         // Update data-value attribute
-        $('#grand-total').attr('data-value', grandTotal);
-        $('#total').val(grandTotal);
+        $("#grand-total").attr("data-value", grandTotal);
+        $("#total").val(grandTotal);
     }
 
     function formatCurrency(value) {

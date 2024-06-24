@@ -102,23 +102,32 @@ class DetailImport extends Model
                 $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
             }
         }
-        $total_amount = round($total_tax) + round($total);
-        if ($data['discount_type'] == 1) {
-            $voucher = $total_amount - ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
+        if (isset($data['discount_type']) && $data['discount_type'] == 1) {
+            if (isset($data['voucher'])) {
+                $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
+                $total_tax = (($total - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+            } else {
+                $voucher = 0;
+            }
         } else {
-            $voucher = $total_amount - (($total_amount * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100);
+            if (isset($data['voucher'])) {
+                $voucher = ($total * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
+                $total_tax = (($total - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+            } else {
+                $voucher = 0;
+            }
         }
         $dataImport = [
             'provide_id' => $data['provides_id'],
             'project_id' => 1,
             'user_id' => Auth::user()->id,
             'quotation_number' => $data['quotation_number'],
-            'status' => 2,
+            'status' => 0,
             'created_at' => $data['date_quote'],
             'total_price' => $total,
-            'total_tax' => $voucher,
+            'total_tax' => ($total - $voucher) + $total_tax,
             'discount' =>   isset($data['voucher']) ? str_replace(',', '', $data['voucher']) : 0,
-            'discount_type' => $data['discount_type'],
+            'discount_type' => isset($data['discount_type']) ? $data['discount_type'] : 0,
             'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
             'status_receive' => 0,
             'status_reciept' => 0,
@@ -168,14 +177,36 @@ class DetailImport extends Model
                     $price_export = 0;
                     isset($data['product_ratio']) ? $product_ratio = $data['product_ratio'][$i] : $product_ratio = 0;
                     isset($data['price_import']) ? $price_import = str_replace(',', '', $data['price_import'][$i]) : $price_import = 0;
+                    $promotion = isset($data['promotion'][$i]) && $data['promotion'][$i] !== '' ? str_replace(',', '', $data['promotion'][$i]) : 0;
                     if ($product_ratio > 0 && $price_import > 0) {
                         $price_export = (($product_ratio + 100) * $price_import) / 100;
                         $total += $price_export * str_replace(',', '', $data['product_qty'][$i]);
                     } else {
-                        $price_export = floatval(str_replace(',', '', $data['product_qty'][$i])) * floatval(str_replace(',', '', $data['price_export'][$i]));
+                        if ($data['promotion_type'][$i] == 1) {
+                            $price_export = (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i])) - $promotion;
+                        } else if ($data['promotion_type'][$i] == 2) {
+                            $price_export = (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i])) - ((str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]) * $promotion) / 100);
+                        } else {
+                            $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
+                        }
                         $total += $price_export;
+                        $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
                     }
-                    $total_tax += ($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export / 100;
+                }
+                if (isset($data['discount_type']) && $data['discount_type'] == 1) {
+                    if (isset($data['voucher'])) {
+                        $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
+                        $total_tax = (($total - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+                    } else {
+                        $voucher = 0;
+                    }
+                } else {
+                    if (isset($data['voucher'])) {
+                        $voucher = ($total * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
+                        $total_tax = (($total - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+                    } else {
+                        $voucher = 0;
+                    }
                 }
             } else {
                 $product = QuoteImport::where('detailimport_id', $id)
@@ -204,9 +235,10 @@ class DetailImport extends Model
                     'quotation_number' => $data['quotation_number'],
                     'status' => $status,
                     'created_at' => $data['date_quote'],
-                    'total_price' => round($total),
-                    'total_tax' => (round($total_tax) + round($total)),
-                    'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
+                    'total_price' => $total,
+                    'total_tax' => ($total - $voucher) + $total_tax,
+                    'discount' =>   isset($data['voucher']) ? str_replace(',', '', $data['voucher']) : 0,
+                    'discount_type' => isset($data['discount_type']) ? $data['discount_type'] : 0,
                     'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
                     'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
                     'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
@@ -230,20 +262,8 @@ class DetailImport extends Model
     public function deleteDetail($id)
     {
         $result = [];
-        $checkReceive = Receive_bill::where('detailimport_id', $id)->get();
-        $checkReciept = Reciept::where('detailimport_id', $id)->get();
         $checkPayOrder = PayOder::where('detailimport_id', $id)->get();
-        if (count($checkReceive) > 0) {
-            $result = [
-                'status' => false,
-                'msg' => 'Vui lòng xóa đơn nhận hàng'
-            ];
-        } elseif (count($checkReciept) > 0) {
-            $result = [
-                'status' => false,
-                'msg' => 'Vui lòng xóa hóa đơn mua hàng'
-            ];
-        } elseif (count($checkPayOrder) > 0) {
+        if (count($checkPayOrder) > 0) {
             $result = [
                 'status' => false,
                 'msg' => 'Vui lòng xóa thanh toán mua hàng'

@@ -119,7 +119,7 @@
                                 <tbody>
                                     @isset($dataImport)
                                         @foreach ($dataImport as $item)
-                                            <tr class="bg-white">
+                                            <tr class="bg-white addProduct">
                                                 <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type="hidden" readonly value="{{ $item->id }}"
                                                         name="listProduct[]">

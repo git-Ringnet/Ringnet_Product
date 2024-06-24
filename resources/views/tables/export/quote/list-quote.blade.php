@@ -333,19 +333,15 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    @php
-                                                        $discount = 0;
-                                                        if ($value_export->discount_type == 1) {
-                                                            $discount = $value_export->discount;
-                                                        } else {
-                                                            $discount =
-                                                                (($value_export->total_price +
-                                                                    $value_export->total_tax) *
-                                                                    $value_export->discount) /
-                                                                100;
-                                                        }
-                                                    @endphp
-                                                    {{ number_format($value_export->total_price + $value_export->total_tax - $discount) }}
+                                                    <?php
+                                                    if ($value_export->discount_type == 1) {
+                                                        $discountedTotal = $value_export->total_price - $value_export->discount + $value_export->total_tax;
+                                                    } else {
+                                                        $discountedTotal = $value_export->total_price * (1 - $value_export->discount / 100) + $value_export->total_tax;
+                                                    }
+                                                    
+                                                    echo number_format($discountedTotal);
+                                                    ?>
                                                 </td>
                                                 <td
                                                     class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">

@@ -301,17 +301,9 @@ class DetailExportController extends Controller
             if ($detailExport->status == 1) {
                 $export_id = $this->detailExport->updateExport($request->all(), $id);
                 $this->quoteExport->updateQuoteExport($request->all(), $export_id);
-                $dateForms = $request->idDate;
-                $fieldDates = $request->fieldDate;
-                $guestId = $request->guest_id;
-                foreach ($dateForms as $key => $dateFormId) {
-                    $formField = $fieldDates[$key];
-                    $this->guest_dateForm->insertFormGuest($guestId, $dateFormId, $formField);
-                }
                 return redirect()->route('detailExport.index')->with('msg', 'Cập nhật đơn báo giá thành công!');
             } else {
                 if ($detailExport) {
-                    $detailExport->reference_number = $request->reference_number;
                     $detailExport->created_at = $request->date_quote;
                     $detailExport->save();
                     return redirect()->route('detailExport.index')->with('msg', 'Cập nhật đơn báo giá thành công!');

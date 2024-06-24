@@ -309,7 +309,7 @@ var status_form = 0;
 
 function addRowRepesent() {
     var tr = `
-        <tr class="bg-white" id="dynamic-row-1">
+        <tr class="bg-white addProduct" id="dynamic-row-1">
             <input type="hidden" value="0" name="">
             <td class='border border-top-0  border-left-0 padding-left35'>
                 <input type='text' autocomplete='off' required name='represent_name[]'
@@ -341,7 +341,7 @@ $("#addRowRepesent").on("click", function () {
 
 function addRowTable(status) {
     var tr =
-        '<tr class="bg-white" style="height:80px;">' +
+        '<tr class="bg-white addProduct" style="height:80px;">' +
         '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
         '<input type="hidden" name="listProduct[]" value="0">' +
         "<span class='ml-1 mr-2'>" +

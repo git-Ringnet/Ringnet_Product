@@ -351,6 +351,7 @@ class PayExport extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->update([
                     'status_pay' => 0,
+                    'status' => 1,
                 ]);
         }
         history_Pay_Export::where('pay_id', $id)
