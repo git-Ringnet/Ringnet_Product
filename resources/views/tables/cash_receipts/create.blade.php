@@ -46,7 +46,7 @@
                                 <span class="text-btnIner-primary ml-2">Hủy</span>
                             </button>
                         </a>
-                        <button type="submit" value="1" class="btn-destroy mx-1 d-flex align-items-center h-100"
+                        {{-- <button type="submit" value="1" class="btn-destroy mx-1 d-flex align-items-center h-100"
                             id="luuNhap">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -57,7 +57,7 @@
                                 </svg>
                             </span>
                             <span class="text-btnIner-primary ml-2">Lưu nháp</span>
-                        </button>
+                        </button> --}}
                         <button type="submit" value="2" class="custom-btn mx-1 d-flex align-items-center h-100"
                             id="xacNhan">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
@@ -472,8 +472,9 @@
                         $('input[name="total"]').val(formatCurrency(data['total'] - data[
                             'payment']));
                         $('input[name="total"]').on('input', function() {
-                            checkQty(this,  Math.round(data['total']) - Math.round(data[
-                                'payment']))
+                            checkQty(this, Math.round(data['total']) - Math.round(
+                                data[
+                                    'payment']))
                         })
                     }
 
