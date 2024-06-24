@@ -52,7 +52,8 @@ class GuestController extends Controller
             // }
             // dd($guests);
 
-            return view('tables.guests.index', compact('title', 'guests', 'users', 'dataa', 'workspacename'));
+            $groups = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
+            return view('tables.guests.index', compact('title', 'guests', 'groups', 'users', 'dataa', 'workspacename'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
         }

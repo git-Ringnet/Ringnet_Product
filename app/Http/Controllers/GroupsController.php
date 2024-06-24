@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Groups;
 use App\Models\Grouptype;
 use App\Models\Guest;
+use App\Models\Products;
+use App\Models\Provides;
+use App\Models\User;
 use App\Models\Workspace;
 use App\Models\userFlow;
 use Illuminate\Http\Request;
@@ -154,18 +157,27 @@ class GroupsController extends Controller
     {
         $group = Groups::find($id);
         if (!$group) {
-            return back()->with('warning', 'Không tìm thấy loại đối tượng xóa');
+            return back()->with('warning', 'Không tìm thấy loại đối tượng để xóa.');
         }
-        $check = Guest::where('group_id', $id)->first();
-        if ($check) {
+        // Mảng các điều kiện kiểm tra
+        $conditions = [
+            1 => User::where('group_id', $id)->first(),
+            2 => Guest::where('group_id', $id)->first(),
+            3 => Provides::where('group_id', $id)->first(),
+            4 => Products::where('group_id', $id)->first(),
+        ];
+        // Kiểm tra nếu group type tồn tại và có bản ghi sử dụng group_id
+        if (isset($conditions[$group->grouptype_id]) && $conditions[$group->grouptype_id]) {
             return back()->with('warning', 'Xóa thất bại do loại đối tượng vẫn đang còn sử dụng!');
         }
         $group->delete();
+        // Cập nhật thông tin cho userFlow
         $arrCapNhatKH = [
             'name' => 'KH',
-            'des' => 'Xóa loại đối tượng'
+            'des' => 'Xóa loại đối tượng',
         ];
         $this->userFlow->addUserFlow($arrCapNhatKH);
-        return back()->with('msg', 'Xóa loại đối tượng thành công');
+
+        return back()->with('msg', 'Xóa loại đối tượng thành công.');
     }
 }
