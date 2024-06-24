@@ -460,9 +460,9 @@
                             <li class="nav-item">
                                 <a href="{{ route('viewReportDelivery', $workspacename) }}" data-name1="BH"
                                     data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumDelivery') active @endif">
                                     <p class="text-nav ml-2">Tổng kết giao hàng</p>
-                                </a>
+                                </a>    
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('returnExport.index', $workspacename) }}" data-name1="BH"
@@ -474,14 +474,14 @@
                             <li class="nav-item">
                                 <a href="{{ route('viewReportSumReturnExport', $workspacename) }}" data-name1="BH"
                                     data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumReturnExport') active @endif">
                                     <p class="text-nav ml-2">Tổng kết khách trả hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('viewReportSell', $workspacename) }}" data-name1="BH"
                                     data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumSell') active @endif">
                                     <p class="text-nav ml-2">Tổng kết bán hàng</p>
                                 </a>
                             </li>
@@ -509,14 +509,14 @@
                             <li class="nav-item">
                                 <a href="{{ route('viewReportSumSellProfit', $workspacename) }}" data-name1="BH"
                                     data-des="Báo cáo lợi nhuận bán hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'payexport') active @endif">
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'reportSumSellProfit') active @endif">
                                     <p class="text-nav ml-2">Báo cáo lợi nhuận bán hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('viewReportDebtGuests', $workspacename) }}" data-name1="BH"
                                     data-des="Thông kê công nợ khách hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'payexport') active @endif">
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'debtGuests') active @endif">
                                     <p class="text-nav ml-2">Thông kê công nợ khách hàng</p>
                                 </a>
                             </li>
