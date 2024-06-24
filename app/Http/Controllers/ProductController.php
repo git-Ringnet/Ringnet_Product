@@ -45,8 +45,10 @@ class ProductController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // Tất cả nhóm hàng hóa
-        $groups = Groups::where('grouptype_id', 4)->get();
-        $product = Products::where('group_id', 0)->get();
+        $groups = Groups::where('grouptype_id', 4)
+            ->where('workspace_id', Auth::user()->current_workspace)->get();
+        $product = Products::where('group_id', 0)
+            ->where('workspace_id', Auth::user()->current_workspace)->get();
         return view('tables.products.products', compact('product', 'title', 'workspacename', 'groups'));
     }
 
