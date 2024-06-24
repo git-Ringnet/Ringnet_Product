@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fund;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FundController extends Controller
 {
@@ -30,11 +33,25 @@ class FundController extends Controller
             'bank_name' => 'nullable|string',
             'bank_account_number' => 'nullable|string',
             'bank_account_holder' => 'nullable|string',
+            'workspace_id' => 'nullable|numeric',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
         ]);
 
-        Fund::create($request->all());
+        // Fund::create($request->all());
+        $dataFunds = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'amount' => $request->amount,
+            'bank_name' => $request->bank_name,
+            'bank_account_number' => $request->bank_account_number,
+            'bank_account_holder' => $request->bank_account_holder,
+            'workspace_id' => Auth::user()->current_workspace,
+            'start_date' => isset($request->start_date) ? $request->start_date : Carbon::now(),
+            'end_date' => isset($request->end_date) ? $request->end_date : Carbon::now()
+        ];
+
+        DB::table('funds')->insert($dataFunds);
         return redirect()->route('funds.index')->with('success', 'Fund created successfully.');
     }
 

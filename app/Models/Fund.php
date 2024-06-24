@@ -17,6 +17,7 @@ class Fund extends Model
         'bank_account_holder',
         'start_date',
         'end_date',
+        'workspace_id'
     ];
     protected $table = 'funds';
 

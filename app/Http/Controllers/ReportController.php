@@ -292,7 +292,7 @@ class ReportController extends Controller
         $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
 
         // thu chi tồn quỹ
-        $inventoryDebt = Fund::all();
+        $inventoryDebt = Fund::where('workspace_id', Auth::user()->current_workspace)->get();
 
 
         // Phiếu chuyển kho
