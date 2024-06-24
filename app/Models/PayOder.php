@@ -85,7 +85,7 @@ class PayOder extends Model
             ->count() + 1;
         $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
         $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
-        $invoicenumber = "PTT{$countFormattedInvoice}-{$currentDate}";
+        $invoicenumber = "PC{$countFormattedInvoice}-{$currentDate}";
         return $invoicenumber;
     }
 

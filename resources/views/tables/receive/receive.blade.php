@@ -172,8 +172,8 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="delivery_code" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Mã nhận
-                                                            hàng#</button>
+                                                        <button class="btn-sort text-13" type="submit">Phiếu nhập 
+                                                            kho#</button>
                                                     </a>
                                                     <div class="icon" id="icon-delivery_code"></div>
                                                 </span>

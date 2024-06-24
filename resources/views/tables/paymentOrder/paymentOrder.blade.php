@@ -175,8 +175,8 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment_code" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Mã số
-                                                            phiếu</button>
+                                                        <button class="btn-sort text-13" type="submit">Mã phiếu chi
+                                                        </button>
                                                     </a>
                                                     <div class="icon" id="icon-payment_code"></div>
                                                 </span>

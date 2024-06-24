@@ -38,7 +38,8 @@ class ReturnImport extends Model
         return $this->hasMany(ReturnProduct::class, 'returnImport_id', 'id');
     }
 
-    public function getPayment() {
+    public function getPayment()
+    {
         return $this->hasOne(PayOder::class, 'return_id', 'id');
     }
 
@@ -68,7 +69,7 @@ class ReturnImport extends Model
             'user_id' => Auth::user()->id,
             // 'return_code' => "PTH-" . $data['detailimport_id'],
             'return_code' => isset($data['return_code']) ? $data['return_code'] : ("PTH-" . $data['detailimport_id']),
-            'total' => isset($data['total_bill']) ? str_replace(',','',$data['total_bill']) : 0,
+            'total' => isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0,
         ];
         if ($data['action'] == "action_1") {
             $dataReturn['status'] = 1;
@@ -113,6 +114,16 @@ class ReturnImport extends Model
                             if ($product->check_seri == 1) {
                                 $sn = json_decode($item->sn, true);
                                 Serialnumber::whereIn('serinumber', $sn)->where('product_id', $product->id)->delete();
+                            }
+
+                            // Trừ sản phẩm trong productwarehose
+                            $productWarehouse = ProductWarehouse::where('product_id', $product->id)
+                                ->where('warehouse_id', $quoteImport->warehouse_id)
+                                ->first();
+
+                            if ($productWarehouse) {
+                                $productWarehouse->qty = $productWarehouse->qty - $item->qty;
+                                $productWarehouse->save();
                             }
                         }
 
@@ -197,9 +208,20 @@ class ReturnImport extends Model
                         // Xóa lịch sử thêm sản phẩm
                         ProductImport::where('product_id', $product->id)->where('receive_id', $returnImport->receive_id)
                             ->where('quoteImport_id', $quoteImport->id)->where('product_qty', '<', 0)->delete();
+
+
+                        // Cập nhật lại số lượng sản phẩm theo kho trong productwarehose
+                        $productWarehouse = ProductWarehouse::where('product_id', $product->id)
+                            ->where('warehouse_id', $quoteImport->warehouse_id)
+                            ->first();
+
+                        if ($productWarehouse) {
+                            $productWarehouse->qty = $productWarehouse->qty + $item->qty;
+                            $productWarehouse->save();
+                        }
                     }
 
-                    
+
                     $item->delete();
                 }
                 // Xóa thông tin sản phẩm trả hàng
