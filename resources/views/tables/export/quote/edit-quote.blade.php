@@ -470,7 +470,7 @@
                                     @endif
                                     <div class="d-flex justify-content-between mt-2 align-items-center">
                                         <span class="text-13-black">Khuyến mãi</span>
-                                        <input name="promotion-total" type="text"
+                                        <input name="promotion-total" type="number"
                                             class="text-table border-0 text-right promotion-total"
                                             style="background-color:#F0F4FF "
                                             @if ($detailExport != '') value="{{ $promotionValue ? number_format($promotionValue) : 0 }}" @endif>
@@ -2081,7 +2081,7 @@
             const chiTietChietKhau = $(
                 "<td class='border-right p-2 align-top border-bottom border-top-0'>" +
                 "<div class='d-flex flex-column align-items-center'>" +
-                "<input type='text' name='promotion[]' class='border-0 px-2 py-1 w-100 text-right height-32 promotion' placeholder='Giá trị chiết khấu' style='border: none;'>" +
+                "<input type='number' name='promotion[]' class='border-0 px-2 py-1 w-100 text-right height-32 promotion' placeholder='Giá trị chiết khấu' style='border: none;'>" +
                 "<select name='promotion-option[]' class='text-right border-0 mt-2'>" +
                 "<option value='' disabled>Chọn chiết khấu</option>" +
                 "<option value='1' selected>Nhập tiền</option>" +

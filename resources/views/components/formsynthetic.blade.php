@@ -13,7 +13,7 @@
                         <span class="text-13-black">Thuế VAT:</span>
                         <span id="product-tax" class="text-table">0đ</span>
                     </div>
-                  
+
                     @if ($import != '123')
                         {{-- @if ($import)
                         <div class="d-flex justify-content-between align-items-center mt-2">
@@ -47,25 +47,25 @@
                         </div>
                         @endif --}}
                     @endif
-                    @if ($import != "") 
-                    @php
-                        $promotionArray = json_decode($import->promotion, true);
-                        $promotionValue = isset($promotionArray['value']) ? $promotionArray['value'] : '';
-                        $promotionOption = isset($promotionArray['type']) ? $promotionArray['type'] : '';
-                    @endphp
+                    @if ($import != '')
+                        @php
+                            $promotionArray = json_decode($import->promotion, true);
+                            $promotionValue = isset($promotionArray['value']) ? $promotionArray['value'] : '';
+                            $promotionOption = isset($promotionArray['type']) ? $promotionArray['type'] : '';
+                        @endphp
                     @endif
                     <div class="d-flex justify-content-between mt-2 align-items-center">
                         <span class="text-13-black">Khuyến mãi</span>
-                        <input name="promotion-total" type="text" class="text-table border-0 text-right"
+                        <input name="promotion-total" type="number" class="text-table border-0 text-right"
                             style="background-color:#F0F4FF "
-                            @if ($import != "") value="{{ number_format($promotionValue) }}" @endif>
+                            @if ($import != '') value="{{ number_format($promotionValue) }}" @endif>
                     </div>
                     <div class="d-flex justify-content-between mt-2 align-items-center">
                         <span class="text-13-black">Hình thức</span>
                         <select name="promotion-option-total" id="" class="border-0 promotion-option-total">
-                            <option value="1" @if ($import != "" && $promotionOption == 1) selected @endif>Nhập tiền
+                            <option value="1" @if ($import != '' && $promotionOption == 1) selected @endif>Nhập tiền
                             </option>
-                            <option value="2" @if ($import != "" && $promotionOption == 2) selected @endif>Nhập %</option>
+                            <option value="2" @if ($import != '' && $promotionOption == 2) selected @endif>Nhập %</option>
                         </select>
                     </div>
                     <div class="d-flex justify-content-between mt-2">

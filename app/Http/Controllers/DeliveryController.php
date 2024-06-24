@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attachment;
+use App\Models\CashReceipt;
 use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
@@ -12,6 +13,7 @@ use App\Models\productBill;
 use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
+use App\Models\ReturnExport;
 use App\Models\Serialnumber;
 use App\Models\User;
 use App\Models\userFlow;
@@ -340,18 +342,31 @@ class DeliveryController extends Controller
      */
     public function destroy(string $workspace, string $id)
     {
-        $this->delivery->deleteDeliveryItem($id);
-        $table_id = $id;
-        $table_name = 'GH';
-        $this->attachment->deleteFileAll($table_id, $table_name);
-        //
-        $arrCapNhatKH = [
-            'name' => 'GH',
-            'des' => 'Xóa đơn giao hàng'
-        ];
-        $this->userFlow->addUserFlow($arrCapNhatKH);
-        return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn giao hàng thành công!');
+        $returnEx = ReturnExport::where('delivery_id', $id)->first();
+        $cashReciept = CashReceipt::where('delivery_id', $id)->first();
+        if (is_null($returnEx) && is_null($cashReciept)) {
+            $this->delivery->deleteDeliveryItem($id);
+            $table_id = $id;
+            $table_name = 'GH';
+            $this->attachment->deleteFileAll($table_id, $table_name);
+            $arrCapNhatKH = [
+                'name' => 'GH',
+                'des' => 'Xóa đơn giao hàng'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+            return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn giao hàng thành công!');
+        } else {
+            $warningMessage = 'Không thể xóa đơn giao hàng vì: ';
+            if (!is_null($returnEx)) {
+                $warningMessage .= 'đơn giao hàng liên kết với trả hàng. ';
+            }
+            if (!is_null($cashReciept)) {
+                $warningMessage .= 'đơn giao hàng liên kết với phiếu thu.';
+            }
+            return redirect()->route('delivery.index', ['workspace' => $workspace])->with('warning', $warningMessage);
+        }
     }
+
 
     public function getInfoQuote(Request $request)
     {

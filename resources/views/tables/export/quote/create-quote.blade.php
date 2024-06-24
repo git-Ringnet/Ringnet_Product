@@ -283,7 +283,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between mt-2 align-items-center">
                                     <span class="text-13-black">Khuyến mãi</span>
-                                    <input name="promotion-total" id="promotion-total" type="text"
+                                    <input name="promotion-total" id="promotion-total" type="number"
                                         class="text-table border-0 text-right" disabled>
                                 </div>
                                 <div class="d-flex justify-content-between mt-2 align-items-center">
@@ -1727,7 +1727,7 @@
             const chiTietChietKhau = $(
                 "<td class='border-right p-2 align-top border-bottom border-top-0'>" +
                 "<div class='d-flex flex-column align-items-center'>" +
-                "<input type='text' name='discount_input[]' class='discount_input text-13-black py-1 w-100 height-32 mt-1' placeholder='Giá trị chiết khấu' style='border: none;'>" +
+                "<input type='number' name='discount_input[]' class='discount_input text-13-black py-1 w-100 height-32 mt-1' placeholder='Giá trị chiết khấu' style='border: none;'>" +
                 "<select name='discount_option[]' class='discount_option border-0 mt-2'>" +
                 "<option value='' disabled>Chọn chiết khấu</option>" +
                 "<option value='1' selected>Nhập tiền</option>" +

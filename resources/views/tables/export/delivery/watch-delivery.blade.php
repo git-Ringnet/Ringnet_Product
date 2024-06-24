@@ -419,7 +419,7 @@
                                         @endif
                                         <div class="d-flex justify-content-between mt-2 align-items-center">
                                             <span class="text-13-black">Khuyến mãi</span>
-                                            <input name="promotion-total" type="text"
+                                            <input name="promotion-total" type="number"
                                                 class="text-table border-0 text-right promotion-total"
                                                 style="background-color:#F0F4FF "
                                                 @if ($delivery != '') @php

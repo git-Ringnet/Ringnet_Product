@@ -256,15 +256,16 @@
                                         <span class="text-13-black">Thuế VAT:</span>
                                         <span id="product-tax" class="text-table">0đ</span>
                                     </div>
-                                  
+
                                     <div class="d-flex justify-content-between mt-2 align-items-center">
                                         <span class="text-13-black">Khuyến mãi</span>
-                                        <input name="promotion-total" type="text" class="text-table border-0 text-right"
-                                            style="background-color:#F0F4FF ">
+                                        <input name="promotion-total" type="number"
+                                            class="text-table border-0 text-right" style="background-color:#F0F4FF ">
                                     </div>
                                     <div class="d-flex justify-content-between mt-2 align-items-center">
                                         <span class="text-13-black">Hình thức</span>
-                                        <select name="promotion-option-total" id="" class="border-0 promotion-option-total">
+                                        <select name="promotion-option-total" id=""
+                                            class="border-0 promotion-option-total">
                                             <option value="1">Nhập tiền
                                             </option>
                                             <option value="2">Nhập %</option>
@@ -272,10 +273,12 @@
                                     </div>
                                     <div class="d-flex justify-content-between mt-2">
                                         <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
-                                        <span id="grand-total" data-value="0" class="text-13-bold text-lg font-weight-bold text-right">
+                                        <span id="grand-total" data-value="0"
+                                            class="text-13-bold text-lg font-weight-bold text-right">
                                             0đ
                                         </span>
-                                        <input type="text" hidden="" name="totalValue" value="0"id="total">
+                                        <input type="text" hidden="" name="totalValue"
+                                            value="0"id="total">
                                     </div>
                                 </div>
                             </div>
@@ -437,9 +440,8 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu nhập</span>
                                 <input type="text" placeholder="Chọn thông tin" name="delivery_code"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;" 
-                                    value="{{$code}}" readonly
-                                    />
+                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;"
+                                    value="{{ $code }}" readonly />
                             </li>
 
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
@@ -534,8 +536,10 @@
                 success: function(data) {
                     var promotionAll = JSON.parse(
                         data.detail.promotion);
-                    $('input[name="promotion-total"]').val(promotionAll['value']).attr('readonly',true);
-                    $('.promotion-option-total').val(promotionAll['type']).attr('disabled',true);
+                    $('input[name="promotion-total"]').val(promotionAll['value']).attr(
+                        'readonly', true);
+                    $('.promotion-option-total').val(promotionAll['type']).attr('disabled',
+                        true);
                     console.log(promotionAll);
                     $('#myInput1').val(data.quotation_number == null ? data.id :
                         data

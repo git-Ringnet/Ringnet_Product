@@ -656,7 +656,7 @@
                                             @endif
                                             <div class="d-flex justify-content-between mt-2 align-items-center">
                                                 <span class="text-13-black">Khuyến mãi</span>
-                                                <input name="promotion-total" type="text" disabled
+                                                <input name="promotion-total" type="number" disabled
                                                     class="text-table border-0 text-right"
                                                     style="background-color:#F0F4FF "
                                                     @if ($detailExport != '') value="{{ $promotionValue ? number_format($promotionValue) : 0 }}" @endif>

@@ -320,3 +320,15 @@ function checkProductTaxValues() {
     // $("#promotion-total").val(0);
     return allEqual;
 }
+$(document).on("input", ".product_unit", function () {
+    // Lấy giá trị hiện tại của trường nhập liệu
+    var value = $(this).val();
+
+    // Sử dụng regex để chỉ cho phép chữ cái
+    var newValue = value.replace(/[^a-zA-Z\s]/g, "");
+
+    // Nếu giá trị đã thay đổi, cập nhật lại trường nhập liệu
+    if (value !== newValue) {
+        $(this).val(newValue);
+    }
+});

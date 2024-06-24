@@ -34,14 +34,18 @@ class Fund extends Model
         // Lấy thông tin quỹ
         $fund = Fund::where('id', $id)->first();
         if ($fund) {
-            // Loại bỏ dấu phẩy từ giá trị tiền
+            // Loại bỏ dấu phẩy từ giá trị tiền và chuyển đổi thành số
             $money = str_replace(',', '', $money);
+            $money = floatval($money);
+
+            // Chuyển đổi giá trị quỹ thành số hoặc mặc định là 0 nếu không tồn tại
+            $fundAmount = floatval($fund->amount ?? 0);
 
             // Thực hiện phép toán dựa trên loại phép toán
             if ($operation === '+') {
-                $total = $fund->amount + $money;
+                $total = $fundAmount + $money;
             } elseif ($operation === '-') {
-                $total = $fund->amount - $money;
+                $total = $fundAmount - $money;
             } else {
                 throw new \InvalidArgumentException("Invalid operation. Use '+' or '-'.");
             }
