@@ -48,7 +48,9 @@ class ReturnImportController extends Controller
         $title = "Tạo mới trả hàng NCC";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.returnImport.create', compact('listDetail', 'title', 'workspacename'));
+
+        $returnCode = $this->returnImport->getQuoteCount();
+        return view('tables.returnImport.create', compact('listDetail', 'title', 'workspacename','returnCode'));
     }
 
     /**

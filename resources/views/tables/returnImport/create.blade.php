@@ -280,14 +280,12 @@
 
                     <div id="more_info" style="display:none;">
                         <ul class="p-0 m-0">
-
-
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:48px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nội dung trả hàng</span>
-                                <input type="text" placeholder="Nhập thông tin" name="content"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã trả hàng</span>
+                                <input name="return_code" type="text" placeholder="Nhập thông tin"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
+                                    style="flex:2;" value="{{ $returnCode }}"  readonly/>
                             </li>
 
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
@@ -299,6 +297,16 @@
                                 <input id="hiddenDateInput" type="hidden" value="{{ date('Y-m-d') }}"
                                     name="received_date">
                             </li>
+
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:48px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 2">Nội dung trả hàng</span>
+                                <input type="text" placeholder="Nhập thông tin" name="content"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
+                            </li>
+
+
                         </ul>
                     </div>
                 </div>

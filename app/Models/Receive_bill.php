@@ -94,7 +94,7 @@ class Receive_bill extends Model
                 'status' => 1,
                 'created_at' => isset($data['received_date']) ? $data['received_date'] : Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,
-                'delivery_code' => $delivery_code,
+                'delivery_code' => isset($data['delivery_code']) ? $data['delivery_code'] : $delivery_code,
                 'user_id' => Auth::user()->id,
                 'promotion' => json_encode($promotion)
             ];
@@ -197,7 +197,7 @@ class Receive_bill extends Model
                 'status' => 1,
                 'created_at' => isset($data['received_date']) ? $data['received_date'] : Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,
-                'delivery_code' => $delivery_code,
+                'delivery_code' => isset($data['delivery_code']) ? $data['delivery_code'] : $delivery_code,
                 'user_id' => Auth::user()->id
             ];
             $receive_id = DB::table($this->table)->insertGetId($dataReceive);

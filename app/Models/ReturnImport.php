@@ -43,6 +43,20 @@ class ReturnImport extends Model
     }
 
 
+    public function getQuoteCount()
+    {
+        // Tạo DGH
+        $currentDate = Carbon::now()->format('dmY');
+        $lastInvoiceNumber =
+            ReturnImport::where('workspace_id', Auth::user()->current_workspace)
+            ->whereDate('created_at', now())
+            ->count() + 1;
+        $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
+        $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
+        $invoicenumber = "PTH{$countFormattedInvoice}-{$currentDate}";
+        return $invoicenumber;
+    }
+
     public function addReturnImport($data)
     {
         $status = [];
@@ -52,7 +66,8 @@ class ReturnImport extends Model
             'created_at' => isset($data['received_date']) ? $data['received_date'] : Carbon::now(),
             'workspace_id' => Auth::user()->current_workspace,
             'user_id' => Auth::user()->id,
-            'return_code' => "PTH-" . $data['detailimport_id'],
+            // 'return_code' => "PTH-" . $data['detailimport_id'],
+            'return_code' => isset($data['return_code']) ? $data['return_code'] : ("PTH-" . $data['detailimport_id']),
             'total' => isset($data['total_bill']) ? str_replace(',','',$data['total_bill']) : 0,
         ];
         if ($data['action'] == "action_1") {

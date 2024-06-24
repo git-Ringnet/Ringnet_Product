@@ -86,7 +86,19 @@ class ReceiveController extends Controller
         }
         $listDetail = $listDetail->get();
         $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('tables.receive.insertReceive', compact('title', 'listDetail', 'workspacename', 'provide'));
+
+
+        // Phiếu nhập kho
+        $currentDate = Carbon::now()->format('dmY');
+        $lastInvoiceNumber =
+            Receive_bill::where('workspace_id', Auth::user()->current_workspace)
+            ->whereDate('created_at', now())
+            ->count() + 1;
+        $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
+        $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
+        $invoicenumber = "PNK{$countFormattedInvoice}-{$currentDate}";
+        $code = $invoicenumber;
+        return view('tables.receive.insertReceive', compact('title', 'listDetail', 'workspacename', 'provide','code'));
     }
 
     /**

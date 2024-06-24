@@ -306,7 +306,7 @@
                                                         <input type="text" name="total_price[]"
                                                             class="text-right border-0 px-2 py-1 w-100 total_price height-32"
                                                             readonly
-                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format(($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - $item->product_total * $promotionValue / 100), 2, '.', ',') : number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - $item->product_total * $promotionValue / 100) }}">
+                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - ($item->product_total * $promotionValue) / 100, 2, '.', ',') : number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - ($item->product_total * $promotionValue) / 100) }}">
                                                     </td>
                                                     <td
                                                         class='border-right p-2 text-13 align-top border-bottom border-top-0 position-relative'>
@@ -321,8 +321,7 @@
                                                         <div id="listWareH"
                                                             class="bg-white position-absolute rounded shadow p-1 z-index-block"
                                                             style="z-index: 99;">
-                                                            <ul id="listWarehouse"
-                                                                class="m-0 p-0 scroll-data"
+                                                            <ul id="listWarehouse" class="m-0 p-0 scroll-data"
                                                                 style="z-index: 99; left: 0%; top: 44%; display: none;">
                                                                 <div class="p-1">
                                                                     <div class="position-relative"><input
@@ -649,12 +648,14 @@
                                                                     data-name="import" data-id="{{ $price->id }}"
                                                                     id="{{ $price->id }}"><i
                                                                         class="fa-regular fa-pen-to-square"
-                                                                        aria-hidden="true"></i></a>
+                                                                        aria-hidden="true"></i>
+                                                                </a>
                                                                 <a class="dropdown-item delete-item" href="#"
                                                                     data-id="{{ $price->id }}"
                                                                     data-name="priceeffect"><i
                                                                         class="fa-solid fa-trash-can"
-                                                                        aria-hidden="true"></i></a>
+                                                                        aria-hidden="true"></i>
+                                                                </a>
                                                                 <a class="dropdown-item set-default default-id"
                                                                     id="default-id{{ $price->id }}" href="#"
                                                                     data-name="import" data-id="{{ $price->id }}">
@@ -732,12 +733,14 @@
                                                                     data-name="import" data-id="{{ $term->id }}"
                                                                     id="{{ $term->id }}"><i
                                                                         class="fa-regular fa-pen-to-square"
-                                                                        aria-hidden="true"></i></a>
+                                                                        aria-hidden="true"></i>
+                                                                </a>
                                                                 <a class="dropdown-item delete-item" href="#"
                                                                     data-id="{{ $term->id }}"
                                                                     data-name="priceeffect"><i
                                                                         class="fa-solid fa-trash-can"
-                                                                        aria-hidden="true"></i></a>
+                                                                        aria-hidden="true"></i>
+                                                                </a>
                                                                 <a class="dropdown-item set-default default-id"
                                                                     id="default-id{{ $term->id }}" href="#"
                                                                     data-name="import" data-id="{{ $term->id }}">

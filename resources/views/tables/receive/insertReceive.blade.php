@@ -434,10 +434,12 @@
 
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:48px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận hàng</span>
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu nhập</span>
                                 <input type="text" placeholder="Chọn thông tin" name="delivery_code"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
+                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;" 
+                                    value="{{$code}}" readonly
+                                    />
                             </li>
 
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
@@ -538,7 +540,7 @@
                     $('#myInput1').val(data.quotation_number == null ? data.id :
                         data
                         .quotation_number);
-                    $('input[name^="delivery_code"]').val(data.resultNumber)
+                    // $('input[name^="delivery_code"]').val(data.resultNumber)
                     $('#provide_name').val(data.provide_name);
                     $('#represent').val(data.represent)
                     $('#detailimport_id').val(data.id)
