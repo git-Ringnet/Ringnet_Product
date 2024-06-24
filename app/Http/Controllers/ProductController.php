@@ -61,7 +61,9 @@ class ProductController extends Controller
         $title = "Thêm sản phẩm";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $category = Groups::where('grouptype_id', 4)->get();
+        $category = Groups::where('grouptype_id', 4)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
         return view('tables.products.insertProduct', compact('warehouse', 'title', 'workspacename', 'category'));
     }
 

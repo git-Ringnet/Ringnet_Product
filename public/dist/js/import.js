@@ -13,6 +13,8 @@ $("body").on(
         var formattedNumber = numberWithCommas(formattedValue);
 
         event.target.value = formattedNumber;
+
+        console.log(formattedNumber);
     }
   
 );
