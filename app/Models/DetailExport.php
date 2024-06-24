@@ -71,11 +71,24 @@ class DetailExport extends Model
         $detailExport = $detailExport->orderBy('detailexport.id', 'desc')->get();
         return $detailExport;
     }
+    function allEqual($array)
+    {
+        $firstValue = $array[0];
+        foreach ($array as $value) {
+            if ($value != $firstValue) {
+                return false;
+            }
+        }
+        return true;
+    }
     public function addExport($data)
     {
         $totalBeforeTax = 0;
         $totalTax = 0;
         $totalPromotion = 0;
+        $productTaxes = $data['product_tax'];
+        // Kiểm tra xem tất cả các giá trị trong mảng có bằng nhau không
+        $areAllTaxesEqual = $this->allEqual($productTaxes);
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
             $tax = ($data['product_tax'][$i] == 99) ? 0 : $data['product_tax'][$i];
@@ -98,10 +111,13 @@ class DetailExport extends Model
             $totalBeforeTax += $subtotal;
             $totalTax += $subTax;
         }
+
         // Tính toán khuyến mãi
+        $promotionOption = isset($data['promotion-option-total']) ? $data['promotion-option-total'] : 0;
+        $promotionTotal = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
         $promotion = [
-            'type' => $data['promotion-option-total'],
-            'value' => str_replace(',', '', $data['promotion-total']),
+            'type' => $promotionOption,
+            'value' => $promotionTotal,
         ];
         if ($promotion['type'] == 1) { // Giảm số tiền trực tiếp
             $totalBeforeTax -= (float)$promotion['value'];
@@ -109,6 +125,11 @@ class DetailExport extends Model
             $discountAmount = ($totalBeforeTax * (float)$promotion['value']) / 100;
             $totalBeforeTax -= $discountAmount;
         }
+        if ($areAllTaxesEqual) {
+            $taxfirst = $productTaxes[0];
+            $totalTax = ($totalBeforeTax * $taxfirst) / 100;
+        }
+        // dd($totalTax);
         // Tính toán tổng số tiền cuối cùng
         $grandTotal = $totalBeforeTax + $totalTax;
         // Làm tròn tổng số tiền
@@ -195,6 +216,9 @@ class DetailExport extends Model
             $totalBeforeTax = 0;
             $totalTax = 0;
             $totalPromotion = 0;
+            $productTaxes = $data['product_tax'];
+            // Kiểm tra xem tất cả các giá trị trong mảng có bằng nhau không
+            $areAllTaxesEqual = $this->allEqual($productTaxes);
             for ($i = 0; $i < count($data['product_name']); $i++) {
                 $price = str_replace(',', '', $data['product_price'][$i]);
                 $tax = 0;
@@ -219,15 +243,21 @@ class DetailExport extends Model
                 $totalTax += $subTax;
             }
             // Tính toán khuyến mãi
+            $promotionOption = isset($data['promotion-option-total']) ? $data['promotion-option-total'] : 0;
+            $promotionTotal = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
             $promotion = [
-                'type' => $data['promotion-option-total'],
-                'value' => str_replace(',', '', $data['promotion-total']),
+                'type' => $promotionOption,
+                'value' => $promotionTotal,
             ];
             if ($promotion['type'] == 1) { // Giảm số tiền trực tiếp
                 $totalBeforeTax -= (float)$promotion['value'];
             } elseif ($promotion['type'] == 2) { // Giảm phần trăm trên tổng giá trị trước thuế
                 $discountAmount = ($totalBeforeTax * (float)$promotion['value']) / 100;
                 $totalBeforeTax -= $discountAmount;
+            }
+            if ($areAllTaxesEqual) {
+                $taxfirst = $productTaxes[0];
+                $totalTax = ($totalBeforeTax * $taxfirst) / 100;
             }
             // Tính toán tổng số tiền cuối cùng
             $grandTotal = $totalBeforeTax + $totalTax;

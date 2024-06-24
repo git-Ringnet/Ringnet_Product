@@ -643,12 +643,6 @@
                                                 </span>
                                                 <span id="total-amount-sum" class="text-13-black text-right">0đ</span>
                                             </div>
-                                            <div class="d-flex justify-content-between mt-2">
-                                                <span class="text-13-black">
-                                                    Thuế VAT:
-                                                </span>
-                                                <span id="product-tax" class="text-13-black text-right">0đ</span>
-                                            </div>
                                             @if ($detailExport != '')
                                                 @php
                                                     $promotionArray = json_decode($detailExport->promotion, true);
@@ -678,6 +672,12 @@
                                                         @if ($detailExport != '' && $promotionOption == 2) selected @endif>Nhập %
                                                     </option>
                                                 </select>
+                                            </div>
+                                            <div class="d-flex justify-content-between mt-2">
+                                                <span class="text-13-black">
+                                                    Thuế VAT:
+                                                </span>
+                                                <span id="product-tax" class="text-13-black text-right">0đ</span>
                                             </div>
                                             <div class="d-flex justify-content-between mt-2">
                                                 <span class="text-13-bold text-lg font-weight-bold">
@@ -1194,6 +1194,8 @@
 </div>
 </div>
 <x-user-flow></x-user-flow>
+<script src="{{ asset('/dist/js/export.js') }}"></script>
+
 <script>
     $('#file_restore').on('change', function(e) {
         e.preventDefault();
@@ -1382,15 +1384,8 @@
                 totalTax += rowTax;
             }
         });
-        // Hiển thị tổng totalAmount và totalTax
         $('#total-amount-sum').text(formatCurrency(Math.round(totalAmount)));
-        $('#product-tax').text(formatCurrency(Math.round(totalTax)));
 
-        // Tính tổng thành tiền và thuế
-        calculateGrandTotal(totalAmount, totalTax);
-    }
-
-    function calculateGrandTotal(totalAmount, totalTax) {
         var promotionOption = $('select[name="promotion-option-total"]').val();
         var promotionTotal = parseFloat($('input[name="promotion-total"]').val().replace(/[^0-9.-]+/g, "")) || 0;
 
@@ -1399,13 +1394,46 @@
         } else if (promotionOption == 2) {
             totalAmount -= (totalAmount * promotionTotal) / 100;
         }
-
-        if (!isNaN(totalAmount) || !isNaN(totalTax)) {
-            var grandTotal = totalAmount + totalTax;
-            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
+        // Hiển thị tổng totalAmount và totalTax
+        // $('#product-tax').text(formatCurrency(Math.round(totalTax)));
+        checkProductTaxValues();
+        console.log(totalAmount);
+        if (checkProductTaxValues()) {
+            var commonTaxRate = parseFloat($('select[name="product_tax[]"]').first().val());
+            if (!isNaN(commonTaxRate)) {
+                totalTax = totalAmount * (commonTaxRate / 100);
+            }
+        } else {
+            $("#promotion-total").val(0);
+            $('.addProduct').each(function() {
+                var rowTax = parseFloat($(this).find('.product_tax1').text().replace(/[^0-9.-]+/g, ""));
+                if (!isNaN(rowTax)) {
+                    totalTax += rowTax;
+                }
+            });
         }
+        totalTax = Math.round(totalTax);
+        $('#product-tax').text(formatCurrency(totalTax));
+        // Tính tổng thành tiền và thuế
+        calculateGrandTotal(totalAmount, totalTax);
+    }
 
-        // Cập nhật giá trị data-value
+    function calculateGrandTotal(totalAmount, totalTax) {
+
+        var promotionOption = $('select[name="promotion-option-total"]').val();
+        var promotionTotal = parseFloat($('input[name="promotion-total"]').val().replace(/[^0-9.-]+/g, "")) || 0;
+
+        var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
+        var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
+
+        if (promotionOption == 1) {
+            totalAmount -= promotionTotal;
+        } else if (promotionOption == 2) {
+            totalAmount -= (totalAmount * promotionTotal) / 100;
+        }
+        var grandTotal = totalAmount + totalTax;
+        grandTotal = Math.round(grandTotal);
+        $('#grand-total').text(formatCurrency(grandTotal));
         $('#grand-total').attr('data-value', grandTotal);
         $('#total').val(totalAmount);
     }

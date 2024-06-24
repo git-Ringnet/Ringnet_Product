@@ -67,26 +67,26 @@
                         <a class="text-secondary px-1 text-15" data-toggle="tab" href="#kqkinhdoanh">Kết quả kinh
                             doanh</a>
                     </li> --}}
-                    <li>
+                    {{-- <li>
                         <a class="text-secondary px-1 text-15 active" data-toggle="tab" href="#tkbanhang">Tổng kết bán
                             hàng</a>
                     </li>
                     <li>
                         <a class="text-secondary px-1 text-15" data-toggle="tab" href="#tkgiaohang">Tổng kết giao
                             hàng</a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a class="text-secondary px-1 text-15" data-toggle="tab" href="#countInport">Tổng kết mua
                             hàng</a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="text-secondary px-1 text-15" data-toggle="tab" href="#compareDebt">Công nợ khách hàng
                         </a>
-                    </li>
-                    <li>
+                    </li> --}}
+                    {{-- <li>
                         <a class="text-secondary px-1 text-15" data-toggle="tab" href="#profitExport">Lợi nhuận bán
                             hàng</a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a class="text-secondary px-1 text-15" data-toggle="tab" href="#importExport">Thống kê nhập xuất
                             tồn
@@ -1118,12 +1118,10 @@
                                                             value="{{ $item_delivery->maGiaoHang }}">
                                                         <td class="text-13-black border-bottom border-top-0">
                                                             <span class="margin-Right10">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    width="6" height="10"
-                                                                    viewBox="0 0 6 10" fill="none">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="6"
+                                                                    height="10" viewBox="0 0 6 10" fill="none">
                                                                     <g clip-path="url(#clip0_1710_10941)">
-                                                                        <path fill-rule="evenodd"
-                                                                            clip-rule="evenodd"
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
                                                                             d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
                                                                             fill="#282A30" />
                                                                     </g>
@@ -4022,9 +4020,9 @@
                                             </thead>
                                             <tbody id="import" class="tbody-export">
                                                 @foreach ($inventoryDebt as $va)
-                                                @php
-                                                    $total = 0;
-                                                @endphp
+                                                    @php
+                                                        $total = 0;
+                                                    @endphp
                                                     <tr>
                                                         <td colspan="9">{{ $va->name }}</td>
                                                     </tr>
@@ -4052,7 +4050,7 @@
                                                                 <td></td>
                                                             </tr>
                                                             @php
-                                                                $total -= $item->total
+                                                                $total -= $item->total;
                                                             @endphp
                                                         @endforeach
                                                     @endif
@@ -4060,18 +4058,27 @@
                                                         @foreach ($va->getPayExport as $item)
                                                             <tr>
                                                                 <td></td>
-                                                                <td>{{ date_format(new DateTime($item->date_created), 'd/m/Y') }}</td>
-                                                                <td>{{ $item->receipt_code}}</td>
-                                                                <td>@if($item->getGuest) {{$item->getGuest->guest_name_display}} @endif</td>
-                                                                <td>@if($item->getContentPay) {{$item->getContentPay->name}} @endif</td>
+                                                                <td>{{ date_format(new DateTime($item->date_created), 'd/m/Y') }}
+                                                                </td>
+                                                                <td>{{ $item->receipt_code }}</td>
+                                                                <td>
+                                                                    @if ($item->getGuest)
+                                                                        {{ $item->getGuest->guest_name_display }}
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if ($item->getContentPay)
+                                                                        {{ $item->getContentPay->name }}
+                                                                    @endif
+                                                                </td>
                                                                 <td>0</td>
                                                                 <td>{{ number_format($item->amount) }}</td>
                                                                 <td>0</td>
                                                                 <td></td>
                                                             </tr>
                                                             @php
-                                                            $total += $item->amount
-                                                        @endphp
+                                                                $total += $item->amount;
+                                                            @endphp
                                                         @endforeach
                                                     @endif
                                                     <tr>

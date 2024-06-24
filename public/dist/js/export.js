@@ -300,3 +300,23 @@ $(document).ready(function () {
         $("#fund").val($(this).find("span").text());
     });
 });
+
+function checkProductTaxValues() {
+    var productTaxValues = [];
+    $('select[name="product_tax[]"],input[name="product_tax[]"]').each(
+        function () {
+            var value = $(this).val();
+            productTaxValues.push(value);
+        }
+    );
+    var allEqual = productTaxValues.every(function (value, index, array) {
+        return value === array[0];
+    });
+    if (allEqual) {
+        $("#promotion-total").prop("disabled", false);
+    } else {
+        $("#promotion-total").prop("disabled", true);
+    }
+    // $("#promotion-total").val(0);
+    return allEqual;
+}

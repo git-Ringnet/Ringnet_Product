@@ -401,13 +401,25 @@ class ReturnExport extends Model
                 'delivery.*',
                 'return_export.*',
                 'guest.guest_name_display as nameGuest',
-                DB::raw('(SELECT 
-                        CASE 
-                            WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL) -- Giảm số tiền trực tiếp
-                            WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 2 THEN (COALESCE(SUM(product_total_vat), 0) * (100 - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) / 100) -- Giảm phần trăm trên tổng giá trị sản phẩm
-                            ELSE COALESCE(SUM(product_total_vat), 0) -- Không có khuyến mãi
-                        END
-                    FROM delivered WHERE delivered.delivery_id = delivery.id) as totalProductVat'),
+                DB::raw('(
+                        SELECT 
+                            CASE 
+                                WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) != 0 THEN 
+                                    CASE 
+                                        WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN 
+                                            (COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) * (1 + (COALESCE(MAX(products.product_tax), 0) / 100)) -- Giảm số tiền trực tiếp và áp dụng thuế
+                                        WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 2 THEN 
+                                            ((COALESCE(SUM(product_total_vat), 0) * (100 - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) / 100)) * (1 + (COALESCE(MAX(products.product_tax), 0) / 100)) -- Giảm phần trăm trên tổng giá trị sản phẩm và áp dụng thuế
+                                        ELSE 
+                                            COALESCE(SUM(product_total_vat), 0) -- Không có khuyến mãi
+                                    END
+                                ELSE
+                                    COALESCE(SUM(product_total_vat), 0) -- Giá trị ban đầu nếu $.value = 0
+                            END
+                        FROM delivered 
+                        LEFT JOIN products ON delivered.product_id = products.id
+                        WHERE delivered.delivery_id = delivery.id
+                    ) as totalProductVat'),
             )
             ->get();
         return $sumReturnExport;

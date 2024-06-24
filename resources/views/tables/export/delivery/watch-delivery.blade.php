@@ -406,10 +406,6 @@
                                             <span class="text-13-black">Giá trị trước thuế: </span>
                                             <span id="total-amount-sum">0đ</span>
                                         </div>
-                                        <div class="d-flex justify-content-between mt-2">
-                                            <span class="text-13-black">Thuế VAT: </span>
-                                            <span id="product-tax">0đ</span>
-                                        </div>
                                         @if ($delivery != '')
                                             @php
                                                 $promotionArray = json_decode($delivery->promotion_delivery, true);
@@ -427,9 +423,9 @@
                                                 class="text-table border-0 text-right promotion-total"
                                                 style="background-color:#F0F4FF "
                                                 @if ($delivery != '') @php
-        $promotionValue = is_numeric($promotionValue) ? (float) $promotionValue : 0;
-    @endphp
-    value="{{ $promotionValue ? number_format($promotionValue) : 0 }}" @endif>
+                                                        $promotionValue = is_numeric($promotionValue) ? (float) $promotionValue : 0;
+                                                    @endphp
+                                                    value="{{ $promotionValue ? number_format($promotionValue) : 0 }}" @endif>
                                         </div>
                                         <div class="d-flex justify-content-between mt-2 align-items-center">
                                             <span class="text-13-black">Hình thức</span>
@@ -446,11 +442,14 @@
                                             </select>
                                         </div>
                                         <div class="d-flex justify-content-between mt-2">
+                                            <span class="text-13-black">Thuế VAT: </span>
+                                            <span id="product-tax">0đ</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mt-2">
                                             <span class="text-13-bold text-lg font-weight-bold">Tổng cộng: </span>
                                             <span class="text-13-bold text-lg font-weight-bold text-right"
                                                 id="grand-total" data-value="0">0đ</span>
-                                            <input type="text" hidden="" name="totalValue" value="0"
-                                                id="total">
+                                            <input type="hidden" name="totalValue" value="0" id="total">
                                         </div>
                                     </div>
                                 </div>
@@ -710,6 +709,8 @@
     </div>
 </div>
 <x-user-flow></x-user-flow>
+<script src="{{ asset('/dist/js/export.js') }}"></script>
+
 <script>
     $('#file_restore').on('change', function(e) {
         e.preventDefault();
@@ -775,24 +776,6 @@
             }
         });
     });
-    //Kiểm tra số lượng SN được checked
-    // $('.check-seri').on('click', function() {
-    //     // Lấy giá trị của data-target và data-row từ button
-    //     const dataTarget = $(this).data('target');
-    //     const rowID = $(this).data('row');
-
-    //     // Lấy giá trị từ input số lượng
-    //     const quantityInputValue = parseInt($(`.${rowID} .quantity-input`).val());
-
-    //     // Lấy số lượng checkbox được chọn trong modal
-    //     const checkedCheckboxCount = $(`${dataTarget} .check-item:checked`).length;
-
-    //     // Kiểm tra xem số lượng checkbox có bằng với giá trị từ input không
-    //     if (checkedCheckboxCount !== quantityInputValue) {
-    //         alert('Vui lòng chọn đủ serinumber.');
-    //     }
-    // });
-
     //
     $('.ml-1.btn-sm').on('click', function(event) {
         $('input[name="_method"][value="put"]').remove();
@@ -866,28 +849,52 @@
 
         // Hiển thị tổng totalAmount và totalTax
         $('#total-amount-sum').text(formatCurrency(Math.round(totalAmount)));
-        $('#product-tax').text(formatCurrency(Math.round(totalTax)));
+        var promotionOption = $('select[name="promotion-option-total"]').val();
+        var promotionTotal = parseFloat($('input[name="promotion-total"]').val().replace(/[^0-9.-]+/g, "")) || 0;
 
-        // Tính tổng thành tiền và thuế
+        if (promotionOption == 1) {
+            totalAmount -= promotionTotal;
+        } else if (promotionOption == 2) {
+            totalAmount -= (totalAmount * promotionTotal) / 100;
+        }
+        // Hiển thị tổng totalAmount và totalTax
+        // $('#product-tax').text(formatCurrency(Math.round(totalTax)));
+        checkProductTaxValues();
+        if (checkProductTaxValues()) {
+            var commonTaxRate = parseFloat($('select[name="product_tax[]"]').first().val());
+            if (!isNaN(commonTaxRate)) {
+                totalTax = totalAmount * (commonTaxRate / 100);
+            }
+        } else {
+            $("#promotion-total").val(0);
+            $('.addProduct').each(function() {
+                var rowTax = parseFloat($(this).find('.product_tax1').text().replace(/[^0-9.-]+/g, ""));
+                if (!isNaN(rowTax)) {
+                    totalTax += rowTax;
+                }
+            });
+        }
+        totalTax = Math.round(totalTax);
+        $('#product-tax').text(formatCurrency(Math.round(totalTax)));
         calculateGrandTotal(totalAmount, totalTax);
     }
 
     function calculateGrandTotal(totalAmount, totalTax) {
         var promotionOption = $('select[name="promotion-option-total"]').val();
         var promotionTotal = parseFloat($('input[name="promotion-total"]').val().replace(/[^0-9.-]+/g, "")) || 0;
-        if (!isNaN(totalAmount) || !isNaN(totalTax)) {
-            var grandTotal = totalAmount + totalTax;
-            if (promotionOption == 1) {
-                grandTotal -= promotionTotal;
-            } else if (promotionOption == 2) {
-                grandTotal -= (grandTotal * promotionTotal) / 100;
-            }
-            grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
-            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
-            // Cập nhật giá trị data-value
+        var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
+        var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
+
+        if (promotionOption == 1) {
+            totalAmount -= promotionTotal;
+        } else if (promotionOption == 2) {
+            totalAmount -= (totalAmount * promotionTotal) / 100;
         }
+        var grandTotal = totalAmount + totalTax;
+        grandTotal = Math.round(grandTotal);
+        $('#grand-total').text(formatCurrency(grandTotal));
         $('#grand-total').attr('data-value', grandTotal);
-        $('#total').val(totalAmount);
+        $('#total').val(grandTotal);
     }
 
     function formatCurrency(value) {

@@ -296,7 +296,7 @@ class ReportController extends Controller
 
 
         // Phiếu chuyển kho
-        $changeWarehouse = ChangeWarehouse::where('workspace_id',Auth::user()->current_workspace)->get();
+        $changeWarehouse = ChangeWarehouse::where('workspace_id', Auth::user()->current_workspace)->get();
 
         // dd($doanhso);
         return view('report.index', compact(

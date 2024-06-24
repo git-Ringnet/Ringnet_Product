@@ -98,8 +98,16 @@ class Delivered extends Model
             $totalPriceAfterDiscount = $totalPrice - $discountAmount;
 
             // Tính thuế
-            $priceTax = ($totalPriceAfterDiscount * $product_tax) / 100;
-            $tolTax = $totalPriceAfterDiscount + $priceTax;
+            $promotionTotal = [
+                'type' => $data['promotion-option-total'],
+                'value' => str_replace(',', '', $data['promotion-total']),
+            ];
+            if ($promotionTotal['value'] != 0) {
+                $tolTax = $totalPriceAfterDiscount;
+            } else {
+                $priceTax = ($totalPriceAfterDiscount * $product_tax) / 100;
+                $tolTax = $totalPriceAfterDiscount + $priceTax;
+            }
 
             $dataDelivered = [
                 'delivery_id' => $id,

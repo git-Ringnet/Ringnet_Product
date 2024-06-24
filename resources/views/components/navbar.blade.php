@@ -735,7 +735,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item d-none">
                         <a href="{{ route('groups.index', $workspacename) }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -773,7 +773,7 @@
                                     </clipPath>
                                 </defs>
                             </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100 d-none">
+                            <div class="d-flex align-items-center justify-content-between w-100">
                                 <p class="text-nav">Nhân viên</p>
                             </div>
                         </a>
