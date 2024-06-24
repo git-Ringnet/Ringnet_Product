@@ -376,7 +376,7 @@
                                 if (element.product_qty - element
                                     .receive_qty > 0) {
                                     var tr =
-                                        `<tr class="bg-white position-relative" style="height:80px;">
+                                        `<tr class="bg-white position-relative addProduct" style="height:80px;">
                                                 <td class="border-top-0 border-bottom border-right bg-white align-top text-13-black" style="width:5%;padding-left: 2rem !important;">
                                                     <input type="hidden" readonly value="` + element.id + `" name="listProduct[]">
                                                     <input type="text" readonly name="product_code[]" class="border-0 py-1 w-75 searchProduct height-32" 

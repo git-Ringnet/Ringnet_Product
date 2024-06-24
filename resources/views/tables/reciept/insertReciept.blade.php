@@ -412,7 +412,7 @@
                                         .reciept_qty) >
                                     0) {
                                     var tr =
-                                        `<tr class="bg-white" style="height:80px">
+                                        `<tr class="bg-white addProduct" style="height:80px">
                                             <td class='border-right p-2 text-13 align-top border-bottom border-top-0'>
                                                     <span class='ml-1 mr-2'>
                                                         <svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>

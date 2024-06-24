@@ -144,7 +144,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($product as $item)
-                                                <tr class="bg-white" style="height:80px;">
+                                                <tr class="bg-white addProduct" style="height:80px;">
                                                     <td
                                                         class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="hidden" readonly value="{{ $item->id }}"
@@ -658,7 +658,6 @@
     </div>
 </div>
 
-
 <x-form-modal-import title="Thêm mới người đại diện" name="addRepresent"
     idModal="modalAddRepresent"></x-form-modal-import>
 <x-form-modal-import title="Hiệu lực báo giá" name="import" idModal="formModalquote"></x-form-modal-import>
@@ -679,8 +678,7 @@
             },
             success: function(
                 data) {
-                $('#recentModal .modal-body tbody')
-                    .empty()
+                $('#recentModal .modal-body tbody').empty()
                 if (data[
                         'history'
                     ]) {

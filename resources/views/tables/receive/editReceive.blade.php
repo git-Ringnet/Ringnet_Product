@@ -255,7 +255,7 @@
                                     <tbody>
                                         <?php $st = 0; ?>
                                         @foreach ($product as $item)
-                                            <tr class="bg-white" style="height:80px;">
+                                            <tr class="bg-white addProduct" style="height:80px;">
                                                 <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right"
                                                     style="width:5%;padding-left: 2rem !important;">
                                                     <input readonly type="text" name="product_code[]"

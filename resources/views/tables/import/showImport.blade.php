@@ -332,7 +332,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($product as $item)
-                                                <tr class="bg-white" style="height:80px;">
+                                                <tr class="bg-white addProduct" style="height:80px;">
                                                     <td class='border-left p-2 text-13 align-top border-bottom border-top-0'
                                                         style="padding-left: 2rem !important;">
                                                         <input type="hidden" readonly value="{{ $item->id }}"

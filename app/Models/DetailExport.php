@@ -102,11 +102,15 @@ class DetailExport extends Model
             if (isset($data['voucher'])) {
                 $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
                 $totalTax = (($totalBeforeTax - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+            } else {
+                $voucher = 0;
             }
         } else {
             if (isset($data['voucher'])) {
                 $voucher = ($totalBeforeTax * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
                 $totalTax = (($totalBeforeTax - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+            } else {
+                $voucher = 0;
             }
         }
 
@@ -237,11 +241,15 @@ class DetailExport extends Model
                 if (isset($data['voucher'])) {
                     $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
                     $totalTax = (($totalBeforeTax - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+                } else {
+                    $voucher = 0;
                 }
             } else {
                 if (isset($data['voucher'])) {
                     $voucher = ($totalBeforeTax * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
                     $totalTax = (($totalBeforeTax - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+                } else {
+                    $voucher = 0;
                 }
             }
 
@@ -256,7 +264,7 @@ class DetailExport extends Model
                 'total_tax' => $totalTax,
                 'amount_owed' => ($totalBeforeTax - $voucher) + $totalTax,
                 'discount' => isset($data['voucher']) ? str_replace(',', '', $data['voucher']) : 0,
-                'discount_type' => $data['discount_type'],
+                'discount_type' => isset($data['discount_type']) ? $data['discount_type'] : 0,
                 'guest_name' => $data['guestName'],
                 'represent_name' => $data['representName'],
             ]);

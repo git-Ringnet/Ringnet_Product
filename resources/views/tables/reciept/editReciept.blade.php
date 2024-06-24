@@ -270,7 +270,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($product as $item)
-                                            <tr class="bg-white" style="height:80px;">
+                                            <tr class="bg-white addProduct" style="height:80px;">
                                                 <td
                                                     class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                                     <div

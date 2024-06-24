@@ -99,13 +99,23 @@ class DetailImport extends Model
                     $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
                 }
                 $total += $price_export;
-                $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
+                $total_tax += ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
             }
         }
-        if ($data['discount_type'] == 1) {
-            $voucher = ($total - ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher'])) + round($total_tax));
+        if (isset($data['discount_type']) && $data['discount_type'] == 1) {
+            if (isset($data['voucher'])) {
+                $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
+                $total_tax = (($total - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+            } else {
+                $voucher = 0;
+            }
         } else {
-            $voucher = ($total - (($total * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100)) + round($total_tax);
+            if (isset($data['voucher'])) {
+                $voucher = ($total * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
+                $total_tax = (($total - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+            } else {
+                $voucher = 0;
+            }
         }
         $dataImport = [
             'provide_id' => $data['provides_id'],
@@ -115,9 +125,9 @@ class DetailImport extends Model
             'status' => 0,
             'created_at' => $data['date_quote'],
             'total_price' => $total,
-            'total_tax' => $voucher,
+            'total_tax' => ($total - $voucher) + $total_tax,
             'discount' =>   isset($data['voucher']) ? str_replace(',', '', $data['voucher']) : 0,
-            'discount_type' => $data['discount_type'],
+            'discount_type' => isset($data['discount_type']) ? $data['discount_type'] : 0,
             'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
             'status_receive' => 0,
             'status_reciept' => 0,
@@ -185,10 +195,20 @@ class DetailImport extends Model
                         $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
                     }
                 }
-                if ($data['discount_type'] == 1) {
-                    $voucher = ($total - ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher'])) + round($total_tax));
+                if (isset($data['discount_type']) && $data['discount_type'] == 1) {
+                    if (isset($data['voucher'])) {
+                        $voucher = ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']));
+                        $total_tax = (($total - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+                    } else {
+                        $voucher = 0;
+                    }
                 } else {
-                    $voucher = ($total - (($total * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100)) + round($total_tax);
+                    if (isset($data['voucher'])) {
+                        $voucher = ($total * ($data['voucher'] == null ? 0 : str_replace(',', '', $data['voucher']))) / 100;
+                        $total_tax = (($total - $voucher) * ($data['product_tax'][0] == 99 ? 0 : $data['product_tax'][0])) / 100;
+                    } else {
+                        $voucher = 0;
+                    }
                 }
             } else {
                 $product = QuoteImport::where('detailimport_id', $id)
@@ -218,9 +238,9 @@ class DetailImport extends Model
                     'status' => $status,
                     'created_at' => $data['date_quote'],
                     'total_price' => $total,
-                    'total_tax' => $voucher,
+                    'total_tax' => ($total - $voucher) + $total_tax,
                     'discount' =>   isset($data['voucher']) ? str_replace(',', '', $data['voucher']) : 0,
-                    'discount_type' => $data['discount_type'],
+                    'discount_type' => isset($data['discount_type']) ? $data['discount_type'] : 0,
                     'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
                     'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
                     'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
