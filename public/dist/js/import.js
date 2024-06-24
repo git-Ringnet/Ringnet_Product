@@ -177,7 +177,6 @@ searchInput("#searchTermsPay", "#listTermsPay li");
 searchInput("#searchWarehouse", "#listWarehouse li");
 // Cập nhật tổng tiền
 function calculateAll() {
-    console.log(123);
     var total_amount = $('#total-amount-sum').text().replace(/[^0-9.-]+/g, "") || 0;
     var product_tax = $('#product-tax').text().replace(/[^0-9.-]+/g, "") || 0;
     var total = parseFloat(total_amount) + parseFloat(product_tax);

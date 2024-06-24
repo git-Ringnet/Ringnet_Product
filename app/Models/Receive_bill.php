@@ -83,7 +83,7 @@ class Receive_bill extends Model
         if ($detail) {
             $promotion = [];
 
-            $promotion['type'] = $data['promotion-option-total'];
+            $promotion['type'] = isset($data['promotion-option-total']) ? $data['promotion-option-total'] : 1;
             $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
 
             $dataReceive = [
