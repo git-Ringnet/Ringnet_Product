@@ -413,6 +413,7 @@ class PayOder extends Model
             ];
             $payment_id = DB::table($this->table)->insertGetId($dataReciept);
         }
+        return $payment_id;
     }
 
     public function updateStatusDetail($detail_id, $payment)

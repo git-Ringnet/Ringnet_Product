@@ -38,9 +38,13 @@ class ProvidesController extends Controller
         $workspacename = $workspacename->workspace_name;
         $users = $this->provides->getUserInProvides();
 
-        $groups = Groups::where('grouptype_id', 3)->get();
+        $groups = Groups::where('grouptype_id', 3)
+        ->where('workspace_id',Auth::user()->current_workspace)
+        ->get();
 
-        $provides = Provides::where('group_id', 0)->get();
+        $provides = Provides::where('group_id', 0)
+        ->where('workspace_id', Auth::user()->current_workspace)
+        ->get();
         return view('tables.provides.provides', compact('title', 'users', 'provides', 'dataa', 'workspacename', 'groups'));
     }
 

@@ -13,10 +13,8 @@ $("body").on(
         var formattedNumber = numberWithCommas(formattedValue);
 
         event.target.value = formattedNumber;
-
-        console.log(formattedNumber);
     }
-  
+
 );
 
 function formatNumber(name) {
@@ -211,18 +209,20 @@ function calculateAll() {
                 // Tổng tiền 
                 var cal = calpromotion + (calpromotion * taxAll / 100);
             } else {
-                var cal = total;
                 updateTaxAmount()
                 calculateTotalTax()
+                var product_tax = $('#product-tax').text().replace(/[^0-9.-]+/g, "") || 0;
+                var cal = parseFloat(total_amount) + parseFloat(product_tax);
             }
         } else {
-            var cal = total;
+            updateTaxAmount()
+            calculateTotalTax()
+            var product_tax = $('#product-tax').text().replace(/[^0-9.-]+/g, "") || 0;
+            var cal = parseFloat(total_amount) + parseFloat(product_tax);
         }
-
         $('#grand-total').text(formatCurrency(cal))
         $('#total_bill').val(cal)
     }
-
 }
 
 $(document).on(
@@ -380,7 +380,6 @@ function checkTaxAll() {
 
 
 $(document).on("change", ".product_tax, .promotion-option,.promotion-option-total", function () {
-    console.log(checkTaxAll())
     if ($(this).hasClass('promotion-option')) {
         // Xóa dữ liệu trường Khuyến Mãi
         $(this).closest('tr').find('input[name^="promotion"]').val("")

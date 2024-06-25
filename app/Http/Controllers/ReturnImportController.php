@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailImport;
 use App\Models\ProductImport;
 use App\Models\QuoteImport;
 use App\Models\Receive_bill;
@@ -153,10 +154,13 @@ class ReturnImportController extends Controller
                     ->sum('qty');
                 array_push($qty, $productImport);
             }
+            $detail = DetailImport::where('id',$quoteImport[0]->detailimport_id)->first();
         }
+      
         $data['warehouse'] = $warehouse;
         $data['qty'] = $qty;
         $data['product'] = $quoteImport;
+        $data['detail'] = $detail;
         return $data;
     }
 

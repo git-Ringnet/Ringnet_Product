@@ -48,20 +48,31 @@ class PayOrderController extends Controller
         $perPage = 10;
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $payment = PayOder::join('detailimport', 'detailimport.id', 'pay_order.detailimport_id')
-            ->where('pay_order.workspace_id', Auth::user()->current_workspace)
-            ->orderBy('pay_order.id', 'desc');
 
+        $payment = PayOder::where('pay_order.workspace_id', Auth::user()->current_workspace)->orderBy('pay_order.id', 'desc');
         if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
-            $payment->where('detailimport.user_id', Auth::user()->id);
+            $payment->join('detailimport', 'detailimport.id', 'pay_order.detailimport_id')
+                ->where('detailimport.user_id', Auth::user()->id);
         }
-        $payment->select(
-            'pay_order.*'
-            // DB::raw('SUM(pay_order.payment) as total_payment')
-        );
+        $payment->select('pay_order.*');
 
         $payment = $payment->get();
-        // ->paginate($perPage);
+
+
+        // $payment = PayOder::join('detailimport', 'detailimport.id', 'pay_order.detailimport_id')
+
+        //     ->orderBy('pay_order.id', 'desc')->get();
+        // dd($payment);
+        // if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+        //     $payment->where('pay_order.workspace_id', Auth::user()->current_workspace)
+        //     ->where('detailimport.user_id', Auth::user()->id);
+        // }
+        // $payment->select(
+        //     'pay_order.*'
+        //     // DB::raw('SUM(pay_order.payment) as total_payment')
+        // );
+
+        // $payment = $payment->get();
         $users = $this->payment->getUserInPayOrder();
         $today = Carbon::now();
         return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'users', 'today', 'workspacename'));
@@ -383,37 +394,42 @@ class PayOrderController extends Controller
     {
         $data = [];
         $total = 0;
-        $returnImport = ReturnImport::where('id', $request->detail_id)->first();
-        if ($returnImport) {
-            // $total1 = 0;
-            // foreach ($returnProduct as $value) {
-            //     $getQuoteImport = QuoteImport::where('id', $value->quoteimport_id)->first();
-            //     if ($getQuoteImport) {
-            //         $promotionArray = json_decode($getQuoteImport->promotion, true);
-            //         $promotionValue = isset($promotionArray['value'])
-            //             ? $promotionArray['value']
-            //             : 0;
-            //         $promotionOption = isset($promotionArray['t ype'])
-            //             ? $promotionArray['type']
-            //             : '';
-            //         $temp = $getQuoteImport->price_export * $value->qty;
-            //         $total1 += ($promotionOption == 1 ? ($temp - $promotionValue) : ($temp * $promotionValue / 100));
-            //         $total += $total1;
-            //     }
-            // }
-            $data['payment'] = $returnImport->payment;
-            $data['total'] = $returnImport->total;
-            $data['status'] = true;
+        if (isset($request->status)) {
+            $returnImport = ReturnImport::where('id', $request->detail_id)->first();
+            if ($returnImport) {
+                // $total1 = 0;
+                // foreach ($returnProduct as $value) {
+                //     $getQuoteImport = QuoteImport::where('id', $value->quoteimport_id)->first();
+                //     if ($getQuoteImport) {
+                //         $promotionArray = json_decode($getQuoteImport->promotion, true);
+                //         $promotionValue = isset($promotionArray['value'])
+                //             ? $promotionArray['value']
+                //             : 0;
+                //         $promotionOption = isset($promotionArray['t ype'])
+                //             ? $promotionArray['type']
+                //             : '';
+                //         $temp = $getQuoteImport->price_export * $value->qty;
+                //         $total1 += ($promotionOption == 1 ? ($temp - $promotionValue) : ($temp * $promotionValue / 100));
+                //         $total += $total1;
+                //     }
+                // }
+                $data['payment'] = $returnImport->payment;
+                $data['total'] = $returnImport->total;
+                $data['status'] = true;
+            } else {
+                $data['status'] = false;
+            }
         } else {
-            $data['status'] = false;
+            $returnExport = ReturnExport::leftJoin('guest', 'guest.id', 'return_export.guest_id')
+                ->select('guest.guest_name_display as nameGuest', 'return_export.*')
+                ->where('return_export.id', $request->detail_id)->first();
+            $data['return'] = $returnExport;
+            $data['total'] = $total;
+            $data['status'] = true;
         }
 
-        $returnExport = ReturnExport::leftJoin('guest', 'guest.id', 'return_export.guest_id')
-            ->select('guest.guest_name_display as nameGuest', 'return_export.*')
-            ->where('return_export.id', $request->detail_id)->first();
-        $data['return'] = $returnExport;
-        $data['total'] = $total;
-        $data['status'] = true;
+
+
 
         return $data;
     }

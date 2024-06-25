@@ -214,6 +214,57 @@
                     </section>
                 </div>
                 <x-formsynthetic :import="$import"></x-formsynthetic>
+
+                {{-- <div class="">
+                    <div class="content">
+                        <div class="row" style="width:95%;">
+                            <div class="position-relative col-lg-4 px-0"></div>
+                            <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
+                                <div class="m-3 ">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-13-black">Giá trị trước thuế:</span>
+                                        <span id="total-amount-sum" class="text-table">0đ</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 align-items-center">
+                                        <span class="text-13-black">Thuế VAT:</span>
+                                        <span id="product-tax" class="text-table">0đ</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mt-2 align-items-center">
+                                        <span class="text-13-black">Khuyến mãi</span>
+                                        <input name="promotion-total" type="text"
+                                            class="text-table border-0 text-right" style="background-color:#F0F4FF ">
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 align-items-center">
+                                        <span class="text-13-black">Hình thức</span>
+                                        <select name="promotion-option-total" id=""
+                                            class="border-0 promotion-option-total">
+                                            <option value="1">Nhập tiền
+                                            </option>
+                                            <option value="2">Nhập %</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
+                                        <span id="grand-total" data-value="0"
+                                            class="text-13-bold text-lg font-weight-bold text-right">
+                                            0đ
+                                        </span>
+                                        <input type="text" hidden="" name="totalValue"
+                                            value="0"id="total">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
+
+
+
+
+
+
+
             </section>
         </div>
         <div class="content-wrapper2 px-0 py-0">
@@ -285,7 +336,7 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã trả hàng</span>
                                 <input name="return_code" type="text" placeholder="Nhập thông tin"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
-                                    style="flex:2;" value="{{ $returnCode }}"  readonly/>
+                                    style="flex:2;" value="{{ $returnCode }}" readonly />
                             </li>
 
                             <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
@@ -375,6 +426,13 @@
                     $('#detailimport_id').val(data.product[0].receive_id);
                     $('#myInput1').val(data.product[0].receive_id);
                     $('#inputcontent tbody').empty();
+
+                    var promotionAll = JSON.parse(
+                        data.detail.promotion);
+                    $('input[name="promotion-total"]').val(promotionAll['value']).attr(
+                        'readonly', true);
+                    $('.promotion-option-total').val(promotionAll['type']).attr('disabled',
+                        true);
                     data.product.forEach((element, index) => {
                         // if (element.product_qty - element
                         //     .receive_qty > 0) 
@@ -535,6 +593,14 @@
                         calculateGrandTotal()
                         createModal(element.id)
 
+                        calculateAll()
+
+
+                        $('input[name="promotion-total"]').attr(
+                            'readonly', true);
+                        $('.promotion-option-total').attr('disabled',
+                            true);
+
                         $.ajax({
                             url: "{{ route('getSNByBill') }}",
                             type: "get",
@@ -565,7 +631,7 @@
                     deleteRow()
                     $('#more_info').show();
                     $('#more_info1').show();
-                    getTotalBill()
+                    // getTotalBill()
 
                 }
             })

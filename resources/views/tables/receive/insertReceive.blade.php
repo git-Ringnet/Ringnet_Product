@@ -238,12 +238,11 @@
                         </section>
                     </span>
                 </div>
-                {{-- <x-formsynthetic :import="$import"></x-formsynthetic> --}}
+                <x-formsynthetic :import="$import"></x-formsynthetic>
 
 
-                <div class="">
+                {{-- <div class="">
                     <div class="content">
-                        {{-- <div class="container-fluided"> --}}
                         <div class="row" style="width:95%;">
                             <div class="position-relative col-lg-4 px-0"></div>
                             <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
@@ -259,7 +258,7 @@
 
                                     <div class="d-flex justify-content-between mt-2 align-items-center">
                                         <span class="text-13-black">Khuyến mãi</span>
-                                        <input name="promotion-total" type="number"
+                                        <input name="promotion-total" type="text"
                                             class="text-table border-0 text-right" style="background-color:#F0F4FF ">
                                     </div>
                                     <div class="d-flex justify-content-between mt-2 align-items-center">
@@ -283,9 +282,8 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- </div> --}}
                     </div>
-                </div>
+                </div> --}}
 
 
 
@@ -475,7 +473,7 @@
             </div>
         </div>
     </div>
-
+    <input type="hidden" name="total_bill" id="total_bill">
     <?php $product = []; ?>
     <x-formmodalseri :product="$product" :status="2" id="product"></x-formmodalseri>
 </form>
@@ -534,13 +532,12 @@
                     table: table
                 },
                 success: function(data) {
-                    var promotionAll = JSON.parse(
-                        data.detail.promotion);
-                    $('input[name="promotion-total"]').val(promotionAll['value']).attr(
-                        'readonly', true);
-                    $('.promotion-option-total').val(promotionAll['type']).attr('disabled',
-                        true);
-                    console.log(promotionAll);
+                    // var promotionAll = JSON.parse(
+                    //     data.detail.promotion);
+                    // $('input[name="promotion-total"]').val(promotionAll['value']).attr(
+                    //     'readonly', true);
+                    // $('.promotion-option-total').val(promotionAll['type']).attr('disabled',
+                    //     true);
                     $('#myInput1').val(data.quotation_number == null ? data.id :
                         data
                         .quotation_number);
@@ -642,7 +639,7 @@
 
 
                                                 <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                                    <select class="product_tax border-0 w-100 text-center height-32" name="product_tax[]">
+                                                    <select class="product_tax border-0 w-100 text-center height-32" name="product_tax[]" disabled>
                                                         <option value="0" ` + (element.product_tax == 0 ? "selected" :
                                             "") + `>0%</option>
                                                         <option value="8" ` + (element.product_tax == 8 ? "selected" :

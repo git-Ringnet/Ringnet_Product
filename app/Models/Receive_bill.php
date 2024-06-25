@@ -189,6 +189,10 @@ class Receive_bill extends Model
 
             $sum = round($total_tax) + round($total);
         } else {
+            $promotion = [];
+
+            $promotion['type'] = isset($data['promotion-option-total']) ? $data['promotion-option-total'] : 1;
+            $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
             $dataReceive = [
                 'detailimport_id' => 0,
                 'provide_id' => isset($data['provide_id']) ? $data['provide_id'] : 1,
@@ -198,7 +202,8 @@ class Receive_bill extends Model
                 'created_at' => isset($data['received_date']) ? $data['received_date'] : Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,
                 'delivery_code' => isset($data['delivery_code']) ? $data['delivery_code'] : $delivery_code,
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'promotion' => json_encode($promotion)
             ];
             $receive_id = DB::table($this->table)->insertGetId($dataReceive);
 
@@ -291,7 +296,8 @@ class Receive_bill extends Model
         // die();
 
         DB::table('receive_bill')->where('id', $receive_id)->update([
-            'total_tax' => $sum
+            // 'total_tax' => $sum
+            'total_tax' => (isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : $sum)
         ]);
         // Cập nhật trạng thái đơn hàng
         if (isset($data['action']) && $data['action'] == 'action_2') {

@@ -466,11 +466,16 @@
                 type: "get",
                 data: {
                     detail_id: detail_id,
+                    status: 'returnImport'
                 },
                 success: function(data) {
+                    console.log(data);
                     if (data['status']) {
-                        $('input[name="total"]').val(formatCurrency(data['total'] - data[
-                            'payment']));
+                        // $('input[name="total"]').val(formatCurrency(data['total'] - data[
+                        //     'payment']));
+                        $('#money_reciept').val(formatCurrency(data['total'] - data[
+                            'payment']))
+                        $('.cash_reciept').attr('style','display:block');
                         $('input[name="total"]').on('input', function() {
                             checkQty(this, Math.round(data['total']) - Math.round(
                                 data[

@@ -43,6 +43,11 @@ class ReturnImport extends Model
         return $this->hasOne(PayOder::class, 'return_id', 'id');
     }
 
+    public function getAllCashReciept()
+    {
+        return $this->hasMany(CashReceipt::class, 'returnImport_id', 'id');
+    }
+
 
     public function getQuoteCount()
     {
