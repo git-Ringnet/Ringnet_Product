@@ -93,7 +93,7 @@ class PayOrderController extends Controller
 
 
         $reciept = DetailImport::where('workspace_id', Auth::user()->current_workspace)
-        ->where('status_pay','!=',2)
+            ->where('status_pay', '!=', 2)
             ->get();
 
         $funds = Fund::all();

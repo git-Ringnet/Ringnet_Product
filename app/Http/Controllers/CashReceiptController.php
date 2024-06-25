@@ -124,7 +124,7 @@ class CashReceiptController extends Controller
 
         // Cộng tiền
 
-        return redirect()->route('cash_receipts.index', $workspace)->with('success', 'Phiếu thu đã được tạo thành công.');
+        return redirect()->route('cash_receipts.index', $workspace)->with('msg', 'Phiếu thu đã được tạo thành công.');
     }
     public function edit($workspacename, $id)
     {
@@ -208,7 +208,7 @@ class CashReceiptController extends Controller
         $this->cash_receipts->updateCashReceipt($request->all(), $id);
         // Cộng tiền
         $this->fund->calculateFunds($request->fund_id, $request->total, '+');
-        return redirect()->route('cash_receipts.index', $workspacename)->with('success', 'Phiếu thu đã được tạo thành công.');
+        return redirect()->route('cash_receipts.index', $workspacename)->with('msg', 'Phiếu thu đã được tạo thành công.');
     }
 
     public function destroy(string $workspace, $id)

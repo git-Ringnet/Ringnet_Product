@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CashReceipt;
 use App\Models\ContentGroups;
+use App\Models\PayOder;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Mailables\Content;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -101,13 +104,20 @@ class ContentGroupsController extends Controller
      */
     public function destroy(string $workspace, string $id)
     {
+        $content = ContentGroups::find($id);
+        if (!$content) {
+            return back()->with('warning', 'Không tìm thấy nội dung để xoá.');
+        }
+        $hasRelatedData = CashReceipt::where('content_id', $id)->exists() || PayOder::where('content_pay', $id)->exists();
+        if ($hasRelatedData) {
+            return back()->with('warning', 'Không thể xoá vì có dữ liệu liên quan.');
+        }
         $status = $this->content->deleteContentGroup($id);
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace)->workspace_name;
         if ($status['status']) {
-            return redirect()->route('content.index', $workspacename)->with('msg', 'Xóa nội dung thu chi thành công !');
+            return redirect()->route('content.index', $workspacename)->with('msg', 'Xóa nội dung thu chi thành công!');
         } else {
-            return redirect()->route('content.index', $workspacename)->with('warning', 'Không tìm thấy nội dung thu chi cần xóa !');
+            return redirect()->route('content.index', $workspacename)->with('warning', 'Không tìm thấy nội dung thu chi cần xóa!');
         }
     }
 }
