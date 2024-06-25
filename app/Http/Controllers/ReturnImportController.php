@@ -100,8 +100,11 @@ class ReturnImportController extends Controller
                 ->where('returnproduct.returnImport_id', $returnImport->id)
                 ->select('quoteimport.*', 'returnproduct.*', 'products.check_seri','warehouse.warehouse_name as nameWarehouse')
                 ->get();
+
+                $detail = $returnImport->getReceive;
+                $detail = $detail->getQuotation;
         }
-        return view('tables.returnImport.edit', compact('returnImport', 'title', 'workspacename', 'product'));
+        return view('tables.returnImport.edit', compact('returnImport', 'title', 'workspacename', 'product','detail'));
     }
 
     /**

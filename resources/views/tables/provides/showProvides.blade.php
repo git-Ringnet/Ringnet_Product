@@ -140,23 +140,23 @@
 
                                         <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0  margin-left32 text-13">Điện thoại
-                                                </p>
-                                            </div>
-                                            <input readonly type="text" required placeholder="Nhập thông tin"
-                                                name="provide_address"
-                                                value="{{ old('provide_address') ?? $provide->provide_phone }}"
-                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                        </div>
-
-                                        <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 required-label text-13-red">Mã số thuế
                                                 </p>
                                             </div>
                                             <input readonly type="text" required placeholder="Nhập thông tin"
                                                 name="provide_code"
                                                 value="{{ old('provide_code') ?? $provide->provide_code }}"
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                        </div>
+
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                                <p class="p-0 m-0  margin-left32 text-13">Điện thoại
+                                                </p>
+                                            </div>
+                                            <input readonly type="text" required placeholder="Nhập thông tin"
+                                                name="provide_address"
+                                                value="{{ old('provide_address') ?? $provide->provide_phone }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
 
@@ -196,7 +196,7 @@
                                             </div>
                                             <input readonly type="text" placeholder="Nhập thông tin"
                                                 name="provide_name"
-                                                value="{{ old('provide_name') ?? number_format($provide->provide_debt) }}"
+                                                {{-- value="{{ old('provide_name') ?? number_format($provide->provide_debt) }}" --}}
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
 
@@ -292,7 +292,7 @@
                     </div> --}}
 
                     {{-- Thông tin mua hàng --}}
-                    <div class="content-wrapper1 py-0 pl-0 px-0">
+                    {{-- <div class="content-wrapper1 py-0 pl-0 px-0">
                         <div class="container-fluided">
                             <div class="tab-content">
                                 <div id="info" class="content tab-pane in active">
@@ -365,7 +365,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div id="history" class="tab-pane fade">
                     <div class="content-wrapper1 py-0 pl-0 px-0">

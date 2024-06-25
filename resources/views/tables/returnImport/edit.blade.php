@@ -405,13 +405,14 @@
                                                     <input type="text"
                                                         class="border-0 px-2 py-1 w-100 total_price text-right height-32"
                                                         readonly="" name="total_price[]"
-                                                        value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format(($promotionOption == 1 ?  $item->product_total - $promotionValue : $item->product_total * $promotionValue / 100) , 2, '.', ',') : number_format($promotionOption == 1 ?  $item->product_total - $promotionValue : $item->product_total * $promotionValue / 100) }}">
+                                                        value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($promotionOption == 1 ? $item->product_total - $promotionValue : ($item->product_total * $promotionValue) / 100, 2, '.', ',') : number_format($promotionOption == 1 ? $item->product_total - $promotionValue : ($item->product_total * $promotionValue) / 100) }}">
                                                 </td>
                                                 <td
                                                     class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                                     <input id="searchWarehouse" type="text" placeholder="Chọn kho"
                                                         class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse"
-                                                        name="warehouse[]" readonly value="{{$item->nameWarehouse}}">
+                                                        name="warehouse[]" readonly
+                                                        value="{{ $item->nameWarehouse }}">
                                                 </td>
                                                 <td
                                                     class="align-top text-center border-top-0 border-bottom border-right">
@@ -495,8 +496,7 @@
                                 </table>
                             </div>
                         </section>
-                        <?php $import = ''; ?>
-                        <x-formsynthetic :import="$import"></x-formsynthetic>
+                        <x-formsynthetic :import="$detail"></x-formsynthetic>
                     </div>
                     <div id="files" class="tab-pane fade">
                         <div id="title--fixed" class="content-title--fixed top-111">
@@ -527,14 +527,14 @@
                         </span>
                     </div>
                     <div class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left text-nowrap"
-                    style="height:48px;">
-                    <span class="text-13 btn-click" style="flex: 1.5;">Nội dung trả hàng
-                    </span>
-                    <span class="mx-1 text-13" style="flex: 2;">
-                        <input type="text" class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
-                            value="{{ $returnImport->description }}">
-                    </span>
-                </div>
+                        style="height:48px;">
+                        <span class="text-13 btn-click" style="flex: 1.5;">Nội dung trả hàng
+                        </span>
+                        <span class="mx-1 text-13" style="flex: 2;">
+                            <input type="text" class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
+                                value="{{ $returnImport->description }}">
+                        </span>
+                    </div>
                     <div class="">
                         <div class="">
 

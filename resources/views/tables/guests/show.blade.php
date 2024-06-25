@@ -222,7 +222,7 @@
                         </div>
                     </section>
                     {{-- THÔNG TIN BÁN HÀNG --}}
-                    <div class="bg-filter-search border-0 text-left border-custom">
+                    {{-- <div class="bg-filter-search border-0 text-left border-custom">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-left">THÔNG TIN BÁN HÀNG</p>
                     </div>
                     <section class="content">
@@ -280,7 +280,7 @@
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </section> --}}
                 </div>
                 <div id="history" class="tab-pane fade">
                     <div

@@ -141,31 +141,52 @@
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="border-bottom height-52" style="width:30%;">
+                                            <th scope="col" class="border-bottom height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
-                                                            Tên hiển thị
+                                                            Mã
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
                                             </th>
-                                            @can('isAdmin')
-                                                <th scope="col" class="border-bottom height-52" style="width:20%;">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="provide_name_display" data-sort-type="DESC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Người tạo
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-provide_name_display"></div>
-                                                    </span>
-                                                </th>
-                                            @endcan
-                                            <th scope="col" class="border-bottom height-52" style="width:25%;">
+                                            <th scope="col" class="border-bottom height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="provide_name_display" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Tên
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-provide_name_display"></div>
+                                                </span>
+                                            </th>
+
+                                            <th scope="col" class="border-bottom height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="provide_name" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Địa chỉ
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-provide_name"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-bottom height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="provide_name" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Điện thoại
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-provide_name"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-bottom height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
@@ -177,6 +198,50 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-bottom height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="provide_name" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Email
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-provide_name"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-bottom height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="provide_name" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Fax
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-provide_name"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-bottom height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="provide_name" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Đỉnh mức nợ
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-provide_name"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-bottom height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="provide_name" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Công nợ ban đầu
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-provide_name"></div>
+                                                </span>
+                                            </th>
+                                            {{-- <th scope="col" class="border-bottom height-52">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_debt" data-sort-type="DESC">
@@ -186,7 +251,20 @@
                                                     </a>
                                                     <div class="icon" id="icon-provide_debt"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
+                                            @can('isAdmin')
+                                                <th scope="col" class="border-bottom height-52">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link"
+                                                            data-sort-by="provide_name_display" data-sort-type="DESC">
+                                                            <button class="btn-sort text-13" type="submit">
+                                                                Người tạo
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-provide_name_display"></div>
+                                                    </span>
+                                                </th>
+                                            @endcan
                                             {{-- <th class="border-bottom"
                                                 style="width:300px;border-bottom: 1px solid #dee2e6 !important;">
                                             </th> --}}
@@ -224,6 +302,9 @@
                                                         name="ids[]" id="checkbox" value=""
                                                         onclick="event.stopPropagation();">
                                                 </td>
+                                                <td class="text-13-black border-top-0 border-bottom">
+                                                    {{ $item->key }}
+                                                </td>
                                                 <td class="text-13-black border-top-0 border-bottom text-wrap">
                                                     <a href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
                                                         class="user_flow" data-type="NCC"
@@ -231,6 +312,31 @@
                                                         {{ $item->provide_name_display }}
                                                     </a>
                                                 </td>
+                                                <td class="text-13-black border-top-0 border-bottom">
+                                                    {{ ($item->provide_address) }}
+                                                </td>
+                                                <td class="text-13-black border-top-0 border-bottom">
+                                                    {{ ($item->provide_phone) }}
+                                                </td>
+                                                <td class="text-13-black border-top-0 border-bottom">
+                                                    {{ $item->provide_code }}
+                                                </td>
+                                                <td class="text-13-black border-top-0 border-bottom">
+                                                    {{ $item->provide_email }}
+                                                </td>
+                                                <td class="text-13-black border-top-0 border-bottom">
+                                                    {{ $item->provide_fax }}
+                                                </td>
+                                                <td class="text-13-black border-top-0 border-bottom">
+                                                    {{ number_format($item->quota_debt) }}
+                                                </td>
+                                                {{-- <td class="text-13-black border-top-0 border-bottom">
+                                                    {{ number_format($item->quota_debt) }}
+                                                </td> --}}
+                                                <td class="text-13-black border-top-0 border-bottom"></td>
+                                                {{-- <td class="text-13-black text-right border-top-0 border-bottom">
+                                                    {{ number_format($item->provide_debt) }}
+                                                </td> --}}
                                                 @can('isAdmin')
                                                     <td class="text-13-black border-top-0 border-bottom">
                                                         @if ($item->getNameUser)
@@ -238,12 +344,6 @@
                                                         @endif
                                                     </td>
                                                 @endcan
-                                                <td class="text-13-black border-top-0 border-bottom">
-                                                    {{ $item->provide_code }}
-                                                </td>
-                                                <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    {{ number_format($item->provide_debt) }}
-                                                </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 10px; bottom:0;">
                                                     <div class="d-flex w-100">

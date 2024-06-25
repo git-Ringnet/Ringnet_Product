@@ -58,7 +58,7 @@
                         <span class="text-13-black">Khuyến mãi</span>
                         <input name="promotion-total" type="text" class="text-table border-0 text-right"
                             style="background-color:#F0F4FF "
-                            @if ($import != '') value="{{ number_format($promotionValue) }}" @endif>
+                            @if ($import != '') value="{{ number_format($promotionValue) }}"@endif>
                     </div>
                     <div class="d-flex justify-content-between mt-2 align-items-center">
                         <span class="text-13-black">Hình thức</span>
