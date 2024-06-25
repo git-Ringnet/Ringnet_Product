@@ -361,6 +361,235 @@
                     </li>
                     <li
                         class="nav-item
+                         @if (!empty($activeGroup) && $activeGroup == 'systemFirst') menu-is-opening menu-open @endif">
+                        <a href="#" class="nav-link">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M11.1433 2.65738C11.329 2.55416 11.538 2.5 11.7505 2.5C11.963 2.5 12.172 2.5542 12.3578 2.65742L19.3578 6.54642C19.5524 6.65472 19.7146 6.81305 19.8275 7.00505C19.9404 7.19714 20 7.41596 20 7.6388V11.7498C20 12.164 20.3358 12.4998 20.75 12.4998C21.1642 12.4998 21.5 12.164 21.5 11.7498V7.6388C21.5 7.14857 21.369 6.66723 21.1205 6.24465C20.8719 5.82206 20.5147 5.47345 20.0862 5.23519L13.0862 1.34619C12.6777 1.11915 12.2179 1 11.7505 1C11.2831 1 10.8233 1.11919 10.4147 1.34623L3.41476 5.23519C2.9861 5.47327 2.62889 5.82164 2.38013 6.2442C2.13136 6.6668 2.00012 7.14842 2 7.6388V20.7498C2 21.164 2.33579 21.4998 2.75 21.4998H6.74581C6.74721 21.4998 6.7486 21.4998 6.75 21.4998L11.75 21.4998C12.1642 21.4998 12.5 21.164 12.5 20.7498C12.5 20.3356 12.1642 19.9998 11.75 19.9998L7.5 19.9998V18.4998H11.75C12.1642 18.4998 12.5 18.164 12.5 17.7498C12.5 17.3356 12.1642 16.9998 11.75 16.9998H7.5V15.4998H11.75C12.1642 15.4998 12.5 15.164 12.5 14.7498C12.5 14.3356 12.1642 13.9998 11.75 13.9998H7.5V12.4998H16.75C17.1642 12.4998 17.5 12.164 17.5 11.7498C17.5 11.3356 17.1642 10.9998 16.75 10.9998H6.75C6.33579 10.9998 6 11.3356 6 11.7498V14.7498V17.7498V19.9998H3.5V7.6388C3.50008 7.41596 3.55974 7.19719 3.67279 7.00515C3.78587 6.81306 3.94837 6.65464 4.14324 6.54642L10.9593 2.75962L11.1433 2.65738ZM9.75 6.99982C9.33579 6.99982 9 7.3356 9 7.74982C9 8.16403 9.33579 8.49982 9.75 8.49982H13.75C14.1642 8.49982 14.5 8.16403 14.5 7.74982C14.5 7.3356 14.1642 6.99982 13.75 6.99982H9.75Z"
+                                    fill="#26273B" fill-opacity="0.8" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M15.75 15.4998C15.6837 15.4998 15.6201 15.5261 15.5732 15.573C15.5263 15.6199 15.5 15.6835 15.5 15.7498V20.7498C15.5 20.8161 15.5263 20.8796 15.5732 20.9265C15.6201 20.9734 15.6837 20.9998 15.75 20.9998H20.75C20.8163 20.9998 20.8799 20.9734 20.9268 20.9265C20.9737 20.8797 21 20.8161 21 20.7498V15.7498C21 15.6835 20.9737 15.6199 20.9268 15.573C20.8799 15.5261 20.8163 15.4998 20.75 15.4998H15.75ZM15.75 13.9998H20.75C21.2141 13.9998 21.6592 14.1841 21.9874 14.5123C22.3156 14.8405 22.5 15.2856 22.5 15.7498V20.7498C22.5 21.2139 22.3156 21.659 21.9874 21.9872C21.6592 22.3154 21.2141 22.4998 20.75 22.4998H15.75C15.2859 22.4998 14.8408 22.3154 14.5126 21.9872C14.1844 21.659 14 21.2139 14 20.7498V15.7498C14 15.2856 14.1844 14.8405 14.5126 14.5123C14.8408 14.1841 15.2859 13.9998 15.75 13.9998ZM18.25 15.9999C18.6642 15.9999 19 16.3357 19 16.7499V17.4999H19.75C20.1642 17.4999 20.5 17.8357 20.5 18.2499C20.5 18.6642 20.1642 18.9999 19.75 18.9999H19V19.7499C19 20.1642 18.6642 20.4999 18.25 20.4999C17.8358 20.4999 17.5 20.1642 17.5 19.7499V18.9999H16.75C16.3358 18.9999 16 18.6642 16 18.2499C16 17.8357 16.3358 17.4999 16.75 17.4999H17.5V16.7499C17.5 16.3357 17.8358 15.9999 18.25 15.9999Z"
+                                    fill="#26273B" fill-opacity="0.8" />
+                            </svg>
+                            <div class="d-flex align-items-center justify-content-between w-100">
+                                <p class="text-nav">Thiết lập ban đầu</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </div>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('groups.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
+                                    <p class="text-nav ml-2">Nhóm đối tượng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('guests.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Khách hàng"
+                                    class="nav-link activity1  @if (!empty($activeName) && $activeName == 'guest') active @endif">
+                                    <p class="text-nav ml-2">Khách hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('provides.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'provide') active @endif">
+                                    <p class="text-nav ml-2">Nhà cung cấp</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('inventory.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'product') active @endif">
+                                    <p class="text-nav ml-2">Hàng hóa</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('funds.index') }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'funds') active @endif">
+                                    <p class="text-nav ml-2">Quỹ</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('content.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'content') active @endif">
+                                    <p class="text-nav ml-2">Nội dung thu chi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('warehouse.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'warehouse') active @endif">
+                                    <p class="text-nav ml-2">Kho</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li
+                        class="nav-item
+                         @if (!empty($activeGroup) && $activeGroup == 'manageProfess') menu-is-opening menu-open @endif">
+                        <a href="#" class="nav-link">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M11.1433 2.65738C11.329 2.55416 11.538 2.5 11.7505 2.5C11.963 2.5 12.172 2.5542 12.3578 2.65742L19.3578 6.54642C19.5524 6.65472 19.7146 6.81305 19.8275 7.00505C19.9404 7.19714 20 7.41596 20 7.6388V11.7498C20 12.164 20.3358 12.4998 20.75 12.4998C21.1642 12.4998 21.5 12.164 21.5 11.7498V7.6388C21.5 7.14857 21.369 6.66723 21.1205 6.24465C20.8719 5.82206 20.5147 5.47345 20.0862 5.23519L13.0862 1.34619C12.6777 1.11915 12.2179 1 11.7505 1C11.2831 1 10.8233 1.11919 10.4147 1.34623L3.41476 5.23519C2.9861 5.47327 2.62889 5.82164 2.38013 6.2442C2.13136 6.6668 2.00012 7.14842 2 7.6388V20.7498C2 21.164 2.33579 21.4998 2.75 21.4998H6.74581C6.74721 21.4998 6.7486 21.4998 6.75 21.4998L11.75 21.4998C12.1642 21.4998 12.5 21.164 12.5 20.7498C12.5 20.3356 12.1642 19.9998 11.75 19.9998L7.5 19.9998V18.4998H11.75C12.1642 18.4998 12.5 18.164 12.5 17.7498C12.5 17.3356 12.1642 16.9998 11.75 16.9998H7.5V15.4998H11.75C12.1642 15.4998 12.5 15.164 12.5 14.7498C12.5 14.3356 12.1642 13.9998 11.75 13.9998H7.5V12.4998H16.75C17.1642 12.4998 17.5 12.164 17.5 11.7498C17.5 11.3356 17.1642 10.9998 16.75 10.9998H6.75C6.33579 10.9998 6 11.3356 6 11.7498V14.7498V17.7498V19.9998H3.5V7.6388C3.50008 7.41596 3.55974 7.19719 3.67279 7.00515C3.78587 6.81306 3.94837 6.65464 4.14324 6.54642L10.9593 2.75962L11.1433 2.65738ZM9.75 6.99982C9.33579 6.99982 9 7.3356 9 7.74982C9 8.16403 9.33579 8.49982 9.75 8.49982H13.75C14.1642 8.49982 14.5 8.16403 14.5 7.74982C14.5 7.3356 14.1642 6.99982 13.75 6.99982H9.75Z"
+                                    fill="#26273B" fill-opacity="0.8" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M15.75 15.4998C15.6837 15.4998 15.6201 15.5261 15.5732 15.573C15.5263 15.6199 15.5 15.6835 15.5 15.7498V20.7498C15.5 20.8161 15.5263 20.8796 15.5732 20.9265C15.6201 20.9734 15.6837 20.9998 15.75 20.9998H20.75C20.8163 20.9998 20.8799 20.9734 20.9268 20.9265C20.9737 20.8797 21 20.8161 21 20.7498V15.7498C21 15.6835 20.9737 15.6199 20.9268 15.573C20.8799 15.5261 20.8163 15.4998 20.75 15.4998H15.75ZM15.75 13.9998H20.75C21.2141 13.9998 21.6592 14.1841 21.9874 14.5123C22.3156 14.8405 22.5 15.2856 22.5 15.7498V20.7498C22.5 21.2139 22.3156 21.659 21.9874 21.9872C21.6592 22.3154 21.2141 22.4998 20.75 22.4998H15.75C15.2859 22.4998 14.8408 22.3154 14.5126 21.9872C14.1844 21.659 14 21.2139 14 20.7498V15.7498C14 15.2856 14.1844 14.8405 14.5126 14.5123C14.8408 14.1841 15.2859 13.9998 15.75 13.9998ZM18.25 15.9999C18.6642 15.9999 19 16.3357 19 16.7499V17.4999H19.75C20.1642 17.4999 20.5 17.8357 20.5 18.2499C20.5 18.6642 20.1642 18.9999 19.75 18.9999H19V19.7499C19 20.1642 18.6642 20.4999 18.25 20.4999C17.8358 20.4999 17.5 20.1642 17.5 19.7499V18.9999H16.75C16.3358 18.9999 16 18.6642 16 18.2499C16 17.8357 16.3358 17.4999 16.75 17.4999H17.5V16.7499C17.5 16.3357 17.8358 15.9999 18.25 15.9999Z"
+                                    fill="#26273B" fill-opacity="0.8" />
+                            </svg>
+                            <div class="d-flex align-items-center justify-content-between w-100">
+                                <p class="text-nav">Quản lý nghiệp vụ</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </div>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('detailExport.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn báo giá"
+                                    class="nav-link activity1
+                                    @if (!empty($activeName) && $activeName == 'quote') active @endif">
+                                    <p class="text-nav ml-2">Phiếu bán hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('import.index', $workspacename) }}"
+                                    class="nav-link  @if (!empty($activeName) && $activeName == 'import') active @endif">
+                                    <p class="text-nav ml-2">Đặt hàng NCC</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('returnImport.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'returnImport') active @endif ">
+                                    <p class="text-nav ml-2">Trả hàng NCC</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('returnExport.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'returnexport') active @endif">
+                                    <p class="text-nav ml-2">Khách trả hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('receive.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'receive') active @endif ">
+                                    <p class="text-nav ml-2">Phiếu nhập kho</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('delivery.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
+                                    <p class="text-nav ml-2">Phiếu xuất kho</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('cash_receipts.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'cash_receipts') active @endif">
+                                    <p class="text-nav ml-2">Phiếu thu</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('paymentOrder.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'paymentorder') active @endif ">
+                                    <p class="text-nav ml-2">Phiếu chi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item user_flow_nav" data-type="NCC" data-des="NCC">
+                                <a href="{{ route('changeFund.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'changefund') active @endif">
+                                    <p class="text-nav ml-2">Chuyển tiền nội bộ</p>
+                                </a>
+                            </li>
+                            <li class="nav-item user_flow_nav" data-type="NCC" data-des="NCC">
+                                <a href="{{ route('changeWarehouse.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'changeWarehouse') active @endif">
+                                    <div class="d-flex align-items-center justify-content-between w-100">
+                                        <p class="text-nav ml-2">Phiếu chuyển kho</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item user_flow_nav" data-type="NCC" data-des="NCC">
+                                <a href="{{ route('billSale.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Hóa đơn bán hàng"
+                                    class="nav-link activity1  @if (!empty($activeName) && $activeName == 'billsale') active @endif">
+                                    <p class="text-nav ml-2">Hóa đơn bán hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item user_flow_nav" data-type="HDMH" data-des="HDMH">
+                                <a href="{{ route('reciept.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'reciept') active @endif ">
+                                    <p class="text-nav ml-2">Hóa đơn mua hàng</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li
+                        class="nav-item
+                         @if (!empty($activeGroup) && $activeGroup == 'statistic') menu-is-opening menu-open @endif">
+                        <a href="#" class="nav-link">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M11.1433 2.65738C11.329 2.55416 11.538 2.5 11.7505 2.5C11.963 2.5 12.172 2.5542 12.3578 2.65742L19.3578 6.54642C19.5524 6.65472 19.7146 6.81305 19.8275 7.00505C19.9404 7.19714 20 7.41596 20 7.6388V11.7498C20 12.164 20.3358 12.4998 20.75 12.4998C21.1642 12.4998 21.5 12.164 21.5 11.7498V7.6388C21.5 7.14857 21.369 6.66723 21.1205 6.24465C20.8719 5.82206 20.5147 5.47345 20.0862 5.23519L13.0862 1.34619C12.6777 1.11915 12.2179 1 11.7505 1C11.2831 1 10.8233 1.11919 10.4147 1.34623L3.41476 5.23519C2.9861 5.47327 2.62889 5.82164 2.38013 6.2442C2.13136 6.6668 2.00012 7.14842 2 7.6388V20.7498C2 21.164 2.33579 21.4998 2.75 21.4998H6.74581C6.74721 21.4998 6.7486 21.4998 6.75 21.4998L11.75 21.4998C12.1642 21.4998 12.5 21.164 12.5 20.7498C12.5 20.3356 12.1642 19.9998 11.75 19.9998L7.5 19.9998V18.4998H11.75C12.1642 18.4998 12.5 18.164 12.5 17.7498C12.5 17.3356 12.1642 16.9998 11.75 16.9998H7.5V15.4998H11.75C12.1642 15.4998 12.5 15.164 12.5 14.7498C12.5 14.3356 12.1642 13.9998 11.75 13.9998H7.5V12.4998H16.75C17.1642 12.4998 17.5 12.164 17.5 11.7498C17.5 11.3356 17.1642 10.9998 16.75 10.9998H6.75C6.33579 10.9998 6 11.3356 6 11.7498V14.7498V17.7498V19.9998H3.5V7.6388C3.50008 7.41596 3.55974 7.19719 3.67279 7.00515C3.78587 6.81306 3.94837 6.65464 4.14324 6.54642L10.9593 2.75962L11.1433 2.65738ZM9.75 6.99982C9.33579 6.99982 9 7.3356 9 7.74982C9 8.16403 9.33579 8.49982 9.75 8.49982H13.75C14.1642 8.49982 14.5 8.16403 14.5 7.74982C14.5 7.3356 14.1642 6.99982 13.75 6.99982H9.75Z"
+                                    fill="#26273B" fill-opacity="0.8" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M15.75 15.4998C15.6837 15.4998 15.6201 15.5261 15.5732 15.573C15.5263 15.6199 15.5 15.6835 15.5 15.7498V20.7498C15.5 20.8161 15.5263 20.8796 15.5732 20.9265C15.6201 20.9734 15.6837 20.9998 15.75 20.9998H20.75C20.8163 20.9998 20.8799 20.9734 20.9268 20.9265C20.9737 20.8797 21 20.8161 21 20.7498V15.7498C21 15.6835 20.9737 15.6199 20.9268 15.573C20.8799 15.5261 20.8163 15.4998 20.75 15.4998H15.75ZM15.75 13.9998H20.75C21.2141 13.9998 21.6592 14.1841 21.9874 14.5123C22.3156 14.8405 22.5 15.2856 22.5 15.7498V20.7498C22.5 21.2139 22.3156 21.659 21.9874 21.9872C21.6592 22.3154 21.2141 22.4998 20.75 22.4998H15.75C15.2859 22.4998 14.8408 22.3154 14.5126 21.9872C14.1844 21.659 14 21.2139 14 20.7498V15.7498C14 15.2856 14.1844 14.8405 14.5126 14.5123C14.8408 14.1841 15.2859 13.9998 15.75 13.9998ZM18.25 15.9999C18.6642 15.9999 19 16.3357 19 16.7499V17.4999H19.75C20.1642 17.4999 20.5 17.8357 20.5 18.2499C20.5 18.6642 20.1642 18.9999 19.75 18.9999H19V19.7499C19 20.1642 18.6642 20.4999 18.25 20.4999C17.8358 20.4999 17.5 20.1642 17.5 19.7499V18.9999H16.75C16.3358 18.9999 16 18.6642 16 18.2499C16 17.8357 16.3358 17.4999 16.75 17.4999H17.5V16.7499C17.5 16.3357 17.8358 15.9999 18.25 15.9999Z"
+                                    fill="#26273B" fill-opacity="0.8" />
+                            </svg>
+                            <div class="d-flex align-items-center justify-content-between w-100">
+                                <p class="text-nav">Báo cáo thống kê</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </div>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('report.index', $workspacename) }}"
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'report') active @endif">
+                                    <div class="d-flex align-items-center justify-content-between w-100">
+                                        <p class="text-nav ml-2">Báo cáo</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportDebtGuests', $workspacename) }}" data-name1="BH"
+                                    data-des="Thông kê công nợ khách hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'debtGuests') active @endif">
+                                    <p class="text-nav ml-2">Công nợ khách hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportSell', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumSell') active @endif">
+                                    <p class="text-nav ml-2">Tổng kết bán hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportDelivery', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumDelivery') active @endif">
+                                    <p class="text-nav ml-2">Tổng kết giao hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportSumReturnExport', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumReturnExport') active @endif">
+                                    <p class="text-nav ml-2">Tổng kết khách trả hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportSumSellProfit', $workspacename) }}" data-name1="BH"
+                                    data-des="Báo cáo lợi nhuận bán hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'reportSumSellProfit') active @endif">
+                                    <p class="text-nav ml-2">Báo cáo lợi nhuận bán hàng</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- <li
+                        class="nav-item
                          @if (!empty($activeGroup) && $activeGroup == 'products') menu-is-opening menu-open @endif">
                         <a href="#" class="nav-link">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -396,20 +625,20 @@
                                     <p class="text-nav ml-2">Sản phẩm</p>
                                 </a>
                             </li>
-                            {{-- <li class="nav-item">
+                            <li class="nav-item">
                                 <a href="{{ route('editProduct', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'editproduct') active @endif">
                                     <p class="text-nav ml-2">Sửa tồn kho</p>
                                 </a>
-                            </li> --}}
-                            {{-- <li class="nav-item">
+                            </li>
+                            <li class="nav-item">
                                 <a href="pages/layout/top-nav.html" class="nav-link">
                                     <p class="text-nav ml-2">Chuyển kho</p>
                                 </a>
-                            </li> --}}
+                            </li>
                         </ul>
-                    </li>
-                    <li
+                    </li> --}}
+                    {{-- <li
                         class="nav-item
                         @if (!empty($activeGroup) && $activeGroup == 'sell') menu-is-opening menu-open @endif">
                         <a href="#" class="nav-link">
@@ -462,7 +691,7 @@
                                     data-des="Đơn giao hàng"
                                     class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumDelivery') active @endif">
                                     <p class="text-nav ml-2">Tổng kết giao hàng</p>
-                                </a>    
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('returnExport.index', $workspacename) }}" data-name1="BH"
@@ -528,8 +757,8 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
-                    <li class="nav-item @if (!empty($activeGroup) && $activeGroup == 'buy') menu-is-opening menu-open @endif">
+                    </li> --}}
+                    {{-- <li class="nav-item @if (!empty($activeGroup) && $activeGroup == 'buy') menu-is-opening menu-open @endif">
                         <a href="#" class="nav-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none">
@@ -612,8 +841,8 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
+                    </li> --}}
+                    {{-- <li class="nav-item">
                         <a href="{{ route('report.index', $workspacename) }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'report') active @endif">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -648,7 +877,7 @@
                                 <p class="text-nav">Báo cáo</p>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a href="{{ route('history.index', $workspacename) }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'history') active @endif">
@@ -692,7 +921,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('groups.index', $workspacename) }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -734,7 +963,7 @@
                                 <p class="text-nav">Nhóm đối tượng</p>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item d-none">
                         <a href="{{ route('groups.index', $workspacename) }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
@@ -778,7 +1007,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('funds.index') }}"
                             class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -820,11 +1049,11 @@
                                 <p class="text-nav">Quỹ</p>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('changeWarehouse.index', $workspacename) }}"
-                            class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
+                            class="nav-link @if (!empty($activeName) && $activeName == 'changeWarehouse') active @endif">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_2436_7601)">
@@ -864,7 +1093,7 @@
                                 <p class="text-nav">Phiếu chuyển kho</p>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
 
 
                     {{-- <li class="nav-item">

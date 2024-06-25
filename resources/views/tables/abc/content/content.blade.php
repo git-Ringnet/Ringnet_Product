@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="products" activeName="content"></x-navbar>
+<x-navbar :title="$title" activeGroup="systemFirst" activeName="content"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->

@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="guest" :workspacename="$workspacename"></x-navbar>
+<x-navbar :title="$title" activeGroup="systemFirst" activeName="guest" :workspacename="$workspacename"></x-navbar>
 <form action="{{ route('guests.store', $workspacename) }}" method="POST"
     onsubmit="return checkDuplicateRepresentatives()">
     @csrf

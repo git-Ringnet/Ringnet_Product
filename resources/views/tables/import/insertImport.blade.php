@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="buy" activeName="import"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="import"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <form action="{{ route('import.store', $workspacename) }}" method="POST">
     <div class="content-wrapper--2Column m-0 min-height--none">

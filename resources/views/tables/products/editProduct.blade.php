@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="products" activeName="editproduct"></x-navbar>
+<x-navbar :title="$title" activeGroup="systemFirst" activeName="editproduct"></x-navbar>
 <form action="{{ route('inventory.update', ['workspace' => $workspacename, 'inventory' => $product->id]) }}"
     method="POST">
     @method('PUT')

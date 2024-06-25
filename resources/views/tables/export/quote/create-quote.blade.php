@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="quote">
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="quote">
 </x-navbar>
 <form id="form-submit" action="{{ route('detailExport.store', ['workspace' => $workspacename]) }}" method="POST">
     @csrf

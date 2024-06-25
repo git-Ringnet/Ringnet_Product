@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="delivery">
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="delivery">
 </x-navbar>
 <form onsubmit="return kiemTraFormGiaoHang(e);" action="{{ route('delivery.store', ['workspace' => $workspacename]) }}"
     method="POST">

@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="quote" :workspacename="$workspacename"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="quote" :workspacename="$workspacename"></x-navbar>
 <form action="{{ route('detailExport.update', ['workspace' => $workspacename, 'detailExport' => $detailExport->maBG]) }}"
     method="POST" id="formSubmit" enctype="multipart/form-data">
     @csrf

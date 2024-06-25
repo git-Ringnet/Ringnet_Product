@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="products" activeName="product"></x-navbar>
+<x-navbar :title="$title" activeGroup="systemFirst" activeName="product"></x-navbar>
 <div class="content-wrapper min-height--none" style="background: none;">
     <div class="content-header-fixed p-0 margin-250 border-bottom-0">
         <div class="content__header--inner margin-left32">

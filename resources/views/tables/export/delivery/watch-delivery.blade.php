@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="delivery" :workspacename="$workspacename"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="delivery" :workspacename="$workspacename"></x-navbar>
 <form action="{{ route('delivery.update', ['workspace' => $workspacename, 'delivery' => $delivery->soGiaoHang]) }}"
     method="POST" id="deliveryForm" enctype="multipart/form-data">
     @csrf

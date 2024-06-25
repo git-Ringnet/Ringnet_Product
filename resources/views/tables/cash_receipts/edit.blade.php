@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="cash_receipts"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="cash_receipts"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <form action="{{ route('cash_receipts.update', ['workspace' => $workspacename, 'cash_receipt' => $cashReceipt->id]) }}"
     method="POST" id="formSubmit" enctype="multipart/form-data">

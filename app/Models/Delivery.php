@@ -71,7 +71,7 @@ class Delivery extends Model
         }
         $promotion = [
             'type' => $data['promotion-option-total'],
-            'value' => str_replace(',', '', $data['promotion-total']),
+            'value' => isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0,
         ];
         $dataDelivery = [
             'guest_id' => $data['guest_id'],
@@ -779,7 +779,7 @@ class Delivery extends Model
         }
         $promotion = [
             'type' => $data['promotion-option-total'],
-            'value' => str_replace(',', '', $data['promotion-total']),
+            'value' => isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0,
         ];
         $dataDelivery = [
             'guest_id' => $data['guest_id'],
@@ -884,7 +884,7 @@ class Delivery extends Model
             }
             $promotionTotal = [
                 'type' => $data['promotion-option-total'],
-                'value' => str_replace(',', '', $data['promotion-total']),
+                'value' => isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0,
             ];
             if ($promotionTotal['value'] != 0) {
                 $tolTax = $totalPriceAfterDiscount;

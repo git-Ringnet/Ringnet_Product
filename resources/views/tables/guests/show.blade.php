@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="guest"></x-navbar>
+<x-navbar :title="$title" activeGroup="systemFirst" activeName="guest"></x-navbar>
 <form action="#" method="POST" id="formSubmit" enctype="multipart/form-data">
     @csrf
     @method('PUT')

@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="buy" activeName="provide">
+<x-navbar :title="$title" activeGroup="systemFirst" activeName="provide">
 </x-navbar>
 <form action="{{ route('provides.update', ['workspace' => $workspacename, 'provide' => $provide->id]) }}" method="POST">
     @csrf

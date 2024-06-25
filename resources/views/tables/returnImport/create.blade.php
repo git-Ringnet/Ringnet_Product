@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="buy" activeName="returnImport"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="returnImport"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <?php $import = ''; ?>
 <form action="{{ route('returnImport.store', $workspacename) }}" method="POST">

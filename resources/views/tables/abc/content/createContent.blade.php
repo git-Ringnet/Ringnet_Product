@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="products" activeName="content"></x-navbar>
+<x-navbar :title="$title" activeGroup="systemFirst" activeName="content"></x-navbar>
 <form action="{{ route('content.store', $workspacename) }}" method="POST">
     @csrf
     <div class="content-wrapper m-0 min-height--none">

@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="" activeName="changeWarehouse"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="changeWarehouse"></x-navbar>
 <form
     action="{{ route('changeWarehouse.update', ['workspace' => $workspacename, 'changeWarehouse' => $changeWarehouse->id]) }}"
     method="POST" id="formSubmit" enctype="multipart/form-data">

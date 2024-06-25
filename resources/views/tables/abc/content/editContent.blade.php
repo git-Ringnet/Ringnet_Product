@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="products" activeName="content"></x-navbar>
+<x-navbar :title="$title" activeGroup="systemFirst" activeName="content"></x-navbar>
 <form action="{{ route('content.update', ['workspace' => $workspacename, 'content' => $content->id]) }}" method="POST">
     @method('PUT')
     @csrf

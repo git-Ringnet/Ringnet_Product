@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="buy" activeName="returnImport"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="returnImport"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <form action="{{ route('returnImport.update', ['workspace' => $workspacename, 'returnImport' => $returnImport->id]) }}"
     method="POST" id="formSubmit" enctype="multipart/form-data">

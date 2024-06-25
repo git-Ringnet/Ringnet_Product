@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="buy" activeName="provide">
+<x-navbar :title="$title" activeGroup="systemFirst" activeName="provide">
 </x-navbar>
 {{-- <div class="content-wrapper m-0"> --}}
 <div class="content-wrapper editGuest min-height--none">

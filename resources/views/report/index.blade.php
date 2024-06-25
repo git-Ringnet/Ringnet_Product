@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeName="report"></x-navbar>
+<x-navbar :title="$title" activeGroup="statistic" activeName="report"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
@@ -2604,23 +2604,19 @@
                                                                 onclick="event.stopPropagation();">
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-
-                                                            {{ $item->product_code }}
-
+                                                            {{ $item['product_code'] }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-wrap">
                                                             {{-- @if ($item->getProduct)
                                                                 {{ $item->getProduct->product_name }}
                                                             @endif --}}
-                                                            {{ $item->product_name }}
-
+                                                            {{ $item['product_name'] }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
                                                             {{-- @if ($item->getProduct)
                                                                 {{ $item->getProduct->product_unit }}
                                                             @endif --}}
-                                                            {{ $item->product_unit }}
-
+                                                            {{ $item['product_unit'] }}
                                                         </td>
                                                         {{-- <td class="py-2 text-13-black pl-0 text-right">
                                                             @if ($item->getProduct)
@@ -2637,36 +2633,43 @@
                                                                 {{ number_format($item->getQuoteImport->product_qty) }}
                                                             @endif --}}
                                                             {{-- {{ number_format($item->tongslnhap) }} --}}
-                                                            {{ number_format($item->total_quantity + $item->product_inventory) }}
-
+                                                            {{ number_format($item['slNhap']) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             {{-- {{ number_format($item->qty_export) }} --}}
-                                                            {{ number_format($item->total_quantity) }}
+                                                            {{ number_format($item['slXuat']) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             {{-- @if (isset($item->getProduct) && isset($item->getQuoteImport))
                                                                 {{ number_format($item->getProduct->product_inventory + $item->getQuoteImport->product_qty - $item->qty_export) }}
                                                             @endif --}}
-                                                            {{ number_format($item->product_inventory) }}
+                                                            {{ number_format($item['product_inventory']) }}
 
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">
                                                             {{-- @if ($item->getDataReport && $item->product_id == $item->getDataReport->product_id)
                                                                 {{ number_format($item->getDataReport->price_export) }}
                                                             @endif --}}
-                                                            {{ number_format($item->gianhap * $item->product_inventory) }}
+                                                            {{ number_format($item['gianhap'] * $item['product_inventory']) }}
                                                         </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">
                                                             <div class="d-flex w-100">
                                                             </div>
                                                         </td>
-
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="w-100 bg-filter-search position-fixed"
+                                    style="height: 30px;bottom: 0;left: 0;">
+                                    <div class="position-relative margin-250">
+                                        <div class="position-absolute px-4 pt-1 border bg-white"
+                                            style="left: 18rem;">
+                                            <span class="text-danger font-weight-bold">Có {{ count($htrImport) }} mặt hàng</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2675,9 +2678,6 @@
                 </section>
             </div>
         </div>
-
-
-
 
         {{-- Chuyển tiền nội bộ --}}
         <div id="changeFund" class="tab-pane fade">

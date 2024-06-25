@@ -127,6 +127,69 @@ class ReportController extends Controller
         // Công nợ nhà cung cấp
         $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
 
+        //Thống kê xuất nhập tồn kho
+        // Lấy tổng số lượng quoteimport và quoteexport theo product_id
+        $quoteExportQty = DB::table('quoteexport')
+            ->select('product_id', DB::raw('SUM(product_qty) as totalExportQty'))
+            ->groupBy('product_id')
+            ->get()
+            ->keyBy('product_id');
+
+        $totalQuantities = DB::table('quoteimport')
+            ->leftJoin('products', 'products.id', '=', 'quoteimport.product_id')
+            ->select(
+                'quoteimport.product_id',
+                'quoteimport.product_code',
+                'quoteimport.product_name',
+                'quoteimport.product_unit',
+                'products.product_inventory',
+                DB::raw('SUM(quoteimport.product_qty) as totalImportQty'),
+            )
+            ->groupBy('quoteimport.product_id', 'quoteimport.product_code', 'quoteimport.product_name', 'quoteimport.product_unit', 'products.product_inventory')
+            ->get();
+
+        // Bước 2: Tạo mảng để lưu kết quả cuối cùng
+        $htrImport = [];
+
+        foreach ($totalQuantities as $quantity) {
+            // Lấy product_id
+            $productId = $quantity->product_id;
+
+            // Lấy tổng số lượng import (totalImportQty)
+            $totalImportQty = $quantity->totalImportQty;
+
+            // Lấy tổng số lượng xuất (totalExportQty) từ Bước 1
+            $totalExportQty = isset($quoteExportQty[$productId]) ? $quoteExportQty[$productId]->totalExportQty : 0;
+
+            // Lấy danh sách quoteimport theo product_id, sắp xếp theo product_id tăng dần
+            $quoteImports = DB::table('quoteimport')
+                ->where('product_id', $productId)
+                ->orderBy('id', 'asc')
+                ->get();
+
+            $remainingExportQty = $totalExportQty;
+            $priceExport = null;
+
+            foreach ($quoteImports as $import) {
+                if ($remainingExportQty <= $import->product_qty) {
+                    $priceExport = $import->price_export;
+                    break;
+                } else {
+                    $remainingExportQty -= $import->product_qty;
+                }
+            }
+
+            $htrImport[] = [
+                'product_code' => $quantity->product_code,
+                'product_name' => $quantity->product_name,
+                'product_unit' => $quantity->product_unit,
+                'product_inventory' => $quantity->product_inventory,
+                'slNhap' => $totalImportQty,
+                'slXuat' => $totalExportQty,
+                'gianhap' => $priceExport
+            ];
+        }
+
         // $htrImport = DB::table('history_import')
         // ->leftJoin('quoteexport', 'quoteexport.product_id', '=', 'history_import.product_id')
         // ->leftJoin('delivery', 'delivery.ids', '=', 'quoteexport.deliver_id')
@@ -140,30 +203,31 @@ class ReportController extends Controller
         // $htrImport = HistoryImport::where('workspace_id', Auth::user()->current_workspace)->get();
 
         // $htrImport = History::where('workspace_id', Auth::user()->current_workspace)->get();
-        $htrImport = DB::table('history_import')
-            ->where('history_import.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('delivered', 'delivered.product_id', '=', 'history_import.product_id')
-            ->leftJoin('products', 'products.id', '=', 'delivered.product_id')
-            ->select(
-                'products.product_name as product_name',
-                'products.product_code as product_code',
-                'products.product_unit as product_unit',
-                'products.product_inventory as product_inventory',
-                'history_import.product_id',
-                DB::raw('SUM(delivered.deliver_qty) as total_quantity'),
-                'history_import.product_total as giavon',
-                'history_import.price_export as gianhap'
-            )
-            ->groupBy(
-                'history_import.product_id',
-                'history_import.product_total',
-                'history_import.price_export',
-                'products.product_name',
-                'products.product_code',
-                'products.product_unit',
-                'products.product_inventory'
-            )
-            ->get();
+
+        // $htrImport = DB::table('history_import')
+        //     ->where('history_import.workspace_id', Auth::user()->current_workspace)
+        //     ->leftJoin('delivered', 'delivered.product_id', '=', 'history_import.product_id')
+        //     ->leftJoin('products', 'products.id', '=', 'delivered.product_id')
+        //     ->select(
+        //         'products.product_name as product_name',
+        //         'products.product_code as product_code',
+        //         'products.product_unit as product_unit',
+        //         'products.product_inventory as product_inventory',
+        //         'history_import.product_id',
+        //         DB::raw('SUM(delivered.deliver_qty) as total_quantity'),
+        //         'history_import.product_total as giavon',
+        //         'history_import.price_export as gianhap'
+        //     )
+        //     ->groupBy(
+        //         'history_import.product_id',
+        //         'history_import.product_total',
+        //         'history_import.price_export',
+        //         'products.product_name',
+        //         'products.product_code',
+        //         'products.product_unit',
+        //         'products.product_inventory'
+        //     )
+        //     ->get();
         // dd($htrImport);
         // ->unique('id')
         // $detailE = DB::table('detailexport')->where('workspace_id', Auth::user()->current_workspace)

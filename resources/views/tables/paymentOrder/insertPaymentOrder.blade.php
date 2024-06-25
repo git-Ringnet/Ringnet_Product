@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="buy" activeName="paymentorder"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="paymentorder"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <form action="{{ route('paymentOrder.store', $workspacename) }}" method="POST">
     @csrf
