@@ -143,14 +143,14 @@ class DetailImport extends Model
         $promotion['type'] = isset($data['promotion-option-total']) ? $data['promotion-option-total'] : 1;
         $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
 
-         if(isset($data['promotion-total']) > 0){
+        if (isset($data['promotion-total']) > 0) {
             if ($data['promotion-option-total'] == 1) {
                 $total_tax = $total_tax - $promotion['value'];
             } else {
                 $total_tax = $total_tax - ($total_tax * $promotion['value'] / 100);
             }
         }
-     
+
 
 
         $dataImport = [
@@ -254,10 +254,10 @@ class DetailImport extends Model
             }
             if ($check_status && $detail->status == 1) {
                 $total_tax = round($total_tax) + round($total);
-                $promotion['type'] = $data['promotion-option-total'];
+                $promotion['type'] = isset($data['promotion-option-total']) ? $data['promotion-option-total'] : 1;
                 $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
 
-                if ($data['promotion-option-total'] == 1) {
+                if ($data['promotion-option-total'] == 1 && $data['promotion-total'] > 0) {
                     $total_tax = $total_tax - $promotion['value'];
                 } else {
                     $total_tax = $total_tax - ($total_tax * $promotion['value'] / 100);
@@ -274,7 +274,8 @@ class DetailImport extends Model
                     'status' => $status,
                     'created_at' => $data['date_quote'],
                     'total_price' => round($total),
-                    'total_tax' => $total_tax,
+                    // 'total_tax' => $total_tax,
+                    'total_tax' => isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0,
                     'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
                     'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
                     'terms_pay' => $data['terms_pay'],

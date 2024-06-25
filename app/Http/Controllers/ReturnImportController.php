@@ -13,6 +13,7 @@ use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ReturnImportController extends Controller
 {
@@ -43,13 +44,22 @@ class ReturnImportController extends Controller
      */
     public function create()
     {
-        $listDetail = Receive_bill::where('workspace_id', Auth::user()->current_workspace)
-            ->where('status', 2)
-            ->get();
+        $listDetail = Receive_bill::where('receive_bill.workspace_id', Auth::user()->current_workspace)
+        ->where('receive_bill.status', 2)->get();
+        
+        // ->leftJoin('returnimport','returnimport.receive_id','receive_bill.id')
+        // ->leftJoin('returnproduct','returnproduct.returnImport_id','returnimport.id')
+        // ->leftJoin('quoteimport','quoteimport.receive_id','receive_bill.id')
+        // ->where('receive_bill.workspace_id', Auth::user()->current_workspace)
+        //     ->where('receive_bill.status', 2)
+        //     ->select('receive_bill.*','returnproduct.qty as total')
+        //     ->where(DB::raw('COALESCE(total,0)'), '<', DB::raw('COALESCE(quoteimport.product_qty,0)'))
+        //     ->distinct()
+        //     ->get();
         $title = "Tạo mới trả hàng NCC";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-
+        // dd($listDetail);
         $returnCode = $this->returnImport->getQuoteCount();
         return view('tables.returnImport.create', compact('listDetail', 'title', 'workspacename','returnCode'));
     }

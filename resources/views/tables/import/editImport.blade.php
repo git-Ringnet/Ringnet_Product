@@ -778,6 +778,7 @@
         </div>
     </div>
     </div>
+    <input type="hidden" name="total_bill" id="total_bill">
 </form>
 <div class="modal fade" id="recentModal" tabindex="-1" aria-labelledby="productModalLabel" style="display: none;"
     aria-hidden="true">
