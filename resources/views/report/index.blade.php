@@ -2643,7 +2643,7 @@
                                                             {{-- @if (isset($item->getProduct) && isset($item->getQuoteImport))
                                                                 {{ number_format($item->getProduct->product_inventory + $item->getQuoteImport->product_qty - $item->qty_export) }}
                                                             @endif --}}
-                                                            {{ number_format($item['product_inventory']) }}
+                                                            {{ number_format($item['slNhap'] - $item['slXuat']) }}
 
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0 text-right">

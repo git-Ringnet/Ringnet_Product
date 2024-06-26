@@ -130,15 +130,17 @@ class ReportController extends Controller
         //Thống kê xuất nhập tồn kho
         // Lấy tổng số lượng quoteimport và quoteexport theo product_id
         $quoteExportQty = DB::table('quoteexport')
-            ->leftJoin('detailexport', 'quoteexport.detailexport_id', '=', 'detailexport.id')
+            // ->leftJoin('detailexport', 'quoteexport.detailexport_id', '=', 'detailexport.id')
             ->select('quoteexport.product_id', DB::raw('SUM(quoteexport.product_qty) as totalExportQty'))
-            ->whereNotIn('detailexport.status_receive', [0, 1])
+            // ->whereNotIn('detailexport.status_receive', [0, 1])
             ->groupBy('quoteexport.product_id')
             ->get()
             ->keyBy('product_id');
 
         $totalQuantities = DB::table('quoteimport')
+            ->leftJoin('detailimport', 'quoteimport.detailimport_id', '=', 'detailimport.id')
             ->leftJoin('products', 'products.id', '=', 'quoteimport.product_id')
+            ->whereNotIn('detailimport.status_receive', [0, 1])
             ->select(
                 'quoteimport.product_id',
                 'quoteimport.product_code',
@@ -520,15 +522,16 @@ class ReportController extends Controller
 
 
 
-        return view('report.reportIE', compact('title', 'contentImport','contentExport'));
+        return view('report.reportIE', compact('title', 'contentImport', 'contentExport'));
     }
 
-    public function viewReportReturnImport(){
+    public function viewReportReturnImport()
+    {
         $title = 'Trả hàng NCC';
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
 
-        
+
 
         return view('report.reportReturnImport', compact('title'));
     }
