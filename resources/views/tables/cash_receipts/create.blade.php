@@ -443,6 +443,15 @@
                     $('#detail_id').val(data.id)
                     $('#guest_id').val(data.guest_id)
                     $('.cash_reciept').show()
+                    $('input[name="total"]').on('input', function() {
+                        var currentVal = parseFloat($(this).val().replace(/,/g,
+                            ''));
+                        if (currentVal > data.amount_owed) {
+                            $(this).val(formatCurrency(data.amount_owed));
+                        } else {
+                            $(this).val(formatCurrency(currentVal));
+                        }
+                    });
                 }
             })
         })
@@ -479,6 +488,7 @@
                             'payment']))
                         $('.cash_reciept').attr('style', 'display:block');
                         $('input[name="total"]').on('input', function() {
+                            console.log('cac');
                             checkQty(this, Math.round(data['total']) - Math.round(
                                 data[
                                     'payment']))

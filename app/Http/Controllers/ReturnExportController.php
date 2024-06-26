@@ -55,6 +55,7 @@ class ReturnExportController extends Controller
             ->leftJoin('delivered', 'delivered.delivery_id', '=', 'delivery.id')
             ->where('delivered.deliver_qty', '>', DB::raw('COALESCE(delivered.return_qty,0)'))
             ->where('delivery.workspace_id', Auth::user()->current_workspace)
+            ->where('delivery.detailexport_id', '!=', 0)
             ->select('delivery.code_delivery', 'delivery.id')
             ->distinct();
         if (Auth::check()) {
