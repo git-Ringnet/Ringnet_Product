@@ -88,7 +88,7 @@
                             hàng</a>
                     </li> --}}
                     <li>
-                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#importExport">Thống kê nhập xuất
+                        <a class="text-secondary px-1 text-15" data-toggle="tab" href="#importExport">Thống kê xuất nhập
                             tồn
                             kho</a>
                     </li>
