@@ -156,7 +156,7 @@ class DeliveryController extends Controller
             ->count() + 1;
         $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
         $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
-        $invoicenumber = "PBH{$countFormattedInvoice}-{$currentDate}";
+        $invoicenumber = "PXK{$countFormattedInvoice}-{$currentDate}";
         $invoice = $invoicenumber;
 
         return view('tables.export.delivery.create-delivery', compact('title', 'guest', 'invoice', 'numberQuote', 'product', 'workspacename'));
@@ -389,7 +389,7 @@ class DeliveryController extends Controller
             ->count() + 1;
         $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
         $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
-        $invoicenumber = "PBH{$countFormattedInvoice}-{$currentDate}";
+        $invoicenumber = "PXK{$countFormattedInvoice}-{$currentDate}";
         $delivery['code_delivery '] = $invoicenumber;
         return $delivery;
     }

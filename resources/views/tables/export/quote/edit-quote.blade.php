@@ -650,7 +650,8 @@
                                         style="flex:2;" <?php if ($detailExport->tinhTrang != 1) {
                                             echo 'readonly';
                                         } ?>
-                                        value="{{ $detailExport->quotation_number }}" name="quotation_number" />
+                                        value="{{ $detailExport->quotation_number }}" name="quotation_number"
+                                        readonly />
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:44px;">
@@ -2442,7 +2443,7 @@
                         quotation = getQuotation(data['guest'].guest_name_display, data[
                             'count'], data['date'])
                     }
-                    $('input[name="quotation_number"]').val(quotation);
+                    // $('input[name="quotation_number"]').val(quotation);
                     $('.nameGuest').val(data['guest'].guest_name_display);
                     $('.idGuest').val(data['guest'].id);
                     $.ajax({
@@ -2671,7 +2672,7 @@
                 success: function(data) {
                     if (data.success) {
                         quotation = getQuotation1(data.key, '1');
-                        $('input[name="quotation_number"]').val(quotation);
+                        // $('input[name="quotation_number"]').val(data.resultNumber);
                         $('.nameGuest').val(data.guest_name_display);
                         showAutoToast('success', data.msg);
                         $('.idGuest').val(data.id);

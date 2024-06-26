@@ -83,66 +83,13 @@ class CashReceipt extends Model
     }
     public function fetchDelivery($data)
     {
-        $deliveries = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
-            ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
-            ->where('delivery.id', $data['detail_id'])
-            ->where('delivery.totalVat', '>', 0)
-            ->select(
-                'delivery.id',
-                'delivery.guest_id',
-                'delivery.quotation_number',
-                'delivery.code_delivery',
-                'delivery.shipping_unit',
-                'delivery.shipping_fee',
-                'delivery.id as maGiaoHang',
-                'delivery.created_at as ngayGiao',
-                'delivery.status as trangThai',
-                'users.name',
-                'guest.guest_name_display as nameGuest',
-                'detailexport.guest_name',
-                'delivery.promotion',
-                'delivery.totalVat as totalVat',
-                DB::raw('(
-                        SELECT 
-                            CASE 
-                                WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) != 0 THEN 
-                                    CASE 
-                                        WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN 
-                                            (COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) * (1 + (COALESCE(MAX(products.product_tax), 0) / 100)) -- Giảm số tiền trực tiếp và áp dụng thuế
-                                        WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 2 THEN 
-                                            ((COALESCE(SUM(product_total_vat), 0) * (100 - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) / 100)) * (1 + (COALESCE(MAX(products.product_tax), 0) / 100)) -- Giảm phần trăm trên tổng giá trị sản phẩm và áp dụng thuế
-                                        ELSE 
-                                            COALESCE(SUM(product_total_vat), 0) -- Không có khuyến mãi
-                                    END
-                                ELSE
-                                    COALESCE(SUM(product_total_vat), 0) -- Giá trị ban đầu nếu $.value = 0
-                            END
-                        FROM delivered 
-                        LEFT JOIN products ON delivered.product_id = products.id
-                        WHERE delivered.delivery_id = delivery.id
-                    ) as totalProductVat')
-            )
-            ->leftJoin('users', 'users.id', 'delivery.user_id')
-            ->where('delivery.workspace_id', Auth::user()->current_workspace)
-            ->where('delivery.status', 2)
-            ->groupBy(
-                'delivery.id',
-                'delivery.guest_id',
-                'delivery.quotation_number',
-                'delivery.code_delivery',
-                'delivery.shipping_unit',
-                'delivery.shipping_fee',
-                'users.name',
-                'delivery.created_at',
-                'delivery.status',
-                'guest.guest_name_display',
-                'detailexport.guest_name',
-                'delivery.promotion',
-                'delivery.totalVat',
-            )
-            ->orderBy('delivery.id', 'desc');
-        $deliveries = $deliveries->first();
-        return $deliveries;
+        $detailOwed = DetailExport::leftJoin('guest', 'detailexport.guest_id', 'guest.id')
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->where('detailexport.id',  $data['detail_id'])
+            ->where('detailexport.amount_owed', '>', 0)
+            ->select('detailexport.*', 'guest.guest_name_display as nameGuest')
+            ->first();
+        return $detailOwed;
     }
     public function addCashReciept($data)
     {
@@ -152,7 +99,7 @@ class CashReceipt extends Model
                 'date_created' =>  $data['payment_date'],
                 'guest_id' =>  $data['guest_id'],
                 'payer' =>  $data['fund_id'] ?? '',
-                'amount' =>  $data['total'] ?? 0,
+                'amount' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
                 'content_id' =>  $data['content_pay'] ?? 0,
                 'fund_id' => $data['fund_id'] ??  0,
                 'user_id' => Auth::user()->id,
@@ -176,7 +123,7 @@ class CashReceipt extends Model
                 'date_created' =>  $data['payment_date'],
                 'guest_id' =>  $data['guest_id'],
                 'payer' =>  $data['fund_id'] ?? '',
-                'amount' =>  $data['total'] ?? 0,
+                'amount' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
                 'content_id' =>  $data['content_pay'] ?? 0,
                 'fund_id' => $data['fund_id'] ??  0,
                 'user_id' => Auth::user()->id,
@@ -187,11 +134,11 @@ class CashReceipt extends Model
             ];
             $cashRC = CashReceipt::create($dataCashRC);
             if ($cashRC->status == 2) {
-                $delivery = $this->fetchDelivery($data);
-                if ($delivery) {
-                    $conlai =  $delivery->totalVat - $cashRC->amount;
-                    $delivery->totalVat = $conlai;
-                    $delivery->save();
+                $detailE = $this->fetchDelivery($data);
+                if ($detailE) {
+                    $conlai =  $detailE->amount_owed - $cashRC->amount;
+                    $detailE->amount_owed = $conlai;
+                    $detailE->save();
                 }
             }
         }
@@ -205,7 +152,7 @@ class CashReceipt extends Model
             'date_created' => $data['payment_date'],
             'guest_id' => $data['guest_id'],
             'payer' => $data['fund_id'] ?? '',
-            'amount' => $data['total'] ?? 0,
+            'amount' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
             'content_id' => $data['content_pay'] ?? 0,
             'fund_id' => $data['fund_id'] ?? 0,
             'user_id' => Auth::user()->id,
@@ -216,11 +163,11 @@ class CashReceipt extends Model
         ];
         $cashReceipt->update($dataCashRC);
 
-        $delivery = $this->fetchDelivery($data);
-        if ($delivery) {
-            $conlai = $delivery->totalVat - $cashReceipt->amount;
-            $delivery->totalVat = $conlai;
-            $delivery->save();
+        $detailE = $this->fetchDelivery($data);
+        if ($detailE) {
+            $conlai = $detailE->amount_owed - $cashReceipt->amount;
+            $detailE->amount_owed = $conlai;
+            $detailE->save();
         }
         return $cashReceipt;
     }

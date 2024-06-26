@@ -418,4 +418,22 @@ class DetailExport extends Model
         $detaiExport = $detaiExport->pluck('reference_number')->all();
         return $detaiExport;
     }
+    public function getSumDetailE()
+    {
+        $detaiExport = DB::table($this->table)
+            // ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->leftJoin('groups', 'groups.id', 'guest.group_id')
+            ->select(
+                'detailexport.*',
+                'detailexport.created_at as ngayTao',
+                'detailexport.quotation_number as maPhieu',
+                'groups.name as nhomKH',
+                'guest.guest_name_display as nameGuest',
+                'detailexport.total_price as totalProductVat',
+            )
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->get();
+        return $detaiExport;
+    }
 }

@@ -310,7 +310,7 @@
                                                     {{ $item->content->name ?? 'N/A' }}
                                                 </td>
                                                 <td class="text-13-black text-center border-top-0 border-bottom">
-                                                    {{ $item->amount }}
+                                                    {{ number_format($item->amount) }}
                                                 </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ $item->fund->name ?? 'N/A' }}

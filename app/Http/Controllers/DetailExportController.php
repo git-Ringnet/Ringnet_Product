@@ -487,16 +487,24 @@ class DetailExportController extends Controller
             $currentDate = Carbon::now()->format('dmY');
 
             // Lấy số lớn nhất của quotation_number cho ngày hiện tại
-            $lastNumber = DetailExport::where('guest_id', $guest->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->where('quotation_number', 'like', $currentDate . '/%')
-                ->max(DB::raw("CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(quotation_number, '-', -1), '/', -1) AS UNSIGNED)"));
+            $lastNumber =
+                DetailExport::where('workspace_id', Auth::user()->current_workspace)
+                ->whereDate('created_at', now())
+                ->count() + 1;
             // Nếu không có số lớn nhất, bắt đầu với số 01
             $count = ($lastNumber ? ($lastNumber + 1) : 1);
             // Đảm bảo số cuối cùng có đúng định dạng (ví dụ: 05 thay vì 5)
             $countFormatted = str_pad($count, 2, '0', STR_PAD_LEFT);
             // Tạo chuỗi resultNumber mới
             $resultNumber = "{$currentDate}/RN-{$guest->key}-{$countFormatted}";
+
+            $lastDetail =
+                DetailExport::where('workspace_id', Auth::user()->current_workspace)
+                ->whereDate('created_at', now())
+                ->count() + 1;
+            $lastDetail = $lastDetail !== null ? $lastDetail : 1;
+            $countFormattedInvoice = str_pad($lastDetail, 2, '0', STR_PAD_LEFT);
+            $Detail = "PBH{$countFormattedInvoice}-{$currentDate}";
 
             // Tạo DGH
             $lastInvoiceNumber =
@@ -505,14 +513,14 @@ class DetailExportController extends Controller
                 ->count() + 1;
             $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
             $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
-            $invoicenumber = "PBH{$countFormattedInvoice}-{$currentDate}";
+            $invoicenumber = "PXK{$countFormattedInvoice}-{$currentDate}";
 
             $result = [
                 'guest' => $guest,
                 'count' => $countFormatted,
                 'key' => $guest->key,
                 'date' => $currentDate,
-                'resultNumber' => $resultNumber,
+                'resultNumber' => $Detail,
                 'code_delivery' => $invoicenumber,
             ];
         }
@@ -669,9 +677,19 @@ class DetailExportController extends Controller
                     $newRepresentId = null;
                 }
 
+                $currentDate = Carbon::now()->format('dmY');
+                $lastDetail =
+                    DetailExport::where('workspace_id', Auth::user()->current_workspace)
+                    ->whereDate('created_at', now())
+                    ->count() + 1;
+                $lastDetail = $lastDetail !== null ? $lastDetail : 1;
+                $countFormattedInvoice = str_pad($lastDetail, 2, '0', STR_PAD_LEFT);
+                $Detail = "PBH{$countFormattedInvoice}-{$currentDate}";
+
                 $response = [
                     'success' => true,
                     'msg' => 'Thêm mới khách hàng thành công',
+                    'resultNumber' => $Detail,
                     'id' => $new_guest,
                     'guest_name_display' => $request->guest_name_display,
                     'key' => $key,

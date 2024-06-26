@@ -714,14 +714,14 @@
                                     data-des="Đơn báo giá"
                                     class="nav-link activity1
                                     @if (!empty($activeName) && $activeName == 'quote') active @endif">
-                                    <p class="text-nav ml-2">Đơn báo giá</p>
+                                    <p class="text-nav ml-2">Khách đặt hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('delivery.index', $workspacename) }}" data-name1="BH"
                                     data-des="Đơn giao hàng"
                                     class="nav-link activity1 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
-                                    <p class="text-nav ml-2">Đơn giao hàng</p>
+                                    <p class="text-nav ml-2">Phiếu xuất kho</p>
                                 </a>
                             </li>
                             <li class="nav-item">

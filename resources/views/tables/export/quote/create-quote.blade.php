@@ -718,7 +718,7 @@
                                     <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Số báo giá</span>
                                     <input
                                         class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;"
-                                        name="quotation_number" />
+                                        name="quotation_number" readonly />
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:44px;">
@@ -2308,7 +2308,7 @@
                 success: function(data) {
                     if (data.success) {
                         quotation = getQuotation1(data.key, '1');
-                        $('input[name="quotation_number"]').val(quotation);
+                        $('input[name="quotation_number"]').val(data.resultNumber);
                         $('.nameGuest').val(data.guest_name_display);
                         showAutoToast('success', data.msg);
                         $('.idGuest').val(data.id);

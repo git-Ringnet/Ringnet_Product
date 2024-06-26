@@ -47,6 +47,7 @@ class ReportController extends Controller
     private $returnExport;
     private $delivered;
     private $history;
+    private $quoteE;
 
     public function __construct()
     {
@@ -61,6 +62,7 @@ class ReportController extends Controller
         $this->product_returnE = new ProductReturnExport();
         $this->returnExport = new ReturnExport();
         $this->history = new History();
+        $this->quoteE = new QuoteExport();
     }
     public function index()
     {
@@ -440,9 +442,10 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // Lấy sản phẩm trong đơn đó
-        $productDelivered = $this->delivered->sumDelivered();
+        $productDelivered = $this->quoteE->sumProductsQuote();
         // Get All đơn
-        $allDelivery = $this->delivery->getSumDelivery();
+        $allDelivery = $this->detailExport->getSumDetailE();
+        // dd($sumDelivery);
 
         return view('report.sumSell', compact('title', 'productDelivered', 'allDelivery'));
     }

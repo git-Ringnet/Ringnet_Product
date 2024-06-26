@@ -51,9 +51,9 @@ class GuestController extends Controller
             //     $guest->sumDebt = $sumDebt;
             // }
             // dd($guests);
-
+            $count = $guests->where('group_id', 0)->count();
             $groups = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
-            return view('tables.guests.index', compact('title', 'guests', 'groups', 'users', 'dataa', 'workspacename'));
+            return view('tables.guests.index', compact('title', 'guests', 'groups', 'count', 'users', 'dataa', 'workspacename'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
         }

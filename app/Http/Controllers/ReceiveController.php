@@ -98,7 +98,7 @@ class ReceiveController extends Controller
         $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
         $invoicenumber = "PNK{$countFormattedInvoice}-{$currentDate}";
         $code = $invoicenumber;
-        return view('tables.receive.insertReceive', compact('title', 'listDetail', 'workspacename', 'provide','code'));
+        return view('tables.receive.insertReceive', compact('title', 'listDetail', 'workspacename', 'provide', 'code'));
     }
 
     /**
@@ -207,11 +207,11 @@ class ReceiveController extends Controller
         $workspacename = $workspacename->workspace_name;
         $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
             ->join('products', 'quoteimport.product_name', 'products.product_name')
-            ->join('warehouse','warehouse.id','quoteimport.warehouse_id')
+            ->join('warehouse', 'warehouse.id', 'quoteimport.warehouse_id')
             // ->where('products_import.detailimport_id', $receive->detailimport_id)
             ->where('products_import.receive_id', $receive->id)
             ->where('products.workspace_id', Auth::user()->current_workspace)
-            ->where('products_import.product_qty','>',0)
+            ->where('products_import.product_qty', '>', 0)
             ->select(
                 'quoteimport.product_code',
                 'quoteimport.product_name',
@@ -376,8 +376,8 @@ class ReceiveController extends Controller
             ->get();
 
         foreach ($quote as $qt) {
-            if($qt->getWareHouse){
-                array_push($listWarehouse,$qt->getWareHouse->warehouse_name);
+            if ($qt->getWareHouse) {
+                array_push($listWarehouse, $qt->getWareHouse->warehouse_name);
             }
             $product = Products::where('product_name', $qt->product_name)
                 ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)

@@ -352,6 +352,17 @@ class QuoteExport extends Model
             }
         }
     }
+    public function sumProductsQuote()
+    {
+        $quoteE = QuoteExport::leftJoin('detailexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->select(
+                'detailexport.*',
+                'quoteexport.*',
+                'quoteexport.product_qty as slxuat',
+            )
+            ->get();
+        return $quoteE;
+    }
     public function getProductsbyId($id)
     {
         $products = DB::table('quoteexport')

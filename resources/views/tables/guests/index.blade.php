@@ -336,9 +336,6 @@
                                     <tr>
                                         <td colspan="5">Khách hàng : Chưa chọn nhóm</td>
                                     </tr>
-                                    @php
-                                        $total = 0;
-                                    @endphp
                                     @foreach ($guests as $item)
                                         @if ($item->group_id == 0)
                                             <tr class="position-relative guest-info height-52">
@@ -475,13 +472,10 @@
                                                 </td>
                                             </tr>
                                         @endif
-                                        @php
-                                            $total++;
-                                        @endphp
                                     @endforeach
                                     <tr>
                                         <td></td>
-                                        <td class="text-right" style="color: red">Có {{ $total }} khách hàng
+                                        <td class="text-right" style="color: red">Có {{ $count }} khách hàng
                                         </td>
                                         <td colspan="15"></td>
                                     </tr>
@@ -490,6 +484,9 @@
                                             <td colspan="5">Nhà cung cấp : {{ $value->name }}</td>
                                         </tr>
                                         @foreach ($guests as $item)
+                                            @php
+                                                $total = 0;
+                                            @endphp
                                             @if ($item->group_id == $value->id)
                                                 <tr class="position-relative guest-info height-52">
                                                     <input type="hidden" name="id-guest" class="id-guest"

@@ -5,7 +5,8 @@
             <div class="content__heading--left ">
                 <span>Báo cáo</span>
                 <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                        fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
                             fill="#26273B" fill-opacity="0.8" />
@@ -277,20 +278,22 @@
                                             @foreach ($allDelivery as $itemDelivery)
                                                 @php
                                                     $matchedItems = $productDelivered->where(
-                                                        'delivery_id',
+                                                        'detailexport_id',
                                                         $itemDelivery->id,
                                                     );
                                                     $count = count($matchedItems);
                                                 @endphp
 
                                                 @if ($matchedItems->isNotEmpty())
+                                                    @php
+                                                        $totalItemDeliveryTotalProductVat +=
+                                                            $itemDelivery->totalProductVat+$itemDelivery->total_tax;
+                                                    @endphp
                                                     @foreach ($matchedItems as $item)
                                                         @php
-                                                            $totalDeliverQty += $item->deliver_qty;
+                                                            $totalDeliverQty += $item->product_qty;
                                                             $totalPriceExport += $item->price_export;
-                                                            $totalProductTotalVat += $item->product_total_vat;
-                                                            $totalItemDeliveryTotalProductVat +=
-                                                                $itemDelivery->totalProductVat;
+                                                            $totalProductTotalVat += $item->product_total;
                                                         @endphp
                                                         <tr class="position-relative">
                                                             <td rowspan="{{ $count }}"
@@ -316,17 +319,17 @@
                                                                 {{ $item->product_unit }}
                                                             </td>
                                                             <td class="text-13-black height-52 border">
-                                                                {{ $item->deliver_qty }}
+                                                                {{ number_format($item->product_qty) }}
                                                             </td>
                                                             <td class="text-13-black height-52 border">
                                                                 {{ number_format($item->price_export) }}
                                                             </td>
                                                             <td class="text-13-black height-52 border">
-                                                                {{ number_format($item->product_total_vat) }}
+                                                                {{ number_format($item->product_total) }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ number_format($itemDelivery->totalProductVat) }}
+                                                                {{ number_format($itemDelivery->totalProductVat + $itemDelivery->total_tax) }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
@@ -350,7 +353,6 @@
                                                     @endforeach
                                                 @endif
                                             @endforeach
-
                                             <tr class="position-relative">
                                                 <td colspan="6" class="text-13-black height-52 border text-center">
                                                     <strong>Tổng cộng</strong>
@@ -367,6 +369,7 @@
                                                 <td class="text-13-black height-52 border"></td>
                                                 <td class="text-13-black height-52 border"></td>
                                             </tr>
+
 
                                         </tbody>
                                     </table>

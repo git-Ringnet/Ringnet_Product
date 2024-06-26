@@ -153,14 +153,14 @@
                                                                 aria-hidden="true"></i></span>
                                                     </div>
                                                 </div>
-                                                @foreach ($deliveries as $value)
+                                                @foreach ($detailOwed as $value)
                                                     <li class="p-2 align-items-center"
                                                         style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                         <a href="javascript:void(0)" id="{{ $value->id }}"
                                                             name="search-info" class="search-receipts"
                                                             style="flex:2;">
                                                             <span
-                                                                class="text-13-black">{{ $value->code_delivery == null ? $value->id : $value->code_delivery }}</span>
+                                                                class="text-13-black">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
                                                         </a>
                                                     </li>
                                                 @endforeach
@@ -233,9 +233,11 @@
 
                                         </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                            <input
+                                            <input type="number"
                                                 class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2 price_export "
-                                                name="total" placeholder="Nhập số tiền" style="flex:2;" required />
+                                                name="total" placeholder="Nhập số tiền"
+                                                style="flex:2;background-color:#F0F4FF; border-radius:4px;" required
+                                                autocomplete="off" />
                                             <br>
                                             <div class="cash_reciept" style="display: none">
                                                 <label for="">Tiền cần thu</label><input type="text"
@@ -433,11 +435,11 @@
                 },
                 success: function(data) {
                     console.log(data);
-                    $('#myInput').val(data.code_delivery)
+                    $('#myInput').val(data.quotation_number)
                     $('#myGuest').val(data.nameGuest);
                     $('#listReceive').hide();
                     $('#listGuest').hide();
-                    $('#money_reciept').val(formatCurrency(data.totalVat))
+                    $('#money_reciept').val(formatCurrency(data.amount_owed))
                     $('#detail_id').val(data.id)
                     $('#guest_id').val(data.guest_id)
                     $('.cash_reciept').show()
@@ -475,7 +477,7 @@
                         //     'payment']));
                         $('#money_reciept').val(formatCurrency(data['total'] - data[
                             'payment']))
-                        $('.cash_reciept').attr('style','display:block');
+                        $('.cash_reciept').attr('style', 'display:block');
                         $('input[name="total"]').on('input', function() {
                             checkQty(this, Math.round(data['total']) - Math.round(
                                 data[
@@ -488,14 +490,11 @@
         })
     })
 
-
     function checkQty(value, odlQty) {
-        if (
-            $(value)
-            .val()
-            .replace(/[^0-9.-]+/g, "") > odlQty
-        ) {
-            $(value).val(odlQty);
+        var inputValue = parseFloat($(value).val().replace(/[^0-9.-]+/g, ""));
+        if (inputValue > odlQty) {
+            inputValue = odlQty;
         }
+        $(value).val(formatCurrency(inputValue));
     }
 </script>

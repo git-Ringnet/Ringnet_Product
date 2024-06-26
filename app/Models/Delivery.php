@@ -1331,7 +1331,7 @@ class Delivery extends Model
     }
     public function getSumDelivery()
     {
-        $deliveries = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
+        $deliveries = DetailExport::leftJoin('delivery', 'detailexport.id', 'delivery.detailexport_id')
             ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
             ->leftJoin('groups', 'groups.id', 'guest.group_id')
             ->select(

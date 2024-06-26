@@ -100,7 +100,7 @@ class Delivered extends Model
             // Tính thuế
             $promotionTotal = [
                 'type' => $data['promotion-option-total'],
-                'value' => str_replace(',', '', $data['promotion-total']),
+                'value' => isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0,
             ];
             if ($promotionTotal['value'] != 0) {
                 $tolTax = $totalPriceAfterDiscount;
