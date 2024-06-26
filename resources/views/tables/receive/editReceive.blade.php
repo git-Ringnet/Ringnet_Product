@@ -171,7 +171,7 @@
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:48px;">
-                                            <th class="border-right border-bottom"
+                                            <th class="border-right border-bottom d-none"
                                                 style="width: 15%;padding-left:2rem;">
                                                 <span class="text-table text-secondary">Mã sản phẩm</span>
                                             </th>
@@ -203,7 +203,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
+                                            <th scope="col" class="border-right border-bottom d-none">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -212,7 +212,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
+                                            <th scope="col" class="border-right border-bottom d-none">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -221,7 +221,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
+                                            <th scope="col" class="border-right border-bottom d-none">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -230,7 +230,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
+                                            <th scope="col" class="border-right border-bottom d-none">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -248,7 +248,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
+                                            <th scope="col" class="border-right border-bottom d-none">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -257,7 +257,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
+                                            <th scope="col" class="border-right border-bottom d-none">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -275,14 +275,14 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom"></th>
+                                            <th scope="col" class="border-bottom d-none"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $st = 0; ?>
                                         @foreach ($product as $item)
                                             <tr class="bg-white" style="height:80px;">
-                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right"
+                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none"
                                                     style="width:5%;padding-left: 2rem !important;">
                                                     <input readonly type="text" name="product_code[]"
                                                         id="" class="border-0 py-1 w-75 searchProduct"
@@ -345,7 +345,7 @@
                                                     </div>
                                                 </td>
                                                 <td
-                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
                                                     <div>
                                                         <input type="text" required=""
                                                             class="border-0 px-2 py-1 w-100 price_export text-right height-32"
@@ -354,7 +354,7 @@
                                                     </div>
                                                 </td>
                                                 <td
-                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
                                                     @php
                                                         $promotionArray = json_decode($item->promotion, true);
                                                         $promotionValue = isset($promotionArray['value'])
@@ -382,7 +382,7 @@
                                                     </div>
                                                 </td>
                                                 <td
-                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
                                                     <select class="product_tax border-0 w-100 text-center height-32"
                                                         name="product_tax[]" disabled>
                                                         <option value="0"
@@ -401,7 +401,7 @@
                                                 </td>
                                                 {{-- Tổng tiền --}}
                                                 <td
-                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
                                                     <input type="text"
                                                         class="border-0 px-2 py-1 w-100 total_price text-right height-32"
                                                         readonly="" name="total_price[]"
@@ -414,7 +414,7 @@
                                                         name="warehouse[]" readonly value="{{$item->nameHouse}}">
                                                 </td>
                                                 <td
-                                                    class="align-top text-center border-top-0 border-bottom border-right">
+                                                    class="align-top text-center border-top-0 border-bottom border-right d-none">
                                                     <div style="margin-top: 6px;">
                                                         <input type="checkbox" name="cbSeri[]" disabled
                                                             value="{{ $item->cbSN }}" class="mt-1 checkall-btn"
@@ -432,13 +432,13 @@
 
                                                 </td>
                                                 <td
-                                                    class="align-top text-center border-top-0 border-bottom border-right">
+                                                    class="align-top text-center border-top-0 border-bottom border-right d-none">
                                                     <input class="border-0 px-2 py-1 w-100 price_export"
                                                         type="text" value="{{ $item->product_guarantee }}"
                                                         readonly>
                                                 </td>
                                                 <td
-                                                    class="bg-white align-top text-13-black d-none border-top-0 border-bottom border-right">
+                                                    class="bg-white align-top text-13-black d-none border-top-0 border-bottom border-right d-none">
                                                     <div>
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
@@ -450,7 +450,7 @@
                                                         đây</div>
                                                 </td>
                                                 <td
-                                                    class="bg-white align-top d-none border-top-0 border-bottom border-right">
+                                                    class="bg-white align-top d-none border-top-0 border-bottom border-right d-none">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
                                                         name="product_tax[]" value="{{ $item->product_tax }}"
                                                         readonly>
@@ -480,7 +480,7 @@
                                                         value="{{ $item->product_note }}">
                                                 </td>
                                                 <td
-                                                    class="text-center bg-white align-top text-13-black @if ($receive->status == 3) deleteRow @endif border-top-0 border-bottom">
+                                                    class="text-center bg-white align-top text-13-black @if ($receive->status == 3) deleteRow @endif border-top-0 border-bottom d-none">
                                                     <svg width="17" height="17" viewBox="0 0 17 17"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -495,8 +495,9 @@
                                 </table>
                             </div>
                         </section>
-                        <?php $import = $detail; ?>
-                        <x-formsynthetic :import="$receive"></x-formsynthetic>
+
+                        {{-- <?php $import = $detail; ?>
+                        <x-formsynthetic :import="$receive"></x-formsynthetic> --}}
                     </div>
                     <div id="files" class="tab-pane fade">
                         <div id="title--fixed" class="content-title--fixed top-111">

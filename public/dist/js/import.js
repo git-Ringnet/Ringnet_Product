@@ -685,6 +685,7 @@ function deleteRow() {
             calculateTotalTax();
             calculateGrandTotal();
             checkTaxAll()
+            calculateAll()
         });
 }
 

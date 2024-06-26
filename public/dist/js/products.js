@@ -374,10 +374,11 @@ $("#addRowRepesent").on("click", function () {
 });
 
 function addRowTable(status) {
+    console.log(status);
     count = $("#inputcontent tbody tr").length + 1;
     var tr =
         '<tr class="bg-white" style="height:80px;">' +
-        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' + (status == 3 ? "d-none" : "") + '">' +
         '<input type="hidden" name="listProduct[]" value="0">';
     if (status != 3) {
         tr += "<span class='ml-1 mr-2'>" +
@@ -443,13 +444,13 @@ function addRowTable(status) {
         "</div>" +
         "<div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho' id='soTonKho'>0</span></div>" +
         "</td>" +
-        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' + (status == 3 ? "d-none" : "") + '">' +
         "<div>" +
-        '<input type="text" required class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]">' +
+        '<input type="text" required class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]" ' + (status == 3 ? "value='0'" : "") + '>' +
         "</div>" +
         "<div class='mt-3 text-13-blue transaction text-right' id='transaction' data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div>" +
         "</td>" +
-        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' + (status == 3 ? "d-none" : "") + '">' +
         "<div>" +
         '<input type="text" class="border-0 px-2 py-1 w-100 text-right height-32 promotion" name="promotion[]">' +
         "</div>" +
@@ -457,7 +458,7 @@ function addRowTable(status) {
         "<select class='border-0 promotion-option' name='promotion-option[]'> <option value='1'>Nhập tiền </opion> <option value='2'>Nhập %</option> </select> " +
         "</div>" +
         "</td>" +
-        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">';
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' + (status == 3 ? "d-none" : "") + '">';
     if (status == 2) {
         tr +=
             '<input type="text" class="border-0 px-2 py-1 w-100 product_tax" name="product_tax[]" readonly >';
@@ -474,7 +475,7 @@ function addRowTable(status) {
     tr +=
         "</td>" +
         '<input type="hidden" class="product_tax1">' +
-        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' + (status == 3 ? "d-none" : "") + '">' +
         '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly name="total_price[]">' +
         "</td>" +
         '<td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">' +
@@ -497,10 +498,10 @@ function addRowTable(status) {
         "</td>";
     // }
     if (status == 3) {
-        tr += "<td class='p-2 text-13 align-top text-center border-top-0 border-bottom border-right'> " +
+        tr += "<td class='p-2 text-13 align-top text-center border-top-0 border-bottom border-right " + (status == 3 ? "d-none" : "") + " '> " +
             "<div style='margin-top: 6px;'> " +
-            "<input onclick='getDataCheckbox(this)' type='checkbox' checked='' endable=''> " +
-            "<input type='hidden' name='cbSeri[]' value='1'>" +
+            "<input onclick='getDataCheckbox(this)' type='checkbox' " + (status != 3 ? "checked=''" : "") + "  endable=''> " +
+            "<input type='hidden' name='cbSeri[]' " + (status != 3 ? "value='1'" : "value='0'") + ">" +
             "<a class='duongdan' data-toggle='modal' data-target='#exampleModal" + count + "' style='opacity:1'>" +
             "<div class='sn--modal mt-3'>" +
             "<span class='border-span--modal'>SN</span>" +
@@ -508,7 +509,7 @@ function addRowTable(status) {
             "</a>" +
             "</div>" +
             "</td>" +
-            "<td class='p-2 note text-13 align-top border-top-0 border-bottom border-right'> " +
+            "<td class='p-2 note text-13 align-top border-top-0 border-bottom border-right " + (status == 3 ? "d-none" : "") + "'> " +
             "<input type='text' name='product_guarantee[]' class='border-0 py-1 w-100 height-32' placeholder='Nhập bảo hành' value=''> " +
             "</td>";
     }
@@ -518,7 +519,7 @@ function addRowTable(status) {
         (status == 2 ? "readonly" : "") +
         " >" +
         "</td>" +
-        '<td class="deleteRow align-top p-2 user_flow border-top-0 border-bottom" data-type="DMH" data-des="Xóa sản phẩm">' +
+        '<td class="deleteRow align-top p-2 user_flow border-top-0 border-bottom ' + (status == 3 ? "d-none" : "") + '" data-type="DMH" data-des="Xóa sản phẩm">' +
         '<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z" fill="#6B6F76"></path></svg>' +
         "</td>" +
         "</tr>";
@@ -786,7 +787,7 @@ function checkQtyProduct() {
     return check;
 }
 
-function checkWarehouse(){
+function checkWarehouse() {
     var check = true;
     $('#inputcontent tbody tr').each(function () {
         if ($(this).find('.warehouse_id').val() == "") {

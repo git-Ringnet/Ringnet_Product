@@ -242,7 +242,7 @@
                                                     <div class="icon" id="icon-delivery_charges"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width: 8%;">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -253,7 +253,7 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="border-bottom">
+                                            <th scope="col" class="border-bottom d-none">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_tax" data-sort-type="DESC"><button
@@ -335,7 +335,7 @@
                                                         <span style="color: #08AA36">Đã nhận</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-right border-top-0 border-bottom">
+                                                <td class="text-13-black text-right border-top-0 border-bottom d-none">
                                                     {{ number_format($item->total_tax) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-top-0 border-bottom align-items-center"

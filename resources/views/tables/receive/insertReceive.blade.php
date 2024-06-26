@@ -100,15 +100,15 @@
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:47px;">
-                                        <th class="border-right border-bottom" style="width: 15%;padding-left:2rem;">
+                                        <th class="border-right border-bottom d-none" style="width: 15%;padding-left:2rem;">
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
                                         <th scope="col" class="border-right border-bottom">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
                                                     data-sort-type="">
-                                                    <button class="btn-sort text-13" type="submit">Tên sản
-                                                        phẩm</button>
+                                                    <button class="btn-sort text-13" type="submit">Tên hàng 
+                                                        hóa</button>
                                                 </a>
                                                 <div class="icon" id="icon-created_at"></div>
                                             </span>
@@ -131,7 +131,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-right border-bottom">
+                                        <th scope="col" class="border-right border-bottom d-none">
                                             <span class="d-flex justify-content-end">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-13"
@@ -140,7 +140,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-right border-bottom">
+                                        <th scope="col" class="border-right border-bottom d-none">
                                             <span class="d-flex justify-content-end">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-13"
@@ -149,7 +149,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-right border-bottom">
+                                        <th scope="col" class="border-right border-bottom d-none">
                                             <span class="d-flex justify-content-end">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-13"
@@ -158,7 +158,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-right border-bottom">
+                                        <th scope="col" class="border-right border-bottom d-none">
                                             <span class="d-flex justify-content-end">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-13"
@@ -176,7 +176,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-right border-bottom">
+                                        <th scope="col" class="border-right border-bottom d-none">
                                             <span class="d-flex justify-content-center">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-13"
@@ -185,7 +185,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-right border-bottom">
+                                        <th scope="col" class="border-right border-bottom d-none">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-13"
@@ -204,7 +204,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-bottom">
+                                        <th scope="col" class="border-bottom d-none">
                                         </th>
                                     </tr>
                                 </thead>
@@ -238,7 +238,10 @@
                         </section>
                     </span>
                 </div>
-                <x-formsynthetic :import="$import"></x-formsynthetic>
+
+
+
+                {{-- <x-formsynthetic :import="$import"></x-formsynthetic> --}}
 
 
                 {{-- <div class="">
@@ -532,15 +535,8 @@
                     table: table
                 },
                 success: function(data) {
-                    // var promotionAll = JSON.parse(
-                    //     data.detail.promotion);
-                    // $('input[name="promotion-total"]').val(promotionAll['value']).attr(
-                    //     'readonly', true);
-                    // $('.promotion-option-total').val(promotionAll['type']).attr('disabled',
-                    //     true);
-                    $('#myInput1').val(data.quotation_number == null ? data.id :
-                        data
-                        .quotation_number);
+                    var promotionAll = JSON.parse(
+                        data.detail.promotion);
                     // $('input[name^="delivery_code"]').val(data.resultNumber)
                     $('#provide_name').val(data.provide_name);
                     $('#represent').val(data.represent)
@@ -565,7 +561,7 @@
                                         element.promotion);
                                     var tr =
                                         `<tr class="bg-white position-relative" style="height:80px;">
-                                                <td class="border-top-0 border-bottom border-right bg-white align-top text-13-black" style="width:5%;padding-left: 2rem !important;">
+                                                <td class="d-none border-top-0 border-bottom border-right bg-white align-top text-13-black" style="width:5%;padding-left: 2rem !important;">
                                                     <input type="hidden" readonly value="` + element.id + `" name="listProduct[]">
                                                     <input type="text" readonly name="product_code[]" class="border-0 py-1 w-75 searchProduct height-32" 
                                                         value="` + (element.product_code == null ? "" : element
@@ -613,7 +609,7 @@
                                                     </div>
                                                 </td>
 
-                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                <td class="d-none border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div>
                                                         <input type="text" required="" class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]"
                                                         value="` + formatCurrency(element.price_export) + `" readonly>
@@ -622,7 +618,7 @@
                                                         Giao dịch gần đây
                                                         </div>
                                                 </td>
-                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                <td class="d-none border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div>
                                                         <input type="text" class="border-0 px-2 py-1 w-100 text-right height-32 promotion" name="promotion[]"
                                                         value="` + formatCurrency(promotionObject['value']) + `" name="promotion[]" readonly>
@@ -638,7 +634,7 @@
                                                 </td>
 
 
-                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                <td class="d-none border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <select class="product_tax border-0 w-100 text-center height-32" name="product_tax[]" disabled>
                                                         <option value="0" ` + (element.product_tax == 0 ? "selected" :
                                             "") + `>0%</option>
@@ -652,7 +648,7 @@
                                                 </td>
 
 
-                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                <td class="d-none border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly="" name="total_price[]"
                                                     value="` + formatCurrency(promotionObject[
                                                 'type'] == 1 ? (element
@@ -672,7 +668,7 @@
                                                     value="` + product.listWarehouse[index] + `" readonly>
                                                 </td>
 
-                                                <td class="p-2 text-13 align-top text-center border-top-0 border-bottom border-right">
+                                                <td class="d-none p-2 text-13 align-top text-center border-top-0 border-bottom border-right">
                                                     <div style="margin-top: 6px;">
                                                         <input onclick="getDataCheckbox(this)" 
                                                             type="checkbox" ` + (product.checked[index] == 'endable' ||
@@ -698,7 +694,7 @@
                                                     </div>
                                                 </td>
 
-                                                <td class="p-2 note text-13 align-top border-top-0 border-bottom border-right">
+                                                <td class="d-none p-2 note text-13 align-top border-top-0 border-bottom border-right">
                                                     <input type="text" name="product_guarantee[]" class="border-0 py-1 w-100 height-32" placeholder="Nhập bảo hành"
                                                     value="` + (product.value[index] == null ? "" : product.value[
                                             index]) + `" ` + (product
@@ -713,7 +709,7 @@
                                             .product_note) + `">
                                                 </td>
                                                     <input type="hidden" class="product_tax1">  
-                                                <td class="p-2 align-top border-top-0 border-bottom deleteRow text-center">
+                                                <td class="d-none p-2 align-top border-top-0 border-bottom deleteRow text-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z" fill="#6B6F76"></path></svg>
                                                 </td>
                                         </tr>`;
@@ -725,11 +721,25 @@
                                 calculateTotalTax()
                                 calculateGrandTotal()
                                 createModal(element.id)
-                                calculateAll()
+
                             });
                             deleteRow()
                             $('#more_info').show();
                             $('#more_info1').show();
+
+                            $('input[name="promotion-total"]').val(promotionAll[
+                                'value'])
+                            $('.promotion-option-total').val(promotionAll[
+                                'type'])
+                            $('#myInput1').val(data.quotation_number == null ?
+                                data.id :
+                                data
+                                .quotation_number);
+                            calculateAll()
+                            $('input[name="promotion-total"]').attr(
+                                'readonly', true);
+                            $('.promotion-option-total').attr('disabled',
+                                true);
                         }
                     })
                 }
@@ -893,12 +903,17 @@
                                                     )
                                                 } else {
                                                     updateProductSN()
+                                                    $('.promotion-option-total')
+                                                        .attr('disabled',
+                                                            false)
                                                     $('form')[1].submit();
                                                 }
                                             }
                                         })
                                     } else {
                                         updateProductSN()
+                                        $('.promotion-option-total').attr('disabled',
+                                            false)
                                         $('form')[1].submit();
                                     }
 
