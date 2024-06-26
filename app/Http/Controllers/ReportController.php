@@ -468,6 +468,81 @@ class ReportController extends Controller
         $debtGuests = $this->guest->debtGuest();
         return view('report.debtGuests', compact('title', 'groups', 'debtGuests'));
     }
+
+
+    public function viewReportProvides()
+    {
+        $title = 'Thống kê công nợ nha cung cấp';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('report.debtProvides', compact('title', 'provide'));
+    }
+
+    public function viewReportImport()
+    {
+        $title = 'Tổng kết mua hàng';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        $dataImport = DetailImport::where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('report.reportImport', compact('title', 'dataImport'));
+    }
+    public function viewReportIE()
+    {
+        $title = 'Tổng hợp nội dung thu chi';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        $contetnType = ContentGroups::where('contenttype_id', 2)
+            ->where('workspace_id', Auth::user()->current_workspace)->get();
+        $listIDContent = [];
+        foreach ($contetnType as $va) {
+            array_push($listIDContent, $va->id);
+        }
+        $contentImport = PayOder::whereIn('content_pay', $listIDContent)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->select('id', 'payment_code', 'workspace_id', 'total', 'payment_date', 'content_pay', 'guest_id', 'fund_id', 'note')
+            ->orderBy('content_pay', 'asc')
+            ->get();
+
+        $contetnType1 = ContentGroups::where('contenttype_id', 1)
+            ->where('workspace_id', Auth::user()->current_workspace)->get();
+        $listIDContent1 = [];
+        foreach ($contetnType1 as $va) {
+            array_push($listIDContent1, $va->id);
+        }
+
+
+        $contentExport = CashReceipt::whereIn('content_id', $listIDContent1)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->select('id', 'receipt_code', 'workspace_id', 'amount', 'date_created', 'content_id', 'guest_id', 'fund_id', 'note')
+            ->orderBy('content_id', 'asc')
+            ->get();
+
+
+
+        return view('report.reportIE', compact('title', 'contentImport','contentExport'));
+    }
+
+    public function viewReportReturnImport(){
+        $title = 'Trả hàng NCC';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+
+        
+
+        return view('report.reportReturnImport', compact('title'));
+    }
+
+
+
+    public function viewReportChangeFunds()
+    {
+        $title = 'Chuyển tiền nội bộ';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        $content = ContentImportExport::where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('report.reportChangeFunds', compact('title', 'content'));
+    }
     /**
      * Show the form for creating a new resource.
      */

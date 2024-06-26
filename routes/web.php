@@ -336,6 +336,12 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('{workspace}/viewReportSell', [ReportController::class, 'viewReportSell'])->name('viewReportSell');
     Route::get('{workspace}/viewReportSumSellProfit', [ReportController::class, 'viewReportSumSellProfit'])->name('viewReportSumSellProfit');
     Route::get('{workspace}/viewReportDebtGuests', [ReportController::class, 'viewReportDebtGuests'])->name('viewReportDebtGuests');
+
+    Route::get('{workspace}/viewReportProvides', [ReportController::class, 'viewReportProvides'])->name('viewReportProvides');
+    Route::get('{workspace}/viewReportImport', [ReportController::class, 'viewReportImport'])->name('viewReportImport');
+    Route::get('{workspace}/viewReportChangeFunds', [ReportController::class, 'viewReportChangeFunds'])->name('viewReportChangeFunds');
+    Route::get('{workspace}/viewReportIE', [ReportController::class, 'viewReportIE'])->name('viewReportIE');
+    Route::get('{workspace}/viewReportReturnImport', [ReportController::class, 'viewReportReturnImport'])->name('viewReportReturnImport');
 });
 
 Route::middleware([CheckLogin::class])->group(function () {

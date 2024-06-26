@@ -3963,7 +3963,7 @@
                                                             @endif
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
-                                                            @if ($item->getAllReturnProduct)
+                                                            {{-- @if ($item->getAllReturnProduct)
                                                                 @foreach ($item->getAllReturnProduct as $value)
                                                                     @if ($value->getQuoteImport)
                                                                         @php
@@ -3993,8 +3993,10 @@
                                                                         @endphp
                                                                     @endif
                                                                 @endforeach
-                                                            @endif
-                                                            {{ number_format($totalReturn) }}
+                                                            @endif --}}
+
+
+                                                            {{ number_format($item->total) }}
                                                         </td>
                                                         <td class="py-2 text-13-black pl-0">
                                                             @if ($item->getPayment)

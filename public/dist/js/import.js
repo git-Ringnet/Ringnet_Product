@@ -309,12 +309,15 @@ function updateTaxAmount() {
             taxValue = 0;
         }
         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
+            console.log(promotion);
             if (promotion > 0) {
                 if (option_promotion == 1) {
                     var totalAmount = productQty * productPrice - promotion;
+                   
                 } else {
                     var totalAmount = productQty * productPrice - (productQty * productPrice) * promotion / 100;
                 }
+                $(this).closest('tr').find('.total_price ').val(formatCurrency(totalAmount))
             } else {
                 var totalAmount = productQty * productPrice;
             }
@@ -341,7 +344,6 @@ function updateTotalPrice(position) {
                 .val()
                 .replace(/[^0-9.-]+/g, "")
         ) || 0;
-
     var total = qty * price;
     $(position)
         .closest("tr")
@@ -499,7 +501,8 @@ updateTaxAmount();
 calculateTotalAmount();
 calculateTotalTax();
 calculateGrandTotal();
-calculateAll()
+updateTotalPrice($(this));
+calculateAll();
 // Xóa hàng SN
 $(document).on("click", ".deleteRow1", function () {
     var div = $(this).parent("tr");

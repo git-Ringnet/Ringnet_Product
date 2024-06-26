@@ -586,6 +586,44 @@
                                     <p class="text-nav ml-2">Báo cáo lợi nhuận bán hàng</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportImport', $workspacename) }}" data-name1="BH"
+                                    data-des="Báo cáo lợi nhuận bán hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportImport') active @endif">
+                                    <p class="text-nav ml-2">Tổng kết mua hàng</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportProvides', $workspacename) }}" data-name1="BH"
+                                    data-des="Báo cáo lợi nhuận bán hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportProvides') active @endif">
+                                    <p class="text-nav ml-2">Thống kê công nợ nhà cung cấp</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportReturnImport', $workspacename) }}" data-name1="BH"
+                                    data-des="Báo cáo lợi nhuận bán hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportReturnImport') active @endif">
+                                    <p class="text-nav ml-2">Trả hàng NCC</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportIE', $workspacename) }}" data-name1="BH"
+                                    data-des="Báo cáo lợi nhuận bán hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportIE') active @endif">
+                                    <p class="text-nav ml-2">Tổng hợp nội dung thu chi</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportChangeFunds', $workspacename) }}" data-name1="BH"
+                                    data-des="Báo cáo lợi nhuận bán hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportChangeFunds') active @endif">
+                                    <p class="text-nav ml-2">Chuyển tiền nội bộ</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     {{-- <li
