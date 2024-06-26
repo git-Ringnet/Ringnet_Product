@@ -105,18 +105,79 @@ flatpickr("#datePickerDay", {
         updateHiddenInput(selectedDates[0], instance, "hiddenDateInputDay");
     },
 });
-$(document).ready(function () {
-    $("input.price_export").on("input", function () {
-        var priceExportValue = parseFloat($(this).val().replace(/,/g, ""));
-        var moneyRecieptValue = parseFloat(
-            $("#money_reciept").val().replace(/,/g, "")
-        );
+// $(document).ready(function () {
+//     $("input.price_export").on("input", function () {
+//         var priceExportValue = parseFloat($(this).val().replace(/,/g, ""));
+//         var moneyRecieptValue = parseFloat(
+//             $("#money_reciept").val().replace(/,/g, "")
+//         );
 
-        if (priceExportValue > moneyRecieptValue) {
-            $(this).val(moneyRecieptValue);
-        }
-    });
-});
+//         if (priceExportValue > moneyRecieptValue) {
+//             $(this).val(moneyRecieptValue);
+//         }
+//     });
+// });
+
+$("body").on(
+    "input",
+    '.price_export , .price_import ,.payment_input,.quantity-input,.payment_input,input[name="delivery_charges"],.promotion,input[name="promotion-total"],input[name="payment"]',
+    function (event) {
+        // Lấy giá trị đã nhập
+        var value = event.target.value;
+
+        // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
+        var formattedValue = value.replace(/[^0-9.]/g, "");
+
+        // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
+        var formattedNumber = numberWithCommas(formattedValue);
+
+        event.target.value = formattedNumber;
+    }
+
+);
+
+function formatNumber(name) {
+    $(document).on('input', name, function (e) {
+        // Lấy giá trị đã nhập
+        var value = e.target.value;
+
+        // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
+        var formattedValue = value.replace(/[^0-9.]/g, "");
+
+        // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
+        var formattedNumber = numberWithCommas(formattedValue);
+
+        e.target.value = formattedNumber;
+    })
+}
+
+
+function numberWithCommas(number) {
+    // Chia số thành phần nguyên và phần thập phân
+    var parts = number.split(".");
+    var integerPart = parts[0];
+    var decimalPart = parts[1];
+
+    // Định dạng phần nguyên số với dấu phân cách hàng nghìn
+    var formattedIntegerPart = integerPart
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Kết hợp phần nguyên và phần thập phân (nếu có)
+    var formattedNumber =
+        decimalPart !== undefined
+            ? formattedIntegerPart + "." + decimalPart
+            : formattedIntegerPart;
+
+    return formattedNumber;
+}
+
+
+
+
+
+
+
 $("#luuNhap").click(function (e) {
     e.preventDefault();
     $('input[name="action"]').val(1);

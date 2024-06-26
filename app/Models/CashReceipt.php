@@ -114,7 +114,7 @@ class CashReceipt extends Model
             // Cộng tiền vào đơn trả hàng
             $returnImport = ReturnImport::where('id', $data['returnImport_id'])->first();
             if ($returnImport) {
-                $returnImport->payment = $returnImport->payment + $data['total'] ?? 0;
+                $returnImport->payment = $returnImport->payment + isset($data['total']) ? str_replace(',','',$data['total']) : 0;
                 $returnImport->save();
             }
         } else {

@@ -343,6 +343,8 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('{workspace}/viewReportIE', [ReportController::class, 'viewReportIE'])->name('viewReportIE');
     Route::get('{workspace}/viewReportReturnImport', [ReportController::class, 'viewReportReturnImport'])->name('viewReportReturnImport');
     Route::get('{workspace}/viewReportIEFunds', [ReportController::class, 'viewReportIEFunds'])->name('viewReportIEFunds');
+    Route::get('{workspace}/viewReportIEEnventory', [ReportController::class, 'viewReportIEEnventory'])->name('viewReportIEEnventory');
+    
 });
 
 Route::middleware([CheckLogin::class])->group(function () {

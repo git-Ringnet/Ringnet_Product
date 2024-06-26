@@ -120,8 +120,9 @@ class CashReceiptController extends Controller
     public function store(string $workspace, Request $request)
     {
         $this->cash_receipts->addCashReciept($request->all());
+        $total = isset($request->total) ? str_replace(',', '', $request->total) : 0;
         if ($request->action == 2) {
-            $this->fund->calculateFunds($request->fund_id, $request->total, '+');
+            $this->fund->calculateFunds($request->fund_id, $total, '+');
         }
 
         // Cộng tiền

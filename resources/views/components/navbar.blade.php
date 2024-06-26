@@ -543,14 +543,14 @@
                             </div>
                         </a>
                         <ul class="nav nav-treeview">
-                            {{-- <li class="nav-item">
+                            <li class="nav-item">
                                 <a href="{{ route('report.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'report') active @endif">
                                     <div class="d-flex align-items-center justify-content-between w-100">
                                         <p class="text-nav ml-2">Báo cáo</p>
                                     </div>
                                 </a>
-                            </li> --}}
+                            </li>
                             <li class="nav-item">
                                 <a href="{{ route('viewReportDebtGuests', $workspacename) }}" data-name1="BH"
                                     data-des="Thông kê công nợ khách hàng"
@@ -597,7 +597,7 @@
                                 <a href="{{ route('viewReportProvides', $workspacename) }}" data-name1="BH"
                                     data-des="Báo cáo lợi nhuận bán hàng"
                                     class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportProvides') active @endif">
-                                    <p class="text-nav ml-2">Thống kê công nợ nhà cung cấp</p>
+                                    <p class="text-nav ml-2">Thống kê công nợ NCC</p>
                                 </a>
                             </li>
 
@@ -630,6 +630,14 @@
                                     data-des="Báo cáo lợi nhuận bán hàng"
                                     class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportIEFunds') active @endif">
                                     <p class="text-nav ml-2">Thống kê thu chi tồn quỹ</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportIEEnventory', $workspacename) }}" data-name1="BH"
+                                    data-des="Báo cáo lợi nhuận bán hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportIEEnventory') active @endif">
+                                    <p class="text-nav ml-2">Xuất - nhập - tồn kho</p>
                                 </a>
                             </li>
                         </ul>
