@@ -61,6 +61,7 @@ class DeliveryController extends Controller
             $workspacename = $workspacename->workspace_name;
             $users = $this->delivery->getUserInDelivery();
             $deliveries = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
+                ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
                 ->select(
                     'delivery.id',
                     'delivery.guest_id',
@@ -74,6 +75,7 @@ class DeliveryController extends Controller
                     'users.name',
                     'detailexport.guest_name',
                     'delivery.promotion',
+                    'guest.guest_name_display as nameGuest',
                     'delivery.totalVAT as totalVAT',
                     DB::raw('(
                         SELECT 
@@ -109,6 +111,7 @@ class DeliveryController extends Controller
                     'delivery.status',
                     'detailexport.guest_name',
                     'delivery.totalVAT',
+                    'guest.guest_name_display',
                     'delivery.promotion',
                 )
                 ->orderBy('delivery.id', 'desc');
@@ -167,7 +170,6 @@ class DeliveryController extends Controller
      */
     public function store(string $workspace, Request $request)
     {
-        // dd($request->all());
         if ($request->action == 1) {
             $delivery_id = $this->delivery->addDelivery($request->all());
             $this->delivered->addDelivered($request->all(), $delivery_id);

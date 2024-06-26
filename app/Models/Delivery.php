@@ -115,9 +115,9 @@ class Delivery extends Model
     {
         $delivery = Delivery::where('delivery.id', $id)
             ->where('delivery.workspace_id', Auth::user()->current_workspace)
-            // ->leftJoin('guest', 'delivery.guest_id', 'guest.id')
+            ->leftJoin('guest', 'delivery.guest_id', 'guest.id')
             ->leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
-            // ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
+            ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
             ->select('*', 'delivery.id as soGiaoHang', 'delivery.status as tinhTrang', 'delivery.created_at as ngayGiao', 'delivery.promotion as promotion_delivery')
             ->first();
         return $delivery;
@@ -812,7 +812,7 @@ class Delivery extends Model
         $id_history = [];
         //Thêm delivered
         for ($i = 0; $i < count($data['product_name']); $i++) {
-            $price = str_replace(',', '', $data['product_price'][$i]);
+            $price = str_replace(',', '', $data['product_price'][$i] ?? '0');
             if (!empty($data['price_import'][$i])) {
                 $priceImport = str_replace(',', '', $data['price_import'][$i]);
             } else {
@@ -855,9 +855,9 @@ class Delivery extends Model
             } else {
                 $product_price = null;
             }
-            $promotionValue = str_replace(',', '', $data['discount_input'][$i]);
+            $promotionValue = str_replace(',', '', $data['discount_input'][$i] ?? 0);
             $promotion_product = [
-                'type' => $data['discount_option'][$i],
+                'type' => $data['discount_option'][$i] ?? 0,
                 'value' => $promotionValue,
             ];
 
@@ -1120,14 +1120,14 @@ class Delivery extends Model
                     // dd($data);
                     $dataQuote = [
                         'detailexport_id' => isset($delivery->detailexport_id) ? $delivery->detailexport_id : 0,
-                        'product_code' => $data['product_code'][$i],
+                        'product_code' => $data['product_code'][$i] ?? null,
                         'product_id' => $checkProduct == null ? $product->id : $checkProduct->id,
                         'product_name' => $data['product_name'][$i],
                         'product_unit' => $data['product_unit'][$i],
                         'product_qty' => $data['product_qty'][$i],
-                        'product_tax' => $data['product_tax'][$i],
-                        'product_total' => (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['product_price'][$i])),
-                        'price_export' => str_replace(',', '', $data['product_price'][$i]),
+                        'product_tax' => $data['product_tax'][$i] ?? 0,
+                        'product_total' => (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['product_price'][$i] ?? 0)),
+                        'price_export' => str_replace(',', '', $data['product_price'][$i] ?? 0),
                         'product_ratio' => 0,
                         'price_import' => 0,
                         'workspace_id' => Auth::user()->current_workspace,
@@ -1350,6 +1350,10 @@ class Delivery extends Model
                 'detailexport.guest_name',
                 'delivery.promotion',
                 'delivery.totalVat as totalVat',
+                'detailexport.amount_owed as conLai',
+                DB::raw(
+                    'detailexport.total_price + detailexport.total_tax as tongTien'
+                ),
                 'groups.name as nhomKH',
                 DB::raw('(
                         SELECT 
@@ -1389,9 +1393,13 @@ class Delivery extends Model
                 'delivery.promotion',
                 'delivery.totalVat',
                 'groups.name',
+                'detailexport.amount_owed',
+                'detailexport.total_price',
+                'detailexport.total_tax',
             )
             ->orderBy('delivery.id', 'desc');
         $deliveries = $deliveries->get();
+        // dd($deliveries);
         return $deliveries;
     }
 }

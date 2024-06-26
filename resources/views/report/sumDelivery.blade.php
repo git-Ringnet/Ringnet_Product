@@ -220,11 +220,9 @@
                                             @endphp
                                             @foreach ($sumDelivery as $item)
                                                 @php
-                                                    $totalVatSum += $item->totalProductVat;
-                                                    $totalAfterVatSum += $item->totalProductVat - $item->totalVat;
-                                                    $totalConlai +=
-                                                        $item->totalProductVat -
-                                                        ($item->totalProductVat - $item->totalVat);
+                                                    $totalVatSum += $item->tongTien;
+                                                    $totalAfterVatSum += $item->tongTien - $item->conLai;
+                                                    $totalConlai += $item->conLai;
                                                 @endphp
                                                 <tr class="position-relative">
                                                     <td class="text-13-black height-52 border">
@@ -237,13 +235,13 @@
                                                         {{ $item->nameGuest }}
                                                     </td>
                                                     <td class="text-13-black height-52 border">
-                                                        {{ number_format($item->totalProductVat) }}
+                                                        {{ number_format($item->tongTien) }}
                                                     </td>
                                                     <td class="text-13-black height-52 border">
-                                                        {{ number_format($item->totalProductVat - $item->totalVat) }}
+                                                        {{ number_format($item->tongTien - $item->conLai) }}
                                                     </td>
                                                     <td class="text-13-black height-52 border">
-                                                        {{ number_format($item->totalProductVat - ($item->totalProductVat - $item->totalVat)) }}
+                                                        {{ number_format($item->conLai) }}
                                                     </td>
                                                     <td class="text-13-black height-52 border">
                                                         {{ $item->ngayGiao }}

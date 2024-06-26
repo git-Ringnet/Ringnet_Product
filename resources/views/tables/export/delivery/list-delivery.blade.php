@@ -249,7 +249,7 @@
                                                     <div class="icon" id="icon-shipping_fee"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 8%;">
+                                            <th scope="col" class="height-52" style="">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="trangThai" data-sort-type="DESC"><button
@@ -259,7 +259,7 @@
                                                     <div class="icon" id="icon-trangThai"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 d-none">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="totalProductVat" data-sort-type="DESC"><button
@@ -313,7 +313,7 @@
                                                 </td>
                                                 <td
                                                     class="text-13-black max-width120 text-left border-bottom border-top-0">
-                                                    {{ $item_delivery->guest_name }}
+                                                    {{ $item_delivery->nameGuest }}
                                                 </td>
                                                 @can('isAdmin')
                                                     <td
@@ -334,7 +334,7 @@
                                                         <span class="text-success">Đã giao</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-right border-bottom border-top-0">
+                                                <td class="text-13-black text-right border-bottom border-top-0 d-none">
                                                     {{ number_format($item_delivery->totalProductVat) }}
                                                 </td>
                                                 <td

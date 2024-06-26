@@ -66,7 +66,7 @@ class CashReceipt extends Model
     }
     public function delivery()
     {
-        return $this->belongsTo(Delivery::class);
+        return $this->belongsTo(DetailExport::class, 'delivery_id', 'id');
     }
     public function getQuoteCount()
     {
@@ -138,6 +138,12 @@ class CashReceipt extends Model
                 if ($detailE) {
                     $conlai =  $detailE->amount_owed - $cashRC->amount;
                     $detailE->amount_owed = $conlai;
+                    if ($conlai == 0) {
+                        $detailE->status = 2;
+                        $detailE->status_pay = 2;
+                    } else {
+                        $detailE->status_pay = 3;
+                    }
                     $detailE->save();
                 }
             }
@@ -167,6 +173,12 @@ class CashReceipt extends Model
         if ($detailE) {
             $conlai = $detailE->amount_owed - $cashReceipt->amount;
             $detailE->amount_owed = $conlai;
+            if ($conlai == 0) {
+                $detailE->status = 2;
+                $detailE->status_pay = 2;
+            } else {
+                $detailE->status_pay = 3;
+            }
             $detailE->save();
         }
         return $cashReceipt;

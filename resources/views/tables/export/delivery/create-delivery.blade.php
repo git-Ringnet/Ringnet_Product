@@ -115,33 +115,32 @@
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                        <th class="border-bottom border-right" style="width: 15%;padding-left:2rem;">
+                                        <th class="border-bottom border-right d-none" style="">
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">Tên sản
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="">Tên sản
                                             phẩm</th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="">Đơn vị
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-right text-13" style="">
                                             Số lượng
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-right text-13 d-none" style="">
                                             Quản lý SN
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-right text-13 d-none" style="">
                                             Đơn giá
                                         </th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:15%;">
+                                        <th class="border-right p-0 px-2 text-center text-13 d-none" style="">
                                             %CK
                                         </th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-center text-13 d-none" style="">
                                             Thuế
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
+                                        <th class="border-right p-0 px-2 text-right text-13 d-none" style="">
                                             Thành tiền
                                         </th>
                                         <th class="border-right p-0 px-2 text-left note text-13">Ghi chú sản phẩm</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -212,7 +211,7 @@
                             </div>
                         </div>
                     </section>
-                    <div class="content">
+                    <div class="content d-none">
                         <div class="row" style="width:95%;">
                             <div class="position-relative col-lg-4 px-0"></div>
                             <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
@@ -1066,10 +1065,8 @@
             );
             // 
             // Gắn các phần tử vào hàng mới
-            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, quanLySN, donGia, chiTietChietKhau,
-                thue, thanhTien,
-                ghiChu,
-                option);
+            newRow.append(tenSanPham, dvTinh, soLuong,
+                ghiChu);
             $("#dynamic-fields").before(newRow);
             checkProductTaxValues();
             if (!checkProductTaxValues()) {
@@ -2868,7 +2865,7 @@
                                 };
                                 var newRow = `
                                 <tr id="dynamic-row-${item.maSP}" class="bg-white addProduct">
-                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
                                         <div class="d-flex w-100 justify-content-between align-items-center">
                                             <span class='mx-2'>
                                                 <svg xmlns='http://www.w3.org/2000/svg' width='10' height='13' viewBox='0 0 10 13' fill='none'>
@@ -2911,22 +2908,22 @@
                                         </div>  
                                         </div>
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
                                         <a class="open-modal-btn text-center" href="#" data-target="#exampleModal0" data-toggle="modal">
                                             <div class="sn--modal pt-2">
                                                 <span class="border-span--modal">SN</span>
                                             </div>
                                         </a>
                                     </td>
-                                    <td class="text-center d-none border-top-0">
+                                    <td class="text-center d-none border-top-0 d-none">
                                         <input class="check-add-sn" data-seri="${item.maSP}" type="checkbox" name="cbSeri[]" value="1" ${(item.check_seri == 1) ? 'checked' : ''}>    
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
                                         <input type="text" value="${formatCurrency(item.price_export)}" readonly 
                                             class="border-0 px-2 py-1 w-100 text-right product_price height-32" autocomplete="off" name="product_price[]" required="" readonly="readonly">
                                             <a href='#'><p class="mt-3 text-13-blue recentModal mb-0" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</p></a>
                                     </td>
-                                    <td class="border-right p-2 align-top border-bottom border-top-0">
+                                    <td class="border-right p-2 align-top border-bottom border-top-0 d-none">
                                         <div class="d-flex flex-column align-items-center">
                                             <input type="text" name="discount_input[]" 
                                                 class="discount_input text-13-black text-right py-1 w-100 height-32 mt-1" 
@@ -2939,7 +2936,7 @@
                                             </select>
                                         </div>
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
                                         <select class="border-0 py-1 w-100 text-center product_tax height-32" required="" disabled>
                                             <option value="0" ${(item.thueSP == 0) ? 'selected' : ''}>0%</option>
                                             <option value="8" ${(item.thueSP == 8) ? 'selected' : ''}>8%</option>
@@ -2948,7 +2945,7 @@
                                         </select>
                                         <input type="hidden" class="product_tax" value="${(item.thueSP)}" name="product_tax[]">
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
                                         <input type="text" value="${formatCurrency(item.product_total)}" readonly 
                                             class="border-0 px-2 text-right py-1 w-100 total-amount height-32">
                                     </td>
@@ -2956,13 +2953,13 @@
                                     <td class="border border-bottom-0 position-relative product_ratio d-none border-top-0">
                                         <input type="text" value="${item.product_ratio}" readonly class="border-0 px-2 py-1 w-100 heSoNhan" autocomplete="off" required="required" name="product_ratio[]">
                                     </td>
-                                    <td class="border border-bottom-0 position-relative price_import d-none border-top-0">
+                                    <td class="border border-bottom-0 position-relative price_import d-none border-top-0 d-none">
                                         <input type="text" value="${formatCurrency(item.price_import)}" readonly class="border-0 px-2 py-1 w-100 giaNhap" autocomplete="off" required="required" name="price_import[]">
                                     </td>
                                     <td class="border-right p-2 text-13 align-top note p-1 border-bottom border-top-0">
                                         <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100 height-32" name="product_note[]">
                                     </td>
-                                    <td class="border-bottom text-right deleteProduct border-top-0" data-name1='GH' data-des='Xóa sản phẩm'>
+                                    <td class="border-bottom text-right deleteProduct border-top-0 d-none" data-name1='GH' data-des='Xóa sản phẩm'>
                                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z" fill="#6B6F76"></path></svg>
                                     </td>
                                     <td style="display:none;"><input type="text" class="product_tax1" value="${tax}"></td>

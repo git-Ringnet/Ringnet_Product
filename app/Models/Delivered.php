@@ -29,7 +29,7 @@ class Delivered extends Model
     {
         $productID = null;
         for ($i = 0; $i < count($data['product_name']); $i++) {
-            $price = str_replace(',', '', $data['product_price'][$i]);
+            $price = str_replace(',', '', $data['product_price'][$i] ?? 0);
             if (!empty($data['price_import'][$i])) {
                 $priceImport = str_replace(',', '', $data['price_import'][$i]);
             } else {
@@ -72,15 +72,15 @@ class Delivered extends Model
             }
             //thêm giá xuất và thành tiền có thuế của mỗi sản phẩm giao
             $product_tax = 0;
-            if ($data['product_tax'][$i] == 99) {
+            if ($data['product_tax'][$i] ?? 0 == 99) {
                 $product_tax = 0;
             } else {
-                $product_tax = $data['product_tax'][$i];
+                $product_tax = $data['product_tax'][$i] ?? 0;
             }
 
-            $promotionValue = str_replace(',', '', $data['discount_input'][$i]);
+            $promotionValue = str_replace(',', '', $data['discount_input'][$i] ?? 0);
             $promotion = [
-                'type' => $data['discount_option'][$i],
+                'type' => $data['discount_option'][$i] ?? 0,
                 'value' => $promotionValue,
             ];
 

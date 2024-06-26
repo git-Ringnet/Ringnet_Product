@@ -183,24 +183,28 @@
                                 <table class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:44px;">
-                                            <th class="border-right p-0 px-2 text-13" style="width:15%;">
+                                            <th class="border-right p-0 px-2 text-13 d-none" style="">
                                                 <span class="text-left ml-2">Mã sản phẩm</span>
                                             </th>
-                                            <th class="border-right p-0 px-2 text-13" style="width:15%;">
+                                            <th class="border-right p-0 px-2 text-13" style="">
                                                 Tên sản phẩm
                                             </th>
-                                            <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                            <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                            <th class="border-right p-0 px-2 text-13" style=";">Đơn vị</th>
+                                            <th class="border-right p-0 px-2 text-right text-13" style="">
                                                 Số lượng</th>
-                                            <th class="border-right p-0 px-2 text-center text-13" style="width:8%;">
+                                            <th class="border-right p-0 px-2 text-center text-13 d-none"
+                                                style="width:8%;">
                                                 Quản lý SN</th>
-                                            <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                            <th class="border-right p-0 px-2 text-right text-13 d-none"
+                                                style="width:10%;">
                                                 Đơn giá</th>
-                                            <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
+                                            <th class="border-right p-0 px-2 text-right text-13 d-none"
+                                                style="width:15%;">
                                                 %CK</th>
-                                            <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
+                                            <th class="border-right p-0 px-2 text-center text-13 d-none"
+                                                style="width:10%;">
                                                 Thuế</th>
-                                            <th class="border-right p-0 px-1 text-center text-13"style="width:10%;">
+                                            <th class="border-right p-0 px-1 text-center text-13 d-none"style="">
                                                 Thành tiền</th>
                                             <th class="p-0 px-2 text-center note text-13">Ghi chú sản phẩm
                                             </th>
@@ -209,7 +213,7 @@
                                     <tbody>
                                         @foreach ($product as $item_quote)
                                             <tr class="bg-white addProduct" style="height:80px;">
-                                                <td class='border-right p-2 text-13 align-top border-bottom border-top-0'
+                                                <td class='border-right p-2 text-13 align-top border-bottom border-top-0 d-none'
                                                     style="padding-left: 2rem !important;">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item_quote->product_code }}"
@@ -278,7 +282,7 @@
                                                     @endif
                                                 </td>
                                                 <td
-                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
                                                     <div class="d-flex align-items-center justify-content-center">
                                                         @if ($item_quote->check_seri == 1)
                                                             <a href="#" class="btn btn-primary sn1 activity"
@@ -295,7 +299,7 @@
                                                     </div>
                                                 </td>
                                                 <td
-                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
                                                     <input type="text"
                                                         value="{{ number_format($item_quote->price_export) }}"
                                                         class="text-right border-0 px-2 py-1 w-100 product_price height-32"
@@ -310,7 +314,7 @@
                                                     </a>
                                                 </td>
                                                 <td
-                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
                                                     @php
                                                         $promotionArray = json_decode($item_quote->promotion, true);
                                                         $promotionValue = isset($promotionArray['value'])
@@ -339,7 +343,7 @@
                                                     </div>
                                                 </td>
                                                 <td
-                                                    class="border-right p-2 text-13 align-top text-center border-bottom border-top-0">
+                                                    class="border-right p-2 text-13 align-top text-center border-bottom border-top-0 d-none">
                                                     <select name="product_tax[]"
                                                         class="border-0 text-center product_tax height-32" disabled>
                                                         <option value="0" <?php if ($item_quote->product_tax == 0) {
@@ -358,7 +362,7 @@
                                                     </select>
                                                 </td>
                                                 <td
-                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
                                                     <input type="text" readonly=""
                                                         value="{{ number_format($item_quote->product_total) }}"
                                                         class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>
@@ -397,7 +401,7 @@
                                 </table>
                             </div>
                         </section>
-                        <div class="content">
+                        <div class="content d-none">
                             <div class="row" style="width:95%;">
                                 <div class="position-relative col-lg-4 px-0"></div>
                                 <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
@@ -558,7 +562,7 @@
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
                         <input readonly class="text-13-black w-50 border-0 bg-input-guest"
-                            value="{{ $delivery->guest_name }}" style="flex:2;" id="myInput">
+                            value="{{ $delivery->guest_name_display }}" style="flex:2;" id="myInput">
                         <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"

@@ -273,6 +273,8 @@
                                                 $totalPriceExport = 0;
                                                 $totalProductTotalVat = 0;
                                                 $totalItemDeliveryTotalProductVat = 0;
+                                                $totalPay = 0;
+                                                $totalRemai = 0;
                                             @endphp
 
                                             @foreach ($allDelivery as $itemDelivery)
@@ -287,7 +289,12 @@
                                                 @if ($matchedItems->isNotEmpty())
                                                     @php
                                                         $totalItemDeliveryTotalProductVat +=
-                                                            $itemDelivery->totalProductVat+$itemDelivery->total_tax;
+                                                            $itemDelivery->totalProductVat + $itemDelivery->total_tax;
+                                                        $totalPay =
+                                                            $itemDelivery->totalProductVat +
+                                                            $itemDelivery->total_tax -
+                                                            $itemDelivery->amount_owed;
+                                                        $totalRemai = $itemDelivery->amount_owed;
                                                     @endphp
                                                     @foreach ($matchedItems as $item)
                                                         @php
@@ -333,19 +340,21 @@
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                Thanh toán
+                                                                {{ number_format($itemDelivery->totalProductVat + $itemDelivery->total_tax - $itemDelivery->amount_owed) }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                Còn lại
+                                                                {{ number_format($itemDelivery->amount_owed) }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
                                                                 @if ($loop->first)
                                                                     @if ($itemDelivery->status == 1)
-                                                                        <span>Nháp</span>
+                                                                        <span>Draft</span>
                                                                     @elseif ($itemDelivery->status == 2)
-                                                                        <span class="text-green">Đã giao</span>
+                                                                        <span class="text-yellow">Approved</span>
+                                                                    @elseif($itemDelivery->status == 3)
+                                                                        <span class="text-green">Close</span>
                                                                     @endif
                                                                 @endif
                                                             </td>
@@ -354,20 +363,22 @@
                                                 @endif
                                             @endforeach
                                             <tr class="position-relative">
-                                                <td colspan="6" class="text-13-black height-52 border text-center">
+                                                <td colspan="6" class="text-red height-52 border text-center">
                                                     <strong>Tổng cộng</strong>
                                                 </td>
-                                                <td class="text-13-black height-52 border">
+                                                <td class="text-red height-52 border">
                                                     {{ number_format($totalDeliverQty) }}</td>
-                                                <td class="text-13-black height-52 border">
+                                                <td class="text-red height-52 border">
                                                     {{ number_format($totalPriceExport) }}</td>
-                                                <td class="text-13-black height-52 border">
+                                                <td class="text-red height-52 border">
                                                     {{ number_format($totalProductTotalVat) }}</td>
-                                                <td class="text-13-black height-52 border">
+                                                <td class="text-red height-52 border">
                                                     {{ number_format($totalItemDeliveryTotalProductVat) }}</td>
-                                                <td class="text-13-black height-52 border"></td>
-                                                <td class="text-13-black height-52 border"></td>
-                                                <td class="text-13-black height-52 border"></td>
+                                                <td class="text-red height-52 border">
+                                                    {{ number_format($totalPay) }}</td>
+                                                <td class="text-red height-52 border">
+                                                    {{ number_format($totalRemai) }}</td>
+                                                <td class="text-red height-52 border"></td>
                                             </tr>
 
 

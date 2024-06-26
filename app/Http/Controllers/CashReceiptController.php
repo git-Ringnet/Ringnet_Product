@@ -48,7 +48,7 @@ class CashReceiptController extends Controller
         $workspacename = $workspacename->workspace_name;
         $funds = Fund::all();
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
-        $content = ContentGroups::where('contenttype_id', 1)->get();
+        $content = ContentGroups::where('contenttype_id', 1)->where('workspace_id', Auth::user()->current_workspace)->get();
 
         // $deliveries = Delivery::select(
         //     'delivery.id',
@@ -136,72 +136,16 @@ class CashReceiptController extends Controller
         $workspacename = $workspacename->workspace_name;
         $funds = Fund::all();
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
-        $content = ContentGroups::where('contenttype_id', 1)->get();
+        $content = ContentGroups::where('contenttype_id', 1)->where('workspace_id', Auth::user()->current_workspace)->get();
 
-        $deliveries = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
-            ->select(
-                'delivery.id',
-                'delivery.guest_id',
-                'delivery.quotation_number',
-                'delivery.code_delivery',
-                'delivery.shipping_unit',
-                'delivery.shipping_fee',
-                'delivery.id as maGiaoHang',
-                'delivery.created_at as ngayGiao',
-                'delivery.status as trangThai',
-                'users.name',
-                'detailexport.guest_name',
-                'delivery.promotion',
-                DB::raw('(
-                        SELECT 
-                            CASE 
-                                WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) != 0 THEN 
-                                    CASE 
-                                        WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN 
-                                            (COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) * (1 + (COALESCE(MAX(products.product_tax), 0) / 100)) -- Giảm số tiền trực tiếp và áp dụng thuế
-                                        WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 2 THEN 
-                                            ((COALESCE(SUM(product_total_vat), 0) * (100 - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) / 100)) * (1 + (COALESCE(MAX(products.product_tax), 0) / 100)) -- Giảm phần trăm trên tổng giá trị sản phẩm và áp dụng thuế
-                                        ELSE 
-                                            COALESCE(SUM(product_total_vat), 0) -- Không có khuyến mãi
-                                    END
-                                ELSE
-                                    COALESCE(SUM(product_total_vat), 0) -- Giá trị ban đầu nếu $.value = 0
-                            END
-                        FROM delivered 
-                        LEFT JOIN products ON delivered.product_id = products.id
-                        WHERE delivered.delivery_id = delivery.id
-                    ) as totalProductVat')
-            )
-            ->leftJoin('users', 'users.id', 'delivery.user_id')
-            ->where('delivery.workspace_id', Auth::user()->current_workspace)
-            ->where('delivery.status', 2)
-            ->where('delivery.totalVat', '>', 0)
-            ->groupBy(
-                'delivery.id',
-                'delivery.guest_id',
-                'delivery.quotation_number',
-                'delivery.code_delivery',
-                'delivery.shipping_unit',
-                'delivery.shipping_fee',
-                'users.name',
-                'delivery.created_at',
-                'delivery.status',
-                'detailexport.guest_name',
-                'delivery.promotion',
-            )
-            ->orderBy('delivery.id', 'desc');
-        if (Auth::check()) {
-            if (Auth::user()->getRoleUser->roleid == 4) {
-                $deliveries->where('delivery.user_id', Auth::user()->id);
-            }
-        }
-        $deliveries = $deliveries->get();
+
+        $detailOwed = DetailExport::where('workspace_id', Auth::user()->current_workspace)->where('amount_owed', '>', 0)->get();
         // dd($deliveries);
         $invoiceAuto = $this->cash_receipts->getQuoteCount();
 
         $cashReceipt = CashReceipt::with(['guest', 'fund', 'user', 'content', 'workspace', 'delivery'])->findOrFail($id);
         $disabled = ($cashReceipt->status == 2) ? 'disabled' : '';
-        return view('tables.cash_receipts.edit', compact('title', 'invoiceAuto', 'deliveries', 'guest', 'cashReceipt', 'disabled', 'funds', 'workspacename', 'content'));
+        return view('tables.cash_receipts.edit', compact('title', 'invoiceAuto', 'detailOwed', 'guest', 'cashReceipt', 'disabled', 'funds', 'workspacename', 'content'));
     }
     public function update(string $workspace, Request $request, string $id)
     {
