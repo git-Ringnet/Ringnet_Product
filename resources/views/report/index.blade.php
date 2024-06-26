@@ -2650,7 +2650,7 @@
                                                             {{-- @if ($item->getDataReport && $item->product_id == $item->getDataReport->product_id)
                                                                 {{ number_format($item->getDataReport->price_export) }}
                                                             @endif --}}
-                                                            {{ number_format($item['gianhap'] * $item['product_inventory']) }}
+                                                            {{ number_format($item['giaTon']) }}
                                                         </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">

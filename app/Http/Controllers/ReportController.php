@@ -130,8 +130,10 @@ class ReportController extends Controller
         //Thống kê xuất nhập tồn kho
         // Lấy tổng số lượng quoteimport và quoteexport theo product_id
         $quoteExportQty = DB::table('quoteexport')
-            ->select('product_id', DB::raw('SUM(product_qty) as totalExportQty'))
-            ->groupBy('product_id')
+            ->leftJoin('detailexport', 'quoteexport.detailexport_id', '=', 'detailexport.id')
+            ->select('quoteexport.product_id', DB::raw('SUM(quoteexport.product_qty) as totalExportQty'))
+            ->whereNotIn('detailexport.status_receive', [0, 1])
+            ->groupBy('quoteexport.product_id')
             ->get()
             ->keyBy('product_id');
 
@@ -143,41 +145,44 @@ class ReportController extends Controller
                 'quoteimport.product_name',
                 'quoteimport.product_unit',
                 'products.product_inventory',
-                DB::raw('SUM(quoteimport.product_qty) as totalImportQty'),
+                DB::raw('SUM(quoteimport.product_qty) as totalImportQty')
             )
             ->groupBy('quoteimport.product_id', 'quoteimport.product_code', 'quoteimport.product_name', 'quoteimport.product_unit', 'products.product_inventory')
             ->get();
 
-        // Bước 2: Tạo mảng để lưu kết quả cuối cùng
         $htrImport = [];
 
         foreach ($totalQuantities as $quantity) {
-            // Lấy product_id
             $productId = $quantity->product_id;
-
-            // Lấy tổng số lượng import (totalImportQty)
             $totalImportQty = $quantity->totalImportQty;
-
-            // Lấy tổng số lượng xuất (totalExportQty) từ Bước 1
             $totalExportQty = isset($quoteExportQty[$productId]) ? $quoteExportQty[$productId]->totalExportQty : 0;
 
-            // Lấy danh sách quoteimport theo product_id, sắp xếp theo product_id tăng dần
             $quoteImports = DB::table('quoteimport')
                 ->where('product_id', $productId)
-                ->orderBy('id', 'asc')
+                ->orderBy('id', 'asc') // Sắp xếp theo thứ tự nhập
                 ->get();
 
             $remainingExportQty = $totalExportQty;
-            $priceExport = null;
+            $totalCost = 0;
+            $remainingQty = 0;
 
             foreach ($quoteImports as $import) {
-                if ($remainingExportQty <= $import->product_qty) {
-                    $priceExport = $import->price_export;
-                    break;
-                } else {
+                if ($remainingExportQty <= 0) {
+                    $remainingQty += $import->product_qty;
+                    $totalCost += $import->product_qty * $import->price_export;
+                    continue;
+                }
+
+                if ($import->product_qty <= $remainingExportQty) {
                     $remainingExportQty -= $import->product_qty;
+                } else {
+                    $remainingQty += ($import->product_qty - $remainingExportQty);
+                    $totalCost += ($import->product_qty - $remainingExportQty) * $import->price_export;
+                    $remainingExportQty = 0;
                 }
             }
+
+            $giaTon = $remainingQty > 0 ? $totalCost : null;
 
             $htrImport[] = [
                 'product_code' => $quantity->product_code,
@@ -186,7 +191,7 @@ class ReportController extends Controller
                 'product_inventory' => $quantity->product_inventory,
                 'slNhap' => $totalImportQty,
                 'slXuat' => $totalExportQty,
-                'gianhap' => $priceExport
+                'giaTon' => $giaTon
             ];
         }
 
