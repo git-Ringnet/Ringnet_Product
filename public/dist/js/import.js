@@ -158,7 +158,6 @@ function createRowInput(name) {
             });
     }
 }
-
 // Tìm kiếm thông tin nhà cung cấp
 function searchInput(input, list) {
     $(document).on("keyup", input, function () {
@@ -185,7 +184,6 @@ function calculateAll() {
     if (promotion) {
         promotion.replace(/[^0-9.-]+/g, "") || 0;
     }
-
     if (total_amount > 0) {
         if ($("input[name^='promotion-total']")) {
             var promotion = $("input[name^='promotion-total']").val().replace(/[^0-9.-]+/g, "") || 0;
@@ -306,10 +304,9 @@ function updateTaxAmount() {
         }
         var taxValue = parseFloat($(this).find(".product_tax").val());
         if (taxValue == 99) {
-            taxValue = 0;
+            taxValue = 0; 
         }
         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
-            console.log(promotion);
             if (promotion > 0) {
                 if (option_promotion == 1) {
                     var totalAmount = productQty * productPrice - promotion;
@@ -501,7 +498,6 @@ updateTaxAmount();
 calculateTotalAmount();
 calculateTotalTax();
 calculateGrandTotal();
-updateTotalPrice($(this));
 calculateAll();
 // Xóa hàng SN
 $(document).on("click", ".deleteRow1", function () {
