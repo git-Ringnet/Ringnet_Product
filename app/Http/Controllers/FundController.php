@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fund;
+use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,15 +14,28 @@ class FundController extends Controller
     /**
      * Display a listing of the resource.
      */
+    private $workspaces;
+    public function __construct()
+    {
+        $this->workspaces = new Workspace();
+    }
     public function index()
     {
-        $funds = Fund::all();
-        return view('tables.funds.index', compact('funds'));
+        $funds = Fund::where('workspace_id', Auth::user()->current_workspace)
+            ->orderby('id', 'desc')
+            ->get();
+        $title = "Quỹ";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        return view('tables.funds.index', compact('title', 'funds', 'workspacename'));
     }
 
     public function create()
     {
-        return view('tables.funds.create');
+        $title = "Quỹ";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        return view('tables.funds.create', compact('title', 'workspacename'));
     }
 
     public function store(Request $request)
@@ -52,17 +66,23 @@ class FundController extends Controller
         ];
 
         DB::table('funds')->insert($dataFunds);
-        return redirect()->route('funds.index')->with('success', 'Fund created successfully.');
+        return redirect()->route('funds.index')->with('msg', 'Tạo quỹ mới thành công!');
     }
 
     public function show(Fund $fund)
     {
-        return view('tables.funds.show', compact('fund'));
+        $title = "Quỹ";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        return view('tables.funds.show', compact('fund', 'title', 'workspacename'));
     }
 
     public function edit(Fund $fund)
     {
-        return view('tables.funds.edit', compact('fund'));
+        $title = "Quỹ";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        return view('tables.funds.edit', compact('fund', 'title', 'workspacename'));
     }
 
     public function update(Request $request, Fund $fund)
@@ -79,13 +99,13 @@ class FundController extends Controller
         ]);
 
         $fund->update($request->all());
-        return redirect()->route('funds.index')->with('success', 'Fund updated successfully.');
+        return redirect()->route('funds.index')->with('msg', 'Cập nhật quỹ thành công!');
     }
 
     public function destroy(Fund $fund)
     {
         $fund->delete();
-        return redirect()->route('funds.index')->with('success', 'Fund deleted successfully.');
+        return redirect()->route('funds.index')->with('msg', 'Xóa quỹ thành công!');
     }
     public function calculateFunds($id, $money)
     {
