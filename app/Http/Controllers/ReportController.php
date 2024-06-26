@@ -534,9 +534,9 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
 
+        $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
 
-
-        return view('report.reportReturnImport', compact('title'));
+        return view('report.reportReturnImport', compact('title','returnImport'));
     }
 
 

@@ -100,14 +100,15 @@
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:47px;">
-                                        <th class="border-right border-bottom d-none" style="width: 15%;padding-left:2rem;">
+                                        <th class="border-right border-bottom d-none"
+                                            style="width: 15%;padding-left:2rem;">
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
                                         <th scope="col" class="border-right border-bottom">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
                                                     data-sort-type="">
-                                                    <button class="btn-sort text-13" type="submit">Tên hàng 
+                                                    <button class="btn-sort text-13" type="submit">Tên hàng
                                                         hóa</button>
                                                 </a>
                                                 <div class="icon" id="icon-created_at"></div>
@@ -552,11 +553,17 @@
                             id: data.id
                         },
                         success: function(product) {
+                            console.log(product.quoteImport);
                             $('#product').html(product)
                             $('#inputcontent tbody').empty();
                             product.quoteImport.forEach((element, index) => {
                                 if (element.product_qty - element
                                     .receive_qty > 0) {
+
+                                    // console.log(element.product_qty)
+                                    // console.log(element.receive_qty);
+
+
                                     var promotionObject = JSON.parse(
                                         element.promotion);
                                     var tr =
@@ -673,11 +680,11 @@
                                                         <input onclick="getDataCheckbox(this)" 
                                                             type="checkbox" ` + (product.checked[index] == 'endable' ||
                                             product.cb[index] == 1 ?
-                                            'checked' : '') + ` ` + (
+                                            '' : '') + ` ` + (
                                             product.checked[index]) + ` >
                                                         <input type="hidden" name="cbSeri[]" 
                                                                 value="` + (product.checked[index] == 'endable' ||
-                                            product.cb[index] == 1 ? 1 :
+                                            product.cb[index] == 1 ? 0 :
                                             0) + `">
 
                                             <a class="duongdan" data-toggle="modal" 

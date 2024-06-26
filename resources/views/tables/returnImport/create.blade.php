@@ -423,6 +423,7 @@
                     table: table
                 },
                 success: function(data) {
+                    console.log(data);
                     $('#detailimport_id').val(data.product[0].receive_id);
                     $('#myInput1').val(data.product[0].receive_id);
                     $('#inputcontent tbody').empty();
