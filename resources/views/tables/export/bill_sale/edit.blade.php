@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="billsale" :workspacename="$workspacename"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="billsale" :workspacename="$workspacename"></x-navbar>
 <form onsubmit="return kiemTraFormGiaoHang();"
     action="{{ route('billSale.update', ['workspace' => $workspacename, 'billSale' => $billSale->idHD]) }}" method="POST"
     id="formSubmit" enctype="multipart/form-data">

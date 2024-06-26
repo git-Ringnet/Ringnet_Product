@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="billsale" :workspacename="$workspacename"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="billsale" :workspacename="$workspacename"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
     <div class="content-header-fixed p-0 margin-250 border-bottom-0">
         <div class="content__header--inner margin-left32">
