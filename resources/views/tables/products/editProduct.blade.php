@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="systemFirst" activeName="editproduct"></x-navbar>
+<x-navbar :title="$title" activeGroup="systemFirst" activeName="product"></x-navbar>
 <form action="{{ route('inventory.update', ['workspace' => $workspacename, 'inventory' => $product->id]) }}"
     method="POST">
     @method('PUT')
@@ -8,7 +8,7 @@
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
-                    <span>Kho hàng</span>
+                    <span>Thiết lập ban đầu</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -71,7 +71,7 @@
                             </button>
                         </div>
                     @endif
-                    <div type="button" class="btn-option">
+                    {{-- <div type="button" class="btn-option">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -87,7 +87,7 @@
                                 fill="#42526E">
                             </path>
                         </svg>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

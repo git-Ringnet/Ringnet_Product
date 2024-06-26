@@ -7,6 +7,15 @@
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left text-long-special">
+                    <span>Thiết lập ban đầu</span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                fill="#26273B" fill-opacity="0.8" />
+                        </svg>
+                    </span>
                     <span>
                         <a class="text-dark" href="{{ route('groups.index', ['workspace' => $workspacename]) }}">Nhóm đối
                             tượng</a>
@@ -47,20 +56,6 @@
                             </svg>
                             <p class="p-0 m-0">Lưu nhóm đối tượng</p>
                         </button>
-                        <div>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -109,7 +104,7 @@
                                             value="{{ $group->description }}">
                                     </div>
                                     <a type="button"
-                                        class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                                        class="d-flex align-items-center p-2 position-sticky addGuestNew my-2"
                                         data-toggle="modal" data-target="#listModal"
                                         style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
                                         <span>
@@ -301,9 +296,9 @@
                 aria-labelledby="productModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document" style="margin-top: 5%;">
                     <div class="modal-content">
-                        <h5 class="modal-title">Danh sách</h5>
+                        <h5 class="modal-title p-2 border-bottom">Danh sách</h5>
                         <div class="modal-body pb-0 px-2 pt-0">
-                            <div class="content-info">
+                            <div class="content-info p-2 border-bottom">
                                 <div class="outer3-srcoll">
                                     <ul class="ks-cboxtags listData p-0 mb-1 px-2"
                                         data-group="{{ $group->grouptype_id }}">

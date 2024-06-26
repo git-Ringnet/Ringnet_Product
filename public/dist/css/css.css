@@ -2825,3 +2825,6 @@ input[type="checkbox"]:checked {
 .hover-tr-table tbody tr:hover{
     background-color: #e9ecef;
 }
+.bg-blue-light{
+    background-color: #F0F4FF;
+}

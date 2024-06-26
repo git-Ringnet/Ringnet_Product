@@ -6,7 +6,7 @@
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
-                    {{-- <span>Kho hàng</span>
+                    <span>Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -14,7 +14,7 @@
                                 d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
-                    </span> --}}
+                    </span>
                     <span class="nearLast-span">
                         <a class="text-dark" href="{{ route('changeWarehouse.index', $workspacename) }}">
                             Phiếu chuyển kho
@@ -69,11 +69,11 @@
                         <div class="content-info">
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Kho hàng</p>
+                                    <p class="p-0 m-0 margin-left32 text-13">Kho hàng</p>
                                 </div>
-                                <div class="border-0 py-1 w-100 height-32 text-13-black position-relative">
+                                <div class="w-100 text-13-black position-relative">
                                     <input id="searchWarehouse" type="text" placeholder="Chọn kho"
-                                        class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" readonly>
+                                        class="border w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black height-100 searchWarehouse" readonly>
                                     <input type="hidden"
                                         class="border-0 py-1 w-100 height-32 text-13-black warehouse_id"
                                         name="from_warehouse" id="from_warehouse">
@@ -108,9 +108,9 @@
                                     <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                         <p class="p-0 m-0 margin-left32 text-13">Sản phẩm</p>
                                     </div>
-                                    <div class="border-0 py-1 w-100 height-32 text-13-black position-relative">
+                                    <div class="border-0 w-100 text-13-black position-relative">
                                         <input id="searchProduct" type="text" placeholder="Chọn kho"
-                                            class="border-0 py-1 w-100 height-32 text-13-black searchProduct" readonly>
+                                            class="border w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black height-100 searchProduct" readonly>
                                         <input type="hidden"
                                             class="border-0 py-1 w-100 height-32 text-13-black product_id"
                                             name="product_id">
@@ -134,7 +134,6 @@
 
                                         </ul>
                                     </div>
-
                                 </div>
 
                                 <div class="d-flex align-items-center height-60-mobile">
@@ -142,16 +141,16 @@
                                         <p class="p-0 m-0 margin-left32 text-13">Số lượng</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="qty"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 change_qty">
+                                        class="border w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black height-100 change_qty">
                                 </div>
 
                                 <div class="d-flex align-items-center height-60-mobile">
                                     <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                         <p class="p-0 m-0 margin-left32 text-13">Đến kho</p>
                                     </div>
-                                    <div class="border-0 py-1 w-100 height-32 text-13-black position-relative">
+                                    <div class="border-0 w-100 text-13-black position-relative">
                                         <input id="searchWarehouse1" type="text" placeholder="Chọn kho"
-                                            class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse"
+                                            class="border w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black height-100 searchWarehouse"
                                             readonly>
                                         <input type="hidden"
                                             class="border-0 py-1 w-100 height-32 text-13-black warehouse_id"

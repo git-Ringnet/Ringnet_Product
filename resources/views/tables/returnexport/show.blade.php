@@ -15,7 +15,7 @@
         <div class="content-header-fixed p-0 margin-250 border-bottom-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
-                    <span>Bán hàng</span>
+                    <span>Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -24,7 +24,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="nearLast-span">Đơn giao hàng</span>
+                    <span class="nearLast-span">Khách trả hàng</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -33,7 +33,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="font-weight-bold last-span">Chi tiết đơn trả hàng</span>
+                    <span class="font-weight-bold last-span">Chi tiết phiếu khách trả hàng</span>
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
@@ -197,7 +197,7 @@
                                                 class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                                 <div>
                                                     <input type="text"
-                                                        class="border-0 px-2 py-1 w-100 bg-blue quantity-input text-right"
+                                                        class="border-0 px-2 py-1 w-100 bg-blue-light quantity-input text-right"
                                                         name="product_qty[]"
                                                         oninput="checkQty(this,{{ $item->return_qty }})"
                                                         value="{{ number_format($item->return_qty) }}">

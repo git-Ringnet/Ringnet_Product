@@ -6,7 +6,7 @@
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
-                    <span>Kho hàng</span>
+                    <span>Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -17,7 +17,7 @@
                     </span>
                     <span class="nearLast-span">
                         <a class="text-dark" href="{{ route('changeFund.index', $workspacename) }}">
-                            Mua hàng
+                            Chuyển tiền nội bộ
                         </a>
                     </span>
                     <span>
@@ -28,7 +28,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="last-span">Tạo nội dung thu chi</span>
+                    <span class="last-span">Tạo chuyển tiền nội bộ</span>
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">

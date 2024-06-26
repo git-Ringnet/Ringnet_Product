@@ -7,7 +7,7 @@
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left text-long-special">
                     <span>
-                        <a class="text-dark" href="{{ route('funds.index', ['workspace' => $workspacename]) }}">Quỹ</a>
+                        Thiết lập ban đầu
                     </span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -17,7 +17,9 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="font-weight-bold">Sửa quỹ</span>
+                    <span class="font-weight-bold">
+                        <a class="text-dark" href="{{ route('funds.index', ['workspace' => $workspacename]) }}">Quỹ</a>
+                    </span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">

@@ -8,7 +8,7 @@
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
-                    <span>Kho hàng</span>
+                    <span>Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -19,22 +19,13 @@
                     </span>
                     <span class="nearLast-span">
                         <a class="text-dark" href="{{ route('changeFund.index', $workspacename) }}">
-                            Mua hàng
+                            Chuyển tiền nội bộ
                         </a>
                     </span>
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                            fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
-                                fill="#26273B" fill-opacity="0.8" />
-                        </svg>
-                    </span>
-                    <span class="last-span">Tạo nội dung thu chi</span>
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('warehouse.index', $workspacename) }}" class="user_flow" data-type="NCC"
+                        <a href="{{ route('changeFund.index', $workspacename) }}" class="user_flow" data-type="NCC"
                             data-des="Hủy thêm nhà cung cấp">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"

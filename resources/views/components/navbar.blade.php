@@ -509,7 +509,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="nav-item user_flow_nav" data-type="NCC" data-des="NCC">
+                            {{-- <li class="nav-item user_flow_nav" data-type="NCC" data-des="NCC">
                                 <a href="{{ route('billSale.index', $workspacename) }}" data-name1="BH"
                                     data-des="Hóa đơn bán hàng"
                                     class="nav-link activity1  @if (!empty($activeName) && $activeName == 'billsale') active @endif">
@@ -521,7 +521,7 @@
                                     class="nav-link @if (!empty($activeName) && $activeName == 'reciept') active @endif ">
                                     <p class="text-nav ml-2">Hóa đơn mua hàng</p>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                     <li

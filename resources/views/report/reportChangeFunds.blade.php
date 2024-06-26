@@ -198,17 +198,6 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Ghi chú
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>

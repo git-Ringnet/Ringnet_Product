@@ -7,7 +7,7 @@
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left text-long-special">
-                    <span>Bán hàng</span>
+                    <span>Thiết lập ban đầu</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -132,7 +132,7 @@
                                             <p class="p-0 m-0 margin-left32 text-13">Nhóm khách hàng</p>
                                         </div>
                                         <select name="grouptype_id" id="grouptypeSelect"
-                                            class="border border-0 w-100 py-2 px-3 text-13-black height-100">
+                                            class="border-0 w-100 py-2 px-3 text-13-black height-100">
                                             <option value="0">Chọn nhóm</option>
                                             @foreach ($groups as $item)
                                                 <option

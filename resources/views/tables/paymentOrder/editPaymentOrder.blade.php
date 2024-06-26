@@ -13,7 +13,7 @@
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
-                    <span>Mua hàng</span>
+                    <span>Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -22,7 +22,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="nearLast-span">Thanh toán mua hàng</span>
+                    <span class="nearLast-span">Phiếu chi</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -433,7 +433,7 @@
                     </div>
 
                     <div id="history" class="tab-pane fade">
-                        <div id="title--fixed" class="content-title--fixed top-111">
+                        <div id="title--fixed" class="content-title--fixed top-111 w-100" style="left: 0">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">Lịch sử thanh
                                 toán</p>
                         </div>
@@ -492,7 +492,7 @@
                     </div>
 
                     <div id="files" class="tab-pane fade">
-                        <div class="content-title--fixed top-111">
+                        <div class="content-title--fixed top-111 w-100" style="left: 0;">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM
                             </p>
                         </div>
