@@ -348,7 +348,7 @@
                                                                             $promotionArray['type'],
                                                                         )
                                                                             ? $promotionArray['type']
-                                                                            : '';
+                                                                            : "";
                                                                         $totalReturn = 0;
                                                                         $temp = 0;
                                                                         $temp =
@@ -357,7 +357,7 @@
                                                                         $totalReturn =
                                                                             $promotionOption == 1
                                                                                 ? $temp - $promotionValue
-                                                                                : ($temp * $promotionValue) / 100;
+                                                                                : $temp - ($temp * $promotionValue) / 100;
                                                                     @endphp
                                                                     <p class="m-0">
                                                                         {{ number_format($totalReturn) }}

@@ -34,7 +34,7 @@ class ReturnImportController extends Controller
         $data = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $title = "abc";
+        $title = "Trả hàng NCC";
         // $users = $this->receive->getUserInReceive();
         return view('tables.returnImport.index', compact('data', 'title', 'workspacename'));
     }

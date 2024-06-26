@@ -360,6 +360,7 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">
+                                                    {{$item->payment_type}}
                                                 </td>
                                                 @can('isAdmin')
                                                     <td class="text-13-black border-top-0 border-bottom">

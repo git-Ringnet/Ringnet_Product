@@ -73,6 +73,30 @@ function checkQty(value, odlQty) {
     }
 }
 
+// Kiểm tra ký tự là chứ cái
+function checkCharacters(input) {
+    var value = input.value;
+
+    // Biểu thức chính quy để kiểm tra chữ cái có dấu và khoảng trắng
+    var regex = /^[a-zA-ZÀ-ÿ\s]+$/;
+
+    // Kiểm tra giá trị với biểu thức chính quy
+    if (regex.test(value)) {
+        // Nếu giá trị hợp lệ, không cần làm gì thêm
+        return;
+    } else {
+        // Nếu giá trị không hợp lệ, loại bỏ các ký tự không hợp lệ từ giá trị
+        var cleanedValue = value.replace(/[^a-zA-ZÀ-ÿ\s]+/g, '');
+
+        // Gán giá trị đã chỉnh sửa trở lại vào input
+        input.value = cleanedValue;
+    }
+}
+
+
+
+
+
 function formatCurrency(value) {
     value = Math.round(value * 100) / 100;
 
@@ -304,13 +328,13 @@ function updateTaxAmount() {
         }
         var taxValue = parseFloat($(this).find(".product_tax").val());
         if (taxValue == 99) {
-            taxValue = 0; 
+            taxValue = 0;
         }
         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
             if (promotion > 0) {
                 if (option_promotion == 1) {
                     var totalAmount = productQty * productPrice - promotion;
-                   
+
                 } else {
                     var totalAmount = productQty * productPrice - (productQty * productPrice) * promotion / 100;
                 }

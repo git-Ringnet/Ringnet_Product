@@ -403,7 +403,7 @@ class PayOder extends Model
                 'workspace_id' => Auth::user()->current_workspace,
                 'payment_code' => isset($data['payment_code']) ? $data['payment_code'] : 0,
                 'payment_day' => isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now(),
-                'payment_type' => isset($data['payment_type']) ? $data['payment_type'] : "",
+                'payment_type' => isset($data['payment_type']) ? $data['payment_type'] : "abc",
                 'user_id' => Auth::user()->id,
                 'guest_id' => isset($data['guest_id']) ? $data['guest_id'] : 0,
                 'content_pay' => $data['content_pay'],
