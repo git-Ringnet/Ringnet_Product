@@ -543,14 +543,14 @@
                             </div>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ route('report.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'report') active @endif">
                                     <div class="d-flex align-items-center justify-content-between w-100">
                                         <p class="text-nav ml-2">Báo cáo</p>
                                     </div>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a href="{{ route('viewReportDebtGuests', $workspacename) }}" data-name1="BH"
                                     data-des="Thông kê công nợ khách hàng"
@@ -622,6 +622,14 @@
                                     data-des="Báo cáo lợi nhuận bán hàng"
                                     class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportChangeFunds') active @endif">
                                     <p class="text-nav ml-2">Chuyển tiền nội bộ</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('viewReportIEFunds', $workspacename) }}" data-name1="BH"
+                                    data-des="Báo cáo lợi nhuận bán hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportIEFunds') active @endif">
+                                    <p class="text-nav ml-2">Thống kê thu chi tồn quỹ</p>
                                 </a>
                             </li>
                         </ul>

@@ -549,6 +549,17 @@ class ReportController extends Controller
         $content = ContentImportExport::where('workspace_id', Auth::user()->current_workspace)->get();
         return view('report.reportChangeFunds', compact('title', 'content'));
     }
+
+
+    public function viewReportIEFunds(){
+        $title = 'Thống kê thu chi tồn quỹ';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        $inventoryDebt = Fund::where('workspace_id', Auth::user()->current_workspace)->get();
+
+
+        return view('report.reportIEFunds', compact('title', 'inventoryDebt'));
+    }
     /**
      * Show the form for creating a new resource.
      */

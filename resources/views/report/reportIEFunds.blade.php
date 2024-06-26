@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="statistic" activeName="viewReportReturnImport"></x-navbar>
+<x-navbar :title="$title" activeGroup="statistic" activeName="viewReportIEFunds"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
     <div class="content-header-fixed p-0 margin-250">
         <div class="content__header--inner margin-left32">
@@ -122,17 +122,6 @@
                                     <table id="example2" class="table table-hover">
                                         <thead>
                                             <tr>
-                                                {{-- <th scope="col" class="height-52 border">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                STT
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th> --}}
                                                 <th scope="col" class="height-52 border">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
@@ -145,11 +134,55 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="height-52 border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link"
+                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                            <button class="btn-sort text-13" type="submit">
+                                                                Chứng từ
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-guest_name_display"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="height-52 border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link"
+                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                            <button class="btn-sort text-13" type="submit">
+                                                                Tên
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-guest_name_display"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="height-52 border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link"
+                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                            <button class="btn-sort text-13" type="submit">
+                                                                Nội dung thu chi
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-guest_name_display"></div>
+                                                    </span>
+                                                </th>
+                                                {{-- <th scope="col" class="height-52 border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link"
+                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                            <button class="btn-sort text-13" type="submit">
+                                                                Đầu kỳ
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-guest_name_display"></div>
+                                                    </span>
+                                                </th> --}}
+                                                <th scope="col" class="height-52 border">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Số phiếu
+                                                                Thu
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_name_display"></div>
@@ -160,106 +193,18 @@
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Tên nhà cung cấp
+                                                                Chi
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="height-52 border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
-                                                                Tên hàng hóa
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                ĐVT
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Số lượng
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Đơn giá
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Thành tiền
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Tổng cộng
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Thanh toán
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Còn lại
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Ghi chú
+                                                                Cuối kỳ
                                                             </button>
                                                         </a>
                                                         <div class="icon" id="icon-guest_name_display"></div>
@@ -268,123 +213,69 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($returnImport as $item)
-                                                <tr class="position-relative guests-info"
-                                                    onclick="handleRowClick('checkbox', event);">
-                                                    <input type="hidden" name="id-guest" class="id-guest"
-                                                        id="id-guest" value="{{ $item->id }}">
-                                                    <td class="py-2 text-13-black pl-0 px-2 border height-52">
-                                                        {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
-                                                    </td>
-                                                    <td class="py-2 text-13-black pl-0 px-2 border height-52">
-                                                        {{ $item->return_code }}
-                                                    </td>
-                                                    <td
-                                                        class="py-2 text-13-black pl-0 px-2 border height-52 text-wrap">
-                                                        @if ($item->getReceive && $item->getReceive->getNameProvide)
-                                                            {{ $item->getReceive->getNameProvide->provide_name_display }}
-                                                        @endif
-                                                    </td>
-                                                    <td
-                                                        class="py-2 text-13-black pl-0 px-2 border height-52 text-wrap">
-                                                        @if ($item->getAllReturnProduct)
-                                                            @foreach ($item->getAllReturnProduct as $value)
-                                                                @if ($value->getQuoteImport)
-                                                                    <p class="m-0">
-                                                                        {{ $value->getQuoteImport->product_name }}
-                                                                    </p>
-                                                                @endif
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td
-                                                        class="py-2 text-13-black pl-0 px-2 border height-52 text-wrap">
-                                                        @if ($item->getAllReturnProduct)
-                                                            @foreach ($item->getAllReturnProduct as $value)
-                                                                @if ($value->getQuoteImport)
-                                                                    <p class="m-0">
-                                                                        {{ $value->getQuoteImport->product_unit }}
-                                                                    </p>
-                                                                @endif
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td
-                                                        class="py-2 text-13-black pl-0 px-2 border height-52 text-wrap">
-                                                        @if ($item->getAllReturnProduct)
-                                                            @foreach ($item->getAllReturnProduct as $value)
-                                                                <p class="m-0">
-                                                                    {{ number_format($value->qty) }}
-                                                                </p>
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td class="py-2 text-13-black pl-0 px-2 border height-52">
-                                                        @if ($item->getAllReturnProduct)
-                                                            @foreach ($item->getAllReturnProduct as $value)
-                                                                @if ($value->getQuoteImport)
-                                                                    <p class="m-0">
-                                                                        {{ number_format($value->getQuoteImport->price_export) }}
-                                                                    </p>
-                                                                @endif
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td class="py-2 text-13-black pl-0 px-2 border height-52">
-                                                        @if ($item->getAllReturnProduct)
-                                                            @foreach ($item->getAllReturnProduct as $value)
-                                                                @if ($value->getQuoteImport)
-                                                                    @php
-                                                                        $promotionArray = json_decode(
-                                                                            $value->getQuoteImport->promotion,
-                                                                            true,
-                                                                        );
-                                                                        $promotionValue = isset(
-                                                                            $promotionArray['value'],
-                                                                        )
-                                                                            ? $promotionArray['value']
-                                                                            : 0;
-                                                                        $promotionOption = isset(
-                                                                            $promotionArray['type'],
-                                                                        )
-                                                                            ? $promotionArray['type']
-                                                                            : '';
-                                                                        $totalReturn = 0;
-                                                                        $temp = 0;
-                                                                        $temp =
-                                                                            $value->qty *
-                                                                            $value->getQuoteImport->price_export;
-                                                                        $totalReturn =
-                                                                            $promotionOption == 1
-                                                                                ? $temp - $promotionValue
-                                                                                : ($temp * $promotionValue) / 100;
-                                                                    @endphp
-                                                                    <p class="m-0">
-                                                                        {{ number_format($totalReturn) }}
-                                                                    </p>
-                                                                @endif
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td class="py-2 text-13-black pl-0 px-2 border height-52">
-                                                        {{ number_format($item->total) }}
-                                                    </td>
-                                                    <td class="py-2 text-13-black pl-0 px-2 border height-52">
-                                                        @if ($item->getPayment)
-                                                            {{ number_format($item->getPayment->payment) }}
-                                                        @endif
-                                                    </td>
-                                                    <td class="py-2 text-13-black pl-0 px-2 border height-52">
-                                                        @if ($item->getPayment)
-                                                            {{ number_format($item->getPayment->total - $item->getPayment->payment) }}
-                                                        @endif
-                                                    </td>
-                                                    <td
-                                                        class="py-2 text-13-black pl-0 px-2 border height-52 text-wrap">
-                                                        {{ $item->description }}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                            @foreach ($inventoryDebt as $va)
+                                            @php
+                                                $total = 0;
+                                            @endphp
+                                            <tr>
+                                                <td colspan="7">{{ $va->name }}</td>
+                                            </tr>
+                                            {{-- Mua hàng --}}
+                                            @if ($va->getPayOrder)
+                                                @foreach ($va->getPayOrder as $item)
+                                                    <tr>
+                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52"> {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">{{ $item->payment_code }}</td>
+                                                        <td>
+                                                            @if ($item->getGuest)
+                                                                {{ $item->getGuest->guest_name_display }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">
+                                                            @if ($item->getContentPay)
+                                                                {{ $item->getContentPay->name }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">0</td>
+                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">{{ number_format($item->total) }}</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    @php
+                                                        $total -= $item->total;
+                                                    @endphp
+                                                @endforeach
+                                            @endif
+                                            @if ($va->getPayExport)
+                                                @foreach ($va->getPayExport as $item)
+                                                    <tr>
+                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">{{ date_format(new DateTime($item->date_created), 'd/m/Y') }}
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">{{ $item->receipt_code }}</td>
+                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">
+                                                            @if ($item->getGuest)
+                                                                {{ $item->getGuest->guest_name_display }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">
+                                                            @if ($item->getContentPay)
+                                                                {{ $item->getContentPay->name }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">{{ number_format($item->amount) }}</td>
+                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">0</td>
+                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52"></td>
+                                                    </tr>
+                                                    @php
+                                                        $total += $item->amount;
+                                                    @endphp
+                                                @endforeach
+                                            @endif
+                                            <tr>
+                                                <td colspan="6" class="total"></td>
+                                                <td class="text-right">{{ number_format($total) }}</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
