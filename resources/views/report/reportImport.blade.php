@@ -5,7 +5,8 @@
             <div class="content__heading--left ">
                 <span>Báo cáo</span>
                 <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                        fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
                             fill="#26273B" fill-opacity="0.8" />
@@ -268,100 +269,100 @@
                                         </thead>
                                         <tbody>
                                             @php
-                                                    $count = 0;
+                                                $count = 0;
+                                            @endphp
+                                            @foreach ($dataImport as $item)
+                                                @php
+                                                    $count++;
                                                 @endphp
-                                                @foreach ($dataImport as $item)
-                                                    @php
-                                                        $count++;
-                                                    @endphp
-                                                    <tr class="position-relative guests-info"
-                                                        onclick="handleRowClick('checkbox', event);">
-                                                        <input type="hidden" name="id-guest" class="id-guest"
-                                                            id="id-guest" value="{{ $item->guest_id }}">
-                                                        <td class="text-13-black height-52 border">
-                                                            {{ $count }}
-                                                        </td>
-                                                        <td class="text-13-black height-52 border">
-                                                            {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
-                                                        </td>
-                                                        <td class="text-13-black height-52 border">
-                                                            {{ $item->quotation_number }}
-                                                        </td>
-                                                        <td class="text-13-black height-52 border text-wrap">
-                                                            {{ $item->provide_name }}
-                                                        </td>
-                                                        <td class="text-13-black height-52 border">
-                                                            @if ($item->getProductImport)
-                                                                @foreach ($item->getProductImport as $va)
-                                                                    <p class="m-0">{{ $va->product_name }}</p>
-                                                                @endforeach
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-13-black height-52 border">
-                                                            @if ($item->getProductImport)
-                                                                @foreach ($item->getProductImport as $va)
-                                                                    <p class="m-0">{{ $va->product_unit }}</p>
-                                                                @endforeach
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-13-black height-52 border">
-                                                            @if ($item->getProductImport)
-                                                                @foreach ($item->getProductImport as $va)
-                                                                    <p class="m-0 text-right">
-                                                                        {{ number_format($va->product_qty) }}</p>
-                                                                @endforeach
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-13-black height-52 border">
-                                                            @if ($item->getProductImport)
-                                                                @foreach ($item->getProductImport as $va)
-                                                                    <p class="m-0 text-right">
-                                                                        {{ number_format($va->price_export) }}</p>
-                                                                @endforeach
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-13-black height-52 border">
-                                                            @if ($item->getProductImport)
-                                                                @foreach ($item->getProductImport as $va)
-                                                                    <p class="m-0 text-right">
-                                                                        {{ number_format($va->product_total) }}</p>
-                                                                @endforeach
-                                                            @endif
-                                                        </td>
+                                                <tr class="position-relative guests-info"
+                                                    onclick="handleRowClick('checkbox', event);">
+                                                    <input type="hidden" name="id-guest" class="id-guest"
+                                                        id="id-guest" value="{{ $item->guest_id }}">
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ $count }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ $item->quotation_number }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border text-wrap">
+                                                        {{ $item->provide_name }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        @if ($item->getProductImport)
+                                                            @foreach ($item->getProductImport as $va)
+                                                                <p class="m-0">{{ $va->product_name }}</p>
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        @if ($item->getProductImport)
+                                                            @foreach ($item->getProductImport as $va)
+                                                                <p class="m-0">{{ $va->product_unit }}</p>
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        @if ($item->getProductImport)
+                                                            @foreach ($item->getProductImport as $va)
+                                                                <p class="m-0 text-right">
+                                                                    {{ number_format($va->product_qty) }}</p>
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        @if ($item->getProductImport)
+                                                            @foreach ($item->getProductImport as $va)
+                                                                <p class="m-0 text-right">
+                                                                    {{ number_format($va->price_export) }}</p>
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        @if ($item->getProductImport)
+                                                            @foreach ($item->getProductImport as $va)
+                                                                <p class="m-0 text-right">
+                                                                    {{ number_format($va->product_total) }}</p>
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
 
 
-                                                        <td class="text-13-black height-52 border text-right">
+                                                    <td class="text-13-black height-52 border text-right">
+                                                        {{ number_format($item->total_tax) }}
+                                                    </td>
+                                                    {{-- Đã thanh toán --}}
+                                                    <td class="text-13-black height-52 border text-right">
+                                                        @if ($item->getPayOrder)
+                                                            {{ number_format($item->getPayOrder->payment) }}
+                                                        @else
+                                                            0
+                                                        @endif
+                                                    </td>
+
+                                                    <td class="text-13-black height-52 border text-right">
+                                                        @if ($item->getPayOrder)
+                                                            {{ number_format($item->total_tax - $item->getPayOrder->payment) }}
+                                                        @else
                                                             {{ number_format($item->total_tax) }}
-                                                        </td>
-                                                        {{-- Đã thanh toán --}}
-                                                        <td class="text-13-black height-52 border text-right">
-                                                            @if ($item->getPayOrder)
-                                                                {{ number_format($item->getPayOrder->payment) }}
-                                                            @else
-                                                                0
-                                                            @endif
-                                                        </td>
+                                                        @endif
+                                                    </td>
 
-                                                        <td class="text-13-black height-52 border text-right">
-                                                            @if ($item->getPayOrder)
-                                                                {{ number_format($item->total_tax - $item->getPayOrder->payment) }}
-                                                            @else
-                                                                {{ number_format($item->total_tax) }}
-                                                            @endif
-                                                        </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ $item->product_note }}
+                                                    </td>
+                                                    <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
+                                                        style="right: 10px; top: 7px;">
+                                                        <div class="d-flex w-100">
+                                                        </div>
+                                                    </td>
 
-                                                        <td class="text-13-black height-52 border">
-                                                            {{ $item->product_note }}
-                                                        </td>
-                                                        <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                            style="right: 10px; top: 7px;">
-                                                            <div class="d-flex w-100">
-                                                            </div>
-                                                        </td>
+                                                </tr>
+                                            @endforeach
 
-                                                    </tr>
-                                                @endforeach
-                                                 
                                         </tbody>
                                     </table>
                                 </div>

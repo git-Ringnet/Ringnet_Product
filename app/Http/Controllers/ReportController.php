@@ -458,8 +458,8 @@ class ReportController extends Controller
         // Lấy sản phẩm đã bán
         // $allDeliveries = $this->delivered->getAllHistory();
         $allDeliveries = $this->detailExport->allProductsSell();
-        $groups = Groups::where('grouptype_id', 4)->get();
-        $groupGuests = Groups::where('grouptype_id', 2)->get();
+        $groups = Groups::where('grouptype_id', 4)->where('workspace_id', Auth::user()->current_workspace)->get();
+        $groupGuests = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
 
         return view('report.sumSalesProfit', compact('title', 'groups', 'groupGuests', 'allDeliveries'));
     }
@@ -469,7 +469,7 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
 
-        $groups = Groups::where('grouptype_id', 2)->get();
+        $groups = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
         $debtGuests = $this->guest->debtGuest();
         return view('report.debtGuests', compact('title', 'groups', 'debtGuests'));
     }
@@ -572,6 +572,7 @@ class ReportController extends Controller
             // ->leftJoin('detailexport', 'quoteexport.detailexport_id', '=', 'detailexport.id')
             ->select('quoteexport.product_id', DB::raw('SUM(quoteexport.product_qty) as totalExportQty'))
             // ->whereNotIn('detailexport.status_receive', [0, 1])
+            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
             ->groupBy('quoteexport.product_id')
             ->get()
             ->keyBy('product_id');
@@ -580,6 +581,7 @@ class ReportController extends Controller
             ->leftJoin('detailimport', 'quoteimport.detailimport_id', '=', 'detailimport.id')
             ->leftJoin('products', 'products.id', '=', 'quoteimport.product_id')
             ->whereNotIn('detailimport.status_receive', [0, 1])
+            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'quoteimport.product_id',
                 'quoteimport.product_code',
@@ -599,6 +601,7 @@ class ReportController extends Controller
             $totalExportQty = isset($quoteExportQty[$productId]) ? $quoteExportQty[$productId]->totalExportQty : 0;
 
             $quoteImports = DB::table('quoteimport')
+                ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
                 ->where('product_id', $productId)
                 ->orderBy('id', 'asc') // Sắp xếp theo thứ tự nhập
                 ->get();

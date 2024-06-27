@@ -36,7 +36,7 @@ class CashReceiptController extends Controller
         $title = 'Phiếu thu';
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $cashReceipts = CashReceipt::with(['guest', 'fund', 'user', 'workspace'])->get();
+        $cashReceipts = CashReceipt::with(['guest', 'fund', 'user', 'workspace'])->where('workspace_id', Auth::user()->current_workspace)->get();
         // dd($cashReceipts);
         return view('tables.cash_receipts.index', compact('cashReceipts', 'title', 'workspacename'));
     }
