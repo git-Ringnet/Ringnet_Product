@@ -173,6 +173,7 @@ class GuestController extends Controller
             'key' => $request->key,
             'guest_email' => $request->guest_email,
             'guest_receiver' => $request->guest_receiver,
+            'group_id' => $request->grouptype_id,
             'guest_email_personal' => $request->guest_email_personal,
             'guest_phone_receiver' => $request->guest_phone_receiver,
             'guest_debt' => $request->guest_debt == null ? 0 : $request->guest_debt,
