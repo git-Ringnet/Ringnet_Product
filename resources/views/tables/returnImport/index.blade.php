@@ -188,16 +188,6 @@
                                                     <div class="icon" id="icon-delivery_code"></div>
                                                 </span>
                                             </th>
-                                            {{-- <th scope="col" class="border-bottom" style="width: 10%;">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="quotation_number" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Đơn mua
-                                                            hàng#</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-quotation_number"></div>
-                                                </span>
-                                            </th> --}}
 
                                             <th scope="col" class="border-bottom" style="width: 10%;">
                                                 <span class="d-flex">
@@ -210,17 +200,6 @@
                                                 </span>
                                             </th>
 
-                                            {{-- <th scope="col" class="border-bottom" style="width: 14%;">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="provide_name_display"
-                                                        data-sort-type="DESC"><button class="btn-sort text-13"
-                                                            type="submit">Nhà cung
-                                                            cấp</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-provide_name_display"></div>
-                                                </span>
-                                            </th> --}}
                                             {{-- @can('isAdmin') --}}
                                             <th scope="col" class="border-bottom" style="width: 10%;">
                                                 <span class="d-flex">
@@ -232,26 +211,6 @@
                                                 </span>
                                             </th>
                                             {{-- @endcan --}}
-                                            {{-- <th scope="col" class="border-bottom" style="width: 10%;">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="shipping_unit" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Đơn vị vận
-                                                            chuyển</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-shipping_unit"></div>
-                                                </span>
-                                            </th> --}}
-                                            {{-- <th scope="col" class="border-bottom" style="width: 10%;">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="delivery_charges" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Phí vận
-                                                            chuyển</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-delivery_charges"></div>
-                                                </span>
-                                            </th> --}}
                                             <th scope="col" class="border-bottom" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -276,6 +235,9 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-receive">
+                                        @php
+                                            $total = 0;
+                                        @endphp
                                         @foreach ($data as $item)
                                             <tr class="position-relative receive-info height-52">
                                                 <input type="hidden" name="id-receive" class="id-receive"
@@ -373,6 +335,9 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            @php
+                                            $total += $item->total;
+                                        @endphp
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -388,6 +353,19 @@
 {{-- <div class="paginator mt-2 d-flex justify-content-end">
     {{ $receive->appends(request()->except('page'))->links() }}
 </div> --}}
+
+
+
+{{-- <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 0;left: 0;">
+    <div class="position-relative margin-250">
+        <div class="position-absolute px-4 pt-1 border bg-white" style="right: 0">
+            <span class="text-danger font-weight-bold">
+                {{ number_format($total) }}
+            </span>
+        </div>
+    </div>
+</div> --}}
+
 </div>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 

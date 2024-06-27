@@ -625,7 +625,8 @@ function getQuotation(getName, count, date) {
 
     var stt = formattedDate == date ? count : "01";
 
-    var quotation = formattedDate + "/" + name + "-" + key + "-" + stt;
+    // var quotation = formattedDate + "/" + name + "-" + key + "-" + stt;
+    var quotation = "DDH"+stt+ "-"+ formattedDate;
     return quotation;
 }
 

@@ -224,21 +224,21 @@
                                             @if ($va->getPayOrder)
                                                 @foreach ($va->getPayOrder as $item)
                                                     <tr>
-                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52"> {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                        <td class="text-13-black border height-52"> {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">{{ $item->payment_code }}</td>
+                                                        <td class="text-13-black border height-52">{{ $item->payment_code }}</td>
                                                         <td>
                                                             @if ($item->getGuest)
                                                                 {{ $item->getGuest->guest_name_display }}
                                                             @endif
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">
+                                                        <td class="text-13-black border height-52">
                                                             @if ($item->getContentPay)
                                                                 {{ $item->getContentPay->name }}
                                                             @endif
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">0</td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">{{ number_format($item->total) }}</td>
+                                                        <td class="text-13-black border height-52">0</td>
+                                                        <td class="text-13-black border height-52">{{ number_format($item->total) }}</td>
                                                         <td></td>
                                                     </tr>
                                                     @php
@@ -249,22 +249,22 @@
                                             @if ($va->getPayExport)
                                                 @foreach ($va->getPayExport as $item)
                                                     <tr>
-                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">{{ date_format(new DateTime($item->date_created), 'd/m/Y') }}
+                                                        <td class="text-13-black border height-52">{{ date_format(new DateTime($item->date_created), 'd/m/Y') }}
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">{{ $item->receipt_code }}</td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">
+                                                        <td class="text-13-black border height-52">{{ $item->receipt_code }}</td>
+                                                        <td class="text-13-black border height-52">
                                                             @if ($item->getGuest)
                                                                 {{ $item->getGuest->guest_name_display }}
                                                             @endif
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">
+                                                        <td class="text-13-black border height-52">
                                                             @if ($item->getContentPay)
                                                                 {{ $item->getContentPay->name }}
                                                             @endif
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">{{ number_format($item->amount) }}</td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52">0</td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 border height-52"></td>
+                                                        <td class="text-13-black border height-52">{{ number_format($item->amount) }}</td>
+                                                        <td class="text-13-black border height-52">0</td>
+                                                        <td class="text-13-black border height-52"></td>
                                                     </tr>
                                                     @php
                                                         $total += $item->amount;

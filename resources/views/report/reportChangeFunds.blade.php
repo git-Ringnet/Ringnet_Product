@@ -206,31 +206,31 @@
                                                 onclick="handleRowClick('checkbox', event);">
                                                 <input type="hidden" name="id-guest" class="id-guest"
                                                     id="id-guest" value="{{ $item->id }}">
-                                                <td class="py-2 text-13-black pl-0 height-52 px-2 border">
+                                                <td class="text-13-black height-52 border">
                                                     {{ date_format(new DateTime($item->payment_day), 'd/m/Y') }}
                                                 </td>
-                                                <td class="py-2 text-13-black pl-0 height-52 px-2 border">
+                                                <td class="text-13-black height-52 border">
                                                     {{ $item->form_code }}
                                                 </td>
-                                                <td class="py-2 text-13-black pl-0 height-52 px-2 border text-wrap">
+                                                <td class="text-13-black height-52 border text-wrap">
                                                     @if ($item->getUser)
                                                         {{ $item->getUser->name }}
                                                     @endif
                                                 </td>
-                                                <td class="py-2 text-13-black pl-0 height-52 px-2 border text-wrap">
+                                                <td class="text-13-black height-52 border text-wrap">
                                                     {{ number_format($item->qty_money) }}
                                                 </td>
-                                                <td class="py-2 text-13-black pl-0 height-52 px-2 border text-wrap">
+                                                <td class="text-13-black pl-0 height-52 border text-wrap">
                                                     @if ($item->getFromFund)
                                                         {{ $item->getFromFund->name }}
                                                     @endif
                                                 </td>
-                                                <td class="py-2 text-13-black pl-0 height-52 px-2 border text-wrap">
+                                                <td class="text-13-black height-52 border text-wrap">
                                                     @if ($item->getToFund)
                                                         {{ $item->getToFund->name }}
                                                     @endif
                                                 </td>
-                                                <td class="py-2 text-13-black pl-0 height-52 px-2 border">
+                                                <td class="text-13-black height-52 border">
                                                     {{ $item->notes }}
                                                 </td>
                                             </tr>

@@ -278,33 +278,33 @@
                                                         onclick="handleRowClick('checkbox', event);">
                                                         <input type="hidden" name="id-guest" class="id-guest"
                                                             id="id-guest" value="{{ $item->guest_id }}">
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border">
+                                                        <td class="text-13-black height-52 border">
                                                             {{ $count }}
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border">
+                                                        <td class="text-13-black height-52 border">
                                                             {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border">
+                                                        <td class="text-13-black height-52 border">
                                                             {{ $item->quotation_number }}
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border text-wrap">
+                                                        <td class="text-13-black height-52 border text-wrap">
                                                             {{ $item->provide_name }}
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border">
+                                                        <td class="text-13-black height-52 border">
                                                             @if ($item->getProductImport)
                                                                 @foreach ($item->getProductImport as $va)
                                                                     <p class="m-0">{{ $va->product_name }}</p>
                                                                 @endforeach
                                                             @endif
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border">
+                                                        <td class="text-13-black height-52 border">
                                                             @if ($item->getProductImport)
                                                                 @foreach ($item->getProductImport as $va)
                                                                     <p class="m-0">{{ $va->product_unit }}</p>
                                                                 @endforeach
                                                             @endif
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border">
+                                                        <td class="text-13-black height-52 border">
                                                             @if ($item->getProductImport)
                                                                 @foreach ($item->getProductImport as $va)
                                                                     <p class="m-0 text-right">
@@ -312,7 +312,7 @@
                                                                 @endforeach
                                                             @endif
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border">
+                                                        <td class="text-13-black height-52 border">
                                                             @if ($item->getProductImport)
                                                                 @foreach ($item->getProductImport as $va)
                                                                     <p class="m-0 text-right">
@@ -320,7 +320,7 @@
                                                                 @endforeach
                                                             @endif
                                                         </td>
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border">
+                                                        <td class="text-13-black height-52 border">
                                                             @if ($item->getProductImport)
                                                                 @foreach ($item->getProductImport as $va)
                                                                     <p class="m-0 text-right">
@@ -330,11 +330,11 @@
                                                         </td>
 
 
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border text-right">
+                                                        <td class="text-13-black height-52 border text-right">
                                                             {{ number_format($item->total_tax) }}
                                                         </td>
                                                         {{-- Đã thanh toán --}}
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border text-right">
+                                                        <td class="text-13-black height-52 border text-right">
                                                             @if ($item->getPayOrder)
                                                                 {{ number_format($item->getPayOrder->payment) }}
                                                             @else
@@ -342,7 +342,7 @@
                                                             @endif
                                                         </td>
 
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border text-right">
+                                                        <td class="text-13-black height-52 border text-right">
                                                             @if ($item->getPayOrder)
                                                                 {{ number_format($item->total_tax - $item->getPayOrder->payment) }}
                                                             @else
@@ -350,7 +350,7 @@
                                                             @endif
                                                         </td>
 
-                                                        <td class="py-2 text-13-black pl-0 px-2 height-52 border">
+                                                        <td class="text-13-black height-52 border">
                                                             {{ $item->product_note }}
                                                         </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"

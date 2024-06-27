@@ -294,6 +294,9 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-payment">
+                                        @php
+                                            $total = 0;
+                                        @endphp
                                         @foreach ($payment as $item)
                                             <tr class="position-relative payment-info height-52">
                                                 <input type="hidden" name="id-payment" class="id-payment"
@@ -319,25 +322,6 @@
                                                         name="ids[]" id="checkbox" value=""
                                                         onclick="event.stopPropagation();">
                                                 </td>
-                                                {{-- <td class="pr-0 py-2 border-top-0 border-bottom">
-                                                    <span class="margin-Right10">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="6"
-                                                            height="10" viewBox="0 0 6 10" fill="none">
-                                                            <g clip-path="url(#clip0_1710_10941)">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
-                                                                    fill="#282A30" />
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_1710_10941">
-                                                                    <rect width="6" height="10"
-                                                                        fill="white" />
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    </span>
-                                                    <input type="checkbox" class="cb-element checkall-btn">
-                                                </td> --}}
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">
                                                     <a href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item->id]) }}"
                                                         class="user_flow" data-type="TTMH"
@@ -464,6 +448,9 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            @php
+                                            $total += $item->total;
+                                        @endphp
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -482,6 +469,17 @@
 {{-- <div class="paginator mt-2 d-flex justify-content-end">
     {{ $payment->appends(request()->except('page'))->links() }}
 </div> --}}
+
+
+<div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 0;left: 0;">
+    <div class="position-relative margin-250">
+        <div class="position-absolute px-4 pt-1 border bg-white" style="right: 25%;">
+            <span class="text-danger font-weight-bold">
+                {{ number_format($total)}}
+            </span>
+        </div>
+    </div>
+</div>
 
 
 </div>

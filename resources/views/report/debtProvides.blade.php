@@ -206,13 +206,13 @@
                                                         onclick="handleRowClick('checkbox', event);">
                                                         <input type="hidden" name="id-guest" class="id-guest"
                                                             id="id-guest" value="{{ $item->guest_id }}">
-                                                        <td class="border py-2 text-13-black pl-0 height-52 px-2">
+                                                        <td class="border text-13-black height-52">
                                                             {{ $item->provide_code }}
                                                         </td>
-                                                        <td class="border py-2 text-13-black pl-0 height-52 px-2">
+                                                        <td class="border text-13-black height-52">
                                                             {{ $item->provide_name_display }}
                                                         </td>
-                                                        <td class="border py-2 text-13-black pl-0 text-wrap text-right height-52 px-2">
+                                                        <td class="border text-13-black text-wrap text-right height-52">
                                                             @if ($item->getAllDetailByID)
                                                                 @php
                                                                     $total = $item->getAllDetailByID
@@ -222,7 +222,7 @@
                                                                 {{ number_format($total) }}
                                                             @endif
                                                         </td>
-                                                        <td class="border py-2 text-13-black pl-0 text-right height-52 px-2">
+                                                        <td class="border text-13-black text-right height-52">
                                                             @php
                                                                 $totalReturn = 0;
                                                             @endphp
@@ -294,7 +294,7 @@
                                                             @endif
                                                             {{ number_format($totalReturn) }}
                                                         </td>
-                                                        <td class="border py-2 text-13-black pl-0 text-right height-52 px-2">
+                                                        <td class="border text-13-black text-right height-52">
                                                             @if ($item->getAllDetailByID)
                                                                 @php
                                                                     $totalCashReciept = 0;
@@ -322,7 +322,7 @@
                                                             @endif
                                                             {{ number_format($totalCashReciept) }}
                                                         </td>
-                                                        <td class="border py-2 text-13-black pl-0 text-right height-52 px-2">
+                                                        <td class="border text-13-black text-right height-52">
                                                             @php
                                                                 $totalPay = 0;
                                                             @endphp
@@ -339,7 +339,7 @@
                                                             @endif
                                                             {{ number_format($totalPay) }}
                                                         </td>
-                                                        <td class="border py-2 text-13-black pl-0 text-right height-52 px-2">
+                                                        <td class="border text-13-black text-right height-52">
                                                             @php
                                                                 $totalEnd = 0;
                                                                 $totalEnd +=
