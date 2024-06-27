@@ -68,7 +68,7 @@ class PayOder extends Model
 
     public function getGuest()
     {
-        return $this->hasOne(Guest::class, 'id', 'guest_id');
+        return $this->hasOne(Provides::class, 'id', 'guest_id');
     }
     public function getFund()
     {

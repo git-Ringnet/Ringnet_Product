@@ -29,7 +29,7 @@ class ContentGroupsController extends Controller
         $content = ContentGroups::where('workspace_id', Auth::user()->current_workspace)
             ->orderBy('id', 'desc')
             ->get();
-        $title = "Kho";
+        $title = "Nội dung thu chi";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         return view('tables.abc.content.content', compact('title', 'workspacename', 'content'));
