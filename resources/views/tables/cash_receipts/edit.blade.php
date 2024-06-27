@@ -80,7 +80,7 @@
                 <div id="title--fixed"
                     class="content-title--fixed bg-filter-search border-top-0 text-center border-custom"
                     style="right: 0;">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN PHIẾU CHI</p>
+                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN PHIẾU THU</p>
                 </div>
                 <div class="container-fluided margin-top-72">
                     <section class="content" style="height: 80vh;">

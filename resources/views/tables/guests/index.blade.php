@@ -629,7 +629,7 @@
                                         @endforeach
                                         <tr>
                                             <td></td>
-                                            <td class="text-right" style="color: red">Có {{ $total }} khách
+                                            <td class="text-right" style="color: red">Có {{ $total ?? 0 }} khách
                                                 hàng</td>
                                             <td colspan="15"></td>
                                         </tr>
