@@ -209,7 +209,7 @@
                                                                 name="search-info" class="search-guest"
                                                                 style="flex:2;">
                                                                 <span
-                                                                    class="text-13-black">{{ $value->guest_name_display }}</span>
+                                                                    class="text-13-black">{{ $value->provide_name_display }}</span>
                                                             </a>
                                                         </li>
                                                     @endforeach

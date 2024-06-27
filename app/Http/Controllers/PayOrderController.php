@@ -10,6 +10,7 @@ use App\Models\Guest;
 use App\Models\HistoryPaymentOrder;
 use App\Models\PayOder;
 use App\Models\ProductImport;
+use App\Models\Provides;
 use App\Models\QuoteImport;
 use App\Models\ReturnExport;
 use App\Models\ReturnImport;
@@ -109,9 +110,8 @@ class PayOrderController extends Controller
 
         $funds = Fund::all();
 
-        $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
+        $guest = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $content = ContentGroups::where('contenttype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
-
         // Lấy đơn trả hàng KH
         $returnExport = ReturnExport::where('workspace_id', Auth::user()->current_workspace)
             ->whereRaw('CAST(total_return AS DECIMAL(20, 2)) > CAST(payment AS DECIMAL(20, 2))')->get();

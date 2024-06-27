@@ -280,7 +280,7 @@
                                             <td class="border border-left-0 border-top-0 p-2 align-top">
                                                 <input readonly type="text"
                                                     class="w-100 border-0 px-2 py-1 height-32"
-                                                    @if ($payment->getGuest) value="{{ $payment->getGuest->guest_name_display }}" @endif>
+                                                    @if ($payment->getGuest) value="{{ $payment->getGuest->provide_name_display }}" @endif>
                                             </td>
                                             <td class="border border-left-0 border-top-0 p-2 align-top">
                                                 <input readonly type="text" value="{{$payment->payment_type}}"

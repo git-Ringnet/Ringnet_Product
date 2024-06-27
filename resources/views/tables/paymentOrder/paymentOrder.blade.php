@@ -356,7 +356,7 @@
 
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">
                                                     @if ($item->getGuest)
-                                                        {{ $item->getGuest->guest_name_display }}
+                                                        {{ $item->getGuest->provide_name_display }}
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">
