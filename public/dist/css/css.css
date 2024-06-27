@@ -1135,9 +1135,9 @@ td p {
 .item-filter {
     position: relative;
 }
-[class*="result-filter-"] {
-    /* padding-top: 16px; */
-}
+/* [class*="result-filter-"] {
+    padding-top: 16px;
+} */
 .item-filter span {
     padding-top: 3px;
 }
@@ -1163,9 +1163,9 @@ input[type="number"] {
     width: auto !important;
 }
 
-#product_price.form-control {
-    /* width: 115px; */
-}
+/* #product_price.form-control {
+    width: 115px;
+} */
 
 .breadcrumb a {
     color: #858585;
@@ -1501,7 +1501,7 @@ input[type="number"] {
 }
 
 .btn-save-print {
-    border: 2px solid #d6d6d6;
+    border: 1px solid #d6d6d6;
     color: #42526e;
     background-color: #ffffff;
 }

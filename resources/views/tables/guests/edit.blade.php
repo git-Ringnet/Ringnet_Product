@@ -47,14 +47,14 @@
                             </a>
                         </div>
                         <button type="submit" class="custom-btn d-flex align-items-center h-100"
-                            style="margin-right:10px" onclick="kiemTraFormGiaoHang(event)">
+                            style="margin-right:10px">
                             <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                     fill="white" />
                             </svg>
-                            <span>Lưu khách hàng</span>
+                            <p class="m-0 ml-1">Lưu khách hàng</p>
                         </button>
                         <div>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

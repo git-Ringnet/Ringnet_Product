@@ -17,7 +17,8 @@
                         </svg>
                     </span>
                     <span>
-                        <a class="text-dark" href="{{ route('groups.index', ['workspace' => $workspacename]) }}">Nhóm đối
+                        <a class="text-dark" href="{{ route('groups.index', ['workspace' => $workspacename]) }}">Nhóm
+                            đối
                             tượng</a>
                     </span>
                     <span>
@@ -103,7 +104,18 @@
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
                                             value="{{ $group->description }}">
                                     </div>
-                                    <a type="button"
+                                    <button type="button" data-toggle="modal" data-target="#listModal"
+                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 my-2 ml-4 rounded addGuestNew"
+                                        style="margin-right:10px">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="mr-2"
+                                            viewBox="0 0 16 16" fill="none">
+                                            <path
+                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                fill="#282A30" />
+                                        </svg>
+                                        <span class="text-table">Thêm</span>
+                                    </button>
+                                    {{-- <a type="button"
                                         class="d-flex align-items-center p-2 position-sticky addGuestNew my-2"
                                         data-toggle="modal" data-target="#listModal"
                                         style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
@@ -117,7 +129,7 @@
                                         </span>
                                         <span class="text-13-black pl-3 pt-1 title-gr"
                                             style="font-weight: 600 !important;">Thêm</span>
-                                    </a>
+                                    </a> --}}
                                     <p class="font-weight-bold text-uppercase info-chung--heading">Danh sách trong nhóm
                                     </p>
                                     <table id="example2" class="table table-hover bg-white rounded">
@@ -348,12 +360,12 @@
                         $('.listData').empty();
                         data_obj = data.obj;
                         data.results.forEach(function(item) {
-                            var listItem = '<li>';
+                            var listItem = '<li class="d-flex align-items-center border-bottom">';
                             listItem += '<input type="checkbox" id="' + data.obj +
                                 '_' + item.id + '" name="' + data.obj +
                                 '[]" value="' + item.id + '">';
-                            listItem += '<label for="' + item.name + '_' + item.id +
-                                '">' + item.name + '</label>';
+                            listItem += '<span class="text-13 px-4 py-2" for="' + item.name + '_' + item.id +
+                                '">' + item.name + '</span>';
                             listItem += '</li>';
                             $('.listData').append(listItem);
                         });
