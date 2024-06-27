@@ -264,6 +264,7 @@
 
                                                     $totalSlXuatUngrouped = 0;
                                                     $totalPriceImportUngrouped = 0;
+                                                    $totalPriceImport = 0;
                                                     $totalPriceExportUngrouped = 0;
                                                     $totalProductTotalVatUngrouped = 0;
                                                     $totalProfitUngrouped = 0;
@@ -283,42 +284,38 @@
                                                 @foreach ($allDeliveries as $item)
                                                     @if ($item->group_id == 0)
                                                         <tr class="position-relative">
-                                                            <td class="text-13-black height-52">
-                                                                {{ $item->code_delivery }}
+                                                            <td class="text-13-black height-52">{{ $item->maPhieu }}
                                                             </td>
                                                             <td class="text-13-black height-52">
-                                                                {{ $item->product_code }}
-                                                            </td>
+                                                                {{ $item->product_code }}</td>
                                                             <td class="text-13-black height-52">
-                                                                {{ $item->getProduct ? $item->getProduct->product_name : '' }}
-                                                            </td>
+                                                                {{ $item->product_name }}</td>
                                                             <td class="text-13-black height-52">
-                                                                {{ $item->product_unit }}
-                                                            </td>
+                                                                {{ $item->product_unit }}</td>
                                                             <td class="text-13-black height-52">
                                                                 {{ number_format($item->slxuat) }}</td>
                                                             <td class="text-13-black height-52">
-                                                                {{ number_format($item->price_import) }}</td>
+                                                                {{ number_format($item->giaNhap) }}</td>
                                                             <td class="text-13-black height-52">
-                                                                {{ number_format($item->slxuat * $item->price_import) }}
-                                                            </td>
+                                                                {{ number_format($item->slxuat * $item->giaNhap) }}</td>
                                                             <td class="text-13-black height-52">
                                                                 {{ number_format($item->price_export) }}</td>
                                                             <td class="text-13-black height-52">
                                                                 {{ number_format($item->product_total_vat) }}</td>
                                                             <td class="text-13-black height-52">
-                                                                {{ number_format($item->product_total_vat - $item->slxuat * $item->price_import) }}
+                                                                {{ number_format($item->product_total_vat - $item->slxuat * $item->giaNhap) }}
                                                             </td>
                                                         </tr>
                                                         @php
                                                             $totalUngrouped++;
                                                             $totalSlXuatUngrouped += $item->slxuat;
-                                                            $totalPriceImportUngrouped += $item->price_import;
+                                                            $totalPriceImportUngrouped += $item->giaNhap;
+                                                            $totalPriceImport += $item->slxuat * $item->giaNhap;
                                                             $totalPriceExportUngrouped += $item->price_export;
                                                             $totalProductTotalVatUngrouped += $item->product_total_vat;
                                                             $totalProfitUngrouped +=
                                                                 $item->product_total_vat -
-                                                                $item->slxuat * $item->price_import;
+                                                                $item->slxuat * $item->giaNhap;
                                                         @endphp
                                                     @endif
                                                 @endforeach
@@ -329,8 +326,7 @@
                                                     <td class="height-52 text-green">
                                                         {{ number_format($totalPriceImportUngrouped) }}</td>
                                                     <td class="height-52 text-green">
-                                                        {{ number_format($totalSlXuatUngrouped * $totalPriceImportUngrouped) }}
-                                                    </td>
+                                                        {{ number_format($totalPriceImport) }}</td>
                                                     <td class="height-52 text-green">
                                                         {{ number_format($totalPriceExportUngrouped) }}</td>
                                                     <td class="height-52 text-green">
@@ -341,7 +337,7 @@
 
                                                 @php
                                                     $grandTotalSlXuat += $totalSlXuatUngrouped;
-                                                    $grandTotalPriceImport += $totalPriceImportUngrouped;
+                                                    $grandTotalPriceImport += $totalPriceImport;
                                                     $grandTotalPriceExport += $totalPriceExportUngrouped;
                                                     $grandTotalProductTotalVat += $totalProductTotalVatUngrouped;
                                                     $grandTotalProfit += $totalProfitUngrouped;
@@ -367,39 +363,38 @@
                                                         @if ($item->group_id == $value->id)
                                                             <tr class="position-relative">
                                                                 <td class="text-13-black height-52">
-                                                                    {{ $item->code_delivery }}</td>
+                                                                    {{ $item->maPhieu }}</td>
                                                                 <td class="text-13-black height-52">
                                                                     {{ $item->product_code }}</td>
                                                                 <td class="text-13-black height-52">
-                                                                    {{ $item->getProduct ? $item->getProduct->product_name : '' }}
-                                                                </td>
+                                                                    {{ $item->product_name }}</td>
                                                                 <td class="text-13-black height-52">
                                                                     {{ $item->product_unit }}</td>
                                                                 <td class="text-13-black height-52">
                                                                     {{ number_format($item->slxuat) }}</td>
                                                                 <td class="text-13-black height-52">
-                                                                    {{ number_format($item->price_import) }}</td>
+                                                                    {{ number_format($item->giaNhap) }}</td>
                                                                 <td class="text-13-black height-52">
-                                                                    {{ number_format($item->slxuat * $item->price_import) }}
+                                                                    {{ number_format($item->slxuat * $item->giaNhap) }}
                                                                 </td>
                                                                 <td class="text-13-black height-52">
                                                                     {{ number_format($item->price_export) }}</td>
                                                                 <td class="text-13-black height-52">
                                                                     {{ number_format($item->product_total_vat) }}</td>
                                                                 <td class="text-13-black height-52">
-                                                                    {{ number_format($item->product_total_vat - $item->slxuat * $item->price_import) }}
+                                                                    {{ number_format($item->product_total_vat - $item->slxuat * $item->giaNhap) }}
                                                                 </td>
                                                             </tr>
                                                             @php
                                                                 $totalGroupItems++;
                                                                 $totalSlXuatGrouped += $item->slxuat;
-                                                                $totalPriceImportGrouped += $item->price_import;
+                                                                $totalPriceImportGrouped += $item->giaNhap;
                                                                 $totalPriceExportGrouped += $item->price_export;
                                                                 $totalProductTotalVatGrouped +=
                                                                     $item->product_total_vat;
                                                                 $totalProfitGrouped +=
                                                                     $item->product_total_vat -
-                                                                    $item->slxuat * $item->price_import;
+                                                                    $item->slxuat * $item->giaNhap;
                                                             @endphp
                                                         @endif
                                                     @endforeach
@@ -423,39 +418,33 @@
 
                                                     @php
                                                         $grandTotalSlXuat += $totalSlXuatGrouped;
-                                                        $grandTotalPriceImport += $totalPriceImportGrouped;
+                                                        $grandTotalPriceImport +=
+                                                            $totalSlXuatGrouped * $totalPriceImportGrouped;
                                                         $grandTotalPriceExport += $totalPriceExportGrouped;
                                                         $grandTotalProductTotalVat += $totalProductTotalVatGrouped;
                                                         $grandTotalProfit += $totalProfitGrouped;
                                                     @endphp
                                                 @endforeach
-
                                             </tbody>
                                             <tfoot id="total-footer">
                                                 <tr class="bg-light total-row">
-                                                    <td colspan="4" class="text-right text-red">Tổng của tất
-                                                        cả
-                                                        các
+                                                    <td colspan="4" class="text-right text-red">Tổng của tất cả các
                                                         nhóm:</td>
                                                     <td class="height-52 text-red">
-                                                        {{ number_format($grandTotalSlXuat) }}
-                                                    </td>
+                                                        {{ number_format($grandTotalSlXuat) }}</td>
                                                     <td class="height-52 text-red">
-                                                        {{ number_format($grandTotalPriceImport) }}
-                                                    </td>
+                                                        {{ number_format($grandTotalPriceImport) }}</td>
                                                     <td class="height-52 text-red">
-                                                        {{ number_format($grandTotalSlXuat * $grandTotalPriceImport) }}
-                                                    </td>
+                                                        {{ number_format($grandTotalPriceImport) }}</td>
                                                     <td class="height-52 text-red">
-                                                        {{ number_format($grandTotalPriceExport) }}
-                                                    </td>
+                                                        {{ number_format($grandTotalPriceExport) }}</td>
                                                     <td class="height-52 text-red">
                                                         {{ number_format($grandTotalProductTotalVat) }}</td>
                                                     <td class="height-52 text-red">
-                                                        {{ number_format($grandTotalProfit) }}
-                                                    </td>
+                                                        {{ number_format($grandTotalProfit) }}</td>
                                                 </tr>
                                             </tfoot>
+
                                         </table>
                                     </div>
                                 </div>
@@ -591,6 +580,7 @@
 
                                                     $totalSlXuatUngrouped = 0;
                                                     $totalPriceImportUngrouped = 0;
+                                                    $totalPriceImport = 0;
                                                     $totalPriceExportUngrouped = 0;
                                                     $totalProductTotalVatUngrouped = 0;
                                                     $totalProfitUngrouped = 0;
@@ -603,49 +593,45 @@
                                                 @endphp
 
                                                 <tr>
-                                                    <td colspan="10" class="border-bottom">Nhóm khách hàng : Chưa
-                                                        chọn
-                                                        nhóm</td>
+                                                    <td colspan="10" class="border-bottom">Nhóm khách hàng: Chưa
+                                                        chọn nhóm</td>
                                                 </tr>
                                                 @foreach ($allDeliveries as $item)
                                                     @if ($item->group_idGuest == 0)
                                                         <tr class="position-relative">
-                                                            <td class="text-13-black height-52">
-                                                                {{ $item->code_delivery }}
+                                                            <td class="text-13-black height-52">{{ $item->maPhieu }}
                                                             </td>
                                                             <td class="text-13-black height-52">
-                                                                {{ $item->product_code }}
-                                                            </td>
+                                                                {{ $item->product_code }}</td>
                                                             <td class="text-13-black height-52">
-                                                                {{ $item->getProduct ? $item->getProduct->product_name : '' }}
-                                                            </td>
+                                                                {{ $item->product_name }}</td>
                                                             <td class="text-13-black height-52">
-                                                                {{ $item->product_unit }}
-                                                            </td>
+                                                                {{ $item->product_unit }}</td>
                                                             <td class="text-13-black height-52">
                                                                 {{ number_format($item->slxuat) }}</td>
                                                             <td class="text-13-black height-52">
-                                                                {{ number_format($item->price_import) }}</td>
+                                                                {{ number_format($item->giaNhap) }}</td>
                                                             <td class="text-13-black height-52">
-                                                                {{ number_format($item->slxuat * $item->price_import) }}
+                                                                {{ number_format($item->slxuat * $item->giaNhap) }}
                                                             </td>
                                                             <td class="text-13-black height-52">
                                                                 {{ number_format($item->price_export) }}</td>
                                                             <td class="text-13-black height-52">
                                                                 {{ number_format($item->product_total_vat) }}</td>
                                                             <td class="text-13-black height-52">
-                                                                {{ number_format($item->product_total_vat - $item->slxuat * $item->price_import) }}
+                                                                {{ number_format($item->product_total_vat - $item->slxuat * $item->giaNhap) }}
                                                             </td>
                                                         </tr>
                                                         @php
                                                             $totalUngrouped++;
                                                             $totalSlXuatUngrouped += $item->slxuat;
-                                                            $totalPriceImportUngrouped += $item->price_import;
+                                                            $totalPriceImportUngrouped += $item->giaNhap;
+                                                            $totalPriceImport += $item->slxuat * $item->giaNhap;
                                                             $totalPriceExportUngrouped += $item->price_export;
                                                             $totalProductTotalVatUngrouped += $item->product_total_vat;
                                                             $totalProfitUngrouped +=
                                                                 $item->product_total_vat -
-                                                                $item->slxuat * $item->price_import;
+                                                                $item->slxuat * $item->giaNhap;
                                                         @endphp
                                                     @endif
                                                 @endforeach
@@ -656,8 +642,7 @@
                                                     <td class="height-52 text-green">
                                                         {{ number_format($totalPriceImportUngrouped) }}</td>
                                                     <td class="height-52 text-green">
-                                                        {{ number_format($totalSlXuatUngrouped * $totalPriceImportUngrouped) }}
-                                                    </td>
+                                                        {{ number_format($totalPriceImport) }}</td>
                                                     <td class="height-52 text-green">
                                                         {{ number_format($totalPriceExportUngrouped) }}</td>
                                                     <td class="height-52 text-green">
@@ -668,7 +653,7 @@
 
                                                 @php
                                                     $grandTotalSlXuat += $totalSlXuatUngrouped;
-                                                    $grandTotalPriceImport += $totalPriceImportUngrouped;
+                                                    $grandTotalPriceImport += $totalPriceImport;
                                                     $grandTotalPriceExport += $totalPriceExportUngrouped;
                                                     $grandTotalProductTotalVat += $totalProductTotalVatUngrouped;
                                                     $grandTotalProfit += $totalProfitUngrouped;
@@ -686,7 +671,7 @@
                                                     @endphp
 
                                                     <tr>
-                                                        <td colspan="10" class="border-bottom">Nhóm khách hàng :
+                                                        <td colspan="10" class="border-bottom">Nhóm khách hàng:
                                                             {{ $value->name }}</td>
                                                     </tr>
 
@@ -694,39 +679,38 @@
                                                         @if ($item->group_idGuest == $value->id)
                                                             <tr class="position-relative">
                                                                 <td class="text-13-black height-52">
-                                                                    {{ $item->code_delivery }}</td>
+                                                                    {{ $item->maPhieu }}</td>
                                                                 <td class="text-13-black height-52">
                                                                     {{ $item->product_code }}</td>
                                                                 <td class="text-13-black height-52">
-                                                                    {{ $item->getProduct ? $item->getProduct->product_name : '' }}
-                                                                </td>
+                                                                    {{ $item->product_name }}</td>
                                                                 <td class="text-13-black height-52">
                                                                     {{ $item->product_unit }}</td>
                                                                 <td class="text-13-black height-52">
                                                                     {{ number_format($item->slxuat) }}</td>
                                                                 <td class="text-13-black height-52">
-                                                                    {{ number_format($item->price_import) }}</td>
+                                                                    {{ number_format($item->giaNhap) }}</td>
                                                                 <td class="text-13-black height-52">
-                                                                    {{ number_format($item->slxuat * $item->price_import) }}
+                                                                    {{ number_format($item->slxuat * $item->giaNhap) }}
                                                                 </td>
                                                                 <td class="text-13-black height-52">
                                                                     {{ number_format($item->price_export) }}</td>
                                                                 <td class="text-13-black height-52">
                                                                     {{ number_format($item->product_total_vat) }}</td>
                                                                 <td class="text-13-black height-52">
-                                                                    {{ number_format($item->product_total_vat - $item->slxuat * $item->price_import) }}
+                                                                    {{ number_format($item->product_total_vat - $item->slxuat * $item->giaNhap) }}
                                                                 </td>
                                                             </tr>
                                                             @php
                                                                 $totalGroupItems++;
                                                                 $totalSlXuatGrouped += $item->slxuat;
-                                                                $totalPriceImportGrouped += $item->price_import;
+                                                                $totalPriceImportGrouped += $item->giaNhap;
                                                                 $totalPriceExportGrouped += $item->price_export;
                                                                 $totalProductTotalVatGrouped +=
                                                                     $item->product_total_vat;
                                                                 $totalProfitGrouped +=
                                                                     $item->product_total_vat -
-                                                                    $item->slxuat * $item->price_import;
+                                                                    $item->slxuat * $item->giaNhap;
                                                             @endphp
                                                         @endif
                                                     @endforeach
@@ -750,37 +734,30 @@
 
                                                     @php
                                                         $grandTotalSlXuat += $totalSlXuatGrouped;
-                                                        $grandTotalPriceImport += $totalPriceImportGrouped;
+                                                        $grandTotalPriceImport +=
+                                                            $totalSlXuatGrouped * $totalPriceImportGrouped;
                                                         $grandTotalPriceExport += $totalPriceExportGrouped;
                                                         $grandTotalProductTotalVat += $totalProductTotalVatGrouped;
                                                         $grandTotalProfit += $totalProfitGrouped;
                                                     @endphp
                                                 @endforeach
-
                                             </tbody>
                                             <tfoot id="total-footer">
                                                 <tr class="bg-light total-row">
-                                                    <td colspan="4" class="text-right text-red">Tổng của tất
-                                                        cả
-                                                        các
+                                                    <td colspan="4" class="text-right text-red">Tổng của tất cả các
                                                         nhóm:</td>
                                                     <td class="height-52 text-red">
-                                                        {{ number_format($grandTotalSlXuat) }}
-                                                    </td>
+                                                        {{ number_format($grandTotalSlXuat) }}</td>
                                                     <td class="height-52 text-red">
-                                                        {{ number_format($grandTotalPriceImport) }}
-                                                    </td>
+                                                        {{ number_format($grandTotalPriceImport) }}</td>
                                                     <td class="height-52 text-red">
-                                                        {{ number_format($grandTotalSlXuat * $grandTotalPriceImport) }}
-                                                    </td>
+                                                        {{ number_format($grandTotalPriceImport) }}</td>
                                                     <td class="height-52 text-red">
-                                                        {{ number_format($grandTotalPriceExport) }}
-                                                    </td>
+                                                        {{ number_format($grandTotalPriceExport) }}</td>
                                                     <td class="height-52 text-red">
                                                         {{ number_format($grandTotalProductTotalVat) }}</td>
                                                     <td class="height-52 text-red">
-                                                        {{ number_format($grandTotalProfit) }}
-                                                    </td>
+                                                        {{ number_format($grandTotalProfit) }}</td>
                                                 </tr>
                                             </tfoot>
                                         </table>

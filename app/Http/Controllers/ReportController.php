@@ -456,7 +456,8 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // Lấy sản phẩm đã bán
-        $allDeliveries = $this->delivered->getAllHistory();
+        // $allDeliveries = $this->delivered->getAllHistory();
+        $allDeliveries = $this->detailExport->allProductsSell();
         $groups = Groups::where('grouptype_id', 4)->get();
         $groupGuests = Groups::where('grouptype_id', 2)->get();
 

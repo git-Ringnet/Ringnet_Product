@@ -436,4 +436,33 @@ class DetailExport extends Model
             ->get();
         return $detaiExport;
     }
+    public function allProductsSell()
+    {
+        $detaiExport = DB::table($this->table)
+            ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->leftJoin('products', 'products.id', 'quoteexport.product_id')
+            ->leftJoin('history_import', 'history_import.product_id', 'quoteexport.product_id')
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->leftJoin('groups', 'groups.id', 'guest.group_id')
+            ->select(
+                'detailexport.*',
+                'detailexport.created_at as ngayTao',
+                'detailexport.quotation_number as maPhieu',
+                'groups.name as nhomKH',
+                'guest.guest_name_display as nameGuest',
+                'detailexport.total_price as totalProductVat',
+                'products.product_code as product_code',
+                'products.product_name as product_name',
+                'products.group_id as group_id',
+                'guest.group_id as group_idGuest',
+                'products.product_unit as product_unit',
+                'quoteexport.product_qty as slxuat',
+                'quoteexport.price_export as price_export',
+                'quoteexport.product_total as product_total_vat',
+                'history_import.price_export as giaNhap',
+            )
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->get();
+        return $detaiExport;
+    }
 }
