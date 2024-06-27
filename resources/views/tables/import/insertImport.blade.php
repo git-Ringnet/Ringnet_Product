@@ -416,7 +416,7 @@
                                     <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
                                         name="quotation_number"
                                         style="flex:2; background-color:#F0F4FF;border-radius:4px;"
-                                        placeholder="Chọn thông tin">
+                                        placeholder="Chọn thông tin" readonly>
 
                                 </li>
                                 <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"

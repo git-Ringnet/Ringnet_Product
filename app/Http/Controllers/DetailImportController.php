@@ -317,27 +317,38 @@ class DetailImportController extends Controller
             if ($date) {
                 $date = explode('/', $date->quotation_number)[0];
             }
-            $count = DetailImport::where('provide_id', $provide->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
+            $count = DetailImport::where('workspace_id', Auth::user()->current_workspace)
+                // ->where('provide_id', $provide->id)
+                // ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
                 ->count();
-            $lastDetailImport = DetailImport::where('provide_id', $provide->id)
+            $lastDetailImport = DetailImport::where('workspace_id', Auth::user()->current_workspace)
+
+            // ->where('provide_id', $provide->id)
                 ->orderBy('id', 'desc')
-                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
+            //     ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
                 ->first();
 
             if ($lastDetailImport) {
-                $parts = explode('-', $lastDetailImport->quotation_number);
-                $getNumber = end($parts);
+                $pattern = '/DDH(\d+)-/';
+                preg_match($pattern, $lastDetailImport->quotation_number, $matches);
+                $getNumber = isset($matches[1]) ? $matches[1] : 0;
+                // $parts = explode('-', $lastDetailImport->quotation_number);
+                // $getNumber = end($parts);
 
                 $count = $getNumber + 1;
             } else {
                 $count = $count == 0 ? $count += 1 : $count;
             }
             if ($count < 10) {
-                $count = "0" . $count;
+                // $count = "0" . $count;
+                $count = $count;
             }
-            $resultNumber = ($date == "" ? Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY') : $date) . "/RN-" . $provide->key . "-" . $count;
+
+
+            // $resultNumber = "DDH-" . $provide->key . "-" . $count;
+            $resultNumber = "DDH0" .$count . "-" .  Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmy');
+
+            // $resultNumber = ($date == "" ? Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY') : $date) . "/DDH-" . $provide->key . "-" . $count;
             $result = [
                 'provide' => $provide,
                 'count' => $count,
