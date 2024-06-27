@@ -127,6 +127,17 @@
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
+                                                                STT
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-guest_name_display"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="height-52 border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link"
+                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                            <button class="btn-sort text-13" type="submit">
                                                                 Ngày
                                                             </button>
                                                         </a>
@@ -267,14 +278,17 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="table-sell">
                                             @php
                                                 $totalDeliverQty = 0;
                                                 $totalPriceExport = 0;
                                                 $totalProductTotalVat = 0;
                                                 $totalItemDeliveryTotalProductVat = 0;
+                                                $Pay = 0;
+                                                $Remai = 0;
                                                 $totalPay = 0;
                                                 $totalRemai = 0;
+                                                $stt = 1; // Khởi tạo biến STT
                                             @endphp
 
                                             @foreach ($allDelivery as $itemDelivery)
@@ -290,11 +304,13 @@
                                                     @php
                                                         $totalItemDeliveryTotalProductVat +=
                                                             $itemDelivery->totalProductVat + $itemDelivery->total_tax;
-                                                        $totalPay =
+                                                        $Pay =
                                                             $itemDelivery->totalProductVat +
                                                             $itemDelivery->total_tax -
                                                             $itemDelivery->amount_owed;
-                                                        $totalRemai = $itemDelivery->amount_owed;
+                                                        $Remai = $itemDelivery->amount_owed;
+                                                        $totalPay += $Pay;
+                                                        $totalRemai += $Remai;
                                                     @endphp
                                                     @foreach ($matchedItems as $item)
                                                         @php
@@ -303,6 +319,12 @@
                                                             $totalProductTotalVat += $item->product_total;
                                                         @endphp
                                                         <tr class="position-relative">
+                                                            <input type="hidden" value="{{ $itemDelivery->id }}"
+                                                                class="sell">
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ $loop->first ? $stt : '' }}
+                                                            </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
                                                                 {{ $loop->first ? $itemDelivery->ngayTao : '' }}
@@ -340,11 +362,11 @@
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ number_format($itemDelivery->totalProductVat + $itemDelivery->total_tax - $itemDelivery->amount_owed) }}
+                                                                {{ number_format($Pay) }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ number_format($itemDelivery->amount_owed) }}
+                                                                {{ number_format($Remai) }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
@@ -360,30 +382,65 @@
                                                             </td>
                                                         </tr>
                                                     @endforeach
+                                                    @php
+                                                        $stt++; // Tăng biến STT lên 1 sau mỗi hóa đơn
+                                                    @endphp
                                                 @endif
                                             @endforeach
                                             <tr class="position-relative">
-                                                <td colspan="6" class="text-red height-52 border text-center">
+                                                <td colspan="7" class="text-red height-52 border text-center">
                                                     <strong>Tổng cộng</strong>
                                                 </td>
                                                 <td class="text-red height-52 border">
-                                                    {{ number_format($totalDeliverQty) }}</td>
+                                                    {{ number_format($totalDeliverQty) }}
+                                                </td>
                                                 <td class="text-red height-52 border">
-                                                    {{ number_format($totalPriceExport) }}</td>
+                                                    {{ number_format($totalPriceExport) }}
+                                                </td>
                                                 <td class="text-red height-52 border">
-                                                    {{ number_format($totalProductTotalVat) }}</td>
+                                                    {{ number_format($totalProductTotalVat) }}
+                                                </td>
                                                 <td class="text-red height-52 border">
-                                                    {{ number_format($totalItemDeliveryTotalProductVat) }}</td>
+                                                    {{ number_format($totalItemDeliveryTotalProductVat) }}
+                                                </td>
                                                 <td class="text-red height-52 border">
-                                                    {{ number_format($totalPay) }}</td>
+                                                    {{ number_format($totalPay) }}
+                                                </td>
                                                 <td class="text-red height-52 border">
-                                                    {{ number_format($totalRemai) }}</td>
+                                                    {{ number_format($totalRemai) }}
+                                                </td>
                                                 <td class="text-red height-52 border"></td>
                                             </tr>
-
-
                                         </tbody>
                                     </table>
+                                    {{-- <table class="w-100">
+                                        <tbody>
+                                            <tr class="position-relative">
+                                                <td colspan="7" class="text-red height-52 border text-center">
+                                                    <strong>Tổng cộng</strong>
+                                                </td>
+                                                <td class="text-red height-52 border">
+                                                    {{ number_format($totalDeliverQty) }}
+                                                </td>
+                                                <td class="text-red height-52 border">
+                                                    {{ number_format($totalPriceExport) }}
+                                                </td>
+                                                <td class="text-red height-52 border">
+                                                    {{ number_format($totalProductTotalVat) }}
+                                                </td>
+                                                <td class="text-red height-52 border">
+                                                    {{ number_format($totalItemDeliveryTotalProductVat) }}
+                                                </td>
+                                                <td class="text-red height-52 border">
+                                                    {{ number_format($totalPay) }}
+                                                </td>
+                                                <td class="text-red height-52 border">
+                                                    {{ number_format($totalRemai) }}
+                                                </td>
+                                                <td class="text-red height-52 border"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table> --}}
                                 </div>
                             </div>
                         </div>
@@ -393,3 +450,23 @@
         </section>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $(".table-sell tr").hover(
+            function() {
+                // Khi hover vào một hàng, lấy giá trị của input ẩn bên trong hàng đó
+                var sell = $(this).find(".sell").val();
+                // Thêm lớp highlight vào tất cả các hàng có cùng delivered_id
+                $(".table-sell tr").each(function() {
+                    if ($(this).find(".sell").val() === sell) {
+                        $(this).addClass("highlights");
+                    }
+                });
+            },
+            function() {
+                // Khi dừng hover, loại bỏ lớp highlights khỏi tất cả các hàng
+                $(".table-sell tr").removeClass("highlights");
+            }
+        );
+    });
+</script>

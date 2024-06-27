@@ -484,12 +484,12 @@ class DetailExportController extends Controller
 
         if ($guest) {
             // Lấy ngày hiện tại dưới định dạng dmY
-            $currentDate = Carbon::now()->format('dmY');
+            $currentDate = Carbon::now()->format('dmy');
 
             // Lấy số lớn nhất của quotation_number cho ngày hiện tại
             $lastNumber =
                 DetailExport::where('workspace_id', Auth::user()->current_workspace)
-                ->whereDate('created_at', now())
+                // ->whereDate('created_at', now())
                 ->count() + 1;
             // Nếu không có số lớn nhất, bắt đầu với số 01
             $count = ($lastNumber ? ($lastNumber + 1) : 1);
@@ -498,21 +498,31 @@ class DetailExportController extends Controller
             // Tạo chuỗi resultNumber mới
             $resultNumber = "{$currentDate}/RN-{$guest->key}-{$countFormatted}";
 
-            $lastDetail =
-                DetailExport::where('workspace_id', Auth::user()->current_workspace)
-                ->whereDate('created_at', now())
-                ->count() + 1;
-            $lastDetail = $lastDetail !== null ? $lastDetail : 1;
-            $countFormattedInvoice = str_pad($lastDetail, 2, '0', STR_PAD_LEFT);
+            $lastDetailImport = DetailExport::where('workspace_id', Auth::user()->current_workspace)
+                ->orderBy('created_at', 'desc')
+                ->first();
+            $getNumber = 0;
+            if ($lastDetailImport) {
+                $pattern = '/PBH(\d+)-/';
+                preg_match($pattern, $lastDetailImport->quotation_number, $matches);
+                $getNumber = isset($matches[1]) ? $matches[1] : 0;
+            }
+            $newInvoiceNumber = $getNumber + 1;
+            $countFormattedInvoice = str_pad($newInvoiceNumber, 2, '0', STR_PAD_LEFT);
             $Detail = "PBH{$countFormattedInvoice}-{$currentDate}";
 
             // Tạo DGH
-            $lastInvoiceNumber =
-                Delivery::where('workspace_id', Auth::user()->current_workspace)
-                ->whereDate('created_at', now())
-                ->count() + 1;
-            $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
-            $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
+            $lastInvoice = Delivery::where('workspace_id', Auth::user()->current_workspace)
+                ->orderBy('created_at', 'desc')
+                ->first();
+            $getNumber = 0;
+            if ($lastInvoice) {
+                $pattern = '/PXK(\d+)-/';
+                preg_match($pattern, $lastInvoice->invoice_number, $matches);
+                $getNumber = isset($matches[1]) ? $matches[1] : 0;
+            }
+            $newInvoiceNumber = $getNumber + 1;
+            $countFormattedInvoice = str_pad($newInvoiceNumber, 2, '0', STR_PAD_LEFT);
             $invoicenumber = "PXK{$countFormattedInvoice}-{$currentDate}";
 
             $result = [
@@ -677,13 +687,18 @@ class DetailExportController extends Controller
                     $newRepresentId = null;
                 }
 
-                $currentDate = Carbon::now()->format('dmY');
-                $lastDetail =
-                    DetailExport::where('workspace_id', Auth::user()->current_workspace)
-                    ->whereDate('created_at', now())
-                    ->count() + 1;
-                $lastDetail = $lastDetail !== null ? $lastDetail : 1;
-                $countFormattedInvoice = str_pad($lastDetail, 2, '0', STR_PAD_LEFT);
+                $currentDate = Carbon::now()->format('dmy');
+                $lastDetailImport = DetailExport::where('workspace_id', Auth::user()->current_workspace)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+                $getNumber = 0;
+                if ($lastDetailImport) {
+                    $pattern = '/PBH(\d+)-/';
+                    preg_match($pattern, $lastDetailImport->quotation_number, $matches);
+                    $getNumber = isset($matches[1]) ? $matches[1] : 0;
+                }
+                $newInvoiceNumber = $getNumber + 1;
+                $countFormattedInvoice = str_pad($newInvoiceNumber, 2, '0', STR_PAD_LEFT);
                 $Detail = "PBH{$countFormattedInvoice}-{$currentDate}";
 
                 $response = [

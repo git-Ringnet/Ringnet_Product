@@ -71,13 +71,18 @@ class CashReceipt extends Model
     public function getQuoteCount()
     {
         // Tạo DGH
-        $currentDate = Carbon::now()->format('dmY');
-        $lastInvoiceNumber =
-            CashReceipt::where('workspace_id', Auth::user()->current_workspace)
-            ->whereDate('created_at', now())
-            ->count() + 1;
-        $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
-        $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
+        $currentDate = Carbon::now()->format('dmy');
+        $lastInvoice = CashReceipt::where('workspace_id', Auth::user()->current_workspace)
+            ->orderBy('created_at', 'desc')
+            ->first();
+        $getNumber = 0;
+        if ($lastInvoice) {
+            $pattern = '/PTT(\d+)-/';
+            preg_match($pattern, $lastInvoice->invoice_number, $matches);
+            $getNumber = isset($matches[1]) ? $matches[1] : 0;
+        }
+        $newInvoiceNumber = $getNumber + 1;
+        $countFormattedInvoice = str_pad($newInvoiceNumber, 2, '0', STR_PAD_LEFT);
         $invoicenumber = "PTT{$countFormattedInvoice}-{$currentDate}";
         return $invoicenumber;
     }
@@ -114,7 +119,7 @@ class CashReceipt extends Model
             // Cộng tiền vào đơn trả hàng
             $returnImport = ReturnImport::where('id', $data['returnImport_id'])->first();
             if ($returnImport) {
-                $returnImport->payment = $returnImport->payment + isset($data['total']) ? str_replace(',','',$data['total']) : 0;
+                $returnImport->payment = $returnImport->payment + isset($data['total']) ? str_replace(',', '', $data['total']) : 0;
                 $returnImport->save();
             }
         } else {

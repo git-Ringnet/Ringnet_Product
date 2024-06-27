@@ -152,10 +152,10 @@ class DeliveryController extends Controller
         $guest = $this->guest->getAllGuest();
 
         // Tạo DGH
-        $currentDate = Carbon::now()->format('dmY');
+        $currentDate = Carbon::now()->format('dmy');
         $lastInvoiceNumber =
             Delivery::where('workspace_id', Auth::user()->current_workspace)
-            ->whereDate('created_at', now())
+            // ->whereDate('created_at', now())
             ->count() + 1;
         $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
         $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
@@ -384,10 +384,10 @@ class DeliveryController extends Controller
         $delivery['lastDeliveryId'] = $lastDeliveryId == null ? 0 : $lastDeliveryId;
 
         // Tạo DGH
-        $currentDate = Carbon::now()->format('dmY');
+        $currentDate = Carbon::now()->format('dmy');
         $lastInvoiceNumber =
             Delivery::where('workspace_id', Auth::user()->current_workspace)
-            ->whereDate('created_at', now())
+            // ->whereDate('created_at', now())
             ->count() + 1;
         $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
         $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
