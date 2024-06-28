@@ -108,7 +108,8 @@ class PayOrderController extends Controller
             ->where('status_pay', '!=', 2)
             ->get();
 
-        $funds = Fund::all();
+        // $funds = Fund::all();
+        $funds = Fund::where('workspace_id',Auth::user()->current_workspace)->get();
 
         $guest = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $content = ContentGroups::where('contenttype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();

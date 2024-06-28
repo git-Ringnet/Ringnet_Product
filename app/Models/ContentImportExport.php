@@ -52,6 +52,40 @@ class ContentImportExport extends Model
         return $this->hasOne(Fund::class, 'id', 'to_fund_id');
     }
 
+    public function getQuoteCount()
+    {
+        $currentDate = Carbon::now()->format('dmY');
+        $lastInvoiceNumber =
+            ContentImportExport::where('workspace_id', Auth::user()->current_workspace)
+            // ->whereDate('created_at', now())
+            ->count() + 1;
+
+
+        // $lastInvoiceNumber = $lastInvoiceNumber !== null ? $lastInvoiceNumber : 1;
+        if ($lastInvoiceNumber !== null) {
+            $last =
+                ContentImportExport::where('workspace_id', Auth::user()->current_workspace)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            $pattern = '/PCT(\d+)-/';
+            if ($last) {
+                preg_match($pattern, $last->form_code, $matches);
+                $getNumber = isset($matches[1]) ? $matches[1] : 0;
+                $lastInvoiceNumber = $getNumber + 1;
+            }
+        } else {
+            $lastInvoiceNumber = 1;
+        }
+
+
+        $countFormattedInvoice = str_pad($lastInvoiceNumber, 2, '0', STR_PAD_LEFT);
+        $invoicenumber = "PCT{$countFormattedInvoice}-{$currentDate}";
+        return $invoicenumber;
+    }
+
+
+
     public function createContent($data)
     {
         $status = [];

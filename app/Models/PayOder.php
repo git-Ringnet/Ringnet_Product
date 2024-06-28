@@ -81,7 +81,7 @@ class PayOder extends Model
         $currentDate = Carbon::now()->format('dmY');
         $lastInvoiceNumber =
             PayOder::where('workspace_id', Auth::user()->current_workspace)
-            ->whereDate('created_at', now())
+            // ->whereDate('created_at', now())
             ->count() + 1;
 
 

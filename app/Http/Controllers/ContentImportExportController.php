@@ -27,7 +27,7 @@ class ContentImportExportController extends Controller
         $content = ContentImportExport::where('workspace_id', Auth::user()->current_workspace)
             ->orderBy('id', 'desc')
             ->get();
-        $title = "Kho";
+        $title = "Chuyển tiền nội bộ";
 
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
@@ -39,12 +39,18 @@ class ContentImportExportController extends Controller
      */
     public function create()
     {
-        $title = "Thêm mới nội dung thu chi";
+        $title = "Thêm mới phiếu chuyển tiền nội bộ";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $type = DB::table('contenttype')->get();
-        $fund = Fund::all();
-        return view('tables.abc.changeFund.create', compact('title', 'workspacename', 'type','fund'));
+        // $fund = Fund::all();
+        $fund = Fund::where('workspace_id',Auth::user()->current_workspace)->get();
+
+
+        $getQuoteCount = $this->content->getQuoteCount();
+
+        // dd($getQuoteCount);
+        return view('tables.abc.changeFund.create', compact('title', 'workspacename', 'type','fund','getQuoteCount'));
     }
 
     /**

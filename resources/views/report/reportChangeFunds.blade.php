@@ -5,7 +5,8 @@
             <div class="content__heading--left ">
                 <span>Báo cáo</span>
                 <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                        fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
                             fill="#26273B" fill-opacity="0.8" />
@@ -121,7 +122,7 @@
                                     <table id="example2" class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 18%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -132,7 +133,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 15%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -143,7 +144,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 12%;">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -154,7 +155,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 12%;">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -165,7 +166,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 12%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -176,7 +177,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 12%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -187,7 +188,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 12%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -201,40 +202,46 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $total = 0;
+                                            @endphp
                                             @foreach ($content as $item)
-                                            <tr class="position-relative guests-info"
-                                                onclick="handleRowClick('checkbox', event);">
-                                                <input type="hidden" name="id-guest" class="id-guest"
-                                                    id="id-guest" value="{{ $item->id }}">
-                                                <td class="text-13-black height-52 border">
-                                                    {{ date_format(new DateTime($item->payment_day), 'd/m/Y') }}
-                                                </td>
-                                                <td class="text-13-black height-52 border">
-                                                    {{ $item->form_code }}
-                                                </td>
-                                                <td class="text-13-black height-52 border text-wrap">
-                                                    @if ($item->getUser)
-                                                        {{ $item->getUser->name }}
-                                                    @endif
-                                                </td>
-                                                <td class="text-13-black height-52 border text-wrap">
-                                                    {{ number_format($item->qty_money) }}
-                                                </td>
-                                                <td class="text-13-black pl-0 height-52 border text-wrap">
-                                                    @if ($item->getFromFund)
-                                                        {{ $item->getFromFund->name }}
-                                                    @endif
-                                                </td>
-                                                <td class="text-13-black height-52 border text-wrap">
-                                                    @if ($item->getToFund)
-                                                        {{ $item->getToFund->name }}
-                                                    @endif
-                                                </td>
-                                                <td class="text-13-black height-52 border">
-                                                    {{ $item->notes }}
-                                                </td>
-                                            </tr>
-                                        @endforeach 
+                                                <tr class="position-relative guests-info"
+                                                    onclick="handleRowClick('checkbox', event);">
+                                                    <input type="hidden" name="id-guest" class="id-guest"
+                                                        id="id-guest" value="{{ $item->id }}">
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ date_format(new DateTime($item->payment_day), 'd/m/Y') }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ $item->form_code }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border text-wrap">
+                                                        @if ($item->getUser)
+                                                            {{ $item->getUser->name }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-13-black height-52 border text-wrap text-right">
+                                                        {{ number_format($item->qty_money) }}
+                                                    </td>
+                                                    <td class="text-13-black pl-0 height-52 border text-wrap">
+                                                        @if ($item->getFromFund)
+                                                            {{ $item->getFromFund->name }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-13-black height-52 border text-wrap">
+                                                        @if ($item->getToFund)
+                                                            {{ $item->getToFund->name }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ $item->notes }}
+                                                    </td>
+                                                </tr>
+                                                @php
+                                                    $total += $item->qty_money;
+                                                @endphp
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -245,4 +252,25 @@
             </div>
         </section>
     </div>
+    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 0;left: 0;">
+        <div class="position-relative margin-250">
+            <table class="table table-hover position-absolute bg-white border-0">
+                <thead>
+                    <tr>
+                        <th style="width: 18%;"></th>
+                        <th style="width: 15%;"></th>
+                        <th style="width: 12%;"></th>
+                        <th class="text-right text-danger font-weight-bold" style="width: 12%;">{{ number_format($total)}}</th>
+                        <th style="width: 12%;"></th>
+                        <th style="width: 12%;"></th>
+                        <th style="width: 12%;"></th>
+                    </tr>
+                </thead>
+            </table>
+            {{-- <div class="position-absolute px-4 pt-1 border bg-white" style="right: 37%;">
+                <span class="text-danger font-weight-bold">{{ number_format($total)}}</span>
+            </div> --}}
+        </div>
+    </div>
+
 </div>
