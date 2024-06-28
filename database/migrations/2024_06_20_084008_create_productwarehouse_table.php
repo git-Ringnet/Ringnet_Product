@@ -25,7 +25,7 @@ return new class extends Migration
         Schema::table('receive_bill', function (Blueprint $table) {
             $table->string('promotion')->nullable();
         });
-        Schema::table('returnImport', function (Blueprint $table) {
+        Schema::table('returnimport', function (Blueprint $table) {
             $table->decimal('total',20,4)->nullable();
             $table->decimal('payment',20,4)->nullable();
         });
