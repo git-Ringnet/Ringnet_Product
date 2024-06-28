@@ -41,6 +41,7 @@ class ReportController extends Controller
     private $guest;
     private $provide;
     private $detailExport;
+    private $detailImport;
     private $workspaces;
     private $delivery;
     private $product_returnE;
@@ -48,6 +49,7 @@ class ReportController extends Controller
     private $delivered;
     private $history;
     private $quoteE;
+    private $quoteI;
 
     public function __construct()
     {
@@ -56,6 +58,7 @@ class ReportController extends Controller
         $this->guest = new Guest();
         $this->provide = new Provides();
         $this->detailExport = new DetailExport();
+        $this->detailImport = new DetailImport();
         $this->workspaces = new Workspace();
         $this->delivery = new Delivery();
         $this->delivered = new Delivered();
@@ -63,6 +66,7 @@ class ReportController extends Controller
         $this->returnExport = new ReturnExport();
         $this->history = new History();
         $this->quoteE = new QuoteExport();
+        $this->quoteI = new QuoteImport();
     }
     public function index()
     {
@@ -435,7 +439,7 @@ class ReportController extends Controller
         $allReturn = $this->returnExport->getSumReport();
         return view('report.sumReturnExport', compact('title', 'allReturn', 'sumReturnExport'));
     }
-    // Tổng kết khách trả hàng
+    // Tổng kết bán hàng
     public function viewReportSell()
     {
         $title = 'Báo cáo tổng kết bán hàng';
@@ -448,6 +452,29 @@ class ReportController extends Controller
         // dd($sumDelivery);
 
         return view('report.sumSell', compact('title', 'productDelivered', 'allDelivery'));
+    }
+    // Tổng kết nhập hàng
+    public function viewReportImport()
+    {
+        $title = 'Tổng kết mua hàng';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        // $dataImport = DetailImport::where('workspace_id', Auth::user()->current_workspace)->get();
+        $productsQuoteI = $this->quoteI->sumProductsQuote();
+        // $allImport = $this->detailImport->getSumDetailI();
+        $allImport = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->leftJoin('groups', 'groups.id', 'provides.group_id')
+            ->select(
+                'detailimport.*',
+                'detailimport.created_at as ngayTao',
+                'detailimport.quotation_number as maPhieu',
+                'groups.name as nhomKH',
+                'provides.provide_name_display as nameProvide',
+                'detailimport.total_price as totalProductVat',
+            )
+            ->where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->get();
+        return view('report.reportImport', compact('title', 'allImport', 'productsQuoteI'));
     }
     // Báo cáo lợi nhuận bán hàng
     public function viewReportSumSellProfit()
@@ -482,15 +509,6 @@ class ReportController extends Controller
         $workspacename = $workspacename->workspace_name;
         $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         return view('report.debtProvides', compact('title', 'provide'));
-    }
-
-    public function viewReportImport()
-    {
-        $title = 'Tổng kết mua hàng';
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        $dataImport = DetailImport::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('report.reportImport', compact('title', 'dataImport'));
     }
     public function viewReportIE()
     {

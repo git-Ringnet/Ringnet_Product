@@ -31,7 +31,7 @@ class QuoteImport extends Model
     }
     public function getSerialNumberByID()
     {
-        return $this->hasMany(Serialnumber::class, 'product_id', 'product_id')->where('quoteimport.id','serialnumber.quoteImport_id');
+        return $this->hasMany(Serialnumber::class, 'product_id', 'product_id')->where('quoteimport.id', 'serialnumber.quoteImport_id');
     }
 
     public function getAllQuote()
@@ -112,7 +112,17 @@ class QuoteImport extends Model
         }
         // return $result;
     }
-
+    public function sumProductsQuote()
+    {
+        $quoteI = QuoteImport::leftJoin('detailimport', 'quoteimport.detailimport_id', 'detailimport.id')
+            ->select(
+                'detailimport.*',
+                'quoteimport.*',
+                'quoteimport.product_qty as slxuat',
+            )
+            ->get();
+        return $quoteI;
+    }
 
     public function updateImport($data, $id)
     {

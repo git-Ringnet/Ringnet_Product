@@ -160,6 +160,17 @@
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13" type="submit">
+                                                                Nhóm
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-guest_name_display"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="height-52 border">
+                                                    <span class="d-flex justify-content-end">
+                                                        <a href="#" class="sort-link"
+                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                            <button class="btn-sort text-13" type="submit">
                                                                 Nhà cung cấp
                                                             </button>
                                                         </a>
@@ -267,103 +278,134 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="table-import">
                                             @php
-                                                $count = 0;
+                                                $totalDeliverQty = 0;
+                                                $totalPriceExport = 0;
+                                                $totalProductTotalVat = 0;
+                                                $totalitemDetailTotalProductVat = 0;
+                                                $Pay = 0;
+                                                $Remai = 0;
+                                                $totalPay = 0;
+                                                $totalRemai = 0;
+                                                $stt = 1; // Khởi tạo biến STT
                                             @endphp
-                                            @foreach ($dataImport as $item)
+
+                                            @foreach ($allImport as $itemDetail)
                                                 @php
-                                                    $count++;
+                                                    $matchedItems = $productsQuoteI->where(
+                                                        'detailimport_id',
+                                                        $itemDetail->id,
+                                                    );
+                                                    $count = count($matchedItems);
                                                 @endphp
-                                                <tr class="position-relative guests-info"
-                                                    onclick="handleRowClick('checkbox', event);">
-                                                    <input type="hidden" name="id-guest" class="id-guest"
-                                                        id="id-guest" value="{{ $item->guest_id }}">
-                                                    <td class="text-13-black height-52 border">
-                                                        {{ $count }}
-                                                    </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
-                                                    </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        {{ $item->quotation_number }}
-                                                    </td>
-                                                    <td class="text-13-black height-52 border text-wrap">
-                                                        {{ $item->provide_name }}
-                                                    </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        @if ($item->getProductImport)
-                                                            @foreach ($item->getProductImport as $va)
-                                                                <p class="m-0">{{ $va->product_name }}</p>
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        @if ($item->getProductImport)
-                                                            @foreach ($item->getProductImport as $va)
-                                                                <p class="m-0">{{ $va->product_unit }}</p>
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        @if ($item->getProductImport)
-                                                            @foreach ($item->getProductImport as $va)
-                                                                <p class="m-0 text-right">
-                                                                    {{ number_format($va->product_qty) }}</p>
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        @if ($item->getProductImport)
-                                                            @foreach ($item->getProductImport as $va)
-                                                                <p class="m-0 text-right">
-                                                                    {{ number_format($va->price_export) }}</p>
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        @if ($item->getProductImport)
-                                                            @foreach ($item->getProductImport as $va)
-                                                                <p class="m-0 text-right">
-                                                                    {{ number_format($va->product_total) }}</p>
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
 
-
-                                                    <td class="text-13-black height-52 border text-right">
-                                                        {{ number_format($item->total_tax) }}
-                                                    </td>
-                                                    {{-- Đã thanh toán --}}
-                                                    <td class="text-13-black height-52 border text-right">
-                                                        @if ($item->getPayOrder)
-                                                            {{ number_format($item->getPayOrder->payment) }}
-                                                        @else
-                                                            0
-                                                        @endif
-                                                    </td>
-
-                                                    <td class="text-13-black height-52 border text-right">
-                                                        @if ($item->getPayOrder)
-                                                            {{ number_format($item->total_tax - $item->getPayOrder->payment) }}
-                                                        @else
-                                                            {{ number_format($item->total_tax) }}
-                                                        @endif
-                                                    </td>
-
-                                                    <td class="text-13-black height-52 border">
-                                                        {{ $item->product_note }}
-                                                    </td>
-                                                    <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                        style="right: 10px; top: 7px;">
-                                                        <div class="d-flex w-100">
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
+                                                @if ($matchedItems->isNotEmpty())
+                                                    @php
+                                                        $totalitemDetailTotalProductVat +=
+                                                            $itemDetail->totalProductVat + $itemDetail->total_tax;
+                                                        $Pay = $itemDetail->getPayOrder->payment ?? 0;
+                                                        $Remai =
+                                                            $itemDetail->totalProductVat +
+                                                            $itemDetail->total_tax -
+                                                            ($itemDetail->getPayOrder->payment ?? 0);
+                                                        $totalPay += $Pay;
+                                                        $totalRemai += $Remai;
+                                                    @endphp
+                                                    @foreach ($matchedItems as $item)
+                                                        @php
+                                                            $totalDeliverQty += $item->product_qty;
+                                                            $totalPriceExport += $item->price_export;
+                                                            $totalProductTotalVat += $item->product_total;
+                                                        @endphp
+                                                        <tr class="position-relative">
+                                                            <input type="hidden" value="{{ $itemDetail->id }}"
+                                                                class="import">
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ $loop->first ? $stt : '' }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ $loop->first ? $itemDetail->ngayTao : '' }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ $loop->first ? $itemDetail->maPhieu : '' }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ $loop->first ? $itemDetail->nhomKH : '' }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ $loop->first ? $itemDetail->nameProvide : '' }}
+                                                            </td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ $item->product_name }}</td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ $item->product_unit }}</td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ number_format($item->product_qty) }}</td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ number_format($item->price_export) }}</td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ number_format($item->product_total) }}</td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ number_format($itemDetail->totalProductVat + $itemDetail->total_tax) }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                @if ($itemDetail->getPayOrder)
+                                                                    {{ number_format($itemDetail->getPayOrder->payment) }}
+                                                                @else
+                                                                    0
+                                                                @endif
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ number_format($Remai) }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                @if ($loop->first)
+                                                                    @if ($itemDetail->status == 1)
+                                                                        <span>Draft</span>
+                                                                    @elseif ($itemDetail->status == 2)
+                                                                        <span class="text-yellow">Approved</span>
+                                                                    @elseif($itemDetail->status == 3)
+                                                                        <span class="text-green">Close</span>
+                                                                    @endif
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    @php
+                                                        $stt++; // Tăng biến STT lên 1 sau mỗi hóa đơn
+                                                    @endphp
+                                                @endif
                                             @endforeach
-
+                                            <tr class="position-relative">
+                                                <td colspan="7" class="text-red height-52 border text-center">
+                                                    <strong>Tổng cộng</strong>
+                                                </td>
+                                                <td class="text-red height-52 border">
+                                                    {{ number_format($totalDeliverQty) }}</td>
+                                                <td class="text-red height-52 border">
+                                                    {{ number_format($totalPriceExport) }}</td>
+                                                <td class="text-red height-52 border">
+                                                    {{ number_format($totalProductTotalVat) }}</td>
+                                                <td class="text-red height-52 border">
+                                                    {{ number_format($totalitemDetailTotalProductVat) }}</td>
+                                                <td class="text-red height-52 border">{{ number_format($totalPay) }}
+                                                </td>
+                                                <td class="text-red height-52 border">{{ number_format($totalRemai) }}
+                                                </td>
+                                                <td class="text-red height-52 border"></td>
+                                            </tr>
                                         </tbody>
+
                                     </table>
                                 </div>
                             </div>
@@ -374,3 +416,21 @@
         </section>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $(".table-import tr").hover(function() {
+                var sell = $(this).find(".import").val();
+                $(".table-import tr").each(function() {
+                    if ($(this).find(".import").val() ===
+                        sell) {
+                        $(this).addClass("highlights");
+                    }
+                });
+            },
+            function() {
+                // Khi dừng hover, loại bỏ lớp highlights khỏi tất cả các hàng
+                $(".table-import tr").removeClass("highlights");
+            }
+        );
+    });
+</script>

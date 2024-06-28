@@ -457,4 +457,22 @@ class DetailImport extends Model
             return false;
         }
     }
+    public function getSumDetailI()
+    {
+        $detailImport = DB::table($this->table)
+            // ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->leftJoin('groups', 'groups.id', 'provides.group_id')
+            ->select(
+                'detailimport.*',
+                'detailimport.created_at as ngayTao',
+                'detailimport.quotation_number as maPhieu',
+                'groups.name as nhomKH',
+                'provides.provide_name_display as nameProvide',
+                'detailimport.total_price as totalProductVat',
+            )
+            ->where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->get();
+        return $detailImport;
+    }
 }
