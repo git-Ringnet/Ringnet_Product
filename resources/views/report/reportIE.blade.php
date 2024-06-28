@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="statistic" activeName="viewReportIE"></x-navbar>
-<div class="content-wrapper m-0 min-height--none">
+<div class="content-wrapper m-0 min-height--none p-0">
     <div class="content-header-fixed p-0 margin-250">
         <div class="content__header--inner margin-left32">
             <div class="content__heading--left ">
@@ -208,20 +208,21 @@
                                             @php
                                                 $previousContentPay = null;
                                                 $isFirstItem = true;
+                                                $total = 0;
                                             @endphp
                                             @foreach ($contentImport as $item)
                                                 @if ($isFirstItem && $previousContentPay !== $item->content_pay)
                                                     <tr>
                                                         <td colspan="6">
                                                             <span
-                                                                style="color: #007bff; text-decoration: none; background-color: transparent">
+                                                                style="color: #007bff; text-decoration: none; background-color: transparent;">
                                                                 @if ($item->getContentPay)
                                                                     Nội dung : {{ $item->getContentPay->name }}
                                                                 @endif
                                                             </span>
                                                         </td>
                                                         <td> </td>
-                                                        <td></td>
+                                                        {{-- <td></td> --}}
                                                     </tr>
                                                 @else
                                                     @if ($previousContentPay !== null && $previousContentPay !== $item->content_pay)
@@ -276,27 +277,39 @@
                                                     <td class="text-13-black height-52 border text-right">
                                                         {{ $item->note }}
                                                     </td>
-                                                    <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
+                                                    {{-- <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                         style="right: 10px; top: 7px;">
                                                         <div class="d-flex w-100">
                                                         </div>
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                                 @php
                                                     $previousContentPay = $item->content_pay;
-
                                                 @endphp
                                             @endforeach
 
                                             <tr>
                                                 <td colspan="8">Loại: Thu</td>
-                                            <tr>
-                                                @php
-                                                    $previousContentPay = null;
-                                                    $isFirstItem = true;
-                                                @endphp
-                                                @foreach ($contentExport as $item)
-                                                    @if ($isFirstItem && $previousContentPay !== $item->content_id)
+                                            </tr>
+
+                                            @php
+                                                $previousContentPay = null;
+                                                $isFirstItem = true;
+                                                $total = 0;
+                                            @endphp
+                                            @foreach ($contentExport as $item)
+                                                @if ($isFirstItem || $previousContentPay == $item->content_id)
+                                                    @php
+                                                        $total += $item->amount;
+                                                    @endphp
+                                                @else
+                                                    @php
+                                                        $total = 0;
+                                                    @endphp
+                                                @endif
+
+                                                @if ($isFirstItem && $previousContentPay !== $item->content_id)
+                                                    <tr>
                                                         <td colspan="6">
                                                             <span
                                                                 style="color: #007bff; text-decoration: none; background-color: transparent">
@@ -306,70 +319,75 @@
                                                             </span>
                                                         </td>
                                                         <td> </td>
-                                                        <td></td>
-                                            </tr>
-                                        @else
-                                            @if ($previousContentPay !== null && $previousContentPay !== $item->content_id)
-                                                @php
-                                                    $previousContentPay !== $item->content_id
-                                                        ? ($total = 0)
-                                                        : ($total = $total);
-                                                @endphp
-                                                <tr>
-                                                    @if ($item->getContentPay)
-                                                        <td colspan="6">
-                                                            <span
-                                                                style="color: #007bff; text-decoration: none; background-color: transparent">
-                                                                Nội dung : {{ $item->getContentPay->name }}
-                                                            </span>
-                                                        </td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        {{-- <td></td> --}}
+                                                    </tr>
+                                                @else
+                                                    @if ($previousContentPay !== null && $previousContentPay !== $item->content_id)
+                                                        @php
+                                                            $previousContentPay !== $item->content_id
+                                                                ? ($total = 0)
+                                                                : ($total = $total);
+                                                        @endphp
+                                                        <tr>
+                                                            @if ($item->getContentPay)
+                                                                <td colspan="6">
+                                                                    <span
+                                                                        style="color: #007bff; text-decoration: none; background-color: transparent">
+                                                                        Nội dung : {{ $item->getContentPay->name }}
+                                                                    </span>
+                                                                </td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            @endif
+                                                        </tr>
                                                     @endif
-                                                </tr>
-                                            @endif
-                                            @endif
+                                                @endif
 
-                                            <tr class="position-relative guests-info"
-                                                onclick="handleRowClick('checkbox', event);">
-                                                <input type="hidden" name="id-guest" class="id-guest"
-                                                    id="id-guest" value="{{ $item->id }}">
-                                                <td class="py-2 text-13-black pl-0 height-52 border px-2">
-                                                    {{ date_format(new DateTime($item->date_created), 'd-m-Y') }}
-                                                </td>
-                                                <td class="py-2 text-13-black pl-0 height-52 border px-2">
-                                                    {{ $item->receipt_code }}
-                                                </td>
-                                                <td class="py-2 text-13-black pl-0 height-52 border px-2 text-wrap">
-                                                    @if ($item->getGuest)
-                                                        {{ $item->getGuest->guest_name_display }}
-                                                    @endif
-                                                </td>
-                                                <td class="py-2 text-13-black pl-0 height-52 border px-2 text-right">
-                                                    @if ($item->getContentPay)
-                                                        {{ $item->getContentPay->name }}
-                                                    @endif
-                                                </td>
-                                                <td class="py-2 text-13-black pl-0 height-52 border px-2 text-right">
-                                                    {{ number_format($item->amount) }}
-                                                </td>
-                                                <td class="py-2 text-13-black pl-0 height-52 border px-2 text-right">
-                                                    @if ($item->getFund)
-                                                        {{ $item->getFund->name }}
-                                                    @endif
-                                                </td>
-                                                <td class="py-2 text-13-black pl-0 height-52 border px-2 text-right">
-                                                    {{ $item->note }}
-                                                </td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                    style="right: 10px; top: 7px;">
-                                                    <div class="d-flex w-100">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @php
-                                                $previousContentPay = $item->content_id;
-                                            @endphp
+                                                <tr class="position-relative guests-info"
+                                                    onclick="handleRowClick('checkbox', event);">
+                                                    <input type="hidden" name="id-guest" class="id-guest"
+                                                        id="id-guest" value="{{ $item->id }}">
+                                                    <td class="py-2 text-13-black pl-0 height-52 border px-2">
+                                                        {{ date_format(new DateTime($item->date_created), 'd-m-Y') }}
+                                                    </td>
+                                                    <td class="py-2 text-13-black pl-0 height-52 border px-2">
+                                                        {{ $item->receipt_code }}
+                                                    </td>
+                                                    <td
+                                                        class="py-2 text-13-black pl-0 height-52 border px-2 text-wrap">
+                                                        @if ($item->getGuest)
+                                                            {{ $item->getGuest->guest_name_display }}
+                                                        @endif
+                                                    </td>
+                                                    <td
+                                                        class="py-2 text-13-black pl-0 height-52 border px-2 text-right">
+                                                        @if ($item->getContentPay)
+                                                            {{ $item->getContentPay->name }}
+                                                        @endif
+                                                    </td>
+                                                    <td
+                                                        class="py-2 text-13-black pl-0 height-52 border px-2 text-right">
+                                                        {{ number_format($item->amount) }}
+                                                    </td>
+                                                    <td
+                                                        class="py-2 text-13-black pl-0 height-52 border px-2 text-right">
+                                                        @if ($item->getFund)
+                                                            {{ $item->getFund->name }}
+                                                        @endif
+                                                    </td>
+                                                    <td
+                                                        class="py-2 text-13-black pl-0 height-52 border px-2 text-right">
+                                                        {{ $item->note }}
+                                                    </td>
+                                                    {{-- <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
+                                                        style="right: 10px; top: 7px;">
+                                                        <div class="d-flex w-100">
+                                                        </div>
+                                                    </td> --}}
+                                                </tr>
+                                                @php
+                                                    $previousContentPay = $item->content_id;
+                                                @endphp
                                             @endforeach
                                             </tr>
 

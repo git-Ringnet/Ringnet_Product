@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="statistic" activeName="viewReportIEFunds"></x-navbar>
-<div class="content-wrapper m-0 min-height--none">
+<div class="content-wrapper m-0 min-height--none p-0">
     <div class="content-header-fixed p-0 margin-250">
         <div class="content__header--inner margin-left32">
             <div class="content__heading--left ">
@@ -214,68 +214,87 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($inventoryDebt as $va)
-                                            @php
-                                                $total = 0;
-                                            @endphp
-                                            <tr>
-                                                <td colspan="7">{{ $va->name }}</td>
-                                            </tr>
-                                            {{-- Mua hàng --}}
-                                            @if ($va->getPayOrder)
-                                                @foreach ($va->getPayOrder as $item)
-                                                    <tr>
-                                                        <td class="text-13-black border height-52"> {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
-                                                        </td>
-                                                        <td class="text-13-black border height-52">{{ $item->payment_code }}</td>
-                                                        <td>
-                                                            @if ($item->getGuest)
-                                                                {{ $item->getGuest->guest_name_display }}
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-13-black border height-52">
-                                                            @if ($item->getContentPay)
-                                                                {{ $item->getContentPay->name }}
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-13-black border height-52">0</td>
-                                                        <td class="text-13-black border height-52">{{ number_format($item->total) }}</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    @php
-                                                        $total -= $item->total;
-                                                    @endphp
-                                                @endforeach
-                                            @endif
-                                            @if ($va->getPayExport)
-                                                @foreach ($va->getPayExport as $item)
-                                                    <tr>
-                                                        <td class="text-13-black border height-52">{{ date_format(new DateTime($item->date_created), 'd/m/Y') }}
-                                                        </td>
-                                                        <td class="text-13-black border height-52">{{ $item->receipt_code }}</td>
-                                                        <td class="text-13-black border height-52">
-                                                            @if ($item->getGuest)
-                                                                {{ $item->getGuest->guest_name_display }}
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-13-black border height-52">
-                                                            @if ($item->getContentPay)
-                                                                {{ $item->getContentPay->name }}
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-13-black border height-52">{{ number_format($item->amount) }}</td>
-                                                        <td class="text-13-black border height-52">0</td>
-                                                        <td class="text-13-black border height-52"></td>
-                                                    </tr>
-                                                    @php
-                                                        $total += $item->amount;
-                                                    @endphp
-                                                @endforeach
-                                            @endif
-                                            <tr>
-                                                <td colspan="6" class="total"></td>
-                                                <td class="text-right">{{ number_format($total) }}</td>
-                                            </tr>
-                                        @endforeach
+                                                @php
+                                                    $total = 0;
+                                                    $totalImport = 0;
+                                                    $totalExport = 0;
+                                                @endphp
+                                                <tr>
+                                                    <td colspan="7">{{ $va->name }}</td>
+                                                </tr>
+                                                {{-- Mua hàng --}}
+                                                @if ($va->getPayOrder)
+                                                    @foreach ($va->getPayOrder as $item)
+                                                        <tr>
+                                                            <td class="text-13-black border height-52">
+                                                                {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                            </td>
+                                                            <td class="text-13-black border height-52">
+                                                                {{ $item->payment_code }}</td>
+                                                            <td>
+                                                                @if ($item->getGuest)
+                                                                    {{ $item->getGuest->guest_name_display }}
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-13-black border height-52">
+                                                                @if ($item->getContentPay)
+                                                                    {{ $item->getContentPay->name }}
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-13-black border height-52">0</td>
+                                                            <td class="text-13-black border height-52">
+                                                                {{ number_format($item->total) }}</td>
+                                                            <td></td>
+                                                        </tr>
+                                                        @php
+                                                            $total -= $item->total;
+                                                            $totalExport += $item->total;
+                                                        @endphp
+                                                    @endforeach
+                                                @endif
+                                                @if ($va->getPayExport)
+                                                    @foreach ($va->getPayExport as $item)
+                                                        <tr>
+                                                            <td class="text-13-black border height-52">
+                                                                {{ date_format(new DateTime($item->date_created), 'd/m/Y') }}
+                                                            </td>
+                                                            <td class="text-13-black border height-52">
+                                                                {{ $item->receipt_code }}</td>
+                                                            <td class="text-13-black border height-52">
+                                                                @if ($item->getGuest)
+                                                                    {{ $item->getGuest->guest_name_display }}
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-13-black border height-52">
+                                                                @if ($item->getContentPay)
+                                                                    {{ $item->getContentPay->name }}
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-13-black border height-52 text-right">
+                                                                {{ number_format($item->amount) }}</td>
+                                                            <td class="text-13-black border height-52 text-right">0
+                                                            </td>
+                                                            <td class="text-13-black border height-52"></td>
+                                                        </tr>
+                                                        @php
+                                                            $total += $item->amount;
+                                                            $totalImport = $item->amount;
+                                                        @endphp
+                                                    @endforeach
+                                                @endif
+                                                <tr>
+                                                    <td colspan="4" class="total border text-center text-danger">
+                                                        Tổng cộng</td>
+                                                    <td class="text-right text-red border">
+                                                        {{ number_format($totalImport) }}
+                                                    </td>
+                                                    <td class="text-right text-red border">
+                                                        {{ number_format($totalExport) }}
+                                                    </td>
+                                                    <td class="text-right text-red border">{{ number_format($total) }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

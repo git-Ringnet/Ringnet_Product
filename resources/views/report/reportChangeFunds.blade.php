@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="statistic" activeName="viewReportChangeFunds"></x-navbar>
-<div class="content-wrapper m-0 min-height--none">
+<div class="content-wrapper m-0 min-height--none p-0">
     <div class="content-header-fixed p-0 margin-250">
         <div class="content__header--inner margin-left32">
             <div class="content__heading--left ">
@@ -252,7 +252,7 @@
             </div>
         </section>
     </div>
-    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 0;left: 0;">
+    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;">
         <div class="position-relative margin-250">
             <table class="table table-hover position-absolute bg-white border-0">
                 <thead>
@@ -260,7 +260,7 @@
                         <th style="width: 18%;"></th>
                         <th style="width: 15%;"></th>
                         <th style="width: 12%;"></th>
-                        <th class="text-right text-danger font-weight-bold" style="width: 12%;">{{ number_format($total)}}</th>
+                        <th class="text-right text-red border" style="width: 12%;">{{ number_format($total)}}</th>
                         <th style="width: 12%;"></th>
                         <th style="width: 12%;"></th>
                         <th style="width: 12%;"></th>
