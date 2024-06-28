@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('returnImport', function (Blueprint $table) {
+        Schema::create('returnimport', function (Blueprint $table) {
             $table->id();
             $table->integer('receive_id')->nullable();
             $table->string('description')->nullable();
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('returnImport');
+        Schema::dropIfExists('returnimport');
     }
 };

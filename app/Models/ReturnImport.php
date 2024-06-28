@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class ReturnImport extends Model
 {
     use HasFactory;
-    protected $table = "returnImport";
+    protected $table = "returnimport";
 
     protected $fillable = [
         'id',
