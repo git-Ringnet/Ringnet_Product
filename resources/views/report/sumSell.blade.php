@@ -450,23 +450,9 @@
         </section>
     </div>
 </div>
+<script src="{{ asset('/dist/js/report.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $(".table-sell tr").hover(
-            function() {
-                // Khi hover vào một hàng, lấy giá trị của input ẩn bên trong hàng đó
-                var sell = $(this).find(".sell").val();
-                // Thêm lớp highlight vào tất cả các hàng có cùng delivered_id
-                $(".table-sell tr").each(function() {
-                    if ($(this).find(".sell").val() === sell) {
-                        $(this).addClass("highlights");
-                    }
-                });
-            },
-            function() {
-                // Khi dừng hover, loại bỏ lớp highlights khỏi tất cả các hàng
-                $(".table-sell tr").removeClass("highlights");
-            }
-        );
+        addHighlightFunctionality(".table-sell", ".sell");
     });
 </script>

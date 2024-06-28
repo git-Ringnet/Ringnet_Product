@@ -255,4 +255,16 @@ class ReturnImport extends Model
         }
         return $status;
     }
+    public function getSumReport()
+    {
+        $sumReturnImport = ReturnImport::leftJoin('receive_bill', 'receive_bill.id', 'returnimport.receive_id')
+            ->leftJoin('provides', 'provides.id', 'receive_bill.provide_id')
+            ->select(
+                'receive_bill.*',
+                'returnimport.*',
+                'provides.provide_name_display as nameProvide',
+            )
+            ->get();
+        return $sumReturnImport;
+    }
 }

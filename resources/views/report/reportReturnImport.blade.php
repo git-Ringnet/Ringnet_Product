@@ -265,133 +265,91 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
+                                                <th scope="col" class="height-52 border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link"
+                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                            <button class="btn-sort text-13" type="submit">
+                                                                Trạng thái
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-guest_name_display"></div>
+                                                    </span>
+                                                </th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            @foreach ($returnImport as $item)
-                                                <tr class="position-relative guests-info"
-                                                    onclick="handleRowClick('checkbox', event);">
-                                                    <input type="hidden" name="id-guest" class="id-guest"
-                                                        id="id-guest" value="{{ $item->id }}">
-                                                    <td class="text-13-black border height-52">
-                                                        {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
-                                                    </td>
-                                                    <td class="text-13-black border height-52">
-                                                        {{ $item->return_code }}
-                                                    </td>
-                                                    <td
-                                                        class="text-13-black border height-52 text-wrap">
-                                                        @if ($item->getReceive && $item->getReceive->getNameProvide)
-                                                            {{ $item->getReceive->getNameProvide->provide_name_display }}
-                                                        @endif
-                                                    </td>
-                                                    <td
-                                                        class="text-13-black border height-52 text-wrap">
-                                                        @if ($item->getAllReturnProduct)
-                                                            @foreach ($item->getAllReturnProduct as $value)
-                                                                @if ($value->getQuoteImport)
-                                                                    <p class="m-0">
-                                                                        {{ $value->getQuoteImport->product_name }}
-                                                                    </p>
-                                                                @endif
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td
-                                                        class="text-13-black border height-52 text-wrap">
-                                                        @if ($item->getAllReturnProduct)
-                                                            @foreach ($item->getAllReturnProduct as $value)
-                                                                @if ($value->getQuoteImport)
-                                                                    <p class="m-0">
-                                                                        {{ $value->getQuoteImport->product_unit }}
-                                                                    </p>
-                                                                @endif
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td
-                                                        class="text-13-black border height-52 text-wrap">
-                                                        @if ($item->getAllReturnProduct)
-                                                            @foreach ($item->getAllReturnProduct as $value)
-                                                                <p class="m-0">
-                                                                    {{ number_format($value->qty) }}
-                                                                </p>
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black border height-52">
-                                                        @if ($item->getAllReturnProduct)
-                                                            @foreach ($item->getAllReturnProduct as $value)
-                                                                @if ($value->getQuoteImport)
-                                                                    <p class="m-0">
-                                                                        {{ number_format($value->getQuoteImport->price_export) }}
-                                                                    </p>
-                                                                @endif
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black border height-52">
-                                                        @if ($item->getAllReturnProduct)
-                                                            @foreach ($item->getAllReturnProduct as $value)
-                                                                @if ($value->getQuoteImport)
-                                                                    @php
-                                                                        $promotionArray = json_decode(
-                                                                            $value->getQuoteImport->promotion,
-                                                                            true,
-                                                                        );
-                                                                        $promotionValue = isset(
-                                                                            $promotionArray['value'],
-                                                                        )
-                                                                            ? $promotionArray['value']
-                                                                            : 0;
-                                                                        $promotionOption = isset(
-                                                                            $promotionArray['type'],
-                                                                        )
-                                                                            ? $promotionArray['type']
-                                                                            : "";
-                                                                        $totalReturn = 0;
-                                                                        $temp = 0;
-                                                                        $temp =
-                                                                            $value->qty *
-                                                                            $value->getQuoteImport->price_export;
-                                                                        $totalReturn =
-                                                                            $promotionOption == 1
-                                                                                ? $temp - $promotionValue
-                                                                                : $temp - ($temp * $promotionValue) / 100;
-                                                                    @endphp
-                                                                    <p class="m-0">
-                                                                        {{ number_format($totalReturn) }}
-                                                                    </p>
-                                                                @endif
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black border height-52">
-                                                        {{ number_format($item->total) }}
-                                                    </td>
-                                                    <td class="text-13-black border height-52">
-                                                        {{-- @if ($item->getAllCashReciept)
-                                                            @php
-                                                                $total_payment = 0;
-                                                            @endphp
-                                                            @foreach ($item->getAllCashReciept as $item)
-                                                                @php
-                                                                    $total_payment += $item->amount;
-                                                                @endphp
-                                                            @endforeach
-                                                            {{ number_format($total_payment) }}
-                                                        @endif --}}
+                                        <tbody class="table-return">
+                                            @foreach ($allReturn as $itemReturn)
+                                                @php
+                                                    $matchedItems = $sumReturnImport->where(
+                                                        'idReturn',
+                                                        $itemReturn->id,
+                                                    );
+                                                    $count = count($matchedItems);
+                                                @endphp
 
-                                                        {{ number_format($item->payment)}}
-                                                    </td>
-                                                    <td class="text-13-black border height-52">
-                                                        {{ number_format($item->total - $item->payment) }}
-                                                    </td>
-                                                    <td
-                                                        class="text-13-black border height-52 text-wrap">
-                                                        {{ $item->description }}
-                                                    </td>
-                                                </tr>
+                                                @if ($matchedItems->isNotEmpty())
+                                                    @foreach ($matchedItems as $item)
+                                                        <tr class="position-relative">
+                                                            <input type="hidden" value="{{ $itemReturn->id }}"
+                                                                class="return">
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ $loop->first ? $itemReturn->created_at : '' }}
+
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ $loop->first ? $itemReturn->return_code : '' }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ $loop->first ? $itemReturn->nameProvide : '' }}
+                                                            </td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ $item->nameProduct }}
+                                                            </td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ $item->unitProduct }}
+                                                            </td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ number_format($item->qtyReturn) }}
+                                                            </td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ number_format($item->priceProduct) }}
+                                                            </td>
+                                                            <td class="text-13-black height-52 border">
+                                                                {{ number_format($item->qtyReturn * $item->priceProduct) }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ number_format($itemReturn->total) }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ number_format($itemReturn->payment) }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ number_format($itemReturn->total - $itemReturn->payment) }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                {{ $loop->first ? $itemReturn->description : '' }}
+                                                            </td>
+                                                            <td rowspan="{{ $count }}"
+                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
+                                                                @if ($loop->first)
+                                                                    @if ($itemReturn->status == 1)
+                                                                        <span>Nháp</span>
+                                                                    @elseif ($itemReturn->status == 2)
+                                                                        <span class="text-green">Đã giao</span>
+                                                                    @endif
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -404,3 +362,9 @@
         </section>
     </div>
 </div>
+<script src="{{ asset('/dist/js/report.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        addHighlightFunctionality(".table-return", ".return");
+    });
+</script>

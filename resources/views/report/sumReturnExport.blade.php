@@ -5,7 +5,8 @@
             <div class="content__heading--left ">
                 <span>Báo cáo</span>
                 <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                        fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
                             fill="#26273B" fill-opacity="0.8" />
@@ -266,7 +267,7 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="table-return">
                                             @foreach ($allReturn as $itemReturn)
                                                 @php
                                                     $matchedItems = $sumReturnExport->where(
@@ -279,6 +280,8 @@
                                                 @if ($matchedItems->isNotEmpty())
                                                     @foreach ($matchedItems as $item)
                                                         <tr class="position-relative">
+                                                            <input type="hidden" value="{{ $itemReturn->id }}"
+                                                                class="return">
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
                                                                 {{ $loop->first ? $itemReturn->created_at : '' }}
@@ -313,11 +316,11 @@
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                Thanh toán
+                                                                {{ number_format($itemReturn->payment) }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                Còn lại
+                                                                {{ number_format($itemReturn->totalProductVat - $itemReturn->payment) }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
@@ -348,3 +351,9 @@
         </section>
     </div>
 </div>
+<script src="{{ asset('/dist/js/report.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        addHighlightFunctionality(".table-return", ".return");
+    });
+</script>

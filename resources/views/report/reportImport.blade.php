@@ -416,21 +416,9 @@
         </section>
     </div>
 </div>
+<script src="{{ asset('/dist/js/report.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $(".table-import tr").hover(function() {
-                var sell = $(this).find(".import").val();
-                $(".table-import tr").each(function() {
-                    if ($(this).find(".import").val() ===
-                        sell) {
-                        $(this).addClass("highlights");
-                    }
-                });
-            },
-            function() {
-                // Khi dừng hover, loại bỏ lớp highlights khỏi tất cả các hàng
-                $(".table-import tr").removeClass("highlights");
-            }
-        );
+        addHighlightFunctionality(".table-import", ".import");
     });
 </script>

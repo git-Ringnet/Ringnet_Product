@@ -53,4 +53,27 @@ class ReturnProduct extends Model
             }
         }
     }
+    public function sumReturnExport()
+    {
+        $detailReturnExport = ReturnProduct::leftJoin('returnimport', 'returnproduct.returnImport_id', 'returnimport.id')
+            ->leftJoin('receive_bill', 'receive_bill.id', 'returnimport.receive_id')
+            ->leftJoin('quoteimport', 'quoteimport.id', 'returnproduct.quoteimport_id')
+            ->leftJoin('provides', 'provides.id', 'receive_bill.provide_id')
+            ->select(
+                'returnimport.id as idReturn',
+                'returnimport.created_at as ngayTao',
+                'returnimport.return_code as maPhieu',
+                'provides.provide_name_display as nameProvide',
+                'quoteimport.product_name as nameProduct',
+                'quoteimport.product_unit as unitProduct',
+                'returnproduct.qty as qtyReturn',
+                'quoteimport.price_export as priceProduct',
+                'returnimport.payment as payment',
+                'returnimport.status as trangThai',
+                'returnimport.description as description',
+            )
+            ->get();
+        // dd($detailReturnExport);
+        return $detailReturnExport;
+    }
 }

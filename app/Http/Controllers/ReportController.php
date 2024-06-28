@@ -25,6 +25,7 @@ use App\Models\QuoteExport;
 use App\Models\QuoteImport;
 use App\Models\ReturnExport;
 use App\Models\ReturnImport;
+use App\Models\ReturnProduct;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +46,9 @@ class ReportController extends Controller
     private $workspaces;
     private $delivery;
     private $product_returnE;
+    private $product_returnI;
     private $returnExport;
+    private $returnImport;
     private $delivered;
     private $history;
     private $quoteE;
@@ -63,7 +66,9 @@ class ReportController extends Controller
         $this->delivery = new Delivery();
         $this->delivered = new Delivered();
         $this->product_returnE = new ProductReturnExport();
+        $this->product_returnI = new ReturnProduct();
         $this->returnExport = new ReturnExport();
+        $this->returnImport = new ReturnImport();
         $this->history = new History();
         $this->quoteE = new QuoteExport();
         $this->quoteI = new QuoteImport();
@@ -439,6 +444,19 @@ class ReportController extends Controller
         $allReturn = $this->returnExport->getSumReport();
         return view('report.sumReturnExport', compact('title', 'allReturn', 'sumReturnExport'));
     }
+    // Tổng kết trả hàng NCC
+    public function viewReportReturnImport()
+    {
+        $title = 'Báo cáo tổng kết trả hàng NCC';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+
+        $sumReturnImport = $this->product_returnI->sumReturnExport();
+        $allReturn = $this->returnImport->getSumReport();
+
+        $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('report.reportReturnImport', compact('title', 'returnImport', 'allReturn', 'sumReturnImport'));
+    }
     // Tổng kết bán hàng
     public function viewReportSell()
     {
@@ -545,19 +563,6 @@ class ReportController extends Controller
 
         return view('report.reportIE', compact('title', 'contentImport', 'contentExport'));
     }
-
-    public function viewReportReturnImport()
-    {
-        $title = 'Trả hàng NCC';
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-
-        $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
-
-        return view('report.reportReturnImport', compact('title', 'returnImport'));
-    }
-
-
 
     public function viewReportChangeFunds()
     {
