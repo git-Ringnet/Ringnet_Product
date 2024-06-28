@@ -451,7 +451,7 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
 
-        $sumReturnImport = $this->product_returnI->sumReturnExport();
+        $sumReturnImport = $this->product_returnI->sumReturnImport();
         $allReturn = $this->returnImport->getSumReport();
 
         $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();

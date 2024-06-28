@@ -53,7 +53,7 @@ class ReturnProduct extends Model
             }
         }
     }
-    public function sumReturnExport()
+    public function sumReturnImport()
     {
         $detailReturnExport = ReturnProduct::leftJoin('returnimport', 'returnproduct.returnImport_id', 'returnimport.id')
             ->leftJoin('receive_bill', 'receive_bill.id', 'returnimport.receive_id')
