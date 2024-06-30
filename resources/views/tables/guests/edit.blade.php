@@ -4,10 +4,10 @@
     @csrf
     @method('PUT')
     <div class="content-wrapper m-0">
-        <div class="content-header-fixed p-0 margin-250">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left text-long-special">
-                    <span>Thiết lập ban đầu</span>
+                    <span class="ml-4">Thiết lập ban đầu</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -56,7 +56,7 @@
                             </svg>
                             <p class="m-0 ml-1">Lưu khách hàng</p>
                         </button>
-                        <div>
+                        {{-- <div>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -69,13 +69,13 @@
                                     d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                     fill="#42526E"></path>
                             </svg>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
         </div>
-        <div class="content editGuest" style="margin-top:3.8rem">
-            <section class="margin-250">
+        <div class="content editGuest" style="margin-top:10rem">
+            <section class="">
                 <div id="info" class="content tab-pane in active">
                     <section class="content">
                         <div class="container-fluided">

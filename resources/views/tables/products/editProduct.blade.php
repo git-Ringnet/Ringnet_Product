@@ -4,11 +4,11 @@
     @method('PUT')
     @csrf
     <input type="hidden" name="type_product" value="{{ $product->type }}">
-    <div class="content-wrapper editGuest min-height--none" style="background: none;">
-        <div class="content-header-fixed p-0 margin-250">
-            <div class="content__header--inner margin-left32">
+    <div class="editGuest min-height--none pr-2" style="background: none;">
+        <div class="content-header-fixed p-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
-                    <span>Thiết lập ban đầu</span>
+                    <span class="ml-4">Thiết lập ban đầu</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">

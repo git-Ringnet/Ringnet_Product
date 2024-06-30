@@ -257,10 +257,12 @@ class DetailImport extends Model
                 $promotion['type'] = isset($data['promotion-option-total']) ? $data['promotion-option-total'] : 1;
                 $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
 
-                if ($data['promotion-option-total'] == 1 && $data['promotion-total'] > 0) {
-                    $total_tax = $total_tax - $promotion['value'];
-                } else {
-                    $total_tax = $total_tax - ($total_tax * $promotion['value'] / 100);
+                if (isset($data['promotion-option-total'])) {
+                    if ($data['promotion-option-total'] == 1 && $data['promotion-total'] > 0) {
+                        $total_tax = $total_tax - $promotion['value'];
+                    } else {
+                        $total_tax = $total_tax - ($total_tax * $promotion['value'] / 100);
+                    }
                 }
 
                 $dataImport = [

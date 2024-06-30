@@ -522,7 +522,7 @@ class ReportController extends Controller
 
     public function viewReportProvides()
     {
-        $title = 'Thống kê công nợ nha cung cấp';
+        $title = 'Thống kê công nợ nhà cung cấp';
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();

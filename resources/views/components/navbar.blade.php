@@ -282,955 +282,311 @@
             </ul> --}}
         </nav>
         <!-- /.navbar -->
-    </div>
-
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-light-primary border-right">
-        <!-- Sidebar -->
-        <div class="sidebar p-0">
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                    data-accordion="false">
-                    {{-- Logo --}}
-                    <li class="">
-                        <a href="{{ route('welcome', $workspacename) }}" class="nav-link">
-                            <div class="d-flex align-items-center justify-content-center w-100">
-                                <img src="{{ asset('dist/img/logo_ringnetOC_small.png') }}" alt="">
-                            </div>
+        <div class="header-fixed border-bottom-0">
+            <!-- Main Sidebar Container -->
+            <div class="d-flex align-items-center px-3 justify-content-between w-100" style="background: #F3F5F7;">
+                <div class="p-2 d-flex content__heading--right">
+                    <a href="{{ route('dashboardProduct.index', $workspacename) }}" class="height-36">
+                        <button type="button" class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'dashboardProduct') active @endif">
+                            Dashboard
+                        </button>
+                    </a>
+                    <div class="dropdown ml-2 p-0">
+                        <a class="border text-dark justify-content-center align-items-center p-2 rounded bg-white @if (!empty($activeGroup) && $activeGroup == 'systemFirst') active @endif"
+                            href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <span>
+                                Thiết lập ban đầu
+                            </span>
                         </a>
-                    </li>
-                    {{-- Setting account --}}
-                    <li class="d-flex align-baseline setting">
-                        <a href="#" class="nav-link @if (!empty($activeName) && $activeName == '') active @endif"
-                            style="">
-                            <svg width="30" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M11.8218 10.822C12.4663 10.7985 13.0767 10.5269 13.5259 10.0641C13.975 9.6013 14.2281 8.98293 14.2323 8.33803C14.2224 7.70844 13.9629 7.10854 13.5109 6.67017C13.0589 6.23181 12.4514 5.99086 11.8218 6.00028C11.1921 5.99065 10.5843 6.23152 10.1321 6.6699C9.67995 7.10829 9.42039 7.70831 9.41052 8.33803C9.41455 8.98311 9.66766 9.60169 10.117 10.0646C10.5663 10.5274 11.1771 10.7988 11.8218 10.822V10.822Z"
-                                    stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path
-                                    d="M16.75 18V16.5C16.75 15.7044 16.4339 14.9413 15.8713 14.3787C15.3087 13.8161 14.5456 13.5 13.75 13.5H10C9.20435 13.5 8.44129 13.8161 7.87868 14.3787C7.31607 14.9413 7 15.7044 7 16.5V18"
-                                    stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100" style="">
-                                <p class="text-nav"
-                                    style="font-size: 15px;font-weight: 500;line-height: 24px;text-align: left;pointer-events: none;">
-                                    {{ Auth::user()->name }}</p>
-                            </div>
-                            <div class="cursor position-relative">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                </svg>
-                            </div>
+                        <div class="dropdown-menu" style="">
+                            <a class="dropdown-item" href="{{ route('groups.index', $workspacename) }}">Nhóm đối
+                                tượng</a>
+                            <a class="dropdown-item" href="{{ route('guests.index', $workspacename) }}">Khách
+                                hàng</a>
+                            <a class="dropdown-item" href="{{ route('provides.index', $workspacename) }}">Nhà cung
+                                cấp</a>
+                            <a class="dropdown-item" href="{{ route('inventory.index', $workspacename) }}">Hàng
+                                hóa</a>
+                            <a class="dropdown-item" href="{{ route('funds.index') }}">Quỹ</a>
+                            <a class="dropdown-item" href="{{ route('content.index', $workspacename) }}">Nội dung thu
+                                chi</a>
+                            <a class="dropdown-item" href="{{ route('warehouse.index', $workspacename) }}">Kho</a>
+                        </div>
+                    </div>
+                    <div class="dropdown ml-2 p-0">
+                        <a class="border text-dark justify-content-center align-items-center p-2 rounded bg-white @if (!empty($activeGroup) && $activeGroup == 'manageProfess') active @endif"
+                            href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <span>
+                                Quản lý nghiệp vụ
+                            </span>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('dashboardProduct.index', $workspacename) }}"
-                            class="nav-link @if (!empty($activeName) && $activeName == 'dashboardProduct') active @endif">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <path
-                                    d="M4.92842 2.01464C3.55748 2.24883 2.48156 3.20297 2.09978 4.52574L2 4.86836V12.0027V19.137L2.09978 19.4796C2.38178 20.4511 3.02386 21.2231 3.90889 21.6525C4.68547 22.0298 3.94794 21.9994 12 21.9994H19.1367L19.4794 21.8997C20.6594 21.557 21.5575 20.6593 21.9002 19.4796L22 19.137V12.0027V4.86836L21.9002 4.52574C21.5618 3.35476 20.6855 2.47002 19.5054 2.10571L19.18 2.00596L12.1085 2.00163C8.22126 1.99729 4.98915 2.00163 4.92842 2.01464ZM19.1887 3.4415C19.8612 3.6757 20.3731 4.19613 20.577 4.86836C20.6508 5.11557 20.6551 5.46687 20.6551 12.0027C20.6551 18.5385 20.6508 18.8898 20.577 19.137C20.3644 19.8309 19.8048 20.3861 19.128 20.5726C18.846 20.6506 18.538 20.655 12 20.655C5.46204 20.655 5.15401 20.6506 4.87202 20.5726C4.19523 20.3861 3.63557 19.8309 3.42299 19.137C3.34924 18.8898 3.3449 18.5385 3.3449 12.0027C3.3449 5.46687 3.34924 5.11557 3.42299 4.86836C3.67028 4.06602 4.32104 3.49788 5.14534 3.37645C5.27549 3.35476 8.4295 3.34175 12.1518 3.34609L18.9197 3.35043L19.1887 3.4415Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path
-                                    d="M7.73584 7.26934C7.651 7.31174 7.5492 7.422 7.49405 7.52802L7.39648 7.71036V12.4386C7.39648 17.0821 7.39648 17.1711 7.48132 17.345C7.71039 17.8157 8.37638 17.8284 8.64363 17.3662C8.73271 17.2178 8.73271 17.1839 8.73271 12.4471C8.73271 7.71036 8.73271 7.67644 8.64363 7.52802C8.45698 7.20573 8.06248 7.09547 7.73584 7.26934Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path
-                                    d="M12.2705 8.92312C12.0754 8.98673 11.9397 9.10123 11.8506 9.28357C11.7657 9.46592 11.7657 9.49984 11.7742 13.3715C11.7869 17.2559 11.7869 17.2771 11.876 17.3958C12.1857 17.8114 12.7032 17.8114 13.0129 17.3958C13.102 17.2771 13.102 17.2559 13.1147 13.3715C13.1232 9.48288 13.1232 9.46592 13.0341 9.28357C12.8983 8.99945 12.5505 8.83831 12.2705 8.92312Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path
-                                    d="M16.5168 10.7169C16.4065 10.772 16.2919 10.8738 16.241 10.9629C16.1562 11.107 16.1562 11.1749 16.1562 14.1645C16.1562 17.1668 16.1562 17.222 16.2453 17.3662C16.3895 17.6121 16.5804 17.7139 16.8561 17.6969C17.1403 17.6757 17.2888 17.5824 17.4076 17.3407C17.4882 17.1753 17.4924 17.0905 17.4924 14.1687C17.4924 11.4717 17.4839 11.1494 17.4245 11.018C17.2591 10.6787 16.8561 10.543 16.5168 10.7169Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Dashboard</p>
-                            </div>
+                        <div class="dropdown-menu" style="">
+                            <a class="dropdown-item" href="{{ route('detailExport.index', $workspacename) }}">Phiếu
+                                bán hàng
+                            </a>
+                            <a class="dropdown-item" href="{{ route('import.index', $workspacename) }}">Đặt hàng
+                                NCC
+                            </a>
+                            <a class="dropdown-item" href="{{ route('returnImport.index', $workspacename) }}">Trả
+                                hàng NCC
+                            </a>
+                            <a class="dropdown-item" href="{{ route('returnExport.index', $workspacename) }}">Khách
+                                trả hàng
+                            </a>
+                            <a class="dropdown-item" href="{{ route('receive.index', $workspacename) }}">Phiếu nhập
+                                kho
+                            </a>
+                            <a class="dropdown-item" href="{{ route('delivery.index', $workspacename) }}">Phiếu xuất
+                                kho
+                            </a>
+                            <a class="dropdown-item" href="{{ route('cash_receipts.index', $workspacename) }}">Phiếu
+                                thu
+                            </a>
+                            <a class="dropdown-item" href="{{ route('paymentOrder.index', $workspacename) }}">Phiếu
+                                chi
+                            </a>
+                            <a class="dropdown-item" href="{{ route('changeFund.index', $workspacename) }}">Chuyển
+                                tiền nội bộ
+                            </a>
+                            <a class="dropdown-item"
+                                href="{{ route('changeWarehouse.index', $workspacename) }}">Phiếu chuyển kho
+                            </a>
+                        </div>
+                    </div>
+                    <div class="dropdown ml-2 p-0">
+                        <a class="border text-dark justify-content-center align-items-center p-2 rounded bg-white @if (!empty($activeGroup) && $activeGroup == 'statistic') active @endif"
+                            href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <span>
+                                Báo cáo thống kê
+                            </span>
                         </a>
-                    </li>
-                    <li
-                        class="nav-item
-                         @if (!empty($activeGroup) && $activeGroup == 'systemFirst') menu-is-opening menu-open @endif">
-                        <a href="#" class="nav-link">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M11.1433 2.65738C11.329 2.55416 11.538 2.5 11.7505 2.5C11.963 2.5 12.172 2.5542 12.3578 2.65742L19.3578 6.54642C19.5524 6.65472 19.7146 6.81305 19.8275 7.00505C19.9404 7.19714 20 7.41596 20 7.6388V11.7498C20 12.164 20.3358 12.4998 20.75 12.4998C21.1642 12.4998 21.5 12.164 21.5 11.7498V7.6388C21.5 7.14857 21.369 6.66723 21.1205 6.24465C20.8719 5.82206 20.5147 5.47345 20.0862 5.23519L13.0862 1.34619C12.6777 1.11915 12.2179 1 11.7505 1C11.2831 1 10.8233 1.11919 10.4147 1.34623L3.41476 5.23519C2.9861 5.47327 2.62889 5.82164 2.38013 6.2442C2.13136 6.6668 2.00012 7.14842 2 7.6388V20.7498C2 21.164 2.33579 21.4998 2.75 21.4998H6.74581C6.74721 21.4998 6.7486 21.4998 6.75 21.4998L11.75 21.4998C12.1642 21.4998 12.5 21.164 12.5 20.7498C12.5 20.3356 12.1642 19.9998 11.75 19.9998L7.5 19.9998V18.4998H11.75C12.1642 18.4998 12.5 18.164 12.5 17.7498C12.5 17.3356 12.1642 16.9998 11.75 16.9998H7.5V15.4998H11.75C12.1642 15.4998 12.5 15.164 12.5 14.7498C12.5 14.3356 12.1642 13.9998 11.75 13.9998H7.5V12.4998H16.75C17.1642 12.4998 17.5 12.164 17.5 11.7498C17.5 11.3356 17.1642 10.9998 16.75 10.9998H6.75C6.33579 10.9998 6 11.3356 6 11.7498V14.7498V17.7498V19.9998H3.5V7.6388C3.50008 7.41596 3.55974 7.19719 3.67279 7.00515C3.78587 6.81306 3.94837 6.65464 4.14324 6.54642L10.9593 2.75962L11.1433 2.65738ZM9.75 6.99982C9.33579 6.99982 9 7.3356 9 7.74982C9 8.16403 9.33579 8.49982 9.75 8.49982H13.75C14.1642 8.49982 14.5 8.16403 14.5 7.74982C14.5 7.3356 14.1642 6.99982 13.75 6.99982H9.75Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M15.75 15.4998C15.6837 15.4998 15.6201 15.5261 15.5732 15.573C15.5263 15.6199 15.5 15.6835 15.5 15.7498V20.7498C15.5 20.8161 15.5263 20.8796 15.5732 20.9265C15.6201 20.9734 15.6837 20.9998 15.75 20.9998H20.75C20.8163 20.9998 20.8799 20.9734 20.9268 20.9265C20.9737 20.8797 21 20.8161 21 20.7498V15.7498C21 15.6835 20.9737 15.6199 20.9268 15.573C20.8799 15.5261 20.8163 15.4998 20.75 15.4998H15.75ZM15.75 13.9998H20.75C21.2141 13.9998 21.6592 14.1841 21.9874 14.5123C22.3156 14.8405 22.5 15.2856 22.5 15.7498V20.7498C22.5 21.2139 22.3156 21.659 21.9874 21.9872C21.6592 22.3154 21.2141 22.4998 20.75 22.4998H15.75C15.2859 22.4998 14.8408 22.3154 14.5126 21.9872C14.1844 21.659 14 21.2139 14 20.7498V15.7498C14 15.2856 14.1844 14.8405 14.5126 14.5123C14.8408 14.1841 15.2859 13.9998 15.75 13.9998ZM18.25 15.9999C18.6642 15.9999 19 16.3357 19 16.7499V17.4999H19.75C20.1642 17.4999 20.5 17.8357 20.5 18.2499C20.5 18.6642 20.1642 18.9999 19.75 18.9999H19V19.7499C19 20.1642 18.6642 20.4999 18.25 20.4999C17.8358 20.4999 17.5 20.1642 17.5 19.7499V18.9999H16.75C16.3358 18.9999 16 18.6642 16 18.2499C16 17.8357 16.3358 17.4999 16.75 17.4999H17.5V16.7499C17.5 16.3357 17.8358 15.9999 18.25 15.9999Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Thiết lập ban đầu</p>
-                                <i class="fas fa-angle-left right"></i>
-                            </div>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('groups.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
-                                    <p class="text-nav ml-2">Nhóm đối tượng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('guests.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Khách hàng"
-                                    class="nav-link activity1  @if (!empty($activeName) && $activeName == 'guest') active @endif">
-                                    <p class="text-nav ml-2">Khách hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('provides.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'provide') active @endif">
-                                    <p class="text-nav ml-2">Nhà cung cấp</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('inventory.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'product') active @endif">
-                                    <p class="text-nav ml-2">Hàng hóa</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('funds.index') }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'funds') active @endif">
-                                    <p class="text-nav ml-2">Quỹ</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('content.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'content') active @endif">
-                                    <p class="text-nav ml-2">Nội dung thu chi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('warehouse.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'warehouse') active @endif">
-                                    <p class="text-nav ml-2">Kho</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li
-                        class="nav-item
-                         @if (!empty($activeGroup) && $activeGroup == 'manageProfess') menu-is-opening menu-open @endif">
-                        <a href="#" class="nav-link">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M11.1433 2.65738C11.329 2.55416 11.538 2.5 11.7505 2.5C11.963 2.5 12.172 2.5542 12.3578 2.65742L19.3578 6.54642C19.5524 6.65472 19.7146 6.81305 19.8275 7.00505C19.9404 7.19714 20 7.41596 20 7.6388V11.7498C20 12.164 20.3358 12.4998 20.75 12.4998C21.1642 12.4998 21.5 12.164 21.5 11.7498V7.6388C21.5 7.14857 21.369 6.66723 21.1205 6.24465C20.8719 5.82206 20.5147 5.47345 20.0862 5.23519L13.0862 1.34619C12.6777 1.11915 12.2179 1 11.7505 1C11.2831 1 10.8233 1.11919 10.4147 1.34623L3.41476 5.23519C2.9861 5.47327 2.62889 5.82164 2.38013 6.2442C2.13136 6.6668 2.00012 7.14842 2 7.6388V20.7498C2 21.164 2.33579 21.4998 2.75 21.4998H6.74581C6.74721 21.4998 6.7486 21.4998 6.75 21.4998L11.75 21.4998C12.1642 21.4998 12.5 21.164 12.5 20.7498C12.5 20.3356 12.1642 19.9998 11.75 19.9998L7.5 19.9998V18.4998H11.75C12.1642 18.4998 12.5 18.164 12.5 17.7498C12.5 17.3356 12.1642 16.9998 11.75 16.9998H7.5V15.4998H11.75C12.1642 15.4998 12.5 15.164 12.5 14.7498C12.5 14.3356 12.1642 13.9998 11.75 13.9998H7.5V12.4998H16.75C17.1642 12.4998 17.5 12.164 17.5 11.7498C17.5 11.3356 17.1642 10.9998 16.75 10.9998H6.75C6.33579 10.9998 6 11.3356 6 11.7498V14.7498V17.7498V19.9998H3.5V7.6388C3.50008 7.41596 3.55974 7.19719 3.67279 7.00515C3.78587 6.81306 3.94837 6.65464 4.14324 6.54642L10.9593 2.75962L11.1433 2.65738ZM9.75 6.99982C9.33579 6.99982 9 7.3356 9 7.74982C9 8.16403 9.33579 8.49982 9.75 8.49982H13.75C14.1642 8.49982 14.5 8.16403 14.5 7.74982C14.5 7.3356 14.1642 6.99982 13.75 6.99982H9.75Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M15.75 15.4998C15.6837 15.4998 15.6201 15.5261 15.5732 15.573C15.5263 15.6199 15.5 15.6835 15.5 15.7498V20.7498C15.5 20.8161 15.5263 20.8796 15.5732 20.9265C15.6201 20.9734 15.6837 20.9998 15.75 20.9998H20.75C20.8163 20.9998 20.8799 20.9734 20.9268 20.9265C20.9737 20.8797 21 20.8161 21 20.7498V15.7498C21 15.6835 20.9737 15.6199 20.9268 15.573C20.8799 15.5261 20.8163 15.4998 20.75 15.4998H15.75ZM15.75 13.9998H20.75C21.2141 13.9998 21.6592 14.1841 21.9874 14.5123C22.3156 14.8405 22.5 15.2856 22.5 15.7498V20.7498C22.5 21.2139 22.3156 21.659 21.9874 21.9872C21.6592 22.3154 21.2141 22.4998 20.75 22.4998H15.75C15.2859 22.4998 14.8408 22.3154 14.5126 21.9872C14.1844 21.659 14 21.2139 14 20.7498V15.7498C14 15.2856 14.1844 14.8405 14.5126 14.5123C14.8408 14.1841 15.2859 13.9998 15.75 13.9998ZM18.25 15.9999C18.6642 15.9999 19 16.3357 19 16.7499V17.4999H19.75C20.1642 17.4999 20.5 17.8357 20.5 18.2499C20.5 18.6642 20.1642 18.9999 19.75 18.9999H19V19.7499C19 20.1642 18.6642 20.4999 18.25 20.4999C17.8358 20.4999 17.5 20.1642 17.5 19.7499V18.9999H16.75C16.3358 18.9999 16 18.6642 16 18.2499C16 17.8357 16.3358 17.4999 16.75 17.4999H17.5V16.7499C17.5 16.3357 17.8358 15.9999 18.25 15.9999Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Quản lý nghiệp vụ</p>
-                                <i class="fas fa-angle-left right"></i>
-                            </div>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('detailExport.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn báo giá"
-                                    class="nav-link activity1
-                                    @if (!empty($activeName) && $activeName == 'quote') active @endif">
-                                    <p class="text-nav ml-2">Phiếu bán hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('import.index', $workspacename) }}"
-                                    class="nav-link  @if (!empty($activeName) && $activeName == 'import') active @endif">
-                                    <p class="text-nav ml-2">Đặt hàng NCC</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('returnImport.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'returnImport') active @endif ">
-                                    <p class="text-nav ml-2">Trả hàng NCC</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('returnExport.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'returnexport') active @endif">
-                                    <p class="text-nav ml-2">Khách trả hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('receive.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'receive') active @endif ">
-                                    <p class="text-nav ml-2">Phiếu nhập kho</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('delivery.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
-                                    <p class="text-nav ml-2">Phiếu xuất kho</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('cash_receipts.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'cash_receipts') active @endif">
-                                    <p class="text-nav ml-2">Phiếu thu</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('paymentOrder.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'paymentorder') active @endif ">
-                                    <p class="text-nav ml-2">Phiếu chi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item user_flow_nav" data-type="NCC" data-des="NCC">
-                                <a href="{{ route('changeFund.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'changefund') active @endif">
-                                    <p class="text-nav ml-2">Chuyển tiền nội bộ</p>
-                                </a>
-                            </li>
-                            <li class="nav-item user_flow_nav" data-type="NCC" data-des="NCC">
-                                <a href="{{ route('changeWarehouse.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'changeWarehouse') active @endif">
-                                    <div class="d-flex align-items-center justify-content-between w-100">
-                                        <p class="text-nav ml-2">Phiếu chuyển kho</p>
-                                    </div>
-                                </a>
-                            </li>
-                            {{-- <li class="nav-item user_flow_nav" data-type="NCC" data-des="NCC">
-                                <a href="{{ route('billSale.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Hóa đơn bán hàng"
-                                    class="nav-link activity1  @if (!empty($activeName) && $activeName == 'billsale') active @endif">
-                                    <p class="text-nav ml-2">Hóa đơn bán hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item user_flow_nav" data-type="HDMH" data-des="HDMH">
-                                <a href="{{ route('reciept.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'reciept') active @endif ">
-                                    <p class="text-nav ml-2">Hóa đơn mua hàng</p>
-                                </a>
-                            </li> --}}
-                        </ul>
-                    </li>
-                    <li
-                        class="nav-item
-                         @if (!empty($activeGroup) && $activeGroup == 'statistic') menu-is-opening menu-open @endif">
-                        <a href="#" class="nav-link">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M11.1433 2.65738C11.329 2.55416 11.538 2.5 11.7505 2.5C11.963 2.5 12.172 2.5542 12.3578 2.65742L19.3578 6.54642C19.5524 6.65472 19.7146 6.81305 19.8275 7.00505C19.9404 7.19714 20 7.41596 20 7.6388V11.7498C20 12.164 20.3358 12.4998 20.75 12.4998C21.1642 12.4998 21.5 12.164 21.5 11.7498V7.6388C21.5 7.14857 21.369 6.66723 21.1205 6.24465C20.8719 5.82206 20.5147 5.47345 20.0862 5.23519L13.0862 1.34619C12.6777 1.11915 12.2179 1 11.7505 1C11.2831 1 10.8233 1.11919 10.4147 1.34623L3.41476 5.23519C2.9861 5.47327 2.62889 5.82164 2.38013 6.2442C2.13136 6.6668 2.00012 7.14842 2 7.6388V20.7498C2 21.164 2.33579 21.4998 2.75 21.4998H6.74581C6.74721 21.4998 6.7486 21.4998 6.75 21.4998L11.75 21.4998C12.1642 21.4998 12.5 21.164 12.5 20.7498C12.5 20.3356 12.1642 19.9998 11.75 19.9998L7.5 19.9998V18.4998H11.75C12.1642 18.4998 12.5 18.164 12.5 17.7498C12.5 17.3356 12.1642 16.9998 11.75 16.9998H7.5V15.4998H11.75C12.1642 15.4998 12.5 15.164 12.5 14.7498C12.5 14.3356 12.1642 13.9998 11.75 13.9998H7.5V12.4998H16.75C17.1642 12.4998 17.5 12.164 17.5 11.7498C17.5 11.3356 17.1642 10.9998 16.75 10.9998H6.75C6.33579 10.9998 6 11.3356 6 11.7498V14.7498V17.7498V19.9998H3.5V7.6388C3.50008 7.41596 3.55974 7.19719 3.67279 7.00515C3.78587 6.81306 3.94837 6.65464 4.14324 6.54642L10.9593 2.75962L11.1433 2.65738ZM9.75 6.99982C9.33579 6.99982 9 7.3356 9 7.74982C9 8.16403 9.33579 8.49982 9.75 8.49982H13.75C14.1642 8.49982 14.5 8.16403 14.5 7.74982C14.5 7.3356 14.1642 6.99982 13.75 6.99982H9.75Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M15.75 15.4998C15.6837 15.4998 15.6201 15.5261 15.5732 15.573C15.5263 15.6199 15.5 15.6835 15.5 15.7498V20.7498C15.5 20.8161 15.5263 20.8796 15.5732 20.9265C15.6201 20.9734 15.6837 20.9998 15.75 20.9998H20.75C20.8163 20.9998 20.8799 20.9734 20.9268 20.9265C20.9737 20.8797 21 20.8161 21 20.7498V15.7498C21 15.6835 20.9737 15.6199 20.9268 15.573C20.8799 15.5261 20.8163 15.4998 20.75 15.4998H15.75ZM15.75 13.9998H20.75C21.2141 13.9998 21.6592 14.1841 21.9874 14.5123C22.3156 14.8405 22.5 15.2856 22.5 15.7498V20.7498C22.5 21.2139 22.3156 21.659 21.9874 21.9872C21.6592 22.3154 21.2141 22.4998 20.75 22.4998H15.75C15.2859 22.4998 14.8408 22.3154 14.5126 21.9872C14.1844 21.659 14 21.2139 14 20.7498V15.7498C14 15.2856 14.1844 14.8405 14.5126 14.5123C14.8408 14.1841 15.2859 13.9998 15.75 13.9998ZM18.25 15.9999C18.6642 15.9999 19 16.3357 19 16.7499V17.4999H19.75C20.1642 17.4999 20.5 17.8357 20.5 18.2499C20.5 18.6642 20.1642 18.9999 19.75 18.9999H19V19.7499C19 20.1642 18.6642 20.4999 18.25 20.4999C17.8358 20.4999 17.5 20.1642 17.5 19.7499V18.9999H16.75C16.3358 18.9999 16 18.6642 16 18.2499C16 17.8357 16.3358 17.4999 16.75 17.4999H17.5V16.7499C17.5 16.3357 17.8358 15.9999 18.25 15.9999Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Báo cáo thống kê</p>
-                                <i class="fas fa-angle-left right"></i>
-                            </div>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            {{-- <li class="nav-item">
-                                <a href="{{ route('report.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'report') active @endif">
-                                    <div class="d-flex align-items-center justify-content-between w-100">
-                                        <p class="text-nav ml-2">Báo cáo</p>
-                                    </div>
-                                </a>
-                            </li> --}}
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportDebtGuests', $workspacename) }}" data-name1="BH"
-                                    data-des="Thông kê công nợ khách hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'debtGuests') active @endif">
-                                    <p class="text-nav ml-2">Công nợ khách hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportSell', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumSell') active @endif">
-                                    <p class="text-nav ml-2">Tổng kết bán hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportDelivery', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumDelivery') active @endif">
-                                    <p class="text-nav ml-2">Tổng kết giao hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportSumReturnExport', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumReturnExport') active @endif">
-                                    <p class="text-nav ml-2">Tổng kết khách trả hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportSumSellProfit', $workspacename) }}" data-name1="BH"
-                                    data-des="Báo cáo lợi nhuận bán hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'reportSumSellProfit') active @endif">
-                                    <p class="text-nav ml-2">Báo cáo lợi nhuận bán hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportImport', $workspacename) }}" data-name1="BH"
-                                    data-des="Báo cáo lợi nhuận bán hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportImport') active @endif">
-                                    <p class="text-nav ml-2">Tổng kết mua hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportProvides', $workspacename) }}" data-name1="BH"
-                                    data-des="Báo cáo lợi nhuận bán hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportProvides') active @endif">
-                                    <p class="text-nav ml-2">Thống kê công nợ NCC</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportReturnImport', $workspacename) }}" data-name1="BH"
-                                    data-des="Báo cáo lợi nhuận bán hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportReturnImport') active @endif">
-                                    <p class="text-nav ml-2">Trả hàng NCC</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportIE', $workspacename) }}" data-name1="BH"
-                                    data-des="Báo cáo lợi nhuận bán hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportIE') active @endif">
-                                    <p class="text-nav ml-2">Tổng hợp nội dung thu chi</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportChangeFunds', $workspacename) }}" data-name1="BH"
-                                    data-des="Báo cáo lợi nhuận bán hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportChangeFunds') active @endif">
-                                    <p class="text-nav ml-2">Chuyển tiền nội bộ</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportIEFunds', $workspacename) }}" data-name1="BH"
-                                    data-des="Báo cáo lợi nhuận bán hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportIEFunds') active @endif">
-                                    <p class="text-nav ml-2">Thống kê thu chi tồn quỹ</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportIEEnventory', $workspacename) }}" data-name1="BH"
-                                    data-des="Báo cáo lợi nhuận bán hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'viewReportIEEnventory') active @endif">
-                                    <p class="text-nav ml-2">Xuất - nhập - tồn kho</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    {{-- <li
-                        class="nav-item
-                         @if (!empty($activeGroup) && $activeGroup == 'products') menu-is-opening menu-open @endif">
-                        <a href="#" class="nav-link">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M11.1433 2.65738C11.329 2.55416 11.538 2.5 11.7505 2.5C11.963 2.5 12.172 2.5542 12.3578 2.65742L19.3578 6.54642C19.5524 6.65472 19.7146 6.81305 19.8275 7.00505C19.9404 7.19714 20 7.41596 20 7.6388V11.7498C20 12.164 20.3358 12.4998 20.75 12.4998C21.1642 12.4998 21.5 12.164 21.5 11.7498V7.6388C21.5 7.14857 21.369 6.66723 21.1205 6.24465C20.8719 5.82206 20.5147 5.47345 20.0862 5.23519L13.0862 1.34619C12.6777 1.11915 12.2179 1 11.7505 1C11.2831 1 10.8233 1.11919 10.4147 1.34623L3.41476 5.23519C2.9861 5.47327 2.62889 5.82164 2.38013 6.2442C2.13136 6.6668 2.00012 7.14842 2 7.6388V20.7498C2 21.164 2.33579 21.4998 2.75 21.4998H6.74581C6.74721 21.4998 6.7486 21.4998 6.75 21.4998L11.75 21.4998C12.1642 21.4998 12.5 21.164 12.5 20.7498C12.5 20.3356 12.1642 19.9998 11.75 19.9998L7.5 19.9998V18.4998H11.75C12.1642 18.4998 12.5 18.164 12.5 17.7498C12.5 17.3356 12.1642 16.9998 11.75 16.9998H7.5V15.4998H11.75C12.1642 15.4998 12.5 15.164 12.5 14.7498C12.5 14.3356 12.1642 13.9998 11.75 13.9998H7.5V12.4998H16.75C17.1642 12.4998 17.5 12.164 17.5 11.7498C17.5 11.3356 17.1642 10.9998 16.75 10.9998H6.75C6.33579 10.9998 6 11.3356 6 11.7498V14.7498V17.7498V19.9998H3.5V7.6388C3.50008 7.41596 3.55974 7.19719 3.67279 7.00515C3.78587 6.81306 3.94837 6.65464 4.14324 6.54642L10.9593 2.75962L11.1433 2.65738ZM9.75 6.99982C9.33579 6.99982 9 7.3356 9 7.74982C9 8.16403 9.33579 8.49982 9.75 8.49982H13.75C14.1642 8.49982 14.5 8.16403 14.5 7.74982C14.5 7.3356 14.1642 6.99982 13.75 6.99982H9.75Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M15.75 15.4998C15.6837 15.4998 15.6201 15.5261 15.5732 15.573C15.5263 15.6199 15.5 15.6835 15.5 15.7498V20.7498C15.5 20.8161 15.5263 20.8796 15.5732 20.9265C15.6201 20.9734 15.6837 20.9998 15.75 20.9998H20.75C20.8163 20.9998 20.8799 20.9734 20.9268 20.9265C20.9737 20.8797 21 20.8161 21 20.7498V15.7498C21 15.6835 20.9737 15.6199 20.9268 15.573C20.8799 15.5261 20.8163 15.4998 20.75 15.4998H15.75ZM15.75 13.9998H20.75C21.2141 13.9998 21.6592 14.1841 21.9874 14.5123C22.3156 14.8405 22.5 15.2856 22.5 15.7498V20.7498C22.5 21.2139 22.3156 21.659 21.9874 21.9872C21.6592 22.3154 21.2141 22.4998 20.75 22.4998H15.75C15.2859 22.4998 14.8408 22.3154 14.5126 21.9872C14.1844 21.659 14 21.2139 14 20.7498V15.7498C14 15.2856 14.1844 14.8405 14.5126 14.5123C14.8408 14.1841 15.2859 13.9998 15.75 13.9998ZM18.25 15.9999C18.6642 15.9999 19 16.3357 19 16.7499V17.4999H19.75C20.1642 17.4999 20.5 17.8357 20.5 18.2499C20.5 18.6642 20.1642 18.9999 19.75 18.9999H19V19.7499C19 20.1642 18.6642 20.4999 18.25 20.4999C17.8358 20.4999 17.5 20.1642 17.5 19.7499V18.9999H16.75C16.3358 18.9999 16 18.6642 16 18.2499C16 17.8357 16.3358 17.4999 16.75 17.4999H17.5V16.7499C17.5 16.3357 17.8358 15.9999 18.25 15.9999Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Kho hàng</p>
-                                <i class="fas fa-angle-left right"></i>
-                            </div>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('warehouse.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'warehouse') active @endif">
-                                    <p class="text-nav ml-2">Kho hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('content.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'content') active @endif">
-                                    <p class="text-nav ml-2">Nội dung thu chi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('inventory.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'product') active @endif">
-                                    <p class="text-nav ml-2">Sản phẩm</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('editProduct', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'editproduct') active @endif">
-                                    <p class="text-nav ml-2">Sửa tồn kho</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
-                                    <p class="text-nav ml-2">Chuyển kho</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li> --}}
-                    {{-- <li
-                        class="nav-item
-                        @if (!empty($activeGroup) && $activeGroup == 'sell') menu-is-opening menu-open @endif">
-                        <a href="#" class="nav-link">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_1499_29845)">
-                                    <path fill="#555555"
-                                        d="M6.85714 3.88603H5.57143C4.88944 3.88603 4.23539 4.15097 3.75315 4.62257C3.27092 5.09417 3 5.73379 3 6.40074V19.6029C3 20.2699 3.27092 20.9095 3.75315 21.3811C4.23539 21.8527 4.88944 22.1176 5.57143 22.1176H18.4286C19.1106 22.1176 19.7646 21.8527 20.2468 21.3811C20.7291 20.9095 21 20.2699 21 19.6029V6.40074C21 5.73379 20.7291 5.09417 20.2468 4.62257C19.7646 4.15097 19.1106 3.88603 18.4286 3.88603H17.1429V5.14338H18.4286C18.7696 5.14338 19.0966 5.27585 19.3377 5.51165C19.5788 5.74745 19.7143 6.06727 19.7143 6.40074V19.6029C19.7143 19.9364 19.5788 20.2562 19.3377 20.492C19.0966 20.7278 18.7696 20.8603 18.4286 20.8603H5.57143C5.23044 20.8603 4.90341 20.7278 4.66229 20.492C4.42117 20.2562 4.28571 19.9364 4.28571 19.6029V6.40074C4.28571 6.06727 4.42117 5.74745 4.66229 5.51165C4.90341 5.27585 5.23044 5.14338 5.57143 5.14338H6.85714V3.88603Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill="#555555"
-                                        d="M13.9286 3.25735C14.0991 3.25735 14.2626 3.32359 14.3831 3.44149C14.5037 3.55939 14.5714 3.71929 14.5714 3.88603V5.14338C14.5714 5.31012 14.5037 5.47002 14.3831 5.58792C14.2626 5.70582 14.0991 5.77206 13.9286 5.77206H10.0714C9.90093 5.77206 9.73742 5.70582 9.61686 5.58792C9.4963 5.47002 9.42857 5.31012 9.42857 5.14338V3.88603C9.42857 3.71929 9.4963 3.55939 9.61686 3.44149C9.73742 3.32359 9.90093 3.25735 10.0714 3.25735H13.9286ZM10.0714 2C9.55994 2 9.0694 2.19871 8.70772 2.55241C8.34605 2.9061 8.14286 3.38582 8.14286 3.88603V5.14338C8.14286 5.64359 8.34605 6.12331 8.70772 6.47701C9.0694 6.83071 9.55994 7.02941 10.0714 7.02941H13.9286C14.4401 7.02941 14.9306 6.83071 15.2923 6.47701C15.654 6.12331 15.8571 5.64359 15.8571 5.14338V3.88603C15.8571 3.38582 15.654 2.9061 15.2923 2.55241C14.9306 2.19871 14.4401 2 13.9286 2H10.0714Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill="#555555"
-                                        d="M8.14286 15.3143C8.28021 16.512 9.54706 17.362 11.4756 17.4719V18.3456H12.4436V17.4719C14.5504 17.3433 15.8571 16.4387 15.8571 15.1009C15.8571 13.9585 14.9782 13.2975 13.1137 12.9253L12.4436 12.791V10.0593C13.4849 10.1383 14.1875 10.5723 14.3648 11.2203H15.7291C15.575 10.0708 14.2998 9.24595 12.4436 9.1547V8.28676H11.4756V9.17266C9.67606 9.33791 8.44077 10.2303 8.44077 11.4402C8.44077 12.4849 9.33731 13.2242 10.9104 13.536L11.4766 13.6524V16.5487C10.4102 16.4265 9.67606 15.9739 9.4988 15.3143H8.14286ZM11.29 12.5582C10.322 12.3692 9.80507 11.9654 9.80507 11.3971C9.80507 10.7188 10.4584 10.2181 11.4756 10.0837V12.5948L11.29 12.5582ZM12.7666 13.9032C13.9611 14.1353 14.4854 14.5204 14.4854 15.1742C14.4854 15.9624 13.7188 16.4876 12.4436 16.5673V13.8407L12.7666 13.9032Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill="#555555"
-                                        d="M6.85714 3.88603H5.57143C4.88944 3.88603 4.23539 4.15097 3.75315 4.62257C3.27092 5.09417 3 5.73379 3 6.40074V19.6029C3 20.2699 3.27092 20.9095 3.75315 21.3811C4.23539 21.8527 4.88944 22.1176 5.57143 22.1176H18.4286C19.1106 22.1176 19.7646 21.8527 20.2468 21.3811C20.7291 20.9095 21 20.2699 21 19.6029V6.40074C21 5.73379 20.7291 5.09417 20.2468 4.62257C19.7646 4.15097 19.1106 3.88603 18.4286 3.88603H17.1429V5.14338H18.4286C18.7696 5.14338 19.0966 5.27585 19.3377 5.51165C19.5788 5.74745 19.7143 6.06727 19.7143 6.40074V19.6029C19.7143 19.9364 19.5788 20.2562 19.3377 20.492C19.0966 20.7278 18.7696 20.8603 18.4286 20.8603H5.57143C5.23044 20.8603 4.90341 20.7278 4.66229 20.492C4.42117 20.2562 4.28571 19.9364 4.28571 19.6029V6.40074C4.28571 6.06727 4.42117 5.74745 4.66229 5.51165C4.90341 5.27585 5.23044 5.14338 5.57143 5.14338H6.85714V3.88603Z"
-                                        stroke="#26273B" stroke-opacity="0.8" stroke-width="0.4" />
-                                    <path fill="#555555"
-                                        d="M13.9286 3.25735C14.0991 3.25735 14.2626 3.32359 14.3831 3.44149C14.5037 3.55939 14.5714 3.71929 14.5714 3.88603V5.14338C14.5714 5.31012 14.5037 5.47002 14.3831 5.58792C14.2626 5.70582 14.0991 5.77206 13.9286 5.77206H10.0714C9.90093 5.77206 9.73742 5.70582 9.61686 5.58792C9.4963 5.47002 9.42857 5.31012 9.42857 5.14338V3.88603C9.42857 3.71929 9.4963 3.55939 9.61686 3.44149C9.73742 3.32359 9.90093 3.25735 10.0714 3.25735H13.9286ZM10.0714 2C9.55994 2 9.0694 2.19871 8.70772 2.55241C8.34605 2.9061 8.14286 3.38582 8.14286 3.88603V5.14338C8.14286 5.64359 8.34605 6.12331 8.70772 6.47701C9.0694 6.83071 9.55994 7.02941 10.0714 7.02941H13.9286C14.4401 7.02941 14.9306 6.83071 15.2923 6.47701C15.654 6.12331 15.8571 5.64359 15.8571 5.14338V3.88603C15.8571 3.38582 15.654 2.9061 15.2923 2.55241C14.9306 2.19871 14.4401 2 13.9286 2H10.0714Z"
-                                        stroke="#26273B" stroke-opacity="0.8" stroke-width="0.4" />
-                                    <path fill="#555555"
-                                        d="M8.14286 15.3143C8.28021 16.512 9.54706 17.362 11.4756 17.4719V18.3456H12.4436V17.4719C14.5504 17.3433 15.8571 16.4387 15.8571 15.1009C15.8571 13.9585 14.9782 13.2975 13.1137 12.9253L12.4436 12.791V10.0593C13.4849 10.1383 14.1875 10.5723 14.3648 11.2203H15.7291C15.575 10.0708 14.2998 9.24595 12.4436 9.1547V8.28676H11.4756V9.17266C9.67606 9.33791 8.44077 10.2303 8.44077 11.4402C8.44077 12.4849 9.33731 13.2242 10.9104 13.536L11.4766 13.6524V16.5487C10.4102 16.4265 9.67606 15.9739 9.4988 15.3143H8.14286ZM11.29 12.5582C10.322 12.3692 9.80507 11.9654 9.80507 11.3971C9.80507 10.7188 10.4584 10.2181 11.4756 10.0837V12.5948L11.29 12.5582ZM12.7666 13.9032C13.9611 14.1353 14.4854 14.5204 14.4854 15.1742C14.4854 15.9624 13.7188 16.4876 12.4436 16.5673V13.8407L12.7666 13.9032Z"
-                                        stroke="#26273B" stroke-opacity="0.8" stroke-width="0.4" />
-                                </g>
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Bán hàng</p>
-                                <i class="fas fa-angle-left right"></i>
-                            </div>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('detailExport.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn báo giá"
-                                    class="nav-link activity1
-                                    @if (!empty($activeName) && $activeName == 'quote') active @endif">
-                                    <p class="text-nav ml-2">Khách đặt hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('delivery.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
-                                    <p class="text-nav ml-2">Phiếu xuất kho</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportDelivery', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumDelivery') active @endif">
-                                    <p class="text-nav ml-2">Tổng kết giao hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('returnExport.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'returnexport') active @endif">
-                                    <p class="text-nav ml-2">Trả hàng KH</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportSumReturnExport', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumReturnExport') active @endif">
-                                    <p class="text-nav ml-2">Tổng kết khách trả hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportSell', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'sumSell') active @endif">
-                                    <p class="text-nav ml-2">Tổng kết bán hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('cash_receipts.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Đơn giao hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'cash_receipts') active @endif">
-                                    <p class="text-nav ml-2">Phiếu thu</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('billSale.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Hóa đơn bán hàng"
-                                    class="nav-link activity1  @if (!empty($activeName) && $activeName == 'billsale') active @endif">
-                                    <p class="text-nav ml-2">Hóa đơn bán hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item d-none">
-                                <a href="{{ route('payExport.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Thanh toán bán hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'payexport') active @endif">
-                                    <p class="text-nav ml-2">Thanh toán bán hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportSumSellProfit', $workspacename) }}" data-name1="BH"
-                                    data-des="Báo cáo lợi nhuận bán hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'reportSumSellProfit') active @endif">
-                                    <p class="text-nav ml-2">Báo cáo lợi nhuận bán hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('viewReportDebtGuests', $workspacename) }}" data-name1="BH"
-                                    data-des="Thông kê công nợ khách hàng"
-                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'debtGuests') active @endif">
-                                    <p class="text-nav ml-2">Thông kê công nợ khách hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('guests.index', $workspacename) }}" data-name1="BH"
-                                    data-des="Khách hàng"
-                                    class="nav-link activity1  @if (!empty($activeName) && $activeName == 'guest') active @endif">
-                                    <p class="text-nav ml-2">Khách hàng</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li> --}}
-                    {{-- <li class="nav-item @if (!empty($activeGroup) && $activeGroup == 'buy') menu-is-opening menu-open @endif">
-                        <a href="#" class="nav-link">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <path
-                                    d="M20 11V5C20 4.46957 19.7893 3.96086 19.4142 3.58579C19.0391 3.21071 18.5304 3 18 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H10"
-                                    stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path d="M9.25 15H10" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M17.5 13.8184V17.0004" stroke="#26273B" stroke-opacity="0.8"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path
-                                    d="M21 22.0004H14.125C13.8266 22.0004 13.5405 21.8818 13.3295 21.6709C13.1185 21.4599 13 21.1737 13 20.8754V16.5674C13.0002 16.2972 13.055 16.0298 13.161 15.7814L13.708 14.5014C13.7947 14.2987 13.939 14.126 14.123 14.0045C14.307 13.8831 14.5226 13.8184 14.743 13.8184H20.257C20.4773 13.8185 20.6927 13.8832 20.8765 14.0047C21.0603 14.1261 21.2045 14.2988 21.291 14.5014L21.839 15.7834C21.9452 16.0318 22 16.2992 22 16.5694V21.0004C22 21.2656 21.8946 21.5199 21.7071 21.7075C21.5196 21.895 21.2652 22.0004 21 22.0004Z"
-                                    stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path
-                                    d="M22 18C22 17.7348 21.8946 17.4804 21.7071 17.2929C21.5196 17.1054 21.2652 17 21 17H14C13.7348 17 13.4804 17.1054 13.2929 17.2929C13.1054 17.4804 13 17.7348 13 18"
-                                    stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path d="M9.25 11H13" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M9.25 7.125H16" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path
-                                    d="M6.75 7.7998C6.89834 7.7998 7.04334 7.75582 7.16668 7.6734C7.29001 7.59099 7.38614 7.47386 7.44291 7.33682C7.49967 7.19977 7.51453 7.04897 7.48559 6.90349C7.45665 6.758 7.38522 6.62436 7.28033 6.51947C7.17544 6.41458 7.0418 6.34316 6.89632 6.31422C6.75083 6.28528 6.60003 6.30013 6.46299 6.35689C6.32594 6.41366 6.20881 6.50979 6.1264 6.63312C6.04399 6.75646 6 6.90147 6 7.0498C6 7.24872 6.07902 7.43948 6.21967 7.58014C6.36032 7.72079 6.55109 7.7998 6.75 7.7998Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path
-                                    d="M6.75 11.7998C6.89834 11.7998 7.04334 11.7558 7.16668 11.6734C7.29001 11.591 7.38614 11.4739 7.44291 11.3368C7.49967 11.1998 7.51453 11.049 7.48559 10.9035C7.45665 10.758 7.38522 10.6244 7.28033 10.5195C7.17544 10.4146 7.0418 10.3432 6.89632 10.3142C6.75083 10.2853 6.60003 10.3001 6.46299 10.3569C6.32594 10.4137 6.20881 10.5098 6.1264 10.6331C6.04399 10.7565 6 10.9015 6 11.0498C6 11.2487 6.07902 11.4395 6.21967 11.5801C6.36032 11.7208 6.55109 11.7998 6.75 11.7998Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path
-                                    d="M6.75 15.7002C6.89834 15.7002 7.04334 15.6562 7.16668 15.5738C7.29001 15.4914 7.38614 15.3743 7.44291 15.2372C7.49967 15.1002 7.51453 14.9494 7.48559 14.8039C7.45665 14.6584 7.38522 14.5248 7.28033 14.4199C7.17544 14.315 7.0418 14.2435 6.89632 14.2146C6.75083 14.1857 6.60003 14.2005 6.46299 14.2573C6.32594 14.314 6.20881 14.4102 6.1264 14.5335C6.04399 14.6569 6 14.8019 6 14.9502C6 15.1491 6.07902 15.3399 6.21967 15.4805C6.36032 15.6212 6.55109 15.7002 6.75 15.7002Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Mua hàng</p>
-                                <i class="fas fa-angle-left right"></i>
-                            </div>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item user_flow_nav" data-type="DMH" data-des="DMH">
-                                <a href="{{ route('import.index', $workspacename) }}"
-                                    class="nav-link  @if (!empty($activeName) && $activeName == 'import') active @endif">
-                                    <p class="text-nav ml-2">Đặt hàng NCC</p>
-                                </a>
-                            </li>
-                            <li class="nav-item user_flow_nav" data-type="DNH" data-des="DNH">
-                                <a href="{{ route('receive.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'receive') active @endif ">
-                                    <p class="text-nav ml-2">Phiếu nhập kho</p>
-                                </a>
-                            </li>
-                            <li class="nav-item user_flow_nav" data-type="HDMH" data-des="HDMH">
-                                <a href="{{ route('reciept.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'reciept') active @endif ">
-                                    <p class="text-nav ml-2">Hóa đơn mua hàng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item user_flow_nav" data-type="TTMH" data-des="TTMH">
-                                <a href="{{ route('paymentOrder.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'paymentorder') active @endif ">
-                                    <p class="text-nav ml-2">Phiếu chi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item user_flow_nav" data-type="THNCC" data-des="THNCC">
-                                <a href="{{ route('returnImport.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'returnImport') active @endif ">
-                                    <p class="text-nav ml-2">Trả hàng NCC</p>
-                                </a>
-                            </li>
-                            <li class="nav-item user_flow_nav" data-type="NCC" data-des="NCC">
-                                <a href="{{ route('provides.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'provide') active @endif">
-                                    <p class="text-nav ml-2">Nhà cung cấp</p>
-                                </a>
-                            </li>
-                            <li class="nav-item user_flow_nav" data-type="NCC" data-des="NCC">
-                                <a href="{{ route('changeFund.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'changefund') active @endif">
-                                    <p class="text-nav ml-2">Chuyển tiền nội bộ</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li> --}}
-                    {{-- <li class="nav-item">
-                        <a href="{{ route('report.index', $workspacename) }}"
-                            class="nav-link @if (!empty($activeName) && $activeName == 'report') active @endif">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M20 10.8917V4.95077C20 4.42556 19.7893 3.92186 19.4142 3.55048C19.0391 3.1791 18.5304 2.97046 18 2.97046H5C4.46957 2.97046 3.96086 3.1791 3.58579 3.55048C3.21071 3.92186 3 4.42556 3 4.95077V18.813C3 19.3382 3.21071 19.8419 3.58579 20.2133C3.96086 20.5847 4.46957 20.7933 5 20.7933H10"
-                                    stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path d="M9.25 14.8523H10" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M9.25 10.8918H13" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M9.25 7.05493H16" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path
-                                    d="M6.75 7.72327C6.89834 7.72327 7.04334 7.67972 7.16668 7.59812C7.29001 7.51652 7.38614 7.40054 7.44291 7.26484C7.49967 7.12915 7.51453 6.97983 7.48559 6.83578C7.45665 6.69172 7.38522 6.5594 7.28033 6.45554C7.17544 6.35169 7.0418 6.28096 6.89632 6.25231C6.75083 6.22365 6.60003 6.23836 6.46299 6.29456C6.32594 6.35077 6.20881 6.44595 6.1264 6.56808C6.04399 6.6902 6 6.83378 6 6.98065C6 7.17761 6.07902 7.3665 6.21967 7.50577C6.36032 7.64503 6.55109 7.72327 6.75 7.72327Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path
-                                    d="M6.75 11.684C6.89834 11.684 7.04334 11.6404 7.16668 11.5588C7.29001 11.4772 7.38614 11.3612 7.44291 11.2255C7.49967 11.0898 7.51453 10.9405 7.48559 10.7965C7.45665 10.6524 7.38522 10.5201 7.28033 10.4162C7.17544 10.3124 7.0418 10.2417 6.89632 10.213C6.75083 10.1843 6.60003 10.199 6.46299 10.2553C6.32594 10.3115 6.20881 10.4066 6.1264 10.5288C6.04399 10.6509 6 10.7945 6 10.9413C6 11.1383 6.07902 11.3272 6.21967 11.4665C6.36032 11.6057 6.55109 11.684 6.75 11.684Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path
-                                    d="M6.75 15.5455C6.89834 15.5455 7.04334 15.502 7.16668 15.4204C7.29001 15.3388 7.38614 15.2228 7.44291 15.0871C7.49967 14.9514 7.51453 14.8021 7.48559 14.658C7.45665 14.514 7.38522 14.3817 7.28033 14.2778C7.17544 14.174 7.0418 14.1032 6.89632 14.0746C6.75083 14.0459 6.60003 14.0606 6.46299 14.1168C6.32594 14.173 6.20881 14.2682 6.1264 14.3903C6.04399 14.5125 6 14.656 6 14.8029C6 14.9999 6.07902 15.1888 6.21967 15.328C6.36032 15.4673 6.55109 15.5455 6.75 15.5455Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M19.4213 14.1245C17.8539 12.5726 15.3127 12.5726 13.7454 14.1245C12.1781 15.6764 12.1781 18.1925 13.7454 19.7445C15.3127 21.2964 17.8539 21.2964 19.4213 19.7445C20.9886 18.1925 20.9886 15.6764 19.4213 14.1245ZM20.1916 13.3617C18.1988 11.3885 14.9679 11.3885 12.9751 13.3617C10.9823 15.3349 10.9823 18.534 12.9751 20.5072C14.9679 22.4804 18.1988 22.4804 20.1916 20.5072C22.1844 18.534 22.1844 15.3349 20.1916 13.3617Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M19.3122 20.3842C19.5462 20.1525 19.9257 20.1525 20.1597 20.3842L22.7883 22.987C23.0224 23.2187 23.0224 23.5944 22.7883 23.8261C22.5543 24.0579 22.1749 24.0579 21.9409 23.8261L19.3122 21.2233C19.0782 20.9916 19.0782 20.6159 19.3122 20.3842Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Báo cáo</p>
-                            </div>
-                        </a>
-                    </li> --}}
-                    <li class="nav-item">
-                        <a href="{{ route('history.index', $workspacename) }}"
-                            class="nav-link @if (!empty($activeName) && $activeName == 'history') active @endif">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_2436_7601)">
-                                    <path
-                                        d="M20 13V5C20 4.46957 19.7893 3.96086 19.4142 3.58579C19.0391 3.21071 18.5304 3 18 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H13.5"
-                                        stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 15H10" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 11H13" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 7.125H16" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M6.75 7.80005C6.89834 7.80005 7.04334 7.75606 7.16668 7.67365C7.29001 7.59124 7.38614 7.47411 7.44291 7.33706C7.49967 7.20002 7.51453 7.04922 7.48559 6.90373C7.45665 6.75824 7.38522 6.62461 7.28033 6.51972C7.17544 6.41483 7.0418 6.3434 6.89632 6.31446C6.75083 6.28552 6.60003 6.30037 6.46299 6.35714C6.32594 6.4139 6.20881 6.51003 6.1264 6.63337C6.04399 6.75671 6 6.90171 6 7.05005C6 7.24896 6.07902 7.43973 6.21967 7.58038C6.36032 7.72103 6.55109 7.80005 6.75 7.80005Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path
-                                        d="M6.75 11.8C6.89834 11.8 7.04334 11.7561 7.16668 11.6736C7.29001 11.5912 7.38614 11.4741 7.44291 11.3371C7.49967 11.2 7.51453 11.0492 7.48559 10.9037C7.45665 10.7582 7.38522 10.6246 7.28033 10.5197C7.17544 10.4148 7.0418 10.3434 6.89632 10.3145C6.75083 10.2855 6.60003 10.3004 6.46299 10.3571C6.32594 10.4139 6.20881 10.51 6.1264 10.6334C6.04399 10.7567 6 10.9017 6 11.05C6 11.249 6.07902 11.4397 6.21967 11.5804C6.36032 11.721 6.55109 11.8 6.75 11.8Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path
-                                        d="M6.75 15.7C6.89834 15.7 7.04334 15.656 7.16668 15.5736C7.29001 15.4911 7.38614 15.374 7.44291 15.237C7.49967 15.0999 7.51453 14.9491 7.48559 14.8036C7.45665 14.6581 7.38522 14.5245 7.28033 14.4196C7.17544 14.3147 7.0418 14.2433 6.89632 14.2144C6.75083 14.1854 6.60003 14.2003 6.46299 14.257C6.32594 14.3138 6.20881 14.4099 6.1264 14.5333C6.04399 14.6566 6 14.8016 6 14.95C6 15.1489 6.07902 15.3396 6.21967 15.4803C6.36032 15.6209 6.55109 15.7 6.75 15.7Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M17.7532 13.5C15.464 13.4975 13.5 15.4602 13.5 17.75C13.5 18.8772 13.9478 19.9582 14.7448 20.7552C15.5418 21.5522 16.6228 22 17.75 22H17.7503C18.8775 22.0005 19.9587 21.5531 20.756 20.7564C21.5534 19.9597 22.0015 18.8789 22.002 17.7517C22.0025 16.6245 21.5551 15.5433 20.7584 14.746C19.9617 13.9487 18.8809 13.5005 17.7537 13.5L17.7532 13.5ZM17.7543 12C14.6357 11.9968 12 14.6319 12 17.75C12 19.275 12.6058 20.7375 13.6841 21.8159C14.7624 22.8941 16.2248 23.4999 17.7497 23.5M17.7545 12C19.2794 12.0007 20.7416 12.6071 21.8195 13.6858C22.8974 14.7645 23.5026 16.2273 23.502 17.7523C23.5014 19.2773 22.895 20.7396 21.8162 21.8175C20.7375 22.8953 19.2749 23.5005 17.75 23.5"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M17.75 15C18.1642 15 18.5 15.3358 18.5 15.75V15.8199C18.6986 15.8939 18.8858 15.998 19.0546 16.1297L19.1043 16.1009C19.4627 15.8934 19.9216 16.0158 20.1291 16.3742C20.3366 16.7327 20.2143 17.1915 19.8558 17.3991L19.8262 17.4162C19.8452 17.5254 19.8555 17.6362 19.8569 17.7476C19.8583 17.8617 19.8503 17.9755 19.8331 18.0878L19.8558 18.1009C20.2143 18.3085 20.3366 18.7673 20.1291 19.1258C19.9216 19.4842 19.4627 19.6066 19.1043 19.3991L19.0881 19.3897C18.9284 19.5196 18.7501 19.6253 18.5588 19.7032C18.5393 19.7111 18.5197 19.7188 18.5 19.7261V19.75C18.5 20.1642 18.1642 20.5 17.75 20.5C17.3358 20.5 17 20.1642 17 19.75V19.7084C16.9801 19.7004 16.9602 19.6921 16.9404 19.6835C16.7592 19.6045 16.5906 19.5003 16.4393 19.3743L16.3909 19.4019C16.0309 19.6067 15.573 19.4809 15.3682 19.1209C15.1633 18.7609 15.2891 18.303 15.6491 18.0981L15.7094 18.0638C15.6947 17.9597 15.6879 17.854 15.6892 17.7476C15.6904 17.6439 15.6994 17.541 15.7158 17.4398L15.6491 17.4019C15.2891 17.197 15.1633 16.7391 15.3682 16.3791C15.573 16.0191 16.0309 15.8933 16.3909 16.0981L16.4725 16.1446C16.6331 16.0164 16.811 15.9132 17 15.8377V15.75C17 15.3358 17.3358 15 17.75 15ZM18.2497 17.4356C18.2279 17.4049 18.2032 17.3762 18.1758 17.3501C18.0654 17.245 17.9183 17.1872 17.7659 17.1891C17.6135 17.1909 17.4679 17.2523 17.3601 17.3601C17.2523 17.4679 17.1909 17.6135 17.1891 17.7659C17.1872 17.9183 17.245 18.0654 17.3501 18.1758C17.4038 18.2322 17.4683 18.2773 17.5397 18.3084C17.5692 18.3213 17.5997 18.3316 17.6308 18.3394C17.6696 18.3332 17.7095 18.33 17.75 18.33C17.7997 18.33 17.8483 18.3349 17.8953 18.3441C17.9287 18.3369 17.9615 18.3269 17.9932 18.3139C18.0654 18.2846 18.1309 18.2411 18.186 18.186C18.192 18.1799 18.1979 18.1738 18.2037 18.1675C18.2188 18.1255 18.2378 18.0842 18.261 18.0442C18.2822 18.0076 18.306 17.9734 18.3321 17.9418C18.3493 17.8849 18.3577 17.8256 18.357 17.7659C18.356 17.688 18.3395 17.6111 18.3084 17.5397C18.3031 17.5277 18.2975 17.5158 18.2914 17.5042C18.2808 17.4885 18.2706 17.4724 18.261 17.4558C18.2571 17.4491 18.2533 17.4424 18.2497 17.4356Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_2436_7601">
-                                        <rect width="24" height="24" rx="4" fill="white" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Lịch sử giao dịch</p>
-                            </div>
-                        </a>
-                    </li>
-                    {{-- <li class="nav-item">
-                        <a href="{{ route('groups.index', $workspacename) }}"
-                            class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_2436_7601)">
-                                    <path
-                                        d="M20 13V5C20 4.46957 19.7893 3.96086 19.4142 3.58579C19.0391 3.21071 18.5304 3 18 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H13.5"
-                                        stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 15H10" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 11H13" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 7.125H16" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M6.75 7.80005C6.89834 7.80005 7.04334 7.75606 7.16668 7.67365C7.29001 7.59124 7.38614 7.47411 7.44291 7.33706C7.49967 7.20002 7.51453 7.04922 7.48559 6.90373C7.45665 6.75824 7.38522 6.62461 7.28033 6.51972C7.17544 6.41483 7.0418 6.3434 6.89632 6.31446C6.75083 6.28552 6.60003 6.30037 6.46299 6.35714C6.32594 6.4139 6.20881 6.51003 6.1264 6.63337C6.04399 6.75671 6 6.90171 6 7.05005C6 7.24896 6.07902 7.43973 6.21967 7.58038C6.36032 7.72103 6.55109 7.80005 6.75 7.80005Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path
-                                        d="M6.75 11.8C6.89834 11.8 7.04334 11.7561 7.16668 11.6736C7.29001 11.5912 7.38614 11.4741 7.44291 11.3371C7.49967 11.2 7.51453 11.0492 7.48559 10.9037C7.45665 10.7582 7.38522 10.6246 7.28033 10.5197C7.17544 10.4148 7.0418 10.3434 6.89632 10.3145C6.75083 10.2855 6.60003 10.3004 6.46299 10.3571C6.32594 10.4139 6.20881 10.51 6.1264 10.6334C6.04399 10.7567 6 10.9017 6 11.05C6 11.249 6.07902 11.4397 6.21967 11.5804C6.36032 11.721 6.55109 11.8 6.75 11.8Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path
-                                        d="M6.75 15.7C6.89834 15.7 7.04334 15.656 7.16668 15.5736C7.29001 15.4911 7.38614 15.374 7.44291 15.237C7.49967 15.0999 7.51453 14.9491 7.48559 14.8036C7.45665 14.6581 7.38522 14.5245 7.28033 14.4196C7.17544 14.3147 7.0418 14.2433 6.89632 14.2144C6.75083 14.1854 6.60003 14.2003 6.46299 14.257C6.32594 14.3138 6.20881 14.4099 6.1264 14.5333C6.04399 14.6566 6 14.8016 6 14.95C6 15.1489 6.07902 15.3396 6.21967 15.4803C6.36032 15.6209 6.55109 15.7 6.75 15.7Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M17.7532 13.5C15.464 13.4975 13.5 15.4602 13.5 17.75C13.5 18.8772 13.9478 19.9582 14.7448 20.7552C15.5418 21.5522 16.6228 22 17.75 22H17.7503C18.8775 22.0005 19.9587 21.5531 20.756 20.7564C21.5534 19.9597 22.0015 18.8789 22.002 17.7517C22.0025 16.6245 21.5551 15.5433 20.7584 14.746C19.9617 13.9487 18.8809 13.5005 17.7537 13.5L17.7532 13.5ZM17.7543 12C14.6357 11.9968 12 14.6319 12 17.75C12 19.275 12.6058 20.7375 13.6841 21.8159C14.7624 22.8941 16.2248 23.4999 17.7497 23.5M17.7545 12C19.2794 12.0007 20.7416 12.6071 21.8195 13.6858C22.8974 14.7645 23.5026 16.2273 23.502 17.7523C23.5014 19.2773 22.895 20.7396 21.8162 21.8175C20.7375 22.8953 19.2749 23.5005 17.75 23.5"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M17.75 15C18.1642 15 18.5 15.3358 18.5 15.75V15.8199C18.6986 15.8939 18.8858 15.998 19.0546 16.1297L19.1043 16.1009C19.4627 15.8934 19.9216 16.0158 20.1291 16.3742C20.3366 16.7327 20.2143 17.1915 19.8558 17.3991L19.8262 17.4162C19.8452 17.5254 19.8555 17.6362 19.8569 17.7476C19.8583 17.8617 19.8503 17.9755 19.8331 18.0878L19.8558 18.1009C20.2143 18.3085 20.3366 18.7673 20.1291 19.1258C19.9216 19.4842 19.4627 19.6066 19.1043 19.3991L19.0881 19.3897C18.9284 19.5196 18.7501 19.6253 18.5588 19.7032C18.5393 19.7111 18.5197 19.7188 18.5 19.7261V19.75C18.5 20.1642 18.1642 20.5 17.75 20.5C17.3358 20.5 17 20.1642 17 19.75V19.7084C16.9801 19.7004 16.9602 19.6921 16.9404 19.6835C16.7592 19.6045 16.5906 19.5003 16.4393 19.3743L16.3909 19.4019C16.0309 19.6067 15.573 19.4809 15.3682 19.1209C15.1633 18.7609 15.2891 18.303 15.6491 18.0981L15.7094 18.0638C15.6947 17.9597 15.6879 17.854 15.6892 17.7476C15.6904 17.6439 15.6994 17.541 15.7158 17.4398L15.6491 17.4019C15.2891 17.197 15.1633 16.7391 15.3682 16.3791C15.573 16.0191 16.0309 15.8933 16.3909 16.0981L16.4725 16.1446C16.6331 16.0164 16.811 15.9132 17 15.8377V15.75C17 15.3358 17.3358 15 17.75 15ZM18.2497 17.4356C18.2279 17.4049 18.2032 17.3762 18.1758 17.3501C18.0654 17.245 17.9183 17.1872 17.7659 17.1891C17.6135 17.1909 17.4679 17.2523 17.3601 17.3601C17.2523 17.4679 17.1909 17.6135 17.1891 17.7659C17.1872 17.9183 17.245 18.0654 17.3501 18.1758C17.4038 18.2322 17.4683 18.2773 17.5397 18.3084C17.5692 18.3213 17.5997 18.3316 17.6308 18.3394C17.6696 18.3332 17.7095 18.33 17.75 18.33C17.7997 18.33 17.8483 18.3349 17.8953 18.3441C17.9287 18.3369 17.9615 18.3269 17.9932 18.3139C18.0654 18.2846 18.1309 18.2411 18.186 18.186C18.192 18.1799 18.1979 18.1738 18.2037 18.1675C18.2188 18.1255 18.2378 18.0842 18.261 18.0442C18.2822 18.0076 18.306 17.9734 18.3321 17.9418C18.3493 17.8849 18.3577 17.8256 18.357 17.7659C18.356 17.688 18.3395 17.6111 18.3084 17.5397C18.3031 17.5277 18.2975 17.5158 18.2914 17.5042C18.2808 17.4885 18.2706 17.4724 18.261 17.4558C18.2571 17.4491 18.2533 17.4424 18.2497 17.4356Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_2436_7601">
-                                        <rect width="24" height="24" rx="4" fill="white" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Nhóm đối tượng</p>
-                            </div>
-                        </a>
-                    </li> --}}
-                    <li class="nav-item d-none">
-                        <a href="{{ route('groups.index', $workspacename) }}"
-                            class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_2436_7601)">
-                                    <path
-                                        d="M20 13V5C20 4.46957 19.7893 3.96086 19.4142 3.58579C19.0391 3.21071 18.5304 3 18 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H13.5"
-                                        stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 15H10" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 11H13" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 7.125H16" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M6.75 7.80005C6.89834 7.80005 7.04334 7.75606 7.16668 7.67365C7.29001 7.59124 7.38614 7.47411 7.44291 7.33706C7.49967 7.20002 7.51453 7.04922 7.48559 6.90373C7.45665 6.75824 7.38522 6.62461 7.28033 6.51972C7.17544 6.41483 7.0418 6.3434 6.89632 6.31446C6.75083 6.28552 6.60003 6.30037 6.46299 6.35714C6.32594 6.4139 6.20881 6.51003 6.1264 6.63337C6.04399 6.75671 6 6.90171 6 7.05005C6 7.24896 6.07902 7.43973 6.21967 7.58038C6.36032 7.72103 6.55109 7.80005 6.75 7.80005Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path
-                                        d="M6.75 11.8C6.89834 11.8 7.04334 11.7561 7.16668 11.6736C7.29001 11.5912 7.38614 11.4741 7.44291 11.3371C7.49967 11.2 7.51453 11.0492 7.48559 10.9037C7.45665 10.7582 7.38522 10.6246 7.28033 10.5197C7.17544 10.4148 7.0418 10.3434 6.89632 10.3145C6.75083 10.2855 6.60003 10.3004 6.46299 10.3571C6.32594 10.4139 6.20881 10.51 6.1264 10.6334C6.04399 10.7567 6 10.9017 6 11.05C6 11.249 6.07902 11.4397 6.21967 11.5804C6.36032 11.721 6.55109 11.8 6.75 11.8Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path
-                                        d="M6.75 15.7C6.89834 15.7 7.04334 15.656 7.16668 15.5736C7.29001 15.4911 7.38614 15.374 7.44291 15.237C7.49967 15.0999 7.51453 14.9491 7.48559 14.8036C7.45665 14.6581 7.38522 14.5245 7.28033 14.4196C7.17544 14.3147 7.0418 14.2433 6.89632 14.2144C6.75083 14.1854 6.60003 14.2003 6.46299 14.257C6.32594 14.3138 6.20881 14.4099 6.1264 14.5333C6.04399 14.6566 6 14.8016 6 14.95C6 15.1489 6.07902 15.3396 6.21967 15.4803C6.36032 15.6209 6.55109 15.7 6.75 15.7Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M17.7532 13.5C15.464 13.4975 13.5 15.4602 13.5 17.75C13.5 18.8772 13.9478 19.9582 14.7448 20.7552C15.5418 21.5522 16.6228 22 17.75 22H17.7503C18.8775 22.0005 19.9587 21.5531 20.756 20.7564C21.5534 19.9597 22.0015 18.8789 22.002 17.7517C22.0025 16.6245 21.5551 15.5433 20.7584 14.746C19.9617 13.9487 18.8809 13.5005 17.7537 13.5L17.7532 13.5ZM17.7543 12C14.6357 11.9968 12 14.6319 12 17.75C12 19.275 12.6058 20.7375 13.6841 21.8159C14.7624 22.8941 16.2248 23.4999 17.7497 23.5M17.7545 12C19.2794 12.0007 20.7416 12.6071 21.8195 13.6858C22.8974 14.7645 23.5026 16.2273 23.502 17.7523C23.5014 19.2773 22.895 20.7396 21.8162 21.8175C20.7375 22.8953 19.2749 23.5005 17.75 23.5"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M17.75 15C18.1642 15 18.5 15.3358 18.5 15.75V15.8199C18.6986 15.8939 18.8858 15.998 19.0546 16.1297L19.1043 16.1009C19.4627 15.8934 19.9216 16.0158 20.1291 16.3742C20.3366 16.7327 20.2143 17.1915 19.8558 17.3991L19.8262 17.4162C19.8452 17.5254 19.8555 17.6362 19.8569 17.7476C19.8583 17.8617 19.8503 17.9755 19.8331 18.0878L19.8558 18.1009C20.2143 18.3085 20.3366 18.7673 20.1291 19.1258C19.9216 19.4842 19.4627 19.6066 19.1043 19.3991L19.0881 19.3897C18.9284 19.5196 18.7501 19.6253 18.5588 19.7032C18.5393 19.7111 18.5197 19.7188 18.5 19.7261V19.75C18.5 20.1642 18.1642 20.5 17.75 20.5C17.3358 20.5 17 20.1642 17 19.75V19.7084C16.9801 19.7004 16.9602 19.6921 16.9404 19.6835C16.7592 19.6045 16.5906 19.5003 16.4393 19.3743L16.3909 19.4019C16.0309 19.6067 15.573 19.4809 15.3682 19.1209C15.1633 18.7609 15.2891 18.303 15.6491 18.0981L15.7094 18.0638C15.6947 17.9597 15.6879 17.854 15.6892 17.7476C15.6904 17.6439 15.6994 17.541 15.7158 17.4398L15.6491 17.4019C15.2891 17.197 15.1633 16.7391 15.3682 16.3791C15.573 16.0191 16.0309 15.8933 16.3909 16.0981L16.4725 16.1446C16.6331 16.0164 16.811 15.9132 17 15.8377V15.75C17 15.3358 17.3358 15 17.75 15ZM18.2497 17.4356C18.2279 17.4049 18.2032 17.3762 18.1758 17.3501C18.0654 17.245 17.9183 17.1872 17.7659 17.1891C17.6135 17.1909 17.4679 17.2523 17.3601 17.3601C17.2523 17.4679 17.1909 17.6135 17.1891 17.7659C17.1872 17.9183 17.245 18.0654 17.3501 18.1758C17.4038 18.2322 17.4683 18.2773 17.5397 18.3084C17.5692 18.3213 17.5997 18.3316 17.6308 18.3394C17.6696 18.3332 17.7095 18.33 17.75 18.33C17.7997 18.33 17.8483 18.3349 17.8953 18.3441C17.9287 18.3369 17.9615 18.3269 17.9932 18.3139C18.0654 18.2846 18.1309 18.2411 18.186 18.186C18.192 18.1799 18.1979 18.1738 18.2037 18.1675C18.2188 18.1255 18.2378 18.0842 18.261 18.0442C18.2822 18.0076 18.306 17.9734 18.3321 17.9418C18.3493 17.8849 18.3577 17.8256 18.357 17.7659C18.356 17.688 18.3395 17.6111 18.3084 17.5397C18.3031 17.5277 18.2975 17.5158 18.2914 17.5042C18.2808 17.4885 18.2706 17.4724 18.261 17.4558C18.2571 17.4491 18.2533 17.4424 18.2497 17.4356Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_2436_7601">
-                                        <rect width="24" height="24" rx="4" fill="white" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Nhân viên</p>
-                            </div>
-                        </a>
-                    </li>
-                    {{-- <li class="nav-item">
-                        <a href="{{ route('funds.index') }}"
-                            class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_2436_7601)">
-                                    <path
-                                        d="M20 13V5C20 4.46957 19.7893 3.96086 19.4142 3.58579C19.0391 3.21071 18.5304 3 18 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H13.5"
-                                        stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 15H10" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 11H13" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 7.125H16" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M6.75 7.80005C6.89834 7.80005 7.04334 7.75606 7.16668 7.67365C7.29001 7.59124 7.38614 7.47411 7.44291 7.33706C7.49967 7.20002 7.51453 7.04922 7.48559 6.90373C7.45665 6.75824 7.38522 6.62461 7.28033 6.51972C7.17544 6.41483 7.0418 6.3434 6.89632 6.31446C6.75083 6.28552 6.60003 6.30037 6.46299 6.35714C6.32594 6.4139 6.20881 6.51003 6.1264 6.63337C6.04399 6.75671 6 6.90171 6 7.05005C6 7.24896 6.07902 7.43973 6.21967 7.58038C6.36032 7.72103 6.55109 7.80005 6.75 7.80005Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path
-                                        d="M6.75 11.8C6.89834 11.8 7.04334 11.7561 7.16668 11.6736C7.29001 11.5912 7.38614 11.4741 7.44291 11.3371C7.49967 11.2 7.51453 11.0492 7.48559 10.9037C7.45665 10.7582 7.38522 10.6246 7.28033 10.5197C7.17544 10.4148 7.0418 10.3434 6.89632 10.3145C6.75083 10.2855 6.60003 10.3004 6.46299 10.3571C6.32594 10.4139 6.20881 10.51 6.1264 10.6334C6.04399 10.7567 6 10.9017 6 11.05C6 11.249 6.07902 11.4397 6.21967 11.5804C6.36032 11.721 6.55109 11.8 6.75 11.8Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path
-                                        d="M6.75 15.7C6.89834 15.7 7.04334 15.656 7.16668 15.5736C7.29001 15.4911 7.38614 15.374 7.44291 15.237C7.49967 15.0999 7.51453 14.9491 7.48559 14.8036C7.45665 14.6581 7.38522 14.5245 7.28033 14.4196C7.17544 14.3147 7.0418 14.2433 6.89632 14.2144C6.75083 14.1854 6.60003 14.2003 6.46299 14.257C6.32594 14.3138 6.20881 14.4099 6.1264 14.5333C6.04399 14.6566 6 14.8016 6 14.95C6 15.1489 6.07902 15.3396 6.21967 15.4803C6.36032 15.6209 6.55109 15.7 6.75 15.7Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M17.7532 13.5C15.464 13.4975 13.5 15.4602 13.5 17.75C13.5 18.8772 13.9478 19.9582 14.7448 20.7552C15.5418 21.5522 16.6228 22 17.75 22H17.7503C18.8775 22.0005 19.9587 21.5531 20.756 20.7564C21.5534 19.9597 22.0015 18.8789 22.002 17.7517C22.0025 16.6245 21.5551 15.5433 20.7584 14.746C19.9617 13.9487 18.8809 13.5005 17.7537 13.5L17.7532 13.5ZM17.7543 12C14.6357 11.9968 12 14.6319 12 17.75C12 19.275 12.6058 20.7375 13.6841 21.8159C14.7624 22.8941 16.2248 23.4999 17.7497 23.5M17.7545 12C19.2794 12.0007 20.7416 12.6071 21.8195 13.6858C22.8974 14.7645 23.5026 16.2273 23.502 17.7523C23.5014 19.2773 22.895 20.7396 21.8162 21.8175C20.7375 22.8953 19.2749 23.5005 17.75 23.5"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M17.75 15C18.1642 15 18.5 15.3358 18.5 15.75V15.8199C18.6986 15.8939 18.8858 15.998 19.0546 16.1297L19.1043 16.1009C19.4627 15.8934 19.9216 16.0158 20.1291 16.3742C20.3366 16.7327 20.2143 17.1915 19.8558 17.3991L19.8262 17.4162C19.8452 17.5254 19.8555 17.6362 19.8569 17.7476C19.8583 17.8617 19.8503 17.9755 19.8331 18.0878L19.8558 18.1009C20.2143 18.3085 20.3366 18.7673 20.1291 19.1258C19.9216 19.4842 19.4627 19.6066 19.1043 19.3991L19.0881 19.3897C18.9284 19.5196 18.7501 19.6253 18.5588 19.7032C18.5393 19.7111 18.5197 19.7188 18.5 19.7261V19.75C18.5 20.1642 18.1642 20.5 17.75 20.5C17.3358 20.5 17 20.1642 17 19.75V19.7084C16.9801 19.7004 16.9602 19.6921 16.9404 19.6835C16.7592 19.6045 16.5906 19.5003 16.4393 19.3743L16.3909 19.4019C16.0309 19.6067 15.573 19.4809 15.3682 19.1209C15.1633 18.7609 15.2891 18.303 15.6491 18.0981L15.7094 18.0638C15.6947 17.9597 15.6879 17.854 15.6892 17.7476C15.6904 17.6439 15.6994 17.541 15.7158 17.4398L15.6491 17.4019C15.2891 17.197 15.1633 16.7391 15.3682 16.3791C15.573 16.0191 16.0309 15.8933 16.3909 16.0981L16.4725 16.1446C16.6331 16.0164 16.811 15.9132 17 15.8377V15.75C17 15.3358 17.3358 15 17.75 15ZM18.2497 17.4356C18.2279 17.4049 18.2032 17.3762 18.1758 17.3501C18.0654 17.245 17.9183 17.1872 17.7659 17.1891C17.6135 17.1909 17.4679 17.2523 17.3601 17.3601C17.2523 17.4679 17.1909 17.6135 17.1891 17.7659C17.1872 17.9183 17.245 18.0654 17.3501 18.1758C17.4038 18.2322 17.4683 18.2773 17.5397 18.3084C17.5692 18.3213 17.5997 18.3316 17.6308 18.3394C17.6696 18.3332 17.7095 18.33 17.75 18.33C17.7997 18.33 17.8483 18.3349 17.8953 18.3441C17.9287 18.3369 17.9615 18.3269 17.9932 18.3139C18.0654 18.2846 18.1309 18.2411 18.186 18.186C18.192 18.1799 18.1979 18.1738 18.2037 18.1675C18.2188 18.1255 18.2378 18.0842 18.261 18.0442C18.2822 18.0076 18.306 17.9734 18.3321 17.9418C18.3493 17.8849 18.3577 17.8256 18.357 17.7659C18.356 17.688 18.3395 17.6111 18.3084 17.5397C18.3031 17.5277 18.2975 17.5158 18.2914 17.5042C18.2808 17.4885 18.2706 17.4724 18.261 17.4558C18.2571 17.4491 18.2533 17.4424 18.2497 17.4356Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_2436_7601">
-                                        <rect width="24" height="24" rx="4" fill="white" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Quỹ</p>
-                            </div>
-                        </a>
-                    </li> --}}
-
-                    {{-- <li class="nav-item">
-                        <a href="{{ route('changeWarehouse.index', $workspacename) }}"
-                            class="nav-link @if (!empty($activeName) && $activeName == 'changeWarehouse') active @endif">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_2436_7601)">
-                                    <path
-                                        d="M20 13V5C20 4.46957 19.7893 3.96086 19.4142 3.58579C19.0391 3.21071 18.5304 3 18 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H13.5"
-                                        stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 15H10" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 11H13" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 7.125H16" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M6.75 7.80005C6.89834 7.80005 7.04334 7.75606 7.16668 7.67365C7.29001 7.59124 7.38614 7.47411 7.44291 7.33706C7.49967 7.20002 7.51453 7.04922 7.48559 6.90373C7.45665 6.75824 7.38522 6.62461 7.28033 6.51972C7.17544 6.41483 7.0418 6.3434 6.89632 6.31446C6.75083 6.28552 6.60003 6.30037 6.46299 6.35714C6.32594 6.4139 6.20881 6.51003 6.1264 6.63337C6.04399 6.75671 6 6.90171 6 7.05005C6 7.24896 6.07902 7.43973 6.21967 7.58038C6.36032 7.72103 6.55109 7.80005 6.75 7.80005Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path
-                                        d="M6.75 11.8C6.89834 11.8 7.04334 11.7561 7.16668 11.6736C7.29001 11.5912 7.38614 11.4741 7.44291 11.3371C7.49967 11.2 7.51453 11.0492 7.48559 10.9037C7.45665 10.7582 7.38522 10.6246 7.28033 10.5197C7.17544 10.4148 7.0418 10.3434 6.89632 10.3145C6.75083 10.2855 6.60003 10.3004 6.46299 10.3571C6.32594 10.4139 6.20881 10.51 6.1264 10.6334C6.04399 10.7567 6 10.9017 6 11.05C6 11.249 6.07902 11.4397 6.21967 11.5804C6.36032 11.721 6.55109 11.8 6.75 11.8Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path
-                                        d="M6.75 15.7C6.89834 15.7 7.04334 15.656 7.16668 15.5736C7.29001 15.4911 7.38614 15.374 7.44291 15.237C7.49967 15.0999 7.51453 14.9491 7.48559 14.8036C7.45665 14.6581 7.38522 14.5245 7.28033 14.4196C7.17544 14.3147 7.0418 14.2433 6.89632 14.2144C6.75083 14.1854 6.60003 14.2003 6.46299 14.257C6.32594 14.3138 6.20881 14.4099 6.1264 14.5333C6.04399 14.6566 6 14.8016 6 14.95C6 15.1489 6.07902 15.3396 6.21967 15.4803C6.36032 15.6209 6.55109 15.7 6.75 15.7Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M17.7532 13.5C15.464 13.4975 13.5 15.4602 13.5 17.75C13.5 18.8772 13.9478 19.9582 14.7448 20.7552C15.5418 21.5522 16.6228 22 17.75 22H17.7503C18.8775 22.0005 19.9587 21.5531 20.756 20.7564C21.5534 19.9597 22.0015 18.8789 22.002 17.7517C22.0025 16.6245 21.5551 15.5433 20.7584 14.746C19.9617 13.9487 18.8809 13.5005 17.7537 13.5L17.7532 13.5ZM17.7543 12C14.6357 11.9968 12 14.6319 12 17.75C12 19.275 12.6058 20.7375 13.6841 21.8159C14.7624 22.8941 16.2248 23.4999 17.7497 23.5M17.7545 12C19.2794 12.0007 20.7416 12.6071 21.8195 13.6858C22.8974 14.7645 23.5026 16.2273 23.502 17.7523C23.5014 19.2773 22.895 20.7396 21.8162 21.8175C20.7375 22.8953 19.2749 23.5005 17.75 23.5"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M17.75 15C18.1642 15 18.5 15.3358 18.5 15.75V15.8199C18.6986 15.8939 18.8858 15.998 19.0546 16.1297L19.1043 16.1009C19.4627 15.8934 19.9216 16.0158 20.1291 16.3742C20.3366 16.7327 20.2143 17.1915 19.8558 17.3991L19.8262 17.4162C19.8452 17.5254 19.8555 17.6362 19.8569 17.7476C19.8583 17.8617 19.8503 17.9755 19.8331 18.0878L19.8558 18.1009C20.2143 18.3085 20.3366 18.7673 20.1291 19.1258C19.9216 19.4842 19.4627 19.6066 19.1043 19.3991L19.0881 19.3897C18.9284 19.5196 18.7501 19.6253 18.5588 19.7032C18.5393 19.7111 18.5197 19.7188 18.5 19.7261V19.75C18.5 20.1642 18.1642 20.5 17.75 20.5C17.3358 20.5 17 20.1642 17 19.75V19.7084C16.9801 19.7004 16.9602 19.6921 16.9404 19.6835C16.7592 19.6045 16.5906 19.5003 16.4393 19.3743L16.3909 19.4019C16.0309 19.6067 15.573 19.4809 15.3682 19.1209C15.1633 18.7609 15.2891 18.303 15.6491 18.0981L15.7094 18.0638C15.6947 17.9597 15.6879 17.854 15.6892 17.7476C15.6904 17.6439 15.6994 17.541 15.7158 17.4398L15.6491 17.4019C15.2891 17.197 15.1633 16.7391 15.3682 16.3791C15.573 16.0191 16.0309 15.8933 16.3909 16.0981L16.4725 16.1446C16.6331 16.0164 16.811 15.9132 17 15.8377V15.75C17 15.3358 17.3358 15 17.75 15ZM18.2497 17.4356C18.2279 17.4049 18.2032 17.3762 18.1758 17.3501C18.0654 17.245 17.9183 17.1872 17.7659 17.1891C17.6135 17.1909 17.4679 17.2523 17.3601 17.3601C17.2523 17.4679 17.1909 17.6135 17.1891 17.7659C17.1872 17.9183 17.245 18.0654 17.3501 18.1758C17.4038 18.2322 17.4683 18.2773 17.5397 18.3084C17.5692 18.3213 17.5997 18.3316 17.6308 18.3394C17.6696 18.3332 17.7095 18.33 17.75 18.33C17.7997 18.33 17.8483 18.3349 17.8953 18.3441C17.9287 18.3369 17.9615 18.3269 17.9932 18.3139C18.0654 18.2846 18.1309 18.2411 18.186 18.186C18.192 18.1799 18.1979 18.1738 18.2037 18.1675C18.2188 18.1255 18.2378 18.0842 18.261 18.0442C18.2822 18.0076 18.306 17.9734 18.3321 17.9418C18.3493 17.8849 18.3577 17.8256 18.357 17.7659C18.356 17.688 18.3395 17.6111 18.3084 17.5397C18.3031 17.5277 18.2975 17.5158 18.2914 17.5042C18.2808 17.4885 18.2706 17.4724 18.261 17.4558C18.2571 17.4491 18.2533 17.4424 18.2497 17.4356Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_2436_7601">
-                                        <rect width="24" height="24" rx="4" fill="white" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Phiếu chuyển kho</p>
-                            </div>
-                        </a>
-                    </li> --}}
-
-
-                    {{-- <li class="nav-item">
-                        <a href="{{ route('changeInventory.index',$workspacename) }}"
-                            class="nav-link @if (!empty($activeName) && $activeName == 'groups') active @endif">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_2436_7601)">
-                                    <path
-                                        d="M20 13V5C20 4.46957 19.7893 3.96086 19.4142 3.58579C19.0391 3.21071 18.5304 3 18 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H13.5"
-                                        stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 15H10" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 11H13" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M9.25 7.125H16" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M6.75 7.80005C6.89834 7.80005 7.04334 7.75606 7.16668 7.67365C7.29001 7.59124 7.38614 7.47411 7.44291 7.33706C7.49967 7.20002 7.51453 7.04922 7.48559 6.90373C7.45665 6.75824 7.38522 6.62461 7.28033 6.51972C7.17544 6.41483 7.0418 6.3434 6.89632 6.31446C6.75083 6.28552 6.60003 6.30037 6.46299 6.35714C6.32594 6.4139 6.20881 6.51003 6.1264 6.63337C6.04399 6.75671 6 6.90171 6 7.05005C6 7.24896 6.07902 7.43973 6.21967 7.58038C6.36032 7.72103 6.55109 7.80005 6.75 7.80005Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path
-                                        d="M6.75 11.8C6.89834 11.8 7.04334 11.7561 7.16668 11.6736C7.29001 11.5912 7.38614 11.4741 7.44291 11.3371C7.49967 11.2 7.51453 11.0492 7.48559 10.9037C7.45665 10.7582 7.38522 10.6246 7.28033 10.5197C7.17544 10.4148 7.0418 10.3434 6.89632 10.3145C6.75083 10.2855 6.60003 10.3004 6.46299 10.3571C6.32594 10.4139 6.20881 10.51 6.1264 10.6334C6.04399 10.7567 6 10.9017 6 11.05C6 11.249 6.07902 11.4397 6.21967 11.5804C6.36032 11.721 6.55109 11.8 6.75 11.8Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path
-                                        d="M6.75 15.7C6.89834 15.7 7.04334 15.656 7.16668 15.5736C7.29001 15.4911 7.38614 15.374 7.44291 15.237C7.49967 15.0999 7.51453 14.9491 7.48559 14.8036C7.45665 14.6581 7.38522 14.5245 7.28033 14.4196C7.17544 14.3147 7.0418 14.2433 6.89632 14.2144C6.75083 14.1854 6.60003 14.2003 6.46299 14.257C6.32594 14.3138 6.20881 14.4099 6.1264 14.5333C6.04399 14.6566 6 14.8016 6 14.95C6 15.1489 6.07902 15.3396 6.21967 15.4803C6.36032 15.6209 6.55109 15.7 6.75 15.7Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M17.7532 13.5C15.464 13.4975 13.5 15.4602 13.5 17.75C13.5 18.8772 13.9478 19.9582 14.7448 20.7552C15.5418 21.5522 16.6228 22 17.75 22H17.7503C18.8775 22.0005 19.9587 21.5531 20.756 20.7564C21.5534 19.9597 22.0015 18.8789 22.002 17.7517C22.0025 16.6245 21.5551 15.5433 20.7584 14.746C19.9617 13.9487 18.8809 13.5005 17.7537 13.5L17.7532 13.5ZM17.7543 12C14.6357 11.9968 12 14.6319 12 17.75C12 19.275 12.6058 20.7375 13.6841 21.8159C14.7624 22.8941 16.2248 23.4999 17.7497 23.5M17.7545 12C19.2794 12.0007 20.7416 12.6071 21.8195 13.6858C22.8974 14.7645 23.5026 16.2273 23.502 17.7523C23.5014 19.2773 22.895 20.7396 21.8162 21.8175C20.7375 22.8953 19.2749 23.5005 17.75 23.5"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M17.75 15C18.1642 15 18.5 15.3358 18.5 15.75V15.8199C18.6986 15.8939 18.8858 15.998 19.0546 16.1297L19.1043 16.1009C19.4627 15.8934 19.9216 16.0158 20.1291 16.3742C20.3366 16.7327 20.2143 17.1915 19.8558 17.3991L19.8262 17.4162C19.8452 17.5254 19.8555 17.6362 19.8569 17.7476C19.8583 17.8617 19.8503 17.9755 19.8331 18.0878L19.8558 18.1009C20.2143 18.3085 20.3366 18.7673 20.1291 19.1258C19.9216 19.4842 19.4627 19.6066 19.1043 19.3991L19.0881 19.3897C18.9284 19.5196 18.7501 19.6253 18.5588 19.7032C18.5393 19.7111 18.5197 19.7188 18.5 19.7261V19.75C18.5 20.1642 18.1642 20.5 17.75 20.5C17.3358 20.5 17 20.1642 17 19.75V19.7084C16.9801 19.7004 16.9602 19.6921 16.9404 19.6835C16.7592 19.6045 16.5906 19.5003 16.4393 19.3743L16.3909 19.4019C16.0309 19.6067 15.573 19.4809 15.3682 19.1209C15.1633 18.7609 15.2891 18.303 15.6491 18.0981L15.7094 18.0638C15.6947 17.9597 15.6879 17.854 15.6892 17.7476C15.6904 17.6439 15.6994 17.541 15.7158 17.4398L15.6491 17.4019C15.2891 17.197 15.1633 16.7391 15.3682 16.3791C15.573 16.0191 16.0309 15.8933 16.3909 16.0981L16.4725 16.1446C16.6331 16.0164 16.811 15.9132 17 15.8377V15.75C17 15.3358 17.3358 15 17.75 15ZM18.2497 17.4356C18.2279 17.4049 18.2032 17.3762 18.1758 17.3501C18.0654 17.245 17.9183 17.1872 17.7659 17.1891C17.6135 17.1909 17.4679 17.2523 17.3601 17.3601C17.2523 17.4679 17.1909 17.6135 17.1891 17.7659C17.1872 17.9183 17.245 18.0654 17.3501 18.1758C17.4038 18.2322 17.4683 18.2773 17.5397 18.3084C17.5692 18.3213 17.5997 18.3316 17.6308 18.3394C17.6696 18.3332 17.7095 18.33 17.75 18.33C17.7997 18.33 17.8483 18.3349 17.8953 18.3441C17.9287 18.3369 17.9615 18.3269 17.9932 18.3139C18.0654 18.2846 18.1309 18.2411 18.186 18.186C18.192 18.1799 18.1979 18.1738 18.2037 18.1675C18.2188 18.1255 18.2378 18.0842 18.261 18.0442C18.2822 18.0076 18.306 17.9734 18.3321 17.9418C18.3493 17.8849 18.3577 17.8256 18.357 17.7659C18.356 17.688 18.3395 17.6111 18.3084 17.5397C18.3031 17.5277 18.2975 17.5158 18.2914 17.5042C18.2808 17.4885 18.2706 17.4724 18.261 17.4558C18.2571 17.4491 18.2533 17.4424 18.2497 17.4356Z"
-                                        fill="#26273B" fill-opacity="0.8" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_2436_7601">
-                                        <rect width="24" height="24" rx="4" fill="white" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Điều chỉnh tồn</p>
-                            </div>
-                        </a>
-                    </li> --}}
-                    {{-- <li class="nav-item">
-                        <a href="{{ route('settings.index', $workspacename) }}" class="nav-link">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M12.5703 2.21802C12.9227 2.21723 13.2673 2.32264 13.559 2.52052C13.8506 2.7184 14.0759 2.99957 14.2055 3.32737L14.7235 4.64053C14.7235 4.64045 14.7236 4.64061 14.7235 4.64053C14.8392 4.93323 15.061 5.17182 15.3446 5.30829C15.6283 5.4448 15.953 5.46934 16.254 5.377L17.6063 4.9629C17.9428 4.85984 18.3025 4.86038 18.6387 4.96444C18.9748 5.0685 19.2719 5.27127 19.4914 5.54641L20.2062 6.44322C20.4256 6.71823 20.5573 7.05287 20.5841 7.40367C20.6109 7.75447 20.5316 8.10522 20.3564 8.41036L19.6512 9.63681C19.4944 9.90948 19.4462 10.2312 19.5162 10.5379C19.5862 10.8445 19.7692 11.1135 20.0287 11.2912L21.1949 12.0897C21.4858 12.2883 21.7099 12.57 21.8382 12.8979C21.9663 13.2257 21.9928 13.5844 21.9141 13.9274C21.914 13.9276 21.9141 13.9271 21.9141 13.9274L21.6592 15.0448C21.4987 15.746 20.9263 16.2797 20.2145 16.3884C20.2143 16.3884 20.2146 16.3884 20.2145 16.3884L18.8165 16.6024C18.5055 16.6498 18.2235 16.8128 18.0273 17.0588C17.8312 17.3047 17.735 17.6156 17.758 17.9293L17.861 19.3421C17.861 19.342 17.861 19.3422 17.861 19.3421C17.8866 19.6921 17.8064 20.0422 17.6308 20.346C17.4551 20.65 17.192 20.8941 16.8757 21.0466L15.8394 21.5457C15.1905 21.858 14.4174 21.7431 13.888 21.2539C13.888 21.2539 13.888 21.2539 13.888 21.2539L12.849 20.2939C12.618 20.0804 12.315 19.9618 12.0005 19.9618C11.686 19.9618 11.383 20.0803 11.152 20.2938L10.112 21.2548C9.5841 21.7408 8.81082 21.859 8.16107 21.5455L7.12753 21.0477C6.47962 20.7351 6.08754 20.0586 6.13996 19.3404L6.24296 17.9294C6.26591 17.6157 6.16973 17.3047 5.9736 17.0588C5.77747 16.8128 5.49582 16.6499 5.18485 16.6024L3.78703 16.3885C3.07543 16.2798 2.50186 15.7466 2.34261 15.0432C2.34254 15.0429 2.34269 15.0435 2.34261 15.0432L2.08797 13.9267C2.08791 13.9265 2.08802 13.927 2.08797 13.9267C1.92728 13.2251 2.21253 12.4961 2.806 12.0894L3.95906 11.2993C4.22009 11.1205 4.40374 10.8494 4.47275 10.5406C4.54176 10.2318 4.49113 9.90841 4.33108 9.63553C4.33107 9.63551 4.33109 9.63554 4.33108 9.63553L3.61008 8.40653C3.4314 8.10176 3.34887 7.74992 3.37351 7.39749C3.39814 7.04517 3.52862 6.7085 3.74785 6.4316C3.74779 6.43168 3.74791 6.43152 3.74785 6.4316L4.45765 5.53386C4.67701 5.2571 4.97536 5.05229 5.31263 4.94756C5.64973 4.84288 6.01056 4.84234 6.34797 4.94601L7.75597 5.37801C8.0578 5.47089 8.38421 5.44627 8.6685 5.30876C8.95275 5.17128 9.17443 4.93131 9.28901 4.63708M9.28901 4.63708L9.794 3.33911C9.794 3.33912 9.794 3.3391 9.794 3.33911C9.92183 3.01052 10.1457 2.72805 10.4365 2.52861C10.7272 2.32916 11.0714 2.22197 11.424 2.22102L12.5703 2.21802M3.89997 15.6471L4.01346 14.9057L5.4111 15.1196C5.41098 15.1196 5.41122 15.1196 5.4111 15.1196C6.0951 15.2241 6.71495 15.5826 7.14636 16.1236C7.57782 16.6646 7.78944 17.3484 7.73898 18.0386C7.73898 18.0387 7.73899 18.0386 7.73898 18.0386L7.63598 19.4496C7.62841 19.5534 7.6848 19.6511 7.77888 19.6965L8.81242 20.1943C8.90453 20.2388 9.01753 20.2232 9.09561 20.1516C9.0955 20.1517 9.09572 20.1515 9.09561 20.1516L10.1339 19.1922C10.1339 19.1923 10.1339 19.1922 10.1339 19.1922C10.642 18.7226 11.3086 18.4618 12.0005 18.4618C12.6924 18.4618 13.3588 18.7226 13.8669 19.1922C13.8669 19.1921 13.867 19.1922 13.8669 19.1922L14.9059 20.1522C14.9825 20.2229 15.0937 20.2399 15.1888 20.1942L16.2242 19.6954C16.2694 19.6737 16.307 19.6388 16.3321 19.5954C16.3572 19.5519 16.3687 19.502 16.365 19.452L16.262 18.0387C16.262 18.0387 16.262 18.0388 16.262 18.0387C16.2115 17.3486 16.4231 16.6646 16.8546 16.1236C17.286 15.5826 17.9055 15.2241 18.5895 15.1197C18.5894 15.1197 18.5896 15.1196 18.5895 15.1197L19.9875 14.9057C20.0894 14.8901 20.1734 14.8133 20.1969 14.7108C20.1969 14.7108 20.1969 14.7107 20.1969 14.7108L20.4521 13.5919C20.4634 13.5427 20.4596 13.4912 20.4412 13.4442C20.4228 13.3972 20.3907 13.3568 20.349 13.3284L19.1813 12.5289C18.6103 12.138 18.2077 11.5462 18.0538 10.8716C17.8999 10.197 18.0059 9.48912 18.3508 8.88923L19.0555 7.66368C19.0809 7.61949 19.0923 7.5687 19.0885 7.5179C19.0846 7.46709 19.0655 7.41864 19.0337 7.37882L18.3186 6.48163C18.3186 6.48159 18.3186 6.48168 18.3186 6.48163C18.2868 6.44186 18.2437 6.41241 18.1951 6.39736C18.1464 6.38229 18.0943 6.38221 18.0456 6.39714L16.6939 6.81104C16.0321 7.01408 15.318 6.96013 14.6942 6.65994C14.0704 6.35975 13.5827 5.8354 13.3284 5.19151L12.8105 3.87867C12.7917 3.8312 12.7591 3.79048 12.7168 3.76182C12.6746 3.73319 12.6248 3.71792 12.5738 3.71802C12.5737 3.71802 12.5738 3.71802 12.5738 3.71802L11.428 3.72102C11.428 3.72102 11.428 3.72102 11.428 3.72102C11.3769 3.72116 11.3271 3.73669 11.285 3.76556C11.2429 3.79444 11.2105 3.83534 11.1919 3.88293L10.6869 5.18096C10.4349 5.8284 9.94708 6.35658 9.32164 6.6591C8.69638 6.96153 7.97985 7.01616 7.31598 6.81203L5.90798 6.38003C5.8591 6.365 5.80632 6.36491 5.75748 6.38008C5.70873 6.39521 5.66568 6.42468 5.63393 6.46464C5.63387 6.46472 5.634 6.46456 5.63393 6.46464L4.9243 7.36218C4.89264 7.40215 4.87341 7.45124 4.86986 7.50211C4.86631 7.5529 4.87816 7.60357 4.90387 7.64751M4.90387 7.64751L5.62487 8.87651C5.97703 9.47689 6.08846 10.1885 5.93663 10.8678C5.7848 11.5471 5.38104 12.1435 4.80677 12.5368L3.65394 13.3267C3.65393 13.3267 3.65396 13.3267 3.65394 13.3267C3.56765 13.3859 3.52702 13.4912 3.54998 13.5913L3.80556 14.7118C3.82858 14.8138 3.91164 14.8901 4.01346 14.9057L3.89997 15.6471"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M13.3872 10.6158C13.0193 10.2501 12.5214 10.0452 12.0027 10.0459C11.4839 10.0466 10.9866 10.253 10.6197 10.6198C10.2529 10.9866 10.0464 11.4838 10.0455 12.0026C10.0446 12.5213 10.2494 13.0193 10.615 13.3873C10.7968 13.5703 11.0129 13.7156 11.2509 13.8148C11.489 13.9141 11.7442 13.9655 12.0022 13.9659C12.2601 13.9663 12.5155 13.9159 12.7539 13.8174C12.9922 13.7189 13.2088 13.5744 13.3912 13.392C13.5736 13.2097 13.7182 12.9931 13.8168 12.7548C13.9153 12.5164 13.9658 12.261 13.9655 12.0031C13.9651 11.7452 13.9138 11.4899 13.8146 11.2518C13.7154 11.0138 13.5702 10.7976 13.3872 10.6158ZM14.4447 9.55199C13.7952 8.90638 12.9163 8.54459 12.0005 8.5459C11.0847 8.54721 10.2068 8.91152 9.5592 9.55899C8.91156 10.2065 8.54703 11.0843 8.54548 12C8.54393 12.9158 8.90549 13.7949 9.55093 14.4445C9.87181 14.7675 10.2533 15.024 10.6735 15.1992C11.0937 15.3745 11.5443 15.4651 11.9996 15.4659C12.4549 15.4667 12.9059 15.3776 13.3266 15.2037C13.7474 15.0299 14.1298 14.7747 14.4517 14.4528C14.7737 14.1309 15.029 13.7486 15.203 13.3279C15.3769 12.9072 15.4661 12.4562 15.4655 12.0009C15.4648 11.5457 15.3743 11.095 15.1992 10.6747C15.024 10.2545 14.7676 9.87296 14.4447 9.55199Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Cài đặt</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('dashboard') }}" class="nav-link">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M12.5703 2.21802C12.9227 2.21723 13.2673 2.32264 13.559 2.52052C13.8506 2.7184 14.0759 2.99957 14.2055 3.32737L14.7235 4.64053C14.7235 4.64045 14.7236 4.64061 14.7235 4.64053C14.8392 4.93323 15.061 5.17182 15.3446 5.30829C15.6283 5.4448 15.953 5.46934 16.254 5.377L17.6063 4.9629C17.9428 4.85984 18.3025 4.86038 18.6387 4.96444C18.9748 5.0685 19.2719 5.27127 19.4914 5.54641L20.2062 6.44322C20.4256 6.71823 20.5573 7.05287 20.5841 7.40367C20.6109 7.75447 20.5316 8.10522 20.3564 8.41036L19.6512 9.63681C19.4944 9.90948 19.4462 10.2312 19.5162 10.5379C19.5862 10.8445 19.7692 11.1135 20.0287 11.2912L21.1949 12.0897C21.4858 12.2883 21.7099 12.57 21.8382 12.8979C21.9663 13.2257 21.9928 13.5844 21.9141 13.9274C21.914 13.9276 21.9141 13.9271 21.9141 13.9274L21.6592 15.0448C21.4987 15.746 20.9263 16.2797 20.2145 16.3884C20.2143 16.3884 20.2146 16.3884 20.2145 16.3884L18.8165 16.6024C18.5055 16.6498 18.2235 16.8128 18.0273 17.0588C17.8312 17.3047 17.735 17.6156 17.758 17.9293L17.861 19.3421C17.861 19.342 17.861 19.3422 17.861 19.3421C17.8866 19.6921 17.8064 20.0422 17.6308 20.346C17.4551 20.65 17.192 20.8941 16.8757 21.0466L15.8394 21.5457C15.1905 21.858 14.4174 21.7431 13.888 21.2539C13.888 21.2539 13.888 21.2539 13.888 21.2539L12.849 20.2939C12.618 20.0804 12.315 19.9618 12.0005 19.9618C11.686 19.9618 11.383 20.0803 11.152 20.2938L10.112 21.2548C9.5841 21.7408 8.81082 21.859 8.16107 21.5455L7.12753 21.0477C6.47962 20.7351 6.08754 20.0586 6.13996 19.3404L6.24296 17.9294C6.26591 17.6157 6.16973 17.3047 5.9736 17.0588C5.77747 16.8128 5.49582 16.6499 5.18485 16.6024L3.78703 16.3885C3.07543 16.2798 2.50186 15.7466 2.34261 15.0432C2.34254 15.0429 2.34269 15.0435 2.34261 15.0432L2.08797 13.9267C2.08791 13.9265 2.08802 13.927 2.08797 13.9267C1.92728 13.2251 2.21253 12.4961 2.806 12.0894L3.95906 11.2993C4.22009 11.1205 4.40374 10.8494 4.47275 10.5406C4.54176 10.2318 4.49113 9.90841 4.33108 9.63553C4.33107 9.63551 4.33109 9.63554 4.33108 9.63553L3.61008 8.40653C3.4314 8.10176 3.34887 7.74992 3.37351 7.39749C3.39814 7.04517 3.52862 6.7085 3.74785 6.4316C3.74779 6.43168 3.74791 6.43152 3.74785 6.4316L4.45765 5.53386C4.67701 5.2571 4.97536 5.05229 5.31263 4.94756C5.64973 4.84288 6.01056 4.84234 6.34797 4.94601L7.75597 5.37801C8.0578 5.47089 8.38421 5.44627 8.6685 5.30876C8.95275 5.17128 9.17443 4.93131 9.28901 4.63708M9.28901 4.63708L9.794 3.33911C9.794 3.33912 9.794 3.3391 9.794 3.33911C9.92183 3.01052 10.1457 2.72805 10.4365 2.52861C10.7272 2.32916 11.0714 2.22197 11.424 2.22102L12.5703 2.21802M3.89997 15.6471L4.01346 14.9057L5.4111 15.1196C5.41098 15.1196 5.41122 15.1196 5.4111 15.1196C6.0951 15.2241 6.71495 15.5826 7.14636 16.1236C7.57782 16.6646 7.78944 17.3484 7.73898 18.0386C7.73898 18.0387 7.73899 18.0386 7.73898 18.0386L7.63598 19.4496C7.62841 19.5534 7.6848 19.6511 7.77888 19.6965L8.81242 20.1943C8.90453 20.2388 9.01753 20.2232 9.09561 20.1516C9.0955 20.1517 9.09572 20.1515 9.09561 20.1516L10.1339 19.1922C10.1339 19.1923 10.1339 19.1922 10.1339 19.1922C10.642 18.7226 11.3086 18.4618 12.0005 18.4618C12.6924 18.4618 13.3588 18.7226 13.8669 19.1922C13.8669 19.1921 13.867 19.1922 13.8669 19.1922L14.9059 20.1522C14.9825 20.2229 15.0937 20.2399 15.1888 20.1942L16.2242 19.6954C16.2694 19.6737 16.307 19.6388 16.3321 19.5954C16.3572 19.5519 16.3687 19.502 16.365 19.452L16.262 18.0387C16.262 18.0387 16.262 18.0388 16.262 18.0387C16.2115 17.3486 16.4231 16.6646 16.8546 16.1236C17.286 15.5826 17.9055 15.2241 18.5895 15.1197C18.5894 15.1197 18.5896 15.1196 18.5895 15.1197L19.9875 14.9057C20.0894 14.8901 20.1734 14.8133 20.1969 14.7108C20.1969 14.7108 20.1969 14.7107 20.1969 14.7108L20.4521 13.5919C20.4634 13.5427 20.4596 13.4912 20.4412 13.4442C20.4228 13.3972 20.3907 13.3568 20.349 13.3284L19.1813 12.5289C18.6103 12.138 18.2077 11.5462 18.0538 10.8716C17.8999 10.197 18.0059 9.48912 18.3508 8.88923L19.0555 7.66368C19.0809 7.61949 19.0923 7.5687 19.0885 7.5179C19.0846 7.46709 19.0655 7.41864 19.0337 7.37882L18.3186 6.48163C18.3186 6.48159 18.3186 6.48168 18.3186 6.48163C18.2868 6.44186 18.2437 6.41241 18.1951 6.39736C18.1464 6.38229 18.0943 6.38221 18.0456 6.39714L16.6939 6.81104C16.0321 7.01408 15.318 6.96013 14.6942 6.65994C14.0704 6.35975 13.5827 5.8354 13.3284 5.19151L12.8105 3.87867C12.7917 3.8312 12.7591 3.79048 12.7168 3.76182C12.6746 3.73319 12.6248 3.71792 12.5738 3.71802C12.5737 3.71802 12.5738 3.71802 12.5738 3.71802L11.428 3.72102C11.428 3.72102 11.428 3.72102 11.428 3.72102C11.3769 3.72116 11.3271 3.73669 11.285 3.76556C11.2429 3.79444 11.2105 3.83534 11.1919 3.88293L10.6869 5.18096C10.4349 5.8284 9.94708 6.35658 9.32164 6.6591C8.69638 6.96153 7.97985 7.01616 7.31598 6.81203L5.90798 6.38003C5.8591 6.365 5.80632 6.36491 5.75748 6.38008C5.70873 6.39521 5.66568 6.42468 5.63393 6.46464C5.63387 6.46472 5.634 6.46456 5.63393 6.46464L4.9243 7.36218C4.89264 7.40215 4.87341 7.45124 4.86986 7.50211C4.86631 7.5529 4.87816 7.60357 4.90387 7.64751M4.90387 7.64751L5.62487 8.87651C5.97703 9.47689 6.08846 10.1885 5.93663 10.8678C5.7848 11.5471 5.38104 12.1435 4.80677 12.5368L3.65394 13.3267C3.65393 13.3267 3.65396 13.3267 3.65394 13.3267C3.56765 13.3859 3.52702 13.4912 3.54998 13.5913L3.80556 14.7118C3.82858 14.8138 3.91164 14.8901 4.01346 14.9057L3.89997 15.6471"
-                                    fill="#26273B" fill-opacity="0.8" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M13.3872 10.6158C13.0193 10.2501 12.5214 10.0452 12.0027 10.0459C11.4839 10.0466 10.9866 10.253 10.6197 10.6198C10.2529 10.9866 10.0464 11.4838 10.0455 12.0026C10.0446 12.5213 10.2494 13.0193 10.615 13.3873C10.7968 13.5703 11.0129 13.7156 11.2509 13.8148C11.489 13.9141 11.7442 13.9655 12.0022 13.9659C12.2601 13.9663 12.5155 13.9159 12.7539 13.8174C12.9922 13.7189 13.2088 13.5744 13.3912 13.392C13.5736 13.2097 13.7182 12.9931 13.8168 12.7548C13.9153 12.5164 13.9658 12.261 13.9655 12.0031C13.9651 11.7452 13.9138 11.4899 13.8146 11.2518C13.7154 11.0138 13.5702 10.7976 13.3872 10.6158ZM14.4447 9.55199C13.7952 8.90638 12.9163 8.54459 12.0005 8.5459C11.0847 8.54721 10.2068 8.91152 9.5592 9.55899C8.91156 10.2065 8.54703 11.0843 8.54548 12C8.54393 12.9158 8.90549 13.7949 9.55093 14.4445C9.87181 14.7675 10.2533 15.024 10.6735 15.1992C11.0937 15.3745 11.5443 15.4651 11.9996 15.4659C12.4549 15.4667 12.9059 15.3776 13.3266 15.2037C13.7474 15.0299 14.1298 14.7747 14.4517 14.4528C14.7737 14.1309 15.029 13.7486 15.203 13.3279C15.3769 12.9072 15.4661 12.4562 15.4655 12.0009C15.4648 11.5457 15.3743 11.095 15.1992 10.6747C15.024 10.2545 14.7676 9.87296 14.4447 9.55199Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                            <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav">Quay lại trang Quản lý workspace</p>
-                            </div>
-                        </a>
-                    </li> --}}
-                </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
+                        <div class="dropdown-menu" style="">
+                            <a class="dropdown-item" href="{{ route('viewReportDebtGuests', $workspacename) }}">Công nợ khách hàng
+                            </a>
+                            <a class="dropdown-item" href="{{ route('viewReportSell', $workspacename) }}">Tổng kết bán hàng
+                            </a>
+                            <a class="dropdown-item" href="{{ route('viewReportDelivery', $workspacename) }}">Tổng kết giao hàng
+                            </a>
+                            <a class="dropdown-item" href="{{ route('viewReportSumReturnExport', $workspacename) }}">Tổng kết khách trả hàng
+                            </a>
+                            <a class="dropdown-item" href="{{ route('viewReportSumSellProfit', $workspacename) }}">Báo cáo lợi nhuận bán hàng
+                            </a>
+                            <a class="dropdown-item" href="{{ route('viewReportImport', $workspacename) }}">Tổng kết mua hàng
+                            </a>
+                            <a class="dropdown-item" href="{{ route('viewReportProvides', $workspacename) }}">Thống kê công nợ NCC
+                            </a>
+                            <a class="dropdown-item" href="{{ route('viewReportReturnImport', $workspacename) }}">Trả hàng NCC
+                            </a>
+                            <a class="dropdown-item" href="{{ route('viewReportIE', $workspacename) }}">Tổng hợp nội dung thu chi
+                            </a>
+                            <a class="dropdown-item"
+                                href="{{ route('viewReportChangeFunds', $workspacename) }}">Chuyển tiền nội bộ
+                            </a>
+                            <a class="dropdown-item"
+                                href="{{ route('viewReportIEFunds', $workspacename) }}">Thống kê thu chi tồn quỹ
+                            </a>
+                            <a class="dropdown-item"
+                                href="{{ route('viewReportIEEnventory', $workspacename) }}">Xuất - nhập - tồn kho
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="align-baseline setting">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M15 28.125C18.481 28.125 21.8194 26.7422 24.2808 24.2808C26.7422 21.8194 28.125 18.481 28.125 15C28.125 11.519 26.7422 8.18064 24.2808 5.71922C21.8194 3.25781 18.481 1.875 15 1.875C11.519 1.875 8.18064 3.25781 5.71922 5.71922C3.25781 8.18064 1.875 11.519 1.875 15C1.875 18.481 3.25781 21.8194 5.71922 24.2808C8.18064 26.7422 11.519 28.125 15 28.125ZM9.60187 20.3981L7.70813 22.2919C6.26585 20.8497 5.28363 19.0122 4.88569 17.0117C4.48774 15.0113 4.69193 12.9377 5.47245 11.0534C6.25296 9.16897 7.57474 7.55835 9.27063 6.42517C10.9665 5.292 12.9604 4.68717 15 4.68717C17.0396 4.68717 19.0335 5.292 20.7294 6.42517C22.4253 7.55835 23.747 9.16897 24.5276 11.0534C25.3081 12.9377 25.5123 15.0113 25.1143 17.0117C24.7164 19.0122 23.7341 20.8497 22.2919 22.2919L20.3981 20.3981C19.8757 19.8755 19.2554 19.461 18.5727 19.1782C17.89 18.8954 17.1583 18.7499 16.4194 18.75H13.5806C12.8417 18.7499 12.11 18.8954 11.4273 19.1782C10.7446 19.461 10.1243 19.8755 9.60187 20.3981Z"
+                            fill="#151516" />
+                        <path
+                            d="M15 7.5C14.0054 7.5 13.0516 7.89509 12.3483 8.59835C11.6451 9.30161 11.25 10.2554 11.25 11.25V12.1875C11.25 13.1821 11.6451 14.1359 12.3483 14.8392C13.0516 15.5424 14.0054 15.9375 15 15.9375C15.9946 15.9375 16.9484 15.5424 17.6516 14.8392C18.3549 14.1359 18.75 13.1821 18.75 12.1875V11.25C18.75 10.2554 18.3549 9.30161 17.6516 8.59835C16.9484 7.89509 15.9946 7.5 15 7.5Z"
+                            fill="#151516" />
+                    </svg>
+                </div>
+            </div>
+            <div class="bg-white px-3 py-2 border-bottom">
+                <div class="@if (!empty($activeGroup) && $activeGroup == 'systemFirst') d-flex @else d-none @endif">
+                    <a href="{{ route('groups.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'groups') active @endif">
+                            Nhóm đối tượng
+                        </button>
+                    </a>
+                    <a href="{{ route('guests.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'guest') active @endif">
+                            Khách hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('provides.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'provide') active @endif">
+                            Nhà cung cấp
+                        </button>
+                    </a>
+                    <a href="{{ route('inventory.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'product') active @endif">
+                            Hàng hóa
+                        </button>
+                    </a>
+                    <a href="{{ route('funds.index') }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'funds') active @endif">
+                            Quỹ
+                        </button>
+                    </a>
+                    <a href="{{ route('content.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'content') active @endif">
+                            Nội dung thu chi
+                        </button>
+                    </a>
+                    <a href="{{ route('warehouse.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'warehouse') active @endif">
+                            Kho
+                        </button>
+                    </a>
+                </div>
+                <div class="@if (!empty($activeGroup) && $activeGroup == 'manageProfess') d-flex @else d-none @endif">
+                    <a href="{{ route('detailExport.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'quote') active @endif">
+                            Phiếu bán hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('import.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'import') active @endif">
+                            Đặt hàng NCC
+                        </button>
+                    </a>
+                    <a href="{{ route('returnImport.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'returnImport') active @endif">
+                            Trả hàng NCC
+                        </button>
+                    </a>
+                    <a href="{{ route('returnExport.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'returnexport') active @endif">
+                            Khách trả hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('receive.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'receive') active @endif">
+                            Phiếu nhập kho
+                        </button>
+                    </a>
+                    <a href="{{ route('delivery.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
+                            Phiếu xuất kho
+                        </button>
+                    </a>
+                    <a href="{{ route('cash_receipts.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'cash_receipts') active @endif">
+                            Phiếu thu
+                        </button>
+                    </a>
+                    <a href="{{ route('paymentOrder.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'paymentorder') active @endif">
+                            Phiếu chi
+                        </button>
+                    </a>
+                    <a href="{{ route('changeFund.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'changefund') active @endif">
+                            Chuyển tiền nội bộ
+                        </button>
+                    </a>
+                    <a href="{{ route('changeWarehouse.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'changeWarehouse') active @endif">
+                            Phiếu chuyển kho
+                        </button>
+                    </a>
+                </div>
+                <div class="@if (!empty($activeGroup) && $activeGroup == 'statistic') d-flex @else d-none @endif">
+                    <a href="{{ route('viewReportDebtGuests', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'debtGuests') active @endif">
+                            Công nợ khách hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportSell', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumSell') active @endif">
+                            Tổng kết bán hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportDelivery', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumDelivery') active @endif">
+                            Tổng kết giao hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportSumReturnExport', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumReturnExport') active @endif">
+                            Tổng kết khách trả hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportSumSellProfit', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'reportSumSellProfit') active @endif">
+                            Báo cáo lợi nhuận bán hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportImport', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportImport') active @endif">
+                            Tổng kết mua hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportProvides', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportProvides') active @endif">
+                            Thống kê công nợ NCC
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportReturnImport', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportReturnImport') active @endif">
+                            Trả hàng NCC
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportIE', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportIE') active @endif">
+                            Tổng hợp nội dung thu chi
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportChangeFunds', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportChangeFunds') active @endif">
+                            Chuyển tiền nội bộ
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportIEFunds', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportIEFunds') active @endif">
+                            Thống kê thu chi tồn quỹ
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportIEEnventory', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportIEEnventory') active @endif">
+                            Xuất - nhập - tồn kho
+                        </button>
+                    </a>
+                </div>
+            </div>
         </div>
-        <!-- /.sidebar -->
-    </aside>
+    </div>
     <div class="alert notification d-flex justify-content-center align-items-center m-0 w-100"
         style="position: absolute;top: 0;">
         <div class="success">

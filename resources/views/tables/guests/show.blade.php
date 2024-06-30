@@ -4,11 +4,11 @@
     @method('PUT')
     <input type="hidden" name="table_name" value="KH">
     <input type="hidden" name="detail_id" value="{{ $guest->id }}">
-    <div class="content-wrapper editGuest min-height--none">
-        <div class="content-header-fixed p-0 margin-250">
-            <div class="content__header--inner margin-left32">
+    <div class="content editGuest min-height--none">
+        <div class="content-header-fixed p-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
-                    <span>Thiết lập ban đầu</span>
+                    <span class="ml-4">Thiết lập ban đầu</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -112,7 +112,7 @@
                 </ul>
             </section>
         </div>
-        <div class="content editGuest" style="margin-top: 7.5rem;">
+        <div class="content editGuest" style="margin-top: 13.7rem;">
             <div class="tab-content mt-3">
                 <div id="info" class="content tab-pane in active">
                     {{-- THÔNG TIN CHUNG --}}
@@ -283,8 +283,7 @@
                     </section> --}}
                 </div>
                 <div id="history" class="tab-pane fade">
-                    <div
-                        class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed margin-250 border-custom">
+                    <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed border-custom">
                         <div class="w-100">
                             <div class="row mr-0">
                                 <div class="col-md-5 d-flex align-items-center">
@@ -548,10 +547,10 @@
                     </section>
                 </div>
                 <div class="tab-pane fade" id="files">
-                    <div id="title--fixed"
-                        class="content-title--fixed top-109 bg-filter-search border-top-0 text-center"
-                        style="right: 0 !important; top: 116px !important;">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính kèm</p>
+                    <div class="bg-filter-search text-center">
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                            File đính kèm
+                        </p>
                     </div>
                     <x-form-attachment :value="$guest" name="KH"></x-form-attachment>
                 </div>

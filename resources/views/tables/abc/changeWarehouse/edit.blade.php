@@ -6,8 +6,8 @@
     @method('PUT')
     <div class="content-wrapper m-0 min-height--none">
         <!-- Content Header (Page header) -->
-        <div class="content-header-fixed p-0 margin-250">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
                     {{-- <span>Kho hàng</span>
                     <span>
@@ -18,7 +18,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span> --}}
-                    <span class="nearLast-span">
+                    <span class="nearLast-span ml-4">
                         <a class="text-dark" href="{{ route('changeWarehouse.index', $workspacename) }}">
                             Phiếu chuyển kho
                         </a>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('warehouse.index', $workspacename) }}" class="user_flow" data-type="NCC"
+                        <a href="{{ route('changeWarehouse.index', $workspacename) }}" class="user_flow" data-type="NCC"
                             data-des="Hủy thêm nhà cung cấp">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
@@ -62,8 +62,8 @@
                 </div>
             </div>
         </div>
-        <div class="content" style="margin-top:3.8rem;">
-            <section class="content margin-250">
+        <div class="content" style="margin-top:10rem;">
+            <section class="content">
                 <div class="container-fluided">
                     <div class="bg-filter-search border-top-0 text-left border-custom">
                         <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN CHUNG</p>

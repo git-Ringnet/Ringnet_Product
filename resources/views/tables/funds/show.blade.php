@@ -2,11 +2,11 @@
 <form action="#" method="POST" id="formSubmit" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    <div class="content-wrapper editgroup min-height--none">
-        <div class="content-header-fixed p-0 margin-250">
-            <div class="content__header--inner margin-left32">
+    <div class="editgroup min-height--none pr-2">
+        <div class="content-header-fixed p-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
-                    <span>Thiết lập ban đầu</span>
+                    <span class="ml-4">Thiết lập ban đầu</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>
-        <div class="content editgroup" style="margin-top: 7.5rem;">
+        <div class="content editgroup" style="margin-top: 10rem;">
             <div class="tab-content mt-3">
                 <div id="info" class="content tab-pane in active">
                     <div class="bg-filter-search border-0 text-left border-custom">

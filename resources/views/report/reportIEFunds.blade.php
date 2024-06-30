@@ -1,9 +1,9 @@
 <x-navbar :title="$title" activeGroup="statistic" activeName="viewReportIEFunds"></x-navbar>
 <div class="content-wrapper m-0 min-height--none p-0">
-    <div class="content-header-fixed p-0 margin-250">
-        <div class="content__header--inner margin-left32">
+    <div class="content-header-fixed p-0">
+        <div class="content__header--inner mt-4">
             <div class="content__heading--left ">
-                <span>Báo cáo</span>
+                <span class="ml-4">Báo cáo</span>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                         fill="none">
@@ -111,8 +111,8 @@
             </div>
         </div>
     </div>
-    <div class="content" style="margin-top: 7.5rem;">
-        <section class="container-fluided margin-250">
+    <div class="content" style="margin-top: 14.5rem;">
+        <section class="container-fluided">
             <div class="tab-content">
                 <div id="buy" class="content tab-pane in active">
                     <div class="row  p-0 m-0">

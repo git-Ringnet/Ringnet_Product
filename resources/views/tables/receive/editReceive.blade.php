@@ -11,10 +11,10 @@
         <input type="hidden" name="detail_id" value="{{ $receive->id }}">
         <input type="hidden" name="table_name" value="DNH">
 
-        <div class="content-header-fixed p-0 margin-250">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
-                    <span>Quản lý nghiệp vụ</span>
+                    <span class="ml-4">Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -126,16 +126,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <button id="sideProvide" type="button" class="btn-option border-0 mx-1">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5"
-                                    transform="rotate(90 16 0)" fill="#ECEEFA" />
-                                <path
-                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -158,15 +148,117 @@
             </section>
         </div>
 
-        <div class="content margin-top-68" id="main">
-            <div class="container-fluided margin-250">
+        <div class="content margin-top-127">
+            <div class="container-fluided">
+                <div class="content">
+                    <div class="border top-109">
+                        <div id="show_info_Guest">
+                            <div class="bg-filter-search text-center">
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                    THÔNG TIN NHÀ CUNG CẤP
+                                </p>
+                            </div>
+                            <div class="d-flex w-100">
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 btn-click" style="flex: 1.5;">Đặt hàng NCC
+                                    </span>
+                                    <span class="mx-1 text-13" style="flex: 2;">
+                                        <input type="text" placeholder="Chọn thông tin"
+                                            class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest "
+                                            id="search_quotation" style="background-color:#F0F4FF; border-radius:4px;"
+                                            name="quotation_number" autocomplete="off" required
+                                            value="@if ($receive->getQuotation) {{ $receive->getQuotation->quotation_number }}@else{{ $receive->id }} @endif"
+                                            readonly>
+                                    </span>
+                                </div>
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung
+                                        cấp</span>
+                                    <input type="text"
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                        style="flex:2;" readonly placeholder="Chọn thông tin" id="provide_name"
+                                        {{-- value="{{ $receive->getNameProvide->provide_name_display }}"  --}}
+                                        @if ($receive->detailimport_id == 0) @if ($receive->getNameProvide)
+                                            value="{{ $receive->getNameProvide->provide_name_display }}" @endif
+                                    @else
+                                        @if ($receive->getQuotation) value="{{ $receive->getQuotation->provide_name }}" @endif
+                                        @endif>
+                                </div>
+                            </div>
+                            <div class="d-flex w-100">
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
+                                        diện</span>
+                                    <input type="text"
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                        style="flex:2;" id="represent" placeholder="Chọn thông tin" readonly
+                                        @if ($nameRepresent) value="{{ $nameRepresent }}" @endif />
+                                </div>
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận
+                                        hàng</span>
+                                    <input type="text" placeholder="Chọn thông tin" name="delivery_code" readonly
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                        style="flex:2; background-color:#F0F4FF; border-radius:4px;"
+                                        value="{{ $receive->delivery_code }}" />
+                                </div>
+                            </div>
+                            <div class="d-flex w-100">
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận
+                                        chuyển</span>
+                                    <input type="text" placeholder="Chọn thông tin"
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                        style="flex:2; background-color:#F0F4FF; border-radius:4px;"
+                                        name="shipping_unit" value="{{ $receive->shipping_unit }}"
+                                        @if ($receive->status == 2) readonly @endif />
+                                </div>
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận
+                                        chuyển</span>
+                                    <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                        style="flex:2; background-color:#F0F4FF; border-radius:4px;"
+                                        value="{{ number_format($receive->delivery_charges) }}"
+                                        @if ($receive->status == 2) readonly @endif>
+                                </div>
+                            </div>
+                            <div class="d-flex w-100">
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận
+                                        hàng</span>
+                                    <input type="text" placeholder="Nhập thông tin"
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
+                                        style="flex:2;" id="datePicker"
+                                        value="{{ date_format(new DateTime($receive->created_at), 'd/m/Y') }}"
+                                        @if ($receive->status == 2) readonly @endif>
+                                    <input type="hidden" name="received_date" id="hiddenDateInput"
+                                        value="{{ $receive->created_at->toDateString() }}">
+                                </div>
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                </div>
+                            </div>
+                        </div>
+                        </section>
+                    </div>
+                </div>
+                <x-formmodalseri :product="$product" :receive="$receive"></x-formmodalseri>
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div id="title--fixed" class="content-title--fixed top-111 border-0">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
-                                PHẨM</p>
+                        <div class="bg-filter-search text-center">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                THÔNG TIN SẢN PHẨM
+                            </p>
                         </div>
-                        <section class="content margin-top-103">
+                        <section class="content">
                             <div class="content-info position-relative table-responsive text-nowrap">
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
@@ -376,7 +468,8 @@
                                                                 @if ($promotionOption == 1) selected @endif>Nhập
                                                                 tiền </option>
                                                             <option value="2"
-                                                                @if ($promotionOption == 2) selected @endif>Nhập %
+                                                                @if ($promotionOption == 2) selected @endif>Nhập
+                                                                %
                                                             </option>
                                                         </select>
                                                     </div>
@@ -405,13 +498,13 @@
                                                     <input type="text"
                                                         class="border-0 px-2 py-1 w-100 total_price text-right height-32"
                                                         readonly="" name="total_price[]"
-                                                        value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format(($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total * $promotionValue / 100), 2, '.', ',') : number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total * $promotionValue / 100) }}">
+                                                        value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($promotionOption == 1 ? $item->product_total - $promotionValue : ($item->product_total * $promotionValue) / 100, 2, '.', ',') : number_format($promotionOption == 1 ? $item->product_total - $promotionValue : ($item->product_total * $promotionValue) / 100) }}">
                                                 </td>
                                                 <td
                                                     class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                                     <input id="searchWarehouse" type="text" placeholder="Chọn kho"
                                                         class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse"
-                                                        name="warehouse[]" readonly value="{{$item->nameHouse}}">
+                                                        name="warehouse[]" readonly value="{{ $item->nameHouse }}">
                                                 </td>
                                                 <td
                                                     class="align-top text-center border-top-0 border-bottom border-right d-none">
@@ -499,149 +592,18 @@
                         {{-- <?php $import = $detail; ?>
                         <x-formsynthetic :import="$receive"></x-formsynthetic> --}}
                     </div>
-                    <div id="files" class="tab-pane fade">
-                        <div id="title--fixed" class="content-title--fixed top-111">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM
-                            </p>
-                        </div>
-                        <x-form-attachment :value="$receive" name="DNH"></x-form-attachment>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <div id="mySidenav" class="sidenav border top-109">
-                <div id="show_info_Guest">
-                    <div class="bg-filter-search text-center">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
-                            THÔNG TIN NHÀ CUNG CÂP
-                        </p>
-                    </div>
-
-                    <div class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left text-nowrap"
-                        style="height:48px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Đặt hàng NCC
-                        </span>
-                        <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin"
-                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="search_quotation"
-                                style="background-color:#F0F4FF; border-radius:4px;" name="quotation_number"
-                                autocomplete="off" required
-                                value="@if ($receive->getQuotation) {{ $receive->getQuotation->quotation_number }}@else{{ $receive->id }} @endif"
-                                readonly>
-                        </span>
-                        <!-- <div class="d-flex align-items-center justify-content-between border-0">
-                            <ul id="myUL"
-                                class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
-                                style="z-index: 99;display: none;">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập công ty"
-                                            class="pr-4 w-100 input-search bg-input-guest" id="companyFilter">
-                                        <span id="search-icon" class="search-icon"><i
-                                                class="fas fa-search text-table" aria-hidden="true"></i></span>
-                                    </div>
-                                </div>
-                                    <li class="p-2 align-items-center" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                        <a href="#" title="" id="" name="search-info" class="search-info">
-                                                <span class="text-13-black"></span>
-                                        </a>
-                                        <a type="button" data-toggle="modal" data-target="#guestModalEdit" >
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                                    <path d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z" fill="black"/>
-                                                    <path d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z" fill="black"/>
-                                                    <path d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z" fill="black"/>
-                                                </svg>
-                                             </span>
-                                        </a>
-                                    </li>
-                                <a type="button"
-                                    class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
-                                    data-toggle="modal" data-target="#guestModal" style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"/>
-                                        </svg>
-                                    </span>
-                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm đơn mua hàng</span>
-                                </a>
-                            </ul>
-                        </div> -->
-                    </div>
-                    <div class="">
-                        <div class="">
-                            <ul class="p-0 m-0">
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
-                                    <input type="text"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                        style="flex:2;" readonly placeholder="Chọn thông tin" id="provide_name"
-                                        {{-- value="{{ $receive->getNameProvide->provide_name_display }}"  --}}
-                                        @if ($receive->detailimport_id == 0) @if ($receive->getNameProvide)
-                                            value="{{ $receive->getNameProvide->provide_name_display }}" @endif
-                                    @else
-                                        @if ($receive->getQuotation) value="{{ $receive->getQuotation->provide_name }}" @endif
-                                        @endif>
-                                </li>
-
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                    <input type="text"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                        style="flex:2;" id="represent" placeholder="Chọn thông tin" readonly
-                                        @if ($nameRepresent) value="{{ $nameRepresent }}" @endif />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận hàng</span>
-                                    <input type="text" placeholder="Chọn thông tin" name="delivery_code" readonly
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                        style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                        value="{{ $receive->delivery_code }}" />
-                                </li>
-
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
-                                    <input type="text" placeholder="Chọn thông tin"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                        style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                        name="shipping_unit" value="{{ $receive->shipping_unit }}"
-                                        @if ($receive->status == 2) readonly @endif />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
-                                    <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                        style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                        value="{{ number_format($receive->delivery_charges) }}"
-                                        @if ($receive->status == 2) readonly @endif>
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận hàng</span>
-                                    <input type="text" placeholder="Nhập thông tin"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
-                                        style="flex:2;" id="datePicker"
-                                        value="{{ date_format(new DateTime($receive->created_at), 'd/m/Y') }}"
-                                        @if ($receive->status == 2) readonly @endif>
-                                    <input type="hidden" name="received_date" id="hiddenDateInput"
-                                        value="{{ $receive->created_at->toDateString() }}">
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                </section>
-            </div>
-        </div>
-        <x-formmodalseri :product="$product" :receive="$receive"></x-formmodalseri>
 </form>
-
+<div id="files" class="tab-pane fade">
+    <div class="bg-filter-search text-center">
+        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+            FILE ĐÍNH KÈM
+        </p>
+    </div>
+    <x-form-attachment :value="$receive" name="DNH"></x-form-attachment>
+</div>
+</div>
+</div>
+</div>
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

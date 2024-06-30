@@ -89,10 +89,11 @@ class CashReceipt extends Model
     public function fetchDelivery($data)
     {
         $detailOwed = DetailExport::leftJoin('guest', 'detailexport.guest_id', 'guest.id')
+            ->leftJoin('delivery', 'delivery.detailexport_id', 'detailexport.id')
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->where('detailexport.id',  $data['detail_id'])
             ->where('detailexport.amount_owed', '>', 0)
-            ->select('detailexport.*', 'guest.guest_name_display as nameGuest')
+            ->select('detailexport.*', 'guest.guest_name_display as nameGuest','delivery.id as idGH')
             ->first();
         return $detailOwed;
     }

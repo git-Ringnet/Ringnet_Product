@@ -10,10 +10,10 @@
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">
         <input type="hidden" name="code_reciept" id="code_reciept" value="{{ $invoiceAuto }}">
-        <div class="content-header-fixed p-0 margin-250 border-0">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0 border-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
-                    <span>Quản lý nghiệp vụ</span>
+                    <span class="ml-4">Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -59,30 +59,19 @@
                                 <span class="text-btnIner-primary ml-2">Xác nhận</span>
                             </button>
                         @endif
-
-                        <button id="sideProvide" type="button" class="btn-option border-0 mx-1">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)"
-                                    fill="#ECEEFA" />
-                                <path
-                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
         {{-- Thông tin sản phẩm --}}
-        <div class="content margin-top-38" id="main" style="margin-right:0 !important;">
-            <section class="content margin-250">
-                <div id="title--fixed"
-                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom"
-                    style="right: 0;">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN PHIẾU THU</p>
+        <div class="content margin-top-117">
+            <section class="content">
+                <div class="bg-filter-search border-0 text-center">
+                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                        THÔNG TIN PHIẾU THU
+                    </p>
                 </div>
-                <div class="container-fluided margin-top-72">
+                <div class="container-fluided">
                     <section class="content" style="height: 80vh;">
                         <div class="content-info position-relative table-responsive text-nowrap order_content h-100">
                             <table id="inputcontent" class="table table-hover bg-white rounded">

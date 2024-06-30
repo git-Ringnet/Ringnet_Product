@@ -1,12 +1,12 @@
 <x-navbar :title="$title" activeGroup="systemFirst" activeName="provide">
 </x-navbar>
 {{-- <div class="content-wrapper m-0"> --}}
-<div class="content-wrapper editGuest min-height--none">
+<div class="content editGuest min-height--none">
     <!-- Content Header (Page header) -->
-    <div class="content-header-fixed p-0 margin-250">
-        <div class="content__header--inner margin-left32">
+    <div class="content-header-fixed p-0">
+        <div class="content__header--inner">
             <div class="content__heading--left">
-                <span>Thiết lập ban đầu</span>
+                <span class="ml-4">Thiết lập ban đầu</span>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                         fill="none">
@@ -94,7 +94,7 @@
             </ul>
         </section>
     </div>
-    <section class="content editGuest" style="margin-top: 7.5rem;">
+    <section class="content editGuest" style="margin-top: 13.5rem;">
         <div class="container-fluided">
             <div class="tab-content mt-3">
                 <div id="info" class="content tab-pane in active">

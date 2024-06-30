@@ -8,10 +8,10 @@
     <input type="hidden" name="pdf_export" id="pdf_export">
     <div id="selectedSerialNumbersContainer"></div>
     <div class="content-wrapper--2Column m-0">
-        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0 border-bottom-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
-                    <span>Quản lý nghiệp vụ</span>
+                    <span class="ml-4">Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -88,28 +88,273 @@
                                 <span class="text-btnIner-primary ml-2">Giao hàng</span>
                             </button>
                         </div>
-                        <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5"
-                                    transform="rotate(90 16 0)" fill="#ECEEFA" />
-                                <path
-                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- Thông tin sản phẩm --}}
-        <div class="content margin-top-38" id="main">
-            <section class="content margin-250">
-                <div id="title--fixed"
-                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom border-right-0">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
+        <div class="content margin-top-117">
+            {{-- Thông tin khách hàng --}}
+            <div id="show_info_Guest">
+                <div class="bg-filter-search border-0 text-center">
+                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH
+                        HÀNG
+                    </p>
                 </div>
-                <div class="container-fluided margin-top-72">
+                <div class="d-flex w-100">
+                    <div
+                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                        <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
+                        <span class="mx-1 text-13" style="flex: 2;">
+                            <input type="text" placeholder="Chọn thông tin" name="quotation_number"
+                                class="border-0 w-100 bg-input-guest py-2 px-2 numberQute " id="myInput"
+                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
+                                value="@isset($yes) {{ $data['quotation_number'] }} @endisset">
+                            <input type="hidden" name="detail_id" id="detail_id"
+                                value="@isset($yes) {{ $data['detail_id'] }} @endisset">
+                        </span>
+                        <div class="">
+                            <div id="myUL"
+                                class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block"
+                                style="z-index: 99;display: none;">
+                                <div class="p-1">
+                                    <div class="position-relative">
+                                        <input type="text" placeholder="Nhập số báo giá"
+                                            class="pr-4 w-100 input-search bg-input-guest" id="companyFilter">
+                                        <span id="search-icon" class="search-icon">
+                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <ul class="m-0 p-0 scroll-data">
+                                    @foreach ($numberQuote as $quote_value)
+                                        <li class="p-2 align-items-center text-wrap"
+                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <a href="#" title="" style="flex:2" data-name1="GH"
+                                                data-des="Lấy thông tin từ số báo giá" id="{{ $quote_value->id }}"
+                                                name="search-info" class="search-info activity">
+                                                <span
+                                                    class="text-13-black">{{ $quote_value->quotation_number }}</span></span>
+                                            </a>
+                                            <a id="" class="search-infoEdit" type="button"
+                                                data-toggle="modal" data-target="#guestModalEdit">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                        height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path
+                                                            d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                            fill="black" />
+                                                        <path
+                                                            d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                            fill="black" />
+                                                        <path
+                                                            d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                            fill="black" />
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <!-- <a type="button"
+                                        class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                                        data-toggle="modal" data-target="#guestModal"
+                                        style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                viewBox="0 0 16 16" fill="none">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
+                                            </svg>
+                                        </span>
+                                        <span class="text-13-black pl-3 pt-1"
+                                            style="font-weight: 600 !important;">Thêm khách hàng</span>
+                                    </a> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                        {{-- <input class="text-13-black w-50 border-0 bg-input-guest nameGuest"
+                        style="flex:2;"
+                        value="@isset($yes){{ $getGuestbyId[0]->guest_name }}@endisset" />
+
+                    <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
+                        value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset"> --}}
+                        <span class="mx-1 text-13" style="flex: 2;">
+                            <input type="text" placeholder="Chọn thông tin" name="guestName"
+                                class="border-0 w-100 bg-input-guest input-search py-2 px-2 nameGuest " id="myInput1"
+                                readonly style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
+                                required>
+                            <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
+                        </span>
+                        <div class="">
+                            <div id="myUL1"
+                                class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block"
+                                style="z-index: 99;display: none;">
+                                <div class="p-1">
+                                    <div class="position-relative">
+                                        <input type="text" placeholder="Nhập công ty"
+                                            class="pr-4 w-100 input-search bg-input-guest" id="companyFilter1">
+                                        <span id="search-icon" class="search-icon">
+                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <ul class="m-0 p-0 scroll-data">
+                                    @foreach ($guest as $guest_value)
+                                        <li class="p-2 align-items-center text-wrap border-top"
+                                            data-id="{{ $guest_value->id }}"
+                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <a href="#" title="{{ $guest_value->guest_name_display }}"
+                                                style="flex:2;" id="{{ $guest_value->id }}" name="search-info1"
+                                                class="search-info1">
+                                                <span
+                                                    class="text-13-black">{{ $guest_value->guest_name_display }}</span>
+                                            </a>
+                                            <div class="dropdown">
+                                                <button type="button" data-toggle="dropdown"
+                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
+                                                    <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                </button>
+                                                <div class="dropdown-menu date-form-setting" style="z-index: 1000;">
+                                                    <a class="dropdown-item edit-guest w-50" href="#"
+                                                        data-toggle="modal" data-target="#guestModal"
+                                                        data-id="{{ $guest_value->id }}">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                height="14" viewBox="0 0 14 14" fill="none">
+                                                                <path
+                                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                                    fill="black" />
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                    <a class="dropdown-item delete-guest w-50" href="#"
+                                                        data-id="{{ $guest_value->id }}" data-name="guest">
+                                                        <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <a type="button"
+                                    class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                                    data-toggle="modal" data-target="#guestModal"
+                                    style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
+                                            <path
+                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                fill="#282A30" />
+                                        </svg>
+                                    </span>
+                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm
+                                        khách hàng</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex w-100">
+                    <div
+                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
+                            diện</span>
+                        <input class="text-13-black w-50 border-0 bg-input-guest input-search bg-input-guest-blue"
+                            id="represent_guest" name="representName" readonly autocomplete="off" style="flex:2;"
+                            placeholder="Chọn thông tin">
+                        <input type="hidden" class="represent_guest_id" name="represent_guest_id"
+                            autocomplete="off">
+                        <div id="myUL7"
+                            class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
+                            style="z-index: 99;">
+                            <div class="p-1">
+                                <div class="position-relative">
+                                    <input type="text" placeholder="Nhập người đại diện"
+                                        class="pr-4 w-100 input-search bg-input-guest text-13-black bg-input-guest-blue"
+                                        id="companyFilter7">
+                                    <span id="search-icon" class="search-icon"><i class="fas fa-search text-table"
+                                            aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <ul class="m-0 p-0 scroll-data" id="representativeList"></ul>
+                            <a type="button"
+                                class="d-flex align-items-center p-2 position-sticky addRepresentNew mt-2"
+                                data-toggle="modal" data-target="#representModal"
+                                style="bottom: 0;border-radius:4px">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        viewBox="0 0 16 16" fill="none">
+                                        <path
+                                            d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                            fill="#282A30" />
+                                    </svg>
+                                </span>
+                                <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm người
+                                    đại diện</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã Giao Hàng</span>
+                        <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" required readonly
+                            placeholder="Nhập thông tin" style="flex:2;" name="code_delivery"
+                            value="{{ $invoice }}" />
+                    </div>
+                </div>
+                <div class="d-flex w-100">
+                    <div
+                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                        <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận
+                            chuyển</span>
+                        <input
+                            class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 unit_ship"
+                            name="shipping_unit" placeholder="Nhập thông tin" style="flex:2;" />
+                    </div>
+                    <div
+                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
+                        <input
+                            class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 fee_ship"
+                            name="shipping_fee" placeholder="Nhập thông tin" style="flex:2;" />
+                    </div>
+                </div>
+                <div class="d-flex w-100">
+                    <div
+                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao
+                            hàng</span>
+                        <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker" required
+                            placeholder="Chọn thông tin" style="flex:2;" />
+
+                        <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
+                    </div>
+                    <div
+                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+
+                    </div>
+                </div>
+            </div>
+            {{-- Thông tin sản phẩm --}}
+            <section class="content">
+                <div class="bg-filter-search text-center">
+                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                        THÔNG TIN SẢN PHẨM
+                    </p>
+                </div>
+                <div class="container-fluided">
                     <section class="info-chung">
                         <div class="content-info position-relative text-nowrap">
                             <table class="table table-hover bg-white rounded">
@@ -573,265 +818,6 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- Thông tin khách hàng --}}
-        <div class="content-wrapper2 px-0 py-0">
-            <div id="mySidenav" class="sidenav border">
-                <div id="show_info_Guest">
-                    <div class="bg-filter-search border-0 text-center">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
-                        </p>
-                    </div>
-                    <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:49px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
-                        <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin" name="quotation_number"
-                                class="border-0 w-100 bg-input-guest py-2 px-2 numberQute " id="myInput"
-                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                                value="@isset($yes) {{ $data['quotation_number'] }} @endisset">
-                            <input type="hidden" name="detail_id" id="detail_id"
-                                value="@isset($yes) {{ $data['detail_id'] }} @endisset">
-                        </span>
-                        <div class="">
-                            <div id="myUL"
-                                class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block"
-                                style="z-index: 99;display: none;">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập số báo giá"
-                                            class="pr-4 w-100 input-search bg-input-guest" id="companyFilter">
-                                        <span id="search-icon" class="search-icon">
-                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <ul class="m-0 p-0 scroll-data">
-                                    @foreach ($numberQuote as $quote_value)
-                                        <li class="p-2 align-items-center text-wrap"
-                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                            <a href="#" title="" style="flex:2" data-name1="GH"
-                                                data-des="Lấy thông tin từ số báo giá" id="{{ $quote_value->id }}"
-                                                name="search-info" class="search-info activity">
-                                                <span
-                                                    class="text-13-black">{{ $quote_value->quotation_number }}</span></span>
-                                            </a>
-                                            <a id="" class="search-infoEdit" type="button"
-                                                data-toggle="modal" data-target="#guestModalEdit">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                        height="14" viewBox="0 0 14 14" fill="none">
-                                                        <path
-                                                            d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                            fill="black" />
-                                                        <path
-                                                            d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                            fill="black" />
-                                                        <path
-                                                            d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                            fill="black" />
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                                <!-- <a type="button"
-                                            class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
-                                            data-toggle="modal" data-target="#guestModal"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm khách hàng</span>
-                                        </a> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="">
-                        <div class="content-info--common" id="show-info-guest">
-                            <ul class="p-0 m-0">
-                                <li class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                                    {{-- <input class="text-13-black w-50 border-0 bg-input-guest nameGuest"
-                                        style="flex:2;"
-                                        value="@isset($yes){{ $getGuestbyId[0]->guest_name }}@endisset" />
-
-                                    <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
-                                        value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset"> --}}
-                                    <span class="mx-1 text-13" style="flex: 2;">
-                                        <input type="text" placeholder="Chọn thông tin" name="guestName"
-                                            class="border-0 w-100 bg-input-guest input-search py-2 px-2 nameGuest "
-                                            id="myInput1" readonly
-                                            style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                                            required>
-                                        <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
-                                    </span>
-                                    <div class="">
-                                        <div id="myUL1"
-                                            class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block"
-                                            style="z-index: 99;display: none;">
-                                            <div class="p-1">
-                                                <div class="position-relative">
-                                                    <input type="text" placeholder="Nhập công ty"
-                                                        class="pr-4 w-100 input-search bg-input-guest"
-                                                        id="companyFilter1">
-                                                    <span id="search-icon" class="search-icon">
-                                                        <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <ul class="m-0 p-0 scroll-data">
-                                                @foreach ($guest as $guest_value)
-                                                    <li class="p-2 align-items-center text-wrap border-top"
-                                                        data-id="{{ $guest_value->id }}"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                        <a href="#"
-                                                            title="{{ $guest_value->guest_name_display }}"
-                                                            style="flex:2;" id="{{ $guest_value->id }}"
-                                                            name="search-info1" class="search-info1">
-                                                            <span
-                                                                class="text-13-black">{{ $guest_value->guest_name_display }}</span>
-                                                        </a>
-                                                        <div class="dropdown">
-                                                            <button type="button" data-toggle="dropdown"
-                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                <i class="fa-solid fa-ellipsis"
-                                                                    aria-hidden="true"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu date-form-setting"
-                                                                style="z-index: 1000;">
-                                                                <a class="dropdown-item edit-guest w-50"
-                                                                    href="#" data-toggle="modal"
-                                                                    data-target="#guestModal"
-                                                                    data-id="{{ $guest_value->id }}">
-                                                                    <span>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="14" height="14"
-                                                                            viewBox="0 0 14 14" fill="none">
-                                                                            <path
-                                                                                d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                                                fill="black" />
-                                                                            <path
-                                                                                d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                                                fill="black" />
-                                                                            <path
-                                                                                d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                                                fill="black" />
-                                                                        </svg>
-                                                                    </span>
-                                                                </a>
-                                                                <a class="dropdown-item delete-guest w-50"
-                                                                    href="#" data-id="{{ $guest_value->id }}"
-                                                                    data-name="guest">
-                                                                    <i class="fa-solid fa-trash-can"
-                                                                        aria-hidden="true"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                            <a type="button"
-                                                class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
-                                                data-toggle="modal" data-target="#guestModal"
-                                                style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                        height="16" viewBox="0 0 16 16" fill="none">
-                                                        <path
-                                                            d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                            fill="#282A30" />
-                                                    </svg>
-                                                </span>
-                                                <span class="text-13-black pl-3 pt-1"
-                                                    style="font-weight: 600 !important;">Thêm
-                                                    khách hàng</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left position-relative"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                    <input
-                                        class="text-13-black w-50 border-0 bg-input-guest input-search bg-input-guest-blue"
-                                        id="represent_guest" name="representName" readonly autocomplete="off"
-                                        style="flex:2;" placeholder="Chọn thông tin">
-                                    <input type="hidden" class="represent_guest_id" name="represent_guest_id"
-                                        autocomplete="off">
-                                    <div id="myUL7"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập người đại diện"
-                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black bg-input-guest-blue"
-                                                    id="companyFilter7">
-                                                <span id="search-icon" class="search-icon"><i
-                                                        class="fas fa-search text-table" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <ul class="m-0 p-0 scroll-data" id="representativeList"></ul>
-                                        <a type="button"
-                                            class="d-flex align-items-center p-2 position-sticky addRepresentNew mt-2"
-                                            data-toggle="modal" data-target="#representModal"
-                                            style="bottom: 0;border-radius:4px">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm người đại diện</span>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã Giao Hàng</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" required
-                                        readonly placeholder="Nhập thông tin" style="flex:2;" name="code_delivery"
-                                        value="{{ $invoice }}" />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
-                                    <input
-                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 unit_ship"
-                                        name="shipping_unit" placeholder="Nhập thông tin" style="flex:2;" />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
-                                    <input
-                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 fee_ship"
-                                        name="shipping_fee" placeholder="Nhập thông tin" style="flex:2;" />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao hàng</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker"
-                                        required placeholder="Chọn thông tin" style="flex:2;" />
-
-                                    <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>

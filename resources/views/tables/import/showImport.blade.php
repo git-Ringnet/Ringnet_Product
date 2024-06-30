@@ -10,10 +10,10 @@
         <input type="hidden" name="table_name" value="DMH">
         <input type="hidden" id="provides_id" name="provides_id" value="{{ $import->provide_id }}">
         <input type="hidden" id="project_id" name="project_id" value="{{ $import->project_id }}">
-        <div class="content-header-fixed p-0 margin-250">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
-                    <span>Quản lý nghiệp vụ</span>
+                    <span class="ml-4">Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -179,17 +179,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <button id="sideProvide" type="button" class="btn-option border-0 mx-1">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5"
-                                    transform="rotate(90 16 0)" fill="#ECEEFA" />
-                                <path
-                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                        </button>
-
                     </div>
                 </div>
             </div>
@@ -211,7 +200,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="d-flex position-fixed" style="right: 10px; top: 70px;">
+                    <div class="d-flex position-fixed" style="right: 10px;">
                         @if ($import->status_receive == 0)
                             <div class="border text-secondary p-1 rounded">
                                 <span>
@@ -359,17 +348,85 @@
                 </div>
             </section>
         </div>
-        <div class="content margin-top-68" id="main">
-            <section class="content margin-250">
+        <div class="content margin-top-127">
+            <section class="content">
                 <div class="container-fluided">
+                    <div>
+                        <div class="bg-filter-search border-0 text-center border-custom">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                THÔNG TIN NHÀ CUNG CẤP
+                            </p>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
+                                <span class="mx-1 text-13" style="flex: 2;">
+                                    <input type="text" readonly {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
+                                        value="{{ $import->provide_name }}"
+                                        class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
+                                        style="background-color:#F0F4FF; border-radius:4px;" id="myInput"
+                                        autocomplete="off">
+                                </span>
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
+                                <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                    {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}} value="{{ $import->represent_name }}" style="flex:2;"
+                                    id="represent" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
+                                <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
+                                    name="quotation_number" value="{{ $import->quotation_number }}" readonly />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
+                                <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
+                                    name="reference_number"readonly value="{{ $import->reference_number }}" />
+                            </div>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
+                                <input type="text" class="text-13-black w-50 border-0 px-2 py-2" id="datePicker"
+                                    name="date_quote" style="flex:2;"
+                                    value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
+                                <input type="text" class="text-13-black w-50 border-0 px-2 py-2" style="flex:2;"
+                                    name="price_effect" value="{{ $import->price_effect }}" readonly />
+                            </div>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
+                                <input type="text" readonly class="text-13-black w-50 border-0 px-2 py-2"
+                                    name="terms_pay" style="flex:2;" value="{{ $import->terms_pay }}" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">
-                            <div id="title--fixed" class="content-title--fixed top-111 border-0">
+                            <div class="bg-filter-search border-0 text-center">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">
                                     THÔNG TIN SẢN PHẨM
                                 </p>
                             </div>
-                            <section class="content margin-top-103">
+                            <section class="content">
                                 <div class="table-responsive text-nowrap order_content">
                                     <table id="inputcontent" class="table table-hover bg-white rounded m-0">
                                         <thead>
@@ -582,14 +639,13 @@
                                                         <input type="text" name="total_price[]"
                                                             class="text-right border-0 px-2 py-1 w-100 total_price height-32"
                                                             readonly
-                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format(($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - $item->product_total * $promotionValue / 100), 2, '.', ',') : number_format(($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total -  $item->product_total * $promotionValue / 100)) }}"
+                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - ($item->product_total * $promotionValue) / 100, 2, '.', ',') : number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - ($item->product_total * $promotionValue) / 100) }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                     </td>
                                                     <td
                                                         class='border-left p-2 text-13 align-top border-bottom border-top-0 position-relative'>
-                                                        <input type="text"
-                                                            class="border-0 py-1 w-100" readonly
-                                                            value="@if(isset($item->getWareHouse)) {{ $item->getWareHouse->warehouse_name }} @endif">
+                                                        <input type="text" class="border-0 py-1 w-100" readonly
+                                                            value="@if (isset($item->getWareHouse)) {{ $item->getWareHouse->warehouse_name }} @endif">
                                                     </td>
                                                     <td
                                                         class="border-left p-2 text-13 align-top border-bottom border-top-0">
@@ -606,13 +662,13 @@
                                 <x-formsynthetic :import="$import"></x-formsynthetic>
                             </section>
                         </div>
-
                         <div id="history" class="tab-pane fade">
-                            <div id="title--fixed" class="content-title--fixed top-111">
-                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ
-                                    CHỈNH SỬA SẢN PHẨM</p>
+                            <div class="bg-filter-search border-0 text-center">
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                    LỊCH SỬ CHỈNH SỬA SẢN PHẨM
+                                </p>
                             </div>
-                            <section class="content margin-top-103">
+                            <section class="content">
                                 <div class="table-responsive text-nowrap order_content">
                                     <table class="table table-hover bg-white rounded">
                                         <thead>
@@ -739,96 +795,20 @@
                                 </div>
                             </section>
                         </div>
-                        <div id="files" class="tab-pane fade">
-                            <div id="title--fixed" class="content-title--fixed top-111">
-                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính
-                                    kèm</p>
-                            </div>
-                            <x-form-attachment :value="$import" name="DMH"></x-form-attachment>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <div class="content">
-            <div id="mySidenav" class="sidenav border" style="top:109px !important;">
-                <div id="show_info_Guest">
-                    <div class="bg-filter-search border-0 text-center border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
-                            THÔNG TIN NHÀ CUNG CẤP
-                        </p>
-                    </div>
-                    <div class="content-info">
-                        <div class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left text-nowrap"
-                            style="height:44px;">
-                            <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
-                            <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" placeholder="Chọn thông tin" readonly {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
-                                    value="{{ $import->provide_name }}"
-                                    class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
-                                    style="background-color:#F0F4FF; border-radius:4px;" id="myInput"
-                                    autocomplete="off">
-                            </span>
-                        </div>
-                    </div>
-                    <div>
-                        <ul class="p-0 m-0 ">
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                    {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}} value="{{ $import->represent_name }}" style="flex:2;"
-                                    id="represent" readonly>
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
-                                <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
-                                    placeholder="Nhập thông tin" name="quotation_number"
-                                    value="{{ $import->quotation_number }}" readonly />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
-                                <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
-                                    placeholder="Nhập thông tin" name="reference_number"readonly
-                                    value="{{ $import->reference_number }}" />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
-                                <input type="text" class="text-13-black w-50 border-0 px-2 py-2"
-                                    placeholder="Nhập thông tin" id="datePicker" name="date_quote" style="flex:2;"
-                                    value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}" />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
-                                <input type="text" class="text-13-black w-50 border-0 px-2 py-2" style="flex:2;"
-                                    name="price_effect" placeholder="Nhập thông tin"
-                                    value="{{ $import->price_effect }}" readonly />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                                <input type="text" readonly class="text-13-black w-50 border-0 px-2 py-2"
-                                    name="terms_pay" style="flex:2;" placeholder="Nhập thông tin"
-                                    value="{{ $import->terms_pay }}" />
-                            </li>
-                            {{-- <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
-                                <input type="text" class="text-13-black w-50 border-0 px-2 py-2" style="flex:2;"
-                                    placeholder="Nhập thông tin" id="inputProject" readonly
-                                    value="@if ($import->getProjectName) {{ $import->getProjectName->project_name }} @endif">
-                            </li> --}}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </form>
+<div id="files" class="tab-pane fade">
+    <div class="bg-filter-search border-0 text-center">
+        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+            File đính kèm
+        </p>
+    </div>
+    <x-form-attachment :value="$import" name="DMH"></x-form-attachment>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
 <div class="modal fade" id="recentModal" tabindex="-1" aria-labelledby="productModalLabel" style="display: none;"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -907,10 +887,7 @@
         </div>
     </div>
 </div>
-
-
 <x-formprovides> </x-formprovides>
-
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

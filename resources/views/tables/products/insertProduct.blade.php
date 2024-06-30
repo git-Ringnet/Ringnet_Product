@@ -2,10 +2,10 @@
 <form action="{{ route('inventory.store', $workspacename) }}" method="POST">
     @csrf
     <div class="content-wrapper m-0 min-height--none" style="background: none;">
-        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0 border-bottom-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
-                    <span>Thiết lập ban đầu</span>
+                    <span class="ml-4">Thiết lập ban đầu</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="content margin-top-38" style="background: none;">
-            <section class="content margin-250">
+            <section class="content">
                 <section class="container-fluided">
                     <div class="info-chung">
                         <p class="font-weight-bold text-uppercase info-chung--heading border-custom">Thông tin chung</p>

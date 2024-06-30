@@ -1,9 +1,9 @@
 <x-navbar :title="$title" activeGroup="statistic" activeName="sumReturnExport"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
-    <div class="content-header-fixed p-0 margin-250">
-        <div class="content__header--inner margin-left32">
+    <div class="content-header-fixed p-0">
+        <div class="content__header--inner mt-4">
             <div class="content__heading--left ">
-                <span>Báo cáo</span>
+                <span class="ml-4">Báo cáo</span>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                         fill="none">
@@ -13,24 +13,6 @@
                     </svg>
                 </span>
                 <span class="font-weight-bold">{{ $title }}</span>
-            </div>
-            <div class="d-flex content__heading--right">
-                <div class="row m-0">
-                    <button class="btn-option">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                fill="#42526E" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                fill="#42526E" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                fill="#42526E" />
-                        </svg>
-                    </button>
-                </div>
             </div>
         </div>
         <div class="bg-filter-search pl-4">
@@ -111,8 +93,8 @@
             </div>
         </div>
     </div>
-    <div class="content" style="margin-top: 7.5rem;">
-        <section class="container-fluided margin-250">
+    <div class="content" style="margin-top: 11.5rem;">
+        <section class="container-fluided">
             <div class="tab-content">
                 <div id="buy" class="content tab-pane in active">
                     <div class="row  p-0 m-0">

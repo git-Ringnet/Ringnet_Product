@@ -8,10 +8,10 @@
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">
         <input type="hidden" value="" name="action" id="getAction">
-        <div class="content-header-fixed p-0 margin-250 border-0">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0 border-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
-                    <span>Quản lý nghiệp vụ</span>
+                    <span class="ml-4">Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -71,30 +71,190 @@
                                 <span class="text-btnIner-primary ml-2">Xác nhận</span>
                             </button>
                         </a>
-
-                        <button id="sideProvide" type="button" class="btn-option border-0 mx-1">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)"
-                                    fill="#ECEEFA" />
-                                <path
-                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>
 
         </div>
-        {{-- Thông tin sản phẩm --}}
-        <div class="content margin-top-38" id="main">
-            <section class="content margin-250">
-                <div id="title--fixed"
-                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
+        <div class="content margin-top-117">
+            <div id="show_info_Guest">
+                <div class="bg-filter-search border-top-0 text-center">
+                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
+                        CẤP
+                    </p>
                 </div>
-                <div class="container-fluided margin-top-72" id="quickAction">
+                <div class="d-flex w-100">
+                    <div
+                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                        <span class="text-13 btn-click" style="flex: 1.5;">Đơn mua hàng
+                        </span>
+                        <span class="mx-1 text-13" style="flex: 2;">
+                            <input type="text" placeholder="Chọn thông tin" id="myInput1"
+                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest search_quotation"
+                                style="background-color:#F0F4FF; border-radius:4px;" name="quotation_number"
+                                autocomplete="off" readonly>
+                            <input type="hidden" name="detail_id" id="detail_id"
+                                value="@isset($yes) {{ $show_receive['id'] }} @endisset">
+                        </span>
+                        <div class="d-flex align-items-center justify-content-between border-0">
+                            <ul id="listReceive"
+                                class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
+                                style="z-index: 99;display: none;">
+                                <div class="p-1">
+                                    <div class="position-relative">
+                                        <input type="text" placeholder="Nhập đơn mua hàng"
+                                            class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
+                                        <span id="search-icon" class="search-icon"><i
+                                                class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                                @foreach ($listDetail as $value)
+                                    <li class="p-2 align-items-center"
+                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                        <a href="javascript:void(0)" id="{{ $value->id }}" name="search-info"
+                                            class="search-receive" style="flex:2;">
+                                            <span
+                                                class="text-13-black">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
+                                        </a>
+                                        <a type="button" data-toggle="modal" data-target="#">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    viewBox="0 0 14 14" fill="none">
+                                                    <path
+                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                        fill="black" />
+                                                    <path
+                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                        fill="black" />
+                                                    <path
+                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                        fill="black" />
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {{-- Nhà cung cấp --}}
+                <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                    style="height:43px;">
+                    <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
+                    <span class="mx-1 text-13" style="flex: 2;">
+                        <input type="text" placeholder="Chọn thông tin"
+                            class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
+                            style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" readonly=""
+                            name="provides_name">
+                        <input type="hidden" id="provide_id" name="provide_id">
+                    </span>
+                    <div class="">
+                        <div id="myUL"
+                            class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block list-guest"
+                            style="z-index: 99; display: block;">
+                            <ul class="m-0 p-0 scroll-data">
+                                <div class="p-1">
+                                    <div class="position-relative">
+                                        <input type="text" placeholder="Nhập nhà cung cấp"
+                                            class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
+                                        <span id="search-icon" class="search-icon">
+                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                @foreach ($provide as $item)
+                                    <li class="p-2 align-items-center text-wrap"
+                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                        <a href="javascript:void(0)" style="flex:2" id="1"
+                                            name="search-info" class="search-info">
+                                            <span class="text-13-black">{{ $item->provide_name_display }}</span>
+                                        </a>
+                                        {{-- <a id="" class="search-infoEdit" type="button" data-toggle="modal"
+                                        data-target="#editProvide" data-id="1">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14" fill="none">
+                                                <path
+                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                    fill="black"></path>
+                                                <path
+                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                    fill="black"></path>
+                                                <path
+                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                    fill="black"></path>
+                                            </svg>
+                                        </span>
+                                    </a> --}}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="more_info" style="display:none;">
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
+                            <input type="text"
+                                class="text-13-black w-50 border-0 bg-input-guest nameGuest py-2 px-2" style="flex:2;"
+                                readonly id="provide_name"
+                                value="@isset($yes){{ $show_receive['provide_name'] }}@endisset"
+                                placeholder="Chọn thông tin" />
+                        </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
+                            <input type="text"
+                                class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2;"
+                                id="represent" readonly name="represent" />
+                        </div>
+                    </div>
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu nhập</span>
+                            <input type="text" placeholder="Chọn thông tin" name="delivery_code"
+                                class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                style="flex:2; background-color:#F0F4FF; border-radius:4px;"
+                                value="{{ $code }}" readonly />
+                        </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
+                            <input type="text" placeholder="Nhập thông tin"
+                                class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                style="flex:2; background-color:#F0F4FF; border-radius:4px;" name="shipping_unit" />
+                        </div>
+                    </div>
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
+                            <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
+                                class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
+                        </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận hàng</span>
+                            <input type="text" placeholder="Nhập thông tin"
+                                class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
+                                style="flex:2;" value="{{ date('Y-m-d') }}" id="datePicker" />
+                            <input id="hiddenDateInput" type="hidden" value="{{ date('Y-m-d') }}"
+                                name="received_date">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="content">
+                <div class="bg-filter-search border-top-0 text-center">
+                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM
+                    </p>
+                </div>
+                <div class="container-fluided" id="quickAction">
                     <section class="content">
                         <div class="content-info position-relative text-nowrap">
                             <table id="inputcontent" class="table table-hover bg-white rounded">
@@ -299,182 +459,6 @@
 
 
             </section>
-        </div>
-        <div class="content-wrapper2 px-0 py-0">
-            <div id="mySidenav" class="sidenav border">
-                <div id="show_info_Guest">
-                    <div class="bg-filter-search border-top-0 text-center">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
-                            CẤP
-                        </p>
-                    </div>
-                    <div class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left text-nowrap position-relative"
-                        style="height:48px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Đơn mua hàng
-                        </span>
-                        <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin" id="myInput1"
-                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest search_quotation"
-                                style="background-color:#F0F4FF; border-radius:4px;" name="quotation_number"
-                                autocomplete="off" readonly>
-                            <input type="hidden" name="detail_id" id="detail_id"
-                                value="@isset($yes) {{ $show_receive['id'] }} @endisset">
-                        </span>
-                        <div class="d-flex align-items-center justify-content-between border-0">
-                            <ul id="listReceive"
-                                class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
-                                style="z-index: 99;display: none;">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập đơn mua hàng"
-                                            class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
-                                        <span id="search-icon" class="search-icon"><i
-                                                class="fas fa-search text-table" aria-hidden="true"></i></span>
-                                    </div>
-                                </div>
-                                @foreach ($listDetail as $value)
-                                    <li class="p-2 align-items-center"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                        <a href="javascript:void(0)" id="{{ $value->id }}" name="search-info"
-                                            class="search-receive" style="flex:2;">
-                                            <span
-                                                class="text-13-black">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
-                                        </a>
-                                        <a type="button" data-toggle="modal" data-target="#">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    viewBox="0 0 14 14" fill="none">
-                                                    <path
-                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                        fill="black" />
-                                                    <path
-                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                        fill="black" />
-                                                    <path
-                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                        fill="black" />
-                                                </svg>
-                                            </span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-
-                    {{-- Nhà cung cấp --}}
-                    <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:43px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
-                        <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin"
-                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
-                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                                readonly="" name="provides_name">
-                            <input type="hidden" id="provide_id" name="provide_id">
-                        </span>
-                        <div class="">
-                            <div id="myUL"
-                                class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block list-guest"
-                                style="z-index: 99; display: block;">
-                                <ul class="m-0 p-0 scroll-data">
-                                    <div class="p-1">
-                                        <div class="position-relative">
-                                            <input type="text" placeholder="Nhập nhà cung cấp"
-                                                class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
-                                            <span id="search-icon" class="search-icon">
-                                                <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    @foreach ($provide as $item)
-                                        <li class="p-2 align-items-center text-wrap"
-                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                            <a href="javascript:void(0)" style="flex:2" id="1"
-                                                name="search-info" class="search-info">
-                                                <span class="text-13-black">{{ $item->provide_name_display }}</span>
-                                            </a>
-                                            {{-- <a id="" class="search-infoEdit" type="button" data-toggle="modal"
-                                            data-target="#editProvide" data-id="1">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    viewBox="0 0 14 14" fill="none">
-                                                    <path
-                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                        fill="black"></path>
-                                                    <path
-                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                        fill="black"></path>
-                                                    <path
-                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                        fill="black"></path>
-                                                </svg>
-                                            </span>
-                                        </a> --}}
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="more_info" style="display:none;">
-                        <ul class="p-0 m-0">
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:48px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
-                                <input type="text"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest py-2 px-2"
-                                    style="flex:2;" readonly id="provide_name"
-                                    value="@isset($yes){{ $show_receive['provide_name'] }}@endisset"
-                                    placeholder="Chọn thông tin" />
-                            </li>
-
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:48px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input type="text"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                    style="flex:2;" id="represent" readonly name="represent" />
-                            </li>
-
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:48px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu nhập</span>
-                                <input type="text" placeholder="Chọn thông tin" name="delivery_code"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                    value="{{ $code }}" readonly />
-                            </li>
-
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:48px;">
-                                <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
-                                <input type="text" placeholder="Nhập thông tin"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                    name="shipping_unit" />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:48px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
-                                <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
-                            </li>
-
-                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                style="height:48px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận hàng</span>
-                                <input type="text" placeholder="Nhập thông tin"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
-                                    style="flex:2;" value="{{ date('Y-m-d') }}" id="datePicker" />
-                                <input id="hiddenDateInput" type="hidden" value="{{ date('Y-m-d') }}"
-                                    name="received_date">
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <input type="hidden" name="total_bill" id="total_bill">

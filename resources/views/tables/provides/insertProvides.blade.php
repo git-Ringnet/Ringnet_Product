@@ -3,10 +3,10 @@
     @csrf
     <div class="content-wrapper m-0 min-height--none">
         <!-- Content Header (Page header) -->
-        <div class="content-header-fixed p-0 margin-250">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
-                    <span>Thiết lập ban đầu</span>
+                    <span class="ml-4">Thiết lập ban đầu</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -74,8 +74,8 @@
                 </div>
             </div>
         </div>
-        <div class="content" style="margin-top:3.8rem;">
-            <section class="content margin-250">
+        <div class="content" style="margin-top:10rem;">
+            <section class="content">
                 <div class="container-fluided">
                     <div class="bg-filter-search border-top-0 text-left border-custom">
                         <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN CHUNG</p>

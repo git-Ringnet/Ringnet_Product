@@ -1,9 +1,9 @@
 <x-navbar :title="$title" activeGroup="systemFirst" activeName="funds" :workspacename="$workspacename"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
-    <div class="content-header-fixed p-0 margin-250">
-        <div class="content__header--inner margin-left32">
+    <div class="content-header-fixed p-0">
+        <div class="content__header--inner">
             <div class="content__heading--left">
-                <span>Thiết lập ban đầu</span>
+                <span class="ml-4">Thiết lập ban đầu</span>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                         fill="none">
@@ -122,7 +122,7 @@
         </div>
     </div> --}}
     <div class="content margin-top-75">
-        <section class="content margin-250">
+        <section class="content">
             <div class="container-fluided">
                 <div class="row result-filter-group margin-left30 my-1">
                 </div>

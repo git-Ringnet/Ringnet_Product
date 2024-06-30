@@ -2,10 +2,10 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0  min-height--none">
     <!-- Content Header (Page header) -->
-    <div class="content-header-fixed p-0 margin-250 border-bottom-0">
-        <div class="content__header--inner margin-left32">
+    <div class="content-header-fixed p-0 border-bottom-0">
+        <div class="content__header--inner">
             <div class="content__heading--left">
-                <span>Quản lý nghiệp vụ</span>
+                <span class="ml-4">Quản lý nghiệp vụ</span>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                         fill="none">
@@ -149,9 +149,9 @@
         </div>
     </div>
     {{-- Content --}}
-    <div class="content margin-top-75">
+    <div class="content margin-top-127">
         {{-- Content --}}
-        <section class="content margin-250">
+        <section class="content">
             <div class="container-fluided">
                 <div class="row result-filter-receive margin-left30 my-1">
                 </div>

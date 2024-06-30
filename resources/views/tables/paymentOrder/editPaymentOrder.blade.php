@@ -10,10 +10,10 @@
         <input type="hidden" name="detailimport_id" id="detailimport_id" value="{{ $payment->detailimport_id }}">
         <input type="hidden" name="detail_id" value="{{ $payment->id }}">
         <input type="hidden" name="table_name" value="TTMH">
-        <div class="content-header-fixed p-0 margin-250">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
-                    <span>Quản lý nghiệp vụ</span>
+                    <span class="ml-4">Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -175,22 +175,9 @@
                                 </ul>
                             </div>
                         </div>
-
-                        <button id="sideProvide" type="button" class="btn-option border-0 mx-1">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5"
-                                    transform="rotate(90 16 0)" fill="#ECEEFA" />
-                                <path
-                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                        </button>
-
                     </div>
                 </div>
             </div>
-
             <section class="border-top" style="height:50px">
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
@@ -212,16 +199,16 @@
             </section>
 
         </div>
-        <div class="content margin-top-38" id="main" style="width: 100%;">
-            <div class="container-fluided margin-250">
+        <div class="content margin-top-127" style="width: 100%;">
+            <div class="container-fluided">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div id="title--fixed" class="content-title--fixed top-111 text-center" style="width: 87%;">
+                        <div class="bg-filter-search border-0 text-center">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">
                                 THÔNG TIN PHIẾU CHI
                             </p>
                         </div>
-                        <section class="content margin-top-103">
+                        <section class="content">
                             <div class="content-info position-relative table-responsive text-nowrap">
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
@@ -283,7 +270,7 @@
                                                     @if ($payment->getGuest) value="{{ $payment->getGuest->provide_name_display }}" @endif>
                                             </td>
                                             <td class="border border-left-0 border-top-0 p-2 align-top">
-                                                <input readonly type="text" value="{{$payment->payment_type}}"
+                                                <input readonly type="text" value="{{ $payment->payment_type }}"
                                                     class="w-100 border-0 px-2 py-1 height-32">
                                             </td>
                                             <td class="border border-left-0 border-top-0 p-2 align-top">
@@ -294,7 +281,7 @@
                                             <td class="border border-left-0 border-top-0 p-2 align-top">
                                                 <input readonly type="text"
                                                     class="w-100 border-0 px-2 py-1 height-32"
-                                                    value="@if($payment->getContentPay) {{ $payment->getContentPay->name }} @endif">
+                                                    value="@if ($payment->getContentPay) {{ $payment->getContentPay->name }} @endif">
                                             </td>
                                             <td class="border border-left-0 border-top-0 p-2 align-top">
                                                 <input readonly type="text"
@@ -433,11 +420,12 @@
                     </div>
 
                     <div id="history" class="tab-pane fade">
-                        <div id="title--fixed" class="content-title--fixed top-111 w-100" style="left: 0">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">Lịch sử thanh
-                                toán</p>
+                        <div class="bg-filter-search border-0 text-center">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                Lịch sử thanh toán
+                            </p>
                         </div>
-                        <section class="content margin-top-103">
+                        <section class="content">
                             <div class="outer container-fluided">
                                 <table class="table table-hover bg-white rounded" id="inputcontent">
                                     <thead>
@@ -490,20 +478,21 @@
                             </div>
                         </section>
                     </div>
+</form>
+<div id="files" class="tab-pane fade">
+    <div class="bg-filter-search border-0 text-center">
+        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+            FILE ĐÍNH KÈM
+        </p>
+    </div>
+    <x-form-attachment :value="$payment" name="TTMH"></x-form-attachment>
+</div>
 
-                    <div id="files" class="tab-pane fade">
-                        <div class="content-title--fixed top-111 w-100" style="left: 0;">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM
-                            </p>
-                        </div>
-                        <x-form-attachment :value="$payment" name="TTMH"></x-form-attachment>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="content-wrapper2 px-0 py-0">
-            {{-- <div id="mySidenav" class="sidenav border top-109">
+</div>
+</div>
+</div>
+<div class="content-wrapper2 px-0 py-0">
+    {{-- <div id="mySidenav" class="sidenav border top-109">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
@@ -640,9 +629,8 @@
                     </div>
                 </div>
             </div> --}}
-        </div>
-    </div>
-</form>
+</div>
+</div>
 
 <div class="modal fade" id="recentModal" tabindex="-1" aria-labelledby="productModalLabel" style="display: none;"
     aria-hidden="true">

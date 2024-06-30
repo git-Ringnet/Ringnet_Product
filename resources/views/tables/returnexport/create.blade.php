@@ -10,10 +10,10 @@
     <input type="hidden" name="pdf_export" id="pdf_export">
     <div id="selectedSerialNumbersContainer"></div>
     <div class="content-wrapper--2Column m-0">
-        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0 border-bottom-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left">
-                    <span>Quản lý nghiệp vụ</span>
+                    <span class="ml-4">Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -90,462 +90,32 @@
                                 <span class="text-btnIner-primary ml-2">Xác nhận</span>
                             </button>
                         </div>
-                        <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5"
-                                    transform="rotate(90 16 0)" fill="#ECEEFA" />
-                                <path
-                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
-                                    fill="#26273B" fill-opacity="0.8" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- Thông tin sản phẩm --}}
-        <div class="content margin-top-38" id="main">
-            <section class="content margin-250">
-                <div id="title--fixed"
-                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom border-right-0">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
-                </div>
-                <div class="container-fluided margin-top-72">
-                    <section class="info-chung">
-                        <div class="content-info position-relative text-nowrap">
-                            <table class="table table-hover bg-white rounded">
-                                <thead>
-                                    <tr style="height:44px;">
-                                        <th class="border-bottom border-right" style="width: 15%;padding-left:2rem;">
-                                            <span class="text-table text-secondary">Mã sản phẩm</span>
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">Tên sản
-                                            phẩm</th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
-                                            Số lượng
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
-                                            Quản lý SN
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
-                                            Đơn giá
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:15%;">
-                                            %CK
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
-                                            Thuế
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
-                                            Thành tiền
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-left note text-13">Ghi chú sản phẩm</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id="dynamic-fields" class="bg-white"></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-                    <section class="content">
-                        <div class="container-fluided">
-                            <div class="d-flex ml-3">
-                            </div>
-                        </div>
-                    </section>
-                    <div class="content">
-                        <div class="row" style="width:95%;">
-                            <div class="position-relative col-lg-4 px-0"></div>
-                            <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
-                                <div class="m-3 ">
-                                    <div class="d-flex justify-content-between">
-                                        <span class="text-13-black">Giá trị trước thuế:</span>
-                                        <span id="total-amount-sum" class="text-table">
-                                            @isset($yes)
-                                                {{ number_format($getInfoQuote->total_price) }}
-                                            @endisset
-                                        </span>
-                                    </div>
-                                    <div class="d-flex justify-content-between mt-2 align-items-center">
-                                        <span class="text-13-black">Thuế VAT:</span>
-                                        <span id="product-tax" class="text-table">
-                                            @isset($yes)
-                                                {{ number_format($getInfoQuote->total_tax) }}
-                                            @endisset
-                                        </span>
-                                    </div>
-                                    <div class="d-flex justify-content-between mt-2 align-items-center">
-                                        <span class="text-13-black">Khuyến mãi</span>
-                                        <input name="promotion-total" id="promotion-total" type="number"
-                                            class="text-table border-0 text-right" style="background-color:#F0F4FF">
-                                    </div>
-                                    <div class="d-flex justify-content-between text-right mt-2 align-items-center">
-                                        <span class="text-13-black">Hình thức</span>
-                                        <select name="promotion-option-total" class="border-0 promotion-option-total">
-                                            <option selected value="1">Nhập tiền</option>
-                                            <option value="2">Nhập %</option>
-                                        </select>
-                                    </div>
-                                    <div class="d-flex justify-content-between mt-2">
-                                        <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
-                                        <span id="grand-total" data-value="0"
-                                            class="text-13-bold text-lg font-weight-bold text-right">
-                                            @isset($yes)
-                                                {{ number_format($getInfoQuote->total_tax + $getInfoQuote->total_price) }}
-                                            @endisset
-                                        </span>
-                                        <input type="text" hidden="" name="totalValue"
-                                            value="0"id="total">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {{-- Modal khách hàng --}}
-            <div class="modal fade" id="guestModal" tabindex="-1" role="dialog"
-                aria-labelledby="productModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document" style="margin-top: 5%;">
-                    <div class="modal-content">
-                        <div class="modal-body pb-0 px-2 pt-0">
-                            <div class="content-info">
-                                <div class="mt-2">
-                                    <input type="hidden" id="id_guest" autocomplete="off">
-                                    <p class="p-0 m-0 px-2 required-label text-danger text-nav">
-                                        Tên hiển thị
-                                    </p>
-                                    <input name="guest_name_display" type="text" placeholder="Nhập thông tin"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        id="guest_name_display" autocomplete="off">
-                                </div>
-                                <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 required-label text-danger text-nav">
-                                        Mã số thuế
-                                    </p>
-                                    <input name="guest_code" type="text" placeholder="Nhập thông tin"
-                                        oninput="validateInput(this)"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        id="guest_code" autocomplete="off">
-                                </div>
-                                <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 required-label text-danger text-nav">
-                                        Địa chỉ
-                                    </p>
-                                    <input name="guest_address" type="text" placeholder="Nhập thông tin"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        id="guest_address" autocomplete="off">
-                                </div>
-                                <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 text-nav">
-                                        Tên viết tắt
-                                    </p>
-                                    <input name="key" type="text" placeholder="Nhập thông tin" id="key"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        autocomplete="off">
-                                </div>
-                                <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 text-nav">
-                                        Tên đầy đủ
-                                    </p>
-                                    <input name="guest_name" type="text" placeholder="Nhập thông tin"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        id="guest_name" autocomplete="off">
-                                </div>
-                                <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 text-nav">
-                                        Người đại diện
-                                    </p>
-                                    <input type="hidden" id="represent_guest_id">
-                                    <input name="guest_name" type="text" placeholder="Nhập thông tin"
-                                        id="represent_guest_name"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        autocomplete="off">
-                                </div>
-                                <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 text-nav">
-                                        Số điện thoại
-                                    </p>
-                                    <input type="text" placeholder="Nhập thông tin" id="guest_phone"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        autocomplete="off">
-                                </div>
-                                <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 text-nav">
-                                        Email
-                                    </p>
-                                    <input type="text" placeholder="Nhập thông tin" id="guest_email"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        autocomplete="off">
-                                </div>
-                                <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 text-nav">
-                                        Địa chỉ nhận
-                                    </p>
-                                    <input type="text" placeholder="Nhập thông tin" id="guest_receiver"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer border-top-0 py-1 px-1">
-                            <button type="button" class="btn-save-print rounded h-100 text-table py-1"
-                                data-dismiss="modal">Trở về</button>
-                            <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table"
-                                id="addGuest">Thêm khách hàng</button>
-                            <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table"
-                                id="updateGuest">Sửa khách hàng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- Modal người đại diện --}}
-            <div class="modal fade" id="representModal" tabindex="-1" role="dialog"
-                aria-labelledby="productModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document" style="margin-top: 10%;max-width: 20%;">
-                    <div class="modal-content">
-                        <div class="modal-body pb-0 px-2 pt-0">
-                            <div class="content-info">
-                                <input type="hidden"
-                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                    id="represent_id" autocomplete="off">
-                                <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 text-nav">
-                                        Người đại diện
-                                    </p>
-                                    <input name="represent_name" type="text" placeholder="Nhập thông tin"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        id="represent_name" autocomplete="off">
-                                </div>
-                                <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 text-nav">
-                                        Số điện thoại
-                                    </p>
-                                    <input name="represent_phone" type="number" placeholder="Nhập thông tin"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        id="represent_phone" autocomplete="off">
-                                </div>
-                                <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 text-nav">
-                                        Email
-                                    </p>
-                                    <input name="represent_email" type="email" placeholder="Nhập thông tin"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        id="represent_email" autocomplete="off">
-                                </div>
-                                <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 text-nav">
-                                        Địa chỉ nhận
-                                    </p>
-                                    <input name="represent_address" type="text" placeholder="Nhập thông tin"
-                                        id="represent_address"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer border-top-0 py-1 px-1">
-                            <button type="button" class="btn-save-print rounded h-100 text-table py-1"
-                                data-dismiss="modal">Trở về</button>
-                            <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table"
-                                id="addRepresent">Thêm người đại diện</button>
-                            <button type="button" class="custom-btn h-100 py-1 px-2 text-table"
-                                id="updateRepresent">Cập
-                                nhật người đại diện</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- Modal seri --}}
-            <div id="list_modal">
-                <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    style="display: none;" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header align-items-center">
-                                <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
-                                <div class="d-flex align-items-center">
-                                    <button type="button"
-                                        class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 btnclose"
-                                        data-dismiss="modal">
-                                        <span>
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM6.03033 4.96967C5.73744 4.67678 5.26256 4.67678 4.96967 4.96967C4.67678 5.26256 4.67678 5.73744 4.96967 6.03033L6.93934 8L4.96967 9.96967C4.67678 10.2626 4.67678 10.7374 4.96967 11.0303C5.26256 11.3232 5.73744 11.3232 6.03033 11.0303L8 9.06066L9.96967 11.0303C10.2626 11.3232 10.7374 11.3232 11.0303 11.0303C11.3232 10.7374 11.3232 10.2626 11.0303 9.96967L9.06066 8L11.0303 6.03033C11.3232 5.73744 11.3232 5.26256 11.0303 4.96967C10.7374 4.67678 10.2626 4.67678 9.96967 4.96967L8 6.93934L6.03033 4.96967Z"
-                                                    fill="#6D7075" />
-                                            </svg>
-                                        </span>
-                                        <span class="text-btnIner-primary ml-2">Hủy</span>
-                                    </button>
-                                    <button type="button"
-                                        class="custom-btn mx-1 d-flex align-items-center h-100 check-seri"
-                                        data-dismiss="">
-                                        <div class="d-flex align-items-center">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                                        fill="white"></path>
-                                                </svg>
-                                            </span>
-                                            <span class="text-btnIner-primary ml-2">Xác nhận</span>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="modal-body px-0 pb-4 pt-0 m-0">
-                                <table id="table_SNS" class="w-100 hover-tr-table">
-                                    <thead>
-                                        <tr>
-                                            <th class="border border-right-0 pl-3 py-1 border-top-0 border-checkbox">
-                                                <input type="checkbox">
-                                            </th>
-                                            <th
-                                                class="border border-right-0 border-top-0 border-left-0 py-1 text-secondary">
-                                                STT</th>
-                                            <th class="border border-left-0 border-top-0 py-1 text-secondary">Serial
-                                                number</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Thông tin sản phẩm</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- Modal giao dịch gần đây --}}
-            <div class="modal fade" id="recentModal" tabindex="-1" role="dialog"
-                aria-labelledby="productModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="outer text-nowrap" style="scrollbar-width: inherit;">
-                                <table id="example2" class="table table-hover bg-white rounded">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" class="height-52">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="id"
-                                                        data-sort-type="#">
-                                                        <button class="btn-sort text-13" type="submit">
-                                                            Tên sản phẩm
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id="icon-id"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="id"
-                                                        data-sort-type="#">
-                                                        <button class="btn-sort text-13" type="submit">
-                                                            Khách hàng
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id="icon-id"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="id"
-                                                        data-sort-type="#">
-                                                        <button class="btn-sort text-13" type="submit">
-                                                            Giá bán
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id="icon-id"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="id"
-                                                        data-sort-type="#">
-                                                        <button class="btn-sort text-13" type="submit">
-                                                            Thuế
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id="icon-id"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="id"
-                                                        data-sort-type="#">
-                                                        <button class="btn-sort text-13" type="submit">
-                                                            Ngày bán
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id="icon-id"></div>
-                                                </span>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- Thông tin khách hàng --}}
-        <div class="content-wrapper2 px-0 py-0">
-            <div id="mySidenav" class="sidenav border">
-                <div id="show_info_Guest">
+        <div class="content margin-top-117">
+            {{-- Thông tin khách hàng --}}
+            <div class="border">
+                <div>
                     <div class="bg-filter-search border-0 text-center">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH
+                            HÀNG
                         </p>
                     </div>
-                    <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:49px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Mã giao hàng</span>
-                        <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin" name="code_delivery"
-                                class="border-0 w-100 bg-input-guest py-2 px-2 numberQute " id="myInput"
-                                style="border-radius:4px;" autocomplete="off"
-                                value="@isset($yes) {{ $data['code_delivery'] }} @endisset">
-                            <input type="hidden" name="detail_id" id="detail_id"
-                                value="@isset($yes) {{ $data['detail_id'] }} @endisset">
-                        </span>
-                        <div class="">
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 btn-click" style="flex: 1.5;">Mã giao hàng</span>
+                            <span class="mx-1 text-13" style="flex: 2;">
+                                <input type="text" placeholder="Chọn thông tin" name="code_delivery"
+                                    class="border-0 w-100 bg-input-guest py-2 px-2 numberQute " id="myInput"
+                                    style="border-radius:4px;" autocomplete="off"
+                                    value="@isset($yes) {{ $data['code_delivery'] }} @endisset">
+                                <input type="hidden" name="detail_id" id="detail_id"
+                                    value="@isset($yes) {{ $data['detail_id'] }} @endisset">
+                            </span>
                             <div id="myUL"
                                 class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block"
                                 style="z-index: 99;display: none;">
@@ -590,206 +160,620 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:49px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Mã trả hàng</span>
-                        <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin" name="code_return"
-                                class="border-0 w-100 bg-input-guest py-2 px-2 code_return "
-                                style="border-radius:4px;" autocomplete="off" value="{{ $invoice }}" readonly>
-                        </span>
-                    </div>
-                    <div class="">
-                        <div class="content-info--common" id="show-info-guest">
-                            <ul class="p-0 m-0">
-                                <li class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                                    <span class="mx-1 text-13" style="flex: 2;">
-                                        <input type="text" placeholder="Chọn thông tin" name="guestName"
-                                            class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="myInput1"
-                                            readonly style="background-color:#F0F4FF; border-radius:4px;"
-                                            autocomplete="off" required>
-                                        <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
-                                    </span>
-                                    <div class="">
-                                        <div id="myUL1"
-                                            class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block"
-                                            style="z-index: 99;display: none;">
-                                            <div class="p-1">
-                                                <div class="position-relative">
-                                                    <input type="text" placeholder="Nhập công ty"
-                                                        class="pr-4 w-100 input-search bg-input-guest"
-                                                        id="companyFilter1">
-                                                    <span id="search-icon" class="search-icon">
-                                                        <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <ul class="m-0 p-0 scroll-data">
-                                                @foreach ($guest as $guest_value)
-                                                    <li class="p-2 align-items-center text-wrap border-top"
-                                                        data-id="{{ $guest_value->id }}"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                        <a href="#"
-                                                            title="{{ $guest_value->guest_name_display }}"
-                                                            style="flex:2;" id="{{ $guest_value->id }}"
-                                                            name="search-info1" class="search-info1">
-                                                            <span
-                                                                class="text-13-black">{{ $guest_value->guest_name_display }}</span>
-                                                        </a>
-                                                        <div class="dropdown">
-                                                            <button type="button" data-toggle="dropdown"
-                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                <i class="fa-solid fa-ellipsis"
-                                                                    aria-hidden="true"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu date-form-setting"
-                                                                style="z-index: 1000;">
-                                                                <a class="dropdown-item edit-guest w-50"
-                                                                    href="#" data-toggle="modal"
-                                                                    data-target="#guestModal"
-                                                                    data-id="{{ $guest_value->id }}">
-                                                                    <span>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="14" height="14"
-                                                                            viewBox="0 0 14 14" fill="none">
-                                                                            <path
-                                                                                d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                                                fill="black" />
-                                                                            <path
-                                                                                d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                                                fill="black" />
-                                                                            <path
-                                                                                d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                                                fill="black" />
-                                                                        </svg>
-                                                                    </span>
-                                                                </a>
-                                                                <a class="dropdown-item delete-guest w-50"
-                                                                    href="#" data-id="{{ $guest_value->id }}"
-                                                                    data-name="guest">
-                                                                    <i class="fa-solid fa-trash-can"
-                                                                        aria-hidden="true"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                            <a type="button"
-                                                class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
-                                                data-toggle="modal" data-target="#guestModal"
-                                                style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                        height="16" viewBox="0 0 16 16" fill="none">
-                                                        <path
-                                                            d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                            fill="#282A30" />
-                                                    </svg>
-                                                </span>
-                                                <span class="text-13-black pl-3 pt-1"
-                                                    style="font-weight: 600 !important;">Thêm
-                                                    khách hàng</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="d-flex justify-content-between border-bottom py-2 px-3 align-items-center text-left position-relative"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest" id="represent_guest"
-                                        name="representName" readonly autocomplete="off" style="flex:2;"
-                                        placeholder="Chọn thông tin">
-                                    <input type="hidden" class="represent_guest_id" name="represent_guest_id"
-                                        autocomplete="off">
-                                    <div id="myUL7"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập người đại diện"
-                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black bg-input-guest-blue"
-                                                    id="companyFilter7">
-                                                <span id="search-icon" class="search-icon"><i
-                                                        class="fas fa-search text-table" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <ul class="m-0 p-0 scroll-data" id="representativeList"></ul>
-                                        <a type="button"
-                                            class="d-flex align-items-center p-2 position-sticky addRepresentNew mt-2"
-                                            data-toggle="modal" data-target="#representModal"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm người đại diện</span>
-                                        </a>
-                                    </div>
-                                </li>
-                                {{-- <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã Giao Hàng</span>
-                                    <input
-                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2"
-                                        required readonly placeholder="Nhập thông tin" style="flex:2;"
-                                        name="code_delivery" />
-                                </li> --}}
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
-                                    <input
-                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 unit_ship"
-                                        name="shipping_unit" placeholder="Nhập thông tin" style="flex:2;" />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
-                                    <input
-                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 fee_ship"
-                                        name="shipping_fee" placeholder="Nhập thông tin" style="flex:2;" />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
-                                    style="height:48px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày trả hàng</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker"
-                                        required placeholder="Chọn thông tin" style="flex:2;" />
-
-                                    <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
-                                </li>
-                            </ul>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 btn-click" style="flex: 1.5;">Mã trả hàng</span>
+                            <span class="mx-1 text-13" style="flex: 2;">
+                                <input type="text" placeholder="Chọn thông tin" name="code_return"
+                                    class="border-0 w-100 bg-input-guest py-2 px-2 code_return "
+                                    style="border-radius:4px;" autocomplete="off" value="{{ $invoice }}"
+                                    readonly>
+                            </span>
                         </div>
                     </div>
-                    {{-- <div class="border-left-0 py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:49px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Tiền trả cho khách</span>
-                        <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="number" placeholder="Nhập số tiền trả lại" name="payment"
-                                class="border-0 w-100 bg-input-guest py-2 px-2 payment" style="border-radius:4px;"
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                            <span class="mx-1 text-13" style="flex: 2;">
+                                <input type="text" placeholder="Chọn thông tin" name="guestName"
+                                    class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="myInput1" readonly
+                                    style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
+                                <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
+                            </span>
+                            <div class="">
+                                <div id="myUL1"
+                                    class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block"
+                                    style="z-index: 99;display: none;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập công ty"
+                                                class="pr-4 w-100 input-search bg-input-guest" id="companyFilter1">
+                                            <span id="search-icon" class="search-icon">
+                                                <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <ul class="m-0 p-0 scroll-data">
+                                        @foreach ($guest as $guest_value)
+                                            <li class="p-2 align-items-center text-wrap border-top"
+                                                data-id="{{ $guest_value->id }}"
+                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                <a href="#" title="{{ $guest_value->guest_name_display }}"
+                                                    style="flex:2;" id="{{ $guest_value->id }}" name="search-info1"
+                                                    class="search-info1">
+                                                    <span
+                                                        class="text-13-black">{{ $guest_value->guest_name_display }}</span>
+                                                </a>
+                                                <div class="dropdown">
+                                                    <button type="button" data-toggle="dropdown"
+                                                        class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
+                                                        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu date-form-setting"
+                                                        style="z-index: 1000;">
+                                                        <a class="dropdown-item edit-guest w-50" href="#"
+                                                            data-toggle="modal" data-target="#guestModal"
+                                                            data-id="{{ $guest_value->id }}">
+                                                            <span>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                    height="14" viewBox="0 0 14 14"
+                                                                    fill="none">
+                                                                    <path
+                                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                        <a class="dropdown-item delete-guest w-50" href="#"
+                                                            data-id="{{ $guest_value->id }}" data-name="guest">
+                                                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    <a type="button"
+                                        class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                                        data-toggle="modal" data-target="#guestModal"
+                                        style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                viewBox="0 0 16 16" fill="none">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
+                                            </svg>
+                                        </span>
+                                        <span class="text-13-black pl-3 pt-1"
+                                            style="font-weight: 600 !important;">Thêm
+                                            khách hàng</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
+                                diện</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest" id="represent_guest"
+                                name="representName" readonly autocomplete="off" style="flex:2;"
+                                placeholder="Chọn thông tin">
+                            <input type="hidden" class="represent_guest_id" name="represent_guest_id"
                                 autocomplete="off">
+                            <div id="myUL7"
+                                class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
+                                style="z-index: 99;">
+                                <div class="p-1">
+                                    <div class="position-relative">
+                                        <input type="text" placeholder="Nhập người đại diện"
+                                            class="pr-4 w-100 input-search bg-input-guest text-13-black bg-input-guest-blue"
+                                            id="companyFilter7">
+                                        <span id="search-icon" class="search-icon"><i
+                                                class="fas fa-search text-table" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <ul class="m-0 p-0 scroll-data" id="representativeList"></ul>
+                                <a type="button"
+                                    class="d-flex align-items-center p-2 position-sticky addRepresentNew mt-2"
+                                    data-toggle="modal" data-target="#representModal"
+                                    style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
+                                            <path
+                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                fill="#282A30" />
+                                        </svg>
+                                    </span>
+                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm
+                                        người đại diện</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-1" style="flex: 1.6;">
+                                Đơn vị vận chuyển
+                            </span>
+                            <input
+                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 unit_ship"
+                                name="shipping_unit" placeholder="Nhập thông tin" style="flex:2;" />
+                        </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
+                            <input
+                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 fee_ship"
+                                name="shipping_fee" placeholder="Nhập thông tin" style="flex:2;" />
+                        </div>
+                    </div>
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày trả hàng</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker" required
+                                placeholder="Chọn thông tin" style="flex:2;" />
 
-                        </span>
-                    </div> --}}
-                    <div class="border-left-0 py-2 px-3 border-top align-items-center text-left text-nowrap position-relative"
-                        style="height:49px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Nội dung trả hàng</span>
-                        <br>
-                        <span class="mx-1 text-13" style="flex: 2;">
-                            <textarea placeholder="Nhập nội dung trả hàng" name="description"
-                                class="border w-100 bg-input-guest py-2 px-2 description" style="border-radius:4px;" autocomplete="off" required></textarea>
-                        </span>
+                            <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
+                        </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 btn-click" style="flex: 1.5;">Nội dung trả hàng</span>
+                            <span class="mx-1 text-13" style="flex: 2;">
+                                <textarea placeholder="Nhập nội dung trả hàng" name="description" rows="1" cols="10"
+                                    class="border w-100 bg-input-guest py-2 px-2 description" style="border-radius:4px;" autocomplete="off" required></textarea>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
+            {{-- Thông tin sản phẩm --}}
+            <section class="content">
+                <div class="bg-filter-search border-top-0 text-center">
+                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                        THÔNG TIN SẢN PHẨM
+                    </p>
+                </div>
+                <div class="container-fluided">
+                    <section class="info-chung">
+                        <div class="content-info position-relative text-nowrap">
+                            <table class="table table-hover bg-white rounded">
+                                <thead>
+                                    <tr style="height:44px;">
+                                        <th class="border-bottom border-right" style="width: 15%;padding-left:2rem;">
+                                            <span class="text-table text-secondary">Mã sản phẩm</span>
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">Tên sản
+                                            phẩm</th>
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                            Số lượng
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                            Quản lý SN
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                            Đơn giá
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-center text-13" style="width:15%;">
+                                            %CK
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
+                                            Thuế
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
+                                            Thành tiền
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-left note text-13">Ghi chú sản phẩm</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="dynamic-fields" class="bg-white"></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="content">
+                            <div class="row" style="width:95%;">
+                                <div class="position-relative col-lg-4 px-0"></div>
+                                <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
+                                    <div class="m-3 ">
+                                        <div class="d-flex justify-content-between">
+                                            <span class="text-13-black">Giá trị trước thuế:</span>
+                                            <span id="total-amount-sum" class="text-table">
+                                                @isset($yes)
+                                                    {{ number_format($getInfoQuote->total_price) }}
+                                                @endisset
+                                            </span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mt-2 align-items-center">
+                                            <span class="text-13-black">Thuế VAT:</span>
+                                            <span id="product-tax" class="text-table">
+                                                @isset($yes)
+                                                    {{ number_format($getInfoQuote->total_tax) }}
+                                                @endisset
+                                            </span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mt-2 align-items-center">
+                                            <span class="text-13-black">Khuyến mãi</span>
+                                            <input name="promotion-total" id="promotion-total" type="number"
+                                                class="text-table border-0 text-right"
+                                                style="background-color:#F0F4FF">
+                                        </div>
+                                        <div class="d-flex justify-content-between text-right mt-2 align-items-center">
+                                            <span class="text-13-black">Hình thức</span>
+                                            <select name="promotion-option-total"
+                                                class="border-0 promotion-option-total">
+                                                <option selected value="1">Nhập tiền</option>
+                                                <option value="2">Nhập %</option>
+                                            </select>
+                                        </div>
+                                        <div class="d-flex justify-content-between mt-2">
+                                            <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
+                                            <span id="grand-total" data-value="0"
+                                                class="text-13-bold text-lg font-weight-bold text-right">
+                                                @isset($yes)
+                                                    {{ number_format($getInfoQuote->total_tax + $getInfoQuote->total_price) }}
+                                                @endisset
+                                            </span>
+                                            <input type="text" hidden="" name="totalValue"
+                                                value="0"id="total">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Modal khách hàng --}}
+                        <div class="modal fade" id="guestModal" tabindex="-1" role="dialog"
+                            aria-labelledby="productModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document" style="margin-top: 5%;">
+                                <div class="modal-content">
+                                    <div class="modal-body pb-0 px-2 pt-0">
+                                        <div class="content-info">
+                                            <div class="mt-2">
+                                                <input type="hidden" id="id_guest" autocomplete="off">
+                                                <p class="p-0 m-0 px-2 required-label text-danger text-nav">
+                                                    Tên hiển thị
+                                                </p>
+                                                <input name="guest_name_display" type="text"
+                                                    placeholder="Nhập thông tin"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    id="guest_name_display" autocomplete="off">
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="p-0 m-0 px-2 required-label text-danger text-nav">
+                                                    Mã số thuế
+                                                </p>
+                                                <input name="guest_code" type="text" placeholder="Nhập thông tin"
+                                                    oninput="validateInput(this)"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    id="guest_code" autocomplete="off">
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="p-0 m-0 px-2 required-label text-danger text-nav">
+                                                    Địa chỉ
+                                                </p>
+                                                <input name="guest_address" type="text"
+                                                    placeholder="Nhập thông tin"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    id="guest_address" autocomplete="off">
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="p-0 m-0 px-2 text-nav">
+                                                    Tên viết tắt
+                                                </p>
+                                                <input name="key" type="text" placeholder="Nhập thông tin"
+                                                    id="key"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    autocomplete="off">
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="p-0 m-0 px-2 text-nav">
+                                                    Tên đầy đủ
+                                                </p>
+                                                <input name="guest_name" type="text" placeholder="Nhập thông tin"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    id="guest_name" autocomplete="off">
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="p-0 m-0 px-2 text-nav">
+                                                    Người đại diện
+                                                </p>
+                                                <input type="hidden" id="represent_guest_id">
+                                                <input name="guest_name" type="text" placeholder="Nhập thông tin"
+                                                    id="represent_guest_name"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    autocomplete="off">
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="p-0 m-0 px-2 text-nav">
+                                                    Số điện thoại
+                                                </p>
+                                                <input type="text" placeholder="Nhập thông tin" id="guest_phone"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    autocomplete="off">
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="p-0 m-0 px-2 text-nav">
+                                                    Email
+                                                </p>
+                                                <input type="text" placeholder="Nhập thông tin" id="guest_email"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    autocomplete="off">
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="p-0 m-0 px-2 text-nav">
+                                                    Địa chỉ nhận
+                                                </p>
+                                                <input type="text" placeholder="Nhập thông tin"
+                                                    id="guest_receiver"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer border-top-0 py-1 px-1">
+                                        <button type="button" class="btn-save-print rounded h-100 text-table py-1"
+                                            data-dismiss="modal">Trở về</button>
+                                        <button type="button"
+                                            class="custom-btn align-items-center h-100 py-1 px-2 text-table"
+                                            id="addGuest">Thêm khách hàng</button>
+                                        <button type="button"
+                                            class="custom-btn align-items-center h-100 py-1 px-2 text-table"
+                                            id="updateGuest">Sửa khách hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Modal người đại diện --}}
+                        <div class="modal fade" id="representModal" tabindex="-1" role="dialog"
+                            aria-labelledby="productModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document" style="margin-top: 10%;max-width: 20%;">
+                                <div class="modal-content">
+                                    <div class="modal-body pb-0 px-2 pt-0">
+                                        <div class="content-info">
+                                            <input type="hidden"
+                                                class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                id="represent_id" autocomplete="off">
+                                            <div class="mt-2">
+                                                <p class="p-0 m-0 px-2 text-nav">
+                                                    Người đại diện
+                                                </p>
+                                                <input name="represent_name" type="text"
+                                                    placeholder="Nhập thông tin"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    id="represent_name" autocomplete="off">
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="p-0 m-0 px-2 text-nav">
+                                                    Số điện thoại
+                                                </p>
+                                                <input name="represent_phone" type="number"
+                                                    placeholder="Nhập thông tin"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    id="represent_phone" autocomplete="off">
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="p-0 m-0 px-2 text-nav">
+                                                    Email
+                                                </p>
+                                                <input name="represent_email" type="email"
+                                                    placeholder="Nhập thông tin"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    id="represent_email" autocomplete="off">
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="p-0 m-0 px-2 text-nav">
+                                                    Địa chỉ nhận
+                                                </p>
+                                                <input name="represent_address" type="text"
+                                                    placeholder="Nhập thông tin" id="represent_address"
+                                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                                    autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer border-top-0 py-1 px-1">
+                                        <button type="button" class="btn-save-print rounded h-100 text-table py-1"
+                                            data-dismiss="modal">Trở về</button>
+                                        <button type="button"
+                                            class="custom-btn align-items-center h-100 py-1 px-2 text-table"
+                                            id="addRepresent">Thêm người đại diện</button>
+                                        <button type="button" class="custom-btn h-100 py-1 px-2 text-table"
+                                            id="updateRepresent">Cập
+                                            nhật người đại diện</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Modal seri --}}
+                        <div id="list_modal">
+                            <div class="modal fade" id="exampleModal0" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true"
+                                data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header align-items-center">
+                                            <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number
+                                            </h5>
+                                            <div class="d-flex align-items-center">
+                                                <button type="button"
+                                                    class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 btnclose"
+                                                    data-dismiss="modal">
+                                                    <span>
+                                                        <svg width="16" height="16" viewBox="0 0 16 16"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM6.03033 4.96967C5.73744 4.67678 5.26256 4.67678 4.96967 4.96967C4.67678 5.26256 4.67678 5.73744 4.96967 6.03033L6.93934 8L4.96967 9.96967C4.67678 10.2626 4.67678 10.7374 4.96967 11.0303C5.26256 11.3232 5.73744 11.3232 6.03033 11.0303L8 9.06066L9.96967 11.0303C10.2626 11.3232 10.7374 11.3232 11.0303 11.0303C11.3232 10.7374 11.3232 10.2626 11.0303 9.96967L9.06066 8L11.0303 6.03033C11.3232 5.73744 11.3232 5.26256 11.0303 4.96967C10.7374 4.67678 10.2626 4.67678 9.96967 4.96967L8 6.93934L6.03033 4.96967Z"
+                                                                fill="#6D7075" />
+                                                        </svg>
+                                                    </span>
+                                                    <span class="text-btnIner-primary ml-2">Hủy</span>
+                                                </button>
+                                                <button type="button"
+                                                    class="custom-btn mx-1 d-flex align-items-center h-100 check-seri"
+                                                    data-dismiss="">
+                                                    <div class="d-flex align-items-center">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" viewBox="0 0 16 16" fill="none">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                                                    fill="white"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="text-btnIner-primary ml-2">Xác nhận</span>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body px-0 pb-4 pt-0 m-0">
+                                            <table id="table_SNS" class="w-100 hover-tr-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th
+                                                            class="border border-right-0 pl-3 py-1 border-top-0 border-checkbox">
+                                                            <input type="checkbox">
+                                                        </th>
+                                                        <th
+                                                            class="border border-right-0 border-top-0 border-left-0 py-1 text-secondary">
+                                                            STT</th>
+                                                        <th
+                                                            class="border border-left-0 border-top-0 py-1 text-secondary">
+                                                            Serial
+                                                            number</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Thông tin sản phẩm</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Modal giao dịch gần đây --}}
+                        <div class="modal fade" id="recentModal" tabindex="-1" role="dialog"
+                            aria-labelledby="productModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="outer text-nowrap" style="scrollbar-width: inherit;">
+                                            <table id="example2" class="table table-hover bg-white rounded">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="height-52">
+                                                            <span class="d-flex">
+                                                                <a href="#" class="sort-link" data-sort-by="id"
+                                                                    data-sort-type="#">
+                                                                    <button class="btn-sort text-13" type="submit">
+                                                                        Tên sản phẩm
+                                                                    </button>
+                                                                </a>
+                                                                <div class="icon" id="icon-id"></div>
+                                                            </span>
+                                                        </th>
+                                                        <th scope="col" class="height-52">
+                                                            <span class="d-flex">
+                                                                <a href="#" class="sort-link" data-sort-by="id"
+                                                                    data-sort-type="#">
+                                                                    <button class="btn-sort text-13" type="submit">
+                                                                        Khách hàng
+                                                                    </button>
+                                                                </a>
+                                                                <div class="icon" id="icon-id"></div>
+                                                            </span>
+                                                        </th>
+                                                        <th scope="col" class="height-52">
+                                                            <span class="d-flex">
+                                                                <a href="#" class="sort-link" data-sort-by="id"
+                                                                    data-sort-type="#">
+                                                                    <button class="btn-sort text-13" type="submit">
+                                                                        Giá bán
+                                                                    </button>
+                                                                </a>
+                                                                <div class="icon" id="icon-id"></div>
+                                                            </span>
+                                                        </th>
+                                                        <th scope="col" class="height-52">
+                                                            <span class="d-flex">
+                                                                <a href="#" class="sort-link" data-sort-by="id"
+                                                                    data-sort-type="#">
+                                                                    <button class="btn-sort text-13" type="submit">
+                                                                        Thuế
+                                                                    </button>
+                                                                </a>
+                                                                <div class="icon" id="icon-id"></div>
+                                                            </span>
+                                                        </th>
+                                                        <th scope="col" class="height-52">
+                                                            <span class="d-flex">
+                                                                <a href="#" class="sort-link" data-sort-by="id"
+                                                                    data-sort-type="#">
+                                                                    <button class="btn-sort text-13" type="submit">
+                                                                        Ngày bán
+                                                                    </button>
+                                                                </a>
+                                                                <div class="icon" id="icon-id"></div>
+                                                            </span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
         </div>
     </div>
 </form>

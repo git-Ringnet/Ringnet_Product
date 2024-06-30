@@ -3,10 +3,10 @@
     @csrf
     @method('PUT')
     <div class="content-wrapper m-0">
-        <div class="content-header-fixed p-0 margin-250">
-            <div class="content__header--inner margin-left32">
+        <div class="content-header-fixed p-0">
+            <div class="content__header--inner">
                 <div class="content__heading--left text-long-special">
-                    <span>
+                    <span class="ml-4">
                         Thiết lập ban đầu
                     </span>
                     <span>
@@ -60,8 +60,8 @@
                 </div>
             </div>
         </div>
-        <div class="content editgroup" style="margin-top:3.8rem">
-            <section class="margin-250">
+        <div class="content editgroup" style="margin-top:10rem">
+            <section class="">
                 <div id="info" class="content tab-pane in active">
                     <section class="content">
                         <div class="container-fluided">

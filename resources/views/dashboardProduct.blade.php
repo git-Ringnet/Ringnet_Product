@@ -1,14 +1,14 @@
 <x-navbar :title="$title" activeName="dashboardProduct" :workspacename="$workspacename"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
-    <div class="content-header-fixed p-0 margin-250">
-        <div class="content__header--inner margin-left32">
+    <div class="content-header-fixed1 p-0">
+        <div class="content__header--inner">
             <div class="content__heading--left">
-                <span>Dashboard</span>
+                <span class="ml-4">Dashboard</span>
             </div>
         </div>
     </div>
     <div class="content margin-top-67 overflow-auto" style="scrollbar-width: none;">
-        <section class="content margin-250">
+        <section class="content">
             <div class="container-fluided">
                 {{-- Sản phẩm bán chạy và hoạt động bán hàng --}}
                 <div class="row">

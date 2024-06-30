@@ -139,7 +139,7 @@ li {
 /* Container - content - title */
 .content-title--fixed {
     position: fixed;
-    left: 250px;
+    left: 0px;
     top: 61px;
     right: 310px;
     background-color: #ffff;
@@ -157,6 +157,7 @@ li {
     overflow-x: auto;
     scrollbar-width: thin;
     max-height: calc(100vh - 124px);
+    z-index: 9;
 }
 
 .outer th {
@@ -172,6 +173,7 @@ li {
     overflow-x: auto;
     scrollbar-width: thin;
     max-height: calc(100vh - 180px);
+    z-index: 9;
 }
 
 .outer2 th {
@@ -187,6 +189,7 @@ li {
     overflow-x: auto;
     scrollbar-width: thin;
     max-height: calc(100vh - 125px);
+    z-index: 9;
 }
 
 .outerImport th {
@@ -203,6 +206,7 @@ li {
     max-height: 200px !important;
     height: auto;
     scrollbar-color: #999999 #f0f0f0;
+    z-index: 9;
 }
 
 /* ----------------------------------- */
@@ -459,7 +463,14 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
         top: 0;
         left: 0;
         right: 0;
-        margin-left: 32px;
+        background-color: white;
+        z-index: 100;
+    }
+    .content-header-fixed1 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
         background-color: white;
         z-index: 100;
     }
@@ -492,9 +503,8 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
 
 .content-filter-all {
     position: fixed;
-    top: 61px;
-    padding-left: 250px;
-    z-index: 1000;
+    top: 160px;
+    z-index: 99;
     width: 100%;
 }
 .has-filters {
@@ -879,10 +889,20 @@ td p {
 
 .content-header-fixed {
     position: fixed;
-    top: 0;
+    top: 100px;
     left: 0;
     right: 0;
-    z-index: 100;
+    z-index: 99;
+    border-bottom: 1px solid #dfe1e4;
+    background-color: white;
+}
+
+.content-header-fixed1 {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    z-index: 99;
     border-bottom: 1px solid #dfe1e4;
     background-color: white;
 }
@@ -2472,7 +2492,7 @@ input[type="checkbox"]:checked {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 61px;
+    top: 160px;
     right: 0;
     background-color: #ffff;
     transition: 0.5s;
@@ -2528,9 +2548,10 @@ input[type="checkbox"]:checked {
 }
 
 .list-guest {
-    top: 0;
-    right: 320px;
+    top: 45px;
+    right: 0;
     width: 65%;
+    z-index: 99;
 }
 
 .list-guest--special {
@@ -2631,7 +2652,7 @@ input[type="checkbox"]:checked {
 
 /* MARGIN-TOPP */
 .margin-top-38 {
-    margin-top: 3.8rem;
+    margin-top: 9.8rem;
 }
 
 .margin-top-68 {
@@ -2639,11 +2660,11 @@ input[type="checkbox"]:checked {
 }
 
 .margin-top-67 {
-    margin-top: 6.7rem;
+    margin-top: 8.7rem;
 }
 
 .margin-top-75 {
-    margin-top: 6.5rem;
+    margin-top: 9.7rem;
 }
 
 .margin-top-72 {
@@ -2663,7 +2684,7 @@ input[type="checkbox"]:checked {
 }
 
 .margin-top-103 {
-    margin-top: 10.3rem;
+    margin-top: 17.2rem;
 }
 
 .margin-top-fixed10 {
@@ -2727,8 +2748,8 @@ input[type="checkbox"]:checked {
 .dropdown-content {
     display: none;
     position: fixed;
-    top: 75px;
-    left: 255px;
+    top: 40px;
+    right: 10px;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -2827,4 +2848,42 @@ input[type="checkbox"]:checked {
 }
 .bg-blue-light{
     background-color: #F0F4FF;
+}
+
+.header-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    border-bottom: 1px solid #dfe1e4;
+    background-color: white;
+    z-index: 999;
+}
+
+.header-fixed .active {
+    background-color: #f0f3f9 !important;
+}
+
+.margin-top-127{
+    margin-top: 12.7rem;
+}
+
+.margin-top-117{
+    margin-top: 11.7rem;
+}
+
+.height-44{
+    height: 44px;
+}
+
+.menu{
+    z-index: 999;
+}
+
+.outer-4{
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    max-height: calc(75vh - 125px);
 }

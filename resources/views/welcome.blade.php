@@ -1,7 +1,7 @@
 <x-navbar></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
-    <div class="content-header-fixed border-0 p-0 margin-250">
-        <div class="content__header--inner margin-left32">
+    <div class="content-header-fixed border-0 p-0">
+        <div class="content__header--inner">
 
         </div>
         <div class="container">

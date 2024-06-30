@@ -1,9 +1,9 @@
 <x-navbar :title="$title" activeGroup="systemFirst" activeName="product"></x-navbar>
-<div class="content-wrapper min-height--none" style="background: none;">
-    <div class="content-header-fixed p-0 margin-250 border-bottom-0">
-        <div class="content__header--inner margin-left32">
+<div class="min-height--none pr-2" style="min-height: 0 !important;">
+    <div class="content-header-fixed p-0 border-bottom-0">
+        <div class="content__header--inner">
             <div class="content__heading--left">
-                <span>Thiết lập ban đầu</span>
+                <span class="ml-4">Thiết lập ban đầu</span>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                         fill="none">
@@ -106,7 +106,7 @@
             </ul>
         </section>
     </div>
-    <div class="tab-content editGuest" style="margin-top: 7.5rem;">
+    <div class="tab-content editGuest" style="margin-top: 13.5rem;">
         <div id="info" class="content tab-pane in active">
             <section class="content">
                 <div class="container-fluided">
@@ -412,7 +412,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div
-                                class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed margin-250">
+                                class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed">
                                 <form class="w-100" action="" method="get" id="search-filter">
                                     <div class="row mr-0">
                                         <div class="col-md-5 d-flex">
@@ -633,7 +633,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div
-                                class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed margin-250">
+                                class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed">
                                 <form class="w-100" action="" method="get" id="search-filter">
                                     <div class="row mr-0 w-100">
                                         <div class="col-md-5 d-flex">
