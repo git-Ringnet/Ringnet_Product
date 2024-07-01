@@ -96,8 +96,11 @@ class ChangeWarehouseController extends Controller
         if ($changeWarehouse) {
             $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
             $workspacename = $workspacename->workspace_name;
+            $listDetail = ChangeWarehouse::where('workspace_id', Auth::user()->current_workspace)
+                ->orderBy('id', 'desc')
+                ->get();
             $title = "Chỉnh sửa phiếu chuyển kho";
-            return view('tables.abc.changeWarehouse.edit', compact('title', 'workspacename', 'changeWarehouse'));
+            return view('tables.abc.changeWarehouse.edit', compact('title', 'workspacename', 'changeWarehouse', 'listDetail'));
         }
     }
 

@@ -1528,7 +1528,7 @@ input[type="number"] {
 
 .info-chung--heading {
     margin: 0;
-    padding: 15px 0 15px 32px;
+    padding: 15px 0 15px 0;
     font-size: 16px;
     color: #5c5e64;
     background-color: #f3f5f7;
@@ -2492,7 +2492,7 @@ input[type="checkbox"]:checked {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 160px;
+    top: 0;
     right: 0;
     background-color: #ffff;
     transition: 0.5s;
@@ -2511,7 +2511,6 @@ input[type="checkbox"]:checked {
 
 #main {
     transition: margin-right 0.5s;
-    padding: 16px;
     margin-right: 310px;
 }
 

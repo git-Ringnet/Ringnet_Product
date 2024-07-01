@@ -129,7 +129,8 @@ class ReturnExportController extends Controller
 
         // dd($serinumber);
         $invoice = $this->returnExport->getQuoteCount();
-        return view('tables.returnexport.show', compact('title', 'serinumber', 'invoice', 'returnExport', 'guest', 'numberQuote', 'product', 'workspacename'));
+        $listDetail = ReturnExport::where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('tables.returnexport.show', compact('title', 'serinumber', 'invoice', 'returnExport', 'guest', 'numberQuote', 'product', 'workspacename', 'listDetail'));
     }
 
     /**

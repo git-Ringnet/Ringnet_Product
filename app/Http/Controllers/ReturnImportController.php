@@ -45,9 +45,9 @@ class ReturnImportController extends Controller
     public function create()
     {
         $listDetail = Receive_bill::where('receive_bill.workspace_id', Auth::user()->current_workspace)
-        ->where('receive_bill.detailimport_id','!=',0)
-        ->where('receive_bill.status', 2)->get();
-        
+            ->where('receive_bill.detailimport_id', '!=', 0)
+            ->where('receive_bill.status', 2)->get();
+
         // ->leftJoin('returnimport','returnimport.receive_id','receive_bill.id')
         // ->leftJoin('returnproduct','returnproduct.returnImport_id','returnimport.id')
         // ->leftJoin('quoteimport','quoteimport.receive_id','receive_bill.id')
@@ -62,7 +62,7 @@ class ReturnImportController extends Controller
         $workspacename = $workspacename->workspace_name;
         // dd($listDetail);
         $returnCode = $this->returnImport->getQuoteCount();
-        return view('tables.returnImport.create', compact('listDetail', 'title', 'workspacename','returnCode'));
+        return view('tables.returnImport.create', compact('listDetail', 'title', 'workspacename', 'returnCode'));
     }
 
     /**
@@ -107,15 +107,16 @@ class ReturnImportController extends Controller
         if ($returnImport) {
             $product = ReturnProduct::leftJoin('quoteimport', 'quoteimport.id', 'returnproduct.quoteimport_id')
                 ->leftJoin('products', 'products.id', 'quoteimport.product_id')
-                ->leftJoin('warehouse','warehouse.id','quoteimport.warehouse_id')
+                ->leftJoin('warehouse', 'warehouse.id', 'quoteimport.warehouse_id')
                 ->where('returnproduct.returnImport_id', $returnImport->id)
-                ->select('quoteimport.*', 'returnproduct.*', 'products.check_seri','warehouse.warehouse_name as nameWarehouse')
+                ->select('quoteimport.*', 'returnproduct.*', 'products.check_seri', 'warehouse.warehouse_name as nameWarehouse')
                 ->get();
 
-                $detail = $returnImport->getReceive;
-                $detail = $detail->getQuotation;
+            $detail = $returnImport->getReceive;
+            $detail = $detail->getQuotation;
         }
-        return view('tables.returnImport.edit', compact('returnImport', 'title', 'workspacename', 'product','detail'));
+        $listDetail = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('tables.returnImport.edit', compact('returnImport', 'title', 'workspacename', 'product', 'detail', 'listDetail'));
     }
 
     /**
@@ -168,9 +169,9 @@ class ReturnImportController extends Controller
                     ->sum('qty');
                 array_push($qty, $productImport);
             }
-            $detail = DetailImport::where('id',$quoteImport[0]->detailimport_id)->first();
+            $detail = DetailImport::where('id', $quoteImport[0]->detailimport_id)->first();
         }
-      
+
         $data['warehouse'] = $warehouse;
         $data['qty'] = $qty;
         $data['product'] = $quoteImport;

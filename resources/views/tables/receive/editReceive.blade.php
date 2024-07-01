@@ -149,449 +149,465 @@
         </div>
 
         <div class="content margin-top-127">
-            <div class="container-fluided">
-                <div class="content">
-                    <div class="border top-109">
-                        <div id="show_info_Guest">
+            {{-- View mini --}}
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PNK'" />
+            <div id="main">
+                <div class="container-fluided">
+                    <div class="content">
+                        <div class="border top-109">
+                            <div id="show_info_Guest">
+                                <div class="bg-filter-search text-center">
+                                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                        THÔNG TIN NHÀ CUNG CẤP
+                                    </p>
+                                </div>
+                                <div class="d-flex w-100">
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 btn-click" style="flex: 1.5;">Đặt hàng NCC
+                                        </span>
+                                        <span class="mx-1 text-13" style="flex: 2;">
+                                            <input type="text" placeholder="Chọn thông tin"
+                                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest "
+                                                id="search_quotation"
+                                                style="background-color:#F0F4FF; border-radius:4px;"
+                                                name="quotation_number" autocomplete="off" required
+                                                value="@if ($receive->getQuotation) {{ $receive->getQuotation->quotation_number }}@else{{ $receive->id }} @endif"
+                                                readonly>
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung
+                                            cấp</span>
+                                        <input type="text"
+                                            class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                            style="flex:2;" readonly placeholder="Chọn thông tin" id="provide_name"
+                                            {{-- value="{{ $receive->getNameProvide->provide_name_display }}"  --}}
+                                            @if ($receive->detailimport_id == 0) @if ($receive->getNameProvide)
+                                            value="{{ $receive->getNameProvide->provide_name_display }}" @endif
+                                        @else
+                                            @if ($receive->getQuotation) value="{{ $receive->getQuotation->provide_name }}" @endif
+                                            @endif>
+                                    </div>
+                                </div>
+                                <div class="d-flex w-100">
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
+                                            diện</span>
+                                        <input type="text"
+                                            class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                            style="flex:2;" id="represent" placeholder="Chọn thông tin" readonly
+                                            @if ($nameRepresent) value="{{ $nameRepresent }}" @endif />
+                                    </div>
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận
+                                            hàng</span>
+                                        <input type="text" placeholder="Chọn thông tin" name="delivery_code"
+                                            readonly
+                                            class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                            style="flex:2; background-color:#F0F4FF; border-radius:4px;"
+                                            value="{{ $receive->delivery_code }}" />
+                                    </div>
+                                </div>
+                                <div class="d-flex w-100">
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận
+                                            chuyển</span>
+                                        <input type="text" placeholder="Chọn thông tin"
+                                            class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                            style="flex:2; background-color:#F0F4FF; border-radius:4px;"
+                                            name="shipping_unit" value="{{ $receive->shipping_unit }}"
+                                            @if ($receive->status == 2) readonly @endif />
+                                    </div>
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận
+                                            chuyển</span>
+                                        <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
+                                            class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                            style="flex:2; background-color:#F0F4FF; border-radius:4px;"
+                                            value="{{ number_format($receive->delivery_charges) }}"
+                                            @if ($receive->status == 2) readonly @endif>
+                                    </div>
+                                </div>
+                                <div class="d-flex w-100">
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận
+                                            hàng</span>
+                                        <input type="text" placeholder="Nhập thông tin"
+                                            class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
+                                            style="flex:2;" id="datePicker"
+                                            value="{{ date_format(new DateTime($receive->created_at), 'd/m/Y') }}"
+                                            @if ($receive->status == 2) readonly @endif>
+                                        <input type="hidden" name="received_date" id="hiddenDateInput"
+                                            value="{{ $receive->created_at->toDateString() }}">
+                                    </div>
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    </div>
+                                </div>
+                            </div>
+                            </section>
+                        </div>
+                    </div>
+                    <x-formmodalseri :product="$product" :receive="$receive"></x-formmodalseri>
+                    <div class="tab-content">
+                        <div id="info" class="content tab-pane in active">
                             <div class="bg-filter-search text-center">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">
-                                    THÔNG TIN NHÀ CUNG CẤP
+                                    THÔNG TIN SẢN PHẨM
                                 </p>
                             </div>
-                            <div class="d-flex w-100">
-                                <div
-                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 btn-click" style="flex: 1.5;">Đặt hàng NCC
-                                    </span>
-                                    <span class="mx-1 text-13" style="flex: 2;">
-                                        <input type="text" placeholder="Chọn thông tin"
-                                            class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest "
-                                            id="search_quotation" style="background-color:#F0F4FF; border-radius:4px;"
-                                            name="quotation_number" autocomplete="off" required
-                                            value="@if ($receive->getQuotation) {{ $receive->getQuotation->quotation_number }}@else{{ $receive->id }} @endif"
-                                            readonly>
-                                    </span>
-                                </div>
-                                <div
-                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung
-                                        cấp</span>
-                                    <input type="text"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                        style="flex:2;" readonly placeholder="Chọn thông tin" id="provide_name"
-                                        {{-- value="{{ $receive->getNameProvide->provide_name_display }}"  --}}
-                                        @if ($receive->detailimport_id == 0) @if ($receive->getNameProvide)
-                                            value="{{ $receive->getNameProvide->provide_name_display }}" @endif
-                                    @else
-                                        @if ($receive->getQuotation) value="{{ $receive->getQuotation->provide_name }}" @endif
-                                        @endif>
-                                </div>
-                            </div>
-                            <div class="d-flex w-100">
-                                <div
-                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
-                                        diện</span>
-                                    <input type="text"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                        style="flex:2;" id="represent" placeholder="Chọn thông tin" readonly
-                                        @if ($nameRepresent) value="{{ $nameRepresent }}" @endif />
-                                </div>
-                                <div
-                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận
-                                        hàng</span>
-                                    <input type="text" placeholder="Chọn thông tin" name="delivery_code" readonly
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                        style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                        value="{{ $receive->delivery_code }}" />
-                                </div>
-                            </div>
-                            <div class="d-flex w-100">
-                                <div
-                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận
-                                        chuyển</span>
-                                    <input type="text" placeholder="Chọn thông tin"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                        style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                        name="shipping_unit" value="{{ $receive->shipping_unit }}"
-                                        @if ($receive->status == 2) readonly @endif />
-                                </div>
-                                <div
-                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận
-                                        chuyển</span>
-                                    <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                        style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                        value="{{ number_format($receive->delivery_charges) }}"
-                                        @if ($receive->status == 2) readonly @endif>
-                                </div>
-                            </div>
-                            <div class="d-flex w-100">
-                                <div
-                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận
-                                        hàng</span>
-                                    <input type="text" placeholder="Nhập thông tin"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
-                                        style="flex:2;" id="datePicker"
-                                        value="{{ date_format(new DateTime($receive->created_at), 'd/m/Y') }}"
-                                        @if ($receive->status == 2) readonly @endif>
-                                    <input type="hidden" name="received_date" id="hiddenDateInput"
-                                        value="{{ $receive->created_at->toDateString() }}">
-                                </div>
-                                <div
-                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                </div>
-                            </div>
-                        </div>
-                        </section>
-                    </div>
-                </div>
-                <x-formmodalseri :product="$product" :receive="$receive"></x-formmodalseri>
-                <div class="tab-content">
-                    <div id="info" class="content tab-pane in active">
-                        <div class="bg-filter-search text-center">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">
-                                THÔNG TIN SẢN PHẨM
-                            </p>
-                        </div>
-                        <section class="content">
-                            <div class="content-info position-relative table-responsive text-nowrap">
-                                <table id="inputcontent" class="table table-hover bg-white rounded">
-                                    <thead>
-                                        <tr style="height:48px;">
-                                            <th class="border-right border-bottom d-none"
-                                                style="width: 15%;padding-left:2rem;">
-                                                <span class="text-table text-secondary">Mã sản phẩm</span>
-                                            </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="created_at"
-                                                        data-sort-type="">
-                                                        <button class="btn-sort text-13" type="submit">Tên sản
-                                                            phẩm</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-created_at"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="created_at"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Đơn vị</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-created_at"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Số lượng</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-right border-bottom d-none">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Đơn giá</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-right border-bottom d-none">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">KM</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-right border-bottom d-none">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Thuế</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-right border-bottom d-none">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Thành tiền</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Kho hàng</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-right border-bottom d-none">
-                                                <span class="d-flex justify-content-center">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Quản lý SN</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-right border-bottom d-none">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Bảo hành</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Ghi chú</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-bottom d-none"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $st = 0; ?>
-                                        @foreach ($product as $item)
-                                            <tr class="bg-white" style="height:80px;">
-                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none"
-                                                    style="width:5%;padding-left: 2rem !important;">
-                                                    <input readonly type="text" name="product_code[]"
-                                                        id="" class="border-0 py-1 w-75 searchProduct"
-                                                        value="{{ $item->product_code }}">
-                                                </td>
-                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right"
-                                                    style="width:15%">
-                                                    <div class="d-flex align-items-center">
-                                                        <input type="text"
-                                                            class="searchProductName w-100 border-0 px-2 py-1"
-                                                            name="product_name[]" value="{{ $item->product_name }}"
-                                                            readonly>
-                                                        <div class='info-product' data-toggle='modal'
-                                                            data-target='#productModal'>
-                                                            <svg xmlns='http://www.w3.org/2000/svg' width='14'
-                                                                height='14' viewBox='0 0 14 14' fill='none'>
-                                                                <g clip-path='url(#clip0_2559_39956)'>
-                                                                    <path
-                                                                        d='M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z'
-                                                                        fill='#282A30' />
-                                                                    <path
-                                                                        d='M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z'
-                                                                        fill='#282A30' />
-                                                                    <path
-                                                                        d='M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z'
-                                                                        fill='#282A30' />
-                                                                </g>
-                                                                <defs>
-                                                                    <clipPath id='clip0_2559_39956'>
-                                                                        <rect width='14' height='14'
-                                                                            fill='white' />
-                                                                    </clipPath>
-                                                                </defs>
-                                                            </svg>
+                            <section class="content">
+                                <div class="content-info position-relative table-responsive text-nowrap">
+                                    <table id="inputcontent" class="table table-hover bg-white rounded">
+                                        <thead>
+                                            <tr style="height:48px;">
+                                                <th class="border-right border-bottom d-none"
+                                                    style="width: 15%;padding-left:2rem;">
+                                                    <span class="text-table text-secondary">Mã sản phẩm</span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="created_at"
+                                                            data-sort-type="">
+                                                            <button class="btn-sort text-13" type="submit">Tên sản
+                                                                phẩm</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-created_at"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="created_at"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Đơn vị</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-created_at"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom">
+                                                    <span class="d-flex justify-content-end">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Số lượng</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom d-none">
+                                                    <span class="d-flex justify-content-end">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Đơn giá</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom d-none">
+                                                    <span class="d-flex justify-content-end">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">KM</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom d-none">
+                                                    <span class="d-flex justify-content-end">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Thuế</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom d-none">
+                                                    <span class="d-flex justify-content-end">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Thành tiền</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom">
+                                                    <span class="d-flex justify-content-start">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Kho hàng</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom d-none">
+                                                    <span class="d-flex justify-content-center">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Quản lý SN</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom d-none">
+                                                    <span class="d-flex justify-content-start">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Bảo hành</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Ghi chú</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-bottom d-none"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $st = 0; ?>
+                                            @foreach ($product as $item)
+                                                <tr class="bg-white" style="height:80px;">
+                                                    <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none"
+                                                        style="width:5%;padding-left: 2rem !important;">
+                                                        <input readonly type="text" name="product_code[]"
+                                                            id="" class="border-0 py-1 w-75 searchProduct"
+                                                            value="{{ $item->product_code }}">
+                                                    </td>
+                                                    <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right"
+                                                        style="width:15%">
+                                                        <div class="d-flex align-items-center">
+                                                            <input type="text"
+                                                                class="searchProductName w-100 border-0 px-2 py-1"
+                                                                name="product_name[]"
+                                                                value="{{ $item->product_name }}" readonly>
+                                                            <div class='info-product' data-toggle='modal'
+                                                                data-target='#productModal'>
+                                                                <svg xmlns='http://www.w3.org/2000/svg' width='14'
+                                                                    height='14' viewBox='0 0 14 14'
+                                                                    fill='none'>
+                                                                    <g clip-path='url(#clip0_2559_39956)'>
+                                                                        <path
+                                                                            d='M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z'
+                                                                            fill='#282A30' />
+                                                                        <path
+                                                                            d='M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z'
+                                                                            fill='#282A30' />
+                                                                        <path
+                                                                            d='M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z'
+                                                                            fill='#282A30' />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id='clip0_2559_39956'>
+                                                                            <rect width='14' height='14'
+                                                                                fill='white' />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
-                                                    <input type="text" autocomplete="off" readonly
-                                                        value="{{ $item->product_unit }}"
-                                                        class="border-0 px-2 py-1 w-100 product_unit"
-                                                        name="product_unit[]">
-                                                </td>
+                                                    </td>
+                                                    <td
+                                                        class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                        <input type="text" autocomplete="off" readonly
+                                                            value="{{ $item->product_unit }}"
+                                                            class="border-0 px-2 py-1 w-100 product_unit"
+                                                            name="product_unit[]">
+                                                    </td>
 
-                                                <td
-                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
-                                                    <div>
-                                                        <input @if ($receive->status == 2) readonly @endif
-                                                            type="text"
-                                                            class="border-0 px-2 py-1 w-100 quantity-input text-right"
-                                                            name="product_qty[]" {{-- oninput="checkQty(this,{{ $item->product_qty }})"  --}} readonly
-                                                            value="{{ number_format($item->product_qty) }}">
-                                                        <div class="mt-3 text-13-blue inventory text-right"
-                                                            tyle="top: 68%;">Tồn kho:
-                                                            <span class="pl-1 soTonKho">
-                                                                {{ number_format($item->inventory) }}
-                                                            </span>
+                                                    <td
+                                                        class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                        <div>
+                                                            <input @if ($receive->status == 2) readonly @endif
+                                                                type="text"
+                                                                class="border-0 px-2 py-1 w-100 quantity-input text-right"
+                                                                name="product_qty[]" {{-- oninput="checkQty(this,{{ $item->product_qty }})"  --}} readonly
+                                                                value="{{ number_format($item->product_qty) }}">
+                                                            <div class="mt-3 text-13-blue inventory text-right"
+                                                                tyle="top: 68%;">Tồn kho:
+                                                                <span class="pl-1 soTonKho">
+                                                                    {{ number_format($item->inventory) }}
+                                                                </span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
-                                                    <div>
-                                                        <input type="text" required=""
-                                                            class="border-0 px-2 py-1 w-100 price_export text-right height-32"
-                                                            name="price_export[]"
-                                                            value="{{ number_format($item->price_export) }}" readonly>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
-                                                    @php
-                                                        $promotionArray = json_decode($item->promotion, true);
-                                                        $promotionValue = isset($promotionArray['value'])
-                                                            ? $promotionArray['value']
-                                                            : 0;
-                                                        $promotionOption = isset($promotionArray['type'])
-                                                            ? $promotionArray['type']
-                                                        : ''; @endphp
-                                                    <div>
-                                                        <input type="text"
-                                                            class="border-0 px-2 py-1 w-100 text-right height-32 promotion"
-                                                            name="promotion[]"
-                                                            value="{{ number_format($promotionValue) }}" readonly>
-                                                    </div>
-                                                    <div class="mt-3 text-13-blue text-right">
-                                                        <select class="border-0 promotion-option"
-                                                            name="promotion-option[]" disabled>
-                                                            <option value="1"
-                                                                @if ($promotionOption == 1) selected @endif>Nhập
-                                                                tiền </option>
-                                                            <option value="2"
-                                                                @if ($promotionOption == 2) selected @endif>Nhập
-                                                                %
+                                                    </td>
+                                                    <td
+                                                        class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
+                                                        <div>
+                                                            <input type="text" required=""
+                                                                class="border-0 px-2 py-1 w-100 price_export text-right height-32"
+                                                                name="price_export[]"
+                                                                value="{{ number_format($item->price_export) }}"
+                                                                readonly>
+                                                        </div>
+                                                    </td>
+                                                    <td
+                                                        class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
+                                                        @php
+                                                            $promotionArray = json_decode($item->promotion, true);
+                                                            $promotionValue = isset($promotionArray['value'])
+                                                                ? $promotionArray['value']
+                                                                : 0;
+                                                            $promotionOption = isset($promotionArray['type'])
+                                                                ? $promotionArray['type']
+                                                            : ''; @endphp
+                                                        <div>
+                                                            <input type="text"
+                                                                class="border-0 px-2 py-1 w-100 text-right height-32 promotion"
+                                                                name="promotion[]"
+                                                                value="{{ number_format($promotionValue) }}" readonly>
+                                                        </div>
+                                                        <div class="mt-3 text-13-blue text-right">
+                                                            <select class="border-0 promotion-option"
+                                                                name="promotion-option[]" disabled>
+                                                                <option value="1"
+                                                                    @if ($promotionOption == 1) selected @endif>
+                                                                    Nhập
+                                                                    tiền </option>
+                                                                <option value="2"
+                                                                    @if ($promotionOption == 2) selected @endif>
+                                                                    Nhập
+                                                                    %
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    <td
+                                                        class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
+                                                        <select
+                                                            class="product_tax border-0 w-100 text-center height-32"
+                                                            name="product_tax[]" disabled>
+                                                            <option value="0"
+                                                                @if ($item->product_tax == 0) selected @endif>0%
+                                                            </option>
+                                                            <option value="8"
+                                                                @if ($item->product_tax == 8) selected @endif>8%
+                                                            </option>
+                                                            <option value="10"
+                                                                @if ($item->product_tax == 10) selected @endif>10%
+                                                            </option>
+                                                            <option value="99"
+                                                                @if ($item->product_tax == 99) selected @endif>
+                                                                NOVAT
                                                             </option>
                                                         </select>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
-                                                    <select class="product_tax border-0 w-100 text-center height-32"
-                                                        name="product_tax[]" disabled>
-                                                        <option value="0"
-                                                            @if ($item->product_tax == 0) selected @endif>0%
-                                                        </option>
-                                                        <option value="8"
-                                                            @if ($item->product_tax == 8) selected @endif>8%
-                                                        </option>
-                                                        <option value="10"
-                                                            @if ($item->product_tax == 10) selected @endif>10%
-                                                        </option>
-                                                        <option value="99"
-                                                            @if ($item->product_tax == 99) selected @endif>NOVAT
-                                                        </option>
-                                                    </select>
-                                                </td>
-                                                {{-- Tổng tiền --}}
-                                                <td
-                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
-                                                    <input type="text"
-                                                        class="border-0 px-2 py-1 w-100 total_price text-right height-32"
-                                                        readonly="" name="total_price[]"
-                                                        value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($promotionOption == 1 ? $item->product_total - $promotionValue : ($item->product_total * $promotionValue) / 100, 2, '.', ',') : number_format($promotionOption == 1 ? $item->product_total - $promotionValue : ($item->product_total * $promotionValue) / 100) }}">
-                                                </td>
-                                                <td
-                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
-                                                    <input id="searchWarehouse" type="text" placeholder="Chọn kho"
-                                                        class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse"
-                                                        name="warehouse[]" readonly value="{{ $item->nameHouse }}">
-                                                </td>
-                                                <td
-                                                    class="align-top text-center border-top-0 border-bottom border-right d-none">
-                                                    <div style="margin-top: 6px;">
-                                                        <input type="checkbox" name="cbSeri[]" disabled
-                                                            value="{{ $item->cbSN }}" class="mt-1 checkall-btn"
-                                                            @if ($item->cbSN == 1) {{ 'checked' }} @endif>
-
-                                                        @if ($item->cbSN == 1)
-                                                            <a href="" class="duongdan" data-toggle="modal"
-                                                                data-target="#exampleModal{{ $st }}">
-                                                                <div class="sn--modal mt-3">
-                                                                    <span class="border-span--modal">SN</span>
-                                                                </div>
-                                                            </a>
-                                                        @endif
-                                                    </div>
-
-                                                </td>
-                                                <td
-                                                    class="align-top text-center border-top-0 border-bottom border-right d-none">
-                                                    <input class="border-0 px-2 py-1 w-100 price_export"
-                                                        type="text" value="{{ $item->product_guarantee }}"
-                                                        readonly>
-                                                </td>
-                                                <td
-                                                    class="bg-white align-top text-13-black d-none border-top-0 border-bottom border-right d-none">
-                                                    <div>
+                                                    </td>
+                                                    {{-- Tổng tiền --}}
+                                                    <td
+                                                        class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
                                                         <input type="text"
-                                                            class="border-0 px-2 py-1 w-100 price_export text-right"
-                                                            name="price_export[]"
-                                                            value="{{ fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
-                                                            readonly>
-                                                    </div>
-                                                    <div class='mt-3 text-13-blue transaction text-right'>Giao dịch gần
-                                                        đây</div>
-                                                </td>
-                                                <td
-                                                    class="bg-white align-top d-none border-top-0 border-bottom border-right d-none">
-                                                    <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
-                                                        name="product_tax[]" value="{{ $item->product_tax }}"
-                                                        readonly>
-                                                    <select name="product_tax[]"
-                                                        class="border-0 text-center product_tax text-13-black"
-                                                        disabled>
-                                                        <option value="0" <?php if ($item->product_tax == 0) {
-                                                            echo 'selected';
-                                                        } ?>>0%</option>
-                                                        <option value="8" <?php if ($item->product_tax == 8) {
-                                                            echo 'selected';
-                                                        } ?>>8%</option>
-                                                        <option value="10" <?php if ($item->product_tax == 10) {
-                                                            echo 'selected';
-                                                        } ?>>10%</option>
-                                                        <option value="99" <?php if ($item->product_tax == 99) {
-                                                            echo 'selected';
-                                                        } ?>>NOVAT
-                                                        </option>
-                                                    </select>
-                                                </td>
-                                                <input type="hidden" class="product_tax1">
-                                                <td
-                                                    class="text-center bg-white align-top text-13-black border-top-0 border-bottom border-right">
-                                                    <input type="text" class="border-0 py-1 w-100" readonly
-                                                        name="product_note[]" placeholder='Nhập ghi chú'
-                                                        value="{{ $item->product_note }}">
-                                                </td>
-                                                <td
-                                                    class="text-center bg-white align-top text-13-black @if ($receive->status == 3) deleteRow @endif border-top-0 border-bottom d-none">
-                                                    <svg width="17" height="17" viewBox="0 0 17 17"
-                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z"
-                                                            fill="#6B6F76"></path>
-                                                    </svg>
-                                                </td>
-                                            </tr>
-                                            <?php $st++; ?>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
+                                                            class="border-0 px-2 py-1 w-100 total_price text-right height-32"
+                                                            readonly="" name="total_price[]"
+                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($promotionOption == 1 ? $item->product_total - $promotionValue : ($item->product_total * $promotionValue) / 100, 2, '.', ',') : number_format($promotionOption == 1 ? $item->product_total - $promotionValue : ($item->product_total * $promotionValue) / 100) }}">
+                                                    </td>
+                                                    <td
+                                                        class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                        <input id="searchWarehouse" type="text"
+                                                            placeholder="Chọn kho"
+                                                            class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse"
+                                                            name="warehouse[]" readonly
+                                                            value="{{ $item->nameHouse }}">
+                                                    </td>
+                                                    <td
+                                                        class="align-top text-center border-top-0 border-bottom border-right d-none">
+                                                        <div style="margin-top: 6px;">
+                                                            <input type="checkbox" name="cbSeri[]" disabled
+                                                                value="{{ $item->cbSN }}" class="mt-1 checkall-btn"
+                                                                @if ($item->cbSN == 1) {{ 'checked' }} @endif>
 
-                        {{-- <?php $import = $detail; ?>
+                                                            @if ($item->cbSN == 1)
+                                                                <a href="" class="duongdan"
+                                                                    data-toggle="modal"
+                                                                    data-target="#exampleModal{{ $st }}">
+                                                                    <div class="sn--modal mt-3">
+                                                                        <span class="border-span--modal">SN</span>
+                                                                    </div>
+                                                                </a>
+                                                            @endif
+                                                        </div>
+
+                                                    </td>
+                                                    <td
+                                                        class="align-top text-center border-top-0 border-bottom border-right d-none">
+                                                        <input class="border-0 px-2 py-1 w-100 price_export"
+                                                            type="text" value="{{ $item->product_guarantee }}"
+                                                            readonly>
+                                                    </td>
+                                                    <td
+                                                        class="bg-white align-top text-13-black d-none border-top-0 border-bottom border-right d-none">
+                                                        <div>
+                                                            <input type="text"
+                                                                class="border-0 px-2 py-1 w-100 price_export text-right"
+                                                                name="price_export[]"
+                                                                value="{{ fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
+                                                                readonly>
+                                                        </div>
+                                                        <div class='mt-3 text-13-blue transaction text-right'>Giao dịch
+                                                            gần
+                                                            đây</div>
+                                                    </td>
+                                                    <td
+                                                        class="bg-white align-top d-none border-top-0 border-bottom border-right d-none">
+                                                        <input type="text"
+                                                            class="border-0 px-2 py-1 w-100 product_tax"
+                                                            name="product_tax[]" value="{{ $item->product_tax }}"
+                                                            readonly>
+                                                        <select name="product_tax[]"
+                                                            class="border-0 text-center product_tax text-13-black"
+                                                            disabled>
+                                                            <option value="0" <?php if ($item->product_tax == 0) {
+                                                                echo 'selected';
+                                                            } ?>>0%</option>
+                                                            <option value="8" <?php if ($item->product_tax == 8) {
+                                                                echo 'selected';
+                                                            } ?>>8%</option>
+                                                            <option value="10" <?php if ($item->product_tax == 10) {
+                                                                echo 'selected';
+                                                            } ?>>10%</option>
+                                                            <option value="99" <?php if ($item->product_tax == 99) {
+                                                                echo 'selected';
+                                                            } ?>>NOVAT
+                                                            </option>
+                                                        </select>
+                                                    </td>
+                                                    <input type="hidden" class="product_tax1">
+                                                    <td
+                                                        class="text-center bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                        <input type="text" class="border-0 py-1 w-100" readonly
+                                                            name="product_note[]" placeholder='Nhập ghi chú'
+                                                            value="{{ $item->product_note }}">
+                                                    </td>
+                                                    <td
+                                                        class="text-center bg-white align-top text-13-black @if ($receive->status == 3) deleteRow @endif border-top-0 border-bottom d-none">
+                                                        <svg width="17" height="17" viewBox="0 0 17 17"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z"
+                                                                fill="#6B6F76"></path>
+                                                        </svg>
+                                                    </td>
+                                                </tr>
+                                                <?php $st++; ?>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+
+                            {{-- <?php $import = $detail; ?>
                         <x-formsynthetic :import="$receive"></x-formsynthetic> --}}
-                    </div>
+                        </div>
 </form>
 <div id="files" class="tab-pane fade">
     <div class="bg-filter-search text-center">
@@ -600,6 +616,7 @@
         </p>
     </div>
     <x-form-attachment :value="$receive" name="DNH"></x-form-attachment>
+</div>
 </div>
 </div>
 </div>

@@ -3,7 +3,7 @@
     method="POST" id="formSubmit" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    <div class="content-wrapper m-0 min-height--none">
+    <div class="content-wrapper m-0 min-height--none p-0">
         <!-- Content Header (Page header) -->
         <div class="content-header-fixed p-0">
             <div class="content__header--inner">
@@ -48,97 +48,113 @@
                             </svg>
                             <span class="text-btnIner-primary ml-2">Xác nhận chuyển tiền</span>
                         </button>
+
+                        <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)"
+                                    fill="#ECEEFA"></rect>
+                                <path
+                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
+                                    fill="#26273B" fill-opacity="0.8"></path>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="content" style="margin-top:10rem;">
-            <section class="content">
-                <div class="container-fluided">
-                    <div class="bg-filter-search border-top-0 text-left border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN CHUNG</p>
-                    </div>
-                    <div class="info-chung">
-                        <div class="content-info">
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Ngày lập</p>
+            {{-- View mini --}}
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'CTNB'" />
+            <div id="main">
+                <section class="content">
+                    <div class="container-fluided">
+                        <div class="bg-filter-search border-top-0 text-left border-custom">
+                            <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN CHUNG</p>
+                        </div>
+                        <div class="info-chung">
+                            <div class="content-info">
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0  margin-left32 text-13">Ngày lập</p>
+                                    </div>
+                                    <input
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        name="" placeholder="Chọn thông tin" id="datePicker"
+                                        value="{{ date_format(new DateTime($content->payment_day), 'd/m/Y') }}" />
+                                    <input type="hidden" name="payment_day" id="hiddenDateInput"
+                                        value="{{ $content->formatDate($content->payment_day)->format('Y-m-d') }}">
                                 </div>
-                                <input
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    name="" placeholder="Chọn thông tin" id="datePicker"
-                                    value="{{ date_format(new DateTime($content->payment_day), 'd/m/Y') }}" />
-                                <input type="hidden" name="payment_day" id="hiddenDateInput"
-                                    value="{{ $content->formatDate($content->payment_day)->format('Y-m-d') }}">
-                            </div>
 
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Mã phiếu</p>
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0 margin-left32 text-13">Mã phiếu</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="form_code" required
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        value="{{ $content->form_code }}">
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" name="form_code" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    value="{{ $content->form_code }}">
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Người lập</p>
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0 margin-left32 text-13">Người lập</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="content" required
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        value="{{ Auth::user()->name }}" readonly>
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" name="content" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    value="{{ Auth::user()->name }}" readonly>
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                            </div>
 
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Số tiền</p>
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0 margin-left32 text-13">Số tiền</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="qty_money" required
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        value="{{ number_format($content->qty_money) }}">
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" name="qty_money" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    value="{{ number_format($content->qty_money) }}">
-                            </div>
 
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Từ quỹ</p>
-                                </div>
-                                <select name="from_fund" id=""
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100" disabled>
-                                    @foreach ($fund as $va)
-                                        <option value="{{ $va->id }}"
-                                            @if ($content->from_fund_id == $va->id) selected @endif>{{ $va->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                {{-- <input type="text" placeholder="Nhập thông tin" name="content" required
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0 margin-left32 text-13">Từ quỹ</p>
+                                    </div>
+                                    <select name="from_fund" id=""
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        disabled>
+                                        @foreach ($fund as $va)
+                                            <option value="{{ $va->id }}"
+                                                @if ($content->from_fund_id == $va->id) selected @endif>{{ $va->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    {{-- <input type="text" placeholder="Nhập thông tin" name="content" required
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"> --}}
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Đến quỹ</p>
                                 </div>
-                                <select name="to_fund" id=""
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100" disabled>
-                                    @foreach ($fund as $va)
-                                        <option value="{{ $va->id }}"
-                                            @if ($content->to_fund_id == $va->id) selected @endif>{{ $va->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
 
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Ghi chú</p>
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0 margin-left32 text-13">Đến quỹ</p>
+                                    </div>
+                                    <select name="to_fund" id=""
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        disabled>
+                                        @foreach ($fund as $va)
+                                            <option value="{{ $va->id }}"
+                                                @if ($content->to_fund_id == $va->id) selected @endif>{{ $va->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" name="notes" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    value="{{ $content->notes }}">
-                            </div>
 
-                            {{-- <div class="d-flex align-items-center height-60-mobile">
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0 margin-left32 text-13">Ghi chú</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="notes" required
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        value="{{ $content->notes }}">
+                                </div>
+
+                                {{-- <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Chứng từ</p>
                                 </div>
@@ -188,10 +204,11 @@
                                 <input type="hidden" name="date" id="hiddenDateInput"
                                     value="{{ date('Y-m-d') }}">
                             </div> --}}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
     </div>
 

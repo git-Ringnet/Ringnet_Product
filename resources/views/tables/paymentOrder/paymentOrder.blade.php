@@ -335,7 +335,7 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">
-                                                    {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}</td>
+                                                    {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}
                                                 </td>
 
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">

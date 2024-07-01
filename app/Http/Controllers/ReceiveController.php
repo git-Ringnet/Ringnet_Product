@@ -214,6 +214,13 @@ class ReceiveController extends Controller
     public function edit(string $workspace, string $id)
     {
         $receive = Receive_bill::findOrFail($id);
+        $listDetail = Receive_bill::where('receive_bill.workspace_id', Auth::user()->current_workspace)->orderBy('receive_bill.id', 'desc');
+        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+            $listDetail->join('detailimport', 'detailimport.id', 'receive_bill.detailimport_id')
+                ->where('detailimport.user_id', Auth::user()->id);
+        }
+        $listDetail->select('receive_bill.*');
+        $listDetail = $listDetail->get();
         $detail = DetailImport::where('id', $receive->detailimport_id)->first();
         if ($detail) {
             $nameRepresent = $detail->represent_name;
@@ -249,7 +256,7 @@ class ReceiveController extends Controller
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total'),
             )
             ->with('getSerialNumber')->get();
-        return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename', 'nameRepresent', 'detail'));
+        return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename', 'nameRepresent', 'detail', 'listDetail'));
     }
 
     /**

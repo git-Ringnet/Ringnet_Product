@@ -175,6 +175,16 @@
                                 </ul>
                             </div>
                         </div>
+                        <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="16" width="16" height="16" rx="5"
+                                    transform="rotate(90 16 0)" fill="#ECEEFA"></rect>
+                                <path
+                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
+                                    fill="#26273B" fill-opacity="0.8"></path>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -200,6 +210,9 @@
 
         </div>
         <div class="content margin-top-127" style="width: 100%;">
+            {{-- View mini --}}
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PC'" />
+            <div id="main">
             <div class="container-fluided">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
@@ -418,7 +431,6 @@
                         </div> --}}
                         {{-- <x-formsynthetic :import="$import"></x-formsynthetic> --}}
                     </div>
-
                     <div id="history" class="tab-pane fade">
                         <div class="bg-filter-search border-0 text-center">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">
@@ -487,7 +499,7 @@
     </div>
     <x-form-attachment :value="$payment" name="TTMH"></x-form-attachment>
 </div>
-
+</div>
 </div>
 </div>
 </div>

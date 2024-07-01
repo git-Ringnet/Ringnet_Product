@@ -149,8 +149,18 @@ class DetailImportController extends Controller
                 ->get();
             $project = Project::all();
             $history = HistoryImport::where('detailImport_id', $id)->get();
-
-            return view('tables.import.showImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename'));
+            $listDetail = DetailImport::where('workspace_id', Auth::user()->current_workspace)
+                ->orderBy('id', 'desc')->get();
+            return view('tables.import.showImport', compact(
+                'import',
+                'title',
+                'provides',
+                'product',
+                'project',
+                'history',
+                'workspacename',
+                'listDetail',
+            ));
         } else {
             return redirect()->route('import.index', $workspacename)->with('warning', 'Không tìm thấy trang hợp lệ !');
         }
@@ -323,9 +333,9 @@ class DetailImportController extends Controller
                 ->count();
             $lastDetailImport = DetailImport::where('workspace_id', Auth::user()->current_workspace)
 
-            // ->where('provide_id', $provide->id)
+                // ->where('provide_id', $provide->id)
                 ->orderBy('id', 'desc')
-            //     ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
+                //     ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
                 ->first();
 
             if ($lastDetailImport) {
@@ -346,7 +356,7 @@ class DetailImportController extends Controller
 
 
             // $resultNumber = "DDH-" . $provide->key . "-" . $count;
-            $resultNumber = "DDH0" .$count . "-" .  Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmy');
+            $resultNumber = "DDH0" . $count . "-" .  Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmy');
 
             // $resultNumber = ($date == "" ? Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY') : $date) . "/DDH-" . $provide->key . "-" . $count;
             $result = [

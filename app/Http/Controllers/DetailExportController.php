@@ -248,13 +248,24 @@ class DetailExportController extends Controller
         $guest = $this->guest->getAllGuest();
         $product = $this->product->getAllProducts();
         $detailExport = $this->detailExport->getDetailExportToId($id);
+        //danh sách phiếu bán hàng
+        $listDetail = $this->detailExport->getAllDetailExport();
         if (!$detailExport) {
             abort('404');
         }
         $quoteExport = $this->detailExport->getProductToId($id);
         $history = $this->quoteExport->history($id);
         // dd($history);
-        return view('tables.export.quote.see-quote', compact('title', 'history', 'guest', 'product', 'detailExport', 'quoteExport', 'workspacename'));
+        return view('tables.export.quote.see-quote', compact(
+            'title',
+            'history',
+            'guest',
+            'product',
+            'detailExport',
+            'quoteExport',
+            'workspacename',
+            'listDetail',
+        ));
     }
 
     /**

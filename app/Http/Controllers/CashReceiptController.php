@@ -145,7 +145,8 @@ class CashReceiptController extends Controller
 
         $cashReceipt = CashReceipt::with(['guest', 'fund', 'user', 'content', 'workspace', 'delivery'])->findOrFail($id);
         $disabled = ($cashReceipt->status == 2) ? 'disabled' : '';
-        return view('tables.cash_receipts.edit', compact('title', 'invoiceAuto', 'detailOwed', 'guest', 'cashReceipt', 'disabled', 'funds', 'workspacename', 'content'));
+        $listDetail = CashReceipt::with(['guest', 'fund', 'user', 'workspace'])->where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('tables.cash_receipts.edit', compact('title', 'invoiceAuto', 'detailOwed', 'guest', 'cashReceipt', 'disabled', 'funds', 'workspacename', 'content', 'listDetail'));
     }
     public function update(string $workspace, Request $request, string $id)
     {

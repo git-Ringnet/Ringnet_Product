@@ -4,7 +4,7 @@
     method="POST" id="formSubmit" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    <div class="content-wrapper m-0 min-height--none">
+    <div class="content-wrapper m-0 min-height--none p-0">
         <!-- Content Header (Page header) -->
         <div class="content-header-fixed p-0">
             <div class="content__header--inner">
@@ -48,6 +48,17 @@
                             </button>
                         </a>
 
+                        <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)"
+                                    fill="#ECEEFA"></rect>
+                                <path
+                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
+                                    fill="#26273B" fill-opacity="0.8"></path>
+                            </svg>
+                        </button>
+
                         {{-- <button type="submit" class="custom-btn d-flex align-items-center h-100"
                             style="margin-right:10px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
@@ -63,89 +74,93 @@
             </div>
         </div>
         <div class="content" style="margin-top:10rem;">
-            <section class="content">
-                <div class="container-fluided">
-                    <div class="bg-filter-search border-top-0 text-left border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN CHUNG</p>
-                    </div>
-                    <div class="info-chung">
-                        <div class="content-info">
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Kho hàng</p>
-                                </div>
-
-                                <input type="text" placeholder="Nhập thông tin" name="qty" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    @if ($changeWarehouse->getFromWarehouse) value="{{ $changeWarehouse->getFromWarehouse->warehouse_name }}" @endif
-                                    readonly>
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Sản phẩm</p>
-                                </div>
-
-                                <input type="text" placeholder="Nhập thông tin" name="qty" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    value="{{ $changeWarehouse->product_name }}" readonly>
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Số lượng</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="qty" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 change_qty"
-                                    value="{{ number_format($changeWarehouse->qty) }}">
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Đến kho</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="qty" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    @if ($changeWarehouse->getToWarehouse) value="{{ $changeWarehouse->getToWarehouse->warehouse_name }}" @endif
-                                    readonly>
-                            </div>
-
-                            <div class="d-flex align-items-center height-60-mobile SERIALNUMBER"
-                                style="display: none !important">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">SN</p>
-                                </div>
-                                <a href=""
-                                    class="duongdan border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    data-toggle="modal" data-target="#exampleModal0">
-                                    <div class="sn--modal">
-                                        <span class="border-span--modal">SN</span>
+            {{-- View mini --}}
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PCK'" />
+            <div id="main">
+                <section class="content">
+                    <div class="container-fluided">
+                        <div class="bg-filter-search border-top-0 text-left border-custom">
+                            <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN CHUNG</p>
+                        </div>
+                        <div class="info-chung">
+                            <div class="content-info">
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0  margin-left32 text-13">Kho hàng</p>
                                     </div>
-                                </a>
-                            </div>
 
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Ghi chú</p>
+                                    <input type="text" placeholder="Nhập thông tin" name="qty" required
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        @if ($changeWarehouse->getFromWarehouse) value="{{ $changeWarehouse->getFromWarehouse->warehouse_name }}" @endif
+                                        readonly>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" name="note"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    value="{{ $changeWarehouse->note }}">
-                            </div>
 
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Người tạo</p>
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0 margin-left32 text-13">Sản phẩm</p>
+                                    </div>
+
+                                    <input type="text" placeholder="Nhập thông tin" name="qty" required
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        value="{{ $changeWarehouse->product_name }}" readonly>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    value="{{ Auth::user()->name }}" readonly>
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0 margin-left32 text-13">Số lượng</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="qty" required
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 change_qty"
+                                        value="{{ number_format($changeWarehouse->qty) }}">
+                                </div>
+
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0 margin-left32 text-13">Đến kho</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="qty" required
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        @if ($changeWarehouse->getToWarehouse) value="{{ $changeWarehouse->getToWarehouse->warehouse_name }}" @endif
+                                        readonly>
+                                </div>
+
+                                <div class="d-flex align-items-center height-60-mobile SERIALNUMBER"
+                                    style="display: none !important">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0 margin-left32 text-13">SN</p>
+                                    </div>
+                                    <a href=""
+                                        class="duongdan border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        data-toggle="modal" data-target="#exampleModal0">
+                                        <div class="sn--modal">
+                                            <span class="border-span--modal">SN</span>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0 margin-left32 text-13">Ghi chú</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="note"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        value="{{ $changeWarehouse->note }}">
+                                </div>
+
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                        <p class="p-0 m-0 margin-left32 text-13">Người tạo</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        value="{{ Auth::user()->name }}" readonly>
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
     </div>
 

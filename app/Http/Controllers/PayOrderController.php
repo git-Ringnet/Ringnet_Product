@@ -109,7 +109,7 @@ class PayOrderController extends Controller
             ->get();
 
         // $funds = Fund::all();
-        $funds = Fund::where('workspace_id',Auth::user()->current_workspace)->get();
+        $funds = Fund::where('workspace_id', Auth::user()->current_workspace)->get();
 
         $guest = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $content = ContentGroups::where('contenttype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
@@ -233,7 +233,15 @@ class PayOrderController extends Controller
                 ->where('history_payment_order.payment_id', $payment->id)
                 ->select('history_payment_order.*', 'pay_order.payment_code')
                 ->get();
-            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'workspacename', 'nameRepresent'));
+            $listDetail = PayOder::where('pay_order.workspace_id', Auth::user()->current_workspace)->orderBy('pay_order.id', 'desc');
+            if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+                $listDetail->join('detailimport', 'detailimport.id', 'pay_order.detailimport_id')
+                    ->where('detailimport.user_id', Auth::user()->id);
+            }
+            $listDetail->select('pay_order.*');
+
+            $listDetail = $payment->get();
+            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'workspacename', 'nameRepresent', 'listDetail'));
         }
     }
 
