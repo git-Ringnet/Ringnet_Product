@@ -334,7 +334,8 @@
                                 </thead>
                                 <tbody class="tbody-guest">
                                     <tr>
-                                        <td colspan="5">Khách hàng : Chưa chọn nhóm</td>
+                                        <td class="text-green" style="font-size: 16px; font-weight: 500"
+                                            colspan="5">Khách hàng : Chưa chọn nhóm</td>
                                     </tr>
                                     @foreach ($guests as $item)
                                         @if ($item->group_id == 0)
@@ -481,7 +482,8 @@
                                     </tr>
                                     @foreach ($groups as $value)
                                         <tr>
-                                            <td colspan="5">Nhà cung cấp : {{ $value->name }}</td>
+                                            <td class="text-green" style="font-size: 16px; font-weight: 500"
+                                                colspan="5">Nhà cung cấp : {{ $value->name }}</td>
                                         </tr>
                                         @foreach ($guests as $item)
                                             @php

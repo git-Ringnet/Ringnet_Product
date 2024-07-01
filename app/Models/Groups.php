@@ -20,7 +20,7 @@ class Groups extends Model
     ];
     public function getAll()
     {
-        return Groups::with('grouptype')->get();
+        return Groups::with('grouptype')->where('workspace_id', Auth::user()->current_workspace)->get();
     }
 
     public function getAllProducts()
@@ -33,6 +33,16 @@ class Groups extends Model
         return $this->hasMany(Provides::class, 'group_id', 'id');
     }
 
+    public function getAllGroupedByType()
+    {
+        $groups = Groups::with('grouptype')->where('workspace_id', Auth::user()->current_workspace)->get();
+
+        $groupedGroups = $groups->groupBy(function ($item) {
+            return $item->groupType->name;
+        });
+
+        return $groupedGroups;
+    }
 
     public function groupType()
     {

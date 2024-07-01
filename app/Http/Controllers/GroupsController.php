@@ -34,9 +34,10 @@ class GroupsController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $groups = $this->groups->getAll();
-
-        // dd($groups);
-        return view('tables.groups.index', compact('title', 'groups', 'workspacename'));
+        // $grouptype = $this->groups->groupType();
+        $groupedGroups = $this->groups->getAllGroupedByType();
+        // dd($grouptype);
+        return view('tables.groups.index', compact('title', 'groups', 'groupedGroups', 'workspacename'));
     }
 
     /**

@@ -240,7 +240,8 @@
                             </thead>
                             <tbody class="tbody-product">
                                 <tr>
-                                    <td colspan="10" class="border-bottom">Nhóm hàng hóa : Chưa chọn nhóm
+                                    <td class="text-green" style="font-size: 16px; font-weight: 500" colspan="10"
+                                        class="border-bottom">Nhóm hàng hóa : Chưa chọn nhóm
                                     </td>
                                 </tr>
                                 @php
@@ -334,7 +335,8 @@
                                 </tr>
                                 @foreach ($groups as $value)
                                     <tr>
-                                        <td colspan="10" class="border-bottom">Nhóm hàng hóa :{{ $value->name }}
+                                        <td class="text-green" style="font-size: 16px; font-weight: 500"
+                                            colspan="10" class="border-bottom">Nhóm hàng hóa :{{ $value->name }}
                                         </td>
                                     </tr>
                                     @if ($value->getAllProducts)
