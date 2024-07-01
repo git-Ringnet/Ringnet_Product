@@ -81,7 +81,7 @@
                         </label>
 
 
-                        <a href="#">
+                        {{-- <a href="#">
                             <button type="submit"
                                 class="custom-btn btn-light rounded mx-1 d-flex align-items-center h-100">
                                 <span>
@@ -94,7 +94,7 @@
                                 </span>
                                 <span class="text-btnIner-primary ml-2">Xác nhận</span>
                             </button>
-                        </a>
+                        </a> --}}
 
                         {{-- <div class="dropdown">
                             <button type="button"
@@ -268,7 +268,7 @@
                                                     @if ($payment->getQuotation) value="{{ $payment->getQuotation->quotation_number }}" @endif>
                                             </td>
                                             <td class="border border-left-0 border-top-0 p-2 align-top">
-                                                <input type="text" name="payment_code"
+                                                <input type="text" name="payment_code" readonly
                                                     class="w-100 border-0 px-2 py-1 height-32"
                                                     value="{{ $payment->payment_code }}">
                                             </td>
