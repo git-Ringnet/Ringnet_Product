@@ -240,7 +240,7 @@ class PayOrderController extends Controller
             }
             $listDetail->select('pay_order.*');
 
-            $listDetail = $payment->get();
+            $listDetail = $listDetail->get();
             return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'workspacename', 'nameRepresent', 'listDetail'));
         }
     }
