@@ -827,6 +827,10 @@
             }
         }
 
+        if ($('#inputcontent tbody tr').length === 0) {
+            showNotification('warning', 'Vui lòng thêm sản phẩm.');
+            formSubmit = false;
+        }
 
         if (!checkProduct()) {
             formSubmit = false
@@ -841,8 +845,6 @@
             formSubmit = false;
             showAutoToast('warning', 'Vui lòng chọn kho hàng cho sản phẩm')
         }
-
-
 
         if (formSubmit) {
             $.ajax({

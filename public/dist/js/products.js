@@ -446,7 +446,7 @@ function addRowTable(status) {
         "</td>" +
         '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' + (status == 3 ? "d-none" : "") + '">' +
         "<div>" +
-        '<input type="text" required class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]" ' + (status == 3 ? "value='0'" : "") + '>' +
+        '<input type="text" ' + (status == 3 ? "" : "required") + ' class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]" ' + (status == 3 ? "value='0'" : "") + '>' +
         "</div>" +
         "<div class='mt-3 text-13-blue transaction text-right' id='transaction' data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div>" +
         "</td>" +

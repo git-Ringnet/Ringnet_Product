@@ -154,7 +154,7 @@ class ProductImport extends Model
             } else {
                 $promotion = [];
                 $promotion['type'] = $data['promotion-option'][$i];
-                $promotion['value'] = isset($data['promotion'][$i]) ? str_replace(',','',$data['promotion'][$i]) : 0;
+                $promotion['value'] = isset($data['promotion'][$i]) ? str_replace(',', '', $data['promotion'][$i]) : 0;
                 $dataQuote = [
                     // 'detailimport_id' => $id,
                     'detailimport_id' => 0,
@@ -163,8 +163,8 @@ class ProductImport extends Model
                     'product_unit' => $data['product_unit'][$i],
                     'product_qty' => $data['product_qty'][$i],
                     'product_tax' => $data['product_tax'][$i],
-                    'product_total' => (str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i])),
-                    'price_export' => str_replace(',', '', $data['price_export'][$i]),
+                    'product_total' => (floatval(str_replace(',', '', $data['product_qty'][$i])) * floatval(str_replace(',', '', $data['price_export'][$i] ?? '0'))),
+                    'price_export' => str_replace(',', '', $data['price_export'][$i] ?? 0),
                     'product_note' => $data['product_note'][$i],
                     'product_id' => isset($data['product_id'][$i]) ? $data['product_id'][$i] : null,
                     'receive_qty' => 0,

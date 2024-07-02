@@ -42,7 +42,7 @@ class Delivered extends Model
             }
             if ($data['product_id'][$i] == null) {
                 $dataProduct = [
-                    'product_code' => $data['product_code'][$i],
+                    'product_code' => $data['product_code'][$i] ?? null,
                     'product_name' => $data['product_name'][$i],
                     'product_unit' => $data['product_unit'][$i],
                     'product_tax' => $data['product_tax'][$i],
@@ -138,12 +138,12 @@ class Delivered extends Model
                 if (!$checkQuote) {
                     $dataQuote = [
                         'detailexport_id' => $delivery->detailexport_id,
-                        'product_code' => $data['product_code'][$i],
+                        'product_code' => $data['product_code'][$i] ?? null,
                         'product_id' => $checkProduct == null ? $product->id : $checkProduct->id,
                         'product_name' => $data['product_name'][$i],
                         'product_unit' => $data['product_unit'][$i],
                         'product_qty' => $data['product_qty'][$i],
-                        'product_tax' => $data['product_tax'][$i],
+                        'product_tax' => $data['product_tax'][$i] ?? 0,
                         'product_total' => 0,
                         'price_export' => 0,
                         'product_ratio' => 0,

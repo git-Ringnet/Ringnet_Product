@@ -195,7 +195,7 @@ class Receive_bill extends Model
             $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
             $dataReceive = [
                 'detailimport_id' => 0,
-                'provide_id' => isset($data['provide_id']) ? $data['provide_id'] : 1,
+                'provide_id' => isset($data['provide_id']) ? $data['provide_id'] : 0,
                 'shipping_unit' => isset($data['shipping_unit']) ? $data['shipping_unit'] : "",
                 'delivery_charges' => isset($data['delivery_charges']) ? str_replace(',', '', $data['delivery_charges']) : 0,
                 'status' => 1,

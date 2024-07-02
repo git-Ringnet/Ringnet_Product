@@ -1049,7 +1049,6 @@
                 "<td style='display:none;'><input type='text' class='product_tax1' value='0'></td>" +
                 "<td style='display:none;'><input type='text' class='type'></td>"
             );
-            // 
             // Gắn các phần tử vào hàng mới
             newRow.append(tenSanPham, dvTinh, soLuong,
                 ghiChu);
@@ -1066,6 +1065,7 @@
             //     axis: "y",
             //     handle: "td",
             // });
+            // 
             //Xóa sản phẩm
             option.click(function() {
                 var deletedRow = $(this).closest("tr");
@@ -1626,6 +1626,13 @@
                                             invalidInventoryProducts = [];
                                         var invalidInventorySN = [];
                                         var sanPhamHetSN = [];
+                                        if (!$('.idGuest').val()) {
+                                            showAutoToast('warning',
+                                                'Khách hàng chưa được chọn'
+                                            );
+                                            e.preventDefault();
+
+                                        }
                                         $(".bg-white.addProduct")
                                             .each(
                                                 function() {
@@ -1862,6 +1869,12 @@
                                             invalidInventoryProducts = [];
                                         var invalidInventorySN = [];
                                         var sanPhamHetSN = [];
+                                        if (!$('.idGuest').val()) {
+                                            showAutoToast('warning',
+                                                'Khách hàng chưa được chọn'
+                                            );
+                                            e.preventDefault();
+                                        }
                                         $(".bg-white.addProduct")
                                             .each(
                                                 function() {
@@ -3074,6 +3087,187 @@
                                             }
                                         }
                                     });
+                                });
+                                //lấy danh sách người đại diện
+                                var idGuest = $('.idGuest').val();
+                                $.ajax({
+                                    url: '{{ route('getRepresentGuest') }}',
+                                    type: 'GET',
+                                    data: {
+                                        idGuest: idGuest
+                                    },
+                                    success: function(data) {
+                                        $('#representativeList')
+                                            .empty();
+                                        $.each(data,
+                                            function(
+                                                index,
+                                                representative
+                                            ) {
+                                                var listItem =
+                                                    $(
+                                                        '<li class="p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-id = ' +
+                                                        representative
+                                                        .id +
+                                                        '>'
+                                                    )
+                                                    .append(
+                                                        $(
+                                                            '<a>'
+                                                        )
+                                                        .attr({
+                                                            href: '#',
+                                                            title: representative
+                                                                .represent_name,
+                                                            class: 'text-dark d-flex justify-content-between search-represent p-2 w-100',
+                                                            id: representative
+                                                                .id,
+                                                            name: 'search-represent',
+                                                        })
+                                                        .append(
+                                                            $(
+                                                                '<span>'
+                                                            )
+                                                            .addClass(
+                                                                'text-13-black'
+                                                            )
+                                                            .text(
+                                                                representative
+                                                                .represent_name
+                                                            )
+                                                        )
+                                                    )
+                                                    .append(
+                                                        $(
+                                                            '<div>'
+                                                        )
+                                                        .addClass(
+                                                            'dropdown'
+                                                        )
+                                                        .append(
+                                                            $(
+                                                                '<button>'
+                                                            )
+                                                            .attr({
+                                                                type: 'button',
+                                                                'data-toggle': 'dropdown',
+                                                                class: 'btn-save-print d-flex align-items-center h-100 border-0 bg-transparent',
+                                                                style: 'margin-right:10px'
+                                                            })
+                                                            .append(
+                                                                $(
+                                                                    '<i>'
+                                                                )
+                                                                .addClass(
+                                                                    'fa-solid fa-ellipsis'
+                                                                )
+                                                                .attr(
+                                                                    'aria-hidden',
+                                                                    'true'
+                                                                )
+                                                            )
+                                                        )
+                                                        .append(
+                                                            $(
+                                                                '<div>'
+                                                            )
+                                                            .addClass(
+                                                                'dropdown-menu date-form-setting'
+                                                            )
+                                                            .css(
+                                                                'z-index',
+                                                                '1000'
+                                                            )
+                                                            .append(
+                                                                $(
+                                                                    '<a>'
+                                                                )
+                                                                .addClass(
+                                                                    'dropdown-item edit-represent-form'
+                                                                )
+                                                                .attr({
+                                                                    'data-toggle': 'modal',
+                                                                    'data-target': '#representModal',
+                                                                    'data-name': 'representGuest',
+                                                                    'data-id': representative
+                                                                        .id
+                                                                })
+                                                                .append(
+                                                                    $(
+                                                                        '<i>'
+                                                                    )
+                                                                    .addClass(
+                                                                        'fa-regular fa-pen-to-square'
+                                                                    )
+                                                                    .attr(
+                                                                        'aria-hidden',
+                                                                        'true'
+                                                                    )
+                                                                )
+                                                            )
+                                                            .append(
+                                                                $(
+                                                                    '<a>'
+                                                                )
+                                                                .addClass(
+                                                                    'dropdown-item delete-item-represent'
+                                                                )
+                                                                .attr({
+                                                                    href: '#',
+                                                                    'data-id': representative
+                                                                        .id,
+                                                                    'data-name': 'representGuest'
+                                                                })
+                                                                .append(
+                                                                    $(
+                                                                        '<i>'
+                                                                    )
+                                                                    .addClass(
+                                                                        'fa-solid fa-trash-can'
+                                                                    )
+                                                                    .attr(
+                                                                        'aria-hidden',
+                                                                        'true'
+                                                                    )
+                                                                )
+                                                            )
+                                                            .append(
+                                                                $(
+                                                                    '<a>'
+                                                                )
+                                                                .addClass(
+                                                                    'dropdown-item default-represent'
+                                                                )
+                                                                .attr({
+                                                                    id: 'default-id' +
+                                                                        representative
+                                                                        .id,
+                                                                    href: '#',
+                                                                    'data-name': 'representGuest',
+                                                                    'data-id': representative
+                                                                        .id
+                                                                })
+                                                                .append(
+                                                                    $(
+                                                                        '<i>'
+                                                                    )
+                                                                    .addClass(
+                                                                        'fa-solid fa-link'
+                                                                    )
+                                                                    .attr(
+                                                                        'aria-hidden',
+                                                                        'true'
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    );
+                                                $('#representativeList')
+                                                    .append(
+                                                        listItem
+                                                    );
+                                            });
+                                    }
                                 });
                                 //Check S/N
                                 var rowId = $(this.currentTarget)
@@ -4289,8 +4483,8 @@
             var taxValue = parseFloat($(this).find('.product_tax option:selected').val());
             var heSoNhan = parseFloat($(this).find('.heSoNhan').val()) || 0;
             var giaNhapElement = $(this).find('.giaNhap');
-            var discountInput = $(this).find('[name^="discount_input[]"]').val().replace(/[^0-9.-]+/g, "") ||
-                0;
+            var discountElement = $(this).find('[name^="discount_input[]"]');
+            var discountInput = discountElement.length ? discountElement.val().replace(/[^0-9.-]+/g, "") : 0;
             var discountOption = $(this).find('[name^="discount_option[]"]').val() || 0;
             if (taxValue == 99) {
                 taxValue = 0;
@@ -4449,6 +4643,11 @@
         var hasProducts = false;
         var ajaxSuccess = false;
         var previousProductNames = [];
+
+        if (!$('.idGuest').val()) {
+            showAutoToast('warning', 'Khách hàng chưa được chọn');
+            event.preventDefault();
+        }
 
         function normalizeProductName(name) {
             // Chuyển tất cả các ký tự thành chữ thường

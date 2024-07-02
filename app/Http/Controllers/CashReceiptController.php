@@ -167,6 +167,10 @@ class CashReceiptController extends Controller
             $delivery = Delivery::find($cashReceipt->delivery_id);
             $delivery->totalVat = $delivery->totalVat + $cashReceipt->amount;
             $delivery->save();
+            //
+            $detailExport = DetailExport::where('id', $delivery->detailexport_id)->first();
+            $detailExport->amount_owed = $detailExport->amount_owed + $cashReceipt->amount;
+            $detailExport->save();
         }
         if ($cashReceipt->returnImport_id != null) {
             $returnImport = ReturnImport::where('id', $cashReceipt->returnImport_id)->first();

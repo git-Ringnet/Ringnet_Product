@@ -161,6 +161,7 @@ class ReceiveController extends Controller
                 return redirect()->route('receive.index', $workspacename)->with('warning', 'Đơn nhận hàng đã tạo hết sản phẩm !');
             }
         } else {
+            // dd($request->all());
             // Tạo sản phẩm theo đơn nhận hàng
             $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
             if ($status) {

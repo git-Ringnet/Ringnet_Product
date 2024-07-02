@@ -429,7 +429,7 @@
                     $('#listReceive').hide();
                     $('#listGuest').hide();
                     $('#money_reciept').val(formatCurrency(data.amount_owed))
-                    $('#detail_id').val(data.idGH)
+                    $('#detail_id').val(data.id)
                     $('#guest_id').val(data.guest_id)
                     $('.cash_reciept').show()
                     $('input[name="total"]').on('input', function() {
