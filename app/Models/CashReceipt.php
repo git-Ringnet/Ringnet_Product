@@ -71,19 +71,24 @@ class CashReceipt extends Model
     public function getQuoteCount()
     {
         // Tạo DGH
-        $currentDate = Carbon::now()->format('dmy');
-        $lastInvoice = CashReceipt::where('workspace_id', Auth::user()->current_workspace)
-            ->orderBy('created_at', 'desc')
-            ->first();
-        $getNumber = 0;
-        if ($lastInvoice) {
-            $pattern = '/PTT(\d+)-/';
-            preg_match($pattern, $lastInvoice->invoice_number, $matches);
-            $getNumber = isset($matches[1]) ? $matches[1] : 0;
+        $currentDate = Carbon::now()->format('dmY');
+
+        // Lấy số thứ tự lớn nhất của mã phiếu hiện có
+        $lastInvoiceNumber = CashReceipt::where('workspace_id', Auth::user()->current_workspace)
+            ->max('receipt_code');
+
+        // Tách phần số thứ tự từ mã phiếu lớn nhất
+        $lastNumber = 0;
+        if ($lastInvoiceNumber) {
+            preg_match('/PTT(\d+)/', $lastInvoiceNumber, $matches);
+            $lastNumber = isset($matches[1]) ? (int)$matches[1] : 0;
         }
-        $newInvoiceNumber = $getNumber + 1;
+
+        // Tăng số thứ tự lên 1 để tạo mã phiếu mới
+        $newInvoiceNumber = $lastNumber + 1;
         $countFormattedInvoice = str_pad($newInvoiceNumber, 2, '0', STR_PAD_LEFT);
         $invoicenumber = "PTT{$countFormattedInvoice}-{$currentDate}";
+
         return $invoicenumber;
     }
     public function fetchDelivery($data)
@@ -93,7 +98,7 @@ class CashReceipt extends Model
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->where('detailexport.id',  $data['detail_id'])
             ->where('detailexport.amount_owed', '>', 0)
-            ->select('detailexport.*', 'guest.guest_name_display as nameGuest','delivery.id as idGH')
+            ->select('detailexport.*', 'guest.guest_name_display as nameGuest', 'delivery.id as idGH')
             ->first();
         return $detailOwed;
     }

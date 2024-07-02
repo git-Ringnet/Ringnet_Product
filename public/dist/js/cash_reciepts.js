@@ -63,21 +63,6 @@ function formatCurrency(value) {
     return formattedValue;
 }
 
-$("form").on("submit", function (e) {
-    e.preventDefault();
-    var check = false;
-    if ($("#fund_id").val() == "" || $("#content_id").val() == "") {
-        check = true;
-        $("#fund_id").val() == ""
-            ? showNotification("warning", "Vui lòng chọn quỹ thanh toán")
-            : showNotification("warning", "Vui lòng chọn nội dung thanh toán");
-    } else {
-        if (!check) {
-            $("form")[1].submit();
-        }
-    }
-});
-
 flatpickr("#datePicker", {
     locale: "vn",
     dateFormat: "d/m/Y",
@@ -105,6 +90,22 @@ flatpickr("#datePickerDay", {
         updateHiddenInput(selectedDates[0], instance, "hiddenDateInputDay");
     },
 });
+
+function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+    // Lấy thời gian hiện tại
+    var currentTime = new Date();
+
+    // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+    var selectedDateTime = new Date(selectedDate);
+    selectedDateTime.setHours(currentTime.getHours());
+    selectedDateTime.setMinutes(currentTime.getMinutes());
+    selectedDateTime.setSeconds(currentTime.getSeconds());
+
+    document.getElementById(hiddenInputId).value = instance.formatDate(
+        selectedDateTime,
+        "Y-m-d H:i:S"
+    );
+}
 // $(document).ready(function () {
 //     $("input.price_export").on("input", function () {
 //         var priceExportValue = parseFloat($(this).val().replace(/,/g, ""));
@@ -133,11 +134,10 @@ $("body").on(
 
         event.target.value = formattedNumber;
     }
-
 );
 
 function formatNumber(name) {
-    $(document).on('input', name, function (e) {
+    $(document).on("input", name, function (e) {
         // Lấy giá trị đã nhập
         var value = e.target.value;
 
@@ -148,9 +148,8 @@ function formatNumber(name) {
         var formattedNumber = numberWithCommas(formattedValue);
 
         e.target.value = formattedNumber;
-    })
+    });
 }
-
 
 function numberWithCommas(number) {
     // Chia số thành phần nguyên và phần thập phân
@@ -172,12 +171,6 @@ function numberWithCommas(number) {
     return formattedNumber;
 }
 
-
-
-
-
-
-
 $("#luuNhap").click(function (e) {
     e.preventDefault();
     $('input[name="action"]').val(1);
@@ -185,7 +178,7 @@ $("#luuNhap").click(function (e) {
 });
 
 $("#xacNhan").click(function (e) {
-    e.preventDefault();
+    // e.preventDefault();
     $('input[name="action"]').val(2);
-    $("form").submit();
+    // $("form").submit();
 });

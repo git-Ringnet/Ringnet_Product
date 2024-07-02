@@ -496,4 +496,75 @@
         }
         $(value).val(formatCurrency(inputValue));
     }
+
+    var error = false;
+    var submit = false;
+
+    async function checkQuotetion() {
+        var payment_code = $("input[name='code_reciept']").val();
+
+        try {
+            let isUnique = await $.ajax({
+                url: "{{ route('checkQuotetion') }}",
+                type: "get",
+                data: {
+                    code_reciept: payment_code,
+                }
+            });
+
+            if (isUnique['status']) {
+                return payment_code; // Mã duy nhất, trả về mã hiện tại
+            }
+
+            showNotification('warning', 'Mã phiếu đã tồn tại, đang tạo mã mới...');
+
+            // Tạo mã mới nếu bị trùng
+            let new_code = payment_code;
+            while (!isUnique['status']) {
+                let matches = new_code.match(/^(\D+)(\d+)(-\d+)$/);
+                if (matches) {
+                    let prefix = matches[1];
+                    let number = (parseInt(matches[2]) + 1).toString().padStart(matches[2].length,
+                        '0'); // Tăng số và giữ độ dài cố định
+                    let suffix = matches[3];
+                    new_code = `${prefix}${number}${suffix}`;
+                } else {
+                    showNotification('error', 'Mã thanh toán không đúng định dạng.');
+                    return null;
+                }
+
+                // Kiểm tra mã mới có duy nhất không
+                isUnique = await $.ajax({
+                    url: "{{ route('checkQuotetion') }}",
+                    type: "get",
+                    data: {
+                        code_reciept: new_code,
+                    }
+                });
+            }
+
+            $("input[name='code_reciept']").val(new_code); // Cập nhật input với mã mới
+            return new_code; // Trả về mã mới duy nhất
+        } catch (error) {
+            console.error('Error:', error);
+            return null;
+        }
+    }
+
+    $("form").on("submit", async function(e) {
+        e.preventDefault();
+
+        if ($("#fund_id").val() === "" || $("#content_id").val() === "") {
+            showNotification("warning", "Vui lòng chọn quỹ thanh toán hoặc nội dung thanh toán.");
+            return;
+        }
+
+        let result = await checkQuotetion();
+        if (result) {
+            submit = true;
+            $("form")[1].submit(); // Submit form
+        } else {
+            showNotification("warning", "Không thể tạo mã phiếu duy nhất.");
+        }
+    });
 </script>

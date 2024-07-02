@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attachment;
+use App\Models\CashReceipt;
 use App\Models\DateForm;
 use App\Models\DetailImport;
 use App\Models\GuestFormDate;
@@ -406,6 +407,18 @@ class DetailImportController extends Controller
             $number_bill = Reciept::where('number_bill', $data['number_bill'])
                 ->where('workspace_id', Auth::user()->current_workspace)->first();
             if ($number_bill) {
+                $result = [
+                    'status' => false,
+                ];
+            } else {
+                $result = [
+                    'status' => true,
+                ];
+            }
+        } elseif (isset($data['code_reciept'])) {
+            $code_reciept = CashReceipt::where('receipt_code', $data['code_reciept'])
+                ->where('workspace_id', Auth::user()->current_workspace)->first();
+            if ($code_reciept) {
                 $result = [
                     'status' => false,
                 ];

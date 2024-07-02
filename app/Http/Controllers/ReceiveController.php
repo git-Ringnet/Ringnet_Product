@@ -308,7 +308,7 @@ class ReceiveController extends Controller
             DB::table('user_flow')->insert($dataUserFlow);
             return redirect()->route('receive.index', $workspacename)->with('msg', 'Xóa đơn nhận hàng thành công !');
         } else {
-            return redirect()->route('receive.index', $workspacename)->with('warning', 'Sản phẩm đã được tạo trong đơn bán hàng !');
+            return redirect()->route('receive.index', $workspacename)->with('warning', 'Sản phẩm đã được tạo trong phiếu xuất kho!');
         }
     }
     public function show_receive(Request $request)

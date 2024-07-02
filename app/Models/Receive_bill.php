@@ -460,7 +460,7 @@ class Receive_bill extends Model
                         }
                     }
                     // Kiểm tra đã tạo đơn bán hàng chưa
-                    $checkExport = QuoteExport::whereIn('product_id', $listID)
+                    $checkExport = Delivered::whereIn('product_id', $listID)
                         ->where('workspace_id', Auth::user()->current_workspace)
                         ->first();
                     if ($checkExport) {

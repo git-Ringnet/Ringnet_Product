@@ -602,7 +602,7 @@
 
                                                 <td class="d-none border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div>
-                                                        <input type="text" required="" class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]"
+                                                        <input type="text" class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]"
                                                         value="` + formatCurrency(element.price_export) + `" readonly>
                                                         </div>
                                                     <div class="mt-3 text-13-blue transaction text-right" id="transaction" data-toggle="modal" data-target="#recentModal">
