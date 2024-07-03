@@ -126,7 +126,7 @@ class DetailExport extends Model
             $totalBeforeTax -= $discountAmount;
         }
         if ($areAllTaxesEqual) {
-            $taxfirst = $productTaxes[0];
+            $taxfirst = $productTaxes[0] == 99 ? 0 : $productTaxes[0];
             $totalTax = ($totalBeforeTax * $taxfirst) / 100;
         }
         // dd($totalTax);

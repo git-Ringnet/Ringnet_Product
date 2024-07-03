@@ -1013,8 +1013,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                             </div>
                         </div>
                     </div>
@@ -2672,6 +2671,9 @@
         }
         if (checkProductTaxValues()) {
             var commonTaxRate = parseFloat($('select[name="product_tax[]"]').first().val());
+            if (commonTaxRate == 99) {
+                commonTaxRate = 0;
+            }
             if (!isNaN(commonTaxRate)) {
                 totalTax = totalAmount * (commonTaxRate / 100);
             }

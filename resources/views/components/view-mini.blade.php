@@ -14,7 +14,7 @@
                 </span>
             </div>
         </div>
-        <div class="outer2 text-nowrap">
+        <div class="outerViewMini text-nowrap">
             @if ($page == 'PBH')
                 <table id="example" class="table table-hover bg-white rounded">
                     <thead>
