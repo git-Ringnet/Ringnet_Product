@@ -45,8 +45,13 @@ class ReturnImportController extends Controller
     public function create()
     {
         $listDetail = Receive_bill::where('receive_bill.workspace_id', Auth::user()->current_workspace)
+            ->whereNotIn('receive_bill.id', function ($query) {
+                $query->select('returnimport.receive_id')
+                    ->from('returnimport');
+            })
             ->where('receive_bill.detailimport_id', '!=', 0)
-            ->where('receive_bill.status', 2)->get();
+            ->where('receive_bill.status', 2)
+            ->get();
 
         // ->leftJoin('returnimport','returnimport.receive_id','receive_bill.id')
         // ->leftJoin('returnproduct','returnproduct.returnImport_id','returnimport.id')

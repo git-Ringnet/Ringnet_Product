@@ -156,7 +156,7 @@ li {
     width: 100%;
     overflow-x: auto;
     scrollbar-width: thin;
-    max-height: calc(100vh - 124px);
+    max-height: calc(100vh - 250px);
     z-index: 9;
 }
 

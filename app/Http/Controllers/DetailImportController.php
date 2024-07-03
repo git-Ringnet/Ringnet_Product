@@ -329,37 +329,25 @@ class DetailImportController extends Controller
                 $date = explode('/', $date->quotation_number)[0];
             }
             $count = DetailImport::where('workspace_id', Auth::user()->current_workspace)
-                // ->where('provide_id', $provide->id)
-                // ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
                 ->count();
             $lastDetailImport = DetailImport::where('workspace_id', Auth::user()->current_workspace)
-
-                // ->where('provide_id', $provide->id)
                 ->orderBy('id', 'desc')
-                //     ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
                 ->first();
 
             if ($lastDetailImport) {
                 $pattern = '/DDH(\d+)-/';
                 preg_match($pattern, $lastDetailImport->quotation_number, $matches);
                 $getNumber = isset($matches[1]) ? $matches[1] : 0;
-                // $parts = explode('-', $lastDetailImport->quotation_number);
-                // $getNumber = end($parts);
-
                 $count = $getNumber + 1;
             } else {
                 $count = $count == 0 ? $count += 1 : $count;
             }
             if ($count < 10) {
-                // $count = "0" . $count;
                 $count = $count;
             }
 
+            $resultNumber = "DDH0" . $count . "-" .  Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY'); // Đổi từ 'dmy' sang 'dmY'
 
-            // $resultNumber = "DDH-" . $provide->key . "-" . $count;
-            $resultNumber = "DDH0" . $count . "-" .  Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmy');
-
-            // $resultNumber = ($date == "" ? Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY') : $date) . "/DDH-" . $provide->key . "-" . $count;
             $result = [
                 'provide' => $provide,
                 'count' => $count,
@@ -518,11 +506,33 @@ class DetailImportController extends Controller
                 $terms_pay = DateForm::where('form_field', 'termpay')
                     ->where('workspace_id', Auth::user()->current_workspace)
                     ->get();
+
+                // Tìm giá trị lớn nhất hiện tại của DDH0
+                $lastQuotation = DB::table('detailimport')
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->where('quotation_number', 'like', 'DDH0%')
+                    ->orderBy('quotation_number', 'desc')
+                    ->first();
+
+                // Tăng giá trị DDH0
+                if ($lastQuotation) {
+                    $pattern = '/DDH0(\d+)/';
+                    preg_match($pattern, $lastQuotation->quotation_number, $matches);
+                    $lastNumber = isset($matches[1]) ? intval($matches[1]) : 0;
+                    $newNumber = $lastNumber + 1;
+                } else {
+                    $newNumber = 1;
+                }
+
+                // Đảm bảo độ dài là 2 hoặc 3 số tùy thuộc vào giá trị của newNumber
+                $length = ($newNumber < 10) ? 2 : 3;
+                $resultNumber = "DDH" . str_pad($newNumber, $length, '0', STR_PAD_LEFT) . "-" . Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY');
+
                 $msg = response()->json([
                     'success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công',
                     'id' => $new_provide, 'name' => $provide->provide_name_display, 'key' => $key,
                     'id_represent' => isset($id_represent) ? $id_represent : "", 'represent_name' => $request->provide_represent,
-                    'price_effect' => $price_effect, 'terms_pay' => $terms_pay
+                    'price_effect' => $price_effect, 'terms_pay' => $terms_pay, 'resultNumber' => $resultNumber
                 ]);
             }
         } else {

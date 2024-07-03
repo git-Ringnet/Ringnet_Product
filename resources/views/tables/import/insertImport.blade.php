@@ -1068,7 +1068,8 @@
                     $('#listPriceEffect li').empty();
                     $('#listTermsPay li').empty();
                     if (data.success == true) {
-                        quotation = getQuotation(data.key, '1')
+                        // quotation = getQuotation(data.key, '1')
+                        quotation = data.resultNumber
                         // Thêm nhà cung cấp vào danh sách
                         if (data.id) {
                             var newLi = `
