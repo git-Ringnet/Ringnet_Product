@@ -40,7 +40,7 @@
                         <div class="row mr-0">
                             <div class="col-md-5 d-flex align-items-center">
                                 <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
+                                    <div class="position-relative relative ml-1">
                                         <input type="text" placeholder="Tìm kiếm" name="keywords"
                                             style="outline: none;" class="pr-4 w-100 input-search text-13"
                                             value="{{ request()->keywords }}">
@@ -104,6 +104,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContent('printContent', 'buy','foot')">In
+                                    trang</button>
                             </div>
                         </div>
                     </div>
@@ -118,7 +121,7 @@
                     <div class="row  p-0 m-0">
                         <div class="col-12 p-0 m-0">
                             <div class="">
-                                <div class="outer table-responsive text-nowrap">
+                                <div class="outer-4 top-table table-responsive text-nowrap">
                                     <table id="example2" class="table table-hover">
                                         <thead>
                                             <tr>
@@ -206,7 +209,7 @@
                                                 $total = 0;
                                             @endphp
                                             @foreach ($content as $item)
-                                                <tr class="position-relative guests-info"
+                                                <tr class="position-relative relative guests-info"
                                                     onclick="handleRowClick('checkbox', event);">
                                                     <input type="hidden" name="id-guest" class="id-guest"
                                                         id="id-guest" value="{{ $item->id }}">
@@ -252,15 +255,13 @@
             </div>
         </section>
     </div>
-    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;">
-        <div class="position-relative margin-250">
+    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;" id="foot">
+        <div class="position-relative">
             <table class="table table-hover position-absolute bg-white border-0">
                 <thead>
                     <tr>
-                        <th style="width: 18%;"></th>
-                        <th style="width: 15%;"></th>
-                        <th style="width: 12%;"></th>
-                        <th class="text-right text-red border" style="width: 12%;">{{ number_format($total)}}</th>
+                        <th style="width: 45%;" colspan="3" class="text-right">Tổng cộng</th>
+                        <th class="text-right text-red border" style="width: 12%;">{{ number_format($total) }}</th>
                         <th style="width: 12%;"></th>
                         <th style="width: 12%;"></th>
                         <th style="width: 12%;"></th>
@@ -274,3 +275,4 @@
     </div>
 
 </div>
+<x-print-component :contentId="$title" />

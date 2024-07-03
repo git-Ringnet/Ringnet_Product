@@ -22,7 +22,7 @@
                         <div class="row mr-0">
                             <div class="col-md-5 d-flex align-items-center">
                                 <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
+                                    <div class="position-relative relative ml-1">
                                         <input type="text" placeholder="Tìm kiếm" name="keywords"
                                             style="outline: none;" class="pr-4 w-100 input-search text-13"
                                             value="{{ request()->keywords }}">
@@ -86,6 +86,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContent('printContent', 'buy')">In
+                                    trang</button>
                             </div>
                         </div>
                     </div>
@@ -100,7 +103,7 @@
                     <div class="row  p-0 m-0">
                         <div class="col-12 p-0 m-0">
                             <div class="">
-                                <div class="outer table-responsive text-nowrap">
+                                <div class="outer-4 top-table table-responsive text-nowrap">
                                     <table id="example2" class="table table-hover">
                                         <thead>
                                             <tr>
@@ -184,40 +187,61 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $totalSlNhap = 0;
+                                                $totalSlXuat = 0;
+                                                $totalGiaTon = 0;
+                                            @endphp
                                             @foreach ($htrImport as $item)
-                                                <tr class="position-relative guests-info"
+                                                @php
+                                                    $slNhap = $item['slNhap'];
+                                                    $slXuat = $item['slXuat'];
+                                                    $giaTon = $item['giaTon'];
+                                                    $slConLai = $slNhap - $slXuat;
+
+                                                    $totalSlNhap += $slNhap;
+                                                    $totalSlXuat += $slXuat;
+                                                    $totalGiaTon += $giaTon;
+                                                @endphp
+                                                <tr class="position-relative relative guests-info"
                                                     onclick="handleRowClick('checkbox', event);">
                                                     <input type="hidden" name="id-guest" class="id-guest"
                                                         id="id-guest" value="">
                                                     <td class="text-13-black height-52 border">
-                                                        {{ $item['product_code'] }}
-                                                    </td>
+                                                        {{ $item['product_code'] }}</td>
                                                     <td class="text-13-black height-52 border text-wrap">
-                                                        {{ $item['product_name'] }}
-                                                    </td>
+                                                        {{ $item['product_name'] }}</td>
                                                     <td class="text-13-black height-52 border">
-                                                        {{ $item['product_unit'] }}
-                                                    </td>
+                                                        {{ $item['product_unit'] }}</td>
                                                     <td class="text-13-black height-52 border text-right">
-                                                        {{ number_format($item['slNhap']) }}
-                                                    </td>
+                                                        {{ number_format($slNhap) }}</td>
                                                     <td class="text-13-black height-52 border text-right">
-                                                        {{ number_format($item['slXuat']) }}
-                                                    </td>
+                                                        {{ number_format($slXuat) }}</td>
                                                     <td class="text-13-black height-52 border text-right">
-                                                        {{ number_format($item['slNhap'] - $item['slXuat']) }}
-                                                    </td>
+                                                        {{ number_format($slConLai) }}</td>
                                                     <td class="text-13-black height-52 border text-right">
-                                                        {{ number_format($item['giaTon']) }}
-                                                    </td>
+                                                        {{ number_format($giaTon) }}</td>
                                                     <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                         style="right: 10px; top: 7px;">
-                                                        <div class="d-flex w-100">
-                                                        </div>
+                                                        <div class="d-flex w-100"></div>
                                                     </td>
                                                 </tr>
                                             @endforeach
+                                            <tr>
+                                                <td colspan="3"
+                                                    class="text-13-black height-52 border text-right font-weight-bold">
+                                                    Tổng cộng</td>
+                                                <td class="text-13-black height-52 border text-right font-weight-bold">
+                                                    {{ number_format($totalSlNhap) }}</td>
+                                                <td class="text-13-black height-52 border text-right font-weight-bold">
+                                                    {{ number_format($totalSlXuat) }}</td>
+                                                <td class="text-13-black height-52 border text-right font-weight-bold">
+                                                    {{ number_format($totalSlNhap - $totalSlXuat) }}</td>
+                                                <td class="text-13-black height-52 border text-right font-weight-bold">
+                                                    {{ number_format($totalGiaTon) }}</td>
+                                            </tr>
                                         </tbody>
+
                                     </table>
                                 </div>
                             </div>
@@ -228,10 +252,11 @@
         </section>
     </div>
     <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 0;left: 0;">
-        <div class="position-relative margin-250">
+        <div class="position-relative relative margin-250">
             <div class="position-absolute px-4 pt-1 border bg-white" style="left: 18rem;">
                 <span class="text-danger font-weight-bold">Có {{ count($htrImport) }} mặt hàng</span>
             </div>
         </div>
     </div>
 </div>
+<x-print-component :contentId="$title" />

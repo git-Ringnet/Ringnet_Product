@@ -22,7 +22,7 @@
                         <div class="row mr-0">
                             <div class="col-md-5 d-flex align-items-center">
                                 <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
+                                    <div class="position-relative relative  ml-1">
                                         <input type="text" placeholder="Tìm kiếm" name="keywords"
                                             style="outline: none;" class="pr-4 w-100 input-search text-13"
                                             value="{{ request()->keywords }}">
@@ -86,6 +86,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContent('printContent', 'hanghoa')">In
+                                    trang</button>
                             </div>
                         </div>
                     </div>
@@ -101,98 +104,98 @@
                         <div class="col-12 p-0 m-0">
                             <div class="tab-content">
                                 <div id="hanghoa" class="content tab-pane in active">
-                                    <div class="outer table-responsive text-nowrap">
+                                    <div class="outer top-table table-responsive text-nowrap">
                                         <table id="example2" class="table table-hover">
                                             <thead>
-                                                <tr>
-                                                    <th scope="col" class="height-52 ">
+                                                <tr class="">
+                                                    <th scope="col" class="border height-52 ">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link"
                                                                 data-sort-by="guest_name_display"
                                                                 data-sort-type="ASC">
-                                                                <button class="btn-sort text-13" type="submit">
+                                                                <button class="btn-sort text-13 bold" type="submit">
                                                                     Mã khách hàng
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-guest_name_display"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="height-52 ">
+                                                    <th scope="col" class="border height-52 ">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link"
                                                                 data-sort-by="guest_name_display"
                                                                 data-sort-type="ASC">
-                                                                <button class="btn-sort text-13" type="submit">
+                                                                <button class="btn-sort text-13 bold" type="submit">
                                                                     Tên khách hàng
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-guest_name_display"></div>
                                                         </span>
                                                     </th>
-                                                    {{-- <th scope="col" class="height-52 ">
+                                                    {{-- <th scope="col" class="border height-52 ">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link"
                                                                 data-sort-by="guest_name_display"
                                                                 data-sort-type="ASC">
-                                                                <button class="btn-sort text-13" type="submit">
+                                                                <button class="btn-sort text-13 bold" type="submit">
                                                                     Nợ đầu kì
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-guest_name_display"></div>
                                                         </span>
                                                     </th> --}}
-                                                    <th scope="col" class="height-52 ">
+                                                    <th scope="col" class="border height-52 ">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link"
                                                                 data-sort-by="guest_name_display"
                                                                 data-sort-type="ASC">
-                                                                <button class="btn-sort text-13" type="submit">
+                                                                <button class="btn-sort text-13 bold" type="submit">
                                                                     Bán hàng
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-guest_name_display"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="height-52 ">
+                                                    <th scope="col" class="border height-52 ">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link"
                                                                 data-sort-by="guest_name_display"
                                                                 data-sort-type="ASC">
-                                                                <button class="btn-sort text-13" type="submit">
+                                                                <button class="btn-sort text-13 bold" type="submit">
                                                                     Khách trả hàng
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-guest_name_display"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="height-52 ">
+                                                    <th scope="col" class="border height-52 ">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link"
                                                                 data-sort-by="guest_name_display"
                                                                 data-sort-type="ASC">
-                                                                <button class="btn-sort text-13" type="submit">
+                                                                <button class="btn-sort text-13 bold" type="submit">
                                                                     Thu
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-guest_name_display"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="height-52 ">
+                                                    <th scope="col" class="border height-52 ">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link"
                                                                 data-sort-by="guest_name" data-sort-type="ASC">
-                                                                <button class="btn-sort text-13" type="submit">
+                                                                <button class="btn-sort text-13 bold" type="submit">
                                                                     Chi
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-guest_name"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="height-52 ">
+                                                    <th scope="col" class="border height-52 ">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link"
                                                                 data-sort-by="guest_debt" data-sort-type="ASC">
-                                                                <button class="btn-sort text-13" type="submit">
+                                                                <button class="btn-sort text-13 bold" type="submit">
                                                                     Nợ cuối kì
                                                                 </button>
                                                             </a>
@@ -204,7 +207,8 @@
                                             <tbody>
                                                 {{-- Không nhóm --}}
                                                 <tr>
-                                                    <td colspan="10" class="border-bottom">Nhóm khách hàng : Chưa
+                                                    <td colspan="10" class="border-bottom bold">Nhóm khách hàng :
+                                                        Chưa
                                                         chọn nhóm</td>
                                                 </tr>
                                                 @php
@@ -232,38 +236,42 @@
                                                                 $item->totalCashReciept -
                                                                 ($item->totalReturn - $item->chiKH);
                                                         @endphp
-                                                        <tr class="position-relative">
-                                                            <td class="text-13-black height-52">{{ $item->maKhach }}
+                                                        <tr class="position-relative relative ">
+                                                            <td class="text-13-black border height-52">
+                                                                {{ $item->maKhach }}
                                                             </td>
-                                                            <td class="text-13-black height-52">{{ $item->tenKhach }}
+                                                            <td class="text-13-black border height-52">
+                                                                {{ $item->tenKhach }}
                                                             </td>
-                                                            <td class="text-13-black height-52">
+                                                            <td class="text-13-black border height-52">
                                                                 {{ number_format($item->totalProductVat) }}</td>
-                                                            <td class="text-13-black height-52">
+                                                            <td class="text-13-black border height-52">
                                                                 {{ number_format($item->totalReturn) }}</td>
-                                                            <td class="text-13-black height-52">
+                                                            <td class="text-13-black border height-52">
                                                                 {{ number_format($item->totalCashReciept) }}</td>
-                                                            <td class="text-13-black height-52">
+                                                            <td class="text-13-black border height-52">
                                                                 {{ number_format($item->chiKH) }}</td>
-                                                            <td class="text-13-black height-52">
+                                                            <td class="text-13-black border height-52">
                                                                 {{ number_format($item->totalProductVat - $item->totalCashReciept - ($item->totalReturn - $item->chiKH)) }}
                                                             </td>
                                                         </tr>
                                                     @endif
                                                 @endforeach
 
-                                                <tr class="position-relative">
-                                                    <td class="text-green height-52 text-right" colspan="2">Tổng
+                                                <tr class="position-relative relative ">
+                                                    <td class="text-green bold border height-52 text-right"
+                                                        colspan="2">
+                                                        Tổng
                                                         cộng:</td>
-                                                    <td class="text-green height-52">
+                                                    <td class="text-green bold border height-52">
                                                         {{ number_format($totalProductVatUngrouped) }}</td>
-                                                    <td class="text-green height-52">
+                                                    <td class="text-green bold border height-52">
                                                         {{ number_format($totalReturnUngrouped) }}</td>
-                                                    <td class="text-green height-52">
+                                                    <td class="text-green bold border height-52">
                                                         {{ number_format($totalCashRecieptUngrouped) }}</td>
-                                                    <td class="text-green height-52">
+                                                    <td class="text-green bold border height-52">
                                                         {{ number_format($totalChiKHUngrouped) }}</td>
-                                                    <td class="text-green height-52">
+                                                    <td class="text-green bold border height-52">
                                                         {{ number_format($totalRemainingUngrouped) }}</td>
                                                 </tr>
 
@@ -277,7 +285,8 @@
                                                 @endphp
                                                 @foreach ($groups as $value)
                                                     <tr>
-                                                        <td colspan="10" class="border-bottom">Nhóm khách hàng :
+                                                        <td colspan="10" class="border-bottom bold">Nhóm khách hàng
+                                                            :
                                                             {{ $value->name }}</td>
                                                     </tr>
                                                     @foreach ($debtGuests as $item)
@@ -292,37 +301,38 @@
                                                                     $item->totalCashReciept -
                                                                     ($item->totalReturn - $item->chiKH);
                                                             @endphp
-                                                            <tr class="position-relative">
-                                                                <td class="text-13-black height-52">
+                                                            <tr class="position-relative relative ">
+                                                                <td class="text-13-black border height-52">
                                                                     {{ $item->maKhach }}</td>
-                                                                <td class="text-13-black height-52">
+                                                                <td class="text-13-black border height-52">
                                                                     {{ $item->tenKhach }}</td>
-                                                                <td class="text-13-black height-52">
+                                                                <td class="text-13-black border height-52">
                                                                     {{ number_format($item->totalProductVat) }}</td>
-                                                                <td class="text-13-black height-52">
+                                                                <td class="text-13-black border height-52">
                                                                     {{ number_format($item->totalReturn) }}</td>
-                                                                <td class="text-13-black height-52">
+                                                                <td class="text-13-black border height-52">
                                                                     {{ number_format($item->totalCashReciept) }}</td>
-                                                                <td class="text-13-black height-52">
+                                                                <td class="text-13-black border height-52">
                                                                     {{ number_format($item->chiKH) }}</td>
-                                                                <td class="text-13-black height-52">
+                                                                <td class="text-13-black border height-52">
                                                                     {{ number_format($item->totalProductVat - $item->totalCashReciept - ($item->totalReturn - $item->chiKH)) }}
                                                                 </td>
                                                             </tr>
                                                         @endif
                                                     @endforeach
-                                                    <tr class="position-relative">
-                                                        <td class="text-green height-52 text-right" colspan="2">
+                                                    <tr class="position-relative relative ">
+                                                        <td class="text-green bold border height-52 text-right"
+                                                            colspan="2">
                                                             Tổng cộng:</td>
-                                                        <td class="text-green height-52">
+                                                        <td class="text-green bold border height-52">
                                                             {{ number_format($totalProductVatGrouped) }}</td>
-                                                        <td class="text-green height-52">
+                                                        <td class="text-green bold border height-52">
                                                             {{ number_format($totalReturnGrouped) }}</td>
-                                                        <td class="text-green height-52">
+                                                        <td class="text-green bold border height-52">
                                                             {{ number_format($totalCashRecieptGrouped) }}</td>
-                                                        <td class="text-green height-52">
+                                                        <td class="text-green bold border height-52">
                                                             {{ number_format($totalChiKHGrouped) }}</td>
-                                                        <td class="text-green height-52">
+                                                        <td class="text-green bold border height-52">
                                                             {{ number_format($totalRemainingGrouped) }}</td>
                                                     </tr>
                                                 @endforeach
@@ -338,18 +348,20 @@
                                                 @endphp
                                             </tbody>
                                             <tfoot id="total-footer">
-                                                <tr class="position-relative bg-light">
-                                                    <td class="text-red height-52 text-right" colspan="2">Tổng
+                                                <tr class="position-relative relative  bg-light">
+                                                    <td class="text-red bold border height-52 text-right"
+                                                        colspan="2">
+                                                        Tổng
                                                         tiền của tất cả các nhóm:</td>
-                                                    <td class="text-red height-52">
+                                                    <td class="text-red bold border height-52">
                                                         {{ number_format($grandTotalProductVat) }}</td>
-                                                    <td class="text-red height-52">
+                                                    <td class="text-red bold border height-52">
                                                         {{ number_format($grandTotalReturn) }}</td>
-                                                    <td class="text-red height-52">
+                                                    <td class="text-red bold border height-52">
                                                         {{ number_format($grandTotalCashReciept) }}</td>
-                                                    <td class="text-red height-52">
+                                                    <td class="text-red bold border height-52">
                                                         {{ number_format($grandTotalChiKH) }}</td>
-                                                    <td class="text-red height-52">
+                                                    <td class="text-red bold border height-52">
                                                         {{ number_format($grandTotalRemaining) }}</td>
                                                 </tr>
                                             </tfoot>
@@ -364,3 +376,4 @@
         </section>
     </div>
 </div>
+<x-print-component :contentId="$title" />

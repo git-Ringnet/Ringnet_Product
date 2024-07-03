@@ -40,7 +40,7 @@
                         <div class="row mr-0">
                             <div class="col-md-5 d-flex align-items-center">
                                 <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
+                                    <div class="position-relative relative ml-1">
                                         <input type="text" placeholder="Tìm kiếm" name="keywords"
                                             style="outline: none;" class="pr-4 w-100 input-search text-13"
                                             value="{{ request()->keywords }}">
@@ -104,6 +104,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContent('printContent', 'buy')">In
+                                    trang</button>
                             </div>
                         </div>
                     </div>
@@ -118,7 +121,7 @@
                     <div class="row  p-0 m-0">
                         <div class="col-12 p-0 m-0">
                             <div class="">
-                                <div class="outer table-responsive text-nowrap">
+                                <div class="outer-4 top-table table-responsive text-nowrap">
                                     <table id="example2" class="table table-hover">
                                         <thead>
                                             <tr>
@@ -213,6 +216,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $grandTotalImport = 0;
+                                                $grandTotalExport = 0;
+                                                $grandTotal = 0;
+                                            @endphp
                                             @foreach ($inventoryDebt as $va)
                                                 @php
                                                     $total = 0;
@@ -278,7 +286,7 @@
                                                         </tr>
                                                         @php
                                                             $total += $item->amount;
-                                                            $totalImport = $item->amount;
+                                                            $totalImport += $item->amount;
                                                         @endphp
                                                     @endforeach
                                                 @endif
@@ -286,16 +294,30 @@
                                                     <td colspan="4" class="total border text-center text-danger">
                                                         Tổng cộng</td>
                                                     <td class="text-right text-red border">
-                                                        {{ number_format($totalImport) }}
-                                                    </td>
+                                                        {{ number_format($totalImport) }}</td>
                                                     <td class="text-right text-red border">
-                                                        {{ number_format($totalExport) }}
-                                                    </td>
+                                                        {{ number_format($totalExport) }}</td>
                                                     <td class="text-right text-red border">{{ number_format($total) }}
                                                     </td>
                                                 </tr>
+                                                @php
+                                                    $grandTotalImport += $totalImport;
+                                                    $grandTotalExport += $totalExport;
+                                                    $grandTotal += $total;
+                                                @endphp
                                             @endforeach
+                                            <tr>
+                                                <td colspan="4" class="total border text-center text-danger">Tổng
+                                                    cộng tất cả</td>
+                                                <td class="text-right text-red border">
+                                                    {{ number_format($grandTotalImport) }}</td>
+                                                <td class="text-right text-red border">
+                                                    {{ number_format($grandTotalExport) }}</td>
+                                                <td class="text-right text-red border">
+                                                    {{ number_format($grandTotal) }}</td>
+                                            </tr>
                                         </tbody>
+
                                     </table>
                                 </div>
                             </div>
@@ -306,3 +328,4 @@
         </section>
     </div>
 </div>
+<x-print-component :contentId="$title" />

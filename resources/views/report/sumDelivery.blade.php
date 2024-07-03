@@ -22,7 +22,7 @@
                         <div class="row mr-0">
                             <div class="col-md-5 d-flex align-items-center">
                                 <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
+                                    <div class="position-relative relative ml-1">
                                         <input type="text" placeholder="Tìm kiếm" name="keywords"
                                             style="outline: none;" class="pr-4 w-100 input-search text-13"
                                             value="{{ request()->keywords }}">
@@ -86,6 +86,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContent('printContent', 'data')">In
+                                    trang</button>
                             </div>
                         </div>
                     </div>
@@ -99,8 +102,8 @@
                 <div id="buy" class="content tab-pane in active">
                     <div class="row  p-0 m-0">
                         <div class="col-12 p-0 m-0">
-                            <div class="mt-5">
-                                <div class="outer table-responsive text-nowrap">
+                            <div class="mt-5" id="data">
+                                <div class="outer top-table table-responsive text-nowrap">
                                     <table id="example2" class="table table-hover">
                                         <thead>
                                             <tr>
@@ -108,7 +111,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Ngày
                                                             </button>
                                                         </a>
@@ -119,7 +122,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Mã phiếu
                                                             </button>
                                                         </a>
@@ -130,7 +133,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Tên khách hàng
                                                             </button>
                                                         </a>
@@ -141,7 +144,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_name"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Tổng cộng
                                                             </button>
                                                         </a>
@@ -152,7 +155,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Thanh toán
                                                             </button>
                                                         </a>
@@ -163,7 +166,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Còn lại
                                                             </button>
                                                         </a>
@@ -174,7 +177,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Ngày giao hàng
                                                             </button>
                                                         </a>
@@ -185,7 +188,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Trạng thái giao
                                                             </button>
                                                         </a>
@@ -206,7 +209,7 @@
                                                     $totalAfterVatSum += $item->tongTien - $item->conLai;
                                                     $totalConlai += $item->conLai;
                                                 @endphp
-                                                <tr class="position-relative">
+                                                <tr class="position-relative relative">
                                                     <td class="text-13-black height-52 border">
                                                         {{ $item->ngayTao }}
                                                     </td>
@@ -237,21 +240,21 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                            <tr class="position-relative">
+                                            <tr class="position-relative relative">
                                                 <td colspan="3"
-                                                    class="text-13-black height-52 border text-right font-weight-bold">
+                                                    class="text-red bold height-52 border text-right font-weight-bold">
                                                     Tổng cộng:
                                                 </td>
-                                                <td class="text-13-black height-52 border font-weight-bold">
+                                                <td class="text-red bold height-52 border font-weight-bold">
                                                     {{ number_format($totalVatSum) }}
                                                 </td>
-                                                <td class="text-13-black height-52 border font-weight-bold">
+                                                <td class="text-red bold height-52 border font-weight-bold">
                                                     {{ number_format($totalAfterVatSum) }}
                                                 </td>
-                                                <td class="text-13-black height-52 border font-weight-bold">
+                                                <td class="text-red bold height-52 border font-weight-bold">
                                                     {{ number_format($totalConlai) }}
                                                 </td>
-                                                <td colspan="2" class="text-13-black height-52 border"></td>
+                                                <td colspan="2" class="text-red bold height-52 border"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -264,3 +267,4 @@
         </section>
     </div>
 </div>
+<x-print-component :contentId="$title" />

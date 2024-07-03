@@ -22,7 +22,7 @@
                         <div class="row mr-0">
                             <div class="col-md-5 d-flex align-items-center">
                                 <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
+                                    <div class="position-relative relative relative ml-1">
                                         <input type="text" placeholder="Tìm kiếm" name="keywords"
                                             style="outline: none;" class="pr-4 w-100 input-search text-13"
                                             value="{{ request()->keywords }}">
@@ -86,6 +86,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContent('printContent', 'data')">In
+                                    trang</button>
                             </div>
                         </div>
                     </div>
@@ -99,8 +102,8 @@
                 <div id="buy" class="content tab-pane in active">
                     <div class="row  p-0 m-0">
                         <div class="col-12 p-0 m-0">
-                            <div class="mt-5">
-                                <div class="outer table-responsive text-nowrap">
+                            <div class="mt-5" id="data">
+                                <div class="outer top-table table-responsive text-nowrap">
                                     <table id="example2" class="table table-hover">
                                         <thead>
                                             <tr>
@@ -108,7 +111,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Ngày
                                                             </button>
                                                         </a>
@@ -119,7 +122,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Mã phiếu
                                                             </button>
                                                         </a>
@@ -130,7 +133,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Tên khách hàng
                                                             </button>
                                                         </a>
@@ -141,7 +144,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Tên hàng hoá
                                                             </button>
                                                         </a>
@@ -152,7 +155,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 ĐVT
                                                             </button>
                                                         </a>
@@ -163,7 +166,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Số lượng
                                                             </button>
                                                         </a>
@@ -174,7 +177,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Đơn giá
                                                             </button>
                                                         </a>
@@ -185,7 +188,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Thành tiền
                                                             </button>
                                                         </a>
@@ -196,7 +199,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_name"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Tổng cộng
                                                             </button>
                                                         </a>
@@ -207,7 +210,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Thanh toán
                                                             </button>
                                                         </a>
@@ -218,7 +221,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Còn lại
                                                             </button>
                                                         </a>
@@ -229,7 +232,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Ghi chú
                                                             </button>
                                                         </a>
@@ -240,7 +243,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Trạng thái giao
                                                             </button>
                                                         </a>
@@ -250,6 +253,15 @@
                                             </tr>
                                         </thead>
                                         <tbody class="table-return">
+                                            @php
+                                                $totalQtyReturn = 0;
+                                                $totalPriceProduct = 0;
+                                                $totalProductTotal = 0;
+                                                $totalProductVat = 0;
+                                                $totalPayment = 0;
+                                                $totalRemaining = 0;
+                                            @endphp
+
                                             @foreach ($allReturn as $itemReturn)
                                                 @php
                                                     $matchedItems = $sumReturnExport->where(
@@ -261,13 +273,12 @@
 
                                                 @if ($matchedItems->isNotEmpty())
                                                     @foreach ($matchedItems as $item)
-                                                        <tr class="position-relative">
+                                                        <tr class="position-relative relative">
                                                             <input type="hidden" value="{{ $itemReturn->id }}"
                                                                 class="return">
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
                                                                 {{ $loop->first ? $itemReturn->created_at : '' }}
-
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
@@ -278,20 +289,15 @@
                                                                 {{ $loop->first ? $itemReturn->nameGuest : '' }}
                                                             </td>
                                                             <td class="text-13-black height-52 border">
-                                                                {{ $item->nameProduct }}
-                                                            </td>
+                                                                {{ $item->nameProduct }}</td>
                                                             <td class="text-13-black height-52 border">
-                                                                {{ $item->unitProduct }}
-                                                            </td>
+                                                                {{ $item->unitProduct }}</td>
                                                             <td class="text-13-black height-52 border">
-                                                                {{ $item->qtyReturn }}
-                                                            </td>
+                                                                {{ $item->qtyReturn }}</td>
                                                             <td class="text-13-black height-52 border">
-                                                                {{ number_format($item->priceProduct) }}
-                                                            </td>
+                                                                {{ number_format($item->priceProduct) }}</td>
                                                             <td class="text-13-black height-52 border">
-                                                                {{ number_format($item->product_total) }}
-                                                            </td>
+                                                                {{ number_format($item->product_total) }}</td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
                                                                 {{ number_format($itemReturn->totalProductVat) }}
@@ -320,9 +326,40 @@
                                                             </td>
                                                         </tr>
                                                     @endforeach
+
+                                                    @php
+                                                        $totalQtyReturn += $matchedItems->sum('qtyReturn');
+                                                        $totalPriceProduct += $matchedItems->sum('priceProduct');
+                                                        $totalProductTotal += $matchedItems->sum('product_total');
+                                                        $totalProductVat += $itemReturn->totalProductVat;
+                                                        $totalPayment += $itemReturn->payment;
+                                                        $totalRemaining +=
+                                                            $itemReturn->totalProductVat - $itemReturn->payment;
+                                                    @endphp
                                                 @endif
                                             @endforeach
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="5" class="text-red bold height-52 text-right border">
+                                                    <strong>Tổng
+                                                        cộng</strong>
+                                                </td>
+                                                <td class="text-red bold height-52 border">{{ $totalQtyReturn }}</td>
+                                                <td class="text-red bold height-52 border">
+                                                    {{ number_format($totalPriceProduct) }}</td>
+                                                <td class="text-red bold height-52 border">
+                                                    {{ number_format($totalProductTotal) }}</td>
+                                                <td class="text-red bold height-52 border">
+                                                    {{ number_format($totalProductVat) }}</td>
+                                                <td class="text-red bold height-52 border">
+                                                    {{ number_format($totalPayment) }}</td>
+                                                <td class="text-red bold height-52 border">
+                                                    {{ number_format($totalRemaining) }}</td>
+                                                <td colspan="2" class="text-red bold height-52 border"></td>
+                                            </tr>
+                                        </tfoot>
+
                                     </table>
                                 </div>
                             </div>
@@ -333,6 +370,8 @@
         </section>
     </div>
 </div>
+<x-print-component :contentId="$title" />
+
 <script src="{{ asset('/dist/js/report.js') }}"></script>
 <script>
     $(document).ready(function() {

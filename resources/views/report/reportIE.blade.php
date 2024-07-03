@@ -22,7 +22,7 @@
                         <div class="row mr-0">
                             <div class="col-md-5 d-flex align-items-center">
                                 <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
+                                    <div class="position-relative relative ml-1">
                                         <input type="text" placeholder="Tìm kiếm" name="keywords"
                                             style="outline: none;" class="pr-4 w-100 input-search text-13"
                                             value="{{ request()->keywords }}">
@@ -86,6 +86,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContent('printContent', 'buy')">In
+                                    trang</button>
                             </div>
                         </div>
                     </div>
@@ -100,7 +103,7 @@
                     <div class="row  p-0 m-0">
                         <div class="col-12 p-0 m-0">
                             <div class="">
-                                <div class="outer table-responsive text-nowrap">
+                                <div class="outer-4 top-table table-responsive text-nowrap">
                                     <table id="example2" class="table table-hover">
                                         <thead>
                                             <tr>
@@ -108,7 +111,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Ngày
                                                             </button>
                                                         </a>
@@ -119,7 +122,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Chứng từ
                                                             </button>
                                                         </a>
@@ -130,7 +133,7 @@
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Tên
                                                             </button>
                                                         </a>
@@ -141,7 +144,7 @@
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Nội dung thu chi
                                                             </button>
                                                         </a>
@@ -152,7 +155,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Số tiền
                                                             </button>
                                                         </a>
@@ -163,7 +166,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Quỹ
                                                             </button>
                                                         </a>
@@ -174,7 +177,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Ghi chú
                                                             </button>
                                                         </a>
@@ -185,195 +188,124 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td colspan="8">Loại: Chi</td>
+                                                <td colspan="7" class="border bold">Loại: Chi</td>
                                             </tr>
                                             @php
                                                 $previousContentPay = null;
-                                                $isFirstItem = true;
-                                                $total = 0;
+                                                $totalChi = 0;
                                             @endphp
                                             @foreach ($contentImport as $item)
-                                                @if ($isFirstItem && $previousContentPay !== $item->content_pay)
+                                                @if ($previousContentPay !== $item->content_pay)
                                                     <tr>
-                                                        <td colspan="6">
+                                                        <td colspan="7">
                                                             <span
                                                                 style="color: #007bff; text-decoration: none; background-color: transparent;">
                                                                 @if ($item->getContentPay)
-                                                                    Nội dung : {{ $item->getContentPay->name }}
+                                                                    Nội dung: {{ $item->getContentPay->name }}
                                                                 @endif
                                                             </span>
                                                         </td>
-                                                        <td> </td>
-                                                        {{-- <td></td> --}}
                                                     </tr>
-                                                @else
-                                                    @if ($previousContentPay !== null && $previousContentPay !== $item->content_pay)
-                                                        @php
-                                                            $previousContentPay !== $item->content_pay
-                                                                ? ($total = 0)
-                                                                : ($total = $total);
-                                                        @endphp
-                                                        <tr>
-                                                            @if ($item->getContentPay)
-                                                                <td colspan="6">
-                                                                    <span
-                                                                        style="color: #007bff; text-decoration: none; background-color: transparent">
-                                                                        Nội dung : {{ $item->getContentPay->name }}
-                                                                    </span>
-                                                                </td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            @endif
-                                                        </tr>
-                                                    @endif
+                                                    @php
+                                                        // Không cần reset $totalChi ở đây nếu muốn tính tổng từng loại chi
+                                                        // $totalChi = 0;
+                                                    @endphp
                                                 @endif
-
-                                                <tr class="position-relative guests-info"
-                                                    onclick="handleRowClick('checkbox', event);">
-                                                    <input type="hidden" name="id-guest" class="id-guest"
-                                                        id="id-guest" value="{{ $item->id }}">
-                                                    <td class="text-13-black height-52 border">
+                                                <tr class="position-relative relative">
+                                                    <td class="border">
                                                         {{ date_format(new DateTime($item->payment_date), 'd-m-Y') }}
                                                     </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        {{ $item->payment_code }}
+                                                    <td class="border">{{ $item->payment_code }}</td>
+                                                    <td class="border">
+                                                        {{ $item->getGuest ? $item->getGuest->guest_name_display : '' }}
                                                     </td>
-                                                    <td class="text-13-black height-52 border text-wrap">
-                                                        @if ($item->getGuest)
-                                                            {{ $item->getGuest->guest_name_display }}
-                                                        @endif
+                                                    <td class="border">
+                                                        {{ $item->getContentPay ? $item->getContentPay->name : '' }}
                                                     </td>
-                                                    <td class="text-13-black height-52 border text-right">
-                                                        @if ($item->getContentPay)
-                                                            {{ $item->getContentPay->name }}
-                                                        @endif
+                                                    <td class="border">{{ number_format($item->total) }}</td>
+                                                    <td class="border">{{ $item->getFund ? $item->getFund->name : '' }}
                                                     </td>
-                                                    <td class="text-13-black height-52 border text-right">
-                                                        {{ number_format($item->total) }}
-                                                    </td>
-                                                    <td class="text-13-black height-52 border text-right">
-                                                        @if ($item->getFund)
-                                                            {{ $item->getFund->name }}
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black height-52 border text-right">
-                                                        {{ $item->note }}
-                                                    </td>
-                                                    {{-- <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                        style="right: 10px; top: 7px;">
-                                                        <div class="d-flex w-100">
-                                                        </div>
-                                                    </td> --}}
+                                                    <td class="border">{{ $item->note }}</td>
                                                 </tr>
                                                 @php
                                                     $previousContentPay = $item->content_pay;
+                                                    $totalChi += $item->total; // Tính tổng chi từng item
                                                 @endphp
                                             @endforeach
-
                                             <tr>
-                                                <td colspan="8">Loại: Thu</td>
+                                                <td colspan="4" class="border bold text-right"><strong>Tổng
+                                                        chi</strong></td>
+                                                <td colspan="3" class="border bold">
+                                                    <strong>{{ number_format($totalChi) }}</strong>
+                                                </td>
                                             </tr>
-
+                                        </tbody>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="7" class="border bold">Loại: Thu</td>
+                                            </tr>
                                             @php
                                                 $previousContentPay = null;
-                                                $isFirstItem = true;
-                                                $total = 0;
+                                                $totalThu = 0;
                                             @endphp
                                             @foreach ($contentExport as $item)
-                                                @if ($isFirstItem || $previousContentPay == $item->content_id)
-                                                    @php
-                                                        $total += $item->amount;
-                                                    @endphp
-                                                @else
-                                                    @php
-                                                        $total = 0;
-                                                    @endphp
-                                                @endif
-
-                                                @if ($isFirstItem && $previousContentPay !== $item->content_id)
+                                                @if ($previousContentPay !== $item->content_id)
                                                     <tr>
-                                                        <td colspan="6">
+                                                        <td colspan="7">
                                                             <span
-                                                                style="color: #007bff; text-decoration: none; background-color: transparent">
+                                                                style="color: #007bff; text-decoration: none; background-color: transparent;">
                                                                 @if ($item->getContentPay)
-                                                                    Nội dung : {{ $item->getContentPay->name }}
+                                                                    Nội dung: {{ $item->getContentPay->name }}
                                                                 @endif
                                                             </span>
                                                         </td>
-                                                        <td> </td>
-                                                        {{-- <td></td> --}}
                                                     </tr>
-                                                @else
-                                                    @if ($previousContentPay !== null && $previousContentPay !== $item->content_id)
-                                                        @php
-                                                            $previousContentPay !== $item->content_id
-                                                                ? ($total = 0)
-                                                                : ($total = $total);
-                                                        @endphp
-                                                        <tr>
-                                                            @if ($item->getContentPay)
-                                                                <td colspan="6">
-                                                                    <span
-                                                                        style="color: #007bff; text-decoration: none; background-color: transparent">
-                                                                        Nội dung : {{ $item->getContentPay->name }}
-                                                                    </span>
-                                                                </td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            @endif
-                                                        </tr>
-                                                    @endif
+                                                    @php
+                                                        // Không cần reset $totalThu ở đây nếu muốn tính tổng từng loại thu
+                                                        // $totalThu = 0;
+                                                    @endphp
                                                 @endif
-
-                                                <tr class="position-relative guests-info"
-                                                    onclick="handleRowClick('checkbox', event);">
-                                                    <input type="hidden" name="id-guest" class="id-guest"
-                                                        id="id-guest" value="{{ $item->id }}">
-                                                    <td class="py-2 text-13-black pl-0 height-52 border px-2">
+                                                <tr class="position-relative relative">
+                                                    <td class="border">
                                                         {{ date_format(new DateTime($item->date_created), 'd-m-Y') }}
                                                     </td>
-                                                    <td class="py-2 text-13-black pl-0 height-52 border px-2">
-                                                        {{ $item->receipt_code }}
+                                                    <td class="border">{{ $item->receipt_code }}</td>
+                                                    <td class="border">
+                                                        {{ $item->getGuest ? $item->getGuest->guest_name_display : '' }}
                                                     </td>
-                                                    <td
-                                                        class="py-2 text-13-black pl-0 height-52 border px-2 text-wrap">
-                                                        @if ($item->getGuest)
-                                                            {{ $item->getGuest->guest_name_display }}
-                                                        @endif
+                                                    <td class="border">
+                                                        {{ $item->getContentPay ? $item->getContentPay->name : '' }}
                                                     </td>
-                                                    <td
-                                                        class="py-2 text-13-black pl-0 height-52 border px-2 text-right">
-                                                        @if ($item->getContentPay)
-                                                            {{ $item->getContentPay->name }}
-                                                        @endif
-                                                    </td>
-                                                    <td
-                                                        class="py-2 text-13-black pl-0 height-52 border px-2 text-right">
-                                                        {{ number_format($item->amount) }}
-                                                    </td>
-                                                    <td
-                                                        class="py-2 text-13-black pl-0 height-52 border px-2 text-right">
-                                                        @if ($item->getFund)
-                                                            {{ $item->getFund->name }}
-                                                        @endif
-                                                    </td>
-                                                    <td
-                                                        class="py-2 text-13-black pl-0 height-52 border px-2 text-right">
-                                                        {{ $item->note }}
-                                                    </td>
-                                                    {{-- <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                        style="right: 10px; top: 7px;">
-                                                        <div class="d-flex w-100">
-                                                        </div>
-                                                    </td> --}}
+                                                    <td class="border">{{ number_format($item->amount) }}</td>
+                                                    <td class="border">
+                                                        {{ $item->getFund ? $item->getFund->name : '' }}</td>
+                                                    <td class="border">{{ $item->note }}</td>
                                                 </tr>
                                                 @php
                                                     $previousContentPay = $item->content_id;
+                                                    $totalThu += $item->amount; // Tính tổng thu từng item
                                                 @endphp
                                             @endforeach
+                                            <tr>
+                                                <td colspan="4" class="border bold text-right"><strong>Tổng
+                                                        thu</strong></td>
+                                                <td colspan="3" class="border bold">
+                                                    <strong>{{ number_format($totalThu) }}</strong>
+                                                </td>
                                             </tr>
-
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="4" class="border bold text-right"><strong>Tổng
+                                                        cộng</strong></td>
+                                                <td colspan="3" class="border bold">
+                                                    <strong>{{ number_format($totalThu - $totalChi) }}</strong>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+
+
+
                                     </table>
                                 </div>
                             </div>
@@ -384,3 +316,4 @@
         </section>
     </div>
 </div>
+<x-print-component :contentId="$title" />

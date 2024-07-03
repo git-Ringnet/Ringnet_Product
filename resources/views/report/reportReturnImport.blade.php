@@ -22,7 +22,7 @@
                         <div class="row mr-0">
                             <div class="col-md-5 d-flex align-items-center">
                                 <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
+                                    <div class="position-relative relative ml-1">
                                         <input type="text" placeholder="Tìm kiếm" name="keywords"
                                             style="outline: none;" class="pr-4 w-100 input-search text-13"
                                             value="{{ request()->keywords }}">
@@ -86,6 +86,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContent('printContent', 'buy')">In
+                                    trang</button>
                             </div>
                         </div>
                     </div>
@@ -100,7 +103,7 @@
                     <div class="row  p-0 m-0">
                         <div class="col-12 p-0 m-0">
                             <div class="">
-                                <div class="outer table-responsive text-nowrap">
+                                <div class="outer top-table table-responsive text-nowrap">
                                     <table id="example2" class="table table-hover">
                                         <thead>
                                             <tr>
@@ -260,6 +263,16 @@
                                                 </th>
                                             </tr>
                                         </thead>
+                                        @php
+                                            // Khởi tạo các biến để tính tổng cộng
+                                            $totalQtyReturn = 0;
+                                            $totalPriceProduct = 0;
+                                            $totalAmount = 0;
+                                            $totalTotal = 0;
+                                            $totalPayment = 0;
+                                            $totalBalance = 0;
+                                        @endphp
+
                                         <tbody class="table-return">
                                             @foreach ($allReturn as $itemReturn)
                                                 @php
@@ -272,13 +285,18 @@
 
                                                 @if ($matchedItems->isNotEmpty())
                                                     @foreach ($matchedItems as $item)
-                                                        <tr class="position-relative">
+                                                        @php
+                                                            $totalQtyReturn += $item->qtyReturn;
+                                                            $totalPriceProduct += $item->priceProduct;
+                                                            $totalAmount += $item->qtyReturn * $item->priceProduct;
+                                                        @endphp
+
+                                                        <tr class="position-relative relative">
                                                             <input type="hidden" value="{{ $itemReturn->id }}"
                                                                 class="return">
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
                                                                 {{ $loop->first ? $itemReturn->created_at : '' }}
-
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
@@ -303,37 +321,64 @@
                                                             <td class="text-13-black height-52 border">
                                                                 {{ number_format($item->qtyReturn * $item->priceProduct) }}
                                                             </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ number_format($itemReturn->total) }}
-                                                            </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ number_format($itemReturn->payment) }}
-                                                            </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ number_format($itemReturn->total - $itemReturn->payment) }}
-                                                            </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ $loop->first ? $itemReturn->description : '' }}
-                                                            </td>
-                                                            <td rowspan="{{ $count }}"
-                                                                class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                @if ($loop->first)
+                                                            @if ($loop->first)
+                                                                @php
+                                                                    $totalTotal += $itemReturn->total;
+                                                                    $totalPayment += $itemReturn->payment;
+                                                                    $totalBalance +=
+                                                                        $itemReturn->total - $itemReturn->payment;
+                                                                @endphp
+                                                                <td rowspan="{{ $count }}"
+                                                                    class="text-13-black height-52 border">
+                                                                    {{ number_format($itemReturn->total) }}
+                                                                </td>
+                                                                <td rowspan="{{ $count }}"
+                                                                    class="text-13-black height-52 border">
+                                                                    {{ number_format($itemReturn->payment) }}
+                                                                </td>
+                                                                <td rowspan="{{ $count }}"
+                                                                    class="text-13-black height-52 border">
+                                                                    {{ number_format($itemReturn->total - $itemReturn->payment) }}
+                                                                </td>
+                                                                <td rowspan="{{ $count }}"
+                                                                    class="text-13-black height-52 border">
+                                                                    {{ $itemReturn->description }}
+                                                                </td>
+                                                                <td rowspan="{{ $count }}"
+                                                                    class="text-13-black height-52 border">
                                                                     @if ($itemReturn->status == 1)
                                                                         <span>Nháp</span>
                                                                     @elseif ($itemReturn->status == 2)
                                                                         <span class="text-green">Đã giao</span>
                                                                     @endif
-                                                                @endif
-                                                            </td>
+                                                                </td>
+                                                            @endif
                                                         </tr>
                                                     @endforeach
                                                 @endif
                                             @endforeach
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="5" class="text-13 bold text-right height-52 border">
+                                                    Tổng cộng
+                                                </td>
+                                                <td class="text-13 bold height-52 border">
+                                                    {{ number_format($totalQtyReturn) }}</td>
+                                                <td class="text-13 bold height-52 border">
+                                                    {{ number_format($totalPriceProduct) }}</td>
+                                                <td class="text-13 bold height-52 border">
+                                                    {{ number_format($totalAmount) }}</td>
+                                                <td class="text-13 bold height-52 border">
+                                                    {{ number_format($totalTotal) }}</td>
+                                                <td class="text-13 bold height-52 border">
+                                                    {{ number_format($totalPayment) }}</td>
+                                                <td class="text-13 bold height-52 border">
+                                                    {{ number_format($totalBalance) }}</td>
+                                                <td colspan="3" class="text-13 bold height-52 border"></td>
+                                            </tr>
+                                        </tfoot>
+
                                     </table>
                                 </div>
                             </div>
@@ -344,6 +389,8 @@
         </section>
     </div>
 </div>
+<x-print-component :contentId="$title" />
+
 <script src="{{ asset('/dist/js/report.js') }}"></script>
 <script>
     $(document).ready(function() {

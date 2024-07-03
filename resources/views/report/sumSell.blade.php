@@ -22,7 +22,7 @@
                         <div class="row mr-0">
                             <div class="col-md-5 d-flex align-items-center">
                                 <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
+                                    <div class="position-relative relative ml-1">
                                         <input type="text" placeholder="Tìm kiếm" name="keywords"
                                             style="outline: none;" class="pr-4 w-100 input-search text-13"
                                             value="{{ request()->keywords }}">
@@ -86,6 +86,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContent('printContent', 'data')">In
+                                    trang</button>
                             </div>
                         </div>
                     </div>
@@ -99,8 +102,8 @@
                 <div id="buy" class="content tab-pane in active">
                     <div class="row  p-0 m-0">
                         <div class="col-12 p-0 m-0">
-                            <div class="mt-5">
-                                <div class="outer table-responsive text-nowrap">
+                            <div class="mt-5" id="data">
+                                <div class="outer top-table table-responsive text-nowrap">
                                     <table id="example2" class="table table-hover">
                                         <thead>
                                             <tr>
@@ -108,7 +111,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 STT
                                                             </button>
                                                         </a>
@@ -119,7 +122,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Ngày
                                                             </button>
                                                         </a>
@@ -130,7 +133,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Mã phiếu
                                                             </button>
                                                         </a>
@@ -141,7 +144,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Nhóm khách hàng
                                                             </button>
                                                         </a>
@@ -152,7 +155,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Tên khách hàng
                                                             </button>
                                                         </a>
@@ -163,7 +166,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Tên hàng hoá
                                                             </button>
                                                         </a>
@@ -174,7 +177,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 ĐVT
                                                             </button>
                                                         </a>
@@ -185,7 +188,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Số lượng
                                                             </button>
                                                         </a>
@@ -196,7 +199,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Đơn giá
                                                             </button>
                                                         </a>
@@ -207,7 +210,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Thành tiền
                                                             </button>
                                                         </a>
@@ -218,7 +221,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_name"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Tổng cộng
                                                             </button>
                                                         </a>
@@ -229,7 +232,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Thanh toán
                                                             </button>
                                                         </a>
@@ -240,7 +243,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Còn lại
                                                             </button>
                                                         </a>
@@ -251,7 +254,7 @@
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                             data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Trạng thái
                                                             </button>
                                                         </a>
@@ -300,7 +303,7 @@
                                                             $totalPriceExport += $item->price_export;
                                                             $totalProductTotalVat += $item->product_total;
                                                         @endphp
-                                                        <tr class="position-relative">
+                                                        <tr class="position-relative relative">
                                                             <input type="hidden" value="{{ $itemDelivery->id }}"
                                                                 class="sell">
                                                             <td rowspan="{{ $count }}"
@@ -369,35 +372,35 @@
                                                     @endphp
                                                 @endif
                                             @endforeach
-                                            <tr class="position-relative">
-                                                <td colspan="7" class="text-red height-52 border text-center">
+                                            <tr class="position-relative relative">
+                                                <td colspan="7" class="text-red bold height-52 border text-center">
                                                     <strong>Tổng cộng</strong>
                                                 </td>
-                                                <td class="text-red height-52 border">
+                                                <td class="text-red bold height-52 border">
                                                     {{ number_format($totalDeliverQty) }}
                                                 </td>
-                                                <td class="text-red height-52 border">
+                                                <td class="text-red bold height-52 border">
                                                     {{ number_format($totalPriceExport) }}
                                                 </td>
-                                                <td class="text-red height-52 border">
+                                                <td class="text-red bold height-52 border">
                                                     {{ number_format($totalProductTotalVat) }}
                                                 </td>
-                                                <td class="text-red height-52 border">
+                                                <td class="text-red bold height-52 border">
                                                     {{ number_format($totalItemDeliveryTotalProductVat) }}
                                                 </td>
-                                                <td class="text-red height-52 border">
+                                                <td class="text-red bold height-52 border">
                                                     {{ number_format($totalPay) }}
                                                 </td>
-                                                <td class="text-red height-52 border">
+                                                <td class="text-red bold height-52 border">
                                                     {{ number_format($totalRemai) }}
                                                 </td>
-                                                <td class="text-red height-52 border"></td>
+                                                <td class="text-red bold height-52 border"></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     {{-- <table class="w-100">
                                         <tbody>
-                                            <tr class="position-relative">
+                                            <tr class="position-relative relative">
                                                 <td colspan="7" class="text-red height-52 border text-center">
                                                     <strong>Tổng cộng</strong>
                                                 </td>
@@ -432,6 +435,7 @@
         </section>
     </div>
 </div>
+<x-print-component :contentId="$title" />
 <script src="{{ asset('/dist/js/report.js') }}"></script>
 <script>
     $(document).ready(function() {
