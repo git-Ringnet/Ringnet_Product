@@ -118,7 +118,7 @@ class ReturnImportController extends Controller
                 ->get();
 
             $detail = $returnImport->getReceive;
-            $detail = $detail->getQuotation;
+            // $detail = $detail->getQuotation;
         }
         $listDetail = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
         return view('tables.returnImport.edit', compact('returnImport', 'title', 'workspacename', 'product', 'detail', 'listDetail'));

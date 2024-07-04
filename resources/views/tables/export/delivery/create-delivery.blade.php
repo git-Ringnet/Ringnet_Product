@@ -2800,7 +2800,7 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
-                    // console.log(data.code_delivery);
+                    console.log(data);
                     // $('input[name="code_delivery"]').val(data.code_delivery);
                     $('.idRepresent').val(data.represent_id)
                     $('.numberQute').val(data.quotation_number)
