@@ -64,7 +64,7 @@ class ReturnImport extends Model
                 ->orderBy('id', 'desc')
                 ->first();
 
-            $pattern = '/PCT(\d+)-/';
+            $pattern = '/PTH(\d+)-/';
             if ($last) {
                 preg_match($pattern, $last->return_code, $matches);
                 $getNumber = isset($matches[1]) ? $matches[1] : 0;

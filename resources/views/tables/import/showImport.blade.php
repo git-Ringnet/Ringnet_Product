@@ -93,7 +93,7 @@
                                             </button>
                                         </a>
                                     </li>
-                                    <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
+                                    {{-- <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
                                         data-type="DMH" data-des="Tạo nhanh hóa đơn mua hàng">
                                         <a href="#" style="flex:2;" onclick="getAction(this)"
                                             name="search-info" class="search-info">
@@ -105,7 +105,7 @@
                                                     thành hóa đơn</span>
                                             </button>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
                                         data-type="DMH" data-des="Tạo nhanh thanh toán mua hàng">
                                         <a href="#" style="flex:2;" onclick="getAction(this)"
@@ -254,7 +254,7 @@
                                 <span class="text-table">Giao hàng: Một phần</span>
                             </div>
                         @endif
-                        <div class="line-vertical mx-2 my-1"></div>
+                        {{-- <div class="line-vertical mx-2 my-1"></div>
                         @if ($import->status_reciept == 0)
                             <div class="border text-secondary p-1 rounded">
                                 <span>
@@ -301,7 +301,7 @@
                                 </span>
                                 <span class="text-table">Hóa đơn: Một phần</span>
                             </div>
-                        @endif
+                        @endif --}}
                         <div class="line-vertical mx-2 my-1"></div>
                         @if ($import->status_pay == 0)
                             <div class="border text-secondary p-1 rounded">

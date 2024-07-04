@@ -109,7 +109,7 @@
                                             </button>
                                         </a>
                                     </li>
-                                    <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
+                                    {{-- <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
                                         <a href="#" onclick="getAction(this)" id="btnHoaDon">
                                             <button name="action" value="action_3" type="submit"
                                                 style="background-color: transparent;"
@@ -119,7 +119,7 @@
                                                 </span>
                                             </button>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
                                         <a href="#" onclick="getAction(this)" id="btnThanhToan">
                                             <button name="action" value="action_4" type="submit"
@@ -285,7 +285,7 @@
                                 <span class="text-table">Giao hàng: Một phần</span>
                             </div>
                         @endif
-                        <div class="line-vertical mx-2 my-1"></div>
+                        {{-- <div class="line-vertical mx-2 my-1"></div>
                         @if ($detailExport->status_reciept == 1 || $detailExport->status_reciept == 0)
                             <div class="border text-secondary p-1 rounded">
                                 <span>
@@ -332,7 +332,7 @@
                                 </span>
                                 <span class="text-table">Hóa đơn: Một phần</span>
                             </div>
-                        @endif
+                        @endif --}}
                         <div class="line-vertical mx-2 my-1"></div>
                         @if ($detailExport->status_pay == 1 || $detailExport->status_pay == 0)
                             <div class="border text-secondary p-1 rounded">

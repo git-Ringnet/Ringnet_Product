@@ -417,13 +417,12 @@
                 detail_id = parseInt($(this).attr('id'), 10);
             }
             $.ajax({
-                url: "{{ route('getInfoDeliveryReciepts') }}",
+                url: "{{ route('getInfoDeliveryRecieptsEdit') }}",
                 type: "get",
                 data: {
                     detail_id: detail_id,
                 },
                 success: function(data) {
-                    console.log(data);
                     $('#myInput').val(data.quotation_number)
                     $('#myGuest').val(data.nameGuest);
                     $('#listReceive').hide();

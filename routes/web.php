@@ -118,6 +118,7 @@ Route::resource('{workspace}/returnExport', ReturnExportController::class);
 // Phiếu Thu
 Route::resource('{workspace}/cash_receipts', CashReceiptController::class);
 Route::get('/getInfoDeliveryReciepts', [CashReceiptController::class, 'getInfoDeliveryReciepts'])->name('getInfoDeliveryReciepts');
+Route::get('/getInfoDeliveryRecieptsEdit', [CashReceiptController::class, 'getInfoDeliveryRecieptsEdit'])->name('getInfoDeliveryRecieptsEdit');
 
 
 // Phiếu chuyển kho

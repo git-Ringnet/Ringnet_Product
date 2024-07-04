@@ -36,7 +36,9 @@ class CashReceiptController extends Controller
         $title = 'Phiếu thu';
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $cashReceipts = CashReceipt::with(['guest', 'fund', 'user', 'workspace'])->where('workspace_id', Auth::user()->current_workspace)->get();
+        $cashReceipts = CashReceipt::with(['guest', 'fund', 'user', 'workspace'])->where('workspace_id', Auth::user()->current_workspace)
+            ->orderby('id', 'DESC')
+            ->get();
         // dd($cashReceipts);
         return view('tables.cash_receipts.index', compact('cashReceipts', 'title', 'workspacename'));
     }
@@ -192,5 +194,16 @@ class CashReceiptController extends Controller
         $data = $request->all();
         $delivery = $this->cash_receipts->fetchDelivery($data);
         return response()->json($delivery);
+    }
+
+    public function getInfoDeliveryRecieptsEdit(Request $request)
+    {
+        $data = $request->all();
+        $detailOwed = DetailExport::leftJoin('guest', 'detailexport.guest_id', 'guest.id')
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->where('detailexport.id',  $data['detail_id'])
+            ->select('detailexport.*', 'guest.guest_name_display as nameGuest')
+            ->first();
+        return response()->json($detailOwed);
     }
 }
