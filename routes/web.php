@@ -232,6 +232,7 @@ Route::get('/addRepresentGuest', [DetailExportController::class, 'addRepresentGu
 Route::get('/addProject', [DetailExportController::class, 'addProject'])->name('addProject');
 //Lấy thông tin sản phẩm
 Route::get('/getProduct', [DetailExportController::class, 'getProduct'])->name('getProduct');
+Route::get('/getInventWH', [DetailExportController::class, 'getInventWH'])->name('getInventWH');
 //Lấy mã sản phẩm
 Route::get('/getProductCode', [DetailExportController::class, 'getProductCode'])->name('getProductCode');
 //Lấy người đại diện theo khách hàng
@@ -345,7 +346,6 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('{workspace}/viewReportReturnImport', [ReportController::class, 'viewReportReturnImport'])->name('viewReportReturnImport');
     Route::get('{workspace}/viewReportIEFunds', [ReportController::class, 'viewReportIEFunds'])->name('viewReportIEFunds');
     Route::get('{workspace}/viewReportIEEnventory', [ReportController::class, 'viewReportIEEnventory'])->name('viewReportIEEnventory');
-    
 });
 
 Route::middleware([CheckLogin::class])->group(function () {

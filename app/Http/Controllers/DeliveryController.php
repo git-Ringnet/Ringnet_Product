@@ -465,7 +465,24 @@ class DeliveryController extends Controller
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
-            ->select('*', 'detailexport.promotion as promotion_total', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP', 'quoteexport.product_code as maCode', 'quoteexport.product_name as tenSP', 'quoteexport.product_tax as thueSP', 'quoteexport.product_unit as product_unit')
+            ->leftJoin('productwarehouse', function ($join) {
+                $join->on('productwarehouse.product_id', 'quoteexport.product_id')
+                    ->on('productwarehouse.warehouse_id', 'quoteexport.warehouse_id');
+            })
+            ->leftJoin('warehouse', 'warehouse.id', 'productwarehouse.warehouse_id')
+            ->select(
+                '*',
+                'detailexport.promotion as promotion_total',
+                'detailexport.id as maXuat',
+                'quoteexport.product_id as maSP',
+                'quoteexport.product_code as maCode',
+                'quoteexport.product_name as tenSP',
+                'quoteexport.product_tax as thueSP',
+                'quoteexport.product_unit as product_unit',
+                'productwarehouse.qty as tonkho',
+                'warehouse.warehouse_name as nameWH',
+                'warehouse.id as idWH',
+            )
             ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
             ->leftJoin('serialnumber', function ($join) {
                 $join->on('serialnumber.product_id', '=', 'products.id');
@@ -493,17 +510,34 @@ class DeliveryController extends Controller
     {
         try {
             $data = $request->all();
-            $products = Products::select('products.*', 'serialnumber.serinumber')
+            $productQuery = Products::select('products.*', 'productwarehouse.qty as product_inventory', 'serialnumber.serinumber')
+                ->leftJoin('productwarehouse', function ($join) use ($data) {
+                    $join->on('productwarehouse.product_id', '=', 'products.id')
+                        ->where('productwarehouse.warehouse_id', '=', $data['warehouse_id']);
+                })
                 ->leftJoin('serialnumber', function ($join) {
                     $join->on('products.id', '=', 'serialnumber.product_id')
                         ->where('serialnumber.detailexport_id', 0);
                 })
-                ->where('products.id', $data['idProduct'])
-                ->get();
+                ->where('products.id', $data['idProduct']);
 
             // Check if there are products
+            $products = $productQuery->get();
+
+            // If no products found with the given warehouse_id, fetch without it
             if ($products->isEmpty()) {
-                throw new \Exception('Product not found');
+                $products = Products::select('products.*', 'serialnumber.serinumber')
+                    ->leftJoin('serialnumber', function ($join) {
+                        $join->on('products.id', '=', 'serialnumber.product_id')
+                            ->where('serialnumber.detailexport_id', 0);
+                    })
+                    ->where('products.id', $data['idProduct'])
+                    ->get();
+
+                // Add product_inventory = 0 for each product
+                $products->each(function ($product) {
+                    $product->product_inventory = 0;
+                });
             }
 
             // Group dữ liệu theo ID sản phẩm để có danh sách seri cho mỗi sản phẩm

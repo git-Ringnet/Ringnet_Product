@@ -370,6 +370,9 @@
                                         <th class="border-right p-0 px-2 text-right text-13" style="">
                                             Số lượng
                                         </th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="">
+                                            Kho
+                                        </th>
                                         <th class="border-right p-0 px-2 text-right text-13 d-none" style="">
                                             Quản lý SN
                                         </th>
@@ -1035,6 +1038,25 @@
                 "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>" +
                 "</td>"
             );
+            const kho = $(
+                '<td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">' +
+                '<input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]" readonly autocomplete="off">' +
+                '<div id="listWareH" class="bg-white position-absolute rounded shadow p-1 z-index-block" style="z-index: 99;">' +
+                '<ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse" style="display:none;">' +
+                '<div class="p-1">' +
+                '<div class="position-relative">' +
+                '<input type="text" placeholder="Nhập kho hàng" class="pr-4 w-100 input-search bg-input-guest searchWarehouse" id="a">' +
+                '<span id="search-icon" class="search-icon">' +
+                '<i class="fas fa-search text-table" aria-hidden="true"></i>' +
+                '</span>' +
+                '</div>' +
+                '</div>' +
+                '</ul>' +
+                '</div>' +
+                '<input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]" >' +
+                //'<ul id="listWarehouse" class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
+                //"</ul>" +
+                '</td>');
             const ghiChu = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
                 "<input type='text' class='border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú' name='product_note[]'>" +
@@ -1050,7 +1072,7 @@
                 "<td style='display:none;'><input type='text' class='type'></td>"
             );
             // Gắn các phần tử vào hàng mới
-            newRow.append(tenSanPham, dvTinh, soLuong,
+            newRow.append(tenSanPham, dvTinh, soLuong, kho,
                 ghiChu);
             $("#dynamic-fields").before(newRow);
             checkProductTaxValues();
@@ -1185,12 +1207,14 @@
                             return;
                         }
                     }
-
                     $.ajax({
                         url: '{{ route('getProductFromQuote') }}',
                         type: 'GET',
                         data: {
-                            idProduct: idProduct
+                            idProduct: idProduct,
+                            warehouse_id: $(this).closest('tr').find(
+                                    '.warehouse_id')
+                                .val(),
                         },
                         success: function(data) {
                             if (Array.isArray(data) && data.length > 0) {
@@ -1203,17 +1227,24 @@
                                     .product_price_export))
                                 thue.val(productData.product_tax);
                                 product_id.val(productData.id);
-                                tonkho.val(productData.product_inventory);
-                                if (productData.type == 2) {
-                                    inventory.hide();
-                                    soTonKho.text('');
-                                } else {
-                                    inventory.show();
-                                    soTonKho.text(formatNumber(productData
-                                        .product_inventory == null ?
-                                        0 :
-                                        productData
-                                        .product_inventory));
+                                if ($(this).closest('tr').find(
+                                        '.warehouse_id')
+                                    .val()) {
+                                    tonkho.val(productData
+                                        .product_inventory);
+                                    if (productData.type == 2) {
+                                        inventory.hide();
+                                        soTonKho.text('');
+                                    } else {
+                                        inventory.show();
+                                        soTonKho.text(formatNumber(
+                                            productData
+                                            .product_inventory ==
+                                            null ?
+                                            0 :
+                                            productData
+                                            .product_inventory));
+                                    }
                                 }
                                 type.val(productData.type);
                                 $('#product_tax').prop('disabled', true);
@@ -1222,7 +1253,6 @@
                                 $('.list_product').hide();
                                 $('.recentModal').show();
                                 checkProductTaxValues();
-                                console.log(checkProductTaxValues());
                                 // Cập nhật ID của hàng (row)
                                 var newRowID = 'dynamic-row-' + productData
                                     .id;
@@ -2824,7 +2854,6 @@
                                                 = (item.price_export *
                                                     item.soLuongCanGiao
                                                 ) * (value / 100);
-                                            console.log(type === 2);
                                         } else if (type ===
                                             1) {
                                             promotion_total_product_item
@@ -2862,6 +2891,7 @@
                                         console.error(error);
                                     }
                                 };
+                                console.log(data);
                                 var newRow = `
                                 <tr id="dynamic-row-${item.maSP}" class="bg-white addProduct">
                                     <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
@@ -2903,9 +2933,24 @@
                                         <input type="number" value="${formatNumber(item.soLuongCanGiao)}" data-product-id="${item.maSP}" class="height-32 border-0 px-2 text-right py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                         <input type="hidden" class="limit-quantity" value="${formatNumber(item.soLuongCanGiao)}" data-limit-quantity="${formatNumber(item.soLuongCanGiao)}">
                                         <input type="hidden" class="tonkho">
-                                        <p class="mt-3 text-13-blue inventory text-right mb-0 ${item.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
+                                        <p class="mt-3 text-13-blue inventory text-right mb-0 ${item.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(item.tonkho == null ? 0 : item.tonkho)}</span></p>
                                         </div>  
                                         </div>
+                                    </td>
+                                    <td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">
+                                        <input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]"
+                                        value="${item.nameWH}">
+                                        <ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse" style="display:none;">
+                                            <div class="p-1">
+                                                <div class="position-relative">
+                                                    <input type="text" placeholder="Nhập kho hàng" class="pr-4 w-100 input-search bg-input-guest searchWarehouse" id="">
+                                                    <span id="search-icon" class="search-icon">
+                                                        <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                        <input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]" value="${item.idWH}">
                                     </td>
                                     <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
                                         <a class="open-modal-btn text-center" href="#" data-target="#exampleModal0" data-toggle="modal">
@@ -4725,6 +4770,68 @@
             $('#luuNhap').click();
         });
     });
+    showListWarehouse()
+    $(document).on('click', '.searchWarehouse', function(e) {
+        e.preventDefault();
+        var position = $(this);
+        $.ajax({
+            url: "{{ route('getWarehouse') }}",
+            type: "get",
+            data: {},
+            success: function(data) {
+                $(position).closest('tr').find('#listWarehouse li').remove()
+                data.forEach(item => {
+                    var li = `
+                        <li class="w-100">
+                            <a data-id="` + item.id + `" data-value="` + item.warehouse_name + `"
+                            href="javascript:void(0)" 
+                            class="text-dark d-flex w-100 justify-content-between p-2 search-warehouse" 
+                            name="search-warehouse">
+                            <span class="w-100 text-13-black">` + item.warehouse_name + `</span>
+                            </a>
+                        </li>`;
+                    $(position).closest('tr').find('#listWarehouse').append(li);
+                });
+            }
+        })
+    })
+
+    $(document).on('click', '.search-warehouse', function() {
+        var tr = $(this).closest('tr');
+        $(tr).find('#searchWarehouse').val($(this).data('value'));
+        $(tr).find('.warehouse_id').val($(this).data('id'));
+        $(tr).find('#listWarehouse').hide();
+        var tonkho = $(tr).find('.tonkho');
+        var soTonKho = $(tr).find('.soTonKho');
+        var inventory = $(tr).find('.inventory');
+        var quantity_input = $(tr).find('.quantity-input');
+
+        $.ajax({
+            url: "{{ route('getInventWH') }}",
+            type: "get",
+            data: {
+                warehouse_id: $(tr).find('.warehouse_id').val(),
+                idProduct: $(tr).find('.product_id').val(),
+            },
+            success: function(data) {
+                tonkho.val(formatNumber(data
+                    .product_inventory == null ? 0 :
+                    data.product_inventory))
+                if (data.type == 2) {
+                    soTonKho.text('');
+                    inventory.hide();
+                } else {
+                    soTonKho.text(parseFloat(data
+                        .product_inventory == null ? 0 :
+                        data.product_inventory));
+                    inventory.show();
+                    if (data.product_inventory > 0) {
+                        inventory.show();
+                    }
+                }
+            }
+        })
+    })
 </script>
 </body>
 

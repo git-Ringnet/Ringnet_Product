@@ -87,7 +87,7 @@
                                     </div>
                                 </div>
                                 <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                    onclick="printContent('printContent', 'data')">In
+                                    onclick="printContent('printContent', 'data','foot')">In
                                     trang</button>
                             </div>
                         </div>
@@ -240,7 +240,7 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                            <tr class="position-relative relative">
+                                            {{-- <tr class="position-relative relative">
                                                 <td colspan="3"
                                                     class="text-red bold height-52 border text-right font-weight-bold">
                                                     Tổng cộng:
@@ -255,7 +255,7 @@
                                                     {{ number_format($totalConlai) }}
                                                 </td>
                                                 <td colspan="2" class="text-red bold height-52 border"></td>
-                                            </tr>
+                                            </tr> --}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -266,13 +266,12 @@
             </div>
         </section>
     </div>
-    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;">
+    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;" id="foot">
         <div class="position-relative">
             <table class="table table-hover position-absolute bg-white border-0">
                 <thead>
                     <tr>
-                        <th class="text-center text-danger font-weight-bold border height-52"   
-                            style="width: 30%;">
+                        <th class="text-center text-danger font-weight-bold border height-52" style="width: 30%;">
                             Tổng cộng
                         </th>
                         <th class="text-center text-red border" style="width: 14%;">
@@ -286,8 +285,8 @@
                         </th>
                         <th style="width: 14%;"></th>
                         <th style="width:;"></th>
-                       
-                        
+
+
                     </tr>
                 </thead>
             </table>

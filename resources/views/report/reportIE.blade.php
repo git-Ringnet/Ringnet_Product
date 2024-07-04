@@ -87,7 +87,7 @@
                                     </div>
                                 </div>
                                 <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                    onclick="printContent('printContent', 'buy')">In
+                                    onclick="printContent('printContent', 'buy','foot')">In
                                     trang</button>
                             </div>
                         </div>
@@ -151,7 +151,8 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 13.33333333333333%   ">
+                                                <th scope="col" class="height-52 border"
+                                                    style="width: 13.33333333333333%   ">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -162,7 +163,8 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 13.33333333333333%   ">
+                                                <th scope="col" class="height-52 border"
+                                                    style="width: 13.33333333333333%   ">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -173,7 +175,8 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 13.33333333333333%   ">
+                                                <th scope="col" class="height-52 border"
+                                                    style="width: 13.33333333333333%   ">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -295,13 +298,13 @@
                                             </tr>
                                         </tbody>
                                         <tfoot>
-                                            <tr>
+                                            {{-- <tr>
                                                 <td colspan="4" class="border bold text-right"><strong>Tổng
                                                         cộng</strong></td>
                                                 <td colspan="3" class="border bold">
                                                     <strong>{{ number_format($totalThu - $totalChi) }}</strong>
                                                 </td>
-                                            </tr>
+                                            </tr> --}}
                                         </tfoot>
 
 
@@ -315,23 +318,22 @@
             </div>
         </section>
     </div>
-    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;">
-        <div class="position-relative">
+    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;" id="foot">
+        <div class="position-relative relative">
             <table class="table table-hover position-absolute bg-white border-0">
                 <thead>
                     <tr>
-                        <th class="text-center text-danger font-weight-bold border height-52"   
-                            style="width: 60%;">
+                        <th class="text-center text-danger font-weight-bold border height-52" style="width: 60%;">
                             Tổng cộng
                         </th>
-                        <th class="text-center text-red border" style="width: 13.33333333333333%;">   
+                        <th class="text-center text-red border" style="width: 13.33333333333333%;">
                             {{ number_format($totalThu - $totalChi) }}
                         </th>
                         <th class="text-center text-red border" style="width: 13.33333333333333%;">
-                            
+
                         </th>
                         <th class="text-center text-red border" style="width: 13.33333333333333%;">
-                            
+
                         </th>
                     </tr>
                 </thead>

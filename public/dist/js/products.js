@@ -72,14 +72,14 @@ function showListWarehouse() {
         $(this).closest("tr").find(".listWarehouse").show();
     });
 }
-showListWarehouse()
+showListWarehouse();
 
 function showListGuest() {
     $("#inputcontent tbody").on("click", ".search_guest", function () {
         $(this).closest("tr").find("#listGuest").show();
-    })
+    });
 }
-showListGuest()
+showListGuest();
 
 function showListProductCode() {
     $("#inputcontent tbody").on("click", ".searchProduct", function () {
@@ -295,8 +295,8 @@ function handlePaste(input) {
                 checkbox.setAttribute("type", "checkbox");
                 var checkboxes = document.querySelectorAll(
                     ".div_value" +
-                    rowCount +
-                    ' table tbody input[type="checkbox"]'
+                        rowCount +
+                        ' table tbody input[type="checkbox"]'
                 );
                 var checkboxCount = checkboxes.length;
                 checkbox.setAttribute("id", "checkbox_" + checkboxCount);
@@ -378,10 +378,13 @@ function addRowTable(status) {
     count = $("#inputcontent tbody tr").length + 1;
     var tr =
         '<tr class="bg-white" style="height:80px;">' +
-        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' + (status == 3 ? "d-none" : "") + '">' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' +
+        (status == 3 ? "d-none" : "") +
+        '">' +
         '<input type="hidden" name="listProduct[]" value="0">';
     if (status != 3) {
-        tr += "<span class='ml-1 mr-2'>" +
+        tr +=
+            "<span class='ml-1 mr-2'>" +
             "<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>" +
             "<g clip-path='url(#clip0_1710_10941)'>" +
             "<path fill-rule='evenodd' clip-rule='evenodd' d='M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z' fill='#282A30'/>" +
@@ -444,13 +447,21 @@ function addRowTable(status) {
         "</div>" +
         "<div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho' id='soTonKho'>0</span></div>" +
         "</td>" +
-        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' + (status == 3 ? "d-none" : "") + '">' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' +
+        (status == 3 ? "d-none" : "") +
+        '">' +
         "<div>" +
-        '<input type="text" ' + (status == 3 ? "" : "required") + ' class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]" ' + (status == 3 ? "value='0'" : "") + '>' +
+        '<input type="text" ' +
+        (status == 3 ? "" : "required") +
+        ' class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]" ' +
+        (status == 3 ? "value='0'" : "") +
+        ">" +
         "</div>" +
         "<div class='mt-3 text-13-blue transaction text-right' id='transaction' data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div>" +
         "</td>" +
-        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' + (status == 3 ? "d-none" : "") + '">' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' +
+        (status == 3 ? "d-none" : "") +
+        '">' +
         "<div>" +
         '<input type="text" class="border-0 px-2 py-1 w-100 text-right height-32 promotion" name="promotion[]">' +
         "</div>" +
@@ -458,7 +469,9 @@ function addRowTable(status) {
         "<select class='border-0 promotion-option' name='promotion-option[]'> <option value='1'>Nhập tiền </opion> <option value='2'>Nhập %</option> </select> " +
         "</div>" +
         "</td>" +
-        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' + (status == 3 ? "d-none" : "") + '">';
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' +
+        (status == 3 ? "d-none" : "") +
+        '">';
     if (status == 2) {
         tr +=
             '<input type="text" class="border-0 px-2 py-1 w-100 product_tax" name="product_tax[]" readonly >';
@@ -475,7 +488,9 @@ function addRowTable(status) {
     tr +=
         "</td>" +
         '<input type="hidden" class="product_tax1">' +
-        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' + (status == 3 ? "d-none" : "") + '">' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' +
+        (status == 3 ? "d-none" : "") +
+        '">' +
         '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly name="total_price[]">' +
         "</td>" +
         '<td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">' +
@@ -487,29 +502,40 @@ function addRowTable(status) {
         '<input type="text" placeholder="Nhập kho hàng" class="pr-4 w-100 input-search bg-input-guest searchWarehouse" id="a">' +
         '<span id="search-icon" class="search-icon">' +
         '<i class="fas fa-search text-table" aria-hidden="true"></i>' +
-        '</span>' +
-        '</div>' +
-        '</div>' +
-        '</ul>' +
-        '</div>' +
+        "</span>" +
+        "</div>" +
+        "</div>" +
+        "</ul>" +
+        "</div>" +
         '<input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]" >' +
         //'<ul id="listWarehouse" class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
         //"</ul>" +
         "</td>";
     // }
     if (status == 3) {
-        tr += "<td class='p-2 text-13 align-top text-center border-top-0 border-bottom border-right " + (status == 3 ? "d-none" : "") + " '> " +
+        tr +=
+            "<td class='p-2 text-13 align-top text-center border-top-0 border-bottom border-right " +
+            (status == 3 ? "d-none" : "") +
+            " '> " +
             "<div style='margin-top: 6px;'> " +
-            "<input onclick='getDataCheckbox(this)' type='checkbox' " + (status != 3 ? "checked=''" : "") + "  endable=''> " +
-            "<input type='hidden' name='cbSeri[]' " + (status != 3 ? "value='1'" : "value='0'") + ">" +
-            "<a class='duongdan' data-toggle='modal' data-target='#exampleModal" + count + "' style='opacity:1'>" +
+            "<input onclick='getDataCheckbox(this)' type='checkbox' " +
+            (status != 3 ? "checked=''" : "") +
+            "  endable=''> " +
+            "<input type='hidden' name='cbSeri[]' " +
+            (status != 3 ? "value='1'" : "value='0'") +
+            ">" +
+            "<a class='duongdan' data-toggle='modal' data-target='#exampleModal" +
+            count +
+            "' style='opacity:1'>" +
             "<div class='sn--modal mt-3'>" +
             "<span class='border-span--modal'>SN</span>" +
             "</div>" +
             "</a>" +
             "</div>" +
             "</td>" +
-            "<td class='p-2 note text-13 align-top border-top-0 border-bottom border-right " + (status == 3 ? "d-none" : "") + "'> " +
+            "<td class='p-2 note text-13 align-top border-top-0 border-bottom border-right " +
+            (status == 3 ? "d-none" : "") +
+            "'> " +
             "<input type='text' name='product_guarantee[]' class='border-0 py-1 w-100 height-32' placeholder='Nhập bảo hành' value=''> " +
             "</td>";
     }
@@ -519,7 +545,9 @@ function addRowTable(status) {
         (status == 2 ? "readonly" : "") +
         " >" +
         "</td>" +
-        '<td class="deleteRow align-top p-2 user_flow border-top-0 border-bottom ' + (status == 3 ? "d-none" : "") + '" data-type="DMH" data-des="Xóa sản phẩm">' +
+        '<td class="deleteRow align-top p-2 user_flow border-top-0 border-bottom ' +
+        (status == 3 ? "d-none" : "") +
+        '" data-type="DMH" data-des="Xóa sản phẩm">' +
         '<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z" fill="#6B6F76"></path></svg>' +
         "</td>" +
         "</tr>";
@@ -551,8 +579,8 @@ function addRowTable(status) {
     }
     getProduct("searchProductName");
     rowCount++;
-    checkTaxAll()
-    calculateAll()
+    checkTaxAll();
+    calculateAll();
 }
 
 function createModal(stt) {
@@ -778,26 +806,25 @@ function checkProduct() {
 
 function checkQtyProduct() {
     var check = true;
-    $('#inputcontent tbody tr').each(function () {
-        if ($(this).find('.quantity-input').val() == 0) {
+    $("#inputcontent tbody tr").each(function () {
+        if ($(this).find(".quantity-input").val() == 0) {
             check = false;
             return false;
         }
-    })
+    });
     return check;
 }
 
 function checkWarehouse() {
     var check = true;
-    $('#inputcontent tbody tr').each(function () {
-        if ($(this).find('.warehouse_id').val() == "") {
+    $("#inputcontent tbody tr").each(function () {
+        if ($(this).find(".warehouse_id").val() == "") {
             check = false;
             return false;
         }
-    })
+    });
     return check;
 }
-
 
 // Checkbox
 function getDataCheckbox(element) {

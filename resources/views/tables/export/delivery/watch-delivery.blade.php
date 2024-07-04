@@ -280,6 +280,8 @@
                                                 <th class="border-right p-0 px-2 text-13" style=";">Đơn vị</th>
                                                 <th class="border-right p-0 px-2 text-right text-13" style="">
                                                     Số lượng</th>
+                                                <th class="border-right p-0 px-1 text-center text-13"style="">
+                                                    Kho</th>
                                                 <th class="border-right p-0 px-2 text-center text-13 d-none"
                                                     style="width:8%;">
                                                     Quản lý SN</th>
@@ -294,6 +296,7 @@
                                                     Thuế</th>
                                                 <th class="border-right p-0 px-1 text-center text-13 d-none"style="">
                                                     Thành tiền</th>
+
                                                 <th class="p-0 px-2 text-center note text-13">Ghi chú sản phẩm
                                                 </th>
                                             </tr>
@@ -367,7 +370,7 @@
                                                             <div class='text-13-blue inventory text-right mt-3'>Tồn
                                                                 kho:
                                                                 <span
-                                                                    class='pl-1 soTonKho'>{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}
+                                                                    class='pl-1 soTonKho'>{{ is_int($item_quote->tonkho) ? $item_quote->tonkho : rtrim(rtrim(number_format($item_quote->tonkho, 4, '.', ''), '0'), '.') }}
                                                                 </span>
                                                             </div>
                                                         @endif
@@ -458,6 +461,20 @@
                                                         <input type="text" readonly=""
                                                             value="{{ number_format($item_quote->product_total) }}"
                                                             class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>
+                                                    </td>
+                                                    <td
+                                                        class='border-right p-2 text-13 align-top border-bottom border-top-0 position-relative'>
+                                                        <input id="searchWarehouse" type="text" readonly
+                                                            placeholder="Chọn kho"
+                                                            class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse"
+                                                            name="warehouse[]" value=" {{ $item_quote->nameWH }}">
+                                                        <input type="hidden" placeholder="Chọn kho"
+                                                            class="border-0 py-1 w-100 height-32 text-13-black warehouse_id"
+                                                            name="warehouse_id[]" value="{{ $item_quote->idWH }}">
+                                                        <div id="listWareH"
+                                                            class="bg-white position-absolute rounded shadow p-1 z-index-block"
+                                                            style="z-index: 99;">
+                                                        </div>
                                                     </td>
                                                     <!-- <td class="border-top border-secondary p-0 bg-secondary Daydu d-none"
                                                     style="width:1%;">

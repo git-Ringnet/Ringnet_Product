@@ -102,141 +102,148 @@
                 <div id="buy" class="content tab-pane in active">
                     <div class="row  p-0 m-0">
                         <div class="col-12 p-0 m-0">
-                                <div class="outer-4 top-table table-responsive text-nowrap">
-                                    <table id="example2" class="table table-hover">
-                                        <thead style="position: sticky">
-                                            <tr>
-                                                <th scope="col" class="height-52 border" style="width:  14.28571428571429%;">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Ngày lập
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border" style="width:  14.28571428571429%;">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Mã phiếu
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border" style="width:  14.28571428571429%;">
-                                                    <span class="d-flex justify-content-end">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Người lập
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border" style="width:  14.28571428571429%;">
-                                                    <span class="d-flex justify-content-end">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Số tiền
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border" style="width:  14.28571428571429%;">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Từ quỹ
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border" style="width:  14.28571428571429%;">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Đến quỹ
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52 border" style="width:  14.28571428571429%;">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Ghi chú
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
+                            <div class="outer-4 top-table table-responsive text-nowrap">
+                                <table id="example2" class="table table-hover">
+                                    <thead style="position: sticky">
+                                        <tr>
+                                            <th scope="col" class="height-52 border"
+                                                style="width:  14.28571428571429%;">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link"
+                                                        data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Ngày lập
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-guest_name_display"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52 border"
+                                                style="width:  14.28571428571429%;">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link"
+                                                        data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Mã phiếu
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-guest_name_display"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52 border"
+                                                style="width:  14.28571428571429%;">
+                                                <span class="d-flex justify-content-end">
+                                                    <a href="#" class="sort-link"
+                                                        data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Người lập
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-guest_name_display"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52 border"
+                                                style="width:  14.28571428571429%;">
+                                                <span class="d-flex justify-content-end">
+                                                    <a href="#" class="sort-link"
+                                                        data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Số tiền
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-guest_name_display"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52 border"
+                                                style="width:  14.28571428571429%;">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link"
+                                                        data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Từ quỹ
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-guest_name_display"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52 border"
+                                                style="width:  14.28571428571429%;">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link"
+                                                        data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Đến quỹ
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-guest_name_display"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52 border"
+                                                style="width:  14.28571428571429%;">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link"
+                                                        data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Ghi chú
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-guest_name_display"></div>
+                                                </span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $total = 0;
+                                        @endphp
+                                        @foreach ($content as $item)
+                                            <tr class="position-relative relative guests-info"
+                                                onclick="handleRowClick('checkbox', event);">
+                                                <input type="hidden" name="id-guest" class="id-guest"
+                                                    id="id-guest" value="{{ $item->id }}">
+                                                <td class="text-13-black height-52 border">
+                                                    {{ date_format(new DateTime($item->payment_day), 'd/m/Y') }}
+                                                </td>
+                                                <td class="text-13-black height-52 border">
+                                                    {{ $item->form_code }}
+                                                </td>
+                                                <td class="text-13-black height-52 border text-wrap">
+                                                    @if ($item->getUser)
+                                                        {{ $item->getUser->name }}
+                                                    @endif
+                                                </td>
+                                                <td class="text-13-black height-52 border text-wrap text-right">
+                                                    {{ number_format($item->qty_money) }}
+                                                </td>
+                                                <td class="text-13-black pl-0 height-52 border text-wrap">
+                                                    @if ($item->getFromFund)
+                                                        {{ $item->getFromFund->name }}
+                                                    @endif
+                                                </td>
+                                                <td class="text-13-black height-52 border text-wrap">
+                                                    @if ($item->getToFund)
+                                                        {{ $item->getToFund->name }}
+                                                    @endif
+                                                </td>
+                                                <td class="text-13-black height-52 border">
+                                                    {{ $item->notes }}
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
                                             @php
-                                                $total = 0;
+                                                $total += $item->qty_money;
                                             @endphp
-                                            @foreach ($content as $item)
-                                                <tr class="position-relative relative guests-info"
-                                                    onclick="handleRowClick('checkbox', event);">
-                                                    <input type="hidden" name="id-guest" class="id-guest"
-                                                        id="id-guest" value="{{ $item->id }}">
-                                                    <td class="text-13-black height-52 border">
-                                                        {{ date_format(new DateTime($item->payment_day), 'd/m/Y') }}
-                                                    </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        {{ $item->form_code }}
-                                                    </td>
-                                                    <td class="text-13-black height-52 border text-wrap">
-                                                        @if ($item->getUser)
-                                                            {{ $item->getUser->name }}
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black height-52 border text-wrap text-right">
-                                                        {{ number_format($item->qty_money) }}
-                                                    </td>
-                                                    <td class="text-13-black pl-0 height-52 border text-wrap">
-                                                        @if ($item->getFromFund)
-                                                            {{ $item->getFromFund->name }}
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black height-52 border text-wrap">
-                                                        @if ($item->getToFund)
-                                                            {{ $item->getToFund->name }}
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        {{ $item->notes }}
-                                                    </td>
-                                                </tr>
-                                                @php
-                                                    $total += $item->qty_money;
-                                                @endphp
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
     </div>
-    {{-- <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;" id="foot">
+    </section>
+</div>
+{{-- <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;" id="foot">
         <div class="position-relative">
             <table class="table table-hover position-absolute bg-white border-0">
                 <thead>
@@ -254,31 +261,31 @@
             </div>
         </div>
     </div> --}}
-    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;">
-        <div class="position-relative">
-            <table class="table table-hover position-absolute bg-white border-0">
-                <thead>
-                    <tr>
-                        <th class="text-center text-danger font-weight-bold border height-52"   
-                            style="width: 42.85714285714286%;">
-                            Tổng cộng
-                        </th>
-                        <th class="text-center text-red border" style="width: 14.28571428571429%;">   
-                            {{ number_format($total) }}
-                        </th>
-                        <th class="text-center text-red border" style="width: 14.28571428571429%;">
-                            
-                        </th>
-                        <th class="text-center text-red border" style="width: 14.28571428571429%;">
-                            
-                        </th>
-                        <th class="text-center text-red border" style="width: 14.28571428571429%;">
-                            
-                        </th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+<div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;" id="foot">
+    <div class="position-relative">
+        <table class="table table-hover position-absolute bg-white border-0">
+            <thead>
+                <tr>
+                    <th class="text-center text-danger font-weight-bold border height-52"
+                        style="width: 42.85714285714286%;">
+                        Tổng cộng
+                    </th>
+                    <th class="text-center text-red border" style="width: 14.28571428571429%;">
+                        {{ number_format($total) }}
+                    </th>
+                    <th class="text-center text-red border" style="width: 14.28571428571429%;">
+
+                    </th>
+                    <th class="text-center text-red border" style="width: 14.28571428571429%;">
+
+                    </th>
+                    <th class="text-center text-red border" style="width: 14.28571428571429%;">
+
+                    </th>
+                </tr>
+            </thead>
+        </table>
     </div>
+</div>
 </div>
 <x-print-component :contentId="$title" />

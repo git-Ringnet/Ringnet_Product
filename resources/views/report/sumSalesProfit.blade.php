@@ -89,7 +89,7 @@
                                         </div>
                                     </div>
                                     <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                        onclick="printContent('printContent', 'hanghoa')">In
+                                        onclick="printContent('printContent', 'hanghoa','foot')">In
                                         trang</button>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                                         </div>
                                     </div>
                                     <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                        onclick="printContent('printContent', 'khachhang')">In
+                                        onclick="printContent('printContent', 'khachhang','foot')">In
                                         trang</button>
                                 </div>
                             </div>
@@ -503,7 +503,7 @@
                                                 @endforeach
                                             </tbody>
                                             <tfoot id="total-footer">
-                                                <tr class="bg-light total-row">
+                                                {{-- <tr class="bg-light total-row">
                                                     <td colspan="4" class="text-right text-red bold border">Tổng
                                                         của tất cả các
                                                         nhóm:</td>
@@ -519,7 +519,7 @@
                                                         {{ number_format($grandTotalProductTotalVat) }}</td>
                                                     <td class="height-52 text-red bold border">
                                                         {{ number_format($grandTotalProfit) }}</td>
-                                                </tr>
+                                                </tr> --}}
                                             </tfoot>
 
                                         </table>
@@ -824,7 +824,7 @@
                                                 @endforeach
                                             </tbody>
                                             <tfoot id="total-footer">
-                                                <tr class="bg-light total-row">
+                                                {{-- <tr class="bg-light total-row">
                                                     <td colspan="4" class="text-right text-red bold border">Tổng
                                                         của tất cả các
                                                         nhóm:</td>
@@ -840,7 +840,7 @@
                                                         {{ number_format($grandTotalProductTotalVat) }}</td>
                                                     <td class="height-52 text-red bold border">
                                                         {{ number_format($grandTotalProfit) }}</td>
-                                                </tr>
+                                                </tr> --}}
                                             </tfoot>
                                         </table>
                                     </div>
@@ -852,7 +852,7 @@
             </div>
         </section>
     </div>
-    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;">
+    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;" id="foot">
         <div class="position-relative">
             <table class="table table-hover position-absolute bg-white border-0">
                 <thead>
@@ -863,10 +863,9 @@
                         <th class="text-center text-danger font-weight-bold" style="width: 9%;"></th>
                         <th class="text-center text-danger font-weight-bold" style="width: 13%;"></th>
                         <th class="text-center text-danger font-weight-bold" style="width: 5%;"></th> --}}
-                        <th class="text-center text-danger font-weight-bold border height-52"
-                            style="width: 40%; ">
-                            Tổng cộng
-                        </th>   
+                        <th class="text-center text-danger font-weight-bold border height-52" style="width: 40%; ">
+                            Tổng cộng tất cả
+                        </th>
                         <th class="text-center text-red border" style="width: 10%;">
                             {{ number_format($grandTotalSlXuat) }}
                         </th>
@@ -884,11 +883,11 @@
                         </th>
                         <th class="text-center text-red border" style="width: 10%; ">
                             {{ number_format($grandTotalProfit) }}
-                        </th>  
+                        </th>
                     </tr>
                 </thead>
             </table>
-            
+
         </div>
     </div>
 </div>

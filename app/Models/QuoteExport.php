@@ -33,6 +33,7 @@ class QuoteExport extends Model
         'status',
         'product_id',
         'qty_delivery',
+        'warehouse_id',
         'qty_bill_sale',
         'qty_bill_sale',
         'product_delivery',
@@ -46,6 +47,10 @@ class QuoteExport extends Model
     public function getProduct()
     {
         return $this->hasOne(Products::class, 'id', 'product_id');
+    }
+    public function getWareHouse()
+    {
+        return $this->hasOne(Warehouse::class, 'id', 'warehouse_id');
     }
     public function getDetailExport()
     {
@@ -119,6 +124,7 @@ class QuoteExport extends Model
                     'price_import' => $priceImport,
                     'workspace_id' => Auth::user()->current_workspace,
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                    'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1,
                     'user_id' => Auth::user()->id,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
@@ -141,6 +147,7 @@ class QuoteExport extends Model
                     'price_import' => $priceImport,
                     'workspace_id' => Auth::user()->current_workspace,
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                    'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                     'user_id' => Auth::user()->id,
@@ -213,6 +220,7 @@ class QuoteExport extends Model
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                             'price_import' => $priceImport,
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                            'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1,
                             'workspace_id' => Auth::user()->current_workspace,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
@@ -240,6 +248,7 @@ class QuoteExport extends Model
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                             'price_import' => $priceImport,
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                            'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1,
                             'workspace_id' => Auth::user()->current_workspace,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
@@ -270,6 +279,7 @@ class QuoteExport extends Model
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                             'price_import' => $priceImport,
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                            'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1,
                             'workspace_id' => Auth::user()->current_workspace,
                             'status' => 1,
                             'user_id' => Auth::user()->id,
@@ -288,6 +298,7 @@ class QuoteExport extends Model
                             'product_ratio' => $quoteExport->product_ratio,
                             'price_import' => $quoteExport->price_import,
                             'product_note' => $quoteExport->product_note,
+                            'warehouse_id' => $quoteExport->warehouse_id,
                             'workspace_id' => $quoteExport->workspace_id,
                             'status' => $quoteExport->status,
                             'user_id' => Auth::user()->id,
@@ -325,6 +336,7 @@ class QuoteExport extends Model
                             'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                             'price_import' => $priceImport,
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                            'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1,
                             'workspace_id' => Auth::user()->current_workspace,
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),

@@ -125,6 +125,11 @@ class Delivery extends Model
     public function getProductToId($id)
     {
         $product = Delivery::join('quoteexport', 'delivery.detailexport_id', '=', 'quoteexport.detailexport_id')
+            ->leftJoin('warehouse', 'warehouse.id', '=', 'quoteexport.warehouse_id')
+            ->leftJoin('productwarehouse', function ($join) {
+                $join->on('productwarehouse.product_id', 'quoteexport.product_id')
+                    ->on('productwarehouse.warehouse_id', 'quoteexport.warehouse_id');
+            })
             ->leftJoin('delivered', function ($join) {
                 $join->on('delivered.delivery_id', '=', 'delivery.id');
                 $join->on('delivered.product_id', '=', 'quoteexport.product_id');
@@ -150,6 +155,9 @@ class Delivery extends Model
                 'delivery.created_at as ngayGiao',
                 'products.type',
                 'products.check_seri',
+                'warehouse.warehouse_name as nameWH',
+                'warehouse.id as idWH',
+                'productwarehouse.qty as tonkho',
             )
             ->groupBy(
                 'quoteexport.product_code',
@@ -168,6 +176,9 @@ class Delivery extends Model
                 'delivery.created_at',
                 'products.type',
                 'products.check_seri',
+                'warehouse.warehouse_name',
+                'warehouse.id',
+                'productwarehouse.qty',
             )
             ->get();
         return $product;
@@ -248,13 +259,15 @@ class Delivery extends Model
         // Kiểm tra trạng thái SN
         $checkSN = false;
         $id_history = [];
+        // dd($data);
         for ($i = 0; $i < count($data['product_name']); $i++) {
+            $productWh = ProductWarehouse::where('product_id', $data['product_id'][$i])->where('warehouse_id', $data['warehouse_id'][$i])->first();
             $product = Products::find($data['product_id'][$i]);
-            if ($product) {
+            if ($productWh) {
                 if ($product->type != 2) {
-                    $result = $product->product_inventory - $data['product_qty'][$i];
-                    $product->update([
-                        'product_inventory' => $result,
+                    $result = $productWh->qty - $data['product_qty'][$i];
+                    $productWh->update([
+                        'qty' => $result,
                     ]);
                 }
             }
@@ -681,12 +694,12 @@ class Delivery extends Model
         if ($delivery->status == 1) {
             Delivered::where('delivery_id', $id)->delete();
         } elseif ($delivery->status == 2) {
-            $deliveredItems = Delivered::where('delivery_id', $id)->get();
+            $deliveredItems = QuoteExport::where('deliver_id', $id)->get();
             foreach ($deliveredItems as $deliveredItem) {
-                $product = Products::find($deliveredItem->product_id);
+                $product = ProductWarehouse::where('product_id', $deliveredItem->product_id)->where('warehouse_id', $deliveredItem->warehouse_id)->first();
                 if ($product) {
                     if ($product->type != 2) {
-                        $product->product_inventory += $deliveredItem->deliver_qty;
+                        $product->qty += $deliveredItem->product_qty;
                         $product->save();
                     }
                 }
@@ -1207,13 +1220,18 @@ class Delivery extends Model
                 }
             }
         }
+        // dd($data);
         for ($i = 0; $i < count($data['product_name']); $i++) {
+            if (!isset($data['product_id'][$i], $data['warehouse_id'][$i], $data['product_qty'][$i])) {
+                continue;
+            }
+            $productWh = ProductWarehouse::where('product_id', $data['product_id'][$i])->where('warehouse_id', $data['warehouse_id'][$i])->first();
             $product = Products::find($data['product_id'][$i]);
             if ($product) {
                 if ($product->type != 2) {
-                    $result = ($product->product_inventory == null ? 0 : $product->product_inventory) - $data['product_qty'][$i];
-                    $product->update([
-                        'product_inventory' => $result,
+                    $result = $productWh->qty - $data['product_qty'][$i];
+                    $productWh->update([
+                        'qty' => $result,
                     ]);
                 }
                 // Cập nhật delivered_id nếu có SN

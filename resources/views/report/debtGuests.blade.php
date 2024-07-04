@@ -87,7 +87,7 @@
                                     </div>
                                 </div>
                                 <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                    onclick="printContent('printContent', 'hanghoa')">In
+                                    onclick="printContent('printContent', 'hanghoa','foot')">In
                                     trang</button>
                             </div>
                         </div>
@@ -347,7 +347,7 @@
                                                         $totalRemainingUngrouped + $totalRemainingGrouped;
                                                 @endphp
                                             </tbody>
-                                            <tfoot id="total-footer">
+                                            {{-- <tfoot id="total-footer">
                                                 <tr class="position-relative relative  bg-light">
                                                     <td class="text-red bold border height-52 text-right"
                                                         colspan="2">
@@ -364,7 +364,7 @@
                                                     <td class="text-red bold border height-52">
                                                         {{ number_format($grandTotalRemaining) }}</td>
                                                 </tr>
-                                            </tfoot>
+                                            </tfoot> --}}
                                         </table>
                                     </div>
                                 </div>
@@ -375,14 +375,13 @@
             </div>
         </section>
     </div>
-    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;">
+    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;" id="foot">
         <div class="position-relative">
             <table class="table table-hover position-absolute bg-white border-0">
                 <thead>
                     <tr>
-                        <th class="text-center text-danger font-weight-bold border height-52"
-                            style="width: 30%;">
-                            Tổng cộng
+                        <th class="text-center text-danger font-weight-bold border height-52" style="width: 30%;">
+                            Tổng cộng tất cả
                         </th>
                         <th class="text-center text-red border" style="width: 14%;">
                             {{ number_format($grandTotalProductVat) }}
@@ -402,7 +401,7 @@
                     </tr>
                 </thead>
             </table>
-            
+
         </div>
     </div>
 </div>

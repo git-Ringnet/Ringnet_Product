@@ -332,3 +332,13 @@ $(document).on("input", ".product_unit", function () {
         $(this).val(newValue);
     }
 });
+function showListWarehouse() {
+    $(document).on("click", ".searchWarehouse", function () {
+        $(this).closest("tr").find(".listWarehouse").show();
+    });
+}
+$(document).click(function (event) {
+    if ($(event.target).closest(".searchWarehouse").length == 0) {
+        $(".listWarehouse").hide();
+    }
+});

@@ -196,18 +196,24 @@ class DetailExport extends Model
     }
     public function getProductToId($id)
     {
-        $quoteExport = QuoteExport::where('detailexport.id', $id)
-            ->leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+        $quoteExport = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+            ->leftJoin('productwarehouse', function ($join) {
+                $join->on('productwarehouse.product_id', 'quoteexport.product_id')
+                    ->on('productwarehouse.warehouse_id', 'quoteexport.warehouse_id');
+            })
             ->leftJoin('products', 'quoteexport.product_id', 'products.id')
+            ->where('detailexport.id', $id)
             ->where('quoteexport.status', 1)
-            ->select('quoteexport.*', 'quoteexport.product_unit as product_unit', 'quoteexport.product_code as product_code', 'products.product_inventory')
+            ->select('quoteexport.*', 'quoteexport.product_unit as product_unit', 'quoteexport.product_code as product_code', 'productwarehouse.qty as product_inventory')
             ->where(function ($query) {
-                $query->where('quoteexport.product_delivery', null)
+                $query->whereNull('quoteexport.product_delivery')
                     ->orWhere('quoteexport.product_delivery', 0);
             })
             ->get();
+
         return $quoteExport;
     }
+
     public function updateExport($data, $id)
     {
         // dd($data);

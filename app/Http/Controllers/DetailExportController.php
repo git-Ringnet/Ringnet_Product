@@ -20,9 +20,11 @@ use App\Models\Project;
 use App\Models\Provides;
 use App\Models\QuoteExport;
 use App\Models\DateForm;
+use App\Models\ProductWarehouse;
 use App\Models\representGuest;
 use App\Models\User;
 use App\Models\userFlow;
+use App\Models\Warehouse;
 use App\Models\Workspace;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -292,7 +294,8 @@ class DetailExportController extends Controller
         ];
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.export.quote.edit-quote', compact('project', 'title', 'guest', 'product', 'detailExport', 'quoteExport', 'date_form', 'dataForm', 'workspacename'));
+        $warehouse = Warehouse::where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('tables.export.quote.edit-quote', compact('project', 'title', 'guest', 'product', 'detailExport', 'warehouse', 'quoteExport', 'date_form', 'dataForm', 'workspacename'));
     }
 
     /**
@@ -898,8 +901,33 @@ class DetailExportController extends Controller
     public function getProduct(Request $request)
     {
         $data = $request->all();
-        $product = Products::where('id', $data['idProduct'])->first();
+
+        // Lấy sản phẩm với điều kiện
+        $product = Products::leftJoin('productwarehouse', 'productwarehouse.product_id', 'products.id')
+            ->where('products.id', $data['idProduct'])
+            ->where('productwarehouse.warehouse_id', $data['warehouse_id'])
+            ->select('products.*', 'productwarehouse.qty as product_inventory')
+            ->first();
+        if (!$product) {
+            $product = Products::where('id', $data['idProduct'])
+                ->select('products.*')
+                ->first();
+
+            if ($product) {
+                $product->product_inventory = 0;
+            }
+        }
+
         return $product;
+    }
+
+    public function getInventWH(Request $request)
+    {
+        $data = $request->all();
+        $productWH = ProductWarehouse::where('product_id', $data['idProduct'])
+            ->where('warehouse_id', $data['warehouse_id'])->select('productwarehouse.*', 'productwarehouse.qty as product_inventory')
+            ->first();
+        return $productWH;
     }
     //Lấy mã sản phẩm
     public function getProductCode(Request $request)
