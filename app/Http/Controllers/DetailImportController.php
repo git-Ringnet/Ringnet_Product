@@ -73,7 +73,7 @@ class DetailImportController extends Controller
      */
     public function index()
     {
-        $title = 'Đơn mua hàng';
+        $title = 'Đặt hàng nhà cung cấp';
         $perPage = 10;
         $import = DetailImport::where('workspace_id', Auth::user()->current_workspace)
             ->orderBy('id', 'desc');
@@ -97,7 +97,7 @@ class DetailImportController extends Controller
      */
     public function create()
     {
-        $title = "Tạo đơn mua hàng";
+        $title = "Tạo đặt hàng nhà cung cấp";
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $project = Project::all();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);

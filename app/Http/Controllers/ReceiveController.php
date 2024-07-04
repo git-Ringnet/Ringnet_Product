@@ -49,7 +49,7 @@ class ReceiveController extends Controller
      */
     public function index()
     {
-        $title = "Đơn nhận hàng";
+        $title = "Phiếu nhập kho";
         $perPage = 10;
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
@@ -72,7 +72,7 @@ class ReceiveController extends Controller
     public function create()
     {
         $id = 1;
-        $title = "Tạo đơn nhận hàng";
+        $title = "Tạo phiếu nhập kho";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $listDetail = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
@@ -228,7 +228,7 @@ class ReceiveController extends Controller
         } else {
             $nameRepresent = "";
         }
-        $title = $receive->quotation_number;
+        $title = "Xem chi tiết phiếu nhập kho";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')

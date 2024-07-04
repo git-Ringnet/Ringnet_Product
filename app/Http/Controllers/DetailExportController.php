@@ -84,7 +84,7 @@ class DetailExportController extends Controller
         if (Auth::check()) {
             $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
             $workspacename = $workspacename->workspace_name;
-            $title = "Đơn báo giá";
+            $title = "Phiếu bán hàng";
             $quoteExport = $this->detailExport->getAllDetailExport();
             $guests = $this->detailExport->getGuestInDetail();
             $users = $this->detailExport->getUserInDetail();
@@ -153,7 +153,7 @@ class DetailExportController extends Controller
             // Sau khi lưu xong tất cả thông tin, set session export_id
             $request->session()->put('pdf_info.export_id', $export_id);
         }
-        return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Tạo mới đơn báo giá thành công!');
+        return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Tạo mới phiếu bán hàng thành công!');
     }
 
     public function downloadExcel()
@@ -244,7 +244,7 @@ class DetailExportController extends Controller
     {
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $title = 'Chi tiết đơn báo giá';
+        $title = 'Chi tiết phiếu bán hàng';
         $guest = $this->guest->getAllGuest();
         $product = $this->product->getAllProducts();
         $detailExport = $this->detailExport->getDetailExportToId($id);
@@ -273,7 +273,7 @@ class DetailExportController extends Controller
      */
     public function edit(string $workspace, string $id)
     {
-        $title = 'Chỉnh sửa đơn báo giá';
+        $title = 'Chỉnh sửa phiếu bán hàng';
         $guest = $this->guest->getAllGuest();
         $product = $this->product->getAllProducts();
         $detailExport = $this->detailExport->getDetailExportToId($id);
@@ -313,15 +313,15 @@ class DetailExportController extends Controller
                     $formField = $fieldDates[$key];
                     $this->guest_dateForm->insertFormGuest($guestId, $dateFormId, $formField);
                 }
-                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Cập nhật đơn báo giá thành công!');
+                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Cập nhật phiếu bán hàng thành công!');
             } else {
                 if ($detailExport) {
                     $detailExport->reference_number = $request->reference_number;
                     $detailExport->created_at = $request->date_quote;
                     $detailExport->save();
-                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Cập nhật đơn báo giá thành công!');
+                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Cập nhật phiếu bán hàng thành công!');
                 } else {
-                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Không tìm thấy đơn báo giá!');
+                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Không tìm thấy phiếu bán hàng!');
                 }
             }
         }
@@ -423,14 +423,14 @@ class DetailExportController extends Controller
                     //
                     $arrCapNhatKH = [
                         'name' => 'BG',
-                        'des' => 'Xóa đơn báo giá'
+                        'des' => 'Xóa phiếu bán hàng'
                     ];
                     $this->userFlow->addUserFlow($arrCapNhatKH);
                     QuoteExport::where('detailexport_id', $id)->delete();
                     $detailExport->delete();
-                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn bán hàng thành công!');
+                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xóa phiếu bán hàng thành công!');
                 } else {
-                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Không tìm thấy đơn bán hàng để xóa!');
+                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Không tìm thấy phiếu bán hàng để xóa!');
                 }
             } else {
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Xóa đơn bán hàng thất bại!');
@@ -439,13 +439,13 @@ class DetailExportController extends Controller
         //Đơn mua hàng
         if ($request->action == "action_6") {
             $dataImport = $this->detailImport->dataImport($request->all());
-            $title = "Tạo đơn mua hàng";
+            $title = "Tạo đặt hàng nhà cung cấp";
             // $provides = Provides::all();
             $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
             $project = Project::all();
             $arrCapNhatKH = [
                 'name' => 'BG',
-                'des' => 'Tạo đơn mua hàng'
+                'des' => 'Tạo đặt hàng nhà cung cấp'
             ];
             $this->userFlow->addUserFlow($arrCapNhatKH);
             return view('tables.import.insertImport', ['dataImport' => $dataImport, 'title' => $title, 'provides' => $provides, 'project' => $project, 'workspacename' => $workspace]);
@@ -473,7 +473,7 @@ class DetailExportController extends Controller
                 //
                 $arrCapNhatKH = [
                     'name' => 'BG',
-                    'des' => 'Xóa đơn báo giá'
+                    'des' => 'Xóa phiếu bán hàng'
                 ];
                 $this->userFlow->addUserFlow($arrCapNhatKH);
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn bán hàng thành công!');

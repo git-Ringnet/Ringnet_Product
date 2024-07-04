@@ -44,7 +44,7 @@ class PdfController extends Controller
         $export_id = $this->detailExport->updateExport($request->all(), $id);
         $this->quoteExport->updateQuoteExport($request->all(), $export_id);
         $request->session()->put('id', $id);
-        return redirect()->route('pdf')->with('msg', 'Cập nhật đơn báo giá thành công!');
+        return redirect()->route('pdf')->with('msg', 'Cập nhật phiếu bán hàng thành công!');
     }
     public function show(string $id)
     {

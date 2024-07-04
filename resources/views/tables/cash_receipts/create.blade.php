@@ -410,10 +410,10 @@
 <script>
     $(document).ready(function() {
         $('.search-receipts').on('click', function(event, detail_id) {
-            name = $(this).find('span').text()
+            name = $(this).find('span').text();
             $('input.price_export').val('');
             if (detail_id) {
-                detail_id = detail_id
+                detail_id = detail_id;
             } else {
                 detail_id = parseInt($(this).attr('id'), 10);
             }
@@ -424,14 +424,19 @@
                     detail_id: detail_id,
                 },
                 success: function(data) {
-                    $('#myInput').val(data.quotation_number)
+                    $('#myInput').val(data.quotation_number);
                     $('#myGuest').val(data.nameGuest);
                     $('#listReceive').hide();
                     $('#listGuest').hide();
-                    $('#money_reciept').val(formatCurrency(data.amount_owed))
-                    $('#detail_id').val(data.id)
-                    $('#guest_id').val(data.guest_id)
-                    $('.cash_reciept').show()
+                    $('#money_reciept').val(formatCurrency(data.amount_owed));
+                    $('#detail_id').val(data.id);
+                    $('#guest_id').val(data.guest_id);
+                    $('.cash_reciept').show();
+
+                    // Xóa trình xử lý sự kiện input trước đó
+                    $('input[name="total"]').off('input');
+
+                    // Thiết lập trình xử lý sự kiện input mới với giá trị data.amount_owed mới
                     $('input[name="total"]').on('input', function() {
                         var currentVal = parseFloat($(this).val().replace(/,/g,
                             ''));
@@ -442,8 +447,8 @@
                         }
                     });
                 }
-            })
-        })
+            });
+        });
         var detail_id = $('#detail_id').val();
         if (detail_id) {
             $('.search-receipts').trigger('click', detail_id);
@@ -453,13 +458,14 @@
     // Trả hàng NCC 
     $(document).ready(function() {
         $('.search-return').on('click', function(event, detail_id) {
+            $('input.price_export').val('');
             if (detail_id) {
-                detail_id = detail_id
+                detail_id = detail_id;
             } else {
                 detail_id = parseInt($(this).attr('id'), 10);
             }
             $('#returnImport_id').val(detail_id);
-            $('#myInput').val($(this).find('span').text())
+            $('#myInput').val($(this).find('span').text());
             $('#listReceive').hide();
             $.ajax({
                 url: "{{ route('getReturnProduct') }}",
@@ -469,24 +475,23 @@
                     status: 'returnImport'
                 },
                 success: function(data) {
-                    console.log(data);
                     if (data['status']) {
-                        // $('input[name="total"]').val(formatCurrency(data['total'] - data[
-                        //     'payment']));
                         $('#money_reciept').val(formatCurrency(data['total'] - data[
-                            'payment']))
+                            'payment']));
                         $('.cash_reciept').attr('style', 'display:block');
-                        $('input[name="total"]').on('input', function() {
-                            console.log('cac');
-                            checkQty(this, Math.round(data['total']) - Math.round(
-                                data[
-                                    'payment']))
-                        })
-                    }
 
+                        // Xóa sự kiện input trước đó
+                        $('input[name="total"]').off('input');
+
+                        // Thiết lập sự kiện input mới với giá trị data['total'] - data['payment'] mới
+                        $('input[name="total"]').on('input', function() {
+                            checkQty(this, Math.round(data['total']) - Math.round(
+                                data['payment']));
+                        });
+                    }
                 }
-            })
-        })
+            });
+        });
     })
 
     function checkQty(value, odlQty) {

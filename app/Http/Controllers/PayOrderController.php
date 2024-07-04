@@ -45,7 +45,7 @@ class PayOrderController extends Controller
      */
     public function index()
     {
-        $title = "Thanh toán mua hàng";
+        $title = "Phiếu chi";
         $perPage = 10;
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
@@ -84,7 +84,7 @@ class PayOrderController extends Controller
      */
     public function create()
     {
-        $title = "Tạo mới hóa đơn thanh toán";
+        $title = "Tạo mới phiếu chi";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')

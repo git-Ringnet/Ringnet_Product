@@ -247,7 +247,7 @@
                                                     <div class="icon" id="icon-status_receive"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width: 8%;">
+                                            {{-- <th scope="col" class="border-bottom" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_reciept" data-sort-type="DESC"><button
@@ -255,7 +255,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-status_reciept"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                             <th scope="col" class="border-bottom" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -371,7 +371,7 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-center py-2 border-bottom border-top-0">
+                                                {{-- <td class="text-center py-2 border-bottom border-top-0">
                                                     @if ($item->status_reciept == 0)
                                                     @elseif ($item->status_reciept == 1)
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -398,7 +398,7 @@
                                                                 fill="#858585" />
                                                         </svg>
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-center py-2 border-bottom border-top-0">
                                                     @if ($item->status_pay == 0)
                                                     @elseif ($item->status_pay == 1)
@@ -571,7 +571,7 @@
             </span> Tạo đơn nhận hàng
         </p>
     </a>
-    <a href="#" class="text-dark">
+    {{-- <a href="#" class="text-dark">
         <p class="quickAction p-2 rounded my-1 text-13-black" data-type="reciept" data-toggle="modal"
             data-target="#exampleModal">
             <span class="mr-2">
@@ -610,7 +610,7 @@
             </span>
             Tạo hóa đơn mua hàng
         </p>
-    </a>
+    </a> --}}
     <a href="#" class="text-dark">
         <p class="quickAction p-2 rounded my-1 text-13-black" data-type="payorder" data-toggle="modal"
             data-target="#exampleModal">

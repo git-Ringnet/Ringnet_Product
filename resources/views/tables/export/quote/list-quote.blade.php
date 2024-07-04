@@ -264,7 +264,7 @@
                                                     <div class="icon" id="icon-status_receive"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 8%;">
+                                            {{-- <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_reciept" data-sort-type="DESC"><button
@@ -272,7 +272,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-status_reciept"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                             <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -388,7 +388,7 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-center border-top-0 border-bottom">
+                                                {{-- <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($value_export->status_reciept === 1)
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -422,7 +422,7 @@
                                                                 fill="#08AA36" fill-opacity="0.75" />
                                                         </svg>
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($value_export->status_pay === 1)
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
@@ -557,7 +557,7 @@
             <span class="title_delivery">Tạo đơn giao hàng</span>
         </p>
     </a>
-    <a href="#" class="text-dark">
+    {{-- <a href="#" class="text-dark">
         <p class="quickAction p-2 rounded my-1 text-13-black" data-type="reciept" data-toggle="modal"
             data-target="#exampleModal">
             <span class="mr-2">
@@ -596,7 +596,7 @@
             </span>
             <span class="title_billsale">Tạo hóa đơn</span>
         </p>
-    </a>
+    </a> --}}
     <a href="#" class="text-dark">
         <p class="quickAction p-2 rounded my-1 text-13-black" data-type="payorder" data-toggle="modal"
             data-target="#exampleModal">

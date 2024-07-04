@@ -56,7 +56,7 @@ class DeliveryController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $title = 'Giao hàng';
+            $title = 'Phiếu xuất kho';
             $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
             $workspacename = $workspacename->workspace_name;
             $users = $this->delivery->getUserInDelivery();
@@ -132,7 +132,7 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-        $title = "Tạo đơn giao hàng";
+        $title = "Tạo phiếu xuất kho";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
@@ -288,7 +288,7 @@ class DeliveryController extends Controller
     {
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $title = 'Chỉnh sửa đơn giao hàng';
+        $title = 'Chỉnh sửa phiếu xuất kho';
         $delivery = $this->delivery->getDeliveryToId($id);
         if (!$delivery) {
             abort('404');

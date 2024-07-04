@@ -44,18 +44,13 @@ class ReturnExport extends Model
         // Tạo DGH
         $currentDate = Carbon::now()->format('dmy');
         $lastInvoice = ReturnExport::where('workspace_id', Auth::user()->current_workspace)
-            ->orderBy(
-                'created_at',
-                'desc'
-            )
-            ->first();
-        $getNumber = 0;
+            ->max('code_return');
+        $lastNumber = 0;
         if ($lastInvoice) {
-            $pattern = '/PTH(\d+)-/';
-            preg_match($pattern, $lastInvoice->invoice_number, $matches);
-            $getNumber = isset($matches[1]) ? $matches[1] : 0;
+            preg_match('/PTH(\d+)/', $lastInvoice, $matches);
+            $lastNumber = isset($matches[1]) ? (int)$matches[1] : 0;
         }
-        $newInvoiceNumber = $getNumber + 1;
+        $newInvoiceNumber = $lastNumber + 1;
         $countFormattedInvoice = str_pad($newInvoiceNumber, 2, '0', STR_PAD_LEFT);
         $invoicenumber = "PTH{$countFormattedInvoice}-{$currentDate}";
         return $invoicenumber;
