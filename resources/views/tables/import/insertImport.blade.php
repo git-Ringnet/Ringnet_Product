@@ -321,9 +321,6 @@
                                 <th class="border-right px-2 p-0 text-right" style="width: 11%;">
                                     <span class="text-table text-secondary">Thành tiền</span>
                                 </th>
-                                <th class="border-right px-2 p-0" style="width: 7%;">
-                                    <span class="text-table text-secondary">Kho hàng</span>
-                                </th>
                                 <th class="border-right note px-2 p-0 text-left" style="width: 15%;">
                                     <span class="text-table text-secondary">Ghi chú</span>
                                 </th>
@@ -1694,8 +1691,6 @@
             return false;
         }
 
-
-
         if (!checkProduct()) {
             formSubmit = false;
         }
@@ -1703,12 +1698,6 @@
             formSubmit = false;
             showAutoToast('warning', 'Vui lòng nhập số lượng sản phẩm lớn hơn 0')
         }
-
-        if (!checkWarehouse()) {
-            formSubmit = false;
-            showAutoToast('warning', 'Vui lòng chọn kho hàng cho sản phẩm')
-        }
-
 
         var quotetion_number = $('input[name="quotation_number"]').val();
         if (formSubmit) {

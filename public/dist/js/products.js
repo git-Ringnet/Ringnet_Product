@@ -478,7 +478,7 @@ function addRowTable(status) {
         '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' + (status == 3 ? "d-none" : "") + '">' +
         '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly name="total_price[]">' +
         "</td>" +
-        '<td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">' +
+        '<td class="border-right note p-2 align-top border-bottom border-top-0 position-relative ' + (status == 3 ? "" : "d-none") + '">' +
         '<input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]" readonly autocomplete="off">' +
         '<div id="listWareH" class="bg-white position-absolute rounded shadow p-1 z-index-block" style="z-index: 99;">' +
         '<ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse" style="display:none;">' +

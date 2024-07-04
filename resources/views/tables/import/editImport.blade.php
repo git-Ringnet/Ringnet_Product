@@ -480,9 +480,6 @@
                                     <th class="border-right p-0 px-2 text-right text-13"style="width:15%;">
                                         Thành tiền
                                     </th>
-                                    <th class="border-right p-0 px-2 text-right text-13"style="width:10%;">
-                                        Kho hàng
-                                    </th>
                                     <th class="border-right p-0 px-2 text-left note text-13" style="width:15%;">
                                         Ghi chú sản phẩm
                                     </th>
@@ -638,45 +635,6 @@
                                                 class="text-right border-0 px-2 py-1 w-100 total_price height-32"
                                                 readonly
                                                 value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - ($item->product_total * $promotionValue) / 100, 2, '.', ',') : number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - ($item->product_total * $promotionValue) / 100) }}">
-                                        </td>
-                                        <td
-                                            class='border-right p-2 text-13 align-top border-bottom border-top-0 position-relative'>
-                                            <input id="searchWarehouse" type="text" readonly
-                                                placeholder="Chọn kho"
-                                                class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse"
-                                                name="warehouse[]"
-                                                value="@if (isset($item->getWareHouse)) {{ $item->getWareHouse->warehouse_name }} @endif">
-                                            <input type="hidden" placeholder="Chọn kho"
-                                                class="border-0 py-1 w-100 height-32 text-13-black warehouse_id"
-                                                name="warehouse_id[]" value="{{ $item->warehouse_id }}">
-                                            <div id="listWareH"
-                                                class="bg-white position-absolute rounded shadow p-1 z-index-block"
-                                                style="z-index: 99;">
-                                                <ul id="listWarehouse" class="m-0 p-0 scroll-data"
-                                                    style="z-index: 99; left: 0%; top: 44%; display: none;">
-                                                    <div class="p-1">
-                                                        <div class="position-relative"><input type="text"
-                                                                placeholder="Nhập kho hàng"
-                                                                class="pr-4 w-100 input-search bg-input-guest searchWarehouse"
-                                                                id="a"><span id="search-icon"
-                                                                class="search-icon"><i
-                                                                    class="fas fa-search text-table"
-                                                                    aria-hidden="true"></i></span></div>
-                                                    </div>
-                                                    @foreach ($warehouse as $item)
-                                                        <li class="w-100">
-                                                            <a data-id="{{ $item->id }}"
-                                                                data-value="{{ $item->warehouse_name }}"
-                                                                href="javascript:void(0)"
-                                                                class="text-dark d-flex w-100 justify-content-between p-2 search-warehouse"
-                                                                name="search-warehouse">
-                                                                <span
-                                                                    class="w-100 text-13-black">{{ $item->warehouse_name }}</span>
-                                                            </a>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
                                         </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <input placeholder="Nhập ghi chú" type="text" name="product_note[]"

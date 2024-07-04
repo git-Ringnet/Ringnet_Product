@@ -652,11 +652,22 @@
                                                     'value'] /
                                                 100)) + `" readonly>
                                                 </td>
-
-
                                                 <td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">
                                                     <input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]"
-                                                    value="` + product.listWarehouse[index] + `" readonly>
+                                                    value="" readonly>
+                                                    <input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]" value="">
+                                                    <div id="listWareH" class="bg-white position-absolute rounded shadow p-1 z-index-block" style="z-index: 99;">
+                                                    <ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse" style="display:none;">
+                                                        <div class="p-1">
+                                                        <div class="position-relative">
+                                                        <input type="text" placeholder="Nhập kho hàng" class="pr-4 w-100 input-search bg-input-guest searchWarehouse" id="a">
+                                                        <span id="search-icon" class="search-icon">
+                                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                                        </span>
+                                                        </div>
+                                                        </div>
+                                                    </ul>
+                                                    </div>
                                                 </td>
 
                                                 <td class="d-none p-2 text-13 align-top text-center border-top-0 border-bottom border-right">

@@ -76,7 +76,7 @@ class QuoteImport extends Model
                 'price_export' => str_replace(',', '', $data['price_export'][$i]),
                 'product_note' => $data['product_note'][$i],
                 'receive_id' => 0,
-                'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1,
+                'warehouse_id' => 0,
                 'version' => 1,
                 'created_at' => Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,
@@ -178,7 +178,7 @@ class QuoteImport extends Model
                         'version' => ($dataUpdate->version + 1),
                         'product_note' => $data['product_note'][$i],
                         'promotion' => json_encode($promotion),
-                        'warehouse_id' => (isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1)
+                        'warehouse_id' => 0
                     ];
                     DB::table($this->table)->where('id', $dataUpdate->id)->update($dataQuoteUpdate);
                 }
@@ -194,7 +194,7 @@ class QuoteImport extends Model
                     'price_export' => $price_export,
                     'product_note' => $data['product_note'][$i],
                     'receive_id' => 0,
-                    'warehouse_id' => (isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1),
+                    'warehouse_id' => 0,
                     'version' => 1,
                     'created_at' => Carbon::now(),
                     'workspace_id' => Auth::user()->current_workspace,
