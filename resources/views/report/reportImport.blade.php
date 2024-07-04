@@ -107,7 +107,7 @@
                                     <table id="example2" class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th scope="col" class="height-52 border" style="width: 3%;">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -118,7 +118,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 10%;">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -129,7 +129,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 10%;">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692%;">
                                                     <span class="d-flex justify-content">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -151,7 +151,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th> --}}
-                                                <th scope="col" class="height-52 border" style="width: 9%;">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692;">
                                                     <span class="d-flex justify-content">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -162,7 +162,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 15%;">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -173,7 +173,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 5%;">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -184,7 +184,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 5%;">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -195,7 +195,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 10%;">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -206,7 +206,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 10%;">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -217,7 +217,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 10%;">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -228,7 +228,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 10%;">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -239,7 +239,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 10%;">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -250,7 +250,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 7.692307692307692">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -400,9 +400,8 @@
             </div>
         </section>
     </div>
-
     <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;" id="foot">
-        <div class="position-relative relative margin-250">
+        <div class="position-relative relative">
             <table class="table table-hover position-absolute bg-white border-0">
                 <thead>
                     <tr>
@@ -412,24 +411,25 @@
                         <th class="text-center text-danger font-weight-bold" style="width: 9%;"></th>
                         <th class="text-center text-danger font-weight-bold" style="width: 13%;"></th>
                         <th class="text-center text-danger font-weight-bold" style="width: 5%;"></th> --}}
-                        <th class="text-center text-danger font-weight-bold border height-52" style="width: 48%;">
+                        <th class="text-center text-danger font-weight-bold border height-52"
+                            style="width: 45.35% !important; ">
                             Tổng cộng
                         </th>
-                        <th class="text-right text-red bold border" style="width: 5%;">
+                        <th class="text-right text-red bold border" style="width: 7.65% !important;">
                             {{ number_format($totalDeliverQty) }}</th>
-                        <th class="text-right text-red bold border" style="width: 9%;">
+                        <th class="text-right text-red bold border" style="width: 7.6% !important;">
                             {{ number_format($totalPriceExport) }}
                         </th>
-                        <th class="text-right text-red bold border" style="width: 9%;">
+                        <th class="text-right text-red bold border" style="width: 7.7% !important;">
                             {{ number_format($totalProductTotalVat) }}
                         </th>
-                        <th class="text-right text-red bold border" style="width: 9%;">
+                        <th class="text-right text-red bold border" style="width: 7.65% !important;">
                             {{ number_format($totalitemDetailTotalProductVat) }}
                         </th>
-                        <th class="text-right text-red bold border" style="width: 9%;">
+                        <th class="text-right text-red bold border" style="width: 7.7% !important;">
                             {{ number_format($totalPay) }}
                         </th>
-                        <th class="text-right text-red bold border" style="width: 6%;">
+                        <th class="text-right text-red bold border" style="width: 7.65% !important;">
                             {{ number_format($totalRemai) }}
                         </th>
                         <th></th>

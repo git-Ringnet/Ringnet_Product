@@ -105,9 +105,9 @@
                             <div class="">
                                 <div class="outer-4 top-table table-responsive text-nowrap">
                                     <table id="example2" class="table table-hover">
-                                        <thead>
+                                        <thead style="position: sticky">
                                             <tr>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 14.28571428571429">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -118,7 +118,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 14.28571428571429">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -129,7 +129,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 14.28571428571429">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -140,7 +140,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 14.28571428571429">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -151,7 +151,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 14.28571428571429">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -162,7 +162,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 14.28571428571429">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -173,7 +173,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border">
+                                                <th scope="col" class="height-52 border" style="width: 14.28571428571429">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -251,11 +251,39 @@
             </div>
         </section>
     </div>
-    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 0;left: 0;">
+
+    
+    {{-- <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 0;left: 0;">
         <div class="position-relative relative margin-250">
             <div class="position-absolute px-4 pt-1 border bg-white" style="left: 18rem;">
                 <span class="text-danger font-weight-bold">Có {{ count($htrImport) }} mặt hàng</span>
             </div>
+        </div>
+    </div> --}}
+    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;">
+        <div class="position-relative">
+            <table class="table table-hover position-absolute bg-white border-0">
+                <thead>
+                    <tr>
+                        <th class="text-center text-danger font-weight-bold border height-52"   
+                            style="width: 36.9% !important;">
+                            Tổng cộng
+                        </th>
+                        <th class="text-center text-red border" style="width: 9.4% !important;">   
+                            0
+                        </th>
+                        <th class="text-center text-red border" style="width: 8.75% !important;">
+                            0
+                        </th>
+                        <th class="text-center text-red border" style="width: 13.05% !important;">
+                            0
+                        </th>
+                        <th class="text-center text-red border" style="width: 14.15% !important;">
+                            0
+                        </th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
 </div>
