@@ -145,7 +145,8 @@ class ProductImport extends Model
                 }
 
                 $dataQuote = [
-                    $columQuote => $receive_qty + $qty
+                    $columQuote => $receive_qty + $qty,
+                    'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 0
                 ];
                 QuoteImport::where('id', $product->id)
                     ->where('workspace_id', Auth::user()->current_workspace)
@@ -174,7 +175,7 @@ class ProductImport extends Model
                     'workspace_id' => Auth::user()->current_workspace,
                     'user_id' => Auth::user()->id,
                     // 'receive_id' => 0,
-                    'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 1,
+                    'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 0,
                     'promotion' => json_encode($promotion),
                     'created_at' => Carbon::now()
                 ];
