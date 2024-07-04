@@ -260,19 +260,19 @@
                 <thead>
                     <tr>
                         <th class="text-center text-danger font-weight-bold border height-52"   
-                            style="width: 42.85714285714286% !important;">
+                            style="width: 42.85714285714286%;">
                             Tổng cộng
                         </th>
-                        <th class="text-center text-red border" style="width: 14.28571428571429% !important;">   
+                        <th class="text-center text-red border" style="width: 14.28571428571429%;">   
                             {{ number_format($total) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 14.28571428571429% !important;">
+                        <th class="text-center text-red border" style="width: 14.28571428571429%;">
                             
                         </th>
-                        <th class="text-center text-red border" style="width: 14.28571428571429% !important;">
+                        <th class="text-center text-red border" style="width: 14.28571428571429%;">
                             
                         </th>
-                        <th class="text-center text-red border" style="width: 14.28571428571429% !important;">
+                        <th class="text-center text-red border" style="width: 14.28571428571429%;">
                             
                         </th>
                     </tr>

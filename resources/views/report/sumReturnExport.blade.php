@@ -351,7 +351,7 @@
                                                 <td class="text-red bold height-52 border">
                                                     {{ number_format($totalProductTotal) }}</td>
                                                 <td class="text-red bold height-52 border">
-                                                    {{ number_format($totalProductVat) }}</td>
+                                                    {{ number_format($totalProductVat) }}</td>  
                                                 <td class="text-red bold height-52 border">
                                                     {{ number_format($totalPayment) }}</td>
                                                 <td class="text-red bold height-52 border">
@@ -375,31 +375,31 @@
                 <thead>
                     <tr>
                         <th class="text-center text-danger font-weight-bold border height-52"   
-                            style="width: 38.7% !important;">
+                            style="width: 38.46153846153846%;">
                             Tổng cộng
                         </th>
-                        <th class="text-center text-red border" style="width: 7% !important;">
-                            0
+                        <th class="text-center text-red border" style="width: 7.692307692307692%;">
+                            {{ $totalQtyReturn }}
                         </th>
-                        <th class="text-center text-red border" style="width: 6.95% !important;">
-                            0
+                        <th class="text-center text-red border" style="width: 7.692307692307692%;">
+                            {{ number_format($totalPriceProduct) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 7.1% !important;">
-                            0
+                        <th class="text-center text-red border" style="width: 7.692307692307692%;">
+                            {{ number_format($totalProductTotal) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 7.1% !important;">
-                            0
+                        <th class="text-center text-red border" style="width: 7.692307692307692%;">
+                            {{ number_format($totalProductVat) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 7.15% !important;">
-                            0
+                        <th class="text-center text-red border" style="width: 7.692307692307692%;">
+                            {{ number_format($totalPayment) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 6.9% !important;">
-                            0
+                        <th class="text-center text-red border" style="width: 7.692307692307692%;">
+                            {{ number_format($totalRemaining) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 6.9% !important;">
+                        <th class="text-center text-red border" style="width: 7.692307692307692%;">
                             
                         </th>
-                        <th class="text-center text-red border" style="width: 8.45% !important;">
+                        <th class="text-center text-red border" style="width: 7.692307692307692%;">
                             
                         </th>
                     </tr>

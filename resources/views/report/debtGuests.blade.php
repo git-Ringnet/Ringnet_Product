@@ -385,19 +385,19 @@
                             Tổng cộng
                         </th>
                         <th class="text-center text-red border" style="width: 14%;">
-                            {{ number_format($item->totalProductVat) }}
+                            {{ number_format($grandTotalProductVat) }}
                         </th>
                         <th class="text-center text-red border" style="width: 14%;">
-                            {{ number_format($item->totalReturn) }}
+                            {{ number_format($grandTotalReturn) }}
                         </th>
                         <th class="text-center text-red border" style="width: 14%;">
-                            {{ number_format($item->totalCashReciept) }}
+                            {{ number_format($grandTotalCashReciept) }}
                         </th>
                         <th class="text-center text-red border" style="width: 14%;">
-                            {{ number_format($item->chiKH) }}
+                            {{ number_format($grandTotalChiKH) }}
                         </th>
                         <th class="text-center text-red border" style="width: 14%; ">
-                            {{ number_format($item->totalProductVat - $item->totalCashReciept - ($item->totalReturn - $item->chiKH)) }}
+                            {{ number_format($grandTotalRemaining) }}
                         </th>
                     </tr>
                 </thead>

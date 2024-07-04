@@ -315,16 +315,16 @@
                 <thead>
                     <tr>
                         <th class="text-center text-danger font-weight-bold border height-52"   
-                            style="width: 56% !important;">
+                            style="width: 57.14285714285714% !important;">
                             Tổng cộng
                         </th>
-                        <th class="text-center text-red border" style="width: 14% !important;">   
+                        <th class="text-center text-red border" style="width: 14.28571428571429% !important;">   
                             {{ number_format($grandTotalImport) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 14.05% !important;">
+                        <th class="text-center text-red border" style="width: 14.28571428571429% !important;">
                             {{ number_format($grandTotalExport) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 14.7% !important;">
+                        <th class="text-center text-red border" style="width: 14.28571428571429% !important;">
                             {{ number_format($grandTotal) }}
                         </th>
                     </tr>

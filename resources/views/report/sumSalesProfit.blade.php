@@ -864,25 +864,25 @@
                         <th class="text-center text-danger font-weight-bold" style="width: 13%;"></th>
                         <th class="text-center text-danger font-weight-bold" style="width: 5%;"></th> --}}
                         <th class="text-center text-danger font-weight-bold border height-52"
-                            style="width: 36.15% !important; ">
+                            style="width: 40%; ">
                             Tổng cộng
                         </th>   
-                        <th class="text-center text-red border" style="width: 9.05% !important;">
+                        <th class="text-center text-red border" style="width: 10%;">
                             {{ number_format($grandTotalSlXuat) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 9% !important;">
+                        <th class="text-center text-red border" style="width: 10%;">
                             {{ number_format($grandTotalPriceImport) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 9.05% !important;">
+                        <th class="text-center text-red border" style="width: 10%;">
                             {{ number_format($grandTotalPriceImport) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 9.05% !important;">
+                        <th class="text-center text-red border" style="width: 10%;">
                             {{ number_format($grandTotalPriceExport) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 9.05% !important; ">
+                        <th class="text-center text-red border" style="width: 10%; ">
                             {{ number_format($grandTotalProductTotalVat) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 10.3% !important; ">
+                        <th class="text-center text-red border" style="width: 10%; ">
                             {{ number_format($grandTotalProfit) }}
                         </th>  
                     </tr>

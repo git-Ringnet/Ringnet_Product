@@ -394,22 +394,22 @@
                 <thead>
                     <tr>
                         <th class="text-center text-danger font-weight-bold border height-52"   
-                            style="width: 41.3% !important;">
+                            style="width: 38.46153846153846% !important;">
                             Tổng cộng
                         </th>
-                        <th class="text-center text-red border" style="width: 7.2% !important;">   
+                        <th class="text-center text-red border" style="width: 7.692307692307692% !important;">   
                             {{ number_format($totalQtyReturn) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 7% !important;">
+                        <th class="text-center text-red border" style="width: 7.692307692307692% !important;">
                             {{ number_format($totalPriceProduct) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 7.3% !important;">
+                        <th class="text-center text-red border" style="width: 7.692307692307692% !important;">
                             {{ number_format($totalAmount) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 7.3% !important;">
+                        <th class="text-center text-red border" style="width: 7.692307692307692% !important;">
                             {{ number_format($totalTotal) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 7.35% !important;">
+                        <th class="text-center text-red border" style="width: 7.692307692307692% !important;">
                             {{ number_format($totalPayment) }}
                         </th>
                         <th class="text-center text-red border" style="width: 6.95% !important;">

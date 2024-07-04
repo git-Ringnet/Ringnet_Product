@@ -272,20 +272,20 @@
                 <thead>
                     <tr>
                         <th class="text-center text-danger font-weight-bold border height-52"   
-                            style="width: 28.25% !important;">
+                            style="width: 30%;">
                             Tổng cộng
                         </th>
-                        <th class="text-center text-red border" style="width: 13.2% !important;">
+                        <th class="text-center text-red border" style="width: 14%;">
                             {{ number_format($totalVatSum) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 13.2% !important;">
+                        <th class="text-center text-red border" style="width: 14%;">
                             {{ number_format($totalAfterVatSum) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 13.25% !important;">
+                        <th class="text-center text-red border" style="width: 14%;">
                             {{ number_format($totalConlai) }}
                         </th>
-                        <th style="width: 5.4% !important;"></th>
-                        <th style="width: 21.6% !important;"></th>
+                        <th style="width: 14%;"></th>
+                        <th style="width:;"></th>
                        
                         
                     </tr>

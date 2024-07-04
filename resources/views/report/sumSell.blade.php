@@ -440,25 +440,25 @@
                 <thead>
                     <tr>
                         <th class="text-center text-danger font-weight-bold border height-52"
-                            style="width: 53.95% !important;">
+                            style="width: 50%;">
                             Tổng cộng
                         </th>
-                        <th class="text-center text-red border" style="width: 6.3% !important;">
+                        <th class="text-center text-red border" style="width:7.142857142857143%;">
                             {{ number_format($totalDeliverQty) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 5.95% !important;">
+                        <th class="text-center text-red border" style="width: 7.142857142857143%;">
                             {{ number_format($totalPriceExport) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 6.65% !important;">
+                        <th class="text-center text-red border" style="width: 7.142857142857143%;">
                             {{ number_format($totalProductTotalVat) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 6.65% !important;">
+                        <th class="text-center text-red border" style="width: 7.142857142857143%;">
                             {{ number_format($totalItemDeliveryTotalProductVat) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 6.8% !important; ">
+                        <th class="text-center text-red border" style="width:7.142857142857143%; ">
                             {{ number_format($totalPay) }}
                         </th>
-                        <th class="text-center text-red border" style="width: 5.9% !important; ">
+                        <th class="text-center text-red border" style="width:7.142857142857143%; ">
                             {{ number_format($totalRemai) }}
                         </th>  
                         <th></th>
