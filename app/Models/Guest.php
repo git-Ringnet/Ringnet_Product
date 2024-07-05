@@ -432,6 +432,7 @@ class Guest extends Model
             ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'guest.key as maKhach',
+                'guest.group_id as group_id',
                 'guest.guest_name_display as tenKhach',
                 DB::raw('SUM(detailexport.total_price + detailexport.total_tax) as totalProductVat'), // Tổng tiền đã bán
                 DB::raw('(SELECT SUM(totalVat) FROM delivery WHERE guest_id = guest.id AND status = 2) as totalDelivery'), // Tổng tiền đơn hàng đã tính đã trả
@@ -440,7 +441,7 @@ class Guest extends Model
                 DB::raw('(SELECT SUM(payment) FROM return_export WHERE guest_id = guest.id AND status = 2) as daTraKH'), // Tổng tiền đã trả cho khách khi trả hàng
                 DB::raw('(SELECT SUM(payment) FROM pay_order WHERE guest_id = guest.id) as chiKH'), // Tiền chi
             )
-            ->groupBy('guest.id', 'guest.key', 'guest.guest_name', 'guest.guest_name_display')
+            ->groupBy('guest.id', 'guest.key', 'guest.guest_name', 'group_id', 'guest.guest_name_display')
             ->get();
 
         return $guests;

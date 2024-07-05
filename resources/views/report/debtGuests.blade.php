@@ -208,16 +208,17 @@
                                                 {{-- Không nhóm --}}
                                                 <tr>
                                                     <td colspan="10" class="border-bottom bold">Nhóm khách hàng :
-                                                        Chưa
-                                                        chọn nhóm</td>
+                                                        Chưa chọn nhóm</td>
                                                 </tr>
                                                 @php
+                                                    // Khởi tạo các biến tổng cộng không nhóm
                                                     $totalProductVatUngrouped = 0;
                                                     $totalReturnUngrouped = 0;
                                                     $totalCashRecieptUngrouped = 0;
                                                     $totalChiKHUngrouped = 0;
                                                     $totalRemainingUngrouped = 0;
 
+                                                    // Khởi tạo các biến tổng cộng lớn
                                                     $grandTotalProductVat = 0;
                                                     $grandTotalReturn = 0;
                                                     $grandTotalCashReciept = 0;
@@ -238,11 +239,9 @@
                                                         @endphp
                                                         <tr class="position-relative relative ">
                                                             <td class="text-13-black border height-52">
-                                                                {{ $item->maKhach }}
-                                                            </td>
+                                                                {{ $item->maKhach }}</td>
                                                             <td class="text-13-black border height-52">
-                                                                {{ $item->tenKhach }}
-                                                            </td>
+                                                                {{ $item->tenKhach }}</td>
                                                             <td class="text-13-black border height-52">
                                                                 {{ number_format($item->totalProductVat) }}</td>
                                                             <td class="text-13-black border height-52">
@@ -260,9 +259,7 @@
 
                                                 <tr class="position-relative relative ">
                                                     <td class="text-green bold border height-52 text-right"
-                                                        colspan="2">
-                                                        Tổng
-                                                        cộng:</td>
+                                                        colspan="2">Tổng cộng:</td>
                                                     <td class="text-green bold border height-52">
                                                         {{ number_format($totalProductVatUngrouped) }}</td>
                                                     <td class="text-green bold border height-52">
@@ -276,18 +273,17 @@
                                                 </tr>
 
                                                 {{-- Có nhóm --}}
-                                                @php
-                                                    $totalProductVatGrouped = 0;
-                                                    $totalReturnGrouped = 0;
-                                                    $totalCashRecieptGrouped = 0;
-                                                    $totalChiKHGrouped = 0;
-                                                    $totalRemainingGrouped = 0;
-                                                @endphp
                                                 @foreach ($groups as $value)
+                                                    @php
+                                                        $totalProductVatGrouped = 0;
+                                                        $totalReturnGrouped = 0;
+                                                        $totalCashRecieptGrouped = 0;
+                                                        $totalChiKHGrouped = 0;
+                                                        $totalRemainingGrouped = 0;
+                                                    @endphp
                                                     <tr>
                                                         <td colspan="10" class="border-bottom bold">Nhóm khách hàng
-                                                            :
-                                                            {{ $value->name }}</td>
+                                                            : {{ $value->name }}</td>
                                                     </tr>
                                                     @foreach ($debtGuests as $item)
                                                         @if ($item->group_id == $value->id)
@@ -320,10 +316,9 @@
                                                             </tr>
                                                         @endif
                                                     @endforeach
-                                                    <tr class="position-relative relative ">
+                                                    <tr class="position-relative relative bg-light">
                                                         <td class="text-green bold border height-52 text-right"
-                                                            colspan="2">
-                                                            Tổng cộng:</td>
+                                                            colspan="2">Tổng cộng:</td>
                                                         <td class="text-green bold border height-52">
                                                             {{ number_format($totalProductVatGrouped) }}</td>
                                                         <td class="text-green bold border height-52">
@@ -335,18 +330,26 @@
                                                         <td class="text-green bold border height-52">
                                                             {{ number_format($totalRemainingGrouped) }}</td>
                                                     </tr>
+                                                    @php
+                                                        // Cộng dồn các giá trị của nhóm vào tổng cộng
+                                                        $grandTotalProductVat += $totalProductVatGrouped;
+                                                        $grandTotalReturn += $totalReturnGrouped;
+                                                        $grandTotalCashReciept += $totalCashRecieptGrouped;
+                                                        $grandTotalChiKH += $totalChiKHGrouped;
+                                                        $grandTotalRemaining += $totalRemainingGrouped;
+                                                    @endphp
                                                 @endforeach
+
                                                 @php
-                                                    $grandTotalProductVat =
-                                                        $totalProductVatUngrouped + $totalProductVatGrouped;
-                                                    $grandTotalReturn = $totalReturnUngrouped + $totalReturnGrouped;
-                                                    $grandTotalCashReciept =
-                                                        $totalCashRecieptUngrouped + $totalCashRecieptGrouped;
-                                                    $grandTotalChiKH = $totalChiKHUngrouped + $totalChiKHGrouped;
-                                                    $grandTotalRemaining =
-                                                        $totalRemainingUngrouped + $totalRemainingGrouped;
+                                                    // Cộng dồn các giá trị không nhóm vào tổng cộng
+                                                    $grandTotalProductVat += $totalProductVatUngrouped;
+                                                    $grandTotalReturn += $totalReturnUngrouped;
+                                                    $grandTotalCashReciept += $totalCashRecieptUngrouped;
+                                                    $grandTotalChiKH += $totalChiKHUngrouped;
+                                                    $grandTotalRemaining += $totalRemainingUngrouped;
                                                 @endphp
                                             </tbody>
+
                                             {{-- <tfoot id="total-footer">
                                                 <tr class="position-relative relative  bg-light">
                                                     <td class="text-red bold border height-52 text-right"

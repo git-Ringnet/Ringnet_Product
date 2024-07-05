@@ -635,18 +635,19 @@
                                             </thead>
                                             <tbody>
                                                 @php
+                                                    // Khởi tạo các biến tổng cộng không nhóm
                                                     $totalUngrouped = 0;
-                                                    $totalGrouped = 0;
-
                                                     $totalSlXuatUngrouped = 0;
                                                     $totalPriceImportUngrouped = 0;
-                                                    $totalPriceImport = 0;
+                                                    $totalPriceImportSlxuatUngrouped = 0;
                                                     $totalPriceExportUngrouped = 0;
                                                     $totalProductTotalVatUngrouped = 0;
                                                     $totalProfitUngrouped = 0;
 
+                                                    // Khởi tạo các biến tổng cộng lớn
                                                     $grandTotalSlXuat = 0;
                                                     $grandTotalPriceImport = 0;
+                                                    $grandTotalPriceImportSlxuat = 0;
                                                     $grandTotalPriceExport = 0;
                                                     $grandTotalProductTotalVat = 0;
                                                     $grandTotalProfit = 0;
@@ -654,15 +655,13 @@
 
                                                 <tr>
                                                     <td colspan="10" class="border-bottom bold">Nhóm khách hàng:
-                                                        Chưa
-                                                        chọn nhóm</td>
+                                                        Chưa chọn nhóm</td>
                                                 </tr>
                                                 @foreach ($allDeliveries as $item)
                                                     @if ($item->group_idGuest == 0)
                                                         <tr class="position-relative relative">
                                                             <td class="text-13-black border height-52">
-                                                                {{ $item->maPhieu }}
-                                                            </td>
+                                                                {{ $item->maPhieu }}</td>
                                                             <td class="text-13-black border height-52">
                                                                 {{ $item->product_code }}</td>
                                                             <td class="text-13-black border height-52">
@@ -688,7 +687,8 @@
                                                             $totalUngrouped++;
                                                             $totalSlXuatUngrouped += $item->slxuat;
                                                             $totalPriceImportUngrouped += $item->giaNhap;
-                                                            $totalPriceImport += $item->slxuat * $item->giaNhap;
+                                                            $totalPriceImportSlxuatUngrouped +=
+                                                                $item->slxuat * $item->giaNhap;
                                                             $totalPriceExportUngrouped += $item->price_export;
                                                             $totalProductTotalVatUngrouped += $item->product_total_vat;
                                                             $totalProfitUngrouped +=
@@ -697,6 +697,7 @@
                                                         @endphp
                                                     @endif
                                                 @endforeach
+
                                                 <tr class="bg-light">
                                                     <td colspan="4" class="text-right text-green border bold">Tổng
                                                         cộng:</td>
@@ -705,7 +706,7 @@
                                                     <td class="height-52 text-green border bold">
                                                         {{ number_format($totalPriceImportUngrouped) }}</td>
                                                     <td class="height-52 text-green border bold">
-                                                        {{ number_format($totalPriceImport) }}</td>
+                                                        {{ number_format($totalPriceImportSlxuatUngrouped) }}</td>
                                                     <td class="height-52 text-green border bold">
                                                         {{ number_format($totalPriceExportUngrouped) }}</td>
                                                     <td class="height-52 text-green border bold">
@@ -715,8 +716,10 @@
                                                 </tr>
 
                                                 @php
+                                                    // Cộng dồn các giá trị không nhóm vào tổng cộng lớn
                                                     $grandTotalSlXuat += $totalSlXuatUngrouped;
-                                                    $grandTotalPriceImport += $totalPriceImport;
+                                                    $grandTotalPriceImport += $totalPriceImportUngrouped;
+                                                    $grandTotalPriceImportSlxuat += $totalPriceImportSlxuatUngrouped;
                                                     $grandTotalPriceExport += $totalPriceExportUngrouped;
                                                     $grandTotalProductTotalVat += $totalProductTotalVatUngrouped;
                                                     $grandTotalProfit += $totalProfitUngrouped;
@@ -724,10 +727,9 @@
 
                                                 @foreach ($groupGuests as $value)
                                                     @php
-                                                        $totalGroupItems = 0;
-
                                                         $totalSlXuatGrouped = 0;
                                                         $totalPriceImportGrouped = 0;
+                                                        $totalPriceImportSlxuatGrouped = 0;
                                                         $totalPriceExportGrouped = 0;
                                                         $totalProductTotalVatGrouped = 0;
                                                         $totalProfitGrouped = 0;
@@ -765,9 +767,10 @@
                                                                 </td>
                                                             </tr>
                                                             @php
-                                                                $totalGroupItems++;
                                                                 $totalSlXuatGrouped += $item->slxuat;
                                                                 $totalPriceImportGrouped += $item->giaNhap;
+                                                                $totalPriceImportSlxuatGrouped +=
+                                                                    $item->slxuat * $item->giaNhap;
                                                                 $totalPriceExportGrouped += $item->price_export;
                                                                 $totalProductTotalVatGrouped +=
                                                                     $item->product_total_vat;
@@ -777,6 +780,7 @@
                                                             @endphp
                                                         @endif
                                                     @endforeach
+
                                                     <tr class="bg-light">
                                                         <td colspan="4" class="text-right text-green bold border">
                                                             Tổng cộng:</td>
@@ -785,8 +789,7 @@
                                                         <td class="height-52 text-green bold border">
                                                             {{ number_format($totalPriceImportGrouped) }}</td>
                                                         <td class="height-52 text-green bold border">
-                                                            {{ number_format($totalSlXuatGrouped * $totalPriceImportGrouped) }}
-                                                        </td>
+                                                            {{ number_format($totalPriceImportSlxuatGrouped) }}</td>
                                                         <td class="height-52 text-green bold border">
                                                             {{ number_format($totalPriceExportGrouped) }}</td>
                                                         <td class="height-52 text-green bold border">
@@ -795,15 +798,17 @@
                                                             {{ number_format($totalProfitGrouped) }}</td>
                                                     </tr>
                                                     @php
-                                                        // Cộng dồn các giá trị của nhóm vào tổng cộng
+                                                        // Cộng dồn các giá trị của nhóm vào tổng cộng lớn
                                                         $grandTotalSlXuat += $totalSlXuatGrouped;
                                                         $grandTotalPriceImport += $totalPriceImportGrouped;
+                                                        $grandTotalPriceImportSlxuat += $totalPriceImportSlxuatGrouped;
                                                         $grandTotalPriceExport += $totalPriceExportGrouped;
                                                         $grandTotalProductTotalVat += $totalProductTotalVatGrouped;
                                                         $grandTotalProfit += $totalProfitGrouped;
                                                     @endphp
                                                 @endforeach
                                             </tbody>
+
                                             <tfoot id="total-footer">
                                             </tfoot>
                                         </table>
@@ -831,7 +836,7 @@
                             {{ number_format($grandTotalPriceImport) }}
                         </th>
                         <th class="text-center text-red border" style="width: 10%;">
-                            {{ number_format($grandTotalPriceImport) }}
+                            {{ number_format($grandTotalPriceImportSlxuat) }}
                         </th>
                         <th class="text-center text-red border" style="width: 10%;">
                             {{ number_format($grandTotalPriceExport) }}
