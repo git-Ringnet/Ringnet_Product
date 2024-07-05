@@ -1002,11 +1002,7 @@
             event.preventDefault();
         }
 
-        // Hiển thị thông báo cuối cùng nếu có sản phẩm không hợp lệ
-        if (invalidProducts.length > 0) {
-            showAutoToast("warning", "Không đủ số lượng tồn kho cho các sản phẩm:\n" + invalidProducts.join(', '));
-            event.preventDefault();
-        } else if (hasProducts) {
+        if (hasProducts) {
             var hiddenInputsToRemove = document.querySelectorAll(
                 'input[type="hidden"][name="_method"][value="delete"]');
             hiddenInputsToRemove.forEach(function(hiddenInput) {

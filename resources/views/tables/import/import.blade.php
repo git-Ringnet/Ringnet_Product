@@ -192,7 +192,7 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="reference_number" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Số tham
-                                                            chiều</button>
+                                                            chiếu</button>
                                                     </a>
                                                     <div class="icon" id="icon-reference_number"></div>
                                                 </span>

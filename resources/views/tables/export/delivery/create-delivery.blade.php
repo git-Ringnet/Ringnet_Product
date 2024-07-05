@@ -2805,7 +2805,8 @@
                     $('.idRepresent').val(data.represent_id)
                     $('.numberQute').val(data.quotation_number)
                     $('.nameGuest').val(data.guest_name)
-                    $('.represent_name').val(data.represent_name)
+                    $('#represent_guest').val(data.represent_name)
+                    $('.represent_guest_id').val(data.represent_id)
                     $('#show-info-guest').show();
                     $('#show-title-guest').show();
                     $.ajax({
@@ -2939,7 +2940,7 @@
                                     </td>
                                     <td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">
                                         <input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]"
-                                        value="${item.nameWH}">
+                                        value="" autocomplete="off">
                                         <ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse" style="display:none;">
                                             <div class="p-1">
                                                 <div class="position-relative">
