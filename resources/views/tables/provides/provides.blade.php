@@ -273,7 +273,7 @@
                                     <tbody class="tbody-provide">
                                         <tr>
                                             <td class="text-green" style="font-size: 16px; font-weight: 500"
-                                                colspan="5">Nhà cung cấp : Chưa chọn nhóm</td>
+                                                colspan="14">Nhà cung cấp : Chưa chọn nhóm</td>
                                         </tr>
                                         @php
                                             $total = 0;
@@ -411,12 +411,12 @@
                                             <td></td>
                                             <td class="text-right" style="color: red">Có {{ $total }} nhà cung
                                                 cấp</td>
-                                            <td colspan="3"></td>
+                                            <td colspan="13"></td>
                                         </tr>
                                         @foreach ($groups as $value)
                                             <tr>
                                                 <td class="text-green" style="font-size: 16px; font-weight: 500"
-                                                    colspan="5">Nhà cung cấp : {{ $value->name }}</td>
+                                                    colspan="14">Nhà cung cấp : {{ $value->name }}</td>
                                             </tr>
                                             @if ($value->getAllProvides)
                                                 @php
@@ -447,6 +447,9 @@
                                                                 name="ids[]" id="checkbox" value=""
                                                                 onclick="event.stopPropagation();">
                                                         </td>
+                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                            {{ $item->key }}
+                                                        </td>
                                                         <td class="text-13-black border-top-0 border-bottom text-wrap">
                                                             <a href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
                                                                 class="user_flow" data-type="NCC"
@@ -454,6 +457,25 @@
                                                                 {{ $item->provide_name_display }}
                                                             </a>
                                                         </td>
+                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                            {{ $item->provide_address }}
+                                                        </td>
+                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                            {{ $item->provide_phone }}
+                                                        </td>
+                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                            {{ $item->provide_code }}
+                                                        </td>
+                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                            {{ $item->provide_email }}
+                                                        </td>
+                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                            {{ $item->provide_fax }}
+                                                        </td>
+                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                            {{ number_format($item->quota_debt) }}
+                                                        </td>
+                                                        <td class="text-13-black border-top-0 border-bottom"></td>
                                                         @can('isAdmin')
                                                             <td class="text-13-black border-top-0 border-bottom">
                                                                 @if ($item->getNameUser)
@@ -461,13 +483,6 @@
                                                                 @endif
                                                             </td>
                                                         @endcan
-                                                        <td class="text-13-black border-top-0 border-bottom">
-                                                            {{ $item->provide_code }}
-                                                        </td>
-                                                        <td
-                                                            class="text-13-black text-right border-top-0 border-bottom">
-                                                            {{ number_format($item->provide_debt) }}
-                                                        </td>
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 10px; bottom:0;">
                                                             <div class="d-flex w-100">
@@ -539,7 +554,7 @@
                                                 <td class="text-right" style="color: red">Có {{ $total }} nhà
                                                     cung
                                                     cấp</td>
-                                                <td colspan="3"></td>
+                                                <td colspan="14"></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

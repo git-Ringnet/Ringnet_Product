@@ -273,7 +273,6 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-
                                             <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
