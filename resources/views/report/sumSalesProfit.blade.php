@@ -503,23 +503,6 @@
                                                 @endforeach
                                             </tbody>
                                             <tfoot id="total-footer">
-                                                {{-- <tr class="bg-light total-row">
-                                                    <td colspan="4" class="text-right text-red bold border">Tổng
-                                                        của tất cả các
-                                                        nhóm:</td>
-                                                    <td class="height-52 text-red bold border">
-                                                        {{ number_format($grandTotalSlXuat) }}</td>
-                                                    <td class="height-52 text-red bold border">
-                                                        {{ number_format($grandTotalPriceImport) }}</td>
-                                                    <td class="height-52 text-red bold border">
-                                                        {{ number_format($grandTotalPriceImport) }}</td>
-                                                    <td class="height-52 text-red bold border">
-                                                        {{ number_format($grandTotalPriceExport) }}</td>
-                                                    <td class="height-52 text-red bold border">
-                                                        {{ number_format($grandTotalProductTotalVat) }}</td>
-                                                    <td class="height-52 text-red bold border">
-                                                        {{ number_format($grandTotalProfit) }}</td>
-                                                </tr> --}}
                                             </tfoot>
 
                                         </table>
@@ -796,8 +779,7 @@
                                                     @endforeach
                                                     <tr class="bg-light">
                                                         <td colspan="4" class="text-right text-green bold border">
-                                                            Tổng cộng:
-                                                        </td>
+                                                            Tổng cộng:</td>
                                                         <td class="height-52 text-green bold border">
                                                             {{ number_format($totalSlXuatGrouped) }}</td>
                                                         <td class="height-52 text-green bold border">
@@ -812,11 +794,10 @@
                                                         <td class="height-52 text-green bold border">
                                                             {{ number_format($totalProfitGrouped) }}</td>
                                                     </tr>
-
                                                     @php
+                                                        // Cộng dồn các giá trị của nhóm vào tổng cộng
                                                         $grandTotalSlXuat += $totalSlXuatGrouped;
-                                                        $grandTotalPriceImport +=
-                                                            $totalSlXuatGrouped * $totalPriceImportGrouped;
+                                                        $grandTotalPriceImport += $totalPriceImportGrouped;
                                                         $grandTotalPriceExport += $totalPriceExportGrouped;
                                                         $grandTotalProductTotalVat += $totalProductTotalVatGrouped;
                                                         $grandTotalProfit += $totalProfitGrouped;
@@ -824,23 +805,6 @@
                                                 @endforeach
                                             </tbody>
                                             <tfoot id="total-footer">
-                                                {{-- <tr class="bg-light total-row">
-                                                    <td colspan="4" class="text-right text-red bold border">Tổng
-                                                        của tất cả các
-                                                        nhóm:</td>
-                                                    <td class="height-52 text-red bold border">
-                                                        {{ number_format($grandTotalSlXuat) }}</td>
-                                                    <td class="height-52 text-red bold border">
-                                                        {{ number_format($grandTotalPriceImport) }}</td>
-                                                    <td class="height-52 text-red bold border">
-                                                        {{ number_format($grandTotalPriceImport) }}</td>
-                                                    <td class="height-52 text-red bold border">
-                                                        {{ number_format($grandTotalPriceExport) }}</td>
-                                                    <td class="height-52 text-red bold border">
-                                                        {{ number_format($grandTotalProductTotalVat) }}</td>
-                                                    <td class="height-52 text-red bold border">
-                                                        {{ number_format($grandTotalProfit) }}</td>
-                                                </tr> --}}
                                             </tfoot>
                                         </table>
                                     </div>
@@ -857,12 +821,6 @@
             <table class="table table-hover position-absolute bg-white border-0">
                 <thead>
                     <tr>
-                        {{-- <th class="text-center text-danger font-weight-bold" style="width: 3%;"></th>
-                        <th class="text-center text-danger font-weight-bold" style="width: 10%;"></th>
-                        <th class="text-center text-danger font-weight-bold" style="width: 9%;"></th>
-                        <th class="text-center text-danger font-weight-bold" style="width: 9%;"></th>
-                        <th class="text-center text-danger font-weight-bold" style="width: 13%;"></th>
-                        <th class="text-center text-danger font-weight-bold" style="width: 5%;"></th> --}}
                         <th class="text-center text-danger font-weight-bold border height-52" style="width: 40%; ">
                             Tổng cộng tất cả
                         </th>
