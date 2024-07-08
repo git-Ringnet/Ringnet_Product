@@ -14,7 +14,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="nearLast-span">Sản phẩm</span>
+                    <span class="nearLast-span">Hàng hóa</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                             fill="none">
@@ -23,7 +23,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="last-span">Thêm sản phẩm</span>
+                    <span class="last-span">Thêm hàng hóa</span>
                 </div>
                 <div class="d-flex content__heading--right">
                     <a href="{{ route('inventory.index', $workspacename) }}">

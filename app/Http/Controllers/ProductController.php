@@ -41,7 +41,7 @@ class ProductController extends Controller
     public function index()
     {
         // $product = $this->products->getAllProducts();
-        $title = "Kho 1";
+        $title = "Hàng hóa";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // Tất cả nhóm hàng hóa

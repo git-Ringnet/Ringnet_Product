@@ -14,7 +14,7 @@
                             fill="#26273B" fill-opacity="0.8" />
                     </svg>
                 </span>
-                <span class="font-weight-bold text-secondary">Sản phẩm</span>
+                <span class="font-weight-bold text-secondary">Hàng hóa</span>
             </div>
             <div class="d-flex content__heading--right">
                 <a href="{{ route('inventory.create', $workspacename) }}" class="mr-1">

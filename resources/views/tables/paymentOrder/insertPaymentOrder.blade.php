@@ -770,7 +770,6 @@
                     detail_id: detail_id,
                 },
                 success: function(data) {
-                    console.log(data);
                     if (data['status']) {
                         $('#prepayment').val(formatCurrency(data['total']));
                         $('#guest_id').val(data['return'].guest_id);
@@ -778,6 +777,7 @@
                         // Hiển số tiền còn lại cần thanh toán
                         $('#prepayment').val(formatCurrency(data['return'].total_return -
                             data['return'].payment));
+                        $('.cash_reciept').attr('style', 'display:none;')
                     }
                 }
             })
