@@ -287,7 +287,8 @@
             <div class="d-flex align-items-center px-3 justify-content-between w-100" style="background: #F3F5F7;">
                 <div class="p-2 d-flex content__heading--right">
                     <a href="{{ route('dashboardProduct.index', $workspacename) }}" class="height-36">
-                        <button type="button" class="h-100 border justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'dashboardProduct') active @endif">
+                        <button type="button"
+                            class="h-100 border justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'dashboardProduct') active @endif">
                             <p class="m-0 p-0 text-13-black">Dashboard</p>
                         </button>
                     </a>
@@ -297,18 +298,26 @@
                             Thiết lập ban đầu
                         </a>
                         <div class="dropdown-menu" style="">
-                            <a class="dropdown-item text-13-black" href="{{ route('groups.index', $workspacename) }}">Nhóm đối
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('groups.index', $workspacename) }}">Nhóm đối
                                 tượng</a>
-                            <a class="dropdown-item text-13-black" href="{{ route('guests.index', $workspacename) }}">Khách
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('guests.index', $workspacename) }}">Khách
                                 hàng</a>
-                            <a class="dropdown-item text-13-black" href="{{ route('provides.index', $workspacename) }}">Nhà cung
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('provides.index', $workspacename) }}">Nhà cung
                                 cấp</a>
-                            <a class="dropdown-item text-13-black" href="{{ route('inventory.index', $workspacename) }}">Hàng
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('inventory.index', $workspacename) }}">Hàng
                                 hóa</a>
                             <a class="dropdown-item text-13-black" href="{{ route('funds.index') }}">Quỹ</a>
-                            <a class="dropdown-item text-13-black" href="{{ route('content.index', $workspacename) }}">Nội dung thu
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('content.index', $workspacename) }}">Nội dung thu
                                 chi</a>
-                            <a class="dropdown-item text-13-black" href="{{ route('warehouse.index', $workspacename) }}">Kho</a>
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('warehouse.index', $workspacename) }}">Kho</a>
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('users.index', $workspacename) }}">Nhân viên</a>
                         </div>
                     </div>
                     <div class="dropdown ml-2 py-1">
@@ -319,31 +328,40 @@
                             </span>
                         </a>
                         <div class="dropdown-menu" style="">
-                            <a class="dropdown-item text-13-black" href="{{ route('detailExport.index', $workspacename) }}">Phiếu
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('detailExport.index', $workspacename) }}">Phiếu
                                 bán hàng
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('import.index', $workspacename) }}">Đặt hàng
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('import.index', $workspacename) }}">Đặt hàng
                                 NCC
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('returnImport.index', $workspacename) }}">Trả
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('returnImport.index', $workspacename) }}">Trả
                                 hàng NCC
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('returnExport.index', $workspacename) }}">Khách
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('returnExport.index', $workspacename) }}">Khách
                                 trả hàng
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('receive.index', $workspacename) }}">Phiếu nhập
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('receive.index', $workspacename) }}">Phiếu nhập
                                 kho
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('delivery.index', $workspacename) }}">Phiếu xuất
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('delivery.index', $workspacename) }}">Phiếu xuất
                                 kho
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('cash_receipts.index', $workspacename) }}">Phiếu
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('cash_receipts.index', $workspacename) }}">Phiếu
                                 thu
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('paymentOrder.index', $workspacename) }}">Phiếu
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('paymentOrder.index', $workspacename) }}">Phiếu
                                 chi
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('changeFund.index', $workspacename) }}">Chuyển
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('changeFund.index', $workspacename) }}">Chuyển
                                 tiền nội bộ
                             </a>
                             <a class="dropdown-item text-13-black"
@@ -357,23 +375,34 @@
                             Báo cáo thống kê
                         </a>
                         <div class="dropdown-menu" style="">
-                            <a class="dropdown-item text-13-black" href="{{ route('viewReportDebtGuests', $workspacename) }}">Công nợ khách hàng
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('viewReportDebtGuests', $workspacename) }}">Công nợ khách hàng
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('viewReportSell', $workspacename) }}">Tổng kết bán hàng
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('viewReportSell', $workspacename) }}">Tổng kết bán hàng
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('viewReportDelivery', $workspacename) }}">Tổng kết giao hàng
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('viewReportDelivery', $workspacename) }}">Tổng kết giao hàng
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('viewReportSumReturnExport', $workspacename) }}">Tổng kết khách trả hàng
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('viewReportSumReturnExport', $workspacename) }}">Tổng kết khách trả
+                                hàng
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('viewReportSumSellProfit', $workspacename) }}">Báo cáo lợi nhuận bán hàng
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('viewReportSumSellProfit', $workspacename) }}">Báo cáo lợi nhuận bán
+                                hàng
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('viewReportImport', $workspacename) }}">Tổng kết mua hàng
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('viewReportImport', $workspacename) }}">Tổng kết mua hàng
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('viewReportProvides', $workspacename) }}">Thống kê công nợ NCC
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('viewReportProvides', $workspacename) }}">Thống kê công nợ NCC
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('viewReportReturnImport', $workspacename) }}">Trả hàng NCC
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('viewReportReturnImport', $workspacename) }}">Trả hàng NCC
                             </a>
-                            <a class="dropdown-item text-13-black" href="{{ route('viewReportIE', $workspacename) }}">Tổng hợp nội dung thu chi
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('viewReportIE', $workspacename) }}">Tổng hợp nội dung thu chi
                             </a>
                             <a class="dropdown-item text-13-black"
                                 href="{{ route('viewReportChangeFunds', $workspacename) }}">Chuyển tiền nội bộ
@@ -441,6 +470,12 @@
                         <button type="button"
                             class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'warehouse') active @endif">
                             Kho
+                        </button>
+                    </a>
+                    <a href="{{ route('users.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'users') active @endif">
+                            Nhân viên
                         </button>
                     </a>
                 </div>

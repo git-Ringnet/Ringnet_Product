@@ -31,6 +31,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReturnExportController;
 use App\Http\Controllers\ReturnImportController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserFlowController;
 use App\Http\Controllers\UserWorkspacesController;
 use App\Http\Controllers\WarehouseController;
@@ -378,14 +379,14 @@ Route::middleware([CheckLogin::class])->group(function () {
 
 // User flow
 Route::resource('{workspace}/userflow', UserFlowController::class)->middleware(CheckLogin::class);
-
+Route::resource('{workspace}/users', UserController::class);
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        // return view('dashboard');
-        return redirect()->route('workspace.index');
+        return view('welcome');
+        // return redirect()->route('workspace.index');
     })->name('dashboard');
 });

@@ -10,7 +10,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="{{ asset('dist/img/icon/favicon.ico') }}">
     --}}
-    <link rel="stylesheet" href="{{ asset('dist/css/css.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('dist/css/css.css') }}">
 
 
     <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
@@ -236,7 +236,7 @@
                     </div>
                     <div class="footer-bottom margin-top--53">
                         <div>
-                            <a href="{{ url('/auth/google/redirect') }}">
+                            <a href="{{ route('login') }}">
                                 <button type="button" class="btn-primary-custom border-0">Bắt đầu sử dụng miễn
                                     phí</button>
                             </a>
@@ -254,8 +254,8 @@
                     </div>
                     <p></p>
                     <div class="content-button--login">
-                        <a href="{{ url('/auth/google/redirect') }}">
-                            <button class="btn-primary-custom mt-5 border-0 mb-3">Đăng nhập với Google</button>
+                        <a href="{{ route('login') }}">
+                            <button class="btn-primary-custom mt-5 border-0 mb-3">Đăng nhập</button>
                         </a>
                     </div>
                 </div>

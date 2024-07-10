@@ -22,5 +22,14 @@ class Workspace extends Seeder
                 'updated_at' => now(),
             ],
         ]);
+        DB::table('user_workspaces')->insert([
+            [
+                'user_id' => 1,
+                'workspace_id' => 1,
+                'roleid' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }

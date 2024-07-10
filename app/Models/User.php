@@ -34,7 +34,12 @@ class User extends Authenticatable
         'origin_workspace',
         'current_workspace',
         'roleid',
-        'phone_number'
+        'phone_number',
+        'group_id',
+        'user_code',
+        'status',
+        'phone_number',
+        'address'
     ];
 
     /**
