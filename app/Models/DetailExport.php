@@ -174,7 +174,7 @@ class DetailExport extends Model
             'date_payment' => $data['date_payment'] == null ? now() : $data['date_payment'],
             'phone_receive' => $data['phone_receive'],
             'date_delivery' => $data['date_delivery'] == null ? now() : $data['date_delivery'],
-            // 'id_sale' => $data['id_sale'],
+            'id_sale' => $data['id_sale'],
         ];
         $detailexport = new DetailExport($dataExport);
         $detailexport->save();
@@ -334,7 +334,7 @@ class DetailExport extends Model
                 'date_payment' => $data['date_payment'] == null ? now() : $data['date_payment'],
                 'phone_receive' => $data['phone_receive'],
                 'date_delivery' => $data['date_delivery'] == null ? now() : $data['date_delivery'],
-                // 'id_sale' => $data['id_sale'],
+                'id_sale' => $data['id_sale'],
             ]);
         }
         return $detailExport->id;

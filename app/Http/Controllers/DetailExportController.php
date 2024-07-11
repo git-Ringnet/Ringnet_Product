@@ -118,8 +118,10 @@ class DetailExportController extends Controller
         $workspacename = $workspacename->workspace_name;
         //danh sách phiếu bán hàng
         $listDetail = $this->detailExport->getAllDetailExport();
+        //danh sách nhân viên
+        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
         // dd($data);
-        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product', 'project', 'date_form', 'dataForm', 'workspacename', 'listDetail'));
+        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product', 'project', 'date_form', 'dataForm', 'workspacename', 'listDetail', 'listUser'));
     }
     public function searchFormByGuestId(Request $request)
     {
@@ -251,6 +253,8 @@ class DetailExportController extends Controller
         $guest = $this->guest->getAllGuest();
         $product = $this->product->getAllProducts();
         $detailExport = $this->detailExport->getDetailExportToId($id);
+        //danh sách nhân viên
+        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
         //danh sách phiếu bán hàng
         $listDetail = $this->detailExport->getAllDetailExport();
         if (!$detailExport) {
@@ -268,6 +272,7 @@ class DetailExportController extends Controller
             'quoteExport',
             'workspacename',
             'listDetail',
+            'listUser'
         ));
     }
 
@@ -295,8 +300,21 @@ class DetailExportController extends Controller
         ];
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
+        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
         $warehouse = Warehouse::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('tables.export.quote.edit-quote', compact('project', 'title', 'guest', 'product', 'detailExport', 'warehouse', 'quoteExport', 'date_form', 'dataForm', 'workspacename'));
+        return view('tables.export.quote.edit-quote', compact(
+            'project',
+            'title',
+            'guest',
+            'product',
+            'detailExport',
+            'warehouse',
+            'quoteExport',
+            'date_form',
+            'dataForm',
+            'workspacename',
+            'listUser',
+        ));
     }
 
     /**

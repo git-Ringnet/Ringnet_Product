@@ -279,6 +279,13 @@
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên Sale</span>
                             <select name="id_sale"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                <option value=""></option>
+                                @foreach ($listUser as $listU)
+                                    <option value="{{ $listU->id }}" <?php if ($listU->id === $detailExport->id_sale) {
+                                        echo 'selected';
+                                    } ?>>{{ $listU->name }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                         <div
