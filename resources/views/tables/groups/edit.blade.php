@@ -74,6 +74,16 @@
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 height-100">
                                             <p class="p-0 m-0 required-label text-danger margin-left32 text-13-red">
+                                                Mã đối tượng
+                                            </p>
+                                        </div>
+                                        <input type="text" required placeholder="Nhập thông tin"
+                                            name="group_code" value="{{ $group->group_code }}" required
+                                            class="border w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                    </div>
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-left-0 height-100">
+                                            <p class="p-0 m-0 required-label text-danger margin-left32 text-13-red">
                                                 Tên nhóm đối tượng
                                             </p>
                                         </div>

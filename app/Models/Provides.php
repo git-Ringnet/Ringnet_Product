@@ -60,7 +60,7 @@ class Provides extends Model
     public function addProvide($data)
     {
         $result = [];
-        $provides = DB::table($this->table)->where('provide_code', $data['provide_code'])
+        $provides = DB::table($this->table)->where('key', $data['key'])
             ->orWhere('provide_name_display', $data['provide_name_display'])
             ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
@@ -90,12 +90,11 @@ class Provides extends Model
                 'provide_name_display' => $data['provide_name_display'],
                 'provide_name' => isset($data['provide_name']) ? $data['provide_name'] : "",
                 'provide_address' => $data['provide_address'],
-                'provide_code' => $data['provide_code'],
-                'key' => $key,
+                'provide_code' => isset($data['provide_code']) ? $data['provide_code'] : null,
+                'key' => $data['key'],
                 'provide_debt' => 0,
                 'provide_email' => $data['provide_email'],
                 'provide_phone' => $data['provide_phone'],
-                'provide_fax' => $data['provide_fax'],
                 'quota_debt' => isset($data['quota_debt']) ? str_replace(',', '', $data['quota_debt']) : 0,
                 'group_id' => isset($data['category_id']) ? $data['category_id'] : 0,
                 'workspace_id' => Auth::user()->current_workspace,
@@ -119,7 +118,7 @@ class Provides extends Model
         $check = DB::table($this->table)
             ->where('id', '!=', $id)
             ->where(function ($query) use ($data) {
-                $query->where('provide_code', $data['provide_code'])
+                $query->where('key', $data['key'])
                     ->orWhere('provide_name_display', $data['provide_name_display']);
             })
             ->where('workspace_id', Auth::user()->current_workspace)
@@ -133,11 +132,11 @@ class Provides extends Model
                 'key' => $data['key'],
                 'provide_name' => isset($data['provide_name']) ? $data['provide_name'] : "",
                 'provide_address' => $data['provide_address'],
-                'provide_code' => $data['provide_code'],
+                'provide_code' => isset($data['provide_code']) ? $data['provide_code'] : null,
                 'provide_phone' => $data['provide_phone'],
                 'provide_email' => $data['provide_email'],
-                'provide_fax' => $data['provide_fax'],
-                'quota_debt' => str_replace(',', '', $data['quota_debt']),
+                'provide_fax' => isset($data['provide_fax']) ? $data['provide_fax'] : null,
+                'quota_debt' => isset($data['quota_debt']) ? str_replace(',', '', $data['quota_debt']) : null,
                 'group_id' => $data['category_id']
             ];
             Provides::where('id', $id)->update($dataUpdate);

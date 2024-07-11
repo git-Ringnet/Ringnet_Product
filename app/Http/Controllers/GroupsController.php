@@ -136,6 +136,7 @@ class GroupsController extends Controller
         $id = session('idGr');
         $currentGroup = $this->groups->find($id);
         $data = [
+            'group_code' => $request->group_code,
             'name' => $request->group_name_display,
             'description' => $request->group_desc,
             'workspace_id' => Auth::user()->current_workspace,

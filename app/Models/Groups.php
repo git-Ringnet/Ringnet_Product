@@ -52,13 +52,14 @@ class Groups extends Model
     {
         $existingGroup = Groups::where('name', $data['group_name_display'])
             ->where('grouptype_id', $data['grouptype_id'])
-            ->where('workspace_id', Auth::user()->current_workspace)
+            ->where('workspace_id', Auth::user()->current_workspace) 
             ->first();
 
         if ($existingGroup) {
             return true;
         }
         $datagroup = [
+            'group_code' => $data['group_code'],
             'name' => $data['group_name_display'],
             'grouptype_id' => $data['grouptype_id'],
             'description' => $data['group_desc'],

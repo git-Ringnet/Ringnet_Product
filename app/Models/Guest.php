@@ -196,7 +196,7 @@ class Guest extends Model
         $guests = DB::table($this->table)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->where(function ($query) use ($data) {
-                $query->where('guest_code', $data['guest_code'])
+                $query->where('key', $data['key'])
                     ->orWhere('guest_name_display', $data['guest_name_display']);
             })
             ->first();
@@ -231,10 +231,10 @@ class Guest extends Model
                 'guest_name_display' => $data['guest_name_display'],
                 'guest_name' => $data['guest_name'],
                 'guest_address' => $data['guest_address'],
-                'guest_code' => $data['guest_code'],
+                'guest_code' => isset($data['guest_code']) ? $data['guest_code'] : null,
                 'guest_phone' => isset($data['guest_phone']) ? $data['guest_phone'] : null,
                 'guest_email' => isset($data['guest_email']) ? $data['guest_email'] : null,
-                'key' => $nameKey == null ? $data['key'] : $nameKey,
+                'key' => $data['key'],
                 'user_id' => Auth::user()->id,
                 'guest_receiver' => isset($data['guest_receiver']) ? $data['guest_receiver'] : null,
                 'guest_email_personal' => isset($data['guest_email_personal']) ? $data['guest_email_personal'] : null,

@@ -116,9 +116,10 @@ class DetailExportController extends Controller
         ];
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-
+        //danh sách phiếu bán hàng
+        $listDetail = $this->detailExport->getAllDetailExport();
         // dd($data);
-        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product', 'project', 'date_form', 'dataForm', 'workspacename'));
+        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product', 'project', 'date_form', 'dataForm', 'workspacename', 'listDetail'));
     }
     public function searchFormByGuestId(Request $request)
     {
@@ -140,13 +141,13 @@ class DetailExportController extends Controller
             'des' => 'Lưu nháp'
         ];
         $this->userFlow->addUserFlow($arrLuuNhap);
-        $dateForms = $request->idDate;
-        $fieldDates = $request->fieldDate;
-        $guestId = $request->guest_id;
-        foreach ($dateForms as $key => $dateFormId) {
-            $formField = $fieldDates[$key];
-            $this->guest_dateForm->insertFormGuest($guestId, $dateFormId, $formField);
-        }
+        // $dateForms = $request->idDate;
+        // $fieldDates = $request->fieldDate;
+        // $guestId = $request->guest_id;
+        // foreach ($dateForms as $key => $dateFormId) {
+        //     $formField = $fieldDates[$key];
+        //     $this->guest_dateForm->insertFormGuest($guestId, $dateFormId, $formField);
+        // }
         if ($request->excel_export == 1) {
             // Sau khi lưu xong tất cả thông tin, set session export_id
             $request->session()->put('excel_info.export_id', $export_id);
@@ -309,13 +310,13 @@ class DetailExportController extends Controller
             if ($detailExport->status == 1) {
                 $export_id = $this->detailExport->updateExport($request->all(), $id);
                 $this->quoteExport->updateQuoteExport($request->all(), $export_id);
-                $dateForms = $request->idDate;
-                $fieldDates = $request->fieldDate;
-                $guestId = $request->guest_id;
-                foreach ($dateForms as $key => $dateFormId) {
-                    $formField = $fieldDates[$key];
-                    $this->guest_dateForm->insertFormGuest($guestId, $dateFormId, $formField);
-                }
+                // $dateForms = $request->idDate;
+                // $fieldDates = $request->fieldDate;
+                // $guestId = $request->guest_id;
+                // foreach ($dateForms as $key => $dateFormId) {
+                //     $formField = $fieldDates[$key];
+                //     $this->guest_dateForm->insertFormGuest($guestId, $dateFormId, $formField);
+                // }
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Cập nhật phiếu bán hàng thành công!');
             } else {
                 if ($detailExport) {
@@ -420,6 +421,11 @@ class DetailExportController extends Controller
                 $detailExport = DetailExport::find($id);
 
                 if ($detailExport) {
+                    //Cập nhật công nợ khách hàng
+                    $guestOld = Guest::find($detailExport->guest_id);
+                    $guestOld->guest_debt = $guestOld->guest_debt - $detailExport->amount_owed;
+                    $guestOld->save();
+
                     $table_id = $id;
                     $table_name = 'BG';
                     $this->attachment->deleteFileAll($table_id, $table_name);
@@ -468,6 +474,10 @@ class DetailExportController extends Controller
             $detailExport = DetailExport::find($id);
 
             if ($detailExport) {
+                //Cập nhật công nợ khách hàng
+                $guestOld = Guest::find($detailExport->guest_id);
+                $guestOld->guest_debt = $guestOld->guest_debt - $detailExport->amount_owed;
+                $guestOld->save();
                 QuoteExport::where('detailexport_id', $id)->delete();
                 $detailExport->delete();
                 $table_id = $id;
@@ -512,18 +522,16 @@ class DetailExportController extends Controller
             // Tạo chuỗi resultNumber mới
             $resultNumber = "{$currentDate}/RN-{$guest->key}-{$countFormatted}";
 
-            $lastDetailImport = DetailExport::where('workspace_id', Auth::user()->current_workspace)
-                ->orderBy('created_at', 'desc')
-                ->first();
-            $getNumber = 0;
-            if ($lastDetailImport) {
-                $pattern = '/PBH(\d+)-/';
-                preg_match($pattern, $lastDetailImport->quotation_number, $matches);
-                $getNumber = isset($matches[1]) ? $matches[1] : 0;
+            $lastInvoice = DetailExport::where('workspace_id', Auth::user()->current_workspace)
+                ->max('quotation_number');
+            $lastNumber = 0;
+            if ($lastInvoice) {
+                preg_match('/PBH(\d+)/', $lastInvoice, $matches);
+                $lastNumber = isset($matches[1]) ? (int)$matches[1] : 0;
             }
-            $newInvoiceNumber = $getNumber + 1;
+            $newInvoiceNumber = $lastNumber + 1;
             $countFormattedInvoice = str_pad($newInvoiceNumber, 2, '0', STR_PAD_LEFT);
-            $Detail = "PBH{$countFormattedInvoice}-{$currentDate}";
+            $invoicenumber1 = "PBH{$countFormattedInvoice}-{$currentDate}";
 
             // Tạo DGH
             $lastInvoice = Delivery::where('workspace_id', Auth::user()->current_workspace)
@@ -544,7 +552,7 @@ class DetailExportController extends Controller
                 'count' => $countFormatted,
                 'key' => $guest->key,
                 'date' => $currentDate,
-                'resultNumber' => $Detail,
+                'resultNumber' => $invoicenumber1,
                 'code_delivery' => $invoicenumber,
             ];
         }

@@ -87,6 +87,16 @@
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 height-100">
                                             <p class="p-0 m-0 required-label text-danger margin-left32 text-13-red">
+                                                Mã khách hàng
+                                            </p>
+                                        </div>
+                                        <input type="text" required placeholder="Nhập thông tin"
+                                            name="key" value="{{ $guest->key }}" required
+                                            class="border w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                    </div>
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-left-0 height-100">
+                                            <p class="p-0 m-0 required-label text-danger margin-left32 text-13-red">
                                                 Tên khách hàng
                                             </p>
                                         </div>
@@ -96,21 +106,28 @@
                                     </div>
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                            <p class="p-0 m-0 margin-left32 text-13-red required-label">Mã số thuế</p>
+                                            <p class="p-0 m-0 margin-left32 text-13">Địa chỉ</p>
                                         </div>
-                                        <input type="text" placeholder="Nhập thông tin" name="guest_code"
-                                            value="{{ $guest->guest_code }}" required oninput="validateInput(this)"
+                                        <input type="text" placeholder="Nhập thông tin" name="guest_address"
+                                            value="{{ $guest->guest_address }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
                                     </div>
-                                    <div class="d-flex align-items-center height-60-mobile">
-                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                            <p class="p-0 m-0 margin-left32 text-13-red required-label">Địa chỉ</p>
+                                    <div class="d-flex  align-items-center height-60-mobile">
+                                        <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                            <p class="p-0 m-0 margin-left32 text-13">Điện thoại</p>
                                         </div>
                                         <input type="text" required placeholder="Nhập thông tin" name="guest_address"
                                             value="{{ $guest->guest_address }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
                                     </div>
-                                    <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="d-flex  align-items-center height-60-mobile">
+                                        <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                            <p class="p-0 m-0 margin-left32 text-13">Email</p>
+                                        </div>
+                                        <input type="text" name="guest_email" value="{{ $guest->guest_email }}" placeholder="Nhập thông tin"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    </div>
+                                    {{-- <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                             <p class="p-0 m-0 margin-left32 text-13">Tên viết tắt
                                             </p>
@@ -118,7 +135,7 @@
                                         <input type="text" placeholder="Nhập thông tin" name="key"
                                             value="{{ $guest->key }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
-                                    </div>
+                                    </div> --}}
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                             <p class="p-0 m-0 margin-left32 text-13">Tên đầy đủ</p>
@@ -127,12 +144,12 @@
                                             value="{{ $guest->guest_name }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
                                     </div>
-                                    <div class="d-flex  align-items-center height-60-mobile ">
+                                    <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                             <p class="p-0 m-0 margin-left32 text-13">Nhóm khách hàng</p>
                                         </div>
                                         <select name="grouptype_id" id="grouptypeSelect"
-                                            class="border-0 w-100 py-2 px-3 text-13-black height-100">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                             <option value="0">Chọn nhóm</option>
                                             @foreach ($groups as $item)
                                                 <option
@@ -144,11 +161,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bg-filter-search border-top-0 text-left border-custom">
+                            {{-- <div class="bg-filter-search border-top-0 text-left border-custom">
                                 <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN NGƯỜI ĐẠI DIỆN
                                 </p>
-                            </div>
-                            <div class="info-chung">
+                            </div> --}}
+                            {{-- <div class="info-chung">
                                 <div class="container-fluided order_content">
                                     <table class="table table-hover bg-white rounded">
                                         <thead>
@@ -242,7 +259,7 @@
                                         </div>
                                     </div>
                                 </section>
-                            </div>
+                            </div> --}}
                         </div>
                     </section>
                 </div>
@@ -473,7 +490,7 @@
 
     //////////////////////////////////////////////////////////////// 
 
-    getKeyGuest($('input[name="guest_name_display"]'))
+    // getKeyGuest($('input[name="guest_name_display"]'))
     let fieldCounter = 1;
     $("#add-field-btn").click(function() {
         let nextSoTT = $(".soTT").length + 1;

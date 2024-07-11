@@ -106,11 +106,6 @@
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-guests"
                                                 data-button="guests" type="button">Công ty
                                             </button>
-                                            @can('isAdmin')
-                                                <button class="dropdown-item btndropdown text-13-black" id="btn-users"
-                                                    data-button="users" type="button">Người tạo
-                                                </button>
-                                            @endcan
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-guest_code" data-button="guest_code" type="button">Mã số
                                                 thuế
@@ -198,55 +193,9 @@
                                         <th class="height-52" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_name_display" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Ngày sinh</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_name_display"></div>
-                                            </span>
-                                        </th>
-                                        @can('isAdmin')
-                                            <th class="height-52" scope="col">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit" data-sort-by="name"
-                                                        data-sort-type="DESC">
-                                                        <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Người tạo</span>
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id="icon-name"></div>
-                                                </span>
-                                            </th>
-                                        @endcan
-                                        <th class="height-52" scope="col">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Mã số thuế</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th>
-                                        <th class="height-52" scope="col">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_code" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
                                                         <span class="text-13">Email</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th>
-                                        <th class="height-52" scope="col">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Fax</span>
                                                     </button>
                                                 </a>
                                                 <div class="icon" id="icon-guest_code"></div>
@@ -285,39 +234,6 @@
                                                 <div class="icon" id="icon-guest_code"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Tên người LH</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th>
-                                        <th class="height-52" scope="col">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Địa chỉ người LH</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th>
-                                        <th class="height-52" scope="col">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">SDT người LH</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th>
                                         {{-- <th class="height-52" scope="col">
                                             <span class="d-flex justify-content-end">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="sumDebt"
@@ -329,7 +245,6 @@
                                                 <div class="icon" id="icon-sumDebt"></div>
                                             </span>
                                         </th> --}}
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody class="tbody-guest">
@@ -370,7 +285,6 @@
                                                     <a
                                                         href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                                 </td>
-
                                                 <td class="text-13-black border-bottom border-top-0">
                                                     {{ $item->guest_address }}
                                                 </td>
@@ -378,24 +292,9 @@
                                                     {{ $item->guest_phone }}
                                                 </td>
                                                 <td class="text-13-black border-bottom border-top-0">
-                                                    {{ $item->birthday }}
-                                                </td>
-                                                @can('isAdmin')
-                                                    <td class="text-13-black border-bottom border-top-0">
-                                                        {{ $item->name }}
-                                                    </td>
-                                                @endcan
-                                                <td class="text-13-black border-bottom border-top-0">
-                                                    {{ $item->guest_code }}</td>
-                                                <td class="text-13-black border-bottom border-top-0">
-                                                    {{-- {{ $item->price_type }} --}}
-                                                </td>
-                                                <td class="text-13-black border-bottom border-top-0">
                                                     {{ $item->guest_email }}</td>
                                                 <td class="text-13-black border-bottom border-top-0">
-                                                    {{ $item->fax }}</td>
-                                                <td class="text-13-black border-bottom border-top-0">
-                                                    {{-- {{ $item->price_type }} --}}
+                                                    {{-- {{ $item->price_type }} --}} N/A
                                                 </td>
                                                 <td class="text-13-black border-bottom border-top-0">
                                                     {{ $item->debt_limit }}
@@ -404,17 +303,8 @@
                                                     {{ $item->initial_debt }}
                                                 </td>
                                                 {{-- <td class="text-13-black text-right border-bottom border-top-0">
-                                                {{ number_format($item->sumDebt) }}
-                                            </td> --}}
-                                                <td class="text-13-black text-right border-bottom border-top-0">
-                                                    {{ $item->represent_name }}
-                                                </td>
-                                                <td class="text-13-black text-right border-bottom border-top-0">
-                                                    {{ $item->represent_address }}
-                                                </td>
-                                                <td class="text-13-black text-right border-bottom border-top-0">
-                                                    {{ $item->represent_phone }}
-                                                </td>
+                                                    {{ number_format($item->sumDebt) }}
+                                                </td> --}}
                                                 <td
                                                     class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">
@@ -483,7 +373,7 @@
                                     @foreach ($groups as $value)
                                         <tr>
                                             <td class="text-green" style="font-size: 16px; font-weight: 500"
-                                                colspan="17">Nhà cung cấp : {{ $value->name }}</td>
+                                                colspan="17">Khách hàng : {{ $value->name }}</td>
                                         </tr>
                                         @foreach ($guests as $item)
                                             @php
@@ -529,32 +419,32 @@
                                                         {{ $item->guest_phone }}
                                                     </td>
                                                     <td class="text-13-black border-bottom border-top-0">
-                                                        {{ $item->birthday }}
+                                                        {{ $item->guest_email }}
                                                     </td>
-                                                    @can('isAdmin')
+                                                    {{-- <td class="text-13-black border-bottom border-top-0">
+                                                        {{ $item->birthday }}
+                                                    </td> --}}
+                                                    {{-- @can('isAdmin')
                                                         <td class="text-13-black border-bottom border-top-0">
                                                             {{ $item->name }}
                                                         </td>
-                                                    @endcan
+                                                    @endcan --}}
+                                                    {{-- <td class="text-13-black border-bottom border-top-0">
+                                                        {{ $item->guest_code }}</td> --}}
                                                     <td class="text-13-black border-bottom border-top-0">
-                                                        {{ $item->guest_code }}</td>
-                                                    <td class="text-13-black border-bottom border-top-0">
-                                                        {{-- {{ $item->price_type }} --}}
+                                                        {{-- {{ $item->price_type }} --}} N/A
                                                     </td>
-                                                    <td class="text-13-black border-bottom border-top-0">
+                                                    {{-- <td class="text-13-black border-bottom border-top-0">
                                                         {{ $item->guest_email }}</td>
                                                     <td class="text-13-black border-bottom border-top-0">
-                                                        {{ $item->fax }}</td>
-                                                    <td class="text-13-black border-bottom border-top-0">
-                                                        {{-- {{ $item->price_type }} --}}
-                                                    </td>
+                                                        {{ $item->fax }}</td> --}}
                                                     <td class="text-13-black border-bottom border-top-0">
                                                         {{ $item->debt_limit }}
                                                     </td>
                                                     <td class="text-13-black border-bottom border-top-0">
                                                         {{ $item->initial_debt }}
                                                     </td>
-                                                    <td class="text-13-black text-right border-bottom border-top-0">
+                                                    {{-- <td class="text-13-black text-right border-bottom border-top-0">
                                                         {{ $item->represent_name }}
                                                     </td>
                                                     <td class="text-13-black text-right border-bottom border-top-0">
@@ -562,7 +452,7 @@
                                                     </td>
                                                     <td class="text-13-black text-right border-bottom border-top-0">
                                                         {{ $item->represent_phone }}
-                                                    </td>
+                                                    </td> --}}
                                                     <td
                                                         class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                         <div class="d-flex w-100">

@@ -109,9 +109,9 @@
                                     <div class="content-info">
                                         <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0  margin-left32 text-13">Mã</p>
+                                                <p class="p-0 m-0 required-label margin-left32 text-13-red">Mã nhà cung cấp</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin" name="key"
+                                            <input readonly type="text" name="key"
                                                 value="{{ old('key') ?? $provide->key }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
@@ -121,7 +121,7 @@
                                                 <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên
                                                 </p>
                                             </div>
-                                            <input readonly type="text" required placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="provide_name_display"
                                                 value="{{ old('provide_name_display') ?? $provide->provide_name_display }}"
                                                 class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
@@ -129,10 +129,10 @@
 
                                         <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0  margin-left32 required-label text-13-red">Địa chỉ
+                                                <p class="p-0 m-0  margin-left32 text-13">Địa chỉ
                                                 </p>
                                             </div>
-                                            <input readonly type="text" required placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="provide_address"
                                                 value="{{ old('provide_address') ?? $provide->provide_address }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
@@ -140,10 +140,10 @@
 
                                         <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0  margin-left32 required-label text-13-red">Mã số thuế
+                                                <p class="p-0 m-0  margin-left32 text-13">Mã số thuế
                                                 </p>
                                             </div>
-                                            <input readonly type="text" required placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="provide_code"
                                                 value="{{ old('provide_code') ?? $provide->provide_code }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
@@ -154,7 +154,7 @@
                                                 <p class="p-0 m-0  margin-left32 text-13">Điện thoại
                                                 </p>
                                             </div>
-                                            <input readonly type="text" required placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="provide_address"
                                                 value="{{ old('provide_address') ?? $provide->provide_phone }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
@@ -164,17 +164,17 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Email</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="provide_name"
                                                 value="{{ old('provide_name') ?? $provide->provide_email }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
 
-                                        <div class="d-flex align-items-center height-60-mobile">
+                                        {{-- <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Fax</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="provide_name"
                                                 value="{{ old('provide_name') ?? $provide->provide_fax }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
@@ -184,27 +184,27 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Đỉnh mức nợ</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="provide_name"
                                                 value="{{ old('provide_name') ?? number_format($provide->quota_debt) }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="d-flex align-items-center height-60-mobile">
+                                        {{-- <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Nợ ban đầu</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="provide_name"
-                                                {{-- value="{{ old('provide_name') ?? number_format($provide->provide_debt) }}" --}}
+                                                value="{{ old('provide_name') ?? number_format($provide->provide_debt) }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                        </div>
+                                        </div> --}}
 
                                         <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Nhóm</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="provide_name"
                                                 value="@if ($provide->getGroup) {{ $provide->getGroup->name }} @endif"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
@@ -214,7 +214,7 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Tên đầy đủ</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="provide_name"
                                                 value="{{ old('provide_name') ?? $provide->provide_name }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">

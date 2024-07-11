@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Warehouse;
+use App\Models\WarehouseManager;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,10 +12,12 @@ class WarehouseController extends Controller
 {
     private $workspaces;
     private $wareHouse;
+    private $warehouseManager;
     public function __construct()
     {
         $this->workspaces = new Workspace();
         $this->wareHouse = new Warehouse();
+        $this->warehouseManager = new WarehouseManager();
     }
     /**
      * Display a listing of the resource.
@@ -73,7 +76,10 @@ class WarehouseController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $wareHouse = Warehouse::findOrFail($id);
-        return view('tables.abc.warehouse.editWarehouse', compact('title', 'workspacename', 'wareHouse'));
+        $warehouseManager = WarehouseManager::where('warehouse_id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
+        return view('tables.abc.warehouse.editWarehouse', compact('title', 'workspacename', 'wareHouse', 'warehouseManager'));
     }
 
     /**
@@ -81,7 +87,9 @@ class WarehouseController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $id = $request->id;
         $status = $this->wareHouse->updateWarehouse($id, $request->all());
+        $this->warehouseManager->updateWarehouseManager($id, $request->all());
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($status['status']) {

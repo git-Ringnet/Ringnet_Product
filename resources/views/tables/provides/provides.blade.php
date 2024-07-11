@@ -213,18 +213,7 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
-                                                            Fax
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id="icon-provide_name"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-bottom height-52">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="provide_name" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">
-                                                            Đỉnh mức nợ
+                                                            Định mức nợ
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-provide_name"></div>
@@ -252,19 +241,6 @@
                                                     <div class="icon" id="icon-provide_debt"></div>
                                                 </span>
                                             </th> --}}
-                                            @can('isAdmin')
-                                                <th scope="col" class="border-bottom height-52">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="provide_name_display" data-sort-type="DESC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Người tạo
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-provide_name_display"></div>
-                                                    </span>
-                                                </th>
-                                            @endcan
                                             {{-- <th class="border-bottom"
                                                 style="width:300px;border-bottom: 1px solid #dee2e6 !important;">
                                             </th> --}}
@@ -338,13 +314,13 @@
                                                 {{-- <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($item->provide_debt) }}
                                                 </td> --}}
-                                                @can('isAdmin')
+                                                {{-- @can('isAdmin')
                                                     <td class="text-13-black border-top-0 border-bottom">
                                                         @if ($item->getNameUser)
                                                             {{ $item->getNameUser->name }}
                                                         @endif
                                                     </td>
-                                                @endcan
+                                                @endcan --}}
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 10px; bottom:0;">
                                                     <div class="d-flex w-100">
@@ -469,20 +445,20 @@
                                                         <td class="text-13-black border-top-0 border-bottom">
                                                             {{ $item->provide_email }}
                                                         </td>
-                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                        {{-- <td class="text-13-black border-top-0 border-bottom">
                                                             {{ $item->provide_fax }}
-                                                        </td>
+                                                        </td> --}}
                                                         <td class="text-13-black border-top-0 border-bottom">
                                                             {{ number_format($item->quota_debt) }}
                                                         </td>
                                                         <td class="text-13-black border-top-0 border-bottom"></td>
-                                                        @can('isAdmin')
+                                                        {{-- @can('isAdmin')
                                                             <td class="text-13-black border-top-0 border-bottom">
                                                                 @if ($item->getNameUser)
                                                                     {{ $item->getNameUser->name }}
                                                                 @endif
                                                             </td>
-                                                        @endcan
+                                                        @endcan --}}
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 10px; bottom:0;">
                                                             <div class="d-flex w-100">

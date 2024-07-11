@@ -404,83 +404,143 @@
                         <div class="d-flex w-100">
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng
-                                </span>
-                                <span class="mx-1 text-13" style="flex: 2;">
-                                    <input type="text" class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
-                                        id="myInput" style="background-color:#F0F4FF; border-radius:4px;" readonly
-                                        autocomplete="off" required value="{{ $detailExport->export_guest_name }}">
-                                    <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
-                                        value="{{ $detailExport->maKH }}">
-                                </span>
-                            </div>
-                            <div
-                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest" readonly
-                                    value="{{ $detailExport->export_represent_name }}" id="represent_guest"
-                                    style="flex:2;">
-                                <input type="hidden" class="represent_guest_id" name="represent_guest_id"
-                                    autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="d-flex w-100">
-                            <div
-                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Số báo giá</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
-                                    name="quotation_number" value="{{ $detailExport->quotation_number }}" />
-                            </div>
-                            <div
-                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
-                                    name="reference_number" value="{{ $detailExport->reference_number }}" />
-                            </div>
-                        </div>
-                        <div class="d-flex w-100">
-                            <div
-                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
                                 <input class="text-13-black w-50 border-0 bg-input-guest " id="customDateInput"
                                     name="date_quote" style="flex:2;" readonly
                                     value="{{ date_format(new DateTime($detailExport->ngayBG), 'd/m/Y') }}" />
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo
-                                    giá</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest" name="price_effect" readonly
-                                    id="myInput" style="flex:2;" value="{{ $detailExport->price_effect }}" />
+                                <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng
+                                </span>
+                                <span class="mx-1 text-13" style="flex: 2;">
+                                    <input type="text" class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
+                                        id="myInput" readonly autocomplete="off" required
+                                        value="{{ $detailExport->export_guest_name }}">
+                                    <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
+                                        value="{{ $detailExport->maKH }}">
+                                </span>
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 btn-click" style="flex: 1.5;"> Ngày giao hàng
+                                </span>
+                                <span class="mx-1 text-13" style="flex: 2;">
+                                    @if ($detailExport->date_delivery)
+                                        <input class="text-13-black w-50 border-0 bg-input-guest "
+                                            id="customDateInput" name="date_quote" style="flex:2;" readonly
+                                            value="{{ date_format(new DateTime($detailExport->date_delivery), 'd/m/Y') }}" />
+                                    @endif
+                                </span>
                             </div>
                         </div>
                         <div class="d-flex w-100">
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest" id="myInput"
-                                    style="flex:2;" readonly name="terms_pay"
-                                    value="{{ $detailExport->terms_pay }}" />
-                            </div>
-                            <div
-                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hàng hóa</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
-                                    id="myInput" readonly name="goods" value="{{ $detailExport->goods }}" />
-                            </div>
-                        </div>
-                        <div class="d-flex w-100">
-                            <div
-                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Giao hàng</span>
+                                <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Mã phiếu</span>
                                 <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
-                                    name="delivery" id="myInput" value="{{ $detailExport->delivery }}" />
+                                    name="quotation_number" value="{{ $detailExport->quotation_number }}" />
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa điểm</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;" readonly
-                                    name="location" id="myInput" value="{{ $detailExport->location }}" />
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
+                                <input name="guestName" value="{{ $detailExport->guest_name }}" readonly
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"style="flex:2;" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ giao hàng</span>
+                                <input name="address_delivery" value="{{ $detailExport->address_delivery }}" readonly
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"style="flex:2;" />
+                            </div>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số phiếu</span>
+                                <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
+                                    name="reference_number" value="{{ $detailExport->reference_number }}" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
+                                <input name="address_guest" value="{{ $detailExport->address_guest }}" readonly
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"style="flex:2;" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Trạng thái giao</span>
+                                <select name="status_receive" disabled
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
+                                    <option value="1" class="text-uppercase" <?php if ($detailExport->status_receive == 1) {
+                                        echo 'selected';
+                                    } ?>>Chưa giao
+                                    </option>
+                                    <option value="2" class="text-uppercase" <?php if ($detailExport->status_receive == 2) {
+                                        echo 'selected';
+                                    } ?>>Đã giao</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập</span>
+                                <input value="{{ $detailExport->name }}"
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"style="flex:2;"
+                                    name="quotation_number" readonly />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
+                                <input name="note" value="{{ $detailExport->note }}" readonly
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"style="flex:2;" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT người nhận hàng</span>
+                                <input name="phone_receive" value="{{ $detailExport->phone_receive }}" readonly
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"style="flex:2;" />
+                            </div>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thông tin liên hệ</span>
+                                <input disabled class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                    style="flex:5.5;" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
+                                <input disabled=""
+                                    class="text-13-black text-right w-50 border-0 bg-input-guest py-2 px-2 debt-old"
+                                    value="{{ number_format($detailExport->guest_debt) }}" style="flex:5.5;">
+                            </div>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên Sale</span>
+                                <select disabled name="id_sale"
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
+                                </select>
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nhận hàng</span>
+                                <input name="receiver" value="{{ $detailExport->receiver }}" readonly
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"style="flex:2;" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thời hạn thanh toán</span>
+                                @if ($detailExport->date_payment)
+                                    <input id="date_payment"
+                                        value="{{ date_format(new DateTime($detailExport->date_payment), 'd/m/Y') }}"
+                                        readonly
+                                        class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"style="flex:2;" />
+                                @endif
                             </div>
                         </div>
                     </div>

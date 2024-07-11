@@ -108,6 +108,14 @@
                     <div class="content-info">
                         <div class="d-flex align-items-center height-60-mobile">
                             <div class="title-info py-2 border border-left-0 height-100">
+                                <p class="p-0 m-0 required-label margin-left32 text-13-red">Mã khách hàng</p>
+                            </div>
+                            <input type="text" required readonly
+                                value="{{ $guest->key }}"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                        </div>
+                        <div class="d-flex align-items-center height-60-mobile">
+                            <div class="title-info py-2 border border-left-0 height-100">
                                 <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên khách hàng</p>
                             </div>
                             <input type="text" required readonly name="guest_name_display"
@@ -116,26 +124,33 @@
                         </div>
                         <div class="d-flex align-items-center height-60-mobile">
                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                <p class="p-0 m-0  margin-left32 required-label text-13-red">Mã số thuế</p>
-                            </div>
-                            <input type="text" name="guest_code" value="{{ $guest->guest_code }}" readonly
-                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                        </div>
-                        <div class="d-flex align-items-center height-60-mobile">
-                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                <p class="p-0 m-0  margin-left32 required-label text-13-red">Địa chỉ</p>
+                                <p class="p-0 m-0  margin-left32 text-13">Địa chỉ</p>
                             </div>
                             <input type="text" required name="guest_address" value="{{ $guest->guest_address }}"
                                 readonly
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
-                        <div class="d-flex align-items-center height-60-mobile">
+                        <div class="d-flex  align-items-center height-60-mobile">
+                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                <p class="p-0 m-0 margin-left32 text-13">Điện thoại</p>
+                            </div>
+                            <input type="text" name="guest_phone" value="{{ $guest->guest_phone }}" readonly
+                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                        </div>
+                        <div class="d-flex  align-items-center height-60-mobile">
+                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                <p class="p-0 m-0 margin-left32 text-13">Email</p>
+                            </div>
+                            <input type="text" name="guest_email" value="{{ $guest->guest_email }}" readonly
+                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                        </div>
+                        {{-- <div class="d-flex align-items-center height-60-mobile">
                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                <p class="p-0 m-0  margin-left32 required-label text-13-red">Tên viết tắt</p>
+                                <p class="p-0 m-0  margin-left32 text-13">Tên viết tắt</p>
                             </div>
                             <input type="text" name="key" value="{{ $guest->key }}" readonly
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                        </div>
+                        </div> --}}
                         <div class="d-flex align-items-center height-60-mobile">
                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                 <p class="p-0 m-0  margin-left32 text-13">Tên đầy đủ</p>
@@ -146,12 +161,12 @@
                         </div>
                     </div>
                     {{-- THÔNG TIN NGƯỜI ĐẠI DIỆN --}}
-                    <div class="bg-filter-search border-0 text-left border-custom">
+                    {{-- <div class="bg-filter-search border-0 text-left border-custom">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-left">THÔNG TIN NGƯỜI ĐẠI
                             DIỆN
                         </p>
-                    </div>
-                    <section class="content">
+                    </div> --}}
+                    {{-- <section class="content">
                         <div class="container-fluided">
                             <div class="info-chung">
                                 <div class="container-fluided order_content">
@@ -206,7 +221,7 @@
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </section> --}}
                     {{-- THÔNG TIN BÁN HÀNG --}}
                     {{-- <div class="bg-filter-search border-0 text-left border-custom">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-left">THÔNG TIN BÁN HÀNG</p>

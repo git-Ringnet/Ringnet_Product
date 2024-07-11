@@ -336,7 +336,7 @@
                                                     {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
                                                 <td
                                                     class="text-13-black max-width180 text-left border-top-0 border-bottom">
-                                                    {{ $value_export->guest_name }}
+                                                    {{ $value_export->guest_name_display }}
                                                 </td>
                                                 @can('isAdmin')
                                                     <td

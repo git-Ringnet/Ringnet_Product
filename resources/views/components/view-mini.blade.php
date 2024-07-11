@@ -1,4 +1,4 @@
-<div id="mySidenav" class="sidenav border @if ($page == 'CTNB' || $page == 'PCK') margin-top-10 @else margin-top-127 @endif">
+<div id="mySidenav" class="sidenav border @if ($page == 'CTNB' || $page == 'PCK') margin-top-10 @else margin-top-75 @endif">
     <div id="show_info_Guest" class="position-relative">
         <div class="bg-filter-search border-0 text-center border-custom">
             <p class="font-weight-bold text-uppercase info-chung--heading text-center">

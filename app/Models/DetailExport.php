@@ -40,7 +40,15 @@ class DetailExport extends Model
         'created_at',
         'updated_at',
         'promotion',
-        'promotion_total_product'
+        'promotion_total_product',
+        'address_guest',
+        'note',
+        'receiver',
+        'address_delivery',
+        'date_payment',
+        'phone_receive',
+        'date_delivery',
+        'id_sale',
     ];
     protected $table = 'detailexport';
 
@@ -61,7 +69,8 @@ class DetailExport extends Model
     {
         $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
-            ->leftJoin('users', 'users.id', 'detailexport.user_id');
+            ->leftJoin('users', 'users.id', 'detailexport.user_id')
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id');
         if (Auth::check()) {
             if (Auth::user()->getRoleUser->roleid == 4) {
                 $detailExport->where('user_id', Auth::user()->id);
@@ -138,29 +147,43 @@ class DetailExport extends Model
             'guest_id' => $data['guest_id'],
             'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,
             'user_id' => Auth::user()->id,
-            'represent_id' => $data['represent_guest_id'],
+            // 'represent_id' => $data['represent_guest_id'],
             'reference_number' => $data['reference_number'],
-            'price_effect' => $data['price_effect'],
-            'status' => 1,
-            'status_receive' => 0,
+            // 'price_effect' => $data['price_effect'],
+            'status' => $data['status_receive'],
+            'status_receive' => $data['status_receive'],
             'status_reciept' => 0,
             'status_pay' => 0,
             'workspace_id' => Auth::user()->current_workspace,
             'created_at' => $data['date_quote'] == null ? now() : $data['date_quote'],
             'total_price' => $totalBeforeTax,
-            'terms_pay' => $data['terms_pay'],
+            // 'terms_pay' => $data['terms_pay'],
             'total_tax' => $totalTax,
             'amount_owed' => $grandTotal,
-            'goods' => $data['goods'],
-            'delivery' => $data['delivery'],
-            'location' => $data['location'],
+            // 'goods' => $data['goods'],
+            // 'delivery' => $data['delivery'],
+            // 'location' => $data['location'],
             'guest_name' => $data['guestName'],
-            'represent_name' => $data['representName'],
+            // 'represent_name' => $data['representName'],
             'promotion' => json_encode($promotion),
             'promotion_total_product' => $totalPromotion,
+            'address_guest' => $data['address_guest'],
+            'note' => $data['note'],
+            'receiver' => $data['receiver'],
+            'address_delivery' => $data['address_delivery'],
+            'date_payment' => $data['date_payment'] == null ? now() : $data['date_payment'],
+            'phone_receive' => $data['phone_receive'],
+            'date_delivery' => $data['date_delivery'] == null ? now() : $data['date_delivery'],
+            // 'id_sale' => $data['id_sale'],
         ];
         $detailexport = new DetailExport($dataExport);
         $detailexport->save();
+
+        //Cập nhật công nợ khách hàng
+        $guest = Guest::find($data['guest_id']);
+        $guest->guest_debt = $guest->guest_debt + $grandTotal;
+        $guest->save();
+
         $updateDetail = DetailExport::find($detailexport->id);
         if ($data['quotation_number'] == null) {
             $updateDetail->update([
@@ -180,16 +203,19 @@ class DetailExport extends Model
             ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
             ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
             ->leftJoin('project', 'detailexport.project_id', 'project.id')
+            ->leftJoin('users', 'detailexport.user_id', 'users.id')
             ->select(
-                '*',
+                'detailexport.*',
                 'guest.id as maKH',
                 'represent_guest.id as maNDD',
                 'detailexport.id as maBG',
                 'detailexport.status as tinhTrang',
                 'detailexport.created_at as ngayBG',
                 'project.id as id_project',
-                'detailexport.guest_name as export_guest_name',
+                'guest.guest_name_display as export_guest_name',
+                'guest.guest_debt',
                 'detailexport.represent_name as export_represent_name',
+                'users.name as name'
             )
             ->first();
         return $detailExport;
@@ -269,26 +295,46 @@ class DetailExport extends Model
             $grandTotal = $totalBeforeTax + $totalTax;
             // Làm tròn tổng số tiền
             $grandTotal = round($grandTotal);
+
+            //Cập nhật công nợ khách hàng
+            //công nợ cũ
+            $guestOld = Guest::find($detailExport->guest_id);
+            $guestOld->guest_debt = $guestOld->guest_debt - $detailExport->amount_owed;
+            $guestOld->save();
+            //công nợ mới
+            $guest = Guest::find($data['guest_id']);
+            $guest->guest_debt = $guest->guest_debt + $grandTotal;
+            $guest->save();
             $detailExport->update([
                 'guest_id' => $data['guest_id'],
-                'represent_id' => $data['represent_guest_id'],
+                // 'represent_id' => $data['represent_guest_id'],
                 'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,
                 'user_id' => Auth::user()->id,
                 'quotation_number' => $data['quotation_number'],
                 'reference_number' => $data['reference_number'],
-                'price_effect' => $data['price_effect'],
+                'status' => $data['status_receive'],
+                'status_receive' => $data['status_receive'],
+                // 'price_effect' => $data['price_effect'],
                 'created_at' => $data['date_quote'],
                 'total_price' => $totalBeforeTax,
-                'terms_pay' => $data['terms_pay'],
+                // 'terms_pay' => $data['terms_pay'],
                 'total_tax' => $totalTax,
-                'amount_owed' => $totalBeforeTax + $totalTax,
-                'goods' => $data['goods'],
-                'delivery' => $data['delivery'],
-                'location' => $data['location'],
+                'amount_owed' => $grandTotal,
+                // 'goods' => $data['goods'],
+                // 'delivery' => $data['delivery'],
+                // 'location' => $data['location'],
                 'guest_name' => $data['guestName'],
-                'represent_name' => $data['representName'],
+                // 'represent_name' => $data['representName'],
                 'promotion' => json_encode($promotion),
                 'promotion_total_product' => $totalPromotion,
+                'address_guest' => $data['address_guest'],
+                'note' => $data['note'],
+                'receiver' => $data['receiver'],
+                'address_delivery' => $data['address_delivery'],
+                'date_payment' => $data['date_payment'] == null ? now() : $data['date_payment'],
+                'phone_receive' => $data['phone_receive'],
+                'date_delivery' => $data['date_delivery'] == null ? now() : $data['date_delivery'],
+                // 'id_sale' => $data['id_sale'],
             ]);
         }
         return $detailExport->id;

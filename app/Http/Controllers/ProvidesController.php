@@ -207,7 +207,7 @@ class ProvidesController extends Controller
         if ($request->status == "add") {
             $check = Provides::where('workspace_id', Auth::user()->current_workspace)
                 ->where(function ($query) use ($request) {
-                    $query->where('provide_code', $request->provide_code)
+                    $query->where('key', $request->key)
                         ->orWhere('provide_name_display', $request->provide_name_display);
                 })
                 ->first();
@@ -250,7 +250,7 @@ class ProvidesController extends Controller
             } else {
                 $msg = response()->json([
                     'success' => false,
-                    'msg' => 'Mã số thuế hoặc tên hiển thị đã tồn tại',
+                    'msg' => 'Mã hoặc tên hiển thị đã tồn tại',
                 ]);
             }
         } else {
@@ -258,7 +258,7 @@ class ProvidesController extends Controller
             $check = DB::table('provides')
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->where(function ($query) use ($data) {
-                    $query->where('provide_code', $data['provide_code'])
+                    $query->where('key', $data['key'])
                         ->orWhere('provide_name_display', $data['provide_name_display']);
                 })
                 ->where('id', '!=', $request->id)
@@ -306,11 +306,9 @@ class ProvidesController extends Controller
                     } else {
                         $key = isset($data['key']) ? $data['key'] : $this->generateKey($data['provide_name_display']);
                         $dataProvide = [
-                            'provide_code' => $data['provide_code'],
                             'provide_name_display' => $data['provide_name_display'],
-                            'key' => $key,
+                            'key' => $data['key'],
                             'provide_name' => isset($data['provide_name']) ? $data['provide_name'] : "",
-                            'provide_address' => $data['provide_address'],
                         ];
 
                         DB::table('provides')->where('id', $request->id)->update($dataProvide);
