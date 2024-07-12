@@ -36,7 +36,12 @@ class DetailImport extends Model
         'discount',
         'transfer_fee',
         'terms_pay',
-        'promotion'
+        'promotion',
+        'address',
+        'note',
+        'phone',
+        'date_delivery',
+        'id_sale',
     ];
     public function getProvideName()
     {
@@ -106,11 +111,7 @@ class DetailImport extends Model
             // Tổng tiền sản phẩm chưa + VAT
             $total += $price_export;
 
-
             // $price_vat = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
-
-
-
 
             // Tổng tiền VAT
             $total_tax += ($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export / 100;
@@ -151,15 +152,13 @@ class DetailImport extends Model
             }
         }
 
-
-
         $dataImport = [
             'provide_id' => $data['provides_id'],
             'project_id' => 1,
             'user_id' => Auth::user()->id,
             'quotation_number' => $data['quotation_number'],
             'reference_number' => $data['reference_number'],
-            'price_effect' => $data['price_effect'],
+            // 'price_effect' => $data['price_effect'],
             'status' => 1,
             'created_at' => $data['date_quote'],
             'total_price' => $total,
@@ -167,18 +166,28 @@ class DetailImport extends Model
             'total_tax' => isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0,
             'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
             'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
-            'status_receive' => 0,
+            'status_receive' => $data['status_receive'],
             'status_reciept' => 0,
             'status_pay' => 0,
-            'terms_pay' => $data['terms_pay'],
+            // 'terms_pay' => $data['terms_pay'],
             'workspace_id' => Auth::user()->current_workspace,
             'represent_id' => isset($data['represent_id']) ?? "",
             'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
             'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
             'status_debt' => 0,
             'user_id' => Auth::user()->id,
-            'promotion' => json_encode($promotion)
+            'promotion' => json_encode($promotion),
+            'address' => $data['address'],
+            'note' => $data['note'],
+            'phone' => $data['phone'],
+            'date_delivery' => $data['date_delivery'],
+            'id_sale' => $data['id_sale'],
         ];
+        $total_bill = isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0;
+        //cập nhật công nợ khách hàng
+        $provide = Provides::find($data['provides_id']);
+        $provide->provide_debt = $provide->provide_debt + $total_bill;
+        $provide->save();
 
         $checkQuotation = DetailImport::where('provide_id', $data['provides_id'])
             ->where('quotation_number', $data['quotation_number'])->first();
@@ -264,6 +273,16 @@ class DetailImport extends Model
                         $total_tax = $total_tax - ($total_tax * $promotion['value'] / 100);
                     }
                 }
+                $total_bill = isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0;
+                //Cập nhật công nợ nhà cung cấp
+                //công nợ cũ
+                $provideOld = Provides::find($detail->provide_id);
+                $provideOld->provide_debt = $provideOld->provide_debt - $detail->total_tax;
+                $provideOld->save();
+                //công nợ mới
+                $provide = Provides::find($data['provides_id']);
+                $provide->provide_debt = $provide->provide_debt + $total_bill;
+                $provide->save();
 
                 $dataImport = [
                     'provide_id' => $data['provides_id'],
@@ -272,7 +291,8 @@ class DetailImport extends Model
                     'user_id' => 1,
                     'quotation_number' => $data['quotation_number'],
                     'reference_number' => $data['reference_number'],
-                    'price_effect' => $data['price_effect'],
+                    // 'price_effect' => $data['price_effect'],
+                    'status_receive' => $data['status_receive'],
                     'status' => $status,
                     'created_at' => $data['date_quote'],
                     'total_price' => round($total),
@@ -280,10 +300,15 @@ class DetailImport extends Model
                     'total_tax' => isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0,
                     'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
                     'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
-                    'terms_pay' => $data['terms_pay'],
+                    // 'terms_pay' => $data['terms_pay'],
                     'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
                     'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
-                    'promotion' => json_encode($promotion)
+                    'promotion' => json_encode($promotion),
+                    'address' => $data['address'],
+                    'note' => $data['note'],
+                    'phone' => $data['phone'],
+                    'date_delivery' => $data['date_delivery'],
+                    'id_sale' => $data['id_sale'],
                 ];
                 $result = DB::table($this->table)->where('id', $id)->update($dataImport);
             } else {
@@ -331,6 +356,11 @@ class DetailImport extends Model
         } else {
             $detail = DetailImport::where('id', $id)->first();
             if ($detail) {
+                //Cập nhật công nợ nhà cung cấp
+                $guestOld = Provides::find($detail->provide_id);
+                $guestOld->provide_debt = $guestOld->provide_debt - $detail->total_tax;
+                $guestOld->save();
+
                 HistoryImport::where('detailImport_id', $detail->id)->delete();
                 $quote = QuoteImport::where('detailimport_id', $detail->id)->get();
                 if ($quote) {

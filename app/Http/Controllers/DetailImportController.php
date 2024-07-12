@@ -75,8 +75,10 @@ class DetailImportController extends Controller
     {
         $title = 'Đặt hàng nhà cung cấp';
         $perPage = 10;
-        $import = DetailImport::where('workspace_id', Auth::user()->current_workspace)
-            ->orderBy('id', 'desc');
+        $import = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->select('detailimport.*', 'provides.provide_name_display')
+            ->orderBy('detailimport.id', 'desc');
         if (Auth::check()) {
             if (Auth::user()->getRoleUser->roleid == 4) {
                 $import->where('user_id', Auth::user()->id);
@@ -102,7 +104,9 @@ class DetailImportController extends Controller
         $project = Project::all();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.import.insertImport', compact('title', 'provides', 'project', 'workspacename'));
+        //danh sách nhân viên
+        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+        return view('tables.import.insertImport', compact('title', 'provides', 'project', 'workspacename', 'listUser'));
     }
 
     /**
@@ -131,7 +135,10 @@ class DetailImportController extends Controller
      */
     public function show(string $workspace, string $id)
     {
-        $import = DetailImport::where('id', $id);
+        $import = DetailImport::where('detailimport.id', $id)
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->leftJoin('users', 'users.id', 'detailimport.user_id')
+            ->select('detailimport.*', 'provides.provide_name_display', 'provides.provide_debt', 'users.name');
         if (Auth::check()) {
             if (Auth::user()->getRoleUser->roleid == 4) {
                 $import->where('user_id', Auth::user()->id);
@@ -152,6 +159,8 @@ class DetailImportController extends Controller
             $history = HistoryImport::where('detailImport_id', $id)->get();
             $listDetail = DetailImport::where('workspace_id', Auth::user()->current_workspace)
                 ->orderBy('id', 'desc')->get();
+            //danh sách nhân viên
+            $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
             return view('tables.import.showImport', compact(
                 'import',
                 'title',
@@ -161,6 +170,7 @@ class DetailImportController extends Controller
                 'history',
                 'workspacename',
                 'listDetail',
+                'listUser',
             ));
         } else {
             return redirect()->route('import.index', $workspacename)->with('warning', 'Không tìm thấy trang hợp lệ !');
@@ -172,7 +182,10 @@ class DetailImportController extends Controller
      */
     public function edit(string $workspace, string $id)
     {
-        $import = DetailImport::where('id', $id);
+        $import = DetailImport::where('detailimport.id', $id)
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->leftJoin('users', 'users.id', 'detailimport.user_id')
+            ->select('detailimport.*', 'provides.provide_name_display', 'provides.provide_debt', 'users.name');
         if (Auth::check()) {
             if (Auth::user()->getRoleUser->roleid == 4) {
                 $import->where('user_id', Auth::user()->id);
@@ -205,7 +218,24 @@ class DetailImportController extends Controller
             $history = HistoryImport::where('detailImport_id', $id)
                 ->orderBy('id', 'desc')
                 ->get();
-            return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay', 'warehouse'));
+            //danh sách nhân viên
+            $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+            return view('tables.import.editImport', compact(
+                'import',
+                'title',
+                'provides',
+                'product',
+                'project',
+                'history',
+                'workspacename',
+                'represent',
+                'price_effect',
+                'terms_pay',
+                'id_priceeffect',
+                'id_termpay',
+                'warehouse',
+                'listUser'
+            ));
         } else {
             return redirect()->route('import.index', $workspacename)->with('warning', 'Không tìm thấy trang hợp lệ !');
         }

@@ -83,12 +83,19 @@
                     <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                name="" placeholder="Chọn thông tin" style="flex:2;" id="datePicker"
+                                value="{{ date('Y-m-d') }}" />
+                            <input type="hidden" name="date_quote" id="hiddenDateInput" value="{{ date('Y-m-d') }}">
+                        </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
                             <span class="mx-1 text-13" style="flex: 2;">
                                 <input type="text" placeholder="Chọn thông tin"
                                     class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
-                                    style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" readonly
-                                    name="provides_name">
+                                    style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" readonly>
                             </span>
                             <div id="myUL"
                                 class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block list-guest"
@@ -151,139 +158,95 @@
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest nameGuest py-2 px-2"
-                                style="flex:2;" id="represent" readonly placeholder="Chọn thông tin"
-                                name="represent_name" />
-                            <ul id="listRepresent"
-                                class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
-                                style="z-index: 99;">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập công ty"
-                                            class="pr-4 w-100 input-search bg-input-guest" id="searchRepresent">
-                                        <span id="search-icon" class="search-icon">
-                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <a type="button"
-                                    class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
-                                    data-toggle="modal" data-target="#modalAddRepresent"
-                                    style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                fill="#282A30" />
-                                        </svg>
-                                    </span>
-                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm
-                                        người đại diện</span>
-                                </a>
-                            </ul>
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
+                            <input tye="text"
+                                class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 text-right debt-old"
+                                value="0" disabled>
                         </div>
                     </div>
                     <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
                             <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
                                 name="quotation_number" style="flex:2; background-color:#F0F4FF;border-radius:4px;"
                                 placeholder="Chọn thông tin" readonly>
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
+                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                name="provides_name" style="flex:2; background-color:#F0F4FF;border-radius:4px;"
+                                placeholder="Nhập thông tin">
+                        </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số điện thoại</span>
+                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                name="phone" style="flex:2; background-color:#F0F4FF;border-radius:4px;"
+                                placeholder="Nhập thông tin">
+                        </div>
+                    </div>
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số phiếu</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
                                 placeholder="Nhập thông tin"
                                 style="flex:2; background-color:#F0F4FF; border-radius:4px;"
                                 name="reference_number" />
                         </div>
-                    </div>
-                    <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
-                                name="" placeholder="Chọn thông tin" style="flex:2;" id="datePicker"
-                                value="{{ date('Y-m-d') }}" />
-                            <input type="hidden" name="date_quote" id="hiddenDateInput"
-                                value="{{ date('Y-m-d') }}">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
+                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                name="address" style="flex:2; background-color:#F0F4FF;border-radius:4px;"
+                                placeholder="Nhập thông tin">
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" name="price_effect"
-                                placeholder="Chọn thông tin" style="flex:2;" id="price_effect" readonly />
-                            <ul id="listPriceEffect"
-                                class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
-                                style="z-index: 99;">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập hiệu lực"
-                                            class="pr-4 w-100 input-search bg-input-guest" id="searchPriceEffect">
-                                        <span id="search-icon" class="search-icon">
-                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <a type="button"
-                                    class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
-                                    data-toggle="modal" data-target="#formModalquote"
-                                    style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                fill="#282A30" />
-                                        </svg>
-                                    </span>
-                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm
-                                        hiệu lực báo giá</span>
-                                </a>
-                            </ul>
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao</span>
+                            <input id="date_delivery" readonly="readonly"
+                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2 flatpickr-input active"
+                                style="flex:2;" type="text">
+                            <input type="hidden" id="hiddenDateDelivery" name="date_delivery" value="">
                         </div>
                     </div>
                     <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" name="terms_pay"
-                                id="terms_pay" placeholder="Chọn thông tin" style="flex:2;" readonly />
-                            <ul id="listTermsPay"
-                                class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
-                                style="z-index: 99;">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập điều khoản"
-                                            class="pr-4 w-100 input-search bg-input-guest" id="searchTermsPay">
-                                        <span id="search-icon" class="search-icon">
-                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <a type="button"
-                                    class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
-                                    data-toggle="modal" data-target="#formModalTermPay"
-                                    style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                fill="#282A30" />
-                                        </svg>
-                                    </span>
-                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm
-                                        điều khoản</span>
-                                </a>
-                            </ul>
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập</span>
+                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" value="{{Auth::user()->name}}"
+                                style="flex:2;" disabled>
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên</span>
+                            <select name="id_sale"
+                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                <option value=""></option>
+                                @foreach ($listUser as $listU)
+                                    <option value="{{ $listU->id }}">{{ $listU->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Trạng thái</span>
+                            <select name="status_receive"
+                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                <option value="0" class="text-uppercase">Chưa nhận</option>
+                                <option value="2" class="text-uppercase">Đã nhận</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
+                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                name="note" style="flex:10; background-color:#F0F4FF;border-radius:4px;"
+                                placeholder="Nhập thông tin">
                         </div>
                     </div>
                 </div>
@@ -591,6 +554,16 @@
                 "Y-m-d");
         }
     });
+    flatpickr("#date_delivery", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        defaultDate: new Date(),
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateDelivery").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
     getKeyProvide($('#getKeyProvide'));
     getKeyProvide($('#getKeyProvide1'));
     $(document).click(function(event) {
@@ -620,6 +593,7 @@
                 $('input[name="quotation_number"]').val(data['resultNumber']);
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
+                $('.debt-old').val(formatCurrency(data['provide'].provide_debt));
                 $.ajax({
                     url: "{{ route('getDataForm') }}",
                     type: "get",

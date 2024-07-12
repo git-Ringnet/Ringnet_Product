@@ -180,9 +180,13 @@
                             </div>
                         </div>
                         <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)" fill="#ECEEFA"></rect>
-                                <path d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z" fill="#26273B" fill-opacity="0.8"></path>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="16" width="16" height="16" rx="5"
+                                    transform="rotate(90 16 0)" fill="#ECEEFA"></rect>
+                                <path
+                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
+                                    fill="#26273B" fill-opacity="0.8"></path>
                             </svg>
                         </button>
                     </div>
@@ -369,63 +373,116 @@
                             <div class="d-flex w-100">
                                 <div
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
+                                    <input type="text" class="text-13-black w-50 border-0 px-2 py-2"
+                                        name="date_quote" style="flex:2;" readonly
+                                        value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}" />
+                                </div>
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                     <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
                                     <span class="mx-1 text-13" style="flex: 2;">
-                                        <input type="text" readonly {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
-                                            value="{{ $import->provide_name }}"
-                                            class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
-                                            style="background-color:#F0F4FF; border-radius:4px;" id="myInput"
+                                        <input type="text" readonly
+                                            value="{{ $import->getProvideName->provide_name_display }}"
+                                            class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
                                             autocomplete="off">
                                     </span>
                                 </div>
                                 <div
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                        {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}} value="{{ $import->represent_name }}" style="flex:2;"
-                                        id="represent" readonly>
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
+                                    <input tye="text"
+                                        class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 text-right debt-old"
+                                        value="{{ number_format($import->provide_debt) }}" disabled="">
                                 </div>
                             </div>
                             <div class="d-flex w-100">
                                 <div
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
                                     <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
                                         name="quotation_number" value="{{ $import->quotation_number }}" readonly />
                                 </div>
                                 <div
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
+                                    <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                        readonly value="{{ $import->provide_name }}" name="provides_name"
+                                        style="flex:2;">
+                                </div>
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số điện thoại</span>
+                                    <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                        readonly value="{{ $import->phone }}" name="phone" style="flex:2;">
+                                </div>
+                            </div>
+                            <div class="d-flex w-100">
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số phiếu</span>
                                     <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
-                                        name="reference_number"readonly value="{{ $import->reference_number }}" />
+                                        name="reference_number" readonly value="{{ $import->reference_number }}" />
+                                </div>
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
+                                    <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                        readonly value="{{ $import->address }}" name="address" style="flex:2;">
+                                </div>
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao</span>
+                                    <input id="date_delivery" readonly
+                                        value="{{ date_format(new DateTime($import->date_delivery), 'd/m/Y') }}"
+                                        class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 flatpickr-input active"
+                                        style="flex:2;" type="text">
                                 </div>
                             </div>
                             <div class="d-flex w-100">
                                 <div
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
-                                    <input type="text" class="text-13-black w-50 border-0 px-2 py-2"
-                                        id="datePicker" name="date_quote" style="flex:2;"
-                                        value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}" />
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập</span>
+                                    <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                        style="flex:2;" disabled="" value="{{ $import->name }}">
                                 </div>
                                 <div
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
-                                    <input type="text" class="text-13-black w-50 border-0 px-2 py-2"
-                                        style="flex:2;" name="price_effect" value="{{ $import->price_effect }}"
-                                        readonly />
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên</span>
+                                    <select name="id_sale" disabled
+                                        class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
+                                        <option value=""></option>
+                                        @foreach ($listUser as $listU)
+                                            <option value="{{ $listU->id }}" <?php if ($listU->id === $import->id_sale) {
+                                                echo 'selected';
+                                            } ?>>
+                                                {{ $listU->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Trạng thái</span>
+                                    <select name="status_receive" disabled
+                                        class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
+                                        <option value="0" class="text-uppercase" <?php if ($import->status_receive == 0) {
+                                            echo 'selected';
+                                        } ?>>Chưa giao
+                                        </option>
+                                        <option value="2" class="text-uppercase" <?php if ($import->status_receive == 2) {
+                                            echo 'selected';
+                                        } ?>>Đã giao
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="d-flex w-100">
                                 <div
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                                    <input type="text" readonly class="text-13-black w-50 border-0 px-2 py-2"
-                                        name="terms_pay" style="flex:2;" value="{{ $import->terms_pay }}" />
-                                </div>
-                                <div
-                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
+                                    <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                        readonly value="{{ $import->note }}" name="note" style="flex:10;">
                                 </div>
                             </div>
                         </div>

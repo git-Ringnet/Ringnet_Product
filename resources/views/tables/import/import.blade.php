@@ -325,7 +325,7 @@
                                                 {{-- <td class="border-bottom border-top-0">
                                                 </td> --}}
                                                 <td class="text-13-black border-bottom border-top-0 text-wrap">
-                                                    {{ $item->provide_name }}
+                                                    {{ $item->provide_name_display }}
                                                 </td>
                                                 @can('isAdmin')
                                                     <td class="text-13-black border-bottom border-top-0">
