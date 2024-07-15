@@ -382,24 +382,6 @@
                                                     @endphp
                                                 @endif
                                             @endforeach
-                                            {{-- <tr class="position-relative relative">
-                                                <td colspan="6" class="text-red height-52 border text-center">
-                                                    <strong>Tổng cộng</strong>
-                                                </td>
-                                                <td class="text-red height-52 border">
-                                                    {{ number_format($totalDeliverQty) }}</td>
-                                                <td class="text-red height-52 border">
-                                                    {{ number_format($totalPriceExport) }}</td>
-                                                <td class="text-red height-52 border">
-                                                    {{ number_format($totalProductTotalVat) }}</td>
-                                                <td class="text-red height-52 border">
-                                                    {{ number_format($totalitemDetailTotalProductVat) }}</td>
-                                                <td class="text-red height-52 border">{{ number_format($totalPay) }}
-                                                </td>
-                                                <td class="text-red height-52 border">{{ number_format($totalRemai) }}
-                                                </td>
-                                                <td class="text-red height-52 border"></td>
-                                            </tr> --}}
                                         </tbody>
 
                                     </table>

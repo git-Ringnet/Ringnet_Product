@@ -476,8 +476,10 @@ class DetailExport extends Model
             // ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('groups', 'groups.id', 'guest.group_id')
+            ->leftJoin('users', 'users.id', 'detailexport.id_sale')
             ->select(
                 'detailexport.*',
+                'users.name as nameUser',
                 'detailexport.created_at as ngayTao',
                 'detailexport.quotation_number as maPhieu',
                 'groups.name as nhomKH',

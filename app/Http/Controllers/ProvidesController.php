@@ -39,12 +39,12 @@ class ProvidesController extends Controller
         $users = $this->provides->getUserInProvides();
 
         $groups = Groups::where('grouptype_id', 3)
-        ->where('workspace_id',Auth::user()->current_workspace)
-        ->get();
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
 
         $provides = Provides::where('group_id', 0)
-        ->where('workspace_id', Auth::user()->current_workspace)
-        ->get();
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
         return view('tables.provides.provides', compact('title', 'users', 'provides', 'dataa', 'workspacename', 'groups'));
     }
 
@@ -321,5 +321,10 @@ class ProvidesController extends Controller
             }
         }
         return $msg;
+    }
+    public function getDebtProvide(Request $request)
+    {
+        $getProvidebyId = $this->provides->getProvidebyId($request->provide_id)->first();
+        return response()->json($getProvidebyId);
     }
 }

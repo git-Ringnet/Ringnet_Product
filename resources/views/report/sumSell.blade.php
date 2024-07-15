@@ -386,60 +386,8 @@
                                                     @endphp
                                                 @endif
                                             @endforeach
-                                            {{-- <tr class="position-relative relative">
-                                                <td colspan="7" class="text-red bold height-52 border text-center">
-                                                    <strong>Tổng cộng</strong>
-                                                </td>
-                                                <td class="text-red bold height-52 border">
-                                                    {{ number_format($totalDeliverQty) }}
-                                                </td>
-                                                <td class="text-red bold height-52 border">
-                                                    {{ number_format($totalPriceExport) }}
-                                                </td>
-                                                <td class="text-red bold height-52 border">
-                                                    {{ number_format($totalProductTotalVat) }}
-                                                </td>
-                                                <td class="text-red bold height-52 border">
-                                                    {{ number_format($totalItemDeliveryTotalProductVat) }}
-                                                </td>
-                                                <td class="text-red bold height-52 border">
-                                                    {{ number_format($totalPay) }}
-                                                </td>
-                                                <td class="text-red bold height-52 border">
-                                                    {{ number_format($totalRemai) }}
-                                                </td>
-                                                <td class="text-red bold height-52 border"></td>
-                                            </tr> --}}
                                         </tbody>
                                     </table>
-                                    {{-- <table class="w-100">
-                                        <tbody>
-                                            <tr class="position-relative relative">
-                                                <td colspan="7" class="text-red height-52 border text-center">
-                                                    <strong>Tổng cộng</strong>
-                                                </td>
-                                                <td class="text-red height-52 border">
-                                                    {{ number_format($totalDeliverQty) }}
-                                                </td>
-                                                <td class="text-red height-52 border">
-                                                    {{ number_format($totalPriceExport) }}
-                                                </td>
-                                                <td class="text-red height-52 border">
-                                                    {{ number_format($totalProductTotalVat) }}
-                                                </td>
-                                                <td class="text-red height-52 border">
-                                                    {{ number_format($totalItemDeliveryTotalProductVat) }}
-                                                </td>
-                                                <td class="text-red height-52 border">
-                                                    {{ number_format($totalPay) }}
-                                                </td>
-                                                <td class="text-red height-52 border">
-                                                    {{ number_format($totalRemai) }}
-                                                </td>
-                                                <td class="text-red height-52 border"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table> --}}
                                 </div>
                             </div>
                         </div>

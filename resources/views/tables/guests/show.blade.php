@@ -110,8 +110,7 @@
                             <div class="title-info py-2 border border-left-0 height-100">
                                 <p class="p-0 m-0 required-label margin-left32 text-13-red">Mã khách hàng</p>
                             </div>
-                            <input type="text" required readonly
-                                value="{{ $guest->key }}"
+                            <input type="text" required readonly value="{{ $guest->key }}"
                                 class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
                         <div class="d-flex align-items-center height-60-mobile">

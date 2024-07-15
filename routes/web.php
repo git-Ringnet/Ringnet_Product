@@ -121,6 +121,9 @@ Route::resource('{workspace}/cash_receipts', CashReceiptController::class);
 Route::get('/getInfoDeliveryReciepts', [CashReceiptController::class, 'getInfoDeliveryReciepts'])->name('getInfoDeliveryReciepts');
 Route::get('/getInfoDeliveryRecieptsEdit', [CashReceiptController::class, 'getInfoDeliveryRecieptsEdit'])->name('getInfoDeliveryRecieptsEdit');
 
+Route::get('/getDebtGuest', [GuestController::class, 'getDebtGuest'])->name('getDebtGuest');
+Route::get('/getDebtProvide', [ProvidesController::class, 'getDebtProvide'])->name('getDebtProvide');
+
 
 // Phiếu chuyển kho
 // Route::resource('{workspace}/changeWarehouse',[ChangeWarehouseController::class]);
@@ -337,6 +340,8 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('{workspace}/sumDelivery', [ReportController::class, 'viewReportDelivery'])->name('viewReportDelivery');
     Route::get('{workspace}/viewReportSumReturnExport', [ReportController::class, 'viewReportSumReturnExport'])->name('viewReportSumReturnExport');
     Route::get('{workspace}/viewReportSell', [ReportController::class, 'viewReportSell'])->name('viewReportSell');
+    Route::get('{workspace}/viewReportSales', [ReportController::class, 'viewReportSales'])->name('viewReportSales');
+    Route::get('{workspace}/viewReportBuy', [ReportController::class, 'viewReportBuy'])->name('viewReportBuy');
     Route::get('{workspace}/viewReportSumSellProfit', [ReportController::class, 'viewReportSumSellProfit'])->name('viewReportSumSellProfit');
     Route::get('{workspace}/viewReportDebtGuests', [ReportController::class, 'viewReportDebtGuests'])->name('viewReportDebtGuests');
 

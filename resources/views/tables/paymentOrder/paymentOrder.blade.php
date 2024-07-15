@@ -184,16 +184,6 @@
                                             <th scope="col" class="my-0 py-2 height-52" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="quotation_number" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Đơn mua
-                                                            hàng#</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-quotation_number"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="my-0 py-2 height-52" style="width: 14%;">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment_code" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Ngày</button>
                                                     </a>
@@ -329,11 +319,11 @@
                                                         {{ $item->payment_code }}
                                                     </a>
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom max-width120">
+                                                {{-- <td class="text-13-black border-top-0 border-bottom max-width120">
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->quotation_number }}
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">
                                                     {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}
                                                 </td>
@@ -344,7 +334,7 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">
-                                                    {{$item->payment_type}}
+                                                    {{ $item->payment_type }}
                                                 </td>
                                                 @can('isAdmin')
                                                     <td class="text-13-black border-top-0 border-bottom">
@@ -379,8 +369,8 @@
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     {{-- {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }} --}}
-                                                    @if($item->getContentPay)
-                                                    {{ $item->getContentPay->name }}
+                                                    @if ($item->getContentPay)
+                                                        {{ $item->getContentPay->name }}
                                                     @endif
                                                 </td>
 
@@ -391,13 +381,14 @@
                                                     {{-- {{ number_format($item->total) }} --}}
                                                 </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    @if($item->getNameUser)
-                                                        {{$item->getNameUser->name}}
+                                                    @if ($item->getNameUser)
+                                                        {{ $item->getNameUser->name }}
                                                     @endif
                                                     {{-- {{ number_format($item->payment) }} --}}
                                                 </td>
-                                                <td class="text-13-black text-right border-top-0 border-bottom text-wrap">
-                                                    {{$item->note}}
+                                                <td
+                                                    class="text-13-black text-right border-top-0 border-bottom text-wrap">
+                                                    {{ $item->note }}
                                                     {{-- {{ number_format($item->debt) }} --}}
                                                 </td>
 
@@ -449,8 +440,8 @@
                                                 </td>
                                             </tr>
                                             @php
-                                            $total += $item->total;
-                                        @endphp
+                                                $total += $item->total;
+                                            @endphp
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -475,7 +466,7 @@
     <div class="position-relative margin-250">
         <div class="position-absolute px-4 pt-1 border bg-white" style="right: 25%;">
             <span class="text-danger font-weight-bold">
-                {{ number_format($total)}}
+                {{ number_format($total) }}
             </span>
         </div>
     </div>

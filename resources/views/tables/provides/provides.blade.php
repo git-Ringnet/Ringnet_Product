@@ -301,19 +301,18 @@
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     {{ $item->provide_email }}
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom">
+                                                {{-- <td class="text-13-black border-top-0 border-bottom">
                                                     {{ $item->provide_fax }}
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     {{ number_format($item->quota_debt) }}
                                                 </td>
                                                 {{-- <td class="text-13-black border-top-0 border-bottom">
                                                     {{ number_format($item->quota_debt) }}
                                                 </td> --}}
-                                                <td class="text-13-black border-top-0 border-bottom"></td>
-                                                {{-- <td class="text-13-black text-right border-top-0 border-bottom">
+                                                <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($item->provide_debt) }}
-                                                </td> --}}
+                                                </td>
                                                 {{-- @can('isAdmin')
                                                     <td class="text-13-black border-top-0 border-bottom">
                                                         @if ($item->getNameUser)
@@ -450,6 +449,10 @@
                                                         </td> --}}
                                                         <td class="text-13-black border-top-0 border-bottom">
                                                             {{ number_format($item->quota_debt) }}
+                                                        </td>
+                                                        <td
+                                                            class="text-13-black text-right border-top-0 border-bottom">
+                                                            {{ number_format($item->provide_debt) }}
                                                         </td>
                                                         <td class="text-13-black border-top-0 border-bottom"></td>
                                                         {{-- @can('isAdmin')

@@ -119,7 +119,6 @@ class Guest extends Model
     {
         $guests = DB::table($this->table);
         $guests = $guests->where('guest.id', $id)->get();
-
         return $guests;
     }
     public function getGuestRepresentbyId($id)

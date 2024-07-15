@@ -468,8 +468,50 @@ class ReportController extends Controller
         // Get All đơn
         $allDelivery = $this->detailExport->getSumDetailE();
         // dd($sumDelivery);
-
         return view('report.sumSell', compact('title', 'productDelivered', 'allDelivery'));
+    }
+    // Doanh số bán hàng
+    public function viewReportSales()
+    {
+        $title = 'Doanh số bán hàng';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        // Lấy sản phẩm trong đơn đó
+        $productDelivered = $this->quoteE->sumProductsQuote();
+        // // Get All đơn
+        $allDelivery = $this->detailExport->getSumDetailE();
+        $groupGuests = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
+        $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
+
+        return view('report.reportSumSales', compact('title', 'groupGuests', 'guest', 'productDelivered', 'allDelivery'));
+    }
+    // Doanh số mua hàng
+    public function viewReportBuy()
+    {
+        $title = 'Doanh số mua hàng';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        // Lấy sản phẩm trong đơn đó
+        $productsQuoteI = $this->quoteI->sumProductsQuote();
+        // // Get All đơn
+        $allImport = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->leftJoin('groups', 'groups.id', 'provides.group_id')
+            ->leftJoin('users', 'users.id', 'detailimport.id_sale')
+            ->select(
+                'detailimport.*',
+                'users.name as nameUser',
+                'detailimport.created_at as ngayTao',
+                'detailimport.quotation_number as maPhieu',
+                'groups.name as nhomKH',
+                'provides.provide_name_display as nameProvide',
+                'detailimport.total_price as totalProductVat',
+            )
+            ->where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->get();
+        $groupProvides = Groups::where('grouptype_id', 3)->where('workspace_id', Auth::user()->current_workspace)->get();
+        $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+
+        return view('report.reportSumBuy', compact('title', 'groupProvides', 'provides', 'productsQuoteI', 'allImport'));
     }
     // Tổng kết nhập hàng
     public function viewReportImport()

@@ -1,17 +1,21 @@
 $(document).ready(function () {
-    $("#listReceive").hide();
+    // Ẩn danh sách ban đầu
+    $("#listReceive, #listFunds, #listGuest, #listContent").hide();
 
+    // Hàm thiết lập sự kiện click để hiển thị danh sách
     function setupClickHandler(triggerSelector, listSelector) {
         $(triggerSelector).on("click", function () {
-            $(listSelector).show();
+            $(listSelector).toggle();
         });
     }
 
+    // Thiết lập sự kiện click cho các input để hiển thị danh sách
     setupClickHandler(".search_quotation", "#listReceive");
     setupClickHandler("#fund", "#listFunds");
     setupClickHandler("#myGuest", "#listGuest");
     setupClickHandler("#myContent", "#listContent");
 
+    // Hàm xử lý sự kiện click trên các mục trong danh sách
     function setupSearchHandler(
         buttonSelector,
         inputSelector,
@@ -26,6 +30,7 @@ $(document).ready(function () {
         });
     }
 
+    // Thiết lập sự kiện click cho các mục trong danh sách
     setupSearchHandler(".search-guest", "#myGuest", "#listGuest", "#guest_id");
     setupSearchHandler(".search-funds", "#fund", "#listFunds", "#fund_id");
     setupSearchHandler(
@@ -34,6 +39,24 @@ $(document).ready(function () {
         "#listContent",
         "#content_id"
     );
+
+    // Thiết lập sự kiện click ngoài vùng danh sách để ẩn danh sách
+    $(document).on("click", function (event) {
+        if (
+            !$(event.target).closest("#listReceive, .search_quotation").length
+        ) {
+            $("#listReceive").hide();
+        }
+        if (!$(event.target).closest("#listFunds, #fund").length) {
+            $("#listFunds").hide();
+        }
+        if (!$(event.target).closest("#listGuest, #myGuest").length) {
+            $("#listGuest").hide();
+        }
+        if (!$(event.target).closest("#listContent, #myContent").length) {
+            $("#listContent").hide();
+        }
+    });
 });
 
 function formatCurrency(value) {
@@ -106,18 +129,6 @@ function updateHiddenInput(selectedDate, instance, hiddenInputId) {
         "Y-m-d H:i:S"
     );
 }
-// $(document).ready(function () {
-//     $("input.price_export").on("input", function () {
-//         var priceExportValue = parseFloat($(this).val().replace(/,/g, ""));
-//         var moneyRecieptValue = parseFloat(
-//             $("#money_reciept").val().replace(/,/g, "")
-//         );
-
-//         if (priceExportValue > moneyRecieptValue) {
-//             $(this).val(moneyRecieptValue);
-//         }
-//     });
-// });
 
 $("body").on(
     "input",

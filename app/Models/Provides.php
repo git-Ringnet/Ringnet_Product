@@ -242,4 +242,10 @@ class Provides extends Model
             ->select('provides.*', 'users.name as name', 'users.*')->get();
         return $provides;
     }
+    public function getProvidebyId($id)
+    {
+        $provides = DB::table($this->table);
+        $provides = $provides->where('provides.id', $id)->get();
+        return $provides;
+    }
 }

@@ -8,6 +8,7 @@
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">
         <input type="hidden" name="returnImport_id" id="returnImport_id">
+        <input type="hidden" name="guestId" id="guestId">
         <input type="hidden" name="code_reciept" id="code_reciept" value="{{ $invoiceAuto }}">
         <div class="content-header-fixed p-0 border-0">
             <div class="content__header--inner">
@@ -88,37 +89,37 @@
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:50px;">
-                                        <th class="border-right p-0 px-2 text-13" style="width:15%;">
+                                        {{-- <th class="border-right p-0 px-2 text-13" style="width:15%;">
                                             <span>Đơn bán hàng</span>
-                                        </th>
+                                        </th> --}}
                                         <th class="border-right p-0 px-2 text-13" style="width:15%;">
                                             {{-- <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox"> --}}
-                                            <span class="text-table text-secondary">Mã phiếu</span>
+                                            <span class="text-table text-secondary text-left">Mã phiếu</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13" style="width:8%;">Ngày</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Khách
+                                        <th class="border-right text-left p-0 px-2 text-13" style="width:8%;">Ngày</th>
+                                        <th class="border-right text-left p-0 px-2 text-13" style="width:10%;">Khách
                                             hàng
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Người
+                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Người
                                             nộp
                                         </th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">Số
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số
                                             tiền
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Nội
+                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Nội
                                             dung
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Quỹ
+                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Quỹ
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Nhân
-                                            viên
+                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Người
+                                            lập phiếu
                                         </th>
-                                        <th class="p-0 px-2 note text-13">Ghi chú</th>
+                                        <th class="p-0 px-2 textleft note text-13">Ghi chú</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="bg-white" style="height:80px;">
-                                        <td
+                                        {{-- <td
                                             class="border-right border-top-0 p-2 text-13 align-top border-bottom position-relative">
                                             <input type="text" placeholder="Chọn thông tin" id="myInput"
                                                 readonly
@@ -153,10 +154,10 @@
                                                                 class="text-13-black">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
                                                         </a>
                                                     </li>
-                                                @endforeach
+                                                @endforeach --}}
 
-                                                {{-- Danh sách đơn trả hàng NCC --}}
-                                                @foreach ($returnImport as $value)
+                                        {{-- Danh sách đơn trả hàng NCC --}}
+                                        {{-- @foreach ($returnImport as $value)
                                                     <li class="p-2 align-items-center"
                                                         style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                         <a href="javascript:void(0)" id="{{ $value->id }}"
@@ -167,7 +168,7 @@
                                                     </li>
                                                 @endforeach
                                             </ul>
-                                        </td>
+                                        </td> --}}
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <input type="text"
                                                 class="border-0 text-13-black px-2 py-1 w-100 height-32 searchProductName"
@@ -196,7 +197,7 @@
                                                     style="z-index: 99;display: none; right:0; width:100%">
                                                     <div class="p-1">
                                                         <div class="position-relative">
-                                                            <input type="text" placeholder="Nhập đơn mua hàng"
+                                                            <input type="text" placeholder="Tìm kiếm"
                                                                 class="pr-4 w-100 input-search bg-input-guest text-13-black search_guest"
                                                                 id="provideFilter">
                                                             <span id="search-icon" class="search-icon"><i
@@ -220,18 +221,22 @@
 
                                         </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-
+                                            <input type="text" required
+                                                class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2"
+                                                name="payer" style="background-color:#F0F4FF;"
+                                                placeholder="Nhập người nộp">
                                         </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <input type="text"
-                                                class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2 price_export "
+                                                class="text-13-black w-100 border-0 bg-input-guest text-right flatpickr-input py-2 px-2 price_export "
                                                 name="total" placeholder="Nhập số tiền"
                                                 style="flex:2;background-color:#F0F4FF; border-radius:4px;" required
                                                 autocomplete="off" />
                                             <br>
-                                            <div class="cash_reciept" style="display: none">
-                                                <label for="">Tiền cần thu</label><input type="text"
-                                                    class="text-13-black w-auto border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                            <div class="cash_reciept text-right" style="display: none">
+                                                <label class="text-right" for="">Công nợ:</label><input
+                                                    type="text"
+                                                    class="text-13-black w-auto text-right border-0 bg-input-guest flatpickr-input py-2 px-2"
                                                     name="money_reciept" id="money_reciept">
                                             </div>
                                         </td>
@@ -313,7 +318,7 @@
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <input type="text"
                                                 class="border-0 text-13-black px-2 py-1 w-100 height-32 note"
-                                                name="note">
+                                                style="background-color:#F0F4FF; border-radius:4px;" name="note">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -408,87 +413,44 @@
 </div>
 <script src="{{ asset('/dist/js/cash_reciepts.js') }}"></script>
 <script>
+    // DebtGuest
     $(document).ready(function() {
-        $('.search-receipts').on('click', function(event, detail_id) {
-            name = $(this).find('span').text();
+        $('.search-guest').on('click', function(event, detail_id) {
             $('input.price_export').val('');
             if (detail_id) {
                 detail_id = detail_id;
             } else {
                 detail_id = parseInt($(this).attr('id'), 10);
             }
+            $('#guestId').val(detail_id);
+            $('#myGuest').val($(this).find('span').text());
+            $('#listGuest').hide();
             $.ajax({
-                url: "{{ route('getInfoDeliveryReciepts') }}",
+                url: "{{ route('getDebtGuest') }}",
                 type: "get",
                 data: {
-                    detail_id: detail_id,
+                    guest_id: detail_id,
                 },
                 success: function(data) {
-                    $('#myInput').val(data.quotation_number);
-                    $('#myGuest').val(data.nameGuest);
-                    $('#listReceive').hide();
-                    $('#listGuest').hide();
-                    $('#money_reciept').val(formatCurrency(data.amount_owed));
-                    $('#detail_id').val(data.id);
-                    $('#guest_id').val(data.guest_id);
-                    $('.cash_reciept').show();
+                    var guestDebt = parseFloat(data['guest_debt']);
+                    if (isNaN(guestDebt)) {
+                        guestDebt = 0;
+                    }
+                    $('#money_reciept').val(formatCurrency(guestDebt));
+                    $('.cash_reciept').attr('style', 'display:block');
 
-                    // Xóa trình xử lý sự kiện input trước đó
+                    // Xóa sự kiện input trước đó
                     $('input[name="total"]').off('input');
 
-                    // Thiết lập trình xử lý sự kiện input mới với giá trị data.amount_owed mới
+                    // Thiết lập sự kiện input mới với giá trị data['guest_debt']
                     $('input[name="total"]').on('input', function() {
-                        var currentVal = parseFloat($(this).val().replace(/,/g,
-                            ''));
-                        if (currentVal > data.amount_owed) {
-                            $(this).val(formatCurrency(data.amount_owed));
-                        } else {
-                            $(this).val(formatCurrency(currentVal));
+                        var inputValue = parseFloat($(this).val().replace(
+                            /[^0-9.-]+/g, ""));
+                        if (inputValue > guestDebt) {
+                            inputValue = guestDebt;
                         }
+                        $(this).val(formatCurrency(inputValue));
                     });
-                }
-            });
-        });
-        var detail_id = $('#detail_id').val();
-        if (detail_id) {
-            $('.search-receipts').trigger('click', detail_id);
-        }
-    });
-
-    // Trả hàng NCC 
-    $(document).ready(function() {
-        $('.search-return').on('click', function(event, detail_id) {
-            $('input.price_export').val('');
-            if (detail_id) {
-                detail_id = detail_id;
-            } else {
-                detail_id = parseInt($(this).attr('id'), 10);
-            }
-            $('#returnImport_id').val(detail_id);
-            $('#myInput').val($(this).find('span').text());
-            $('#listReceive').hide();
-            $.ajax({
-                url: "{{ route('getReturnProduct') }}",
-                type: "get",
-                data: {
-                    detail_id: detail_id,
-                    status: 'returnImport'
-                },
-                success: function(data) {
-                    if (data['status']) {
-                        $('#money_reciept').val(formatCurrency(data['total'] - data[
-                            'payment']));
-                        $('.cash_reciept').attr('style', 'display:block');
-
-                        // Xóa sự kiện input trước đó
-                        $('input[name="total"]').off('input');
-
-                        // Thiết lập sự kiện input mới với giá trị data['total'] - data['payment'] mới
-                        $('input[name="total"]').on('input', function() {
-                            checkQty(this, Math.round(data['total']) - Math.round(
-                                data['payment']));
-                        });
-                    }
                 }
             });
         });

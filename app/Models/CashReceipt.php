@@ -95,7 +95,6 @@ class CashReceipt extends Model
     {
         $detailOwed = DetailExport::leftJoin('guest', 'detailexport.guest_id', 'guest.id')
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->where('detailexport.id',  $data['detail_id'])
             ->where('detailexport.amount_owed', '>', 0)
             ->select('detailexport.*', 'guest.guest_name_display as nameGuest')
             ->first();
@@ -108,7 +107,7 @@ class CashReceipt extends Model
                 'receipt_code' => $data['code_reciept'],
                 'date_created' =>  $data['payment_date'],
                 'guest_id' =>  $data['guest_id'],
-                'payer' =>  $data['fund_id'] ?? '',
+                'payer' =>  $data['payer'] ?? '',
                 'amount' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
                 'content_id' =>  $data['content_pay'] ?? 0,
                 'fund_id' => $data['fund_id'] ??  0,
@@ -118,8 +117,6 @@ class CashReceipt extends Model
                 'workspace_id' => Auth::user()->current_workspace,
                 'returnImport_id' => isset($data['returnImport_id']) ? $data['returnImport_id'] : 0,
             ];
-
-
             $cashRC = CashReceipt::create($dataCashRC);
             // Cộng tiền vào đơn trả hàng
             $returnImport = ReturnImport::where('id', $data['returnImport_id'])->first();
@@ -128,20 +125,15 @@ class CashReceipt extends Model
                 $returnImport->save();
             }
         } else {
-            $delivery_id = DetailExport::where('detailexport.id', $data['detail_id'])
-                ->leftJoin('delivery', 'detailexport.id', 'delivery.detailexport_id')
-                ->select('delivery.id')
-                ->first();
             $dataCashRC = [
                 'receipt_code' => $data['code_reciept'],
                 'date_created' =>  $data['payment_date'],
                 'guest_id' =>  $data['guest_id'],
-                'payer' =>  $data['fund_id'] ?? '',
+                'payer' =>  $data['payer'] ?? '',
                 'amount' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
                 'content_id' =>  $data['content_pay'] ?? 0,
                 'fund_id' => $data['fund_id'] ??  0,
                 'user_id' => Auth::user()->id,
-                'delivery_id' => $delivery_id->id ?? 0,
                 'note' => $data['note'],
                 'status' => $data['action'] == 1 ? 1 : 2,
                 'workspace_id' => Auth::user()->current_workspace,
@@ -171,7 +163,7 @@ class CashReceipt extends Model
             'receipt_code' => $data['code_reciept'],
             'date_created' => $data['payment_date'],
             'guest_id' => $data['guest_id'],
-            'payer' => $data['fund_id'] ?? '',
+            'payer' => $data['payer'] ?? '',
             'amount' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
             'content_id' => $data['content_pay'] ?? 0,
             'fund_id' => $data['fund_id'] ?? 0,

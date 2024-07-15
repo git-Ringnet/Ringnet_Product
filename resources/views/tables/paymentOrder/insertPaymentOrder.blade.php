@@ -75,37 +75,38 @@
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:50px;">
-                                        <th class="border-right p-0 px-2 text-13" style="width:15%;">
+                                        {{-- <th class="border-right p-0 px-2 text-13" style="width:15%;">
                                             <span>Đơn đặt hàng</span>
-                                        </th>
+                                        </th> --}}
                                         <th class="border-right p-0 px-2 text-13" style="width:15%;">
                                             {{-- <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox"> --}}
-                                            <span class="text-table text-secondary">Mã phiếu</span>
+                                            <span class="text-table text-left text-secondary">Mã phiếu</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13" style="width:8%;">Ngày</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Khách
+                                        <th class="border-right text-left p-0 px-2 text-13" style="width:8%;">Ngày
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Khách
                                             hàng
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Người
+                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Người
                                             nhận
                                         </th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">Số
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số
                                             tiền
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Nội
+                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Nội
                                             dung
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Quỹ
+                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Quỹ
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Nhân
-                                            viên
+                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Người
+                                            lập phiếu
                                         </th>
-                                        <th class="p-0 px-2 note text-13">Ghi chú</th>
+                                        <th class="p-0 px-2 text-left note text-13">Ghi chú</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="bg-white" style="height:80px;">
-                                        <td
+                                        {{-- <td
                                             class="border-right border-top-0 p-2 text-13 align-top border-bottom position-relative">
                                             <input type="text" placeholder="Chọn thông tin" id="myInput"
                                                 class="border-0 text-13-black px-2 py-1 w-100 height-32 search_quotation"
@@ -113,9 +114,9 @@
                                                 name="quotation_number" autocomplete="off" readonly>
                                             <input type="hidden" name="detail_id" id="detail_id"
                                                 value="@isset($yes) {{ $show_receive['id'] }} @endisset">
-                                            </span>
+                                            </span> --}}
 
-                                            <ul id="listReceive"
+                                        {{-- <ul id="listReceive"
                                                 class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
                                                 style="z-index: 99;display: none; right:0; width:100%">
                                                 <div class="p-1">
@@ -128,9 +129,9 @@
                                                                 class="fas fa-search text-table"
                                                                 aria-hidden="true"></i></span>
                                                     </div>
-                                                </div>
-                                                {{-- Danh sách đơn đặt hàng --}}
-                                                @foreach ($reciept as $value)
+                                                </div> --}}
+                                        {{-- Danh sách đơn đặt hàng --}}
+                                        {{-- @foreach ($reciept as $value)
                                                     <li class="p-2 align-items-center"
                                                         style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                         <a href="javascript:void(0)" id="{{ $value->id }}"
@@ -140,9 +141,9 @@
                                                                 class="text-13-black">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
                                                         </a>
                                                     </li>
-                                                @endforeach
-                                                {{-- Danh sách phiếu trả hàng --}}
-                                                @foreach ($returnExport as $value)
+                                                @endforeach --}}
+                                        {{-- Danh sách phiếu trả hàng --}}
+                                        {{-- @foreach ($returnExport as $value)
                                                     <li class="p-2 align-items-center"
                                                         style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                         <a href="javascript:void(0)" id="{{ $value->id }}"
@@ -151,17 +152,17 @@
                                                                 class="text-13-black">{{ $value->code_return }}</span>
                                                         </a>
                                                     </li>
-                                                @endforeach
-                                            </ul>
-                                        </td>
+                                                @endforeach --}}
+                                        {{-- </ul>
+                                        </td> --}}
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <input type="text"
-                                                class="border-0 text-13-black px-2 py-1 w-100 height-32 searchProductName"
+                                                class="border-0 text-13-black text-left py-1 w-100 height-32 searchProductName"
                                                 value="{{ $getQuoteCount }}" readonly name="payment_code">
                                         </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <input
-                                                class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                                class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2"
                                                 name="" placeholder="Chọn thông tin" style="flex:2;"
                                                 id="datePicker" value="{{ date('Y-m-d') }}" />
                                             <input type="hidden" name="payment_date" id="hiddenDateInput"
@@ -172,7 +173,7 @@
                                             <div
                                                 class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
                                                 <input type="text" placeholder="Chọn thông tin" id="myGuest"
-                                                    class="border-0 text-13-black px-2 py-1 w-100 height-32 search_guest"
+                                                    class="border-0 text-13-black py-1 w-100 height-32 search_guest"
                                                     style="background-color:#F0F4FF; border-radius:4px;"
                                                     autocomplete="off" readonly required="required">
                                                 <input type="hidden" name="guest_id" id="guest_id">
@@ -207,28 +208,30 @@
                                         </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <input type="text" required
-                                                class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                                class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2"
                                                 name="payment_type" style="background-color:#F0F4FF;"
                                                 {{-- oninput="checkCharacters(this)" --}}>
                                         </td>
-                                        <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                        <td
+                                            class="border-right border-top-0 p-2 text-13 align-top border-bottom text-right">
                                             <input
-                                                class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2 price_export "
-                                                name="total" placeholder="Nhập số tiền" style="flex:2;"
+                                                class="text-13-black text-right w-100 border-0 bg-input-guest flatpickr-input py-2 price_export "
+                                                name="total" placeholder="Nhập số tiền"
+                                                style="flex:2;background-color:#F0F4FF; border-radius:4px;"
                                                 id="prepayment" required />
                                             <br>
                                             <div class="cash_reciept" style="display: none;">
-                                                <label for="">Tiền cần chi</label>
+                                                <label class="" for="">Công nợ:</label>
                                                 <input type="text"
-                                                    class="text-13-black w-auto border-0 bg-input-guest py-2 px-2"
-                                                    name="total_bill" readonly>
+                                                    class="text-13-black w-auto border-0 bg-input-guest py-2 text-right"
+                                                    name="total_bill" id="total_bill" readonly>
                                             </div>
                                         </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <div
                                                 class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
                                                 <input type="text" placeholder="Chọn thông tin" id="myContent"
-                                                    class="border-0 text-13-black px-2 py-1 w-100 height-32 search_content"
+                                                    class="border-0 text-13-black py-1 w-100 height-32 search_content"
                                                     style="background-color:#F0F4FF; border-radius:4px;"
                                                     autocomplete="off" readonly required="required">
                                                 <input type="hidden" name="content_pay" id="content_id" />
@@ -263,7 +266,7 @@
                                             <div
                                                 class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
                                                 <input type="text" placeholder="Chọn thông tin" id="fund"
-                                                    class="border-0 text-13-black px-2 py-1 w-100 height-32 search_funds"
+                                                    class="border-0 text-13-black py-1 w-100 height-32 search_funds"
                                                     style="background-color:#F0F4FF; border-radius:4px;"
                                                     name="search_funds" autocomplete="off" readonly required>
                                                 <input type="hidden" name="fund_id" id="fund_id">
@@ -296,114 +299,21 @@
                                         </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <input type="text"
-                                                class="border-0 text-13-black px-2 py-1 w-100 height-32 searchuser"
+                                                class="border-0 text-13-black text-left py-1 w-100 height-32 searchuser"
                                                 name="userName" value="{{ Auth::user()->name }}" readonly>
                                         </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                             <input type="text"
-                                                class="border-0 text-13-black px-2 py-1 w-100 height-32 note"
-                                                name="note">
+                                                class="border-0 text-13-black py-1 w-100 height-32 note"
+                                                style="background-color:#F0F4FF; border-radius:4px;" name="note">
                                         </td>
                                     </tr>
-
-
-
-                                    <!-- @isset($dataImport)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @foreach ($dataImport as $item)
-    <tr class="bg-white">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="border border-left-0 border-top-0 border-bottom-0">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <input type="hidden" readonly value="{{ $item->id }}"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            name="listProduct[]">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="d-flex w-100 justify-content-between align-items-center position-relative">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    fill="#42526E" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    fill="#42526E" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    fill="#42526E" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    fill="#42526E" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    fill="#42526E" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    fill="#42526E" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </svg>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <input type="checkbox">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <input type="text" name="product_code[]"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                class="border-0 px-2 py-1 w-75 searchProduct"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                value="{{ $item->product_code }}">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <ul id="listProductCode"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                style="z-index: 99; left: 24%; top: 75%;">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="border border-top-0 border-bottom-0 position-relative">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <input id="searchProductName" type="text" name="product_name[]"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="searchProductName border-0 px-2 py-1 w-100"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            value="{{ $item->product_name }}">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <ul id="listProductName"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            style="z-index: 99; left: 1%; top: 74%; display: none;">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="border border-top-0 border-bottom-0">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <input type="text" name="product_unit[]"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="border-0 px-2 py-1 w-100 product_unit"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            value="{{ $item->product_unit }}">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="border border-top-0 border-bottom-0">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="d-flex"><input type="text" required=""
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                oninput="validateQtyInput1(this)"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                class="border-0 px-2 py-1 w-100 quantity-input"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                name="product_qty[]">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="border border-top-0 border-bottom-0"><input type="text"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            required="" class="border-0 px-2 py-1 w-100 price_export"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            name="price_export[]"></td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <input type="hidden" class="product_tax1">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="border border-top-0 border-bottom-0 border-right-0">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <select name="product_tax[]" id="" class="product_tax">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="0"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @if ($item->product_tax == 0) selected @endif>0%
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="8"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @if ($item->product_tax == 8) selected @endif>8%
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="10"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @if ($item->product_tax == 10) selected @endif>10%
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="99"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @if ($item->product_tax == 99) selected @endif>NOVAT
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </select>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="border border-top-0 border-bottom-0"><input type="text"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="border-0 px-2 py-1 w-100 total_price" readonly=""
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            name="total_price[]">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="border border-top-0 border-bottom-0"><input type="text"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="border-0 px-2 py-1 w-100" name="product_note[]"></td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </tr>
-    @endforeach
-                                    @endisset -->
                                 </tbody>
                             </table>
                         </div>
 
                     </section>
 
-                    {{-- <x-formsynthetic :import="''"></x-formsynthetic> --}}
                 </div>
             </section>
         </div>
@@ -784,6 +694,48 @@
         })
     })
 
+    $(document).ready(function() {
+        $('.search-guest').on('click', function(event, detail_id) {
+            if (detail_id) {
+                detail_id = detail_id
+            } else {
+                detail_id = parseInt($(this).attr('id'), 10);
+            }
+            $('#guest_id').val(detail_id);
+            $('#myGuest').val($(this).find('span').text())
+            $('#listGuest').hide();
+            $.ajax({
+                url: "{{ route('getDebtProvide') }}",
+                type: "get",
+                data: {
+                    provide_id: detail_id,
+                },
+                success: function(data) {
+                    console.log(data);
+                    var provideDebt = parseFloat(data['provide_debt']);
+                    if (isNaN(provideDebt)) {
+                        provideDebt = 0;
+                    }
+                    $('#total_bill').val(formatCurrency(provideDebt));
+                    $('.cash_reciept').attr('style', 'display:block');
+
+                    // Xóa sự kiện input trước đó
+                    $('input[name="total_bill"]').off('input');
+
+                    // Thiết lập sự kiện input mới với giá trị data['provide_debt']
+                    $('input[name="total_bill"]').on('input', function() {
+                        var inputValue = parseFloat($(this).val().replace(
+                            /[^0-9.-]+/g, ""));
+                        if (inputValue > provideDebt) {
+                            inputValue = provideDebt;
+                        }
+                        $(this).val(formatCurrency(inputValue));
+                    });
+                }
+            });
+        });
+    })
+
 
 
     $(document).ready(function() {
@@ -807,18 +759,6 @@
             }
             $('#content_id').val(detail_id);
             $('#myContent').val($(this).find('span').text())
-        })
-    })
-
-    $(document).ready(function() {
-        $('.search-guest').on('click', function(event, detail_id) {
-            if (detail_id) {
-                detail_id = detail_id
-            } else {
-                detail_id = parseInt($(this).attr('id'), 10);
-            }
-            $('#guest_id').val(detail_id);
-            $('#myGuest').val($(this).find('span').text())
         })
     })
 
@@ -1005,7 +945,7 @@
                             $('#prepayment').off('input');
                             $('#prepayment').on('input', function() {
                                 var currentVal = parseFloat($(this)
-                                .val().replace(/,/g, ''));
+                                    .val().replace(/,/g, ''));
 
                                 var amount_owed = Math.round(total) +
                                     Math.round(total_tax);

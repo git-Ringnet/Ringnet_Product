@@ -378,8 +378,14 @@
                             <a class="dropdown-item text-13-black"
                                 href="{{ route('viewReportDebtGuests', $workspacename) }}">Công nợ khách hàng
                             </a>
-                            <a class="dropdown-item text-13-black"
+                            {{-- <a class="dropdown-item text-13-black"
                                 href="{{ route('viewReportSell', $workspacename) }}">Tổng kết bán hàng
+                            </a> --}}
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('viewReportSales', $workspacename) }}">Doanh số bán hàng
+                            </a>
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('viewReportBuy', $workspacename) }}">Doanh số mua hàng
                             </a>
                             <a class="dropdown-item text-13-black"
                                 href="{{ route('viewReportDelivery', $workspacename) }}">Tổng kết giao hàng
@@ -392,9 +398,9 @@
                                 href="{{ route('viewReportSumSellProfit', $workspacename) }}">Báo cáo lợi nhuận bán
                                 hàng
                             </a>
-                            <a class="dropdown-item text-13-black"
+                            {{-- <a class="dropdown-item text-13-black"
                                 href="{{ route('viewReportImport', $workspacename) }}">Tổng kết mua hàng
-                            </a>
+                            </a> --}}
                             <a class="dropdown-item text-13-black"
                                 href="{{ route('viewReportProvides', $workspacename) }}">Thống kê công nợ NCC
                             </a>
@@ -548,10 +554,22 @@
                             Công nợ khách hàng
                         </button>
                     </a>
-                    <a href="{{ route('viewReportSell', $workspacename) }}" class="height-36">
+                    {{-- <a href="{{ route('viewReportSell', $workspacename) }}" class="height-36">
                         <button type="button"
                             class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumSell') active @endif">
                             Tổng kết bán hàng
+                        </button>
+                    </a> --}}
+                    <a href="{{ route('viewReportSales', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumSales') active @endif">
+                            Doanh số bán hàng
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportBuy', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumBuy') active @endif">
+                            Doanh số mua hàng
                         </button>
                     </a>
                     <a href="{{ route('viewReportDelivery', $workspacename) }}" class="height-36">
@@ -572,12 +590,12 @@
                             Báo cáo lợi nhuận bán hàng
                         </button>
                     </a>
-                    <a href="{{ route('viewReportImport', $workspacename) }}" class="height-36">
+                    {{-- <a href="{{ route('viewReportImport', $workspacename) }}" class="height-36">
                         <button type="button"
                             class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportImport') active @endif">
                             Tổng kết mua hàng
                         </button>
-                    </a>
+                    </a> --}}
                     <a href="{{ route('viewReportProvides', $workspacename) }}" class="height-36">
                         <button type="button"
                             class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportProvides') active @endif">

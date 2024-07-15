@@ -27,6 +27,7 @@ class GuestController extends Controller
     private $workspaces;
     private $userFlow;
     private $users;
+    private $guest;
     public function __construct()
     {
         $this->guests = new Guest();
@@ -36,6 +37,7 @@ class GuestController extends Controller
         $this->workspaces = new Workspace();
         $this->userFlow = new userFlow();
         $this->users = new User();
+        $this->guest = new Guest();
     }
     public function index(Request $request)
     {
@@ -362,5 +364,10 @@ class GuestController extends Controller
                 'debt' => [$request->input('debt'), $request->input('debt_op')],
             ];
         }
+    }
+    public function getDebtGuest(Request $request)
+    {
+        $getGuestbyId = $this->guest->getGuestbyId($request->guest_id)->first();
+        return response()->json($getGuestbyId);
     }
 }
