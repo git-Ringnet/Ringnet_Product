@@ -372,11 +372,11 @@ $("#add-warehouse-manager").click(function () {
     newRow.append(hoTen, soDT, email, option);
     $("#dynamic-fields").before(newRow);
     // Tăng giá trị fieldCounter
-    fieldCounter++;
+    fieldCounter1++;
     //Xóa người đại diện
     option.click(function () {
         $(this).closest("tr").remove();
-        fieldCounter--;
+        fieldCounter1--;
     });
 });
 
