@@ -344,11 +344,11 @@ $(document).click(function (event) {
 });
 
 //Thêm thủ kho
-let fieldCounter = 1;
+let fieldCounter1 = 1;
 $("#add-warehouse-manager").click(function () {
     // Tạo các phần tử HTML mới
     const newRow = $("<tr>", {
-        id: `dynamic-row-${fieldCounter}`,
+        id: `dynamic-row-${fieldCounter1}`,
         class: `bg-white addWarehouse representative-row`,
     });
     const hoTen = $(

@@ -359,9 +359,7 @@
             </section>
         </div>
         <div class="content margin-top-127">
-            {{-- View mini --}}
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'DHNCC'" />
-            <div id="main">
+            <div>
                 <section class="content">
                     <div class="container-fluided">
                         <div>

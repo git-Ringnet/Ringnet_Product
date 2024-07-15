@@ -71,9 +71,7 @@
         </div>
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-127">
-            {{-- View mini --}}
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PT'" />
-            <div id="main">
+            <div>
                 <section class="content">
                     <div class="bg-filter-search border-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">

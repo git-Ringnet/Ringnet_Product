@@ -149,9 +149,7 @@
         </div>
 
         <div class="content margin-top-127">
-            {{-- View mini --}}
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PNK'" />
-            <div id="main">
+            <div>
                 <div class="container-fluided">
                     <div class="content">
                         <div class="border top-109">

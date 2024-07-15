@@ -64,9 +64,7 @@
             </div>
         </div>
         <div class="content" style="margin-top:10rem;">
-            {{-- View mini --}}
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'CTNB'" />
-            <div id="main">
+            <div>
                 <section class="content">
                     <div class="container-fluided">
                         <div class="bg-filter-search border-top-0 text-left border-custom">

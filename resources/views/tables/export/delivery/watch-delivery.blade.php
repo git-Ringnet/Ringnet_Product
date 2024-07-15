@@ -170,9 +170,7 @@
             </section>
         </div>
         <div class="content margin-top-127">
-            {{-- View mini --}}
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PXK'" />
-            <div id="main">
+            <div>
                 <div class="container-fluided">
                     {{-- Thông tin khách hàng --}}
                     <div class="content">

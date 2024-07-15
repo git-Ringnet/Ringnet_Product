@@ -86,9 +86,9 @@
                 </div>
             </div>
         </div>
-        {{-- View mini --}}
         <div class="content-wrapper2 px-0 py-0 margin-top-75">
-            <div class="">
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" />
+            <div id="main">
                 {{-- Thông tin khách hàng --}}
                 <div class="border">
                     <div>

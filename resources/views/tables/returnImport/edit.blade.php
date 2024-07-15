@@ -158,9 +158,7 @@
             </section>
         </div>
         <div class="content margin-top-127">
-            {{-- View mini --}}
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'THNCC'" />
-            <div id="main">
+            <div>
                 <div class="border">
                     <div>
                         <div class="bg-filter-search text-center">

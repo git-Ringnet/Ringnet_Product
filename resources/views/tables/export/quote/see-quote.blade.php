@@ -390,9 +390,7 @@
             </section>
         </div>
         <div class="content margin-top-127">
-            {{-- View mini --}}
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" />
-            <div id="main">
+            <div>
                 {{-- Thông tin khách hàng --}}
                 <div class="border">
                     <div id="show_info_Guest">
