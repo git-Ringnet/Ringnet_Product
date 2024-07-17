@@ -76,50 +76,55 @@
             </div>
         </div>
         {{-- Thông tin sản phẩm --}}
-        <div class="content margin-top-117">
-            <section class="content">
-                <div class="bg-filter-search border-0 text-center">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">
-                        THÔNG TIN PHIẾU THU
-                    </p>
-                </div>
-                <div class="container-fluided">
-                    <section class="content" style="height: 80vh;">
-                        <div class="content-info position-relative table-responsive text-nowrap order_content h-100">
-                            <table id="inputcontent" class="table table-hover bg-white rounded">
-                                <thead>
-                                    <tr style="height:50px;">
-                                        {{-- <th class="border-right p-0 px-2 text-13" style="width:15%;">
+        <div class="content margin-top-75">
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PT'" />
+            <div id="main">
+                <section class="content">
+                    <div class="bg-filter-search border-0 text-center">
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                            THÔNG TIN PHIẾU THU
+                        </p>
+                    </div>
+                    <div class="container-fluided">
+                        <section class="content" style="height: 80vh;">
+                            <div
+                                class="content-info position-relative table-responsive text-nowrap order_content h-100">
+                                <table id="inputcontent" class="table table-hover bg-white rounded">
+                                    <thead>
+                                        <tr style="height:50px;">
+                                            {{-- <th class="border-right p-0 px-2 text-13" style="width:15%;">
                                             <span>Đơn bán hàng</span>
                                         </th> --}}
-                                        <th class="border-right p-0 px-2 text-13" style="width:15%;">
-                                            {{-- <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox"> --}}
-                                            <span class="text-table text-secondary text-left">Mã phiếu</span>
-                                        </th>
-                                        <th class="border-right text-left p-0 px-2 text-13" style="width:8%;">Ngày</th>
-                                        <th class="border-right text-left p-0 px-2 text-13" style="width:10%;">Khách
-                                            hàng
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Người
-                                            nộp
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số
-                                            tiền
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Nội
-                                            dung
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Quỹ
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Người
-                                            lập phiếu
-                                        </th>
-                                        <th class="p-0 px-2 textleft note text-13">Ghi chú</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="bg-white" style="height:80px;">
-                                        {{-- <td
+                                            <th class="border-right p-0 px-2 text-13" style="width:15%;">
+                                                {{-- <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox"> --}}
+                                                <span class="text-table text-secondary text-left">Mã phiếu</span>
+                                            </th>
+                                            <th class="border-right text-left p-0 px-2 text-13" style="width:8%;">Ngày
+                                            </th>
+                                            <th class="border-right text-left p-0 px-2 text-13" style="width:10%;">Khách
+                                                hàng
+                                            </th>
+                                            <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Người
+                                                nộp
+                                            </th>
+                                            <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số
+                                                tiền
+                                            </th>
+                                            <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Nội
+                                                dung
+                                            </th>
+                                            <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Quỹ
+                                            </th>
+                                            <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">
+                                                Người
+                                                lập phiếu
+                                            </th>
+                                            <th class="p-0 px-2 textleft note text-13">Ghi chú</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="bg-white" style="height:80px;">
+                                            {{-- <td
                                             class="border-right border-top-0 p-2 text-13 align-top border-bottom position-relative">
                                             <input type="text" placeholder="Chọn thông tin" id="myInput"
                                                 readonly
@@ -156,8 +161,8 @@
                                                     </li>
                                                 @endforeach --}}
 
-                                        {{-- Danh sách đơn trả hàng NCC --}}
-                                        {{-- @foreach ($returnImport as $value)
+                                            {{-- Danh sách đơn trả hàng NCC --}}
+                                            {{-- @foreach ($returnImport as $value)
                                                     <li class="p-2 align-items-center"
                                                         style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                         <a href="javascript:void(0)" id="{{ $value->id }}"
@@ -169,164 +174,169 @@
                                                 @endforeach
                                             </ul>
                                         </td> --}}
-                                        <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                            <input type="text"
-                                                class="border-0 text-13-black px-2 py-1 w-100 height-32 searchProductName"
-                                                value="{{ $invoiceAuto }}" readonly disabled>
-                                        </td>
-                                        <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                            <input
-                                                class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2"
-                                                name="" placeholder="Chọn thông tin" style="flex:2;"
-                                                id="datePicker" value="{{ date('Y-m-d') }}" />
-                                            <input type="hidden" name="payment_date" id="hiddenDateInput"
-                                                value="{{ date('Y-m-d') }}">
-                                        </td>
-                                        {{-- Khách hàng --}}
-                                        <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                            <div
-                                                class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
-                                                <input type="text" placeholder="Chọn thông tin" id="myGuest"
-                                                    class="border-0 text-13-black px-2 py-1 w-100 height-32 search_guest"
-                                                    style="background-color:#F0F4FF; border-radius:4px;"
-                                                    autocomplete="off" readonly>
-                                                <input type="hidden" name="guest_id" id="guest_id">
+                                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                <input type="text"
+                                                    class="border-0 text-13-black px-2 py-1 w-100 height-32 searchProductName"
+                                                    value="{{ $invoiceAuto }}" readonly disabled>
+                                            </td>
+                                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                <input
+                                                    class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                                    name="" placeholder="Chọn thông tin" style="flex:2;"
+                                                    id="datePicker" value="{{ date('Y-m-d') }}" />
+                                                <input type="hidden" name="payment_date" id="hiddenDateInput"
+                                                    value="{{ date('Y-m-d') }}">
+                                            </td>
+                                            {{-- Khách hàng --}}
+                                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                <div
+                                                    class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
+                                                    <input type="text" placeholder="Chọn thông tin" id="myGuest"
+                                                        class="border-0 text-13-black px-2 py-1 w-100 height-32 search_guest"
+                                                        style="background-color:#F0F4FF; border-radius:4px;"
+                                                        autocomplete="off" readonly>
+                                                    <input type="hidden" name="guest_id" id="guest_id">
 
-                                                <ul id="listGuest"
-                                                    class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
-                                                    style="z-index: 99;display: none; right:0; width:100%">
-                                                    <div class="p-1">
-                                                        <div class="position-relative">
-                                                            <input type="text" placeholder="Tìm kiếm"
-                                                                class="pr-4 w-100 input-search bg-input-guest text-13-black search_guest"
-                                                                id="provideFilter">
-                                                            <span id="search-icon" class="search-icon"><i
-                                                                    class="fas fa-search text-table"
-                                                                    aria-hidden="true"></i></span>
+                                                    <ul id="listGuest"
+                                                        class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
+                                                        style="z-index: 99;display: none; right:0; width:100%">
+                                                        <div class="p-1">
+                                                            <div class="position-relative">
+                                                                <input type="text" placeholder="Tìm kiếm"
+                                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black"
+                                                                    id="provideFilter">
+                                                                <span id="search-icon" class="search-icon"><i
+                                                                        class="fas fa-search text-table"
+                                                                        aria-hidden="true"></i></span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    @foreach ($guest as $value)
-                                                        <li class="p-2 align-items-center"
-                                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                            <a href="javascript:void(0)" id="{{ $value->id }}"
-                                                                name="search-info" class="search-guest"
-                                                                style="flex:2;">
-                                                                <span
-                                                                    class="text-13-black">{{ $value->guest_name_display }}</span>
-                                                            </a>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
+                                                        @foreach ($guest as $value)
+                                                            <li class="p-2 align-items-center"
+                                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                                <a href="javascript:void(0)" id="{{ $value->id }}"
+                                                                    name="search-info" class="search-guest"
+                                                                    style="flex:2;">
+                                                                    <span
+                                                                        class="text-13-black">{{ $value->guest_name_display }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
 
-                                        </td>
-                                        <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                            <input type="text" required
-                                                class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2"
-                                                name="payer" style="background-color:#F0F4FF;"
-                                                placeholder="Nhập người nộp">
-                                        </td>
-                                        <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                            <input type="text"
-                                                class="text-13-black w-100 border-0 bg-input-guest text-right flatpickr-input py-2 px-2 price_export "
-                                                name="total" placeholder="Nhập số tiền"
-                                                style="flex:2;background-color:#F0F4FF; border-radius:4px;" required
-                                                autocomplete="off" />
-                                            <br>
-                                            <div class="cash_reciept text-right" style="display: none">
-                                                <label class="text-right" for="">Công nợ:</label><input
-                                                    type="text"
-                                                    class="text-13-black w-auto text-right border-0 bg-input-guest flatpickr-input py-2 px-2"
-                                                    name="money_reciept" id="money_reciept">
-                                            </div>
-                                        </td>
-                                        <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                            <div
-                                                class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
-                                                <input type="text" placeholder="Chọn thông tin" id="myContent"
-                                                    class="border-0 text-13-black px-2 py-1 w-100 height-32 search_content"
-                                                    style="background-color:#F0F4FF; border-radius:4px;"
-                                                    autocomplete="off" readonly required="required" required>
-                                                <input type="hidden" name="content_pay" id="content_id" />
+                                            </td>
+                                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                <input type="text" required
+                                                    class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2"
+                                                    name="payer" style="background-color:#F0F4FF;"
+                                                    placeholder="Nhập người nộp">
+                                            </td>
+                                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                <input type="text"
+                                                    class="text-13-black w-100 border-0 bg-input-guest text-right flatpickr-input py-2 px-2 price_export "
+                                                    name="total" placeholder="Nhập số tiền"
+                                                    style="flex:2;background-color:#F0F4FF; border-radius:4px;"
+                                                    required autocomplete="off" />
+                                                <br>
+                                                <div class="cash_reciept text-right" style="display: none">
+                                                    <label class="text-right" for="">Công nợ:</label><input
+                                                        type="text"
+                                                        class="text-13-black w-auto text-right border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                                        name="money_reciept" id="money_reciept">
+                                                </div>
+                                            </td>
+                                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                <div
+                                                    class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
+                                                    <input type="text" placeholder="Chọn thông tin" id="myContent"
+                                                        class="border-0 text-13-black px-2 py-1 w-100 height-32 search_content"
+                                                        style="background-color:#F0F4FF; border-radius:4px;"
+                                                        autocomplete="off" readonly required="required" required>
+                                                    <input type="hidden" name="content_pay" id="content_id" />
 
-                                                <ul id="listContent"
-                                                    class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
-                                                    style="z-index: 99;display: none; right:0; width:100%">
-                                                    <div class="p-1">
-                                                        <div class="position-relative">
-                                                            <input type="text" placeholder="Tìm kiếm nội dung"
-                                                                class="pr-4 w-100 input-search bg-input-guest text-13-black search_content"
-                                                                id="provideFilter">
-                                                            <span id="search-icon" class="search-icon"><i
-                                                                    class="fas fa-search text-table"
-                                                                    aria-hidden="true"></i></span>
+                                                    <ul id="listContent"
+                                                        class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
+                                                        style="z-index: 99;display: none; right:0; width:100%">
+                                                        <div class="p-1">
+                                                            <div class="position-relative">
+                                                                <input type="text" placeholder="Tìm kiếm nội dung"
+                                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black search_content"
+                                                                    id="provideFilter">
+                                                                <span id="search-icon" class="search-icon"><i
+                                                                        class="fas fa-search text-table"
+                                                                        aria-hidden="true"></i></span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    @foreach ($content as $value)
-                                                        <li class="p-2 align-items-center"
-                                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                            <a href="javascript:void(0)" id="{{ $value->id }}"
-                                                                name="search-info" class="search-content"
-                                                                style="flex:2;">
-                                                                <span class="text-13-black">{{ $value->name }}</span>
-                                                            </a>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                            <div
-                                                class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
-                                                <input type="text" placeholder="Chọn thông tin" id="fund"
-                                                    class="border-0 text-13-black px-2 py-1 w-100 height-32 search_funds"
-                                                    style="background-color:#F0F4FF; border-radius:4px;"
-                                                    name="search_funds" autocomplete="off" readonly>
-                                                <input type="hidden" name="fund_id" id="fund_id">
+                                                        @foreach ($content as $value)
+                                                            <li class="p-2 align-items-center"
+                                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                                <a href="javascript:void(0)" id="{{ $value->id }}"
+                                                                    name="search-info" class="search-content"
+                                                                    style="flex:2;">
+                                                                    <span
+                                                                        class="text-13-black">{{ $value->name }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                <div
+                                                    class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
+                                                    <input type="text" placeholder="Chọn thông tin" id="fund"
+                                                        class="border-0 text-13-black px-2 py-1 w-100 height-32 search_funds"
+                                                        style="background-color:#F0F4FF; border-radius:4px;"
+                                                        name="search_funds" autocomplete="off" readonly>
+                                                    <input type="hidden" name="fund_id" id="fund_id">
 
-                                                <ul id="listFunds"
-                                                    class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
-                                                    style="z-index: 99;display: none; right:0; width:100%">
-                                                    <div class="p-1">
-                                                        <div class="position-relative">
-                                                            <input type="text" placeholder="Nhập đơn mua hàng"
-                                                                class="pr-4 w-100 input-search bg-input-guest text-13-black search_funds"
-                                                                id="provideFilter">
-                                                            <span id="search-icon" class="search-icon"><i
-                                                                    class="fas fa-search text-table"
-                                                                    aria-hidden="true"></i></span>
+                                                    <ul id="listFunds"
+                                                        class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
+                                                        style="z-index: 99;display: none; right:0; width:100%">
+                                                        <div class="p-1">
+                                                            <div class="position-relative">
+                                                                <input type="text" placeholder="Nhập đơn mua hàng"
+                                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black search_funds"
+                                                                    id="provideFilter">
+                                                                <span id="search-icon" class="search-icon"><i
+                                                                        class="fas fa-search text-table"
+                                                                        aria-hidden="true"></i></span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    @foreach ($funds as $value)
-                                                        <li class="p-2 align-items-center"
-                                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                            <a href="javascript:void(0)" id="{{ $value->id }}"
-                                                                name="search-info" class="search-funds"
-                                                                style="flex:2;">
-                                                                <span class="text-13-black">{{ $value->name }}</span>
-                                                            </a>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                            <input type="text"
-                                                class="border-0 text-13-black px-2 py-1 w-100 height-32 searchuser"
-                                                name="userName" value="{{ Auth::user()->name }}" readonly disabled>
-                                        </td>
-                                        <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                            <input type="text"
-                                                class="border-0 text-13-black px-2 py-1 w-100 height-32 note"
-                                                style="background-color:#F0F4FF; border-radius:4px;" name="note">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-                </div>
-            </section>
+                                                        @foreach ($funds as $value)
+                                                            <li class="p-2 align-items-center"
+                                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                                <a href="javascript:void(0)" id="{{ $value->id }}"
+                                                                    name="search-info" class="search-funds"
+                                                                    style="flex:2;">
+                                                                    <span
+                                                                        class="text-13-black">{{ $value->name }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                <input type="text"
+                                                    class="border-0 text-13-black px-2 py-1 w-100 height-32 searchuser"
+                                                    name="userName" value="{{ Auth::user()->name }}" readonly
+                                                    disabled>
+                                            </td>
+                                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                <input type="text"
+                                                    class="border-0 text-13-black px-2 py-1 w-100 height-32 note"
+                                                    style="background-color:#F0F4FF; border-radius:4px;"
+                                                    name="note">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
 </form>

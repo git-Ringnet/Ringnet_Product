@@ -116,7 +116,8 @@ class CashReceiptController extends Controller
         $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)
             ->where(DB::raw('COALESCE(total,0)'), '!=', DB::raw('COALESCE(payment,0)'))
             ->get();
-        return view('tables.cash_receipts.create', compact('title', 'invoiceAuto', 'detailOwed', 'guest', 'funds', 'workspacename', 'content', 'returnImport'));
+        $listDetail = CashReceipt::with(['guest', 'fund', 'user', 'workspace'])->where('workspace_id', Auth::user()->current_workspace)->get();
+        return view('tables.cash_receipts.create', compact('title', 'invoiceAuto', 'detailOwed', 'guest', 'funds', 'workspacename', 'content', 'returnImport', 'listDetail'));
     }
 
     public function store(string $workspace, Request $request)
@@ -139,7 +140,6 @@ class CashReceiptController extends Controller
         $funds = Fund::all();
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
         $content = ContentGroups::where('contenttype_id', 1)->where('workspace_id', Auth::user()->current_workspace)->get();
-
 
         $detailOwed = DetailExport::where('workspace_id', Auth::user()->current_workspace)->where('amount_owed', '>', 0)->get();
         // dd($deliveries);

@@ -88,6 +88,21 @@ class DetailImport extends Model
         return $this->hasMany(PayOder::class, 'detailimport_id', 'id');
     }
 
+    public function listImport($id)
+    {
+        $import = DetailImport::where('detailimport.id', $id)
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->leftJoin('users', 'users.id', 'detailimport.user_id')
+            ->select('detailimport.*', 'provides.provide_name_display', 'provides.provide_debt', 'users.name');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $import->where('user_id', Auth::user()->id);
+            }
+        }
+        $import = $import->first();
+        return $import;
+    }
+
     public function addImport($data)
     {
         $total = 0;
@@ -180,7 +195,7 @@ class DetailImport extends Model
             'address' => $data['address'],
             'note' => $data['note'],
             'phone' => $data['phone'],
-            'date_delivery' => $data['date_delivery'],
+            'date_delivery' => $data['date_delivery'] == null ? now() : $data['date_delivery'],
             'id_sale' => $data['id_sale'],
         ];
         $total_bill = isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0;

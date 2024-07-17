@@ -106,7 +106,18 @@ class DetailImportController extends Controller
         $workspacename = $workspacename->workspace_name;
         //danh sách nhân viên
         $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
-        return view('tables.import.insertImport', compact('title', 'provides', 'project', 'workspacename', 'listUser'));
+        //
+        $listDetail = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->select('detailimport.*', 'provides.provide_name_display')
+            ->orderBy('detailimport.id', 'desc');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $listDetail->where('user_id', Auth::user()->id);
+            }
+        }
+        $listDetail = $listDetail->get();
+        return view('tables.import.insertImport', compact('title', 'provides', 'project', 'workspacename', 'listUser', 'listDetail'));
     }
 
     /**
@@ -135,16 +146,7 @@ class DetailImportController extends Controller
      */
     public function show(string $workspace, string $id)
     {
-        $import = DetailImport::where('detailimport.id', $id)
-            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
-            ->leftJoin('users', 'users.id', 'detailimport.user_id')
-            ->select('detailimport.*', 'provides.provide_name_display', 'provides.provide_debt', 'users.name');
-        if (Auth::check()) {
-            if (Auth::user()->getRoleUser->roleid == 4) {
-                $import->where('user_id', Auth::user()->id);
-            }
-        }
-        $import = $import->first();
+        $import = $this->detailImport->listImport($id);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($import) {

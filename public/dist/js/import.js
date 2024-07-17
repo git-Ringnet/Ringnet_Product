@@ -348,6 +348,7 @@ function updateTaxAmount() {
         }
     });
 }
+
 function updateTotalPrice(position) {
     var price =
         parseFloat(

@@ -76,140 +76,108 @@
             </div>
 
         </div>
-        <div class="content margin-top-117">
-            <div id="show_info_Guest">
-                <div class="bg-filter-search border-top-0 text-center">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
-                        CẤP
-                    </p>
-                </div>
-                <div class="d-flex w-100">
-                    <div
-                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Đơn mua hàng
-                        </span>
-                        <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin" id="myInput1"
-                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest search_quotation"
-                                style="background-color:#F0F4FF; border-radius:4px;" name="quotation_number"
-                                autocomplete="off" readonly>
-                            <input type="hidden" name="detail_id" id="detail_id"
-                                value="@isset($yes) {{ $show_receive['id'] }} @endisset">
-                        </span>
-                        <div class="d-flex align-items-center justify-content-between border-0">
-                            <ul id="listReceive"
-                                class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
-                                style="z-index: 99;display: none;">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập đơn mua hàng"
-                                            class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
-                                        <span id="search-icon" class="search-icon"><i
-                                                class="fas fa-search text-table" aria-hidden="true"></i></span>
-                                    </div>
-                                </div>
-                                @foreach ($listDetail as $value)
-                                    <li class="p-2 align-items-center"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                        <a href="javascript:void(0)" id="{{ $value->id }}" name="search-info"
-                                            class="search-receive" style="flex:2;">
-                                            <span
-                                                class="text-13-black">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
-                                        </a>
-                                        <a type="button" data-toggle="modal" data-target="#">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    viewBox="0 0 14 14" fill="none">
-                                                    <path
-                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                        fill="black" />
-                                                    <path
-                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                        fill="black" />
-                                                    <path
-                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                        fill="black" />
-                                                </svg>
-                                            </span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
+        <div class="content margin-top-75">
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PNK'" />
+            <div id="main">
+                <div id="show_info_Guest">
+                    <div class="bg-filter-search border-top-0 text-center">
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
+                            CẤP
+                        </p>
                     </div>
-                </div>
-                {{-- Nhà cung cấp --}}
-                <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                    style="height:43px;">
-                    <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
-                    <span class="mx-1 text-13" style="flex: 2;">
-                        <input type="text" placeholder="Chọn thông tin"
-                            class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
-                            style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" readonly=""
-                            name="provides_name">
-                        <input type="hidden" id="provide_id" name="provide_id">
-                    </span>
-                    <div class="">
-                        <div id="myUL"
-                            class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block list-guest"
-                            style="z-index: 99; display: block;">
-                            <ul class="m-0 p-0 scroll-data">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập nhà cung cấp"
-                                            class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
-                                        <span id="search-icon" class="search-icon">
-                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                @foreach ($provide as $item)
-                                    <li class="p-2 align-items-center text-wrap"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                        <a href="javascript:void(0)" style="flex:2" id="1"
-                                            name="search-info" class="search-info">
-                                            <span class="text-13-black">{{ $item->provide_name_display }}</span>
-                                        </a>
-                                        {{-- <a id="" class="search-infoEdit" type="button" data-toggle="modal"
-                                        data-target="#editProvide" data-id="1">
-                                        <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                viewBox="0 0 14 14" fill="none">
-                                                <path
-                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                    fill="black"></path>
-                                                <path
-                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                    fill="black"></path>
-                                                <path
-                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                    fill="black"></path>
-                                            </svg>
-                                        </span>
-                                    </a> --}}
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div id="more_info" style="display:none;">
                     <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
-                            <input type="text"
-                                class="text-13-black w-50 border-0 bg-input-guest nameGuest py-2 px-2" style="flex:2;"
-                                readonly id="provide_name"
-                                value="@isset($yes){{ $show_receive['provide_name'] }}@endisset"
-                                placeholder="Chọn thông tin" />
+                            <span class="text-13 btn-click" style="flex: 1.5;">Đơn mua hàng
+                            </span>
+                            <span class="mx-1 text-13" style="flex: 2;">
+                                <input type="text" placeholder="Chọn thông tin" id="myInput1"
+                                    class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest search_quotation"
+                                    style="background-color:#F0F4FF; border-radius:4px;" name="quotation_number"
+                                    autocomplete="off" readonly>
+                                <input type="hidden" name="detail_id" id="detail_id"
+                                    value="@isset($yes) {{ $show_receive['id'] }} @endisset">
+                            </span>
+                            <div class="d-flex align-items-center justify-content-between border-0">
+                                <ul id="listReceive"
+                                    class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
+                                    style="z-index: 99;display: none;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập đơn mua hàng"
+                                                class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    @foreach ($listDetailImport as $value)
+                                        <li class="p-2 align-items-center"
+                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <a href="javascript:void(0)" id="{{ $value->id }}" name="search-info"
+                                                class="search-receive" style="flex:2;">
+                                                <span
+                                                    class="text-13-black">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
+                                            </a>
+                                            <a type="button" data-toggle="modal" data-target="#">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                        height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path
+                                                            d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                            fill="black" />
+                                                        <path
+                                                            d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                            fill="black" />
+                                                        <path
+                                                            d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                            fill="black" />
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                            <input type="text"
-                                class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2;"
-                                id="represent" readonly name="represent" />
+                        {{-- Nhà cung cấp --}}
+                        <div class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44"
+                            style="height:43px;">
+                            <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
+                            <span class="mx-1 text-13" style="flex: 2;">
+                                <input type="text" placeholder="Chọn thông tin"
+                                    value="@isset($yes){{ $show_receive['provide_name'] }}@endisset"
+                                    class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
+                                    style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
+                                    readonly="" name="provides_name">
+                                <input type="hidden" id="provide_id" name="provide_id">
+                            </span>
+                            <div class="">
+                                <div id="myUL"
+                                    class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block list-guest"
+                                    style="z-index: 99; display: block;">
+                                    <ul class="m-0 p-0 scroll-data">
+                                        <div class="p-1">
+                                            <div class="position-relative">
+                                                <input type="text" placeholder="Nhập nhà cung cấp"
+                                                    class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
+                                                <span id="search-icon" class="search-icon">
+                                                    <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        @foreach ($provide as $item)
+                                            <li class="p-2 align-items-center text-wrap"
+                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                <a href="javascript:void(0)" style="flex:2" id="1"
+                                                    name="search-info" class="search-info">
+                                                    <span
+                                                        class="text-13-black">{{ $item->provide_name_display }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="d-flex w-100">
@@ -248,164 +216,163 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <section class="content">
-                <div class="bg-filter-search border-top-0 text-center">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM
-                    </p>
-                </div>
-                <div class="container-fluided" id="quickAction">
-                    <section class="content">
-                        <div class="content-info position-relative text-nowrap">
-                            <table id="inputcontent" class="table table-hover bg-white rounded">
-                                <thead>
-                                    <tr style="height:47px;">
-                                        <th class="border-right border-bottom d-none"
-                                            style="width: 15%;padding-left:2rem;">
-                                            <span class="text-table text-secondary">Mã sản phẩm</span>
-                                        </th>
-                                        <th scope="col" class="border-right border-bottom">
-                                            <span class="d-flex">
-                                                <a href="#" class="sort-link" data-sort-by="created_at"
-                                                    data-sort-type="">
-                                                    <button class="btn-sort text-13" type="submit">Tên hàng
-                                                        hóa</button>
-                                                </a>
-                                                <div class="icon" id="icon-created_at"></div>
-                                            </span>
-                                        </th>
-                                        <th scope="col" class="border-right border-bottom">
-                                            <span class="d-flex">
-                                                <a href="#" class="sort-link" data-sort-by="created_at"
-                                                    data-sort-type=""><button class="btn-sort text-13"
-                                                        type="submit">Đơn vị</button>
-                                                </a>
-                                                <div class="icon" id="icon-created_at"></div>
-                                            </span>
-                                        </th>
-                                        <th scope="col" class="border-right border-bottom">
-                                            <span class="d-flex justify-content-end">
-                                                <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort text-13"
-                                                        type="submit">Số lượng</button>
-                                                </a>
-                                                <div class="icon" id="icon-total"></div>
-                                            </span>
-                                        </th>
-                                        <th scope="col" class="border-right border-bottom d-none">
-                                            <span class="d-flex justify-content-end">
-                                                <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort text-13"
-                                                        type="submit">Đơn giá</button>
-                                                </a>
-                                                <div class="icon" id="icon-total"></div>
-                                            </span>
-                                        </th>
-                                        <th scope="col" class="border-right border-bottom d-none">
-                                            <span class="d-flex justify-content-end">
-                                                <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort text-13"
-                                                        type="submit">KM</button>
-                                                </a>
-                                                <div class="icon" id="icon-total"></div>
-                                            </span>
-                                        </th>
-                                        <th scope="col" class="border-right border-bottom d-none">
-                                            <span class="d-flex justify-content-end">
-                                                <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort text-13"
-                                                        type="submit">Thuế</button>
-                                                </a>
-                                                <div class="icon" id="icon-total"></div>
-                                            </span>
-                                        </th>
-                                        <th scope="col" class="border-right border-bottom d-none">
-                                            <span class="d-flex justify-content-end">
-                                                <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort text-13"
-                                                        type="submit">Thành tiền</button>
-                                                </a>
-                                                <div class="icon" id="icon-total"></div>
-                                            </span>
-                                        </th>
-                                        <th scope="col" class="border-right border-bottom">
-                                            <span class="d-flex">
-                                                <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort text-13"
-                                                        type="submit">Kho hàng</button>
-                                                </a>
-                                                <div class="icon" id="icon-total"></div>
-                                            </span>
-                                        </th>
-                                        <th scope="col" class="border-right border-bottom d-none">
-                                            <span class="d-flex justify-content-center">
-                                                <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort text-13"
-                                                        type="submit">Quản lý SN</button>
-                                                </a>
-                                                <div class="icon" id="icon-total"></div>
-                                            </span>
-                                        </th>
-                                        <th scope="col" class="border-right border-bottom d-none">
-                                            <span class="d-flex">
-                                                <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort text-13"
-                                                        type="submit">Bảo hành</button>
-                                                </a>
-                                                <div class="icon" id="icon-total"></div>
-                                            </span>
-                                        </th>
-
-                                        <th scope="col" class="border-right border-bottom">
-                                            <span class="d-flex">
-                                                <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort text-13"
-                                                        type="submit">Ghi chú</button>
-                                                </a>
-                                                <div class="icon" id="icon-total"></div>
-                                            </span>
-                                        </th>
-                                        <th scope="col" class="border-bottom d-none">
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </section>
-                </div>
-                <div class="ml-4 mt-1">
-                    <span class="text-perpage">
+                <section class="content">
+                    <div class="bg-filter-search border-top-0 text-center">
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM
+                        </p>
+                    </div>
+                    <div class="container-fluided" id="quickAction">
                         <section class="content">
-                            <div class="container-fluided">
-                                <div class="d-flex">
-                                    <button type="button" data-toggle="dropdown"
-                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded user_flow"
-                                        id="addRowTable" style="margin-right:10px" data-type="DMH"
-                                        data-des="Thêm sản phẩm" value="3">
-                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
-                                            height="12" viewBox="0 0 18 18" fill="none">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                        <span class="text-table">Thêm sản phẩm</span>
-                                    </button>
-                                </div>
+                            <div class="content-info position-relative text-nowrap">
+                                <table id="inputcontent" class="table table-hover bg-white rounded">
+                                    <thead>
+                                        <tr style="height:47px;">
+                                            <th class="border-right border-bottom d-none"
+                                                style="width: 15%;padding-left:2rem;">
+                                                <span class="text-table text-secondary">Mã sản phẩm</span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="created_at"
+                                                        data-sort-type="">
+                                                        <button class="btn-sort text-13" type="submit">Tên hàng
+                                                            hóa</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-created_at"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="created_at"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Đơn vị</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-created_at"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom">
+                                                <span class="d-flex justify-content-end">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Số lượng</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom d-none">
+                                                <span class="d-flex justify-content-end">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Đơn giá</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom d-none">
+                                                <span class="d-flex justify-content-end">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">KM</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom d-none">
+                                                <span class="d-flex justify-content-end">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Thuế</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom d-none">
+                                                <span class="d-flex justify-content-end">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Thành tiền</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Kho hàng</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom d-none">
+                                                <span class="d-flex justify-content-center">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Quản lý SN</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-right border-bottom d-none">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Bảo hành</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+
+                                            <th scope="col" class="border-right border-bottom">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Ghi chú</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-bottom d-none">
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
                         </section>
-                    </span>
-                </div>
+                    </div>
+                    <div class="ml-4 mt-1">
+                        <span class="text-perpage">
+                            <section class="content">
+                                <div class="container-fluided">
+                                    <div class="d-flex">
+                                        <button type="button" data-toggle="dropdown"
+                                            class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded user_flow"
+                                            id="addRowTable" style="margin-right:10px" data-type="DMH"
+                                            data-des="Thêm sản phẩm" value="3">
+                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
+                                                height="12" viewBox="0 0 18 18" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                                    fill="#42526E"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                                    fill="#42526E"></path>
+                                            </svg>
+                                            <span class="text-table">Thêm sản phẩm</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </section>
+                        </span>
+                    </div>
 
 
 
-                {{-- <x-formsynthetic :import="$import"></x-formsynthetic> --}}
+                    {{-- <x-formsynthetic :import="$import"></x-formsynthetic> --}}
 
 
-                {{-- <div class="">
+                    {{-- <div class="">
                     <div class="content">
                         <div class="row" style="width:95%;">
                             <div class="position-relative col-lg-4 px-0"></div>
@@ -448,17 +415,8 @@
                         </div>
                     </div>
                 </div> --}}
-
-
-
-
-
-
-
-
-
-
-            </section>
+                </section>
+            </div>
         </div>
     </div>
     <input type="hidden" name="total_bill" id="total_bill">
@@ -523,7 +481,7 @@
                     var promotionAll = JSON.parse(
                         data.detail.promotion);
                     // $('input[name^="delivery_code"]').val(data.resultNumber)
-                    $('#provide_name').val(data.provide_name);
+                    $('#myInput').val(data.provide_name);
                     $('#represent').val(data.represent)
                     $('#detailimport_id').val(data.id)
                     $('#listReceive').hide();
@@ -537,7 +495,6 @@
                             id: data.id
                         },
                         success: function(product) {
-                            console.log(product.quoteImport);
                             $('#product').html(product)
                             $('#inputcontent tbody').empty();
                             product.quoteImport.forEach((element, index) => {

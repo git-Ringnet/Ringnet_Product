@@ -49,6 +49,72 @@ class Delivery extends Model
         return $check;
     }
 
+    public function listDelivery()
+    {
+        $listDetail = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
+            ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            ->select(
+                'delivery.id',
+                'delivery.guest_id',
+                'delivery.quotation_number',
+                'delivery.code_delivery',
+                'delivery.shipping_unit',
+                'delivery.shipping_fee',
+                'delivery.id as maGiaoHang',
+                'delivery.created_at as ngayGiao',
+                'delivery.status as trangThai',
+                'users.name',
+                'detailexport.guest_name',
+                'delivery.promotion',
+                'guest.guest_name_display as nameGuest',
+                'delivery.totalVAT as totalVAT',
+                DB::raw('(
+                    SELECT 
+                        CASE 
+                            WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) != 0 THEN 
+                                CASE 
+                                    WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN 
+                                        (COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) * (1 + (COALESCE(MAX(products.product_tax), 0) / 100)) -- Giảm số tiền trực tiếp và áp dụng thuế
+                                    WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 2 THEN 
+                                        ((COALESCE(SUM(product_total_vat), 0) * (100 - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) / 100)) * (1 + (COALESCE(MAX(products.product_tax), 0) / 100)) -- Giảm phần trăm trên tổng giá trị sản phẩm và áp dụng thuế
+                                    ELSE 
+                                        COALESCE(SUM(product_total_vat), 0) -- Không có khuyến mãi
+                                END
+                            ELSE
+                                COALESCE(SUM(product_total_vat), 0) -- Giá trị ban đầu nếu $.value = 0
+                        END
+                    FROM delivered 
+                    LEFT JOIN products ON delivered.product_id = products.id
+                    WHERE delivered.delivery_id = delivery.id
+                ) as totalProductVat')
+            )
+            ->leftJoin('users', 'users.id', 'delivery.user_id')
+            ->where('delivery.workspace_id', Auth::user()->current_workspace)
+            ->groupBy(
+                'delivery.id',
+                'delivery.guest_id',
+                'delivery.quotation_number',
+                'delivery.code_delivery',
+                'delivery.shipping_unit',
+                'delivery.shipping_fee',
+                'users.name',
+                'delivery.created_at',
+                'delivery.status',
+                'detailexport.guest_name',
+                'delivery.totalVAT',
+                'guest.guest_name_display',
+                'delivery.promotion',
+            )
+            ->orderBy('delivery.id', 'desc');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $listDetail->where('delivery.user_id', Auth::user()->id);
+            }
+        }
+        $listDetail = $listDetail->get();
+        return $listDetail;
+    }
+
     public function addDelivery($data)
     {
         if (isset($data['shipping_fee'])) {
@@ -118,7 +184,7 @@ class Delivery extends Model
             ->leftJoin('guest', 'delivery.guest_id', 'guest.id')
             ->leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
             ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
-            ->select('*', 'delivery.id as soGiaoHang', 'delivery.status as tinhTrang', 'delivery.created_at as ngayGiao', 'delivery.promotion as promotion_delivery')
+            ->select('*', 'delivery.id as soGiaoHang', 'delivery.status as tinhTrang', 'delivery.created_at as ngayGiao', 'delivery.promotion as promotion_delivery','delivery.guest_id as guest_id')
             ->first();
         return $delivery;
     }

@@ -249,6 +249,7 @@ Route::get('/checkProductExist', [DetailExportController::class, 'checkProductEx
 //
 Route::get('/getDataExport', [DetailExportController::class, 'getDataExport'])->name('getDataExport');
 Route::get('/getListExport', [DetailExportController::class, 'getListExport'])->name('getListExport');
+Route::get('/getViewMini', [DetailExportController::class, 'getViewMini'])->name('getViewMini');
 
 //Giao hàng
 Route::middleware([CheckLogin::class])->group(function () {
@@ -308,13 +309,13 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/searchHistory', [HistoryController::class, 'searchHistory'])->name('searchHistory');
 });
 // Invite workspace
-Route::get('/login/{token}/invite/{workspace_id}', [InvitationController::class, 'inviteUser'])->name('invite');
+// Route::get('/login/{token}/invite/{workspace_id}', [InvitationController::class, 'inviteUser'])->name('invite');
 
-Route::middleware([CheckLogin::class])->group(function () {
-    Route::get('/updateInvitations', [InvitationController::class, 'updateInvitations'])->name('updateInvitations');
-    Route::post('/invite', [InvitationController::class, 'index'])->name('sendInvitation');
-    Route::get('/send-mail', [InvitationController::class, 'index']);
-});
+// Route::middleware([CheckLogin::class])->group(function () {
+//     Route::get('/updateInvitations', [InvitationController::class, 'updateInvitations'])->name('updateInvitations');
+//     Route::post('/invite', [InvitationController::class, 'index'])->name('sendInvitation');
+//     Route::get('/send-mail', [InvitationController::class, 'index']);
+// });
 
 Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
@@ -376,6 +377,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::post('/updateUser', [SettingController::class, 'updateUser'])->name('user.update');
     Route::post('/updateWorkspaceName', [SettingController::class, 'updateWorkspaceName'])->name('updateWorkspaceName');
 });
+
 //Dashboard
 Route::middleware([CheckLogin::class])->group(function () {
     Route::resource('{workspace}/dashboardProduct', DashboardController::class);

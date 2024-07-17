@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\UsersExport;
 use App\Models\Attachment;
 use App\Models\BillSale;
+use App\Models\CashReceipt;
 use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
@@ -20,7 +21,10 @@ use App\Models\Project;
 use App\Models\Provides;
 use App\Models\QuoteExport;
 use App\Models\DateForm;
+use App\Models\ProductImport;
 use App\Models\ProductWarehouse;
+use App\Models\QuoteImport;
+use App\Models\Receive_bill;
 use App\Models\representGuest;
 use App\Models\User;
 use App\Models\userFlow;
@@ -1303,6 +1307,72 @@ class DetailExportController extends Controller
                     $data['title_payment'] = "Thanh toán bán hàng";
                 }
             }
+        }
+        return $data;
+    }
+    public function getViewMini(Request $request)
+    {
+        $data = [];
+        if ($request->page == 'PBH') {
+            $dataGuest = $this->detailExport->getDetailExportToId($request['id']);
+            $quoteExport = $this->detailExport->getProductToId($request['id']);
+            $data['infoGuest'] = $dataGuest;
+            $data['product'] = $quoteExport;
+        }
+        if ($request->page == "PXK") {
+            $delivery = $this->delivery->getDeliveryToId($request['id']);
+            $product = $this->delivery->getProductToId($request['id']);
+            $data['delivery'] = $delivery;
+            $data['product'] = $product;
+        }
+        if ($request->page == "DHNCC") {
+            $import = $this->detailImport->listImport($request['id']);
+            $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
+                ->where('detailimport_id', $import->id)
+                ->select('quoteimport.*', 'products.product_inventory')
+                ->where('products.workspace_id', Auth::user()->current_workspace)
+                ->get();
+            $data['import'] = $import;
+            $data['product'] = $product;
+        }
+        if ($request->page == "PNK") {
+            $receive = Receive_bill::where('receive_bill.id', $request['id'])
+                ->leftJoin('detailimport', 'receive_bill.detailimport_id', 'detailimport.id')
+                ->leftJoin('provides', 'receive_bill.provide_id', 'provides.id')
+                ->select('detailimport.*','provides.provide_name_display','receive_bill.*','receive_bill.created_at as ngayNH')
+                ->first();
+            $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
+                ->join('products', 'quoteimport.product_name', 'products.product_name')
+                ->join('warehouse', 'warehouse.id', 'quoteimport.warehouse_id')
+                ->where('products_import.receive_id', $receive->id)
+                ->where('products.workspace_id', Auth::user()->current_workspace)
+                ->where('products_import.product_qty', '>', 0)
+                ->select(
+                    'quoteimport.product_code',
+                    'quoteimport.product_name',
+                    'quoteimport.product_unit',
+                    'products_import.product_qty',
+                    'quoteimport.price_export',
+                    'quoteimport.product_tax',
+                    'quoteimport.product_note',
+                    'warehouse.warehouse_name as nameHouse',
+                    'products_import.product_id',
+                    'products_import.cbSN',
+                    'products_import.receive_id',
+                    'products_import.quoteImport_id',
+                    'products_import.product_guarantee',
+                    'products.product_inventory as inventory',
+                    'quoteimport.promotion',
+                    DB::raw('products_import.product_qty * quoteimport.price_export as product_total'),
+                )
+                ->with('getSerialNumber')
+                ->get();
+            $data['receive'] = $receive;
+            $data['product'] = $product;
+        }
+        if ($request->page == "PT") {
+            $cashReceipt = CashReceipt::with(['guest', 'fund', 'user', 'content', 'workspace', 'delivery'])->findOrFail($request['id']);
+            $data['cashReceipt'] = $cashReceipt;
         }
         return $data;
     }

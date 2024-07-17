@@ -102,7 +102,7 @@
                                     {{ date_format(new DateTime($detail->created_at), 'd/m/Y') }}
                                 </td>
                                 <td class="text-13-black max-width180 text-left border-top-0 border-bottom">
-                                    {{ $detail->provide_name }}
+                                    {{ $detail->provide_name_display }}
                                 </td>
                             </tr>
                         @endforeach
@@ -249,13 +249,7 @@
                                     {{ date_format(new DateTime($detail->created_at), 'd/m/Y') }}
                                 </td>
                                 <td class="text-13-black max-width180 text-left border-top-0 border-bottom">
-                                    @if (isset($detail->getQuotation))
-                                        {{ $detail->getQuotation->provide_name }}
-                                    @else
-                                        @if (isset($detail->getNameProvide))
-                                            {{ $detail->getNameProvide->provide_name_display }}
-                                        @endif
-                                    @endif
+                                    {{ $detail->provide_name_display }}
                                 </td>
                             </tr>
                         @endforeach
@@ -632,44 +626,8 @@
         </div>
     </div>
 </div>
-
+<script src="{{ asset('/dist/js/viewMini.js') }}"></script>
 <script>
-    //tìm kiếm
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('search-input');
-        const tableRows = document.querySelectorAll('#example tbody tr');
-        const resultCountSpan = document.getElementById('result-count');
-
-        // Khôi phục dữ liệu tìm kiếm nếu có từ localStorage
-        const savedSearch = localStorage.getItem('savedSearch');
-        if (savedSearch) {
-            searchInput.value = savedSearch;
-            filterTable(savedSearch);
-        }
-
-        searchInput.addEventListener('input', function() {
-            const searchText = this.value.trim(); // Giữ nguyên dữ liệu nhập vào
-            filterTable(searchText);
-            localStorage.setItem('savedSearch', searchText); // Lưu dữ liệu tìm kiếm vào localStorage
-        });
-
-        function filterTable(searchText) {
-            let count = 0;
-            tableRows.forEach(row => {
-                const cellText = row.querySelector('td').textContent.toLowerCase().trim();
-                if (cellText.includes(searchText.toLowerCase())) {
-                    row.style.display = ''; // Hiển thị hàng nếu có nội dung phù hợp
-                    count++;
-                } else {
-                    row.style.display = 'none'; // Ẩn hàng nếu không phù hợp
-                }
-            });
-            resultCountSpan.textContent = count; // Cập nhật số kết quả tìm kiếm
-        }
-    });
-
-
-    //chèn đường dẫn cho tr
     document.addEventListener('DOMContentLoaded', function() {
         const rows = document.querySelectorAll('.detailExport-info');
 
@@ -677,48 +635,185 @@
             row.addEventListener('click', function() {
                 const id = this.dataset.id;
                 const page = this.dataset.page;
-                let url;
-                if (page === 'DHNCC') {
-                    url =
-                        "{{ route('import.show', ['workspace' => $workspacename, 'import' => ':id']) }}";
-                }
-                if (page === 'THNCC') {
-                    url =
-                        "{{ route('returnImport.edit', ['workspace' => $workspacename, 'returnImport' => ':id']) }}";
-                }
-                if (page === 'PBH') {
-                    url =
-                        "{{ route('seeInfo', ['workspace' => $workspacename, 'id' => ':id']) }}";
-                }
-                if (page === 'KTH') {
-                    url =
-                        "{{ route('returnExport.edit', ['workspace' => $workspacename, 'returnExport' => ':id']) }}";
-                }
-                if (page === 'PNK') {
-                    url =
-                        "{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => ':id']) }}";
-                }
-                if (page === 'PXK') {
-                    url =
-                        "{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => ':id']) }}";
-                }
-                if (page === 'PT') {
-                    url =
-                        "{{ route('cash_receipts.edit', ['workspace' => $workspacename, 'cash_receipt' => ':id']) }}";
-                }
-                if (page === 'PC') {
-                    url =
-                        "{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => ':id']) }}";
-                }
-                if (page === 'CTNB') {
-                    url =
-                        "{{ route('changeFund.edit', ['workspace' => $workspacename, 'changeFund' => ':id']) }}";
-                }
-                if (page === 'PCK') {
-                    url =
-                        "{{ route('changeWarehouse.edit', ['workspace' => $workspacename, 'changeWarehouse' => ':id']) }}";
-                }
-                window.location.href = url.replace(':id', id);
+                $.ajax({
+                    url: '{{ route('getViewMini') }}',
+                    type: 'GET',
+                    data: {
+                        id: id,
+                        page: page,
+                    },
+                    success: function(data) {
+                        if (page == "PBH") {
+                            $("#datePicker").val(formatDate(data.infoGuest.ngayBG));
+                            $("#hiddenDateInput").val(data.infoGuest.ngayBG);
+                            $("#myInput").val(data.infoGuest.export_guest_name);
+                            $(".idGuest").val(data.infoGuest.guest_id);
+                            $("#date_delivery").val(formatDate(data.infoGuest
+                                .date_delivery));
+                            $("#hiddenDateDelivery").val(data.infoGuest
+                                .date_delivery);
+                            $("input[name='quotation_number']").val(data.infoGuest
+                                .quotation_number);
+                            $("input[name='guestName']").val(data.infoGuest
+                                .guest_name);
+                            $("input[name='address_delivery']").val(data.infoGuest
+                                .address_delivery);
+                            $("select[name='status_receive']").val(data.infoGuest
+                                .status_receive);
+                            $("input[name='note']").val(data.infoGuest.note);
+                            $("input[name='phone_receive']").val(data.infoGuest
+                                .phone_receive);
+                            $("select[name='id_sale']").val(data.infoGuest.id_sale);
+                            $("input[name='receiver']").val(data.infoGuest
+                                .receiver);
+                            $("#date_payment").val(formatDate(data.infoGuest
+                                .date_payment));
+                            $("#hiddenDatePayment").val(data.infoGuest
+                                .date_payment);
+                            $(".debt-old").val(formatCurrency(data.infoGuest
+                                .guest_debt));
+                            //
+                            if (data.product && data.product.length > 0) {
+                                $("#inputcontent tbody").children().not(
+                                    '#dynamic-fields').remove();
+                                data.product.forEach(function(product) {
+                                    var newRow = createProductRow(product,
+                                        "PBH");
+                                    $("#inputcontent tbody").append(newRow);
+                                });
+                            }
+                            //
+                            calculateTotals();
+                        }
+                        if (page == "PXK") {
+                            $("input[name='quotation_number']").val(data.delivery
+                                .quotation_number);
+                            $("input[name='guestName']").val(data.delivery
+                                .guest_name_display);
+                            $("input[name='guest_id']").val(data.delivery
+                                .guest_id);
+                            $("input[name='representName']").val(data.delivery
+                                .represent_name);
+                            $("input[name='represent_guest_id']").val(data.delivery
+                                .represent_id);
+                            $("input[name='shipping_unit']").val(data.delivery
+                                .shipping_unit);
+                            $("input[name='shipping_fee']").val(formatNumber(data
+                                .delivery.shipping_fee));
+                            $("#datePicker").val(formatDate(data.delivery
+                                .ngayGiao));
+                            $("#hiddenDateInput").val(data.delivery.ngayGiao);
+                            //
+                            if (data.product && data.product.length > 0) {
+                                $("#inputcontent tbody").children().not(
+                                    '#dynamic-fields').remove();
+                                data.product.forEach(function(product) {
+                                    var newRow = createProductRow(product,
+                                        "PXK");
+                                    $("#inputcontent tbody").append(newRow);
+                                });
+                            }
+                        }
+                        if (page == "DHNCC") {
+                            $("#datePicker").val(formatDate(data.import
+                                .created_at));
+                            $("#hiddenDateInput").val(formatDate1(data.import
+                                .created_at));
+                            $("#myInput").val(data.import.provide_name_display);
+                            $(".debt-old").val(formatCurrency(data.import
+                                .provide_debt));
+                            $("input[name='quotation_number']").val(data.import
+                                .quotation_number);
+                            $("input[name='provides_name']").val(data.import
+                                .provide_name);
+                            $("input[name='provides_id']").val(data.import
+                                .provide_id);
+                            $("input[name='phone']").val(data.import
+                                .phone);
+                            $("input[name='reference_number']").val(data.import
+                                .reference_number);
+                            $("input[name='address']").val(data.import
+                                .address);
+                            $("#date_delivery").val(formatDate(data.import
+                                .date_delivery));
+                            $("#hiddenDateDelivery").val(data.import.date_delivery);
+                            $("select[name='id_sale']").val(data.import.id_sale);
+                            $("select[name='status_receive']").val(data.import
+                                .status_receive);
+                            //
+                            if (data.product && data.product.length > 0) {
+                                $("#inputcontent tbody").children().not(
+                                    '#dynamic-fields').remove();
+                                data.product.forEach(function(product) {
+                                    var newRow = createProductRow(product,
+                                        "DHNCC");
+                                    $("#inputcontent tbody").append(newRow);
+                                });
+                            }
+                            updateTaxAmount();
+                            calculateTotalAmount();
+                            calculateTotalTax();
+                            calculateGrandTotal();
+                            calculateAll();
+                        }
+                        if (page == "PNK") {
+                            $("input[name='quotation_number']").val(data.receive
+                                .quotation_number);
+                            $("input[name='provides_name']").val(data.receive
+                                .provide_name_display);
+                            $("input[name='provide_id']").val(data.receive
+                                .provide_id);
+                            $("input[name='shipping_unit']").val(data.receive
+                                .shipping_unit);
+                            $("input[name='delivery_charges']").val(formatCurrency(
+                                data.receive.delivery_charges));
+                            $("#datePicker").val(formatDate(data.receive
+                                .ngayNH));
+                            $("#hiddenDateInput").val(formatDate1(data.receive
+                                .ngayNH));
+                            //
+                            if (data.product && data.product.length > 0) {
+                                $("#inputcontent tbody").children().not(
+                                    '#dynamic-fields').remove();
+                                data.product.forEach(function(product) {
+                                    var newRow = createProductRow(product,
+                                        "PNK");
+                                    $("#inputcontent tbody").append(newRow);
+                                });
+                            }
+                        }
+                        if (page == "PT") {
+                            $("#myGuest").val(data.cashReceipt.guest
+                                .guest_name_display);
+                            $("#guest_id").val(data.cashReceipt.guest
+                                .id);
+                            $("input[name='payer']").val(data.cashReceipt
+                                .payer);
+                            $("input[name='total']").val(formatCurrency(data
+                                .cashReceipt
+                                .amount));
+                            $("#myContent").val(data.cashReceipt.content
+                                .name);
+                            $("#content_id").val(data.cashReceipt.content
+                                .id);
+                            $("#fund").val(data.cashReceipt.fund
+                                .name);
+                            $("#fund_id").val(data.cashReceipt.fund
+                                .id);
+                            $("input[name='note']").val(data.cashReceipt
+                                .note);
+                            $("#money_reciept").val(formatCurrency(data.cashReceipt
+                                .guest
+                                .guest_debt));
+                            $(".cash_reciept").show();
+                        }
+                        $("#inputcontent").on("click", ".delete-product",
+                            function() {
+                                $(this).closest("tr").remove();
+                                calculateTotals();
+                            });
+                    }
+                });
             });
         });
     });

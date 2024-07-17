@@ -75,10 +75,10 @@ class ProductImport extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
 
-            if (!isset($data['id_import']) && $columQuote == "receive_qty" && $productGuarantee && $productGuarantee->product_guarantee == null && $productGuarantee->type == 1) {
-                $productGuarantee->product_guarantee = $data['product_guarantee'][$i];
-                $productGuarantee->save();
-            }
+            // if (!isset($data['id_import']) && $columQuote == "receive_qty" && $productGuarantee && $productGuarantee->product_guarantee == null && $productGuarantee->type == 1) {
+            //     $productGuarantee->product_guarantee = $data['product_guarantee'][$i];
+            //     $productGuarantee->save();
+            // }
 
 
             if ($product) {
@@ -200,7 +200,7 @@ class ProductImport extends Model
                     'product_unit' => $data['product_unit'][$i],
                     'product_price_import' => str_replace(',', '', $data['price_export'][$i]),
                     'product_tax' => $data['product_tax'][$i],
-                    'check_seri' => $data['cbSeri'][$i],
+                    'check_seri' => isset($data['cbSeri']) ? $data['cbSeri'][$i] : 0,
                     'workspace_id' => Auth::user()->current_workspace,
                     'user_id' => Auth::user()->id,
                     'group_id' => 0,

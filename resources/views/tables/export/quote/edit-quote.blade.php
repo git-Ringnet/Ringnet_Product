@@ -193,7 +193,7 @@
                                 style="flex:2;" <?php if ($detailExport->tinhTrang != 1) {
                                     echo 'readonly';
                                 } ?> value="{{ $detailExport->quotation_number }}"
-                                name="quotation_number" readonly />
+                                name="quotation_number" />
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">

@@ -53,12 +53,14 @@ class ReceiveController extends Controller
         $perPage = 10;
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $receive = Receive_bill::where('receive_bill.workspace_id', Auth::user()->current_workspace)->orderBy('receive_bill.id', 'desc');
+        $receive = Receive_bill::where('receive_bill.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('provides', 'receive_bill.provide_id', 'provides.id')
+            ->orderBy('receive_bill.id', 'desc');
         if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
             $receive->join('detailimport', 'detailimport.id', 'receive_bill.detailimport_id')
                 ->where('detailimport.user_id', Auth::user()->id);
         }
-        $receive->select('receive_bill.*');
+        $receive->select('receive_bill.*', 'provides.provide_name_display');
         $receive = $receive->get();
         $users = $this->receive->getUserInReceive();
 
@@ -75,16 +77,16 @@ class ReceiveController extends Controller
         $title = "Tạo phiếu nhập kho";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $listDetail = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
+        $listDetailImport = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
             ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.receive_qty,0)'))
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->orderBy('id', 'desc')
             ->distinct();
         if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
-            $listDetail->where('detailimport.user_id', Auth::user()->id);
+            $listDetailImport->where('detailimport.user_id', Auth::user()->id);
         }
-        $listDetail = $listDetail->get();
+        $listDetailImport = $listDetailImport->get();
         $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
 
 
@@ -116,7 +118,18 @@ class ReceiveController extends Controller
 
         $invoicenumber = "PNK{$countFormattedInvoice}-{$currentDate}";
         $code = $invoicenumber;
-        return view('tables.receive.insertReceive', compact('title', 'listDetail', 'workspacename', 'provide', 'code'));
+
+        //
+        $listDetail = Receive_bill::where('receive_bill.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('provides', 'receive_bill.provide_id', 'provides.id')
+            ->orderBy('receive_bill.id', 'desc');
+        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+            $listDetail->join('detailimport', 'detailimport.id', 'receive_bill.detailimport_id')
+                ->where('detailimport.user_id', Auth::user()->id);
+        }
+        $listDetail->select('receive_bill.*', 'provides.provide_name_display');
+        $listDetail = $listDetail->get();
+        return view('tables.receive.insertReceive', compact('title', 'listDetailImport', 'workspacename', 'provide', 'code', 'listDetail'));
     }
 
     /**
@@ -256,7 +269,8 @@ class ReceiveController extends Controller
                 'quoteimport.promotion',
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total'),
             )
-            ->with('getSerialNumber')->get();
+            ->with('getSerialNumber')
+            ->get();
         return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename', 'nameRepresent', 'detail', 'listDetail'));
     }
 
@@ -315,9 +329,11 @@ class ReceiveController extends Controller
     public function show_receive(Request $request)
     {
         $data = [];
-        $detail = DetailImport::FindOrFail($request->detail_id);
+        $detail = DetailImport::where('detailimport.id', $request->detail_id)
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->first();
         if ($detail) {
-            $nameProvide = $detail->provide_name;
+            $nameProvide = $detail->provide_name_display;
             $nameRepresent = $detail->represent_name;
         }
         if ($request->table == "receive") {

@@ -162,7 +162,9 @@ class DeliveryController extends Controller
         $invoicenumber = "PXK{$countFormattedInvoice}-{$currentDate}";
         $invoice = $invoicenumber;
 
-        return view('tables.export.delivery.create-delivery', compact('title', 'guest', 'invoice', 'numberQuote', 'product', 'workspacename'));
+        //
+        $listDetail = $this->delivery->listDelivery();
+        return view('tables.export.delivery.create-delivery', compact('title', 'guest', 'invoice', 'numberQuote', 'product', 'workspacename','listDetail'));
     }
 
     /**
@@ -302,67 +304,7 @@ class DeliveryController extends Controller
             ->get();
         $quoteExport = $this->detailExport->getProductToId($delivery->detailexport_id);
 
-        $listDetail = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
-            ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
-            ->select(
-                'delivery.id',
-                'delivery.guest_id',
-                'delivery.quotation_number',
-                'delivery.code_delivery',
-                'delivery.shipping_unit',
-                'delivery.shipping_fee',
-                'delivery.id as maGiaoHang',
-                'delivery.created_at as ngayGiao',
-                'delivery.status as trangThai',
-                'users.name',
-                'detailexport.guest_name',
-                'delivery.promotion',
-                'guest.guest_name_display as nameGuest',
-                'delivery.totalVAT as totalVAT',
-                DB::raw('(
-                        SELECT 
-                            CASE 
-                                WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) != 0 THEN 
-                                    CASE 
-                                        WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 1 THEN 
-                                            (COALESCE(SUM(product_total_vat), 0) - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) * (1 + (COALESCE(MAX(products.product_tax), 0) / 100)) -- Giảm số tiền trực tiếp và áp dụng thuế
-                                        WHEN JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.type")) = 2 THEN 
-                                            ((COALESCE(SUM(product_total_vat), 0) * (100 - CAST(JSON_UNQUOTE(JSON_EXTRACT(delivery.promotion, "$.value")) AS DECIMAL)) / 100)) * (1 + (COALESCE(MAX(products.product_tax), 0) / 100)) -- Giảm phần trăm trên tổng giá trị sản phẩm và áp dụng thuế
-                                        ELSE 
-                                            COALESCE(SUM(product_total_vat), 0) -- Không có khuyến mãi
-                                    END
-                                ELSE
-                                    COALESCE(SUM(product_total_vat), 0) -- Giá trị ban đầu nếu $.value = 0
-                            END
-                        FROM delivered 
-                        LEFT JOIN products ON delivered.product_id = products.id
-                        WHERE delivered.delivery_id = delivery.id
-                    ) as totalProductVat')
-            )
-            ->leftJoin('users', 'users.id', 'delivery.user_id')
-            ->where('delivery.workspace_id', Auth::user()->current_workspace)
-            ->groupBy(
-                'delivery.id',
-                'delivery.guest_id',
-                'delivery.quotation_number',
-                'delivery.code_delivery',
-                'delivery.shipping_unit',
-                'delivery.shipping_fee',
-                'users.name',
-                'delivery.created_at',
-                'delivery.status',
-                'detailexport.guest_name',
-                'delivery.totalVAT',
-                'guest.guest_name_display',
-                'delivery.promotion',
-            )
-            ->orderBy('delivery.id', 'desc');
-        if (Auth::check()) {
-            if (Auth::user()->getRoleUser->roleid == 4) {
-                $listDetail->where('delivery.user_id', Auth::user()->id);
-            }
-        }
-        $listDetail = $listDetail->get();
+        $listDetail = $this->delivery->listDelivery();
         return view('tables.export.delivery.watch-delivery', compact('title', 'quoteExport', 'delivery', 'product', 'serinumber', 'workspacename', 'listDetail'));
     }
 
@@ -437,7 +379,7 @@ class DeliveryController extends Controller
         $data = $request->all();
         $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            // ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             // ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
             ->first();
         $lastDeliveryId = DB::table('delivery')

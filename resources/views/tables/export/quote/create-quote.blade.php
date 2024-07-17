@@ -208,7 +208,7 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
                                 <input
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;"
-                                    name="quotation_number" readonly />
+                                    name="quotation_number" />
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
@@ -318,7 +318,7 @@
                     </div>
                     <div class="container-fluided">
                         <section class="content">
-                            <table class="table">
+                            <table class="table" id="inputcontent">
                                 <thead>
                                     <tr style="height:44px;">
                                         <th class="border-right px-2 p-0" style="width: 16%">
@@ -1194,7 +1194,8 @@
                 '<input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]" >' +
                 //'<ul id="listWarehouse" class="listWarehouse bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
                 //"</ul>" +
-                '</td>');
+                '</td>'
+            );
             const ghiChu = $(
                 "<td class='border-right note p-2 align-top border-bottom border-top-0'>" +
                 "<input type='text' class='text-13-black border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú' name='product_note[]'>" +

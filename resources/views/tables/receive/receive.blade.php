@@ -306,13 +306,7 @@
                                                 </td>
 
                                                 <td class="text-13-black border-top-0 border-bottom text-wrap">
-                                                    @if (isset($item->getQuotation))
-                                                        {{ $item->getQuotation->provide_name }}
-                                                    @else
-                                                        @if (isset($item->getNameProvide))
-                                                            {{ $item->getNameProvide->provide_name_display }}
-                                                        @endif
-                                                    @endif
+                                                    {{ $item->provide_name_display }}
                                                 </td>
                                                 @can('isAdmin')
                                                     <td class="text-13-black border-top-0 border-bottom">
