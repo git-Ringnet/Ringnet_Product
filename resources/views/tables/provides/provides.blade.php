@@ -18,6 +18,17 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
+                    <form id="exportForm" action="{{ route('excelProvides') }}" method="GET" style="display: none;">
+                        @csrf
+                    </form>
+
+                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                        onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                        <button type="button" class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                            <i class="fa-regular fa-file-excel"></i>
+                            <span class="m-0 ml-1">Xuất Excel</span>
+                        </button>
+                    </a>
                     <a href="{{ route('provides.create', $workspacename) }}" class="user_flow mr-3" data-type="NCC"
                         data-des="Tạo mới">
                         <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
@@ -85,8 +96,8 @@
                                     <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
                                         style="z-index:">
                                         <div class="search-container px-2">
-                                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
-                                                onkeyup="filterFunction()" style="outline: none;">
+                                            <input type="text" placeholder="Tìm kiếm" id="myInput"
+                                                class="text-13" onkeyup="filterFunction()" style="outline: none;">
                                             <span class="search-icon mr-2">
                                                 <i class="fas fa-search"></i>
                                             </span>
@@ -136,12 +147,12 @@
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
                                         <tr style="height: 44px">
-                                            <th scope="col" class="border-bottom height-52"
+                                            <th scope="col" class="border-bottom border height-52"
                                                 style="padding-left: 2rem;width:5%;" class="pr-0">
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="border-bottom height-52">
+                                            <th scope="col" class="border-bottom border height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display" data-sort-type="DESC">
@@ -152,7 +163,7 @@
                                                     <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom height-52">
+                                            <th scope="col" class="border-bottom border height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display" data-sort-type="DESC">
@@ -164,7 +175,7 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="border-bottom height-52">
+                                            <th scope="col" class="border-bottom border height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
@@ -175,7 +186,7 @@
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom height-52">
+                                            <th scope="col" class="border-bottom border height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
@@ -186,7 +197,7 @@
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom height-52">
+                                            <th scope="col" class="border-bottom border height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
@@ -197,7 +208,7 @@
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom height-52">
+                                            <th scope="col" class="border-bottom border height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
@@ -208,7 +219,7 @@
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom height-52">
+                                            <th scope="col" class="border-bottom border height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
@@ -219,8 +230,8 @@
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom height-52">
-                                                <span class="d-flex">
+                                            <th scope="col" class="border-bottom border height-52">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
@@ -230,7 +241,7 @@
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
-                                            {{-- <th scope="col" class="border-bottom height-52">
+                                            {{-- <th scope="col" class="border-bottom border height-52">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_debt" data-sort-type="DESC">
@@ -241,7 +252,7 @@
                                                     <div class="icon" id="icon-provide_debt"></div>
                                                 </span>
                                             </th> --}}
-                                            {{-- <th class="border-bottom"
+                                            {{-- <th class="border-bottom border"
                                                 style="width:300px;border-bottom: 1px solid #dee2e6 !important;">
                                             </th> --}}
                                         </tr>
@@ -249,7 +260,7 @@
                                     <tbody class="tbody-provide">
                                         <tr>
                                             <td class="text-green" style="font-size: 16px; font-weight: 500"
-                                                colspan="14">Nhà cung cấp : Chưa chọn nhóm</td>
+                                                colspan="13">Nhà cung cấp : Chưa chọn nhóm</td>
                                         </tr>
                                         @php
                                             $total = 0;
@@ -258,7 +269,7 @@
                                             <tr class="position-relative provide-info height-52">
                                                 <input type="hidden" name="id-provide" class="id-provide"
                                                     id="id-provide" value="{{ $item->id }}">
-                                                <td class="border-top-0 border-bottom">
+                                                <td class="border border-bottom">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                             height="10" viewBox="0 0 6 10" fill="none">
@@ -279,42 +290,42 @@
                                                         name="ids[]" id="checkbox" value=""
                                                         onclick="event.stopPropagation();">
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom">
+                                                <td class="text-13-black border border-bottom">
                                                     {{ $item->key }}
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom text-wrap">
+                                                <td class="text-13-black border border-bottom text-wrap">
                                                     <a href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
                                                         class="user_flow" data-type="NCC"
                                                         data-des="Xem nhà cung cấp">
                                                         {{ $item->provide_name_display }}
                                                     </a>
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom">
+                                                <td class="text-13-black border border-bottom">
                                                     {{ $item->provide_address }}
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom">
+                                                <td class="text-13-black border border-bottom">
                                                     {{ $item->provide_phone }}
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom">
+                                                <td class="text-13-black border border-bottom">
                                                     {{ $item->provide_code }}
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom">
+                                                <td class="text-13-black border border-bottom">
                                                     {{ $item->provide_email }}
                                                 </td>
-                                                {{-- <td class="text-13-black border-top-0 border-bottom">
+                                                {{-- <td class="text-13-black border border-bottom">
                                                     {{ $item->provide_fax }}
                                                 </td> --}}
-                                                <td class="text-13-black border-top-0 border-bottom">
+                                                <td class="text-13-black border border-bottom">
                                                     {{ number_format($item->quota_debt) }}
                                                 </td>
-                                                {{-- <td class="text-13-black border-top-0 border-bottom">
+                                                {{-- <td class="text-13-black border border-bottom">
                                                     {{ number_format($item->quota_debt) }}
                                                 </td> --}}
-                                                <td class="text-13-black text-right border-top-0 border-bottom">
+                                                <td class="text-13-black text-right border border-bottom">
                                                     {{ number_format($item->provide_debt) }}
                                                 </td>
                                                 {{-- @can('isAdmin')
-                                                    <td class="text-13-black border-top-0 border-bottom">
+                                                    <td class="text-13-black border border-bottom">
                                                         @if ($item->getNameUser)
                                                             {{ $item->getNameUser->name }}
                                                         @endif
@@ -391,7 +402,7 @@
                                         @foreach ($groups as $value)
                                             <tr>
                                                 <td class="text-green" style="font-size: 16px; font-weight: 500"
-                                                    colspan="14">Nhà cung cấp : {{ $value->name }}</td>
+                                                    colspan="13">Nhà cung cấp : {{ $value->name }}</td>
                                             </tr>
                                             @if ($value->getAllProvides)
                                                 @php
@@ -401,7 +412,7 @@
                                                     <tr class="position-relative provide-info height-52">
                                                         <input type="hidden" name="id-provide" class="id-provide"
                                                             id="id-provide" value="{{ $item->id }}">
-                                                        <td class="border-top-0 border-bottom">
+                                                        <td class="border border-bottom">
                                                             <span class="margin-Right10">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                                     height="10" viewBox="0 0 6 10" fill="none">
@@ -422,41 +433,39 @@
                                                                 name="ids[]" id="checkbox" value=""
                                                                 onclick="event.stopPropagation();">
                                                         </td>
-                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                        <td class="text-13-black border border-bottom">
                                                             {{ $item->key }}
                                                         </td>
-                                                        <td class="text-13-black border-top-0 border-bottom text-wrap">
+                                                        <td class="text-13-black border border-bottom text-wrap">
                                                             <a href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
                                                                 class="user_flow" data-type="NCC"
                                                                 data-des="Xem nhà cung cấp">
                                                                 {{ $item->provide_name_display }}
                                                             </a>
                                                         </td>
-                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                        <td class="text-13-black border border-bottom">
                                                             {{ $item->provide_address }}
                                                         </td>
-                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                        <td class="text-13-black border border-bottom">
                                                             {{ $item->provide_phone }}
                                                         </td>
-                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                        <td class="text-13-black border border-bottom">
                                                             {{ $item->provide_code }}
                                                         </td>
-                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                        <td class="text-13-black border border-bottom">
                                                             {{ $item->provide_email }}
                                                         </td>
-                                                        {{-- <td class="text-13-black border-top-0 border-bottom">
+                                                        {{-- <td class="text-13-black border border-bottom">
                                                             {{ $item->provide_fax }}
                                                         </td> --}}
-                                                        <td class="text-13-black border-top-0 border-bottom">
+                                                        <td class="text-13-black border border-bottom">
                                                             {{ number_format($item->quota_debt) }}
                                                         </td>
-                                                        <td
-                                                            class="text-13-black text-right border-top-0 border-bottom">
+                                                        <td class="text-13-black text-right border border-bottom">
                                                             {{ number_format($item->provide_debt) }}
                                                         </td>
-                                                        <td class="text-13-black border-top-0 border-bottom"></td>
                                                         {{-- @can('isAdmin')
-                                                            <td class="text-13-black border-top-0 border-bottom">
+                                                            <td class="text-13-black border border-bottom">
                                                                 @if ($item->getNameUser)
                                                                     {{ $item->getNameUser->name }}
                                                                 @endif
@@ -533,7 +542,7 @@
                                                 <td class="text-right" style="color: red">Có {{ $total }} nhà
                                                     cung
                                                     cấp</td>
-                                                <td colspan="14"></td>
+                                                <td colspan="13"></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

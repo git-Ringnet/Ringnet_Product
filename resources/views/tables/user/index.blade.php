@@ -16,6 +16,17 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
+                    <form id="exportForm" action="{{ route('exportUsers') }}" method="GET" style="display: none;">
+                        @csrf
+                    </form>
+
+                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                        onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                        <button type="button" class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                            <i class="fa-regular fa-file-excel"></i>
+                            <span class="m-0 ml-1">Xuất Excel</span>
+                        </button>
+                    </a>
                     <a href="{{ route('users.create', ['workspace' => $workspacename]) }}" class="activity mr-3"
                         data-name1="KH" data-des="Tạo mới">
                         <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
@@ -47,7 +58,7 @@
                             <table id="example2" class="table table-hover bg-white rounded">
                                 <thead class="border-custom">
                                     <tr style="height: 44px;">
-                                        <th class="height-52" scope="col" style="">
+                                        <th class="height-52 border" scope="col" style="">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="group_name_display" data-sort-type="DESC">
@@ -58,7 +69,7 @@
                                                 <div class="icon" id="icon-group_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="">
+                                        <th class="height-52 border" scope="col" style="">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="group_type"
                                                     data-sort-type="DESC">
@@ -69,7 +80,7 @@
                                                 <div class="icon"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="">
+                                        <th class="height-52 border" scope="col" style="">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="group_type"
                                                     data-sort-type="DESC">
@@ -80,10 +91,10 @@
                                                 <div class="icon"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="">
+                                        <th class="height-52 border" scope="col" style="">
                                             <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit" data-sort-by="group_type"
-                                                    data-sort-type="DESC">
+                                                <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="group_type" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
                                                         <span class="text-13">Địa chỉ</span>
                                                     </button>
@@ -91,7 +102,7 @@
                                                 <div class="icon"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="">
+                                        <th class="height-52 border" scope="col" style="">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="group_type" data-sort-type="DESC">
@@ -102,7 +113,7 @@
                                                 <div class="icon"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="">
+                                        <th class="height-52 border" scope="col" style="">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="group_type" data-sort-type="DESC">
@@ -121,20 +132,20 @@
                                     @endphp
                                     @foreach ($users as $item)
                                         <tr class="position-relative group-info height-52">
-                                            <td class="text-13-black border-bottom border-top-0">
+                                            <td class="text-13-black border border-top-0">
                                                 {{ $stt++ }}
                                             </td>
-                                            <td class="text-13-black border-bottom border-top-0">{{ $item->user_code }}
+                                            <td class="text-13-black border border-top-0">{{ $item->user_code }}
                                             </td>
-                                            <td class="text-13-black border-bottom border-top-0">
+                                            <td class="text-13-black border border-top-0">
                                                 {{ $item->name }}</td>
-                                            <td class="text-13-black border-bottom border-top-0">
+                                            <td class="text-13-black border border-top-0">
                                                 {{ $item->address }}
                                             </td>
-                                            <td class="text-13-black border-bottom border-top-0">
+                                            <td class="text-13-black border border-top-0">
                                                 {{ $item->phone_number }}
                                             </td>
-                                            <td class="text-13-black border-bottom border-top-0">
+                                            <td class="text-13-black border border-top-0">
                                                 {{ $item->email }}
                                             </td>
                                             <td class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">

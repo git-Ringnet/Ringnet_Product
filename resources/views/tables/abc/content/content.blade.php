@@ -17,6 +17,17 @@
                 <span class="font-weight-bold text-secondary">Nội dung thu chi</span>
             </div>
             <div class="d-flex content__heading--right">
+                <form id="exportForm" action="{{ route('exportContent') }}" method="GET" style="display: none;">
+                    @csrf
+                </form>
+
+                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                    <button type="button" class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                        <i class="fa-regular fa-file-excel"></i>
+                        <span class="m-0 ml-1">Xuất Excel</span>
+                    </button>
+                </a>
                 <a href="{{ route('content.create', $workspacename) }}" class="mr-1">
                     <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                         <svg width="12" height="12" viewBox="0 0 18 18" fill="none"
@@ -80,7 +91,8 @@
                                         </svg>
                                         </span>
                                     </button>
-                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <div class="dropdown-menu" id="dropdown-menu"
+                                        aria-labelledby="dropdownMenuButton">
                                         <div class="search-container px-2">
                                             <input type="text" placeholder="Tìm kiếm" id="myInput"
                                                 onkeyup="filterFunction()" class="text-13">

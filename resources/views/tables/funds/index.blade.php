@@ -16,6 +16,17 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
+                    <form id="exportForm" action="{{ route('exportFunds') }}" method="GET" style="display: none;">
+                        @csrf
+                    </form>
+
+                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                        onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                        <button type="button" class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                            <i class="fa-regular fa-file-excel"></i>
+                            <span class="m-0 ml-1">Xuất Excel</span>
+                        </button>
+                    </a>
                     <a href="{{ route('funds.create', ['workspace' => $workspacename]) }}" class="activity mr-3"
                         data-name1="KH" data-des="Tạo mới">
                         <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
@@ -35,92 +46,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class="content-filter-all">
-        <div class="bg-filter-search pl-4 border-bottom-0">
-            <div class="content-wrapper1 py-2">
-                <div class="row m-auto filter p-0">
-                    <div class="w-100">
-                        <div class="row mr-0">
-                            <div class="col-md-5 d-flex align-items-center">
-                                <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
-                                        <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
-                                            style="outline: none;" class="pr-4 w-100 input-search text-13"
-                                            value="{{ request()->keywords }}" />
-                                        <span id="search-icon" class="search-icon">
-                                            <i class="fas fa-search btn-submit"></i>
-                                        </span>
-                                        <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
-                                            style="display: none;" />
-                                    </div>
-                                </form>
-                                <div class="dropdown mx-2 filter-all">
-                                    <button class="btn-filter_search" data-toggle="dropdown">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
-                                                fill="#6D7075" />
-                                        </svg>
-                                        <span class="text-btnIner">Bộ lọc</span>
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                                fill="#6B6F76" />
-                                        </svg>
-                                    </button>
-                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                        style="z-index:">
-                                        <div class="search-container px-2">
-                                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
-                                                onkeyup="filterFunction()" style="outline: none;">
-                                            <span class="search-icon mr-2">
-                                                <i class="fas fa-search"></i>
-                                            </span>
-                                        </div>
-                                        <div class="scrollbar">
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-groups"
-                                                data-button="groups" type="button">Công ty
-                                            </button>
-                                            @can('isAdmin')
-                                                <button class="dropdown-item btndropdown text-13-black" id="btn-users"
-                                                    data-button="users" type="button">Người tạo
-                                                </button>
-                                            @endcan
-                                            <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-group_code" data-button="group_code" type="button">Mã số
-                                                thuế
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-debt"
-                                                data-button="debt" type="button">
-                                                Dư nợ
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <x-filter-text name="group_code" title="Mã số thuế" />
-                                    <x-filter-checkbox :dataa='$groups' name="groups" title="Công ty"
-                                        namedisplay="group_name_display" />
-                                    <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
-                                        namedisplay="name" />
-                                    <x-filter-compare name="debt" title="Dư nợ" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="content margin-top-75">
         <section class="content">
             <div class="container-fluided">
@@ -133,7 +58,7 @@
                             <table id="example2" class="table table-hover bg-white rounded">
                                 <thead class="border-custom">
                                     <tr style="height: 44px;">
-                                        <th class="height-52" scope="col" style="">
+                                        <th class="height-52 border" scope="col" style="">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="group_name_display" data-sort-type="DESC">
@@ -144,7 +69,7 @@
                                                 <div class="icon" id="icon-group_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="">
+                                        <th class="height-52 border" scope="col" style="">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="group_type"
                                                     data-sort-type="DESC">
@@ -155,7 +80,7 @@
                                                 <div class="icon"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="">
+                                        <th class="height-52 border" scope="col" style="">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="group_type"
                                                     data-sort-type="DESC">
@@ -166,10 +91,10 @@
                                                 <div class="icon"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="">
+                                        <th class="height-52 border" scope="col" style="">
                                             <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit" data-sort-by="group_type"
-                                                    data-sort-type="DESC">
+                                                <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="group_type" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
                                                         <span class="text-13">Ngày bắt đầu</span>
                                                     </button>
@@ -185,15 +110,15 @@
                                     @endphp
                                     @foreach ($funds as $fund)
                                         <tr class="position-relative group-info height-52">
-                                            <td class="text-13-black border-bottom border-top-0">
+                                            <td class="text-13-black border-bottom border">
                                                 {{ $stt++ }}
                                             </td>
-                                            <td class="text-13-black border-bottom border-top-0">{{ $fund->name }}
+                                            <td class="text-13-black border-bottom border">{{ $fund->name }}
                                             </td>
-                                            <td class="text-13-black border-bottom border-top-0">
+                                            <td class="text-13-black border-bottom border">
                                                 {{ number_format($fund->amount) }}</td>
-                                            <td class="text-13-black border-bottom border-top-0">
-                                                {{ $fund->start_date }}</td>
+                                            <td class="text-13-black border-bottom border">
+                                                {{ date_format(new DateTime($fund->start_date), 'd/m/Y') }}</td>
                                             <td class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                 <div class="d-flex w-100">
                                                     <a href="{{ route('funds.show', $fund->id) }}">

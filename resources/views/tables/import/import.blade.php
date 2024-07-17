@@ -278,7 +278,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-import">
-                                        @php 
+                                        @php
                                             $total = 0;
                                         @endphp
                                         @foreach ($import as $item)
@@ -678,7 +678,7 @@
     <div class="position-relative margin-250">
         <div class="position-absolute px-4 pt-1 border bg-white" style="right: 0">
             <span class="text-danger font-weight-bold">
-                {{ number_format($total)}}
+                {{ number_format($total) }}
             </span>
         </div>
     </div>

@@ -17,6 +17,17 @@
                 <span class="font-weight-bold text-secondary">Hàng hóa</span>
             </div>
             <div class="d-flex content__heading--right">
+                <form id="exportForm" action="{{ route('exportProducts') }}" method="GET" style="display: none;">
+                    @csrf
+                </form>
+
+                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                    <button type="button" class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                        <i class="fa-regular fa-file-excel"></i>
+                        <span class="m-0 ml-1">Xuất Excel</span>
+                    </button>
+                </a>
                 <a href="{{ route('inventory.create', $workspacename) }}" class="mr-1">
                     <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                         <svg width="12" height="12" viewBox="0 0 18 18" fill="none"
@@ -80,7 +91,8 @@
                                         </svg>
                                         </span>
                                     </button>
-                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <div class="dropdown-menu" id="dropdown-menu"
+                                        aria-labelledby="dropdownMenuButton">
                                         <div class="search-container px-2">
                                             <input type="text" placeholder="Tìm kiếm" id="myInput"
                                                 onkeyup="filterFunction()" class="text-13">
@@ -129,12 +141,11 @@
                         <table id="example2" class="table table-hover">
                             <thead class="sticky-head">
                                 <tr>
-                                    <th scope="col" class="border-bottom border-top-0"
-                                        style="width:5%;padding-left: 2rem;" class="border-top-0 bg-white">
+                                    <th scope="col" class="border-bottom border"
+                                        style="width:5%;padding-left: 2rem;" class="border bg-white">
                                         <input type="checkbox" name="all" id="checkall" class="checkall-btn">
-
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom"
+                                    <th scope="col" class="border bg-white pl-0 border-bottom"
                                         style="width: 10%;">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
@@ -147,7 +158,7 @@
                                             <div class="icon" id="icon-product_code"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
@@ -158,7 +169,7 @@
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
@@ -169,7 +180,7 @@
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom">
                                         <span class="d-flex justify-content-end">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
@@ -180,7 +191,7 @@
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom">
                                         <span class="d-flex justify-content-end">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
@@ -191,7 +202,7 @@
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom">
                                         <span class="d-flex justify-content-end">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
@@ -202,7 +213,7 @@
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom">
                                         <span class="d-flex justify-content-end">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
@@ -213,7 +224,7 @@
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom">
                                         <span class="d-flex justify-content-end">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
@@ -224,8 +235,7 @@
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom"
-                                        style="width: 14%;">
+                                    <th scope="col" class="border bg-white border-bottom" style="width: 14%;">
                                         <span class="d-flex justify-content-end">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_inventory" data-sort-type="DESC">
@@ -252,7 +262,7 @@
                                         onclick="handleRowClick('checkbox', event);">
                                         <input type="hidden" name="id-product" class="id-product" id="id-product"
                                             value="{{ $item->id }}">
-                                        <td class="border-bottom border-top-0">
+                                        <td class="border-bottom border">
                                             <span class="margin-Right10">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10"
                                                     viewBox="0 0 6 10" fill="none">
@@ -271,37 +281,37 @@
                                             <input type="checkbox" class="checkall-btn" name="ids[]"
                                                 id="checkbox" value="" onclick="event.stopPropagation();">
                                         </td>
-                                        <td class="py-2 text-13-black pl-0 border-bottom border-top-0">
+                                        <td class="py-2 text-13-black pl-0 border-bottom border">
                                             {{ $item->product_code }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0">
+                                        <td class="py-2 text-13-black border-bottom border">
                                             <a class="duongdan"
                                                 href="{{ route('inventory.show', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
                                                 {{ $item->product_name }}
                                             </a>
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0">
+                                        <td class="py-2 text-13-black border-bottom border">
                                             {{ $item->product_unit }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                        <td class="py-2 text-13-black border-bottom border text-right">
                                             {{ number_format($item->product_price_import) }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                        <td class="py-2 text-13-black border-bottom border text-right">
                                             {{ number_format($item->price_retail) }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                        <td class="py-2 text-13-black border-bottom border text-right">
                                             {{ number_format($item->price_wholesale) }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                        <td class="py-2 text-13-black border-bottom border text-right">
                                             {{ number_format($item->price_specialsale) }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                        <td class="py-2 text-13-black border-bottom border text-right">
                                             {{ number_format($item->product_weight) }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                        <td class="py-2 text-13-black border-bottom border text-right">
                                             {{ number_format($item->product_inventory) }}
                                         </td>
-                                        <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0"
+                                        <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border"
                                             style="right: 10px; top: 7px;">
                                             <div class="d-flex w-100">
                                                 <a
@@ -348,7 +358,7 @@
                                                 onclick="handleRowClick('checkbox', event);">
                                                 <input type="hidden" name="id-product" class="id-product"
                                                     id="id-product" value="{{ $item->id }}">
-                                                <td class="border-bottom border-top-0">
+                                                <td class="border-bottom border">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                             height="10" viewBox="0 0 6 10" fill="none">
@@ -369,37 +379,37 @@
                                                         id="checkbox" value=""
                                                         onclick="event.stopPropagation();">
                                                 </td>
-                                                <td class="py-2 text-13-black pl-0 border-bottom border-top-0">
+                                                <td class="py-2 text-13-black pl-0 border-bottom border">
                                                     {{ $item->product_code }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border-top-0">
+                                                <td class="py-2 text-13-black border-bottom border">
                                                     <a class="duongdan"
                                                         href="{{ route('inventory.show', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
                                                         {{ $item->product_name }}
                                                     </a>
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border-top-0">
+                                                <td class="py-2 text-13-black border-bottom border">
                                                     {{ $item->product_unit }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                                <td class="py-2 text-13-black border-bottom border text-right">
                                                     {{ number_format($item->product_price_import) }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                                <td class="py-2 text-13-black border-bottom border text-right">
                                                     {{ number_format($item->price_retail) }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                                <td class="py-2 text-13-black border-bottom border text-right">
                                                     {{ number_format($item->price_wholesale) }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                                <td class="py-2 text-13-black border-bottom border text-right">
                                                     {{ number_format($item->price_specialsale) }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                                <td class="py-2 text-13-black border-bottom border text-right">
                                                     {{ number_format($item->product_weight) }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border-top-0 text-right">
+                                                <td class="py-2 text-13-black border-bottom border text-right">
                                                     {{ number_format($item->product_inventory) }}
                                                 </td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0"
+                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border"
                                                     style="right: 10px; top: 7px;">
                                                     <div class="d-flex w-100">
                                                         <a

@@ -22,6 +22,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvidesController;
 use App\Http\Controllers\QuoteExportController;
 use App\Http\Controllers\DateFormController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\GroupsController;
 use App\Http\Controllers\InvitationController;
@@ -352,6 +353,16 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('{workspace}/viewReportReturnImport', [ReportController::class, 'viewReportReturnImport'])->name('viewReportReturnImport');
     Route::get('{workspace}/viewReportIEFunds', [ReportController::class, 'viewReportIEFunds'])->name('viewReportIEFunds');
     Route::get('{workspace}/viewReportIEEnventory', [ReportController::class, 'viewReportIEEnventory'])->name('viewReportIEEnventory');
+});
+// Xuất Excel
+Route::middleware([CheckLogin::class])->prefix('export')->group(function () {
+    Route::get('excelProvides', [ExcelController::class, 'exportProvides'])->name('excelProvides');
+    Route::get('excelGuests', [ExcelController::class, 'exportGuests'])->name('excelGuests');
+    Route::get('exportProducts', [ExcelController::class, 'exportProducts'])->name('exportProducts');
+    Route::get('exportFunds', [ExcelController::class, 'exportFunds'])->name('exportFunds');
+    Route::get('exportUsers', [ExcelController::class, 'exportUsers'])->name('exportUsers');
+    Route::get('exportWH', [ExcelController::class, 'exportWH'])->name('exportWH');
+    Route::get('exportContent', [ExcelController::class, 'exportContent'])->name('exportContent');
 });
 
 Route::middleware([CheckLogin::class])->group(function () {

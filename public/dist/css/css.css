@@ -1492,6 +1492,16 @@ input[type="number"] {
     text-wrap: nowrap;
 }
 
+.custom-btn-excel {
+    position: relative;
+    padding: 7px 8px;
+    background-color: #6e79d6;
+    border: 1px solid #6e79d6;
+    color: white;
+    border-radius: 5px;
+    text-wrap: nowrap;
+}
+
 .btn--remove {
     position: relative;
     padding: 7px 8px;

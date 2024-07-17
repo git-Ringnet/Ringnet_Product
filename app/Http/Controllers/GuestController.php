@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\GuestExport;
 use App\Models\DetailExport;
 use App\Models\Groups;
 use App\Models\Guest;
@@ -14,6 +15,7 @@ use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GuestController extends Controller
 {
