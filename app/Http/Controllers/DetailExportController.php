@@ -21,6 +21,7 @@ use App\Models\Project;
 use App\Models\Provides;
 use App\Models\QuoteExport;
 use App\Models\DateForm;
+use App\Models\PayOder;
 use App\Models\ProductImport;
 use App\Models\ProductWarehouse;
 use App\Models\QuoteImport;
@@ -1339,7 +1340,7 @@ class DetailExportController extends Controller
             $receive = Receive_bill::where('receive_bill.id', $request['id'])
                 ->leftJoin('detailimport', 'receive_bill.detailimport_id', 'detailimport.id')
                 ->leftJoin('provides', 'receive_bill.provide_id', 'provides.id')
-                ->select('detailimport.*','provides.provide_name_display','receive_bill.*','receive_bill.created_at as ngayNH')
+                ->select('detailimport.*', 'provides.provide_name_display', 'receive_bill.*', 'receive_bill.created_at as ngayNH')
                 ->first();
             $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
                 ->join('products', 'quoteimport.product_name', 'products.product_name')
@@ -1373,6 +1374,15 @@ class DetailExportController extends Controller
         if ($request->page == "PT") {
             $cashReceipt = CashReceipt::with(['guest', 'fund', 'user', 'content', 'workspace', 'delivery'])->findOrFail($request['id']);
             $data['cashReceipt'] = $cashReceipt;
+        }
+        if ($request->page == "PC") {
+            $payment = PayOder::where('pay_order.id', $request['id'])
+                ->leftJoin('provides','provides.id', 'pay_order.guest_id')
+                ->leftJoin('contentgroups','contentgroups.id', 'pay_order.content_pay')
+                ->leftJoin('funds','funds.id', 'pay_order.fund_id')
+                ->select('provides.*','contentgroups.*','funds.*','pay_order.*','contentgroups.name as content','funds.name as nameFund')
+                ->first();
+            $data['payment'] = $payment;
         }
         return $data;
     }

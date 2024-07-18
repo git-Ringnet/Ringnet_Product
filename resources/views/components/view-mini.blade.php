@@ -750,11 +750,10 @@
                                     $("#inputcontent tbody").append(newRow);
                                 });
                             }
-                            updateTaxAmount();
-                            calculateTotalAmount();
-                            calculateTotalTax();
-                            calculateGrandTotal();
-                            calculateAll();
+                            updateTaxAmount1();
+                            calculateTotalAmount1();
+                            calculateTotalTax1();
+                            calculateGrandTotal1();
                         }
                         if (page == "PNK") {
                             $("input[name='quotation_number']").val(data.receive
@@ -807,10 +806,41 @@
                                 .guest_debt));
                             $(".cash_reciept").show();
                         }
+                        if (page == "PC") {
+                            $("#datePicker").val(formatDate(data.payment
+                                .payment_date));
+                            $("#hiddenDateInput").val(data.payment.payment_date);
+                            $("#myGuest").val(data.payment.provide_name_display);
+                            $("#guest_id").val(data.payment.guest_id);
+                            $("input[name='payment_type']").val(data.payment
+                                .payment_type);
+                            $("input[name='total']").val(formatCurrency(data.payment
+                                .total));
+                            $("#myContent").val(data.payment
+                                .content);
+                            $("#content_id").val(data.payment
+                                .content_pay);
+                            $("input[name='search_funds']").val(data.payment
+                                .nameFund);
+                            $("input[name='fund_id']").val(data.payment
+                                .fund_id);
+                            $("input[name='note']").val(data.payment
+                                .note);
+                            $("input[name='total_bill']").val(formatCurrency(data
+                                .payment
+                                .provide_debt));
+                            $(".cash_reciept").show();
+                        }
                         $("#inputcontent").on("click", ".delete-product",
                             function() {
                                 $(this).closest("tr").remove();
-                                calculateTotals();
+                                if (page == "PBH") {
+                                    calculateTotals();
+                                } else {
+                                    calculateTotalAmount1();
+                                    calculateTotalTax1();
+                                    calculateGrandTotal1();
+                                }
                             });
                     }
                 });

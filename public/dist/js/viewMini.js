@@ -194,7 +194,63 @@ function formatNumber1(number) {
 }
 
 //
-function updateTaxAmount() {
+function calculateTotalAmount1() {
+    var totalAmount = 0;
+    $("tr").each(function () {
+        var rowTotal = parseFloat(
+            String($(this).find(".total_price").val()).replace(/[^0-9.-]+/g, "")
+        );
+        if (!isNaN(rowTotal)) {
+            totalAmount += rowTotal;
+        }
+    });
+    totalAmount = Math.round(totalAmount); // Làm tròn thành số nguyên
+    $("#total-amount-sum").text(formatCurrency(totalAmount));
+    calculateTotalTax1();
+    calculateGrandTotal1();
+}
+
+function calculateTotalTax1() {
+    var totalTax = 0;
+    $("tr").each(function () {
+        var rowTax = parseFloat(
+            $(this)
+                .find(".product_tax1")
+                .text()
+                .replace(/[^0-9.-]+/g, "")
+        );
+        if (!isNaN(rowTax)) {
+            totalTax += rowTax;
+        }
+    });
+    totalTax = Math.round(totalTax); // Làm tròn thành số nguyên
+    $("#product-tax").text(formatCurrency(totalTax));
+
+    calculateGrandTotal1();
+}
+
+function calculateGrandTotal1() {
+    var totalAmount = parseFloat(
+        $("#total-amount-sum")
+            .text()
+            .replace(/[^0-9.-]+/g, "")
+    );
+    var totalTax = parseFloat(
+        $("#product-tax")
+            .text()
+            .replace(/[^0-9.-]+/g, "")
+    );
+
+    var grandTotal = totalAmount + totalTax;
+    grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
+    $("#grand-total").text(formatCurrency(grandTotal));
+
+    // Update data-value attribute
+    $("#grand-total").attr("data-value", grandTotal);
+    $("#total").val(totalAmount);
+}
+
+function updateTaxAmount1() {
     $("#inputcontent tbody tr").each(function () {
         var productQty = parseFloat($(this).find(".quantity-input").val());
         var productPrice = $(this).find('input[name^="price_export"]').val();
@@ -226,139 +282,20 @@ function updateTaxAmount() {
                 }
                 $(this)
                     .closest("tr")
-                    .find(".total_price ")
+                    .find(".total_price")
                     .val(formatCurrency(totalAmount));
             } else {
                 var totalAmount = productQty * productPrice;
+                $(this)
+                    .closest("tr")
+                    .find(".total_price")
+                    .val(formatCurrency(totalAmount));
             }
 
             var taxAmount = (totalAmount * taxValue) / 100;
             $(this).find(".product_tax1").text(Math.round(taxAmount));
         }
     });
-}
-
-function calculateTotalAmount() {
-    var totalAmount = 0;
-    $("tr").each(function () {
-        var rowTotal = parseFloat(
-            String($(this).find(".total_price").val()).replace(/[^0-9.-]+/g, "")
-        );
-        if (!isNaN(rowTotal)) {
-            totalAmount += rowTotal;
-        }
-    });
-    totalAmount = Math.round(totalAmount); // Làm tròn thành số nguyên
-    $("#total-amount-sum").text(formatCurrency(totalAmount));
-    calculateTotalTax();
-    calculateGrandTotal();
-}
-
-function calculateTotalTax() {
-    var totalTax = 0;
-    $("tr").each(function () {
-        var rowTax = parseFloat(
-            $(this)
-                .find(".product_tax1")
-                .text()
-                .replace(/[^0-9.-]+/g, "")
-        );
-        if (!isNaN(rowTax)) {
-            totalTax += rowTax;
-        }
-    });
-    totalTax = Math.round(totalTax); // Làm tròn thành số nguyên
-    $("#product-tax").text(formatCurrency(totalTax));
-
-    calculateGrandTotal();
-}
-
-function calculateGrandTotal() {
-    var totalAmount = parseFloat(
-        $("#total-amount-sum")
-            .text()
-            .replace(/[^0-9.-]+/g, "")
-    );
-    var totalTax = parseFloat(
-        $("#product-tax")
-            .text()
-            .replace(/[^0-9.-]+/g, "")
-    );
-
-    var grandTotal = totalAmount + totalTax;
-    grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
-    $("#grand-total").text(formatCurrency(grandTotal));
-
-    // Update data-value attribute
-    $("#grand-total").attr("data-value", grandTotal);
-    $("#total").val(totalAmount);
-}
-
-function calculateAll() {
-    var total_amount =
-        $("#total-amount-sum")
-            .text()
-            .replace(/[^0-9.-]+/g, "") || 0;
-    var product_tax =
-        $("#product-tax")
-            .text()
-            .replace(/[^0-9.-]+/g, "") || 0;
-    var total = parseFloat(total_amount) + parseFloat(product_tax);
-    var option = $("[name^='promotion-option-total']").val();
-    var promotion = $("input[name^='promotion-total']").val();
-    if (promotion) {
-        promotion.replace(/[^0-9.-]+/g, "") || 0;
-    }
-    if (total_amount > 0) {
-        if ($("input[name^='promotion-total']")) {
-            var promotion =
-                $("input[name^='promotion-total']")
-                    .val()
-                    .replace(/[^0-9.-]+/g, "") || 0;
-        }
-
-        // Nếu cùng thuế sẽ tính lại tổng cộng
-        if (checkTaxAll()) {
-            if (promotion > 0) {
-                // Tính lại tổng tiền trước thuế
-                if (option == 1) {
-                    var calpromotion = parseFloat(total_amount - promotion);
-                } else {
-                    var calpromotion = parseFloat(
-                        total_amount - (total_amount * promotion) / 100
-                    );
-                }
-                // Lấy thuế đơn hàng
-                var taxAll = $(".product_tax").val();
-
-                // Thuế VAT tổng đơn
-                $("#product-tax").text(
-                    formatCurrency((calpromotion * taxAll) / 100)
-                );
-
-                // Tổng tiền
-                var cal = calpromotion + (calpromotion * taxAll) / 100;
-            } else {
-                updateTaxAmount();
-                calculateTotalTax();
-                var product_tax =
-                    $("#product-tax")
-                        .text()
-                        .replace(/[^0-9.-]+/g, "") || 0;
-                var cal = parseFloat(total_amount) + parseFloat(product_tax);
-            }
-        } else {
-            updateTaxAmount();
-            calculateTotalTax();
-            var product_tax =
-                $("#product-tax")
-                    .text()
-                    .replace(/[^0-9.-]+/g, "") || 0;
-            var cal = parseFloat(total_amount) + parseFloat(product_tax);
-        }
-        $("#grand-total").text(formatCurrency(cal));
-        $("#total_bill").val(cal);
-    }
 }
 
 //sản phẩm
@@ -438,7 +375,7 @@ function createProductRow(product, page) {
                 <input type='text' class='text-right border-0 px-2 py-1 w-100 ${
                     page == "DHNCC" ? "price_export" : "product_price"
                 } height-32' autocomplete='off' name='${
-        (page == "DHNCC" || page == "PNK") ? "price_export[]" : "product_price[]"
+        page == "DHNCC" || page == "PNK" ? "price_export[]" : "product_price[]"
     }' required value="${formatCurrency(product.price_export)}">
                 </div>
                 <a href='#'><div class='mt-3 text-right text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>
@@ -447,16 +384,18 @@ function createProductRow(product, page) {
                 page == "PXK" || page == "PNK" ? "d-none" : ""
             }'>
                 <div class='d-flex flex-column align-items-end'>
-                <input type='number' name='${
-                    (page == "DHNCC" || page == "PNK") ? "promotion[]" : "discount_input[]"
-                }' class='${
+                <input type='${page == "DHNCC" ? "text" : "number"}' name='${
+        page == "DHNCC" || page == "PNK" ? "promotion[]" : "discount_input[]"
+    }' class='${
         page == "DHNCC" ? "promotion" : "discount_input"
     } text-13-black py-1 w-100 height-32 mt-1 text-right' value="${promotionValue}" placeholder='Giá trị chiết khấu' style='border: none;'>
                 <div class="mt-3 text-13-blue text-right">
                 <select name='${
-                    (page == "DHNCC" || page == "PNK") ? "promotion-option[]" : "discount_option[]"
+                    page == "DHNCC" || page == "PNK"
+                        ? "promotion-option[]"
+                        : "discount_option[]"
                 }' class='${
-        page == "DHNCC" ? "promotion_option" : "discount_option"
+        page == "DHNCC" ? "promotion-option" : "discount_option"
     } border-0 mt-2'>
                 <option value='1' ${
                     promotionType == 1 ? "selected" : ""
@@ -487,7 +426,7 @@ function createProductRow(product, page) {
                 </select>
             </td>
             <td class='border-right p-2 text-13 align-top border-bottom border-top-0 ${
-                (page == "PXK" || page == "PNK") ? "d-none" : ""
+                page == "PXK" || page == "PNK" ? "d-none" : ""
             }'> 
                 <input type='text' readonly class='text-right border-0 px-2 py-1 w-100 ${
                     page == "DHNCC" ? "total_price" : "total-amount"
@@ -515,7 +454,7 @@ function createProductRow(product, page) {
                 <input type='text' class='text-13-black border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú' name='product_note[]'>
             </td>
             <td class='p-2 align-top activity border-bottom border-top-0 delete-product ${
-                (page == "PXK" || page == "PNK") ? "d-none" : ""
+                page == "PXK" || page == "PNK" ? "d-none" : ""
             }' data-name1='BG' data-des='Xóa sản phẩm'>
                 <svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
                 <path fill-rule='evenodd' clip-rule='evenodd' d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z' fill='#6B6F76'/>

@@ -62,8 +62,9 @@
             </div>
         </div>
         {{-- Thông tin sản phẩm --}}
-        <div class="content margin-top-117">
-            <section class="content">
+        <div class="content margin-top-75">
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PC'" />
+            <section class="content" id="main">
                 <div class="bg-filter-search border-0 text-center">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">
                         THÔNG TIN PHIẾU CHI
@@ -635,7 +636,6 @@
         console.log($(this));
     })
 
-
     function updateHiddenInput(selectedDate, instance, hiddenInputId) {
         // Lấy thời gian hiện tại
         var currentTime = new Date();
@@ -711,7 +711,6 @@
                     provide_id: detail_id,
                 },
                 success: function(data) {
-                    console.log(data);
                     var provideDebt = parseFloat(data['provide_debt']);
                     if (isNaN(provideDebt)) {
                         provideDebt = 0;

@@ -120,7 +120,16 @@ class PayOrderController extends Controller
 
         $getQuoteCount = $this->payment->getQuoteCount();
 
-        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'content', 'returnExport', 'getQuoteCount'));
+        $listDetail = PayOder::where('pay_order.workspace_id', Auth::user()->current_workspace)->orderBy('pay_order.id', 'desc');
+        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+            $listDetail->join('detailimport', 'detailimport.id', 'pay_order.detailimport_id')
+                ->where('detailimport.user_id', Auth::user()->id);
+        }
+        $listDetail->select('pay_order.*');
+
+        $listDetail = $listDetail->get();
+
+        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'content', 'returnExport', 'getQuoteCount', 'listDetail'));
     }
 
     /**
