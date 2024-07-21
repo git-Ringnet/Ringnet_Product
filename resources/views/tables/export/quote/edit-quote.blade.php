@@ -98,7 +98,7 @@
                                 Khách hàng
                             </span>
                             <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" name="guestName" readonly placeholder="Chọn thông tin"
+                                <input type="text" readonly placeholder="Chọn thông tin"
                                     <?php if ($detailExport->tinhTrang != 1) {
                                         echo 'disabled';
                                     } ?> value="{{ $detailExport->export_guest_name }}"
@@ -1964,6 +1964,8 @@
                     $('.nameGuest').val(data['guest'].guest_name_display);
                     $('.idGuest').val(data['guest'].id);
                     $('.debt-old').val(formatCurrency(data['guest'].guest_debt));
+                    $('input[name="guestName"]').val(data['guest'].guest_name);
+                    $('input[name="address_guest"]').val(data['guest'].guest_address);
                     $.ajax({
                         url: '{{ route('searchFormByGuestId') }}',
                         type: 'GET',

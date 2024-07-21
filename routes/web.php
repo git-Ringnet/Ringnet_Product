@@ -346,6 +346,8 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('{workspace}/viewReportBuy', [ReportController::class, 'viewReportBuy'])->name('viewReportBuy');
     Route::get('{workspace}/viewReportSumSellProfit', [ReportController::class, 'viewReportSumSellProfit'])->name('viewReportSumSellProfit');
     Route::get('{workspace}/viewReportDebtGuests', [ReportController::class, 'viewReportDebtGuests'])->name('viewReportDebtGuests');
+    //Chi tiết đơn của khách hàng
+    Route::get('{workspace}/viewReportInfoGuests/{id}', [ReportController::class, 'viewReportInfoGuests'])->name('viewReportInfoGuests');
 
     Route::get('{workspace}/viewReportProvides', [ReportController::class, 'viewReportProvides'])->name('viewReportProvides');
     Route::get('{workspace}/viewReportImport', [ReportController::class, 'viewReportImport'])->name('viewReportImport');

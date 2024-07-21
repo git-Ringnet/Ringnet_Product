@@ -225,6 +225,7 @@
                                                     $grandTotalChiKH = 0;
                                                     $grandTotalRemaining = 0;
                                                 @endphp
+
                                                 @foreach ($debtGuests as $item)
                                                     @if ($item->group_id == 0)
                                                         @php
@@ -237,7 +238,8 @@
                                                                 $item->totalCashReciept -
                                                                 ($item->totalReturn - $item->chiKH);
                                                         @endphp
-                                                        <tr class="position-relative relative ">
+                                                        <tr class="position-relative relative main-row"
+                                                            data-id="{{ $item->id }}">
                                                             <td class="text-13-black border height-52">
                                                                 {{ $item->maKhach }}</td>
                                                             <td class="text-13-black border height-52">
@@ -257,7 +259,7 @@
                                                     @endif
                                                 @endforeach
 
-                                                <tr class="position-relative relative ">
+                                                <tr class="position-relative relative">
                                                     <td class="text-green bold border height-52 text-right"
                                                         colspan="2">Tổng cộng:</td>
                                                     <td class="text-green bold border height-52">
@@ -297,7 +299,8 @@
                                                                     $item->totalCashReciept -
                                                                     ($item->totalReturn - $item->chiKH);
                                                             @endphp
-                                                            <tr class="position-relative relative ">
+                                                            <tr class="position-relative relative main-row"
+                                                                data-id="{{ $item->id }}">
                                                                 <td class="text-13-black border height-52">
                                                                     {{ $item->maKhach }}</td>
                                                                 <td class="text-13-black border height-52">
@@ -409,3 +412,22 @@
     </div>
 </div>
 <x-print-component :contentId="$title" />
+<script>
+    //
+    $(document).ready(function() {
+        $('#example2').on('contextmenu', '.main-row', function(e) {
+            e.preventDefault(); // Ngăn chặn menu chuột phải mặc định
+
+            var $row = $(this);
+            var guestId = $row.data('id');
+
+            // Tạo URL động với guestId
+            var url =
+                `{{ route('viewReportInfoGuests', ['workspace' => $workspacename, 'id' => 'GUEST_ID']) }}`
+                .replace('GUEST_ID', guestId);
+
+            // Mở tab mới với URL
+            window.open(url, '_blank');
+        });
+    });
+</script>

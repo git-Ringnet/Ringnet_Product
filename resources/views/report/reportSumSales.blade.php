@@ -202,7 +202,7 @@
                                                         $Remai = 0;
                                                         $totalPay = 0;
                                                         $totalRemai = 0;
-                                                        $stt = 1; // Khởi tạo biến STT
+                                                        $stt = 1; // Initialize the STT variable
                                                     @endphp
 
                                                     @foreach ($allDelivery as $itemDelivery)
@@ -210,7 +210,7 @@
                                                             $matchedItems = $productDelivered
                                                                 ->where('detailexport_id', $itemDelivery->id)
                                                                 ->where('guest_id', $item->id);
-                                                            $count = count($matchedItems);
+                                                            $count = $matchedItems->count();
                                                         @endphp
 
                                                         @if ($matchedItems->isNotEmpty())
@@ -226,45 +226,48 @@
                                                                 $totalPay += $Pay;
                                                                 $totalRemai += $Remai;
                                                             @endphp
-                                                            @foreach ($matchedItems as $item)
+
+                                                            @foreach ($matchedItems as $matchedItem)
                                                                 @php
-                                                                    $totalDeliverQty += $item->product_qty;
-                                                                    $totalPriceExport += $item->price_export;
-                                                                    $totalProductTotalVat += $item->product_total;
+                                                                    $totalDeliverQty += $matchedItem->product_qty;
+                                                                    $totalPriceExport += $matchedItem->price_export;
+                                                                    $totalProductTotalVat +=
+                                                                        $matchedItem->product_total;
                                                                 @endphp
                                                                 <tr class="position-relative relative">
                                                                     <input type="hidden"
                                                                         value="{{ $itemDelivery->id }}"
                                                                         class="sell">
-                                                                    <td rowspan="{{ $count }}"
-                                                                        class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                        {{ $loop->first ? $itemDelivery->maPhieu : '' }}
-                                                                    </td>
-                                                                    <td rowspan="{{ $count }}"
-                                                                        class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                        {{ $loop->first ? $itemDelivery->nameUser : '' }}
-                                                                    </td>
+                                                                    @if ($loop->first)
+                                                                        <td rowspan="{{ $count }}"
+                                                                            class="text-13-black height-52 border">
+                                                                            {{ $itemDelivery->maPhieu }}
+                                                                        </td>
+                                                                        <td rowspan="{{ $count }}"
+                                                                            class="text-13-black height-52 border">
+                                                                            {{ $itemDelivery->nameUser }}
+                                                                        </td>
+                                                                    @endif
                                                                     <td class="text-13-black height-52 border">
-                                                                        {{ $item->product_code }}
-                                                                    </td>
+                                                                        {{ $matchedItem->product_code }}</td>
                                                                     <td class="text-13-black height-52 border">
-                                                                        {{ $item->product_name }}
-                                                                    </td>
+                                                                        {{ $matchedItem->product_name }}</td>
                                                                     <td class="text-13-black height-52 border">
-                                                                        {{ $item->product_unit }}
-                                                                    </td>
+                                                                        {{ $matchedItem->product_unit }}</td>
                                                                     <td class="text-13-black height-52 border">
-                                                                        {{ number_format($item->product_qty) }}
+                                                                        {{ number_format($matchedItem->product_qty) }}
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
+
                                                             @php
-                                                                $stt++; // Tăng biến STT lên 1 sau mỗi hóa đơn
+                                                                $stt++; // Increment STT after each invoice
                                                             @endphp
                                                         @endif
                                                     @endforeach
                                                 @endif
                                             @endforeach
+
                                             @foreach ($groupGuests as $value)
                                                 <tr>
                                                     <td colspan="10" class="border-bottom bold">Nhóm khách hàng:
@@ -286,7 +289,7 @@
                                                             $Remai = 0;
                                                             $totalPay = 0;
                                                             $totalRemai = 0;
-                                                            $stt = 1; // Khởi tạo biến STT
+                                                            $stt = 1; // Initialize the STT variable
                                                         @endphp
 
                                                         @foreach ($allDelivery as $itemDelivery)
@@ -294,7 +297,7 @@
                                                                 $matchedItems = $productDelivered
                                                                     ->where('detailexport_id', $itemDelivery->id)
                                                                     ->where('guest_id', $item->id);
-                                                                $count = count($matchedItems);
+                                                                $count = $matchedItems->count();
                                                             @endphp
 
                                                             @if ($matchedItems->isNotEmpty())
@@ -310,40 +313,42 @@
                                                                     $totalPay += $Pay;
                                                                     $totalRemai += $Remai;
                                                                 @endphp
-                                                                @foreach ($matchedItems as $item)
+
+                                                                @foreach ($matchedItems as $matchedItem)
                                                                     @php
-                                                                        $totalDeliverQty += $item->product_qty;
-                                                                        $totalPriceExport += $item->price_export;
-                                                                        $totalProductTotalVat += $item->product_total;
+                                                                        $totalDeliverQty += $matchedItem->product_qty;
+                                                                        $totalPriceExport += $matchedItem->price_export;
+                                                                        $totalProductTotalVat +=
+                                                                            $matchedItem->product_total;
                                                                     @endphp
                                                                     <tr class="position-relative relative">
                                                                         <input type="hidden"
                                                                             value="{{ $itemDelivery->id }}"
                                                                             class="sell">
-                                                                        <td rowspan="{{ $count }}"
-                                                                            class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                            {{ $loop->first ? $itemDelivery->maPhieu : '' }}
-                                                                        </td>
-                                                                        <td rowspan="{{ $count }}"
-                                                                            class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                            {{ $loop->first ? $itemDelivery->nameUser : '' }}
-                                                                        </td>
+                                                                        @if ($loop->first)
+                                                                            <td rowspan="{{ $count }}"
+                                                                                class="text-13-black height-52 border">
+                                                                                {{ $itemDelivery->maPhieu }}
+                                                                            </td>
+                                                                            <td rowspan="{{ $count }}"
+                                                                                class="text-13-black height-52 border">
+                                                                                {{ $itemDelivery->nameUser }}
+                                                                            </td>
+                                                                        @endif
                                                                         <td class="text-13-black height-52 border">
-                                                                            {{ $item->product_code }}
-                                                                        </td>
+                                                                            {{ $matchedItem->product_code }}</td>
                                                                         <td class="text-13-black height-52 border">
-                                                                            {{ $item->product_name }}
-                                                                        </td>
+                                                                            {{ $matchedItem->product_name }}</td>
                                                                         <td class="text-13-black height-52 border">
-                                                                            {{ $item->product_unit }}
-                                                                        </td>
+                                                                            {{ $matchedItem->product_unit }}</td>
                                                                         <td class="text-13-black height-52 border">
-                                                                            {{ number_format($item->product_qty) }}
+                                                                            {{ number_format($matchedItem->product_qty) }}
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
+
                                                                 @php
-                                                                    $stt++; // Tăng biến STT lên 1 sau mỗi hóa đơn
+                                                                    $stt++; // Increment STT after each invoice
                                                                 @endphp
                                                             @endif
                                                         @endforeach

@@ -367,6 +367,20 @@ class QuoteExport extends Model
     public function sumProductsQuote()
     {
         $quoteE = QuoteExport::leftJoin('detailexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->where('quoteexport.status', 1)
+            ->select(
+                'detailexport.*',
+                'quoteexport.*',
+                'quoteexport.product_qty as slxuat',
+            )
+            ->get();
+        return $quoteE;
+    }
+    public function sumProductsQuoteByGuest($idGuest)
+    {
+        $quoteE = QuoteExport::leftJoin('detailexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->where('detailexport.guest_id', $idGuest)
+            ->where('quoteexport.status', 1)
             ->select(
                 'detailexport.*',
                 'quoteexport.*',

@@ -608,6 +608,8 @@
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
                 $('.debt-old').val(formatCurrency(data['provide'].provide_debt));
+                $('input[name="provides_name"]').val(data['provide'].provide_name);
+                $('input[name="address"]').val(data['provide'].provide_address);
                 $.ajax({
                     url: "{{ route('getDataForm') }}",
                     type: "get",

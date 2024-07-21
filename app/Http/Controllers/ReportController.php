@@ -558,9 +558,8 @@ class ReportController extends Controller
 
         $groups = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
         $debtGuests = $this->guest->debtGuest();
-        return view('report.debtGuests', compact('title', 'groups', 'debtGuests'));
+        return view('report.debtGuests', compact('title', 'groups', 'debtGuests', 'workspacename'));
     }
-
 
     public function viewReportProvides()
     {
@@ -570,6 +569,7 @@ class ReportController extends Controller
         $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         return view('report.debtProvides', compact('title', 'provide'));
     }
+
     public function viewReportIE()
     {
         $title = 'Tổng hợp nội dung thu chi';
@@ -704,8 +704,21 @@ class ReportController extends Controller
             ];
         }
 
-
         return view('report.reportIEEnventory', compact('title', 'htrImport'));
+    }
+
+    public function viewReportInfoGuests(Request $request)
+    {
+        $title = 'Thống kê công nợ khách hàng';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        // Lấy sản phẩm trong đơn đó
+        $productDelivered = $this->quoteE->sumProductsQuoteByGuest($request->id);
+        // Get All đơn
+        $allDelivery = $this->detailExport->getSumDetailEByGuest($request->id);
+        $guest = Guest::FindOrFail($request->id);
+
+        return view('report.infoGuests', compact('title', 'guest', 'productDelivered', 'allDelivery'));
     }
     /**
      * Show the form for creating a new resource.

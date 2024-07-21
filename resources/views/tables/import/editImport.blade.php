@@ -99,8 +99,7 @@
                                 <input type="text" placeholder="Chọn thông tin" {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
                                     value="{{ $import->provide_name_display }}"
                                     class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
-                                    style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required
-                                    name="provides_name" readonly>
+                                    style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required readonly>
                             </span>
                             @if ($import->status == 1)
                                 <div class="d-flex align-items-center justify-content-between border-0">
@@ -698,6 +697,8 @@
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
                 $('.debt-old').val(formatCurrency(data['provide'].provide_debt));
+                $('input[name="provides_name"]').val(data['provide'].provide_name);
+                $('input[name="address"]').val(data['provide'].provide_address);
 
                 $.ajax({
                     url: "{{ route('getDataForm') }}",

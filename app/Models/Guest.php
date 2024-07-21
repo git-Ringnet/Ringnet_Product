@@ -430,6 +430,7 @@ class Guest extends Model
             ->leftJoin('pay_order', 'return_export.id', '=', 'pay_order.return_id')
             ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->select(
+                'guest.id as id',
                 'guest.key as maKhach',
                 'guest.group_id as group_id',
                 'guest.guest_name_display as tenKhach',
