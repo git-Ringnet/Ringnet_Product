@@ -411,23 +411,53 @@
         </div>
     </div>
 </div>
+<div id="custom-context-menu" class="dropdown-menu"
+    style="display: none; background: #ffffff; position: absolute; width:13%;  padding: 3px 10px;  box-shadow: 0 0 10px -3px rgba(0, 0, 0, .3); border: 1px solid #ccc;">
+    <a class="dropdown-item text-13-black" href="#" data-option="donhang">Xem đơn hàng</a>
+    <a class="dropdown-item text-13-black" href="#" data-option="congno">Xem công nợ</a>
+</div>
 <x-print-component :contentId="$title" />
 <script>
     //
     $(document).ready(function() {
+        var $contextMenu = $("#custom-context-menu");
+        var $currentRow;
+
         $('#example2').on('contextmenu', '.main-row', function(e) {
             e.preventDefault(); // Ngăn chặn menu chuột phải mặc định
 
-            var $row = $(this);
-            var guestId = $row.data('id');
+            $currentRow = $(this);
+            var guestId = $currentRow.data('id');
 
-            // Tạo URL động với guestId
+            // Hiển thị menu tùy chỉnh tại vị trí con trỏ chuột
+            $contextMenu.css({
+                display: "block",
+                left: e.pageX,
+                top: e.pageY
+            }).data('guest-id', guestId);
+        });
+
+        // Ẩn menu tùy chỉnh khi nhấp ra ngoài
+        $(document).on("click", function() {
+            $contextMenu.hide();
+        });
+
+        // Xử lý sự kiện khi người dùng chọn một tùy chọn từ menu
+        $contextMenu.on("click", ".dropdown-item", function(e) {
+            e.preventDefault();
+            var option = $(this).data('option');
+            var guestId = $contextMenu.data('guest-id');
+
+            // Tạo URL động với guestId và option
             var url =
-                `{{ route('viewReportInfoGuests', ['workspace' => $workspacename, 'id' => 'GUEST_ID']) }}`
-                .replace('GUEST_ID', guestId);
+                `{{ route('guests.show', ['workspace' => $workspacename, 'guest' => 'GUEST_ID', 'option' => 'OPTION_ID']) }}`
+                .replace('GUEST_ID', guestId)
+                .replace('OPTION_ID', option);
 
             // Mở tab mới với URL
             window.open(url, '_blank');
+
+            $contextMenu.hide();
         });
     });
 </script>

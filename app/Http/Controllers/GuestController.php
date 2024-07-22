@@ -7,6 +7,7 @@ use App\Models\DetailExport;
 use App\Models\Groups;
 use App\Models\Guest;
 use App\Models\PayExport;
+use App\Models\QuoteExport;
 use App\Models\representGuest;
 use App\Models\Role;
 use App\Models\User;
@@ -30,6 +31,7 @@ class GuestController extends Controller
     private $userFlow;
     private $users;
     private $guest;
+    private $quoteE;
     public function __construct()
     {
         $this->guests = new Guest();
@@ -40,6 +42,7 @@ class GuestController extends Controller
         $this->userFlow = new userFlow();
         $this->users = new User();
         $this->guest = new Guest();
+        $this->quoteE = new QuoteExport();
     }
     public function index(Request $request)
     {
@@ -124,7 +127,23 @@ class GuestController extends Controller
         $sumDebt = $this->detailExport->sumDebt($id);
         //Lịch sử giao dịch
         $historyGuest = $this->detailExport->historyGuest($id);
-        return view('tables.guests.show', compact('title', 'groups', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'sumSell', 'workspacename'));
+        $productDelivered = $this->quoteE->sumProductsQuoteByGuest($id);
+        // Get All đơn
+        $allDelivery = $this->detailExport->getSumDetailEByGuest($id);
+        return view('tables.guests.show', compact(
+            'title',
+            'groups',
+            'guest',
+            'historyGuest',
+            'representGuest',
+            'countDetail',
+            'sumDebt',
+            'sumPay',
+            'sumSell',
+            'workspacename',
+            'allDelivery',
+            'productDelivered'
+        ));
     }
 
     /**
