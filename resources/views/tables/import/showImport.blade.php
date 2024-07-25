@@ -32,11 +32,11 @@
                         </svg>
                     </span>
                     <span class="last-span">{{ $title }}</span>
-                    @if ($import->status == 1)
+                    {{-- @if ($import->status == 1)
                         <span style="color: #858585; font-size:13px;" class="btn-status">Nháp</span>
                     @else
                         <span style="color: #0052CC; font-size:13px;" class="btn-status">Chính thức</span>
-                    @endif
+                    @endif --}}
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
@@ -306,7 +306,7 @@
                                 <span class="text-table">Hóa đơn: Một phần</span>
                             </div>
                         @endif --}}
-                        <div class="line-vertical mx-2 my-1"></div>
+                        {{-- <div class="line-vertical mx-2 my-1"></div>
                         @if ($import->status_pay == 0)
                             <div class="border text-secondary p-1 rounded">
                                 <span>
@@ -353,7 +353,7 @@
                                 </span>
                                 <span class="text-table">Thanh toán: Một phần</span>
                             </div>
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
             </section>
@@ -466,11 +466,11 @@
                                         class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
                                         <option value="0" class="text-uppercase" <?php if ($import->status_receive == 0) {
                                             echo 'selected';
-                                        } ?>>Chưa giao
+                                        } ?>>Chưa nhận
                                         </option>
                                         <option value="2" class="text-uppercase" <?php if ($import->status_receive == 2) {
                                             echo 'selected';
-                                        } ?>>Đã giao
+                                        } ?>>Đã nhận
                                         </option>
                                     </select>
                                 </div>
@@ -496,74 +496,39 @@
                                         <table id="inputcontent" class="table table-hover bg-white rounded m-0">
                                             <thead>
                                                 <tr style="height:44px;">
-                                                    <th scope="col" class="border border-right-0"
-                                                        style="width:15%;padding-left: 2rem;">
-                                                        <span class="d-flex justify-content-start text-13">
-                                                            Mã sản phẩm
-                                                            <div class="icon" id="icon-id"></div>
-                                                        </span>
+                                                    <th class="border-right px-2 p-0" style="width: 10%">
+                                                        <input type='checkbox'
+                                                            class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
+                                                        <span class="text-table text-secondary">Mã sản phẩm</span>
                                                     </th>
-                                                    <th scope="col" class="border border-right-0"
-                                                        style="width:15%;">
-                                                        <span class="d-flex justify-content-start text-13">
-                                                            Tên sản phẩm
-                                                            <div class="icon" id="icon-created_at"></div>
-                                                        </span>
+                                                    <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
+                                                        <span class="text-table text-secondary">Tên sản phẩm</span>
                                                     </th>
-                                                    <th scope="col" class="border border-right-0"
-                                                        style="width:10%;">
-                                                        <span class="d-flex justify-content-start text-13">
-                                                            Đơn vị
-                                                            <div class="icon" id="icon-created_at"></div>
-                                                        </span>
+                                                    <th class="border-right px-2 p-0 text-left" style="width: 8%;">
+                                                        <span class="text-table text-secondary">Đơn vị</span>
                                                     </th>
-                                                    <th scope="col" class="border border-right-0"
-                                                        style="width:10%;">
-                                                        <span class="d-flex justify-content-end text-13">
-                                                            Số lượng
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
+                                                    <th class="border-right px-2 p-0 text-right" style="width: 8%;">
+                                                        <span class="text-table text-secondary">Số lượng</span>
                                                     </th>
-                                                    <th scope="col" class="border border-right-0"
-                                                        style="width:15%;">
-                                                        <span class="d-flex justify-content-end text-13">
-                                                            Đơn giá
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
+                                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                                        <span class="text-table text-secondary">Đơn giá</span>
                                                     </th>
-                                                    <th scope="col" class="border border-right-0"
-                                                        style="width:10%;">
-                                                        <span class="d-flex justify-content-end text-13">
-                                                            KM
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
+                                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                                        <span class="text-table text-secondary">KM</span>
                                                     </th>
-                                                    <th scope="col" class="border border-right-0"
-                                                        style="width:5%;">
-                                                        <span class="d-flex justify-content-center text-13">
-                                                            Thuế
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
+                                                    <th class="border-right px-2 p-0 text-center" style="width: 6%;">
+                                                        <span class="text-table text-secondary">Thuế</span>
                                                     </th>
-                                                    <th scope="col" class="border border-right-0"
-                                                        style="width:15%;">
-                                                        <span class="d-flex justify-content-end text-13">
-                                                            Thành tiền
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
+                                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                                        <span class="text-table text-secondary">Thành tiền</span>
                                                     </th>
-                                                    <th scope="col" class="border border-bottom border-right-0">
-                                                        <span class="d-flex text-13 justify-content-end">
-                                                            Kho hàng
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
+                                                    <th class="border-right px-2 p-0 text-center"style="width: 10%;">
+                                                        <span class="text-table text-secondary">Kho</span>
                                                     </th>
-                                                    <th scope="col" class="border border-right-0">
-                                                        <span class="d-flex justify-content-start text-13">
-                                                            Ghi chú sản phẩm
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
+                                                    <th class="border-right note px-2 p-0 text-left">
+                                                        <span class="text-table text-secondary">Ghi chú</span>
                                                     </th>
+                                                    <th class=""></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -721,10 +686,10 @@
                                                         </td>
                                                         <td
                                                             class="border-left p-2 text-13 align-top border-bottom border-top-0">
-                                                            <input placeholder="Nhập ghi chú" readonly type="text"
-                                                                name="product_note[]"
-                                                                class="border-0 px-2 py-1 w-100 height-32"
-                                                                value="{{ $item->product_note }}">
+                                                            <textarea placeholder="Nhập ghi chú" class='text-13-black border-0 py-1 w-100 height-32' name='product_note[]'
+                                                                readonly rows='2' cols='50'>
+                                                                    {{ $item->product_note }}
+                                                            </textarea>
                                                         </td>
                                                     </tr>
                                                 @endforeach

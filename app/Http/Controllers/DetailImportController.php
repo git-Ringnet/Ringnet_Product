@@ -212,7 +212,7 @@ class DetailImportController extends Controller
             $title = $import->quotation_number;
             $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
                 ->where('detailimport_id', $import->id)
-                ->select('quoteimport.*', 'products.product_inventory')
+                ->select('quoteimport.*', 'products.product_inventory', 'products.id as product_id')
                 ->where('products.workspace_id', Auth::user()->current_workspace)
                 ->get();
             $project = Project::all();
@@ -1187,7 +1187,12 @@ class DetailImportController extends Controller
     public function getInventory(Request $request)
     {
         $data = [];
-        $product = Products::where('product_name', $request->product_name)->first();
+        $product =
+            Products::leftJoin('productwarehouse', 'productwarehouse.product_id', 'products.id')
+            ->where('product_name', $request->product_name)
+            ->where('productwarehouse.warehouse_id', $request->warehouse_id)
+            ->select('products.*', 'productwarehouse.qty as product_inventory')
+            ->first();
         if ($product) {
             $history = QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
                 ->where('quoteimport.product_name', $request->product_name)

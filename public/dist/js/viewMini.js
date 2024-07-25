@@ -432,10 +432,8 @@ function createProductRow(product, page) {
                     page == "DHNCC" ? "total_price" : "total-amount"
                 } height-32'>
             </td>
-            <td class="border-right note p-2 align-top border-bottom border-top-0 position-relative ${
-                page == "DHNCC" ? "d-none" : ""
-            }">
-                <input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]" readonly autocomplete="off">
+            <td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">
+                <input id="searchWarehouse" value="${(page == "PNK" || page == "PXK") ? product.nameWH : ""}" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]" readonly autocomplete="off">
                 <div id="listWareH" class="bg-white position-absolute rounded shadow p-1 z-index-block" style="z-index: 99;">
                 <ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse" style="display:none;">
                 <div class="p-1">
@@ -448,7 +446,7 @@ function createProductRow(product, page) {
                 </div>
                 </ul>
                 </div>
-                <input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]" >
+                <input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" value="${(page == "PNK" || page == "PXK") ? product.idWH : ""}" name="warehouse_id[]" >
             </td>
             <td class='border-right note p-2 align-top border-bottom border-top-0'>
                 <input type='text' class='text-13-black border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú' name='product_note[]'>

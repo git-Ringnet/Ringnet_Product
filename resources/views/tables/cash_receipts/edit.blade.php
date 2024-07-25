@@ -60,9 +60,13 @@
                             </button>
                         @endif
                         <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)" fill="#ECEEFA"></rect>
-                                <path d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z" fill="#26273B" fill-opacity="0.8"></path>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)"
+                                    fill="#ECEEFA"></rect>
+                                <path
+                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
+                                    fill="#26273B" fill-opacity="0.8"></path>
                             </svg>
                         </button>
                     </div>
@@ -70,9 +74,9 @@
             </div>
         </div>
         {{-- Thông tin sản phẩm --}}
-        <div class="content margin-top-127">
+        <div class="content margin-top-75">
             <div>
-                <section class="content">
+                {{-- <section class="content">
                     <div class="bg-filter-search border-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">
                             THÔNG TIN PHIẾU THU
@@ -89,7 +93,7 @@
                                                 <span>Đơn bán hàng</span>
                                             </th>
                                             <th class="border-right p-0 px-2 text-13" style="width:15%;">
-                                                {{-- <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox"> --}}
+                                                <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox">
                                                 <span class="text-table text-secondary">Mã phiếu</span>
                                             </th>
                                             <th class="border-right p-0 px-2 text-13" style="width:8%;">Ngày</th>
@@ -171,7 +175,6 @@
                                                 <input type="hidden" name="payment_date" id="hiddenDateInput"
                                                     value="{{ $cashReceipt->date_created }}">
                                             </td>
-                                            {{-- Khách hàng --}}
                                             <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                                 <div
                                                     class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
@@ -321,7 +324,188 @@
                             </div>
                         </section>
                     </div>
-                </section>
+                </section> --}}
+                <div class="border">
+                    <div>
+                        <div class="bg-filter-search border-0 text-center">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                THÔNG TIN PHIẾU THU
+                            </p>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
+                                <input type="text"
+                                    class="border-0 text-13-black px-2 py-1 w-100 height-32 searchProductName"
+                                    value="{{ $cashReceipt->receipt_code }}" readonly disabled>
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                                <div
+                                    class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative w-100">
+                                    <input type="text" placeholder="Chọn thông tin" id="myGuest"
+                                        class="border-0 text-13-black px-2 py-1 w-100 height-32 search_guest w-100"
+                                        style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
+                                        readonly value="{{ $cashReceipt->guest->guest_name_display }}"
+                                        {{ $disabled }}>
+                                    <input type="hidden" name="guest_id" id="guest_id"
+                                        value="{{ $cashReceipt->guest->id }}">
+
+                                    <ul id="listGuest"
+                                        class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
+                                        style="z-index: 99;display: none; right:0; width:100%">
+                                        <div class="p-1">
+                                            <div class="position-relative">
+                                                <input type="text" placeholder="Nhập đơn mua hàng"
+                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black search_guest"
+                                                    id="provideFilter">
+                                                <span id="search-icon" class="search-icon"><i
+                                                        class="fas fa-search text-table"
+                                                        aria-hidden="true"></i></span>
+                                            </div>
+                                        </div>
+                                        @foreach ($guest as $value)
+                                            <li class="p-2 align-items-center"
+                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                <a href="javascript:void(0)" id="{{ $value->id }}"
+                                                    name="search-info" class="search-guest" style="flex:2;">
+                                                    <span class="text-13-black">{{ $value->guest_name_display }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nộp</span>
+                                <input type="text" required
+                                    class="text-13-black w-100 border-0 bg-input-guest flatpickr-input p-2"
+                                    name="payer" style="background-color:#F0F4FF; border-radius:4px;"
+                                    placeholder="Nhập người nộp">
+                            </div>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày</span>
+                                <input class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                    name="" placeholder="Chọn thông tin" style="flex:10;" id="datePicker"
+                                    value="{{ $cashReceipt->date_created }}" {{ $disabled }} />
+                                <input type="hidden" name="payment_date" id="hiddenDateInput"
+                                    value="{{ $cashReceipt->date_created }}">
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tiền</span>
+                                <div class="w-100">
+                                    <input
+                                        class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2 price_export "
+                                        name="total" placeholder="Nhập số tiền" style="flex:2;" required
+                                        {{ $disabled }} value="{{ number_format($cashReceipt->amount) }}" />
+                                    <br>
+                                    <div class="cash_reciept" style="display: none">
+                                        <label for="">Tiền cần thu</label><input type="text"
+                                            class="text-13-black w-auto border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                            name="money_reciept" id="money_reciept">
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nội dung</span>
+                                <div
+                                    class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative w-100">
+                                    <input type="text" placeholder="Chọn thông tin" id="myContent"
+                                        class="border-0 text-13-black px-2 py-1 w-100 height-32 search_content"
+                                        style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
+                                        readonly required="required" required
+                                        value="{{ $cashReceipt->content->name }}" {{ $disabled }}>
+                                    <input type="hidden" name="content_pay" id="content_id"
+                                        value="{{ $cashReceipt->content_id }}" />
+
+                                    <ul id="listContent"
+                                        class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
+                                        style="z-index: 99;display: none; right:0; width:100%">
+                                        <div class="p-1">
+                                            <div class="position-relative">
+                                                <input type="text" placeholder="Tìm kiếm nội dung"
+                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black search_content"
+                                                    id="provideFilter">
+                                                <span id="search-icon" class="search-icon"><i
+                                                        class="fas fa-search text-table"
+                                                        aria-hidden="true"></i></span>
+                                            </div>
+                                        </div>
+                                        @foreach ($content as $value)
+                                            <li class="p-2 align-items-center"
+                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                <a href="javascript:void(0)" id="{{ $value->id }}"
+                                                    name="search-info" class="search-content" style="flex:2;">
+                                                    <span class="text-13-black">{{ $value->name }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Quỹ</span>
+                                <div
+                                    class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative w-100">
+                                    <input type="text" placeholder="Chọn thông tin" id="fund"
+                                        class="border-0 text-13-black px-2 py-1 w-100 height-32 search_funds"
+                                        style="background-color:#F0F4FF; border-radius:4px;" name="search_funds"
+                                        autocomplete="off" readonly value="{{ $cashReceipt->fund->name }}"
+                                        {{ $disabled }}>
+                                    <input type="hidden" name="fund_id" id="fund_id"
+                                        value="{{ $cashReceipt->fund->id }}">
+                                    <ul id="listFunds"
+                                        class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
+                                        style="z-index: 99;display: none; right:0; width:100%">
+                                        <div class="p-1">
+                                            <div class="position-relative">
+                                                <input type="text" placeholder="Nhập đơn mua hàng"
+                                                    class="pr-4 w-100 input-search bg-input-guest text-13-black search_funds"
+                                                    id="provideFilter">
+                                                <span id="search-icon" class="search-icon"><i
+                                                        class="fas fa-search text-table"
+                                                        aria-hidden="true"></i></span>
+                                            </div>
+                                        </div>
+                                        @foreach ($funds as $value)
+                                            <li class="p-2 align-items-center"
+                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                <a href="javascript:void(0)" id="{{ $value->id }}"
+                                                    name="search-info" class="search-funds" style="flex:2;">
+                                                    <span class="text-13-black">{{ $value->name }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập phiếu</span>
+                                <input type="text"
+                                    class="border-0 text-13-black px-2 py-1 w-100 height-32 searchuser"
+                                    name="userName" value="{{ Auth::user()->name }}" readonly disabled>
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
+                                <input type="text" class="border-0 text-13-black px-2 py-1 w-100 height-32 note"
+                                    name="note" {{ $disabled }}>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

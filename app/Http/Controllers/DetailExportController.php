@@ -1356,7 +1356,7 @@ class DetailExportController extends Controller
                     'quoteimport.price_export',
                     'quoteimport.product_tax',
                     'quoteimport.product_note',
-                    'warehouse.warehouse_name as nameHouse',
+                    'warehouse.warehouse_name as nameWH',
                     'products_import.product_id',
                     'products_import.cbSN',
                     'products_import.receive_id',
@@ -1364,6 +1364,7 @@ class DetailExportController extends Controller
                     'products_import.product_guarantee',
                     'products.product_inventory as inventory',
                     'quoteimport.promotion',
+                    'quoteimport.warehouse_id as idWH',
                     DB::raw('products_import.product_qty * quoteimport.price_export as product_total'),
                 )
                 ->with('getSerialNumber')

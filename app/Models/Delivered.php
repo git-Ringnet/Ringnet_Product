@@ -67,6 +67,7 @@ class Delivered extends Model
                     ->first();
                 if ($quoteExport) {
                     $quoteExport->qty_delivery += $data['product_qty'][$i];
+                    $quoteExport->warehouse_id = isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 0;
                     $quoteExport->save();
                 }
             }

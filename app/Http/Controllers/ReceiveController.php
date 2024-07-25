@@ -331,6 +331,7 @@ class ReceiveController extends Controller
         $data = [];
         $detail = DetailImport::where('detailimport.id', $request->detail_id)
             ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->select('provides.*','detailimport.*','detailimport.id as id')
             ->first();
         if ($detail) {
             $nameProvide = $detail->provide_name_display;

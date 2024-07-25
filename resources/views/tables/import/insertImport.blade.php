@@ -266,7 +266,7 @@
                         <table id="inputcontent" class="table table-hover bg-white rounded">
                             <thead>
                                 <tr style="height:44px;">
-                                    <th class="border-right px-2 p-0" style="width: 16%">
+                                    <th class="border-right px-2 p-0" style="width: 10%">
                                         <input type='checkbox'
                                             class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
                                         <span class="text-table text-secondary">Mã sản phẩm</span>
@@ -277,22 +277,25 @@
                                     <th class="border-right px-2 p-0 text-left" style="width: 8%;">
                                         <span class="text-table text-secondary">Đơn vị</span>
                                     </th>
-                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                    <th class="border-right px-2 p-0 text-right" style="width: 8%;">
                                         <span class="text-table text-secondary">Số lượng</span>
                                     </th>
-                                    <th class="border-right px-2 p-0 text-right" style="width: 13%;">
+                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
                                         <span class="text-table text-secondary">Đơn giá</span>
                                     </th>
                                     <th class="border-right px-2 p-0 text-right" style="width: 10%;">
                                         <span class="text-table text-secondary">KM</span>
                                     </th>
-                                    <th class="border-right px-2 p-0 text-center" style="width: 8%;">
+                                    <th class="border-right px-2 p-0 text-center" style="width: 6%;">
                                         <span class="text-table text-secondary">Thuế</span>
                                     </th>
-                                    <th class="border-right px-2 p-0 text-right" style="width: 11%;">
+                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
                                         <span class="text-table text-secondary">Thành tiền</span>
                                     </th>
-                                    <th class="border-right note px-2 p-0 text-left" style="width: 15%;">
+                                    <th class="border-right px-2 p-0 text-center"style="width: 10%;">
+                                        <span class="text-table text-secondary">Kho</span>
+                                    </th>
+                                    <th class="border-right note px-2 p-0 text-left">
                                         <span class="text-table text-secondary">Ghi chú</span>
                                     </th>
                                     <th class=""></th>
@@ -1543,6 +1546,7 @@
             listProductName = $(this).closest('tr').find('#listProductName');
             inputCode = $(this).closest('tr').find('.searchProduct');
             inputName = $(this).closest('tr').find('.searchProductName');
+            inputID = $(this).closest('tr').find('.product_id');
             inputUnit = $(this).closest('tr').find('.product_unit');
             inputPriceExprot = $(this).closest('tr').find('.price_export');
             inputRatio = $(this).closest('tr').find('.product_ratio');
@@ -1555,7 +1559,9 @@
                     listProductName.empty();
                     data.forEach(element => {
                         var UL = '<li class="w-100">' +
-                            '<a data-unit="' + element
+                            '<a data-id="' + element
+                            .id +
+                            '" data-unit="' + element
                             .product_unit +
                             '" data-code="' + element
                             .product_code +
@@ -1578,10 +1584,13 @@
                         listProductName.append(UL);
                     })
                     $('.search-name').on('click', function() {
-                        var currentTr = $(this);
+                        var currentTr = $(this).closest('tr');
+                        var warehouseId = currentTr.find('.warehouse_id').val();
                         inputCode.val($(this).attr('data-code') == "null" ? "" : $(this)
                             .attr('data-code'));
                         inputName.val($(this).closest('li').find('span').text());
+                        inputID.val($(this).attr('data-id') == "null" ? "" : $(this)
+                            .attr('data-id'));
                         inputUnit.val($(this).attr('data-unit') == "null" ? "" : $(this)
                             .attr('data-unit'));
                         // inputPriceExprot.val($(this).attr('data-priceExport') == "null" ?
@@ -1599,12 +1608,19 @@
                             type: "get",
                             data: {
                                 product_name: product_name,
+                                warehouse_id: warehouseId,
                             },
                             success: function(data) {
-                                $(currentTr).closest('tr').find('#soTonKho')
-                                    .text(
-                                        formatCurrency(data[
-                                            'products'].product_inventory))
+                                if (data && data['products']) {
+                                    var productInventory = data['products']
+                                        .product_inventory;
+                                    currentTr.find('#soTonKho').text(
+                                        formatCurrency(productInventory ==
+                                            null ? 0 : productInventory));
+                                } else {
+                                    currentTr.find('#soTonKho').text(
+                                        formatCurrency(0));
+                                }
                                 $('.transaction').on('click', function() {
                                     nameProduct = $(this).closest('tr')
                                         .find('.searchProductName')
@@ -1795,6 +1811,38 @@
         $(tr).find('#searchWarehouse').val($(this).data('value'));
         $(tr).find('.warehouse_id').val($(this).data('id'));
         $(tr).find('#listWarehouse').hide();
+        var tonkho = $(tr).find('.tonkho');
+        var soTonKho = $(tr).find('.soTonKho');
+        var inventory = $(tr).find('.inventory');
+        var quantity_input = $(tr).find('.quantity-input');
+
+        $.ajax({
+            url: "{{ route('getInventWH') }}",
+            type: "get",
+            data: {
+                warehouse_id: $(tr).find('.warehouse_id').val(),
+                idProduct: $(tr).find('.product_id').val(),
+            },
+            success: function(data) {
+                tonkho.val(formatNumber(data
+                    .product_inventory == null ? 0 :
+                    data.product_inventory))
+                if (data.type == 2) {
+                    soTonKho.text('');
+                    inventory.hide();
+                    quantity_input.val(1);
+                } else {
+                    soTonKho.text(parseFloat(data
+                        .product_inventory == null ? 0 :
+                        data.product_inventory));
+                    inventory.show();
+                    quantity_input.val("");
+                    if (data.product_inventory > 0) {
+                        inventory.show();
+                    }
+                }
+            }
+        })
     })
 
     $(document).on('click', '.user_flow', function(e) {

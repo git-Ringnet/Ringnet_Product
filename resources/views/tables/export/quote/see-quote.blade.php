@@ -29,15 +29,15 @@
                         </svg>
                     </span>
                     <span class="last-span">{{ $detailExport->quotation_number }}</span>
-                    @if ($detailExport->tinhTrang == 1)
+                    {{-- @if ($detailExport->tinhTrang == 1)
                         <span style="color: #858585; font-size:13px;" class="btn-status">Nháp</span>
                     @else
                         <span style="color: #0052CC; font-size:13px;" class="btn-status">Chính thức</span>
-                    @endif
+                    @endif --}}
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                         <div class="dropdown">
+                        <div class="dropdown">
                             <button type="submit" data-toggle="dropdown"
                                 class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -76,7 +76,7 @@
                                 </button>
                             </a>
                         </div>
-                        <div class="dropdown">
+                        {{-- <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy rounded mx-1 d-flex align-items-center dropdown-toggle px-2">
                                 <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -96,7 +96,7 @@
                                     data-des="Xuất pdf" href="{{ route('pdf', $detailExport->maBG) }}">Xuất PDF
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                         <label class="btn-destroy btn-light d-flex align-items-center h-100 m-0 mx-1"
                             style="border: 2px solid #d6d6d6;">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -362,7 +362,7 @@
                                 <span class="text-table">Hóa đơn: Một phần</span>
                             </div>
                         @endif --}}
-                        <div class="line-vertical mx-2 my-1"></div>
+                        {{-- <div class="line-vertical mx-2 my-1"></div>
                         @if ($detailExport->status_pay == 1 || $detailExport->status_pay == 0)
                             <div class="border text-secondary p-1 rounded">
                                 <span>
@@ -409,7 +409,7 @@
                                 </span>
                                 <span class="text-table">Thanh toán: Một phần</span>
                             </div>
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
             </section>
@@ -589,64 +589,38 @@
                                     <table class="table table-hover bg-white rounded m-0">
                                         <thead>
                                             <tr style="height:44px;">
-                                                <th scope="col" class="border border-right-0"
-                                                    style="width:15%;padding-left: 2rem;">
-                                                    <span class="d-flex justify-content-start text-13">
-                                                        Mã sản phẩm
-                                                        <div class="icon" id="icon-id"></div>
-                                                    </span>
+                                                <th class="border-right px-2 p-0" style="width: 10%">
+                                                    <input type='checkbox'
+                                                        class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
+                                                    <span class="text-table text-secondary">Mã sản phẩm</span>
                                                 </th>
-                                                <th scope="col" class="border border-right-0" style="width:15%;">
-                                                    <span class="d-flex justify-content-start text-13">
-                                                        Tên sản phẩm
-                                                        <div class="icon" id="icon-created_at"></div>
-                                                    </span>
+                                                <th class="border-right px-2 p-0 text-left"
+                                                    style="width: 15%;z-index:99;">
+                                                    <span class="text-table text-secondary">Tên sản phẩm</span>
                                                 </th>
-                                                <th scope="col" class="border border-right-0" style="width:10%;">
-                                                    <span class="d-flex justify-content-start text-13">
-                                                        Đơn vị
-                                                        <div class="icon" id="icon-created_at"></div>
-                                                    </span>
+                                                <th class="border-right px-2 p-0 text-left" style="width: 8%;">
+                                                    <span class="text-table text-secondary">Đơn vị</span>
                                                 </th>
-                                                <th scope="col" class="border border-right-0" style="width:10%;">
-                                                    <span class="d-flex justify-content-end text-13">
-                                                        Số lượng
-                                                        <div class="icon" id="icon-total"></div>
-                                                    </span>
+                                                <th class="border-right px-2 p-0 text-right" style="width: 8%;">
+                                                    <span class="text-table text-secondary">Số lượng</span>
                                                 </th>
-                                                <th scope="col" class="border border-right-0" style="width:15%;">
-                                                    <span class="d-flex justify-content-end text-13">
-                                                        Đơn giá
-                                                        <div class="icon" id="icon-total"></div>
-                                                    </span>
+                                                <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                                    <span class="text-table text-secondary">Đơn giá</span>
                                                 </th>
-                                                <th scope="col" class="border border-right-0" style="width:5%;">
-                                                    <span class="d-flex justify-content-center text-13">
-                                                        KM
-                                                        <div class="icon" id="icon-total"></div>
-                                                    </span>
+                                                <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                                    <span class="text-table text-secondary">KM</span>
                                                 </th>
-                                                <th scope="col" class="border border-right-0" style="width:5%;">
-                                                    <span class="d-flex justify-content-center text-13">
-                                                        Thuế
-                                                        <div class="icon" id="icon-total"></div>
-                                                    </span>
+                                                <th class="border-right px-2 p-0 text-center" style="width: 6%;">
+                                                    <span class="text-table text-secondary">Thuế</span>
                                                 </th>
-                                                <th scope="col" class="border border-right-0" style="width:15%;">
-                                                    <span class="d-flex justify-content-end text-13">
-                                                        Thành tiền
-                                                        <div class="icon" id="icon-total"></div>
-                                                    </span>
+                                                <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                                    <span class="text-table text-secondary">Thành tiền</span>
                                                 </th>
-                                                <th
-                                                    class="border-right border px-2 p-0 text-center"style="width: 11%;">
+                                                <th class="border-right px-2 p-0 text-center"style="width: 10%;">
                                                     <span class="text-table text-secondary">Kho</span>
                                                 </th>
-                                                <th scope="col" class="border border-right-0">
-                                                    <span class="d-flex justify-content-start text-13">
-                                                        Ghi chú sản phẩm
-                                                        <div class="icon" id="icon-total"></div>
-                                                    </span>
+                                                <th class="border-right note px-2 p-0 text-left">
+                                                    <span class="text-table text-secondary">Ghi chú</span>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -799,10 +773,8 @@
                                                     </td>
                                                     <td
                                                         class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
-                                                        <input type="text"
-                                                            class="border-0 py-1 w-100 text-left height-32" readonly
-                                                            name="product_note[]"
-                                                            value="{{ $item_quote->product_note }}">
+                                                        <textarea placeholder="Nhập ghi chú" readonly class='border-0 py-1 w-100 text-left height-32' name='product_note[]'
+                                                            rows='2' cols='50'>{{ $item_quote->product_note }}</textarea>
                                                     </td>
                                                     <td style="display:none;" class="">
                                                         <input type="text" class="product_tax1">

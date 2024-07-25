@@ -286,12 +286,12 @@
             <!-- Main Sidebar Container -->
             <div class="d-flex align-items-center px-3 justify-content-between w-100" style="background: #F3F5F7;">
                 <div class="p-2 d-flex content__heading--right">
-                    <a href="{{ route('dashboardProduct.index', $workspacename) }}" class="height-36">
+                    {{-- <a href="{{ route('dashboardProduct.index', $workspacename) }}" class="height-36">
                         <button type="button"
                             class="h-100 border justify-content-center align-items-center p-1 px-2 rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'dashboardProduct') active @endif">
                             <p class="m-0 p-0 text-13-black">Dashboard</p>
                         </button>
-                    </a>
+                    </a> --}}
                     <div class="dropdown ml-2 py-1">
                         <a class="border text-dark justify-content-center align-items-center p-2 text-13-black rounded bg-white @if (!empty($activeGroup) && $activeGroup == 'systemFirst') active @endif"
                             href="#" role="button" data-toggle="dropdown" aria-expanded="false">

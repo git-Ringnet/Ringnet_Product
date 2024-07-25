@@ -406,6 +406,7 @@ function addRowTable(status) {
         "</ul>" +
         "</td>" +
         '<td class="border-right p-2 text-13 align-top position-relative border-bottom border-top-0"> ' +
+        '<input type="hidden" class="product_id" autocomplete="off" name="product_id[]" value="">' +
         '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-2 py-1 w-100 height-32" name="product_name[]">' +
         '<ul id="listProductName" class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
         "</ul>" +
@@ -493,7 +494,7 @@ function addRowTable(status) {
         '">' +
         '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly name="total_price[]">' +
         "</td>" +
-        '<td class="border-right note p-2 align-top border-bottom border-top-0 position-relative ' + (status == 3 ? "" : "d-none") + '">' +
+        '<td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">' +
         '<input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]" readonly autocomplete="off">' +
         '<div id="listWareH" class="bg-white position-absolute rounded shadow p-1 z-index-block" style="z-index: 99;">' +
         '<ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse" style="display:none;">' +
@@ -541,9 +542,9 @@ function addRowTable(status) {
     }
     tr +=
         '<td class="border-right note p-2 align-top border-bottom border-top-0">' +
-        '<input type="text" placeholder="Nhập ghi chú" class="border-0 py-1 w-100 height-32 text-13-black" name="product_note[]" ' +
+        '<textarea placeholder="Nhập ghi chú" class="border-0 py-1 w-100 height-32 text-13-black" name="product_note[]" rows="2" cols="50" ' +
         (status == 2 ? "readonly" : "") +
-        " >" +
+        "></textarea>" +
         "</td>" +
         '<td class="deleteRow align-top p-2 user_flow border-top-0 border-bottom ' +
         (status == 3 ? "d-none" : "") +

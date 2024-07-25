@@ -1100,7 +1100,7 @@
                 '</td>');
             const ghiChu = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
-                "<input type='text' class='border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú' name='product_note[]'>" +
+                `<textarea placeholder="Nhập ghi chú" class='text-13-black border-0 py-1 w-100 height-32' name='product_note[]' rows='2' cols='50'></textarea>` +
                 "</td>"
             );
             const option = $(

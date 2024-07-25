@@ -211,21 +211,21 @@
         </div>
         <div class="content margin-top-127" style="width: 100%;">
             <div>
-            <div class="container-fluided">
-                <div class="tab-content">
-                    <div id="info" class="content tab-pane in active">
-                        <div class="bg-filter-search border-0 text-center">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">
-                                THÔNG TIN PHIẾU CHI
-                            </p>
-                        </div>
-                        <section class="content">
+                <div class="container-fluided">
+                    <div class="tab-content">
+                        <div id="info" class="content tab-pane in active">
+                            <div class="bg-filter-search border-0 text-center">
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                    THÔNG TIN PHIẾU CHI
+                                </p>
+                            </div>
+                            {{-- <section class="content">
                             <div class="content-info position-relative table-responsive text-nowrap">
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:44px;">
                                             <th class="border-right p-2" style="width: 12%;">
-                                                {{-- <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox"> --}}
+                                                <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox">
                                                 <span class="text-13 ">Đơn đặt hàng</span>
                                             </th>
                                             <th class="border-right p-2" style="width: 14%;">
@@ -310,7 +310,7 @@
                                                     value="{{ $payment->note }}">
                                             </td>
                                         </tr>
-                                        {{-- @foreach ($product as $item)
+                                        @foreach ($product as $item)
                                             <tr class="bg-white" style="height:80px;">
                                                 <td
                                                     class="border border-left-0 border-top-0 p-2 align-top position-relative">
@@ -406,12 +406,77 @@
                                                         value="{{ $item->product_note }}" placeholder='Nhập ghi chú'>
                                                 </td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
-                        </section>
-                        {{-- <div class="d-flex align-items-center height-60-mobile">
+                            </section> --}}
+                            <div class="border">
+                                <div class="d-flex w-100">
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
+                                        <input type="text" name="payment_code" readonly
+                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                            value="{{ $payment->payment_code }}">
+                                    </div>
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44 w-100">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                                        <input readonly type="text" class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                            @if ($payment->getGuest) value="{{ $payment->getGuest->provide_name_display }}" @endif>
+                                    </div>
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nhận</span>
+                                        <input readonly type="text" value="{{ $payment->payment_type }}"
+                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black">
+                                    </div>
+                                </div>
+                                <div class="d-flex w-100">
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày</span>
+                                        <input readonly type="text" class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                            value="{{ date_format(new DateTime($payment->payment_date), 'd-m-Y') }}">
+                                    </div>
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tiền</span>
+                                        <input readonly type="text"
+                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                            value="{{ number_format($payment->total) }}">
+                                    </div>
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nội dung</span>
+                                        <input readonly type="text" class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                            value="@if ($payment->getContentPay) {{ $payment->getContentPay->name }} @endif">
+                                    </div>
+                                </div>
+                                <div class="d-flex w-100">
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Quỹ</span>
+                                        <input readonly type="text" class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                            @if ($payment->getFund) value="{{ $payment->getFund->name }}" @endif>
+                                    </div>
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập
+                                            phiếu</span>
+                                        <input readonly type="text" class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                            @if ($payment->getNameUser) value="{{ $payment->getNameUser->name }}" @endif>
+                                    </div>
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
+                                        <input readonly type="text" class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                            value="{{ $payment->note }}">
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <div class="d-flex align-items-center height-60-mobile">
                             <div class="title-info py-2 border border-left-0 height-100">
                                 <p class="p-0 m-0 margin-left32 text-13">Đã thanh toán</p>
                             </div>
@@ -427,67 +492,71 @@
                                 class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
                                 value="">
                         </div> --}}
-                        {{-- <x-formsynthetic :import="$import"></x-formsynthetic> --}}
-                    </div>
-                    <div id="history" class="tab-pane fade">
-                        <div class="bg-filter-search border-0 text-center">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">
-                                Lịch sử thanh toán
-                            </p>
+                            {{-- <x-formsynthetic :import="$import"></x-formsynthetic> --}}
                         </div>
-                        <section class="content">
-                            <div class="outer container-fluided">
-                                <table class="table table-hover bg-white rounded" id="inputcontent">
-                                    <thead>
-                                        <tr style="height:44px;">
-                                            <th class="text-table text-secondary p-2 border-right border-bottom"
-                                                style="padding-left: 2rem !important;">Mã thanh toán</th>
-                                            <th class="text-table text-secondary p-2 border-right border-bottom">Ngày
-                                                thanh toán</th>
-                                            <th
-                                                class="text-table text-secondary p-2 border-right border-bottom text-right">
-                                                Tổng tiền
-                                            </th>
-                                            <th
-                                                class="text-table text-secondary p-2 border-right border-bottom text-right">
-                                                Thanh
-                                                toán</th>
-                                            <th class="text-table text-secondary p-2 text-right border-bottom">Dư nợ
-                                            </th>
-                                            <th class="text-table text-secondary p-2 border-left border-bottom">Hình
-                                                thức</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($history as $htr)
-                                            <tr class="bg-white">
-                                                <td class="border-right text-13-black border-bottom border-top-0"
-                                                    style="padding-left: 2rem !important;">{{ $htr->payment_code }}
-                                                </td>
-                                                <td class="border-right text-13-black border-bottom border-top-0">
-                                                    {{ date_format(new DateTime($htr->created_at), 'd-m-Y H:i:s') }}
-                                                </td>
-                                                <td
-                                                    class="border-right text-13-black border-bottom border-top-0 text-right">
-                                                    {{ fmod($htr->total, 2) > 0 && fmod($htr->total, 1) > 0 ? number_format($htr->total, 2, '.', ',') : number_format($htr->total) }}
-                                                </td>
-                                                <td
-                                                    class="border-right text-13-black border-bottom border-top-0 text-right">
-                                                    {{ fmod($htr->payment, 2) > 0 && fmod($htr->payment, 1) > 0 ? number_format($htr->payment, 2, '.', ',') : number_format($htr->payment) }}
-                                                </td>
-                                                <td class="text-13-black border-bottom text-right border-top-0">
-                                                    {{ fmod($htr->debt, 2) > 0 && fmod($htr->debt, 1) > 0 ? number_format($htr->debt, 2, '.', ',') : number_format($htr->debt) }}
-                                                </td>
-                                                <td class="text-13-black border-bottom border-left border-top-0">
-                                                    {{ $htr->payment_type }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                        <div id="history" class="tab-pane fade">
+                            <div class="bg-filter-search border-0 text-center">
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                    Lịch sử thanh toán
+                                </p>
                             </div>
-                        </section>
-                    </div>
+                            <section class="content">
+                                <div class="outer container-fluided">
+                                    <table class="table table-hover bg-white rounded" id="inputcontent">
+                                        <thead>
+                                            <tr style="height:44px;">
+                                                <th class="text-table text-secondary p-2 border-right border-bottom"
+                                                    style="padding-left: 2rem !important;">Mã thanh toán</th>
+                                                <th class="text-table text-secondary p-2 border-right border-bottom">
+                                                    Ngày
+                                                    thanh toán</th>
+                                                <th
+                                                    class="text-table text-secondary p-2 border-right border-bottom text-right">
+                                                    Tổng tiền
+                                                </th>
+                                                <th
+                                                    class="text-table text-secondary p-2 border-right border-bottom text-right">
+                                                    Thanh
+                                                    toán</th>
+                                                <th class="text-table text-secondary p-2 text-right border-bottom">Dư
+                                                    nợ
+                                                </th>
+                                                <th class="text-table text-secondary p-2 border-left border-bottom">
+                                                    Hình
+                                                    thức</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($history as $htr)
+                                                <tr class="bg-white">
+                                                    <td class="border-right text-13-black border-bottom border-top-0"
+                                                        style="padding-left: 2rem !important;">
+                                                        {{ $htr->payment_code }}
+                                                    </td>
+                                                    <td class="border-right text-13-black border-bottom border-top-0">
+                                                        {{ date_format(new DateTime($htr->created_at), 'd-m-Y H:i:s') }}
+                                                    </td>
+                                                    <td
+                                                        class="border-right text-13-black border-bottom border-top-0 text-right">
+                                                        {{ fmod($htr->total, 2) > 0 && fmod($htr->total, 1) > 0 ? number_format($htr->total, 2, '.', ',') : number_format($htr->total) }}
+                                                    </td>
+                                                    <td
+                                                        class="border-right text-13-black border-bottom border-top-0 text-right">
+                                                        {{ fmod($htr->payment, 2) > 0 && fmod($htr->payment, 1) > 0 ? number_format($htr->payment, 2, '.', ',') : number_format($htr->payment) }}
+                                                    </td>
+                                                    <td class="text-13-black border-bottom text-right border-top-0">
+                                                        {{ fmod($htr->debt, 2) > 0 && fmod($htr->debt, 1) > 0 ? number_format($htr->debt, 2, '.', ',') : number_format($htr->debt) }}
+                                                    </td>
+                                                    <td class="text-13-black border-bottom border-left border-top-0">
+                                                        {{ $htr->payment_type }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
 </form>
 <div id="files" class="tab-pane fade">
     <div class="bg-filter-search border-0 text-center">

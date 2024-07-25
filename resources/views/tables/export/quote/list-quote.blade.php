@@ -194,34 +194,33 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
-                                                            Số báo giá#
+                                                            Mã phiếu
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 12%;">
+                                            <th scope="col" class="height-52" style="width: 15%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="reference_number" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Số tham
-                                                            chiếu</button>
+                                                            class="btn-sort text-13" type="submit">Số phiếu</button>
                                                     </a>
                                                     <div class="icon" id="icon-reference_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 10%;">
+                                            <th scope="col" class="height-52" style="width: 15%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="ngayBG" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
-                                                            Ngày báo giá
+                                                            Ngày lập
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-ngayBG"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 14%;">
+                                            <th scope="col" class="height-52" style="width: 15%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="guest_name_display"
@@ -233,7 +232,7 @@
                                                 </span>
                                             </th>
                                             @can('isAdmin')
-                                                <th scope="col" class="height-52" style="width: 10%;">
+                                                <th scope="col" class="height-52" style="width: 15%;">
                                                     <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link btn-submit" data-sort-by=""
                                                             data-sort-type="DESC">
@@ -245,7 +244,7 @@
                                                     </span>
                                                 </th>
                                             @endcan
-                                            <th scope="col" class="height-52" style="width: 8%;">
+                                            {{-- <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -254,8 +253,8 @@
                                                     </a>
                                                     <div class="icon" id="icon-status"></div>
                                                 </span>
-                                            </th>
-                                            <th scope="col" class="height-52" style="width: 8%;">
+                                            </th> --}}
+                                            <th scope="col" class="height-52" style="width: 15%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_receive" data-sort-type="DESC"><button
@@ -273,7 +272,7 @@
                                                     <div class="icon" id="icon-status_reciept"></div>
                                                 </span>
                                             </th> --}}
-                                            <th scope="col" class="height-52" style="width: 8%;">
+                                            {{-- <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_pay" data-sort-type="DESC"><button
@@ -282,7 +281,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-status_pay"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
@@ -344,7 +343,7 @@
                                                         {{ $value_export->name }}
                                                     </td>
                                                 @endcan
-                                                <td class="text-13-black text-center border-top-0 border-bottom">
+                                                {{-- <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($value_export->tinhTrang === 1)
                                                         <span class="text-secondary">Draft</span>
                                                     @elseif($value_export->tinhTrang === 2)
@@ -352,7 +351,7 @@
                                                     @elseif($value_export->tinhTrang === 3)
                                                         <span class="text-success">Close</span>
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($value_export->status_receive === 1)
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
@@ -423,7 +422,7 @@
                                                         </svg>
                                                     @endif
                                                 </td> --}}
-                                                <td class="text-13-black text-center border-top-0 border-bottom">
+                                                {{-- <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($value_export->status_pay === 1)
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -457,7 +456,7 @@
                                                                 fill="#08AA36" fill-opacity="0.75" />
                                                         </svg>
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($value_export->total_price + $value_export->total_tax) }}
                                                 </td>

@@ -179,10 +179,10 @@
                                     <thead>
                                         <tr style="height:47px;">
                                             <th class="border-right border-bottom"
-                                                style="width: 15%;padding-left:2rem;">
+                                                style="width: 10%;padding-left:2rem;">
                                                 <span class="text-table text-secondary">Mã sản phẩm</span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
+                                            <th scope="col" class="border-right border-bottom" style="width: 10%;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="">
@@ -427,7 +427,7 @@
                                                     </ul>
                                                 </td> 
 
-                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right" style="width:20%">
+                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                                     <div class="d-flex align-items-center">
                                                         <input readonly id="searchProductName" type="text" name="product_name[]" 
                                                             class="searchProductName w-100 border-0 px-2 py-1 height-32" 
@@ -441,13 +441,13 @@
                                                     </div>
                                                 </td>   
 
-                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right" style="width:10%"> 
+                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right"> 
                                                     <input readonly type="text" name="product_unit[]" 
                                                         class="border-0 px-2 py-1 w-100 product_unit height-32" 
                                                         value="` + element.product_unit + `">
                                                 </td>
 
-                                                <td class="p-2 text-13 align-top border-top-0 border-bottom border-right" width: 15%;>
+                                                <td class="p-2 text-13 align-top border-top-0 border-bottom border-right">
                                                     <div>
                                                         <input oninput="checkQty(this,` + (parseFloat(element
                                         .product_qty) -

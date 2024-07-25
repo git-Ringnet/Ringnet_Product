@@ -929,6 +929,9 @@ class Delivery extends Model
             //thêm giá xuất và thành tiền có thuế của mỗi sản phẩm giao
             $productExport = QuoteExport::where('detailexport_id', $data['detailexport_id'])
                 ->where('product_id', $data['product_id'][$i])->first();
+            $productExport->warehouse_id = isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 0;
+            $productExport->save();
+            
             if (!empty($data['product_price'][$i])) {
                 $product_price = str_replace(',', '', $data['product_price'][$i]);
             } else {

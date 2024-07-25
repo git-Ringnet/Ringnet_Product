@@ -27,11 +27,11 @@
                         </svg>
                     </span>
                     <span class="last-span">{{ $detailExport->quotation_number }}</span>
-                    @if ($detailExport->tinhTrang == 1)
+                    {{-- @if ($detailExport->tinhTrang == 1)
                         <span style="color: #858585; font-size:13px;" class="btn-status">Nháp</span>
                     @else
                         <span style="color: #0052CC; font-size:13px;" class="btn-status">Chính thức</span>
-                    @endif
+                    @endif --}}
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
@@ -123,10 +123,10 @@
                                 Khách hàng
                             </span>
                             <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" readonly placeholder="Chọn thông tin"
-                                    <?php if ($detailExport->tinhTrang != 1) {
-                                        echo 'disabled';
-                                    } ?> value="{{ $detailExport->export_guest_name }}"
+                                <input type="text" readonly placeholder="Chọn thông tin" <?php if ($detailExport->tinhTrang != 1) {
+                                    echo 'disabled';
+                                } ?>
+                                    value="{{ $detailExport->export_guest_name }}"
                                     class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
                                     style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
                                 <input type="hidden" class="idGuest" autocomplete="off"
@@ -341,41 +341,37 @@
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">
-                                            <span class="mx-1 mr-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    viewBox="0 0 14 14" fill="none">
-                                                    <path
-                                                        d="M6.37 7.63C6.49289 7.75305 6.56192 7.91984 6.56192 8.09375C6.56192 8.26766 6.49289 8.43445 6.37 8.5575L4.375 10.5L5.46875 11.5938C5.46875 11.7678 5.39961 11.9347 5.27654 12.0578C5.15347 12.1809 4.98655 12.25 4.8125 12.25H2.40625C2.2322 12.25 2.06528 12.1809 1.94221 12.0578C1.81914 11.9347 1.75 11.7678 1.75 11.5938V9.1875C1.75 9.01345 1.81914 8.84653 1.94221 8.72346C2.06528 8.60039 2.2322 8.53125 2.40625 8.53125L3.5 9.625L5.4425 7.63C5.56555 7.50711 5.73234 7.43808 5.90625 7.43808C6.08016 7.43808 6.24695 7.50711 6.37 7.63ZM7.63 6.37C7.50711 6.24695 7.43808 6.08016 7.43808 5.90625C7.43808 5.73234 7.50711 5.56555 7.63 5.4425L9.625 3.5L8.53125 2.40625C8.53125 2.2322 8.60039 2.06528 8.72346 1.94221C8.84653 1.81914 9.01345 1.75 9.1875 1.75H11.5938C11.7678 1.75 11.9347 1.81914 12.0578 1.94221C12.1809 2.06528 12.25 2.2322 12.25 2.40625V4.8125C12.25 4.98655 12.1809 5.15347 12.0578 5.27654C11.9347 5.39961 11.7678 5.46875 11.5938 5.46875L10.5 4.375L8.5575 6.37C8.43445 6.49289 8.26766 6.56192 8.09375 6.56192C7.91984 6.56192 7.75305 6.49289 7.63 6.37Z"
-                                                        fill="#26273B" fill-opacity="0.8" />
-                                                </svg>
-                                            </span>
-                                            <span class="pl-3 text-left">Mã sản phẩm</span>
+                                        <th class="border-right px-2 p-0" style="width: 10%">
+                                            <input type='checkbox'
+                                                class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
+                                            <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:17%;">Tên sản
-                                            phẩm</th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị
+                                        <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
+                                            <span class="text-table text-secondary">Tên sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13 text-right" style="width:10%;">
-                                            Số lượng
+                                        <th class="border-right px-2 p-0 text-left" style="width: 8%;">
+                                            <span class="text-table text-secondary">Đơn vị</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
-                                            Đơn giá
+                                        <th class="border-right px-2 p-0 text-right" style="width: 8%;">
+                                            <span class="text-table text-secondary">Số lượng</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
-                                            KM
+                                        <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                            <span class="text-table text-secondary">Đơn giá</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
-                                            Thuế
+                                        <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                            <span class="text-table text-secondary">KM</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13"style="width:15%;">
-                                            Thành tiền
+                                        <th class="border-right px-2 p-0 text-center" style="width: 6%;">
+                                            <span class="text-table text-secondary">Thuế</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13"style="width:10%;">
-                                            Kho
+                                        <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                            <span class="text-table text-secondary">Thành tiền</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-left note text-13" style="width:15%;">
-                                            Ghi chú sản phẩm
+                                        <th class="border-right px-2 p-0 text-center"style="width: 10%;">
+                                            <span class="text-table text-secondary">Kho</span>
+                                        </th>
+                                        <th class="border-right note px-2 p-0 text-left">
+                                            <span class="text-table text-secondary">Ghi chú</span>
                                         </th>
                                         @if ($detailExport->tinhTrang == 1)
                                             <th class="p-0 px-2 text-center note text-13"></th>
@@ -496,7 +492,7 @@
                                                 </div>
                                                 <a href="#" class="activity" data-name1="BG"
                                                     data-des="Xem giao dịch gần đây ở trang chỉnh sửa">
-                                                    <div class="mt-3 text-13-blue recentModal" data-toggle="modal"
+                                                    <div class="mt-3 text-13-blue recentModal text-right" data-toggle="modal"
                                                         data-target="#recentModal" style="">Giao dịch gần đây
                                                     </div>
                                                 </a>
@@ -592,11 +588,10 @@
                                             </td>
                                             <td
                                                 class='border-right p-2 note text-13 align-top border-bottom border-top-0'>
-                                                <input type='text' name="product_note[]" <?php if ($detailExport->tinhTrang != 1) {
+                                                <textarea placeholder="Nhập ghi chú" <?php if ($detailExport->tinhTrang != 1) {
                                                     echo 'readonly';
-                                                } ?>
-                                                    value="{{ $item_quote->product_note }}"
-                                                    class='border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú'>
+                                                } ?> class='border-0 py-1 w-100 text-left height-32'
+                                                    name='product_note[]' rows='2' cols='50'>{{ $item_quote->product_note }}</textarea>
                                             </td>
                                             @if ($detailExport->tinhTrang == 1)
                                                 <td class='p-2 align-top border-bottom border-top-0'>
@@ -1638,9 +1633,9 @@
                 //"</ul>" +
                 '</td>');
             const ghiChu = $(
-                "<td class='border-right p-2 text-13 align-top border-bottom note border-top-0'>" +
-                "<input type='text' class='border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú' name='product_note[]'>" +
-                "</td>"
+                `<td class='border-right note p-2 align-top border-bottom border-top-0'>` +
+                `<textarea placeholder="Nhập ghi chú" class='text-13-black border-0 py-1 w-100 height-32' name='product_note[]' rows='2' cols='50'></textarea>` +
+                `</td>`
             );
             const option = $(
                 "<td class='border-right p-2 align-top activity border-bottom border-top-0' data-name1='BG' data-des='Xóa sản phẩm ở trang chỉnh sửa'>" +

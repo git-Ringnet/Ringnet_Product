@@ -30,11 +30,11 @@
                         </svg>
                     </span>
                     <span class="last-span">{{ $title }}</span>
-                    @if ($import->status == 1)
+                    {{-- @if ($import->status == 1)
                         <span style="color: #858585; font-size:13px;" class="btn-status">Nháp</span>
                     @else
                         <span style="color: #0052CC; font-size:13px;" class="btn-status">Chính thức</span>
-                    @endif
+                    @endif --}}
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
@@ -72,7 +72,7 @@
         <!-- Main content -->
         <x-formprovides> </x-formprovides>
 
-        <div class="content margin-top-117">
+        <div class="content margin-top-75">
             <div class="border">
                 <div>
                     <div class="bg-filter-search border-0 text-center">
@@ -99,7 +99,8 @@
                                 <input type="text" placeholder="Chọn thông tin" {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
                                     value="{{ $import->provide_name_display }}"
                                     class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
-                                    style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required readonly>
+                                    style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required
+                                    readonly>
                             </span>
                             @if ($import->status == 1)
                                 <div class="d-flex align-items-center justify-content-between border-0">
@@ -249,11 +250,11 @@
                                 class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
                                 <option value="0" class="text-uppercase" <?php if ($import->status_receive == 0) {
                                     echo 'selected';
-                                } ?>>Chưa giao
+                                } ?>>Chưa nhận
                                 </option>
                                 <option value="2" class="text-uppercase" <?php if ($import->status_receive == 2) {
                                     echo 'selected';
-                                } ?>>Đã giao
+                                } ?>>Đã nhận
                                 </option>
                             </select>
                         </div>
@@ -279,42 +280,39 @@
                         <table id="inputcontent" class="table table-hover bg-white rounded">
                             <thead>
                                 <tr style="height:44px;">
-                                    <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">
-                                        <span class="mx-1 mr-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                viewBox="0 0 14 14" fill="none">
-                                                <path
-                                                    d="M6.37 7.63C6.49289 7.75305 6.56192 7.91984 6.56192 8.09375C6.56192 8.26766 6.49289 8.43445 6.37 8.5575L4.375 10.5L5.46875 11.5938C5.46875 11.7678 5.39961 11.9347 5.27654 12.0578C5.15347 12.1809 4.98655 12.25 4.8125 12.25H2.40625C2.2322 12.25 2.06528 12.1809 1.94221 12.0578C1.81914 11.9347 1.75 11.7678 1.75 11.5938V9.1875C1.75 9.01345 1.81914 8.84653 1.94221 8.72346C2.06528 8.60039 2.2322 8.53125 2.40625 8.53125L3.5 9.625L5.4425 7.63C5.56555 7.50711 5.73234 7.43808 5.90625 7.43808C6.08016 7.43808 6.24695 7.50711 6.37 7.63ZM7.63 6.37C7.50711 6.24695 7.43808 6.08016 7.43808 5.90625C7.43808 5.73234 7.50711 5.56555 7.63 5.4425L9.625 3.5L8.53125 2.40625C8.53125 2.2322 8.60039 2.06528 8.72346 1.94221C8.84653 1.81914 9.01345 1.75 9.1875 1.75H11.5938C11.7678 1.75 11.9347 1.81914 12.0578 1.94221C12.1809 2.06528 12.25 2.2322 12.25 2.40625V4.8125C12.25 4.98655 12.1809 5.15347 12.0578 5.27654C11.9347 5.39961 11.7678 5.46875 11.5938 5.46875L10.5 4.375L8.5575 6.37C8.43445 6.49289 8.26766 6.56192 8.09375 6.56192C7.91984 6.56192 7.75305 6.49289 7.63 6.37Z"
-                                                    fill="#26273B" fill-opacity="0.8" />
-                                            </svg>
-                                        </span>
-                                        <span class="pl-3 text-left">Mã sản phẩm</span>
+                                    <th class="border-right px-2 p-0" style="width: 10%">
+                                        <input type='checkbox'
+                                            class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
+                                        <span class="text-table text-secondary">Mã sản phẩm</span>
                                     </th>
-                                    <th class="border-right p-0 px-2 text-13 text-left" style="width:17%;">Tên sản
-                                        phẩm</th>
-                                    <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">
-                                        Đơn vị
+                                    <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
+                                        <span class="text-table text-secondary">Tên sản phẩm</span>
                                     </th>
-                                    <th class="border-right p-0 px-2 text-13 text-right" style="width:10%;">
-                                        Số lượng
+                                    <th class="border-right px-2 p-0 text-left" style="width: 8%;">
+                                        <span class="text-table text-secondary">Đơn vị</span>
                                     </th>
-                                    <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
-                                        Đơn giá
+                                    <th class="border-right px-2 p-0 text-right" style="width: 8%;">
+                                        <span class="text-table text-secondary">Số lượng</span>
                                     </th>
-                                    <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
-                                        KM
+                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                        <span class="text-table text-secondary">Đơn giá</span>
                                     </th>
-                                    <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
-                                        Thuế
+                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                        <span class="text-table text-secondary">KM</span>
                                     </th>
-                                    <th class="border-right p-0 px-2 text-right text-13"style="width:15%;">
-                                        Thành tiền
+                                    <th class="border-right px-2 p-0 text-center" style="width: 6%;">
+                                        <span class="text-table text-secondary">Thuế</span>
                                     </th>
-                                    <th class="border-right p-0 px-2 text-left note text-13" style="width:15%;">
-                                        Ghi chú sản phẩm
+                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                        <span class="text-table text-secondary">Thành tiền</span>
                                     </th>
-                                    <th scope="col" class="p-0 px-2 text-left note text-13">
+                                    <th class="border-right px-2 p-0 text-center"style="width: 10%;">
+                                        <span class="text-table text-secondary">Kho</span>
                                     </th>
+                                    <th class="border-right note px-2 p-0 text-left">
+                                        <span class="text-table text-secondary">Ghi chú</span>
+                                    </th>
+                                    <th class=""></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -354,8 +352,11 @@
                                             <div class="d-flex align-items-center">
                                                 <input id="searchProductName" type="text" name="product_name[]"
                                                     class="searchProductName border-0 px-2 py-1 w-100 height-32"
-                                                    value="{{ $item->product_name }}"
+                                                    value="{{ $item->product_name }}" autocomplete="off"
                                                     @if ($import->status != 1) echo readonly @endif required>
+                                                <input type="hidden" class="product_id" autocomplete="off"
+                                                    value="{{ $item->product_id }}" name="product_id[]"
+                                                    value="">
                                                 <div class="info-product" data-toggle="modal"
                                                     data-target="#productModal">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14"
@@ -466,11 +467,38 @@
                                                 readonly
                                                 value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - ($item->product_total * $promotionValue) / 100, 2, '.', ',') : number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - ($item->product_total * $promotionValue) / 100) }}">
                                         </td>
+                                        <td
+                                            class='border-right p-2 text-13 align-top border-top-0 border-bottom position-relative'>
+                                            <input type="text" class="border-0 py-1 w-100 searchWarehouse"
+                                                name="warehouse[]" readonly id="searchWarehouse"
+                                                placeholder="Chọn kho"
+                                                value="@if (isset($item->getWareHouse)) {{ $item->getWareHouse->warehouse_name }} @endif">
+                                            <div id="listWareH"
+                                                class="bg-white position-absolute rounded shadow p-1 z-index-block"
+                                                style="z-index: 99;">
+                                                <ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse"
+                                                    style="display:none;">
+                                                    <div class="p-1">
+                                                        <div class="position-relative">
+                                                            <input type="text" placeholder="Nhập kho hàng"
+                                                                class="pr-4 w-100 input-search bg-input-guest searchWarehouse"
+                                                                id="a">
+                                                            <span id="search-icon" class="search-icon">
+                                                                <i class="fas fa-search text-table"
+                                                                    aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                            <input type="hidden" placeholder="Chọn kho"
+                                                class="border-0 py-1 w-100 height-32 text-13-black warehouse_id"
+                                                name="warehouse_id[]">
+                                        </td>
                                         <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                            <input placeholder="Nhập ghi chú" type="text" name="product_note[]"
-                                                class="border-0 py-1 w-100 height-32"
-                                                value="{{ $item->product_note }}"
-                                                @if ($import->status != 1) echo readonly @endif>
+                                            <textarea placeholder="Nhập ghi chú" class='text-13-black border-0 py-1 w-100 height-32' name='product_note[]'  @if ($import->status != 1) echo readonly @endif rows='2' cols='50'>
+                                                {{ $item->product_note }}
+                                            </textarea>
                                         </td>
                                         <td class="p-2 align-top border-bottom border-top-0 deleteRow">
                                             <svg width='17' height='17' viewBox='0 0 17 17' fill='none'
@@ -1541,6 +1569,7 @@
             listProductCode = $(this).closest('tr').find('#listProductCode');
             listProductName = $(this).closest('tr').find('#listProductName');
             inputCode = $(this).closest('tr').find('.searchProduct');
+            inputID = $(this).closest('tr').find('.product_id');
             inputName = $(this).closest('tr').find('.searchProductName');
             inputUnit = $(this).closest('tr').find('.product_unit');
             inputPriceExprot = $(this).closest('tr').find('.price_export');
@@ -1560,6 +1589,7 @@
                         var UL = '<li>' +
                             '<a href="javascript:void(0)" class="text-dark d-flex justify-content-between w-100 p-2 search-name" id="' +
                             element.id + ' "data-code="' + element.product_code +
+                            ' "data-id="' + element.id +
                             '"data-tax="' + element
                             .product_tax +
                             '"data-priceExport= "' +
@@ -1575,7 +1605,6 @@
                     });
 
                     $('.search-name').on('click', function() {
-                        console.log(inputCode);
                         inputCode.val($(this).attr(
                                 'data-code') == "null" ?
                             "" : $(this).attr(
@@ -1583,6 +1612,8 @@
                         inputName.val($(this).closest('li')
                             .find('span')
                             .text());
+                        inputID.val($(this).attr('data-id') == "null" ? "" : $(this)
+                            .attr('data-id'));
                         inputUnit.val($(this).attr(
                                 'data-unit') == null ?
                             "" : $(this).attr(
@@ -1604,6 +1635,67 @@
                         selectTax.val($(this).attr(
                             'data-tax'))
                         listProductName.hide();
+                        var product_name = $(this).find("span").text()
+                        var currentTr = $(this).closest('tr');
+                        var warehouseId = currentTr.find('.warehouse_id').val();
+                        $.ajax({
+                            url: "{{ route('getInventory') }}",
+                            type: "get",
+                            data: {
+                                product_name: product_name,
+                                warehouse_id: warehouseId,
+                            },
+                            success: function(data) {
+                                if (data && data['products']) {
+                                    var productInventory = data['products']
+                                        .product_inventory;
+                                    currentTr.find('#soTonKho').text(
+                                        formatCurrency(productInventory ==
+                                            null ? 0 : productInventory));
+                                } else {
+                                    currentTr.find('#soTonKho').text(
+                                        formatCurrency(0));
+                                }
+                                $('.transaction').on('click', function() {
+                                    nameProduct = $(this).closest('tr')
+                                        .find('.searchProductName')
+                                        .val()
+                                    $.ajax({
+                                        url: "{{ route('getHistoryImport') }}",
+                                        type: "get",
+                                        data: {
+                                            product_name: nameProduct,
+                                        },
+                                        success: function(
+                                            data) {
+                                            $('#recentModal .modal-body tbody')
+                                                .empty()
+                                            if (data[
+                                                    'history'
+                                                ]) {
+                                                data[
+                                                        'history'
+                                                    ]
+                                                    .forEach(
+                                                        element => {
+                                                            var tr = `
+                                            <tr>
+                                                <td>` + element.product_name + `</td>
+                                                <td>` + formatCurrency(element.price_export) + `</td>
+                                                <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") + `</td>
+                                                <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                                            </tr> `;
+                                                            $('#recentModal .modal-body tbody')
+                                                                .append(
+                                                                    tr
+                                                                );
+                                                        })
+                                            }
+                                        }
+                                    })
+                                })
+                            }
+                        })
                     })
                 }
             })
@@ -1625,13 +1717,69 @@
         })
     })
 
+    $(document).on('click', '.searchWarehouse', function(e) {
+        e.preventDefault();
+
+        var position = $(this);
+        $.ajax({
+            url: "{{ route('getWarehouse') }}",
+            type: "get",
+            data: {},
+            success: function(data) {
+                $(position).closest('tr').find('#listWarehouse li').remove()
+                data.forEach(item => {
+                    var li = `
+                        <li class="w-100">
+                            <a data-id="` + item.id + `" data-value="` + item.warehouse_name + `"
+                            href="javascript:void(0)" 
+                            class="text-dark d-flex w-100 justify-content-between p-2 search-warehouse" 
+                            name="search-warehouse">
+                            <span class="w-100 text-13-black">` + item.warehouse_name + `</span>
+                            </a>
+                        </li>`;
+                    $(position).closest('tr').find('#listWarehouse').append(li);
+                });
+            }
+        })
+    })
+
     $(document).on('click', '.search-warehouse', function() {
         var tr = $(this).closest('tr');
         $(tr).find('#searchWarehouse').val($(this).data('value'));
         $(tr).find('.warehouse_id').val($(this).data('id'));
         $(tr).find('#listWarehouse').hide();
-        // console.log($(this).data('value'));
-        // console.log($(this).data('id'));
+        var tonkho = $(tr).find('.tonkho');
+        var soTonKho = $(tr).find('.soTonKho');
+        var inventory = $(tr).find('.inventory');
+        var quantity_input = $(tr).find('.quantity-input');
+
+        $.ajax({
+            url: "{{ route('getInventWH') }}",
+            type: "get",
+            data: {
+                warehouse_id: $(tr).find('.warehouse_id').val(),
+                idProduct: $(tr).find('.product_id').val(),
+            },
+            success: function(data) {
+                tonkho.val(formatNumber(data
+                    .product_inventory == null ? 0 :
+                    data.product_inventory))
+                if (data.type == 2) {
+                    soTonKho.text('');
+                    inventory.hide();
+                    quantity_input.val(1);
+                } else {
+                    soTonKho.text(parseFloat(data
+                        .product_inventory == null ? 0 :
+                        data.product_inventory));
+                    inventory.show();
+                    quantity_input.val("");
+                    if (data.product_inventory > 0) {
+                        inventory.show();
+                    }
+                }
+            }
+        })
     })
 
 
