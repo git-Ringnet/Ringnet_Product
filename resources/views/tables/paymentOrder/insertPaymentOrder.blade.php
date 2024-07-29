@@ -73,7 +73,7 @@
         </div>
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PC'" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PC'" :status="'1'" />
             <section class="content" id="main">
                 <div class="bg-filter-search border-0 text-center">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">

@@ -73,7 +73,7 @@
             </div>
         </div>
         <div class="content margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'DHNCC'" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'DHNCC'" :status="'1'" />
             <div id="main">
                 <div class="border">
                     <div id="show_info_Guest">

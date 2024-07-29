@@ -33,12 +33,12 @@ function calculateTotals() {
         var taxValue = parseFloat($(this).find('[name^="product_tax"]').val());
         var promotionValue =
             $(this)
-                .find('input[name="discount_input[]"]')
+                .find('input[name="promotion[]"]')
                 .val()
                 .replace(/,/g, "") || 0;
 
         var promotionOption =
-            parseInt($(this).find('select[name="discount_option[]"]').val()) ||
+            parseInt($(this).find('select[name="promotion-option[]"]').val()) ||
             0;
         if (taxValue == 99) {
             taxValue = 0;
@@ -384,19 +384,11 @@ function createProductRow(product, page) {
                 page == "PXK" || page == "PNK" ? "d-none" : ""
             }'>
                 <div class='d-flex flex-column align-items-end'>
-                <input type='${page == "DHNCC" ? "text" : "number"}' name='${
-        page == "DHNCC" || page == "PNK" ? "promotion[]" : "discount_input[]"
-    }' class='${
-        page == "DHNCC" ? "promotion" : "discount_input"
-    } text-13-black py-1 w-100 height-32 mt-1 text-right' value="${promotionValue}" placeholder='Giá trị chiết khấu' style='border: none;'>
+                <input type='${
+                    page == "DHNCC" ? "text" : "number"
+                }' name='promotion[]' class='promotion text-13-black py-1 w-100 height-32 mt-1 text-right' value="${promotionValue}" placeholder='Giá trị chiết khấu' style='border: none;'>
                 <div class="mt-3 text-13-blue text-right">
-                <select name='${
-                    page == "DHNCC" || page == "PNK"
-                        ? "promotion-option[]"
-                        : "discount_option[]"
-                }' class='${
-        page == "DHNCC" ? "promotion-option" : "discount_option"
-    } border-0 mt-2'>
+                <select name='promotion-option[]' class='promotion-option border-0 mt-2'>
                 <option value='1' ${
                     promotionType == 1 ? "selected" : ""
                 }>Nhập tiền</option>
@@ -433,7 +425,9 @@ function createProductRow(product, page) {
                 } height-32'>
             </td>
             <td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">
-                <input id="searchWarehouse" value="${(page == "PNK" || page == "PXK") ? product.nameWH : ""}" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]" readonly autocomplete="off">
+                <input id="searchWarehouse" value="${
+                    page == "PNK" || page == "PXK" ? product.nameWH : ""
+                }" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]" readonly autocomplete="off">
                 <div id="listWareH" class="bg-white position-absolute rounded shadow p-1 z-index-block" style="z-index: 99;">
                 <ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse" style="display:none;">
                 <div class="p-1">
@@ -446,7 +440,9 @@ function createProductRow(product, page) {
                 </div>
                 </ul>
                 </div>
-                <input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" value="${(page == "PNK" || page == "PXK") ? product.idWH : ""}" name="warehouse_id[]" >
+                <input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" value="${
+                    page == "PNK" || page == "PXK" ? product.idWH : ""
+                }" name="warehouse_id[]" >
             </td>
             <td class='border-right note p-2 align-top border-bottom border-top-0'>
                 <input type='text' class='text-13-black border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú' name='product_note[]'>

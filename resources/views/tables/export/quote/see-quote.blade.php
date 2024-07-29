@@ -415,10 +415,11 @@
             </section>
         </div>
         <div class="content margin-top-127">
-            <div>
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" :status="'2'" />
+            <div id="main">
                 {{-- Thông tin khách hàng --}}
                 <div class="border">
-                    <div id="show_info_Guest">
+                    <div>
                         <div class="bg-filter-search border-0 text-center border-custom">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH
                                 HÀNG
@@ -511,7 +512,7 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập</span>
                                 <input value="{{ $detailExport->name }}"
                                     class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"style="flex:2;"
-                                    name="quotation_number" readonly />
+                                    readonly />
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
@@ -586,7 +587,7 @@
                             </div>
                             <div class="container-fluided">
                                 <div class="content">
-                                    <table class="table table-hover bg-white rounded m-0">
+                                    <table id="inputcontent" class="table table-hover bg-white rounded m-0">
                                         <thead>
                                             <tr style="height:44px;">
                                                 <th class="border-right px-2 p-0" style="width: 10%">
@@ -1094,7 +1095,8 @@
     <x-form-attachment :value="$detailExport" name="BG"></x-form-attachment>
 </div>
 </div>
-</section>
+</div>
+</div>
 
 {{-- Thông tin sản phẩm --}}
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -1474,12 +1476,12 @@
             select.removeAttribute('disabled');
         });
     });
-    document.getElementById('btnHoaDon').addEventListener('click', function() {
-        var selects = document.querySelectorAll('.product_tax');
-        selects.forEach(function(select) {
-            select.removeAttribute('disabled');
-        });
-    });
+    // document.getElementById('btnHoaDon').addEventListener('click', function() {
+    //     var selects = document.querySelectorAll('.product_tax');
+    //     selects.forEach(function(select) {
+    //         select.removeAttribute('disabled');
+    //     });
+    // });
     document.getElementById('btnThanhToan').addEventListener('click', function() {
         var selects = document.querySelectorAll('.product_tax');
         selects.forEach(function(select) {

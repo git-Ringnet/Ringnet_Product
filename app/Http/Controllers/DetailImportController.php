@@ -222,6 +222,9 @@ class DetailImportController extends Controller
                 ->get();
             //danh sách nhân viên
             $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+            //
+            $listDetail = DetailImport::where('workspace_id', Auth::user()->current_workspace)
+                ->orderBy('id', 'desc')->get();
             return view('tables.import.editImport', compact(
                 'import',
                 'title',
@@ -236,7 +239,8 @@ class DetailImportController extends Controller
                 'id_priceeffect',
                 'id_termpay',
                 'warehouse',
-                'listUser'
+                'listUser',
+                'listDetail'
             ));
         } else {
             return redirect()->route('import.index', $workspacename)->with('warning', 'Không tìm thấy trang hợp lệ !');

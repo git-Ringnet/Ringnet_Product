@@ -100,8 +100,9 @@
                 </div>
             </div>
         </div>
-        <div class="content margin-top-117">
-            <section class="content">
+        <div class="content margin-top-75">
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" :status="'3'" />
+            <section class="content" id="main">
                 {{-- Thông tin khách hàng --}}
                 <div class="border">
                     <div class="bg-filter-search border-0 text-center">
@@ -338,7 +339,7 @@
                 <div class="container-fluided">
                     <section class="content">
                         <div class="content-info position-relative text-nowrap">
-                            <table class="table table-hover bg-white rounded">
+                            <table class="table table-hover bg-white rounded" id="inputcontent">
                                 <thead>
                                     <tr style="height:44px;">
                                         <th class="border-right px-2 p-0" style="width: 10%">

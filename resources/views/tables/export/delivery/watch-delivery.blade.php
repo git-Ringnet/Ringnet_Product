@@ -187,7 +187,8 @@
             </section>
         </div>
         <div class="content margin-top-127">
-            <div>
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PXK'" :status="'2'" />
+            <div id="main">
                 <div class="container-fluided">
                     {{-- Thông tin khách hàng --}}
                     <div class="content">

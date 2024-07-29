@@ -73,475 +73,489 @@
         <x-formprovides> </x-formprovides>
 
         <div class="content margin-top-75">
-            <div class="border">
-                <div>
-                    <div class="bg-filter-search border-0 text-center">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
-                            THÔNG TIN NHÀ CUNG CẤP
-                        </p>
-                    </div>
-                    <div class="d-flex w-100">
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
-                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
-                                id="datePicker" style="flex:2;" placeholder="Chọn thông tin"
-                                value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}">
-                            <input type="hidden" id="hiddenDateInput" name="date_quote"
-                                value="{{ $import->created_at->toDateString() }}">
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'DHNCC'" :status="'3'" />
+            <div id="main">
+                <div class="border">
+                    <div>
+                        <div class="bg-filter-search border-0 text-center">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                THÔNG TIN NHÀ CUNG CẤP
+                            </p>
                         </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 btn-click" style="flex: 1.5;">
-                                Nhà cung cấp
-                            </span>
-                            <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" placeholder="Chọn thông tin" {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
-                                    value="{{ $import->provide_name_display }}"
-                                    class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
-                                    style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required
-                                    readonly>
-                            </span>
-                            @if ($import->status == 1)
-                                <div class="d-flex align-items-center justify-content-between border-0">
-                                    <div id="myUL"
-                                        class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
-                                        style="z-index: 99;display: none;">
-                                        <ul class="m-0 p-0 scroll-data">
-                                            <div class="p-1">
-                                                <div class="position-relative">
-                                                    <input type="text" placeholder="Nhập thông tin"
-                                                        class="pr-4 w-100 input-search bg-input-guest"
-                                                        id="provideFilter">
-                                                    <span id="search-icon" class="search-icon"><i
-                                                            class="fas fa-search text-table"
-                                                            aria-hidden="true"></i></span>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                    id="datePicker" style="flex:2;" placeholder="Chọn thông tin"
+                                    value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}">
+                                <input type="hidden" id="hiddenDateInput" name="date_quote"
+                                    value="{{ $import->created_at->toDateString() }}">
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 btn-click" style="flex: 1.5;">
+                                    Nhà cung cấp
+                                </span>
+                                <span class="mx-1 text-13" style="flex: 2;">
+                                    <input type="text" placeholder="Chọn thông tin" {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
+                                        value="{{ $import->provide_name_display }}"
+                                        class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
+                                        style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
+                                        required readonly>
+                                </span>
+                                @if ($import->status == 1)
+                                    <div class="d-flex align-items-center justify-content-between border-0">
+                                        <div id="myUL"
+                                            class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
+                                            style="z-index: 99;display: none;">
+                                            <ul class="m-0 p-0 scroll-data">
+                                                <div class="p-1">
+                                                    <div class="position-relative">
+                                                        <input type="text" placeholder="Nhập thông tin"
+                                                            class="pr-4 w-100 input-search bg-input-guest"
+                                                            id="provideFilter">
+                                                        <span id="search-icon" class="search-icon"><i
+                                                                class="fas fa-search text-table"
+                                                                aria-hidden="true"></i></span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            @foreach ($provides as $item)
-                                                <li class="p-2 align-items-center text-wrap"
-                                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                    <a href="javascript:void(0)" style="flex:2;"
-                                                        id="{{ $item->id }}" name="search-info"
-                                                        class="search-info">
-                                                        <span
-                                                            class="text-13-black">{{ $item->provide_name_display }}</span>
-                                                    </a>
-                                                    <a type="button" data-toggle="modal" data-target="#editProvide"
-                                                        data-id="{{ $item->id }}" class="search-infoEdit">
-                                                        <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                height="14" viewBox="0 0 14 14" fill="none">
-                                                                <path
-                                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                                    fill="black" />
-                                                                <path
-                                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                                    fill="black" />
-                                                                <path
-                                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                                    fill="black" />
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                        <a type="button"
-                                            class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
-                                            data-toggle="modal" data-target="#provideModal"
-                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30" />
-                                                </svg>
-                                            </span>
-                                            <span class="text-13-black pl-3 pt-1"
-                                                style="font-weight: 600 !important;">Thêm
-                                                nhà cung cấp</span>
-                                        </a>
+                                                @foreach ($provides as $item)
+                                                    <li class="p-2 align-items-center text-wrap"
+                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                        <a href="javascript:void(0)" style="flex:2;"
+                                                            id="{{ $item->id }}" name="search-info"
+                                                            class="search-info">
+                                                            <span
+                                                                class="text-13-black">{{ $item->provide_name_display }}</span>
+                                                        </a>
+                                                        <a type="button" data-toggle="modal"
+                                                            data-target="#editProvide" data-id="{{ $item->id }}"
+                                                            class="search-infoEdit">
+                                                            <span>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                    height="14" viewBox="0 0 14 14"
+                                                                    fill="none">
+                                                                    <path
+                                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                            <a type="button"
+                                                class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                                                data-toggle="modal" data-target="#provideModal"
+                                                style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="16" viewBox="0 0 16 16" fill="none">
+                                                        <path
+                                                            d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                            fill="#282A30" />
+                                                    </svg>
+                                                </span>
+                                                <span class="text-13-black pl-3 pt-1"
+                                                    style="font-weight: 600 !important;">Thêm
+                                                    nhà cung cấp</span>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                            @endif
+                                @endif
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
+                                <input tye="text"
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 text-right debt-old"
+                                    value="{{ number_format($import->provide_debt) }}" disabled="">
+                            </div>
                         </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
-                            <input tye="text"
-                                class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 text-right debt-old"
-                                value="{{ number_format($import->provide_debt) }}" disabled="">
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                    name="quotation_number"
+                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;"
+                                    placeholder="Chọn thông tin" value="{{ $import->quotation_number }}"
+                                    @if ($import->status == 2) readonly @endif>
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                    value="{{ $import->provide_name }}" name="provides_name" style="flex:2;">
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số điện thoại</span>
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                    value="{{ $import->phone }}" name="phone" style="flex:2;">
+                            </div>
                         </div>
-                    </div>
-                    <div class="d-flex w-100">
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
-                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
-                                name="quotation_number" style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                placeholder="Chọn thông tin" value="{{ $import->quotation_number }}"
-                                @if ($import->status == 2) readonly @endif>
-                        </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
-                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                value="{{ $import->provide_name }}" name="provides_name" style="flex:2;">
-                        </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số điện thoại</span>
-                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                value="{{ $import->phone }}" name="phone" style="flex:2;">
-                        </div>
-                    </div>
-                    <div class="d-flex w-100">
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số phiếu</span>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số phiếu</span>
 
-                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
-                                name="reference_number" style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                placeholder="Chọn thông tin" value="{{ $import->reference_number }}">
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                    name="reference_number"
+                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;"
+                                    placeholder="Chọn thông tin" value="{{ $import->reference_number }}">
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                    value="{{ $import->address }}" name="address" style="flex:2;">
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao</span>
+                                <input id="date_delivery" readonly
+                                    value="{{ date_format(new DateTime($import->date_delivery), 'd/m/Y') }}"
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 flatpickr-input active"
+                                    style="flex:2;" type="text">
+                                <input type="hidden" id="hiddenDateDelivery" name="date_delivery" value="">
+                            </div>
                         </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
-                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                value="{{ $import->address }}" name="address" style="flex:2;">
-                        </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao</span>
-                            <input id="date_delivery" readonly
-                                value="{{ date_format(new DateTime($import->date_delivery), 'd/m/Y') }}"
-                                class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 flatpickr-input active"
-                                style="flex:2;" type="text">
-                            <input type="hidden" id="hiddenDateDelivery" name="date_delivery" value="">
-                        </div>
-                    </div>
-                    <div class="d-flex w-100">
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập</span>
-                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                style="flex:2;" disabled="" value="{{ $import->name }}">
-                        </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên</span>
-                            <select name="id_sale" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
-                                <option value=""></option>
-                                @foreach ($listUser as $listU)
-                                    <option value="{{ $listU->id }}" <?php if ($listU->id === $import->id_sale) {
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập</span>
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                    style="flex:2;" disabled="" value="{{ $import->name }}">
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên</span>
+                                <select name="id_sale" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
+                                    <option value=""></option>
+                                    @foreach ($listUser as $listU)
+                                        <option value="{{ $listU->id }}" <?php if ($listU->id === $import->id_sale) {
+                                            echo 'selected';
+                                        } ?>>
+                                            {{ $listU->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Trạng thái</span>
+                                <select name="status_receive"
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
+                                    <option value="0" class="text-uppercase" <?php if ($import->status_receive == 0) {
                                         echo 'selected';
-                                    } ?>>
-                                        {{ $listU->name }}
+                                    } ?>>Chưa nhận
                                     </option>
-                                @endforeach
-                            </select>
+                                    <option value="2" class="text-uppercase" <?php if ($import->status_receive == 2) {
+                                        echo 'selected';
+                                    } ?>>Đã nhận
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Trạng thái</span>
-                            <select name="status_receive"
-                                class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
-                                <option value="0" class="text-uppercase" <?php if ($import->status_receive == 0) {
-                                    echo 'selected';
-                                } ?>>Chưa nhận
-                                </option>
-                                <option value="2" class="text-uppercase" <?php if ($import->status_receive == 2) {
-                                    echo 'selected';
-                                } ?>>Đã nhận
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="d-flex w-100">
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
-                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                value="{{ $import->note }}" name="note" style="flex:10;">
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                    value="{{ $import->note }}" name="note" style="flex:10;">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <section class="content">
-                <div class="container-fluided">
-                    <div class="bg-filter-search border-0 text-center">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
-                            THÔNG TIN SẢN PHẨM
-                        </p>
-                    </div>
-                    <div class="content-info text-nowrap">
-                        <table id="inputcontent" class="table table-hover bg-white rounded">
-                            <thead>
-                                <tr style="height:44px;">
-                                    <th class="border-right px-2 p-0" style="width: 10%">
-                                        <input type='checkbox'
-                                            class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
-                                        <span class="text-table text-secondary">Mã sản phẩm</span>
-                                    </th>
-                                    <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
-                                        <span class="text-table text-secondary">Tên sản phẩm</span>
-                                    </th>
-                                    <th class="border-right px-2 p-0 text-left" style="width: 8%;">
-                                        <span class="text-table text-secondary">Đơn vị</span>
-                                    </th>
-                                    <th class="border-right px-2 p-0 text-right" style="width: 8%;">
-                                        <span class="text-table text-secondary">Số lượng</span>
-                                    </th>
-                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
-                                        <span class="text-table text-secondary">Đơn giá</span>
-                                    </th>
-                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
-                                        <span class="text-table text-secondary">KM</span>
-                                    </th>
-                                    <th class="border-right px-2 p-0 text-center" style="width: 6%;">
-                                        <span class="text-table text-secondary">Thuế</span>
-                                    </th>
-                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
-                                        <span class="text-table text-secondary">Thành tiền</span>
-                                    </th>
-                                    <th class="border-right px-2 p-0 text-center"style="width: 10%;">
-                                        <span class="text-table text-secondary">Kho</span>
-                                    </th>
-                                    <th class="border-right note px-2 p-0 text-left">
-                                        <span class="text-table text-secondary">Ghi chú</span>
-                                    </th>
-                                    <th class=""></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($product as $item)
-                                    <tr class="bg-white" style="height:80px;">
-                                        <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                            <input type="hidden" readonly value="{{ $item->id }}"
-                                                name="listProduct[]">
-                                            <span class="ml-1 mr-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10"
-                                                    viewBox="0 0 6 10" fill="none">
-                                                    <g clip-path="url(#clip0_1710_10941)">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
-                                                            fill="#282A30"></path>
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_1710_10941">
-                                                            <rect width="6" height="10" fill="white">
-                                                            </rect>
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-                                            </span>
-                                            <input type="checkbox" class="cb-element checkall-btn">
-                                            <input type="text" name="product_code[]"
-                                                class="border-0 w-75 px-2 py-1 w-75 searchProduct height-32"
-                                                value="{{ $item->product_code }}"
-                                                @if ($import->status == 2) echo readonly @endif>
-                                            <ul id="listProductCode"
-                                                class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
-                                                style="z-index: 99; left: 24%; top: 75%;">
-                                            </ul>
-                                        </td>
-                                        <td
-                                            class="border-right p-2 text-13 align-top position-relative border-bottom border-top-0">
-                                            <div class="d-flex align-items-center">
-                                                <input id="searchProductName" type="text" name="product_name[]"
-                                                    class="searchProductName border-0 px-2 py-1 w-100 height-32"
-                                                    value="{{ $item->product_name }}" autocomplete="off"
-                                                    @if ($import->status != 1) echo readonly @endif required>
-                                                <input type="hidden" class="product_id" autocomplete="off"
-                                                    value="{{ $item->product_id }}" name="product_id[]"
-                                                    value="">
-                                                <div class="info-product" data-toggle="modal"
-                                                    data-target="#productModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                        height="14" viewBox="0 0 14 14" fill="none">
-                                                        <g clip-path="url(#clip0_2559_39956)">
-                                                            <path
-                                                                d="M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z"
-                                                                fill="#282A30"></path>
-                                                            <path
-                                                                d="M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z"
-                                                                fill="#282A30"></path>
-                                                            <path
-                                                                d="M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z"
+                <section class="content">
+                    <div class="container-fluided">
+                        <div class="bg-filter-search border-0 text-center">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                THÔNG TIN SẢN PHẨM
+                            </p>
+                        </div>
+                        <div class="content-info text-nowrap">
+                            <table id="inputcontent" class="table table-hover bg-white rounded">
+                                <thead>
+                                    <tr style="height:44px;">
+                                        <th class="border-right px-2 p-0" style="width: 10%">
+                                            <input type='checkbox'
+                                                class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
+                                            <span class="text-table text-secondary">Mã sản phẩm</span>
+                                        </th>
+                                        <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
+                                            <span class="text-table text-secondary">Tên sản phẩm</span>
+                                        </th>
+                                        <th class="border-right px-2 p-0 text-left" style="width: 8%;">
+                                            <span class="text-table text-secondary">Đơn vị</span>
+                                        </th>
+                                        <th class="border-right px-2 p-0 text-right" style="width: 8%;">
+                                            <span class="text-table text-secondary">Số lượng</span>
+                                        </th>
+                                        <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                            <span class="text-table text-secondary">Đơn giá</span>
+                                        </th>
+                                        <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                            <span class="text-table text-secondary">KM</span>
+                                        </th>
+                                        <th class="border-right px-2 p-0 text-center" style="width: 6%;">
+                                            <span class="text-table text-secondary">Thuế</span>
+                                        </th>
+                                        <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                            <span class="text-table text-secondary">Thành tiền</span>
+                                        </th>
+                                        <th class="border-right px-2 p-0 text-center"style="width: 10%;">
+                                            <span class="text-table text-secondary">Kho</span>
+                                        </th>
+                                        <th class="border-right note px-2 p-0 text-left">
+                                            <span class="text-table text-secondary">Ghi chú</span>
+                                        </th>
+                                        <th class=""></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($product as $item)
+                                        <tr class="bg-white" style="height:80px;">
+                                            <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                <input type="hidden" readonly value="{{ $item->id }}"
+                                                    name="listProduct[]">
+                                                <span class="ml-1 mr-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="6"
+                                                        height="10" viewBox="0 0 6 10" fill="none">
+                                                        <g clip-path="url(#clip0_1710_10941)">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
                                                                 fill="#282A30"></path>
                                                         </g>
                                                         <defs>
-                                                            <clipPath id="clip0_2559_39956">
-                                                                <rect width="14" height="14" fill="white">
+                                                            <clipPath id="clip0_1710_10941">
+                                                                <rect width="6" height="10" fill="white">
                                                                 </rect>
                                                             </clipPath>
                                                         </defs>
                                                     </svg>
-                                                </div>
-                                            </div>
-                                            <ul id="listProductName"
-                                                class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
-                                                style="z-index: 99; left: 1%; top: 74%; display: none;">
-                                            </ul>
-                                        </td>
-                                        <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                            <input type="text" name="product_unit[]"
-                                                class="border-0 px-2 py-1 w-100 product_unit height-32"
-                                                value="{{ $item->product_unit }}"
-                                                @if ($import->status != 1) echo readonly @endif required>
-                                        </td>
-                                        <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                            <div class="">
-                                                <input {{-- oninput="checkQty(this,{{ $item->product_qty }})" --}} type="text" name="product_qty[]"
-                                                    class="border-0 px-2 py-1 w-100 quantity-input text-right height-32"
-                                                    value="{{ number_format($item->product_qty) }}"
-                                                    @if ($import->status != 1) echo readonly @endif>
-                                                <div class='mt-3 text-13-blue inventory text-right' tyle="top: 68%;">
-                                                    Tồn kho:
-                                                    <span class='pl-1 soTonKho'>
-                                                        {{ fmod($item->product_inventory, 2) > 0 && fmod($item->product_inventory, 1) > 0 ? number_format($item->product_inventory, 2, '.', ',') : number_format($item->product_inventory) }}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                            <input type="text" name="price_export[]"
-                                                class="border-0 px-2 py-1 w-100 price_export text-right height-32"
-                                                value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
-                                                @if ($import->status != 1) echo readonly @endif>
-                                            <div class='mt-3 text-13-blue text-right transaction' id="transaction"
-                                                data-toggle="modal" data-target="#recentModal">Giao dịch gần đây
-                                            </div>
-                                        </td>
-                                        <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-
-                                            @php
-                                                $promotionArray = json_decode($item->promotion, true);
-                                                $promotionValue = isset($promotionArray['value'])
-                                                    ? $promotionArray['value']
-                                                    : 0;
-                                                $promotionOption = isset($promotionArray['type'])
-                                                    ? $promotionArray['type']
-                                                    : '';
-                                            @endphp
-
-
-                                            <div>
-                                                <input type="text"
-                                                    class="border-0 px-2 py-1 w-100 text-right height-32 promotion"
-                                                    name="promotion[]" value="{{ number_format($promotionValue) }}">
-                                            </div>
-                                            <div class="mt-3 text-13-blue text-right">
-                                                <select class="border-0 promotion-option" name="promotion-option[]">
-                                                    <option value="1"
-                                                        @if ($promotionOption == 1) selected @endif>
-                                                        Nhập tiền</option>
-                                                    <option value="2"
-                                                        @if ($promotionOption == 2) selected @endif>
-                                                        Nhập %</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <input type="hidden" class="product_tax1">
-                                        <td
-                                            class="border-right pt-0 p-2 text-13 align-top border-top-0 border-bottom text-center">
-                                            <select name="product_tax[]" id=""
-                                                class="border-0 py-1 w-100 text-center product_tax height-32">
-                                                @if ($item->product_tax == 0)
-                                                    <option value="0">0%</option>
-                                                @elseif($item->product_tax == 8)
-                                                    <option value="8">8%</option>
-                                                @elseif($item->product_tax == 10)
-                                                    <option value="10">10%</option>
-                                                @else
-                                                    <option value="99">NOVAT</option>
-                                                @endif
-                                            </select>
-                                        </td>
-                                        <td
-                                            class="border-right p-2 text-13 align-top border-top-0 border-bottom position-relative">
-                                            <input type="text" name="total_price[]"
-                                                class="text-right border-0 px-2 py-1 w-100 total_price height-32"
-                                                readonly
-                                                value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - ($item->product_total * $promotionValue) / 100, 2, '.', ',') : number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - ($item->product_total * $promotionValue) / 100) }}">
-                                        </td>
-                                        <td
-                                            class='border-right p-2 text-13 align-top border-top-0 border-bottom position-relative'>
-                                            <input type="text" class="border-0 py-1 w-100 searchWarehouse"
-                                                name="warehouse[]" readonly id="searchWarehouse"
-                                                placeholder="Chọn kho"
-                                                value="@if (isset($item->getWareHouse)) {{ $item->getWareHouse->warehouse_name }} @endif">
-                                            <div id="listWareH"
-                                                class="bg-white position-absolute rounded shadow p-1 z-index-block"
-                                                style="z-index: 99;">
-                                                <ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse"
-                                                    style="display:none;">
-                                                    <div class="p-1">
-                                                        <div class="position-relative">
-                                                            <input type="text" placeholder="Nhập kho hàng"
-                                                                class="pr-4 w-100 input-search bg-input-guest searchWarehouse"
-                                                                id="a">
-                                                            <span id="search-icon" class="search-icon">
-                                                                <i class="fas fa-search text-table"
-                                                                    aria-hidden="true"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
+                                                </span>
+                                                <input type="checkbox" class="cb-element checkall-btn">
+                                                <input type="text" name="product_code[]"
+                                                    class="border-0 w-75 px-2 py-1 w-75 searchProduct height-32"
+                                                    value="{{ $item->product_code }}"
+                                                    @if ($import->status == 2) echo readonly @endif>
+                                                <ul id="listProductCode"
+                                                    class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
+                                                    style="z-index: 99; left: 24%; top: 75%;">
                                                 </ul>
-                                            </div>
-                                            <input type="hidden" placeholder="Chọn kho"
-                                                class="border-0 py-1 w-100 height-32 text-13-black warehouse_id"
-                                                name="warehouse_id[]">
-                                        </td>
-                                        <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
-                                            <textarea placeholder="Nhập ghi chú" class='text-13-black border-0 py-1 w-100 height-32' name='product_note[]'  @if ($import->status != 1) echo readonly @endif rows='2' cols='50'>
+                                            </td>
+                                            <td
+                                                class="border-right p-2 text-13 align-top position-relative border-bottom border-top-0">
+                                                <div class="d-flex align-items-center">
+                                                    <input id="searchProductName" type="text"
+                                                        name="product_name[]"
+                                                        class="searchProductName border-0 px-2 py-1 w-100 height-32"
+                                                        value="{{ $item->product_name }}" autocomplete="off"
+                                                        @if ($import->status != 1) echo readonly @endif required>
+                                                    <input type="hidden" class="product_id" autocomplete="off"
+                                                        value="{{ $item->product_id }}" name="product_id[]"
+                                                        value="">
+                                                    <div class="info-product" data-toggle="modal"
+                                                        data-target="#productModal">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                            height="14" viewBox="0 0 14 14" fill="none">
+                                                            <g clip-path="url(#clip0_2559_39956)">
+                                                                <path
+                                                                    d="M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z"
+                                                                    fill="#282A30"></path>
+                                                                <path
+                                                                    d="M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z"
+                                                                    fill="#282A30"></path>
+                                                                <path
+                                                                    d="M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z"
+                                                                    fill="#282A30"></path>
+                                                            </g>
+                                                            <defs>
+                                                                <clipPath id="clip0_2559_39956">
+                                                                    <rect width="14" height="14"
+                                                                        fill="white">
+                                                                    </rect>
+                                                                </clipPath>
+                                                            </defs>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <ul id="listProductName"
+                                                    class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
+                                                    style="z-index: 99; left: 1%; top: 74%; display: none;">
+                                                </ul>
+                                            </td>
+                                            <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                <input type="text" name="product_unit[]"
+                                                    class="border-0 px-2 py-1 w-100 product_unit height-32"
+                                                    value="{{ $item->product_unit }}"
+                                                    @if ($import->status != 1) echo readonly @endif required>
+                                            </td>
+                                            <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                <div class="">
+                                                    <input {{-- oninput="checkQty(this,{{ $item->product_qty }})" --}} type="text" name="product_qty[]"
+                                                        class="border-0 px-2 py-1 w-100 quantity-input text-right height-32"
+                                                        value="{{ number_format($item->product_qty) }}"
+                                                        @if ($import->status != 1) echo readonly @endif>
+                                                    <div class='mt-3 text-13-blue inventory text-right'
+                                                        tyle="top: 68%;">
+                                                        Tồn kho:
+                                                        <span class='pl-1 soTonKho'>
+                                                            {{ fmod($item->product_inventory, 2) > 0 && fmod($item->product_inventory, 1) > 0 ? number_format($item->product_inventory, 2, '.', ',') : number_format($item->product_inventory) }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                <input type="text" name="price_export[]"
+                                                    class="border-0 px-2 py-1 w-100 price_export text-right height-32"
+                                                    value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
+                                                    @if ($import->status != 1) echo readonly @endif>
+                                                <div class='mt-3 text-13-blue text-right transaction' id="transaction"
+                                                    data-toggle="modal" data-target="#recentModal">Giao dịch gần đây
+                                                </div>
+                                            </td>
+                                            <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+
+                                                @php
+                                                    $promotionArray = json_decode($item->promotion, true);
+                                                    $promotionValue = isset($promotionArray['value'])
+                                                        ? $promotionArray['value']
+                                                        : 0;
+                                                    $promotionOption = isset($promotionArray['type'])
+                                                        ? $promotionArray['type']
+                                                        : '';
+                                                @endphp
+
+
+                                                <div>
+                                                    <input type="text"
+                                                        class="border-0 px-2 py-1 w-100 text-right height-32 promotion"
+                                                        name="promotion[]"
+                                                        value="{{ number_format($promotionValue) }}">
+                                                </div>
+                                                <div class="mt-3 text-13-blue text-right">
+                                                    <select class="border-0 promotion-option"
+                                                        name="promotion-option[]">
+                                                        <option value="1"
+                                                            @if ($promotionOption == 1) selected @endif>
+                                                            Nhập tiền</option>
+                                                        <option value="2"
+                                                            @if ($promotionOption == 2) selected @endif>
+                                                            Nhập %</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <input type="hidden" class="product_tax1">
+                                            <td
+                                                class="border-right pt-0 p-2 text-13 align-top border-top-0 border-bottom text-center">
+                                                <select name="product_tax[]" id=""
+                                                    class="border-0 py-1 w-100 text-center product_tax height-32">
+                                                    @if ($item->product_tax == 0)
+                                                        <option value="0">0%</option>
+                                                    @elseif($item->product_tax == 8)
+                                                        <option value="8">8%</option>
+                                                    @elseif($item->product_tax == 10)
+                                                        <option value="10">10%</option>
+                                                    @else
+                                                        <option value="99">NOVAT</option>
+                                                    @endif
+                                                </select>
+                                            </td>
+                                            <td
+                                                class="border-right p-2 text-13 align-top border-top-0 border-bottom position-relative">
+                                                <input type="text" name="total_price[]"
+                                                    class="text-right border-0 px-2 py-1 w-100 total_price height-32"
+                                                    readonly
+                                                    value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - ($item->product_total * $promotionValue) / 100, 2, '.', ',') : number_format($promotionOption == 1 ? $item->product_total - $promotionValue : $item->product_total - ($item->product_total * $promotionValue) / 100) }}">
+                                            </td>
+                                            <td
+                                                class='border-right p-2 text-13 align-top border-top-0 border-bottom position-relative'>
+                                                <input type="text" class="border-0 py-1 w-100 searchWarehouse"
+                                                    name="warehouse[]" readonly id="searchWarehouse"
+                                                    placeholder="Chọn kho"
+                                                    value="@if (isset($item->getWareHouse)) {{ $item->getWareHouse->warehouse_name }} @endif">
+                                                <div id="listWareH"
+                                                    class="bg-white position-absolute rounded shadow p-1 z-index-block"
+                                                    style="z-index: 99;">
+                                                    <ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse"
+                                                        style="display:none;">
+                                                        <div class="p-1">
+                                                            <div class="position-relative">
+                                                                <input type="text" placeholder="Nhập kho hàng"
+                                                                    class="pr-4 w-100 input-search bg-input-guest searchWarehouse"
+                                                                    id="a">
+                                                                <span id="search-icon" class="search-icon">
+                                                                    <i class="fas fa-search text-table"
+                                                                        aria-hidden="true"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </ul>
+                                                </div>
+                                                <input type="hidden" placeholder="Chọn kho"
+                                                    class="border-0 py-1 w-100 height-32 text-13-black warehouse_id"
+                                                    name="warehouse_id[]">
+                                            </td>
+                                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
+                                                <textarea placeholder="Nhập ghi chú" class='text-13-black border-0 py-1 w-100 height-32' name='product_note[]'
+                                                    @if ($import->status != 1) echo readonly @endif rows='2' cols='50'>
                                                 {{ $item->product_note }}
                                             </textarea>
-                                        </td>
-                                        <td class="p-2 align-top border-bottom border-top-0 deleteRow">
-                                            <svg width='17' height='17' viewBox='0 0 17 17' fill='none'
-                                                xmlns='http://www.w3.org/2000/svg'>
-                                                <path fill-rule='evenodd' clip-rule='evenodd'
-                                                    d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="content mt-3 ml-3">
-                        <span class="text-perpage">
-                            <section class="content">
-                                <div class="container-fluided">
-                                    <div class="d-flex">
-                                        @if ($import->status == 1)
-                                            <button type="button" data-toggle="dropdown"
-                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                                id="addRowTable" style="margin-right:10px">
-                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                                    height="14" viewBox="0 0 18 18" fill="none">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                        fill="#42526E"></path>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                        fill="#42526E"></path>
+                                            </td>
+                                            <td class="p-2 align-top border-bottom border-top-0 deleteRow">
+                                                <svg width='17' height='17' viewBox='0 0 17 17'
+                                                    fill='none' xmlns='http://www.w3.org/2000/svg'>
+                                                    <path fill-rule='evenodd' clip-rule='evenodd'
+                                                        d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z'
+                                                        fill='#6B6F76' />
                                                 </svg>
-                                                <span class="text-table">Thêm sản phẩm</span>
-                                            </button>
-                                        @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="content mt-3 ml-3">
+                            <span class="text-perpage">
+                                <section class="content">
+                                    <div class="container-fluided">
+                                        <div class="d-flex">
+                                            @if ($import->status == 1)
+                                                <button type="button" data-toggle="dropdown"
+                                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                                    id="addRowTable" style="margin-right:10px">
+                                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
+                                                        width="14" height="14" viewBox="0 0 18 18"
+                                                        fill="none">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                                            fill="#42526E"></path>
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                                            fill="#42526E"></path>
+                                                    </svg>
+                                                    <span class="text-table">Thêm sản phẩm</span>
+                                                </button>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
-                        </span>
+                                </section>
+                            </span>
+                        </div>
+                        <x-formsynthetic :import="$import"></x-formsynthetic>
                     </div>
-                    <x-formsynthetic :import="$import"></x-formsynthetic>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
     </div>
     </div>

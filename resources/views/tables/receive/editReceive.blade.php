@@ -149,7 +149,8 @@
         </div>
 
         <div class="content margin-top-127">
-            <div>
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PNK'" :status="'2'" />
+            <div id="main">
                 <div class="container-fluided">
                     <div class="content">
                         <div class="border top-109">
@@ -431,11 +432,11 @@
                                                                 type="text"
                                                                 class="border-0 px-2 py-1 w-100 quantity-input text-right"
                                                                 name="product_qty[]" {{-- oninput="checkQty(this,{{ $item->product_qty }})"  --}} readonly
-                                                                value="{{ number_format($item->product_qty) }}">
+                                                                value="{{ is_int($item->product_qty) ? $item->product_qty : rtrim(rtrim(number_format($item->product_qty, 4, '.', ''), '0'), '.') }}">
                                                             <div class="mt-3 text-13-blue inventory text-right"
                                                                 tyle="top: 68%;">Tồn kho:
                                                                 <span class="pl-1 soTonKho">
-                                                                    {{ number_format($item->inventory) }}
+                                                                    {{ is_int($item->inventory) ? $item->inventory : rtrim(rtrim(number_format($item->inventory, 4, '.', ''), '0'), '.') }}
                                                                 </span>
                                                             </div>
                                                         </div>

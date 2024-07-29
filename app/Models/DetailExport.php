@@ -103,8 +103,8 @@ class DetailExport extends Model
             $tax = ($data['product_tax'][$i] == 99) ? 0 : $data['product_tax'][$i];
             $subtotal = $data['product_qty'][$i] * (float) $price;
             // Lấy thông tin khuyến mãi
-            $promotionType = $data['discount_option'][$i];
-            $promotionValue = str_replace(',', '', $data['discount_input'][$i]);
+            $promotionType = $data['promotion-option'][$i];
+            $promotionValue = str_replace(',', '', $data['promotion'][$i]);
             // Tính toán giá trị khuyến mãi
             $discountAmount = 0;
             if ($promotionType == 1) { // Giảm số tiền trực tiếp

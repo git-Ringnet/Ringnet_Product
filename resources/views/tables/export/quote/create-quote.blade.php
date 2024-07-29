@@ -112,7 +112,7 @@
             </div>
         </div>
         <div class="content-wrapper2 px-0 py-0 margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" :status="'1'" />
             <div id="main">
                 {{-- Thông tin khách hàng --}}
                 <div class="border">
@@ -1179,8 +1179,8 @@
             const chiTietChietKhau = $(
                 "<td class='border-right p-2 align-top border-bottom border-top-0'>" +
                 "<div class='d-flex flex-column align-items-center'>" +
-                "<input type='number' name='discount_input[]' class='discount_input text-13-black py-1 w-100 height-32 mt-1' placeholder='Giá trị chiết khấu' style='border: none;'>" +
-                "<select name='discount_option[]' class='discount_option border-0 mt-2'>" +
+                "<input type='number' name='promotion[]' class='promotion text-13-black py-1 w-100 height-32 mt-1' placeholder='Giá trị chiết khấu' style='border: none;'>" +
+                "<select name='promotion-option[]' class='promotion-option border-0 mt-2'>" +
                 "<option value='' disabled>Chọn chiết khấu</option>" +
                 "<option value='1' selected>Nhập tiền</option>" +
                 "<option value='2'>Nhập %</option>" +
@@ -1319,9 +1319,9 @@
                     $('.multiple_action').hide();
                 }
             }
-            $(document).on('change', 'select[name="discount_option[]"]', function() {
+            $(document).on('change', 'select[name="promotion-option[]"]', function() {
                 const $row = $(this).closest('td');
-                const $discountInput = $row.find('input[name="discount_input[]"]');
+                const $discountInput = $row.find('input[name="promotion[]"]');
                 if (this.value === '1') {
                     $discountInput.attr('placeholder', 'Tiền chiết khấu');
                 } else if (this.value === '2') {
@@ -1329,9 +1329,9 @@
                 }
             });
             $(document).ready(function() {
-                $('select[name="discount_option[]"]').each(function() {
+                $('select[name="promotion-option[]"]').each(function() {
                     const $row = $(this).closest('td');
-                    const $discountInput = $row.find('input[name="discount_input[]"]');
+                    const $discountInput = $row.find('input[name="promotion[]"]');
 
                     if ($(this).val() === '1') {
                         $discountInput.attr('placeholder', 'Tiền chiết khấu');
@@ -2309,13 +2309,13 @@
     //     calculateTotalTax();
     // });
     $(document).on('input',
-        '.quantity-input, [name^="product_price"], input[name="discount_input[]"]',
+        '.quantity-input, [name^="product_price"], input[name="promotion[]"]',
         function(e) {
             var $row = $(this).closest('tr');
             updateRow($row);
         });
 
-    $(document).on('change', '.product_tax, select[name="discount_option[]"]', function() {
+    $(document).on('change', '.product_tax, select[name="promotion-option[]"]', function() {
         var $row = $(this).closest('tr');
         updateRow($row);
     });
@@ -2326,8 +2326,8 @@
         });
 
     function updateRow($row) {
-        var discountOption = $row.find('select[name="discount_option[]"]').val();
-        var discountInput = parseFloat($row.find('input[name="discount_input[]"]').val().replace(/[^0-9.-]+/g, "")) ||
+        var discountOption = $row.find('select[name="promotion-option[]"]').val();
+        var discountInput = parseFloat($row.find('input[name="promotion[]"]').val().replace(/[^0-9.-]+/g, "")) ||
             0;
         var productQty = parseFloat($row.find('.quantity-input').val()) || 0;
         var productPrice = parseFloat($row.find('input[name^="product_price"]').val().replace(/[^0-9.-]+/g, "")) || 0;

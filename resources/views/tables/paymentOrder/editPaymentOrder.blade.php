@@ -210,7 +210,8 @@
 
         </div>
         <div class="content margin-top-127" style="width: 100%;">
-            <div>
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PC'" :status="'2'" />
+            <div id="main">
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">

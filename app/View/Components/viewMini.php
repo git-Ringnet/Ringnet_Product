@@ -11,6 +11,8 @@ class viewMini extends Component
     public $listDetail;
     public $workspacename;
     public $page;
+    public $status;
+
 
     /**
      * Create a new component instance.
@@ -18,11 +20,12 @@ class viewMini extends Component
      * @param array $listDetail
      * @param string $workspacename
      */
-    public function __construct($listDetail, $workspacename, $page = "")
+    public function __construct($listDetail, $workspacename, $page = "", $status = "")
     {
         $this->listDetail = $listDetail;
         $this->workspacename = $workspacename;
         $this->page = $page;
+        $this->status = $status;
     }
 
     /**

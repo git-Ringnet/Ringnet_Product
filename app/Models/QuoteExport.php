@@ -77,8 +77,8 @@ class QuoteExport extends Model
             }
             $subtotal = $data['product_qty'][$i] * (float) $price;
             $promotion = [
-                'type' => $data['discount_option'][$i],
-                'value' => str_replace(',', '', $data['discount_input'][$i]),
+                'type' => $data['promotion-option'][$i],
+                'value' => str_replace(',', '', $data['promotion'][$i]),
             ];
 
             if ($promotion['type'] == 1) { // Giảm số tiền trực tiếp

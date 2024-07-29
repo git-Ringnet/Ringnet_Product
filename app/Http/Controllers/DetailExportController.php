@@ -307,6 +307,8 @@ class DetailExportController extends Controller
         $workspacename = $workspacename->workspace_name;
         $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
         $warehouse = Warehouse::where('workspace_id', Auth::user()->current_workspace)->get();
+        //danh sách phiếu bán hàng
+        $listDetail = $this->detailExport->getAllDetailExport();
         return view('tables.export.quote.edit-quote', compact(
             'project',
             'title',
@@ -319,6 +321,7 @@ class DetailExportController extends Controller
             'dataForm',
             'workspacename',
             'listUser',
+            'listDetail'
         ));
     }
 

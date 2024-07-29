@@ -359,7 +359,8 @@
             </section>
         </div>
         <div class="content margin-top-127">
-            <div>
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'DHNCC'" :status="'2'" />
+            <div id="main">
                 <section class="content">
                     <div class="container-fluided">
                         <div>
@@ -528,7 +529,6 @@
                                                     <th class="border-right note px-2 p-0 text-left">
                                                         <span class="text-table text-secondary">Ghi chú</span>
                                                     </th>
-                                                    <th class=""></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
