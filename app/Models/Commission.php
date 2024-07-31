@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Commission extends Model
+{
+    use HasFactory;
+    protected $table = 'commissions';
+    protected $fillable = [
+        'sale_id',
+        'quoteE_id',
+        'amount',
+        'total_amount',
+        'month',
+        'note',
+        'status',
+    ];
+}

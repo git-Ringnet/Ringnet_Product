@@ -113,6 +113,11 @@
         </div>
         <div class="content-wrapper2 px-0 py-0 margin-top-75">
             <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" :status="'1'" />
+            <div id="contextMenuPBH" class="dropdown-menu"
+                style="display: none; background: #ffffff; position: absolute; width:13%;  padding: 3px 10px;  box-shadow: 0 0 10px -3px rgba(0, 0, 0, .3); border: 1px solid #ccc;">
+                <a class="dropdown-item text-13-black" href="#" data-option="donhang">Tạo phiếu xuất kho</a>
+                {{-- <a class="dropdown-item text-13-black" href="#" data-option="congno">Xem công nợ</a> --}}
+            </div>
             <div id="main">
                 {{-- Thông tin khách hàng --}}
                 <div class="border">

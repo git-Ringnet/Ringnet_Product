@@ -6,6 +6,7 @@ use App\Http\Controllers\BillSaleController;
 use App\Http\Controllers\CashReceiptController;
 use App\Http\Controllers\ChangeInventoryController;
 use App\Http\Controllers\ChangeWarehouseController;
+use App\Http\Controllers\CommissionController;
 use App\Http\Controllers\ContentGroupsController;
 use App\Http\Controllers\ContentImportExportController;
 use App\Http\Controllers\DashboardController;
@@ -37,6 +38,7 @@ use App\Http\Controllers\UserFlowController;
 use App\Http\Controllers\UserWorkspacesController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Middleware\CheckLogin;
+use App\Models\Commission;
 use App\Models\ContentImportExport;
 use App\Models\DetailImport;
 use App\Models\ReturnExport;
@@ -400,6 +402,10 @@ Route::middleware([CheckLogin::class])->group(function () {
 // User flow
 Route::resource('{workspace}/userflow', UserFlowController::class)->middleware(CheckLogin::class);
 Route::resource('{workspace}/users', UserController::class);
+// Hoa hồng sale
+Route::get('{workspace}/commission', [CommissionController::class, 'commissionSale'])->name('commissionSale');
+Route::get('/update-or-create', [CommissionController::class, 'updateOrCreate'])->name('updateOrCreate');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

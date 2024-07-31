@@ -78,13 +78,12 @@
                                                 type="button">
                                                 Tổng thanh toán
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black btn-debt"
-                                                id="btn-debt-import" data-button="import" data-button="debt"
-                                                type="button">
-                                                Công nợ
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                data-button="date" type="button">Ngày báo giá
                                             </button>
                                         </div>
                                     </div>
+                                    <x-filter-date-time name="date" title="Ngày báo giá" />
                                 </div>
                                 <button class="mx-1 d-flex align-items-center btn-primary rounded"
                                     onclick="printContent('printContent', 'hanghoa','foot')">In
@@ -417,6 +416,7 @@
     <a class="dropdown-item text-13-black" href="#" data-option="congno">Xem công nợ</a>
 </div>
 <x-print-component :contentId="$title" />
+<script src="{{ asset('/dist/js/filter.js') }}"></script>
 <script>
     //
     $(document).ready(function() {
@@ -428,8 +428,6 @@
 
             $currentRow = $(this);
             var guestId = $currentRow.data('id');
-
-            // Hiển thị menu tùy chỉnh tại vị trí con trỏ chuột
             $contextMenu.css({
                 display: "block",
                 left: e.pageX,

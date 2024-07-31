@@ -367,6 +367,12 @@
                             <a class="dropdown-item text-13-black"
                                 href="{{ route('changeWarehouse.index', $workspacename) }}">Phiếu chuyển kho
                             </a>
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('commissionSale', $workspacename) }}">Huê hồng Sale
+                            </a>
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('changeWarehouse.index', $workspacename) }}">Chương trình khuyến mãi
+                            </a>
                         </div>
                     </div>
                     <div class="dropdown ml-2 p-0">
@@ -544,6 +550,18 @@
                         <button type="button"
                             class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'changeWarehouse') active @endif">
                             Phiếu chuyển kho
+                        </button>
+                    </a>
+                    <a href="{{ route('commissionSale', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'commission') active @endif">
+                            Huê hồng Sale
+                        </button>
+                    </a>
+                    <a href="{{ route('changeWarehouse.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'changeWarehouse') active @endif">
+                            Chương trình khuyến mãi
                         </button>
                     </a>
                 </div>

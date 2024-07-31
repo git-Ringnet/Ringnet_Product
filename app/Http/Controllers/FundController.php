@@ -32,7 +32,7 @@ class FundController extends Controller
 
     public function create()
     {
-        $title = "Quỹ";
+        $title = "Tạo quỹ";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         return view('tables.funds.create', compact('title', 'workspacename'));
@@ -43,7 +43,7 @@ class FundController extends Controller
         $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
-            'amount' => 'required|numeric',
+            'amount' => 'required',
             'bank_name' => 'nullable|string',
             'bank_account_number' => 'nullable|string',
             'bank_account_holder' => 'nullable|string',
@@ -52,20 +52,29 @@ class FundController extends Controller
             'end_date' => 'nullable|date',
         ]);
 
-        // Fund::create($request->all());
+        // Kiểm tra xem tên quỹ có bị trùng lặp không
+        $isNameDuplicate = DB::table('funds')
+            ->where('name', $request->name)
+            ->exists();
+
+        if ($isNameDuplicate) {
+            return redirect()->back()->withErrors(['name' => 'Tên quỹ đã tồn tại.'])->withInput();
+        }
+
         $dataFunds = [
             'name' => $request->name,
             'description' => $request->description,
-            'amount' => $request->amount,
+            'amount' => str_replace(',', '', $request->amount),
             'bank_name' => $request->bank_name,
             'bank_account_number' => $request->bank_account_number,
             'bank_account_holder' => $request->bank_account_holder,
             'workspace_id' => Auth::user()->current_workspace,
-            'start_date' => isset($request->start_date) ? $request->start_date : Carbon::now(),
-            'end_date' => isset($request->end_date) ? $request->end_date : Carbon::now()
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date ?? Carbon::now(),
         ];
 
         DB::table('funds')->insert($dataFunds);
+
         return redirect()->route('funds.index')->with('msg', 'Tạo quỹ mới thành công!');
     }
 
@@ -90,7 +99,7 @@ class FundController extends Controller
         $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
-            'amount' => 'required|numeric',
+            'amount' => 'required',
             'bank_name' => 'nullable|string',
             'bank_account_number' => 'nullable|string',
             'bank_account_holder' => 'nullable|string',
@@ -98,7 +107,31 @@ class FundController extends Controller
             'end_date' => 'nullable|date',
         ]);
 
-        $fund->update($request->all());
+        // Xử lý amount để loại bỏ dấu phân cách hàng nghìn
+        $amount = str_replace(',', '', $request->amount);
+
+        // Kiểm tra xem tên quỹ có bị trùng lặp không
+        $isNameDuplicate = DB::table('funds')
+            ->where('name', $request->name)
+            ->where('id', '!=', $fund->id)
+            ->exists();
+
+        if ($isNameDuplicate) {
+            return redirect()->back()->with('warning', 'Tên quỹ đã tồn tại!');
+        }
+
+        // Cập nhật dữ liệu quỹ
+        $fund->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'amount' => $amount,
+            'bank_name' => $request->bank_name,
+            'bank_account_number' => $request->bank_account_number,
+            'bank_account_holder' => $request->bank_account_holder,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
+
         return redirect()->route('funds.index')->with('msg', 'Cập nhật quỹ thành công!');
     }
 

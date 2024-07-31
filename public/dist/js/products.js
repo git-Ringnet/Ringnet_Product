@@ -557,12 +557,12 @@ function addRowTable(status) {
     // showListProductName();
 
     $(".listProductName").hide();
-    $(".searchProductName").on("click", function (e) {
+    $(document).on("click", ".searchProductName", function (e) {
         e.stopPropagation();
+        // Ẩn tất cả các danh sách sản phẩm khác
         $(".listProductName").hide();
-
-        var listProduct = $(this).closest("tr").find(".listProductName");
-        listProduct.toggle();
+        // Hiển thị danh sách sản phẩm tương ứng với input được bấm
+        $(this).closest("tr").find(".listProductName").show();
     });
     $(document).on("click", function (e) {
         if (!$(e.target).is(".searchProductName")) {

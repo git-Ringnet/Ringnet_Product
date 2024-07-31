@@ -106,7 +106,8 @@
                                     <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                         <p class="p-0 m-0 margin-left32 text-13">Số tiền</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="qty_money" required
+                                    <input type="text" placeholder="Nhập thông tin" name="qty_money"
+                                        id="qty_money" required
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
                                         value="{{ number_format($content->qty_money) }}">
                                 </div>
@@ -151,57 +152,6 @@
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
                                         value="{{ $content->notes }}">
                                 </div>
-
-                                {{-- <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Chứng từ</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="document"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Tên</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="name"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Số tiền</p>
-                                </div>
-                                <input type="number" placeholder="Nhập thông tin" name="qty_money" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Quỹ</p>
-                                </div>
-                                <select name="fund_id" id=""
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                    @foreach ($quy as $value)
-                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Ghi chú</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="notes"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Ngày tạo</p>
-                                </div>
-                                <input
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    name="" placeholder="Chọn thông tin" id="datePicker"
-                                    value="{{ date('Y-m-d') }}" />
-                                <input type="hidden" name="date" id="hiddenDateInput"
-                                    value="{{ date('Y-m-d') }}">
-                            </div> --}}
                             </div>
                         </div>
                     </div>
@@ -214,6 +164,7 @@
 </div>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
+<script src="{{ asset('/dist/js/number.js') }}"></script>
 <script>
     flatpickr("#datePicker", {
         locale: "vn",

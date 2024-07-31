@@ -45,8 +45,6 @@ class ContentImportExportController extends Controller
         $type = DB::table('contenttype')->get();
         // $fund = Fund::all();
         $fund = Fund::where('workspace_id', Auth::user()->current_workspace)->get();
-
-
         $getQuoteCount = $this->content->getQuoteCount();
 
         // dd($getQuoteCount);
@@ -58,13 +56,18 @@ class ContentImportExportController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->from_fund == $request->to_fund) {
+            $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace)->workspace_name;
+            return redirect()->back()->with('warning', 'Từ quỹ và Đến quỹ không được giống nhau!');
+        }
         $status = $this->content->createContent($request->all());
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace)->workspace_name;
+
+        // Kiểm tra kết quả từ createContent và điều hướng người dùng
         if ($status['status']) {
-            return redirect()->route('changeFund.index', $workspacename)->with('msg', 'Thêm mới nội dung thu chi !');
+            return redirect()->route('changeFund.index', $workspacename)->with('msg', 'Thêm phiếu chuyển tiền thành công!');
         } else {
-            return redirect()->route('changeFund.index', $workspacename)->with('warning', 'Quỹ không đủ tiền !');
+            return redirect()->route('changeFund.index', $workspacename)->with('warning', $status['message']);
         }
     }
 

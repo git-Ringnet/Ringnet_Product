@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailExport;
 use App\Models\Groups;
 use App\Models\Guest;
+use App\Models\QuoteExport;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Workspace;
@@ -16,9 +18,13 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     private $workspaces;
+    private $quoteE;
+    private $detailExport;
     public function __construct()
     {
         $this->workspaces = new Workspace();
+        $this->quoteE = new QuoteExport();
+        $this->detailExport = new DetailExport();
     }
     public function index()
     {
@@ -45,9 +51,9 @@ class UserController extends Controller
         $request->validate([
             'user_code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'nullable|email|unique:users,email',
             'password' => 'nullable|string|min:6',
-            'address' => 'required|string|max:255',
+            'address' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:15',
         ], [
             'user_code.required' => 'Mã nhân viên là bắt buộc.',
@@ -93,7 +99,13 @@ class UserController extends Controller
         $groups = Groups::where('grouptype_id', 1)->where('workspace_id', Auth::user()->current_workspace)->get();
         $roles = Role::where('id', '!=', 1)->get();
 
-        return view('tables.user.show', compact('title', 'groups', 'user', 'workspacename', 'title', 'roles'));
+        $productDelivered = $this->quoteE->sumProductsQuote();
+        // // Get All đơn
+        $allDelivery = $this->detailExport->getSumDetailE();
+        $groupGuests = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
+        $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
+
+        return view('tables.user.show', compact('title', 'groups', 'user', 'workspacename', 'title', 'roles', 'groupGuests', 'guest', 'productDelivered', 'allDelivery'));
     }
 
     public function edit(string $workspace, string $id)
@@ -114,9 +126,9 @@ class UserController extends Controller
         $request->validate([
             'user_code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'email' => 'nullable|email|unique:users,email,' . $id,
             'password' => 'nullable|string|min:6',
-            'address' => 'required|string|max:255',
+            'address' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:15',
         ], [
             'user_code.required' => 'Mã nhân viên là bắt buộc.',

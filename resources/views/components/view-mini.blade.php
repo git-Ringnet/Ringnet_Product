@@ -56,7 +56,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="tbody-detailExport">
+                    <tbody class="tbody-detailExport" id="PBH">
                         @foreach ($listDetail as $detail)
                             <tr class="position-relative detailExport-info height-52" data-id="{{ $detail->maBG }}"
                                 data-page="PBH" data-status="{{ $status }}">
@@ -103,7 +103,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="tbody-detailExport">
+                    <tbody class="tbody-detailExport" id="DHNCC">
                         @foreach ($listDetail as $detail)
                             <tr class="position-relative detailExport-info height-52" data-id="{{ $detail->id }}"
                                 data-page="DHNCC" data-status="{{ $status }}">
@@ -420,6 +420,85 @@
 </div>
 <script src="{{ asset('/dist/js/viewMini.js') }}"></script>
 <script>
+    $(document).ready(function() {
+        // Menu ngữ cảnh cho PBH
+        $('#PBH').on('contextmenu', 'tr', function(e) {
+            e.preventDefault();
+            $('#PBH tr').removeClass('highlights');
+            $(this).addClass('highlights');
+            $('#contextMenuPBH').data('row', $(this));
+
+            $('#contextMenuPBH').css({
+                display: 'block',
+                left: e.pageX + 'px',
+                top: (e.pageY - 150) + 'px'
+            }).addClass('show');
+        });
+
+        $(document).click(function(e) {
+            if (!$(e.target).closest('#contextMenuPBH').length) {
+                $('#contextMenuPBH').hide();
+                $('#PBH tr').removeClass('highlights');
+            }
+        });
+
+        $('#contextMenuPBH').click(function(e) {
+            e.stopPropagation();
+        });
+
+        $('#contextMenuPBH .dropdown-item').on('click', function(e) {
+            e.preventDefault();
+            var row = $('#contextMenuPBH').data('row');
+            var dataId = row.data('id');
+            var routeUrl = "{{ route('delivery.create', ['workspace' => $workspacename]) }}" +
+                '?convert=' + dataId;
+            window.open(routeUrl, '_blank');
+        });
+
+        $(window).on('scroll', function() {
+            $('#contextMenuPBH').hide();
+            $('#PBH tr').removeClass('highlights');
+        });
+
+        // Menu ngữ cảnh cho DHNCC
+        $('#DHNCC').on('contextmenu', 'tr', function(e) {
+            e.preventDefault();
+            $('#DHNCC tr').removeClass('highlights');
+            $(this).addClass('highlights');
+            $('#contextMenuDHNCC').data('row', $(this));
+
+            $('#contextMenuDHNCC').css({
+                display: 'block',
+                left: e.pageX + 'px',
+                top: (e.pageY - 150) + 'px'
+            }).addClass('show');
+        });
+
+        $(document).click(function(e) {
+            if (!$(e.target).closest('#contextMenuDHNCC').length) {
+                $('#contextMenuDHNCC').hide();
+                $('#DHNCC tr').removeClass('highlights');
+            }
+        });
+
+        $('#contextMenuDHNCC').click(function(e) {
+            e.stopPropagation();
+        });
+
+        $('#contextMenuDHNCC .dropdown-item').on('click', function(e) {
+            e.preventDefault();
+            var row = $('#contextMenuDHNCC').data('row');
+            var dataId = row.data('id');
+            var routeUrl = "{{ route('receive.create', ['workspace' => $workspacename]) }}" +
+                '?convert=' + dataId;
+            window.open(routeUrl, '_blank');
+        });
+
+        $(window).on('scroll', function() {
+            $('#contextMenuDHNCC').hide();
+            $('#DHNCC tr').removeClass('highlights');
+        });
+    });
     document.addEventListener('DOMContentLoaded', function() {
         const rows = document.querySelectorAll('.detailExport-info');
 

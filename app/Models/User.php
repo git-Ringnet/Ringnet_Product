@@ -39,7 +39,7 @@ class User extends Authenticatable
         'user_code',
         'status',
         'phone_number',
-        'address'
+        'address',
     ];
 
     /**

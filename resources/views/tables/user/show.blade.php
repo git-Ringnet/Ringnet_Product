@@ -68,8 +68,20 @@
                     </div>
                 </div>
             </div>
+            <section class="content-header--options p-0">
+                <ul class="header-options--nav nav nav-tabs margin-left32">
+                    <li>
+                        <a id="info-tab" class="text-secondary active m-0 pl-3 activity" data-name1="KH"
+                            data-des="Xem thông tin" data-toggle="tab" href="#info">Thông tin</a>
+                    </li>
+                    <li>
+                        <a id="history-tab" class="text-secondary m-0 pl-3 pr-3 activity" data-toggle="tab"
+                            data-name1="KH" data-des="Xem doanh số" href="#history">Doanh số</a>
+                    </li>
+                </ul>
+            </section>
         </div>
-        <div class="content margin-top-75">
+        <div class="content margin-top-75" style="margin-top: 13.7rem;">
             <div class="content">
                 <div class="tab-content mt-3">
                     <div id="info" class="content tab-pane in active">
@@ -171,6 +183,209 @@
                                 </ul>
                             </div>
                         @endif --}}
+                        </div>
+                    </div>
+                    <div id="history" class="tab-pane fade">
+                        {{-- THÔNG TIN CHUNG --}}
+                        <div class="bg-filter-search border-0 text-left border-custom">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-left">DOANH SỐ BÁN HÀNG
+                            </p>
+                        </div>
+                        <div class="info-chung">
+                            <div class="col-12 p-0 m-0">
+                                <div class="card">
+                                    <!-- /.card-header -->
+                                    <div class="outer2 table-responsive text-nowrap">
+                                        <table id="example2" class="table table-hover bg-white rounded">
+                                            <thead class="border-custom">
+                                                <tr style="height: 44px;">
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Mã phiếu</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Khách hàng</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Nhóm hàng</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Mã hàng</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Tên hàng</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Đơn vị tính</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Số lượng</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Đơn giá</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Thành tiền</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $totalDeliverQty = 0;
+                                                    $totalPriceExport = 0;
+                                                    $totalProductTotalVat = 0;
+                                                    $totalItemDeliveryTotalProductVat = 0;
+                                                    $Pay = 0;
+                                                    $Remai = 0;
+                                                    $totalPay = 0;
+                                                    $totalRemai = 0;
+                                                    $stt = 1; // Initialize the STT variable
+                                                @endphp
+
+                                                @foreach ($allDelivery as $itemDelivery)
+                                                    @php
+                                                        $matchedItems = $productDelivered
+                                                            ->where('detailexport_id', $itemDelivery->id)
+                                                            ->where('id_sale', $user->id);
+                                                        $count = $matchedItems->count();
+                                                    @endphp
+
+                                                    @if ($matchedItems->isNotEmpty())
+                                                        @php
+                                                            $totalItemDeliveryTotalProductVat +=
+                                                                $itemDelivery->totalProductVat +
+                                                                $itemDelivery->total_tax;
+                                                            $Pay =
+                                                                $itemDelivery->totalProductVat +
+                                                                $itemDelivery->total_tax -
+                                                                $itemDelivery->amount_owed;
+                                                            $Remai = $itemDelivery->amount_owed;
+                                                            $totalPay += $Pay;
+                                                            $totalRemai += $Remai;
+                                                        @endphp
+
+                                                        @foreach ($matchedItems as $matchedItem)
+                                                            @php
+                                                                $totalDeliverQty += $matchedItem->product_qty;
+                                                                $totalPriceExport += $matchedItem->price_export;
+                                                                $totalProductTotalVat += $matchedItem->product_total;
+                                                            @endphp
+                                                            <tr class="position-relative relative">
+                                                                <input type="hidden" value="{{ $itemDelivery->id }}"
+                                                                    class="sell">
+                                                                @if ($loop->first)
+                                                                    <td rowspan="{{ $count }}"
+                                                                        class="text-13-black height-52 border">
+                                                                        {{ $itemDelivery->maPhieu }}
+                                                                    </td>
+                                                                    <td rowspan="{{ $count }}"
+                                                                        class="text-13-black height-52 border">
+                                                                        {{ $itemDelivery->nameGuest }}
+                                                                    </td>
+                                                                @endif
+                                                                <td class="text-13-black height-52 border">
+                                                                    {{ $matchedItem->nameGr }}</td>
+                                                                <td class="text-13-black height-52 border">
+                                                                    {{ $matchedItem->product_code }}</td>
+                                                                <td class="text-13-black height-52 border">
+                                                                    {{ $matchedItem->product_name }}</td>
+                                                                <td class="text-13-black height-52 border">
+                                                                    {{ $matchedItem->product_unit }}
+                                                                </td>
+                                                                <td class="text-13-black height-52 border">
+                                                                    {{ number_format($matchedItem->product_qty) }}
+                                                                </td>
+                                                                <td class="text-13-black height-52 border">
+                                                                    {{ number_format($matchedItem->price_export) }}
+                                                                </td>
+                                                                <td class="text-13-black height-52 border">
+                                                                    {{ number_format($matchedItem->product_total) }}
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+
+                                                        @php
+                                                            $stt++; // Increment STT after each invoice
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

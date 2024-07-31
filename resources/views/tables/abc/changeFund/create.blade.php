@@ -45,7 +45,7 @@
                             </button>
                         </a>
 
-                        <button type="submit" class="custom-btn d-flex align-items-center h-100"
+                        <button type="submit" id="btn-submit" class="custom-btn d-flex align-items-center h-100"
                             style="margin-right:10px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 fill="none">
@@ -75,7 +75,8 @@
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
                                     name="" placeholder="Chọn thông tin" id="datePicker"
                                     value="{{ date('Y-m-d') }}" />
-                                <input type="hidden" name="payment_day" id="hiddenDateInput" value="{{ date('Y-m-d') }}">
+                                <input type="hidden" name="payment_day" id="hiddenDateInput"
+                                    value="{{ date('Y-m-d') }}">
                             </div>
 
                             <div class="d-flex align-items-center height-60-mobile">
@@ -83,7 +84,8 @@
                                     <p class="p-0 m-0 margin-left32 text-13">Mã phiếu</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="form_code" required readonly
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100" value="{{$getQuoteCount}}">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                    value="{{ $getQuoteCount }}">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
@@ -99,7 +101,8 @@
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Số tiền</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" name="qty_money" required
+                                <input type="text" placeholder="Nhập thông tin" id="qty_money" name="qty_money"
+                                    required
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                             </div>
 
@@ -107,26 +110,29 @@
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Từ quỹ</p>
                                 </div>
-                                <select name="from_fund" id="" class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                    @foreach($fund as $va)
-                                        <option value="{{$va->id}}">{{$va->name}}</option>
+                                <select name="from_fund" id="from_fund" required
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    <option value="" disabled selected>Chọn quỹ</option>
+                                    @foreach ($fund as $va)
+                                        <option value="{{ $va->id }}">{{ $va->name }}</option>
                                     @endforeach
                                 </select>
-                                {{-- <input type="text" placeholder="Nhập thông tin" name="content" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"> --}}
+                                <span id="from_fund_error" class="text-danger"></span>
                             </div>
 
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Đến quỹ</p>
                                 </div>
-                                <select name="to_fund" id="" class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                    @foreach($fund as $va)
-                                        <option value="{{$va->id}}">{{$va->name}}</option>
+                                <select name="to_fund" id="to_fund" required
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    <option value="" disabled selected>Chọn quỹ đích</option>
+                                    @foreach ($fund as $va)
+                                        <option value="{{ $va->id }}">{{ $va->name }}</option>
                                     @endforeach
                                 </select>
+                                <span id="to_fund_error" class="text-danger"></span>
                             </div>
-
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Ghi chú</p>
@@ -134,57 +140,6 @@
                                 <input type="text" placeholder="Nhập thông tin" name="notes" required
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                             </div>
-
-                            {{-- <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Chứng từ</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="document"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Tên</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="name"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Số tiền</p>
-                                </div>
-                                <input type="number" placeholder="Nhập thông tin" name="qty_money" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Quỹ</p>
-                                </div>
-                                <select name="fund_id" id=""
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                    @foreach ($quy as $value)
-                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Ghi chú</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="notes"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Ngày tạo</p>
-                                </div>
-                                <input
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                    name="" placeholder="Chọn thông tin" id="datePicker"
-                                    value="{{ date('Y-m-d') }}" />
-                                <input type="hidden" name="date" id="hiddenDateInput"
-                                    value="{{ date('Y-m-d') }}">
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -196,6 +151,7 @@
 </div>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
+<script src="{{ asset('/dist/js/number.js') }}"></script>
 <script>
     flatpickr("#datePicker", {
         locale: "vn",
@@ -207,82 +163,20 @@
                 "Y-m-d");
         }
     });
+    $(document).ready(function() {
+        $('#from_fund, #to_fund').change(function() {
+            var fromFund = $('#from_fund').val();
+            var toFund = $('#to_fund').val();
+
+            if (fromFund && toFund && fromFund === toFund) {
+                $('#from_fund').addClass('input-error');
+                $('#to_fund').addClass('input-error');
+                $('#btn-submit').prop('disabled', true).css('pointer-events', 'none');
+            } else {
+                $('#from_fund').removeClass('input-error');
+                $('#to_fund').removeClass('input-error');
+                $('#btn-submit').prop('disabled', false).css('pointer-events', 'auto');
+            }
+        });
+    });
 </script>
-
-
-{{-- <script>
-    getKeyProvide($('input[name="provide_name_display"]'))
-    $('form').on('submit', function(e) {
-        e.preventDefault();
-        var check = false;
-        var provide_name_display = $("input[name='provide_name_display']").val().trim();
-        var provide_code = $("input[name='provide_code']").val().trim();
-        var provide_address = $("input[name='provide_address']").val().trim();
-        var key = $("input[name='key']").val().trim();
-
-        if (provide_name_display == '') {
-            showNotification('warning', 'Vui lòng nhập tên hiển thị')
-            check = true;
-            return false;
-        }
-        if (provide_code == '') {
-            showNotification('warning', 'Vui lòng nhập mã số thuế')
-            check = true;
-            return false;
-        }
-        if (provide_address == '') {
-            showNotification('warning', 'Vui lòng nhập địa chỉ nhà cung cấp')
-            check = true;
-            return false;
-        }
-
-        if (!check) {
-            $.ajax({
-                url: "{{ route('checkKeyProvide') }}",
-                type: "get",
-                data: {
-                    provide_name_display: provide_name_display,
-                    provide_code: provide_code,
-                    provide_address: provide_address,
-                    key: key,
-                    status: "add"
-                },
-                success: function(data) {
-                    console.log(data);
-                    if (data.success) {
-                        $('form')[1].submit();
-                    } else {
-                        if (data.key) {
-                            $("input[name='key']").val(data.key)
-                            showNotification('warning', data.msg);
-                            delayAndShowNotification('success', 'Tên viết tắt đã được thay đổi',
-                                500);
-                        } else {
-                            showNotification('warning', data.msg);
-                        }
-                    }
-                }
-            })
-        }
-    })
-
-    function delayAndShowNotification(type, message, delayTime) {
-        setTimeout(function() {
-            showNotification(type, message);
-        }, delayTime);
-    }
-
-    $(document).off('click').on('click', '.user_flow', function(e) {
-        var type = $(this).attr('data-type')
-        var des = $(this).attr('data-des');
-        $.ajax({
-            url: "{{ route('addUserFlow') }}",
-            type: "get",
-            data: {
-                type: type,
-                des: des
-            },
-            success: function(data) {}
-        })
-    })
-</script> --}}

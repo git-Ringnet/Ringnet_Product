@@ -181,7 +181,8 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Mã phiếu</button>
+                                                        <button class="btn-sort text-13" type="submit">Mã
+                                                            phiếu</button>
                                                     </a>
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
@@ -199,7 +200,8 @@
                                                 <span class="justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="created_at" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Ngày lập</button>
+                                                        <button class="btn-sort text-13" type="submit">Ngày
+                                                            lập</button>
                                                     </a>
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>

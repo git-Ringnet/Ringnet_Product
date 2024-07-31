@@ -130,8 +130,11 @@ class DeliveryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+
+        $queryParams = $request->query();
+        $convert = $queryParams['convert'] ?? null;
         $title = "Tạo phiếu xuất kho";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
@@ -164,7 +167,7 @@ class DeliveryController extends Controller
 
         //
         $listDetail = $this->delivery->listDelivery();
-        return view('tables.export.delivery.create-delivery', compact('title', 'guest', 'invoice', 'numberQuote', 'product', 'workspacename','listDetail'));
+        return view('tables.export.delivery.create-delivery', compact('title', 'convert', 'guest', 'invoice', 'numberQuote', 'product', 'workspacename', 'listDetail'));
     }
 
     /**
