@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
+use App\Models\ProductWarehouse;
 use App\Models\Warehouse;
 use App\Models\WarehouseManager;
 use App\Models\Workspace;
@@ -62,9 +64,21 @@ class WarehouseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $workspace, string $id)
     {
-        //
+
+        $title = "Xem thông tin kho hàng";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        $wareHouse = Warehouse::findOrFail($id);
+        $warehouseManager = WarehouseManager::where('warehouse_id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
+        $product = ProductWarehouse::where('productwarehouse.warehouse_id', $id)
+            ->leftJoin('products', 'productwarehouse.product_id', 'products.id')
+            ->where('productwarehouse.workspace_id', Auth::user()->current_workspace)
+            ->get();
+        return view('tables.abc.warehouse.showWarehouse', compact('workspacename', 'title', 'wareHouse', 'warehouseManager', 'product'));
     }
 
     /**

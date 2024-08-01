@@ -70,7 +70,23 @@
             </div>
         </div>
         <div class="content editgroup" style="margin-top: 10rem;">
-            <div class="tab-content mt-3">
+            <section class="content-header--options p-0">
+                <ul class="header-options--nav-1 nav nav-tabs margin-left32">
+                    <li>
+                        <a id="info-tab" class="text-secondary active m-0 pl-3 activity" data-name1="KH"
+                            data-des="Xem thông tin khách hàng" data-toggle="tab" href="#info">
+                            Thông tin
+                        </a>
+                    </li>
+                    <li>
+                        <a id="product-tab" class="text-secondary m-0 pl-3 pr-3 activity" data-toggle="tab"
+                            href="#fund">
+                            Quỹ
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <div class="tab-content">
                 <div id="info" class="content tab-pane in active">
                     <div class="bg-filter-search border-0 text-left border-custom">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-left">THÔNG TIN CHUNG</p>
@@ -140,6 +156,49 @@
                             <input type="date" name="end_date" id="end_date" readonly
                                 value="{{ $fund->end_date }}"
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                        </div>
+                    </div>
+                </div>
+                <div id="fund" class="content tab-pane">
+                    <div class="info-chung">
+                        <p class="font-weight-bold text-uppercase info-chung--heading border-custom">
+                            Quỹ
+                        </p>
+                        <div class="outer container-fluided order_content">
+                            <table class="table table-hover bg-white rounded" id="warehouseTable">
+                                <thead>
+                                    <tr>
+                                        <th class="border-right height-52 padding-left35 text-13">
+                                            Tên quỹ
+                                        </th>
+                                        <th class="border-right height-52 padding-left35 text-13">
+                                            Tiền quỹ
+                                        </th>
+                                        <th class="border-right height/-52 padding-left35 text-13">
+                                            Ngày
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($fundsHistory as $entry)
+                                        <tr id="dynamic-row-1" class="bg-white addWarehouse representative-row">
+                                            <td class="border border-top-0 border-left-0 padding-left35">
+                                                <input autocomplete="off" value="{{ $entry->fund_name }}"
+                                                    class="border-0 px-2 py-1 w-100 text-13-black" readonly>
+                                            </td>
+                                            <td class="border border-top-0 border-left-0 padding-left35">
+                                                <input autocomplete="off"
+                                                    value="{{ number_format($entry->change_amount) }}"
+                                                    class="border-0 px-2 py-1 w-100 {{ $entry->type == 'receipt' ? 'text-success' : 'text-danger' }}" readonly>
+                                            </td>
+                                            <td class="border border-top-0 border-left-0 padding-left35">
+                                                <input autocomplete="off" value="{{ date_format(new DateTime($entry->created_at), 'd/m/Y') }}"
+                                                    class="border-0 px-2 py-1 w-100 text-13-black" readonly>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

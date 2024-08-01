@@ -433,6 +433,25 @@ class DetailImport extends Model
             ->get();
         return $import;
     }
+    public function getSumDetailEByProvide($idProvide) {
+        $detaiExport = DB::table($this->table)
+            ->where('detailimport.provide_id', $idProvide)
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->leftJoin('groups', 'groups.id', 'provides.group_id')
+            ->leftJoin('users', 'users.id', 'detailimport.id_sale')
+            ->select(
+                'detailimport.*',
+                'users.name as nameUser',
+                'detailimport.created_at as ngayTao',
+                'detailimport.quotation_number as maPhieu',
+                'groups.name as nhomKH',
+                'provides.provide_name_display as nameGuest',
+                'detailimport.total_price as totalProductVat',
+            )
+            ->where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->get();
+        return $detaiExport;
+    }
     public function ajax($data)
     {
         $import = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')

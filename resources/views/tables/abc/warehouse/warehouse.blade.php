@@ -210,8 +210,8 @@
                                             {{ $item->warehouse_code }}
                                         </td>
                                         <td class="py-2 text-13-black border-bottom border-top-0">
-                                            {{-- <a class="duongdan" href="#"> --}}
-                                            {{ $item->warehouse_name }}
+                                            <a class="duongdan" href="{{ route('warehouse.show', ['workspace' => $workspacename, 'warehouse' => $item->id]) }}">
+                                                {{ $item->warehouse_name }}
                                             </a>
                                         </td>
                                         <td class="py-2 text-13-black border-bottom border-top-0">

@@ -72,9 +72,24 @@ class ContentGroupsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $workspace, string $id)
     {
-        //
+        $content = ContentGroups::where('id', $id)->first();
+        $title = "Xem nội dung thu chi";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        $type = DB::table('contenttype')->get();
+        $contentChi = ContentGroups::where('pay_order.content_pay', $id)
+            ->leftJoin('pay_order', 'pay_order.content_pay', 'contentgroups.id')
+            ->leftJoin('funds', 'pay_order.fund_id', 'funds.id')
+            ->select('contentgroups.*', 'pay_order.*', 'funds.name as tenQuy')
+            ->get();
+        $contentThu = ContentGroups::where('cash_receipts.content_id', $id)
+            ->leftJoin('cash_receipts', 'cash_receipts.content_id', 'contentgroups.id')
+            ->leftJoin('funds', 'cash_receipts.fund_id', 'funds.id')
+            ->select('contentgroups.*', 'cash_receipts.*')
+            ->get();
+        return view('tables.abc.content.showContent', compact('title', 'workspacename', 'content', 'type', 'contentChi', 'contentThu'));
     }
 
     /**

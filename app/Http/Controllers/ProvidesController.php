@@ -6,6 +6,7 @@ use App\Models\DetailImport;
 use App\Models\Groups;
 use App\Models\ProvideRepesent;
 use App\Models\Provides;
+use App\Models\QuoteImport;
 use App\Models\User;
 use App\Models\Workspace;
 use Carbon\Carbon;
@@ -19,12 +20,16 @@ class ProvidesController extends Controller
     private $repesent;
     private $workspaces;
     private $users;
+    private $quoteImport;
+    private $detailImport;
     public function __construct()
     {
         $this->provides = new Provides();
         $this->repesent = new ProvideRepesent();
         $this->workspaces = new Workspace();
         $this->users = new User();
+        $this->quoteImport = new QuoteImport();
+        $this->detailImport = new DetailImport();
     }
     /**
      * Display a listing of the resource.
@@ -102,8 +107,11 @@ class ProvidesController extends Controller
         }
         $getId = $id;
         // $request->session()->put('id', $id);
+        $productDelivered = $this->quoteImport->sumProductsQuoteByProvide($id);
+        // Get All đơn
+        $allDelivery = $this->detailImport->getSumDetailEByProvide($id);
 
-        return view('tables.provides.showProvides', compact('title', 'provide', 'repesent', 'workspacename'));
+        return view('tables.provides.showProvides', compact('title', 'provide', 'repesent', 'workspacename','productDelivered','allDelivery'));
     }
 
     /**

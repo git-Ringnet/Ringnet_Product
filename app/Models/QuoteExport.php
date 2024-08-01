@@ -406,6 +406,7 @@ class QuoteExport extends Model
                 'detailexport.*',
                 'quoteexport.*',
                 'quoteexport.product_qty as slxuat',
+                'quoteexport.price_export as giaXuat'
             )
             ->get();
         return $quoteE;

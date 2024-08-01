@@ -80,6 +80,22 @@ class DetailExport extends Model
         $detailExport = $detailExport->orderBy('detailexport.id', 'desc')->get();
         return $detailExport;
     }
+    public function getAllDetailExportByProduct($idProduct)
+    {
+        $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
+            ->leftJoin('users', 'users.id', 'detailexport.user_id')
+            ->leftJoin('quoteexport', 'detailexport.id', 'quoteexport.detailexport_id')
+            ->where('quoteexport.product_id', $idProduct)
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $detailExport->where('user_id', Auth::user()->id);
+            }
+        }
+        $detailExport = $detailExport->orderBy('detailexport.id', 'desc')->get();
+        return $detailExport;
+    }
     function allEqual($array)
     {
         $firstValue = $array[0];

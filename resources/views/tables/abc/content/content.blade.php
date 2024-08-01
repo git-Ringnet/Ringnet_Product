@@ -182,7 +182,7 @@
                                                 {{ $stt }}
                                             </td>
                                             <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
-                                                {{ $item->name }}
+                                                <a href="{{ route('content.show', ['workspace' => $workspacename, 'content' => $item->id]) }}">{{ $item->name }}</a>
                                             </td>
                                             <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0"
                                                 style="right: 10px; top: 7px;">

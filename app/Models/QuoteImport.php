@@ -124,6 +124,19 @@ class QuoteImport extends Model
         return $quoteI;
     }
 
+    public function sumProductsQuoteByProvide($idProvide)
+    {
+        $quoteI = QuoteImport::leftJoin('detailimport', 'quoteimport.detailimport_id', 'detailimport.id')
+            ->where('detailimport.provide_id', $idProvide)
+            ->select(
+                'detailimport.*',
+                'quoteimport.*',
+                'quoteimport.product_qty as slxuat',
+            )
+            ->get();
+        return $quoteI;
+    }
+
     public function updateImport($data, $id)
     {
         // Xóa sản phẩm khi chỉnh sửa đơn hàng

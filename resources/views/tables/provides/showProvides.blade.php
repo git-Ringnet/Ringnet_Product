@@ -88,9 +88,12 @@
                 <li class="user_flow" data-type="NCC" data-des="Lịch sử mua hàng">
                     <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử mua hàng</a>
                 </li>
-                <li class="user_flow" data-type="NCC" data-des="File đính kèm">
-                    <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#">File đính kèm</a>
+                <li class="user_flow">
+                    <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#detailImport">Đơn hàng</a>
                 </li>
+                {{-- <li class="user_flow" data-type="NCC" data-des="File đính kèm">
+                    <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#">File đính kèm</a>
+                </li> --}}
             </ul>
         </section>
     </div>
@@ -109,7 +112,8 @@
                                     <div class="content-info">
                                         <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0 required-label margin-left32 text-13-red">Mã nhà cung cấp</p>
+                                                <p class="p-0 m-0 required-label margin-left32 text-13-red">Mã nhà cung
+                                                    cấp</p>
                                             </div>
                                             <input readonly type="text" name="key"
                                                 value="{{ old('key') ?? $provide->key }}"
@@ -121,8 +125,7 @@
                                                 <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên
                                                 </p>
                                             </div>
-                                            <input readonly type="text"
-                                                name="provide_name_display"
+                                            <input readonly type="text" name="provide_name_display"
                                                 value="{{ old('provide_name_display') ?? $provide->provide_name_display }}"
                                                 class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
@@ -132,8 +135,7 @@
                                                 <p class="p-0 m-0  margin-left32 text-13">Địa chỉ
                                                 </p>
                                             </div>
-                                            <input readonly type="text"
-                                                name="provide_address"
+                                            <input readonly type="text" name="provide_address"
                                                 value="{{ old('provide_address') ?? $provide->provide_address }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
@@ -143,8 +145,7 @@
                                                 <p class="p-0 m-0  margin-left32 text-13">Mã số thuế
                                                 </p>
                                             </div>
-                                            <input readonly type="text"
-                                                name="provide_code"
+                                            <input readonly type="text" name="provide_code"
                                                 value="{{ old('provide_code') ?? $provide->provide_code }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
@@ -154,8 +155,7 @@
                                                 <p class="p-0 m-0  margin-left32 text-13">Điện thoại
                                                 </p>
                                             </div>
-                                            <input readonly type="text"
-                                                name="provide_address"
+                                            <input readonly type="text" name="provide_address"
                                                 value="{{ old('provide_address') ?? $provide->provide_phone }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
@@ -164,8 +164,7 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Email</p>
                                             </div>
-                                            <input readonly type="text"
-                                                name="provide_name"
+                                            <input readonly type="text" name="provide_name"
                                                 value="{{ old('provide_name') ?? $provide->provide_email }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
@@ -204,8 +203,7 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Nhóm</p>
                                             </div>
-                                            <input readonly type="text"
-                                                name="provide_name"
+                                            <input readonly type="text" name="provide_name"
                                                 value="@if ($provide->getGroup) {{ $provide->getGroup->name }} @endif"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
@@ -391,7 +389,7 @@
                                                     fill='#6B6F76' />
                                             </svg>
                                         </th>
-                                        <th scope="col" class="text-13 text-nowrap">
+                                        {{-- <th scope="col" class="text-13 text-nowrap">
                                             <span>Số tham chiếu</span>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                                 viewBox='0 0 16 16' fill='none'>
@@ -399,8 +397,8 @@
                                                     d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
                                                     fill='#6B6F76' />
                                             </svg>
-                                        </th>
-                                        <th scope="col" class="text-13 text-nowrap text-left">
+                                        </th> --}}
+                                        {{-- <th scope="col" class="text-13 text-nowrap text-left">
                                             <span>Nhà cung cấp</span>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                                 viewBox='0 0 16 16' fill='none'>
@@ -408,7 +406,7 @@
                                                     d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
                                                     fill='#6B6F76' />
                                             </svg>
-                                        </th>
+                                        </th> --}}
                                         {{-- <th scope="col" class="text-13 text-nowrap text-left">
                                             <span>Dự án</span>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
@@ -418,7 +416,7 @@
                                                     fill='#6B6F76' />
                                             </svg>
                                         </th> --}}
-                                        <th scope="col" class="text-13 text-nowrap text-center">
+                                        {{-- <th scope="col" class="text-13 text-nowrap text-center">
                                             <span>Trạng thái</span>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                                 viewBox='0 0 16 16' fill='none'>
@@ -444,8 +442,8 @@
                                                     d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
                                                     fill='#6B6F76' />
                                             </svg>
-                                        </th>
-                                        <th scope="col" class="text-13 text-nowrap text-center">
+                                        </th> --}}
+                                        {{-- <th scope="col" class="text-13 text-nowrap text-center">
                                             <span>Thanh toán</span>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                                 viewBox='0 0 16 16' fill='none'>
@@ -453,7 +451,7 @@
                                                     d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
                                                     fill='#6B6F76' />
                                             </svg>
-                                        </th>
+                                        </th> --}}
                                         <th scope="col" class="text-13 text-nowrap text-right">
                                             <span>Tổng tiền</span>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
@@ -484,20 +482,20 @@
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     {{ $detail->quotation_number }}
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom">
+                                                {{-- <td class="text-13-black border-top-0 border-bottom">
                                                     {{ $detail->reference_number }}
-                                                </td>
-                                                <td class="text-13-black border-top-0 border-bottom">
+                                                </td> --}}
+                                                {{-- <td class="text-13-black border-top-0 border-bottom">
                                                     @if ($detail->getProvideName)
                                                         {{ $detail->getProvideName->provide_name_display }}
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 {{-- <td class="text-13-black border-top-0 border-bottom">
                                                     @if ($detail->getProjectName)
                                                         {{ $detail->getProjectName->project_name }}
                                                     @endif
                                                 </td> --}}
-                                                <td class="text-13-black text-center border-top-0 border-bottom">
+                                                {{-- <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($detail->status_receive == 2 && $detail->status_reciept == 2 && $detail->status_pay == 2)
                                                         <span class="text-success">Close</span>
                                                     @elseif($detail->status == 1)
@@ -505,10 +503,9 @@
                                                     @else
                                                         <span class="text-primary">Approved</span>
                                                     @endif
-                                                </td>
-                                                <td class="text-13-black text-center border-top-0 border-bottom">
+                                                </td> --}}
+                                                {{-- <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($detail->status_receive == 0)
-                                                        <!-- NO DONE -->
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" viewBox="0 0 16 16" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -516,7 +513,6 @@
                                                                 fill="#858585" />
                                                         </svg>
                                                     @elseif ($detail->status_receive == 1)
-                                                        <!-- Pedding-->
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" viewBox="0 0 16 16" fill="none">
                                                             <g clip-path="url(#clip0_2466_23134)">
@@ -535,7 +531,6 @@
                                                             </defs>
                                                         </svg>
                                                     @else
-                                                        <!-- Finished -->
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" viewBox="0 0 16 16" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -543,10 +538,9 @@
                                                                 fill="#08AA36" fill-opacity="0.75" />
                                                         </svg>
                                                     @endif
-                                                </td>
-                                                <td class="text-13-black text-center border-top-0 border-bottom">
+                                                </td> --}}
+                                                {{-- <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($detail->status_reciept == 0)
-                                                        <!-- NO DONE -->
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" viewBox="0 0 16 16" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -554,7 +548,6 @@
                                                                 fill="#858585" />
                                                         </svg>
                                                     @elseif ($detail->status_reciept == 1)
-                                                        <!-- Pedding-->
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" viewBox="0 0 16 16" fill="none">
                                                             <g clip-path="url(#clip0_2466_23134)">
@@ -573,7 +566,6 @@
                                                             </defs>
                                                         </svg>
                                                     @else
-                                                        <!-- Finished -->
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" viewBox="0 0 16 16" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -581,10 +573,9 @@
                                                                 fill="#08AA36" fill-opacity="0.75" />
                                                         </svg>
                                                     @endif
-                                                </td>
-                                                <td class="text-13-black text-center border-top-0 border-bottom">
+                                                </td> --}}
+                                                {{-- <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($detail->status_pay == 0)
-                                                        <!-- NO DONE -->
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" viewBox="0 0 16 16" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -592,7 +583,6 @@
                                                                 fill="#858585" />
                                                         </svg>
                                                     @elseif ($detail->status_pay == 1)
-                                                        <!-- Pedding-->
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" viewBox="0 0 16 16" fill="none">
                                                             <g clip-path="url(#clip0_2466_23134)">
@@ -611,7 +601,6 @@
                                                             </defs>
                                                         </svg>
                                                     @else
-                                                        <!-- Finished -->
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" viewBox="0 0 16 16" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -619,7 +608,7 @@
                                                                 fill="#08AA36" fill-opacity="0.75" />
                                                         </svg>
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($detail->total_tax) }}</td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
@@ -637,8 +626,218 @@
                         </div>
                     </div>
                 </div>
-                <div id="files" class="tab-pane fade">
+                {{-- <div id="files" class="tab-pane fade">
                     ádasdsadsa
+                </div> --}}
+                <div id="detailImport" class="tab-pane fade">
+                    <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed border-custom">
+                        <div class="w-100">
+                            <div class="row mr-0">
+                                <div class="col-md-5 d-flex align-items-center">
+                                    <form action="" method="get" id='search-filter' class="p-0 m-0">
+                                        <div class="position-relative ml-1">
+                                            <input type="text" placeholder="Tìm kiếm" name="keywords"
+                                                style="outline: none;" class="pr-4 w-100 input-search text-13"
+                                                value="{{ request()->keywords }}">
+                                            <span id="search-icon" class="search-icon">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                        </div>
+                                    </form>
+                                    <div class="dropdown mx-2 d-none filter-all">
+                                        <button class="btn-filter_search" type="button" id="dropdownMenuButton"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                viewBox="0 0 16 16" fill="none">
+                                                <path
+                                                    d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
+                                                    fill="#6D7075" />
+                                                <path
+                                                    d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
+                                                    fill="#6D7075" />
+                                                <path
+                                                    d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
+                                                    fill="#6D7075" />
+                                                <path
+                                                    d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
+                                                    fill="#6D7075" />
+                                            </svg>
+                                            <span class="text-btnIner">Bộ lọc</span>
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                                    fill="#6B6F76" />
+                                            </svg>
+                                            </span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item text-13-black" href="#">Action</a>
+                                            <a class="dropdown-item text-13-black" href="#">Another action</a>
+                                            <a class="dropdown-item text-13-black" href="#">Something else
+                                                here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="content-infor" style="padding-top:3rem;">
+                        <div class="outer table-responsive text-nowrap">
+                            <table id="example2" class="table table-hover">
+                                <thead style="position: sticky">
+                                    <tr>
+                                        <th scope="col" class="height-52 border"
+                                            style="width: 7.142857142857143%">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="guest_name_display"
+                                                    data-sort-type="ASC">
+                                                    <button class="btn-sort text-13 bold" type="submit">
+                                                        Số chứng từ
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-guest_name_display"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52 border"
+                                            style="width: 7.142857142857143%">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="guest_name_display"
+                                                    data-sort-type="ASC">
+                                                    <button class="btn-sort text-13 bold" type="submit">
+                                                        Mã hàng
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-guest_name_display"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52 border"
+                                            style="width: 7.142857142857143%">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="guest_name_display"
+                                                    data-sort-type="ASC">
+                                                    <button class="btn-sort text-13 bold" type="submit">
+                                                        Tên hàng
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-guest_name_display"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52 border"
+                                            style="width: 7.142857142857143%">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="guest_name_display"
+                                                    data-sort-type="ASC">
+                                                    <button class="btn-sort text-13 bold" type="submit">
+                                                        ĐVT
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-guest_name_display"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52 border"
+                                            style="width: 7.142857142857143%">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="guest_name_display"
+                                                    data-sort-type="ASC">
+                                                    <button class="btn-sort text-13 bold" type="submit">
+                                                        SL Mua
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-guest_name_display"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52 border"
+                                            style="width: 7.142857142857143%">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="guest_name_display"
+                                                    data-sort-type="ASC">
+                                                    <button class="btn-sort text-13 bold" type="submit">
+                                                        Đơn giá
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-guest_name_display"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52 border"
+                                            style="width: 7.142857142857143%">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="guest_name_display"
+                                                    data-sort-type="ASC">
+                                                    <button class="btn-sort text-13 bold" type="submit">
+                                                        Thành tiền
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-guest_name_display"></div>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-sell">
+                                    <tr>
+                                        <td colspan="9" class="border-bottom bold">Nhà cung cấp:
+                                            {{ $provide->provide_name_display }}</td>
+                                    </tr>
+                                    @php
+                                        $totalDeliverQty = 0;
+                                        $totalPriceExport = 0;
+                                        $totalProductTotalVat = 0;
+                                        $totalItemDeliveryTotalProductVat = 0;
+                                        $Pay = 0;
+                                        $Remai = 0;
+                                        $totalPay = 0;
+                                        $totalRemai = 0;
+                                        $stt = 1; // Initialize the STT variable
+                                    @endphp
+
+                                    @foreach ($allDelivery as $itemDelivery)
+                                        @php
+                                            $matchedItems = $productDelivered
+                                                ->where('detailimport_id', $itemDelivery->id)
+                                                ->where('provide_id', $provide->id);
+                                            $count = $matchedItems->count();
+                                        @endphp
+                                        @if ($matchedItems->isNotEmpty())
+                                            @foreach ($matchedItems as $matchedItem)
+                                                <tr class="position-relative relative">
+                                                    <input type="hidden" value="{{ $itemDelivery->id }}"
+                                                        class="sell">
+                                                    @if ($loop->first)
+                                                        <td rowspan="{{ $count }}"
+                                                            class="text-13-black height-52 border">
+                                                            <a href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $itemDelivery->id]) }}"
+                                                                class="duongDan activity" data-name1="BG"
+                                                                data-des="Xem đơn báo giá">{{ $itemDelivery->maPhieu }}
+                                                            </a>
+                                                        </td>
+                                                    @endif
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ $matchedItem->product_code }}</td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ $matchedItem->product_name }}</td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ $matchedItem->product_unit }}</td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ number_format($matchedItem->product_qty) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ number_format($matchedItem->price_export) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ number_format($matchedItem->product_qty * $matchedItem->price_export) }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
+                                            @php
+                                                $stt++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>

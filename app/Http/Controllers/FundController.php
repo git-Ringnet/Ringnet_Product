@@ -65,6 +65,7 @@ class FundController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'amount' => str_replace(',', '', $request->amount),
+            'initial_amount' => $request->amount,
             'bank_name' => $request->bank_name,
             'bank_account_number' => $request->bank_account_number,
             'bank_account_holder' => $request->bank_account_holder,
@@ -83,7 +84,33 @@ class FundController extends Controller
         $title = "Quỹ";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.funds.show', compact('fund', 'title', 'workspacename'));
+        $fundReceipts = DB::table('cash_receipts')
+            ->join('funds', 'cash_receipts.fund_id', '=', 'funds.id')
+            ->select(
+                'cash_receipts.fund_id',
+                'funds.name as fund_name',
+                'cash_receipts.created_at',
+                'cash_receipts.amount as change_amount',
+                DB::raw('"receipt" as type')
+            )
+            ->where('cash_receipts.fund_id', $fund->id);
+
+        $fundPayments = DB::table('pay_order')
+            ->join('funds', 'pay_order.fund_id', '=', 'funds.id')
+            ->select(
+                'pay_order.fund_id',
+                'funds.name as fund_name',
+                'pay_order.created_at',
+                DB::raw('pay_order.payment * -1 as change_amount'),
+                DB::raw('"payment" as type')
+            )
+            ->where('pay_order.fund_id', $fund->id);
+
+        $fundsHistory = $fundReceipts
+            ->unionAll($fundPayments)
+            ->orderBy('created_at', 'asc')
+            ->get();
+        return view('tables.funds.show', compact('fund', 'title', 'workspacename', 'fundsHistory'));
     }
 
     public function edit(Fund $fund)
@@ -131,6 +158,24 @@ class FundController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
         ]);
+
+        // Cập nhật tiền quỹ ban đầu
+        // Tính tổng số tiền đã chi từ phiếu chi
+        $total_payments = DB::table('pay_order')
+            ->where('fund_id', $fund->id)
+            ->sum('payment');
+
+        // Tính tổng số tiền đã nhận từ phiếu thu
+        $total_receipts = DB::table('cash_receipts')
+            ->where('fund_id', $fund->id)
+            ->sum('amount');
+
+        // Tính toán và cập nhật số tiền ban đầu
+        $fund->initial_amount = $request->amount + $total_receipts - $total_payments;
+
+        // Lưu các thay đổi
+        $fund->update($request->all());
+        $fund->save();
 
         return redirect()->route('funds.index')->with('msg', 'Cập nhật quỹ thành công!');
     }

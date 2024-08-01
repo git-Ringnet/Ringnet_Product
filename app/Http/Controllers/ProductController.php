@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ChangeWarehouse;
+use App\Models\DetailExport;
+use App\Models\DetailImport;
 use App\Models\Groups;
 use App\Models\HistoryImport;
 use App\Models\ImportDB;
@@ -30,12 +32,14 @@ class ProductController extends Controller
     private $provides;
     private $warehouse;
     private $workspaces;
+    private $detailExport;
     public function __construct()
     {
         $this->products = new Products();
         $this->provides = new Provides();
         $this->warehouse = new Warehouse();
         $this->workspaces = new Workspace();
+        $this->detailExport = new DetailExport();
     }
 
     public function index()
@@ -101,7 +105,20 @@ class ProductController extends Controller
             $history->where('user_id', Auth::user()->id);
         }
         $history = $history->get();
-        return view('tables.products.showProduct', compact('product', 'title', 'display', 'history', 'workspacename'));
+        $quoteExport = $this->detailExport->getAllDetailExportByProduct($id);
+        $import = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            // ->leftJoin('quoteimport', 'detailimport.id', 'quoteimport.detailimport_id')
+            // ->where('quoteimport.product_id', $id)
+            ->select('detailimport.*', 'provides.provide_name_display')
+            ->orderBy('detailimport.id', 'desc');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $import->where('user_id', Auth::user()->id);
+            }
+        }
+        $import = $import->get();
+        return view('tables.products.showProduct', compact('product', 'title', 'display', 'history', 'workspacename', 'quoteExport', 'import'));
     }
 
     /**

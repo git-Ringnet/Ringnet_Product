@@ -97,7 +97,7 @@
                 </li>
                 @if ($product->type == 1)
                     <li>
-                        <a class="text-secondary" data-toggle="tab" href="#history">Lịch sử mua hàng</a>
+                        <a class="text-secondary" data-toggle="tab" href="#history">Hàng hóa</a>
                     </li>
                     <li>
                         <a class="text-secondary pr-3" data-toggle="tab" href="#serialnumber">Serial Number</a>
@@ -411,8 +411,7 @@
                 <div class="container-fluided">
                     <div class="row">
                         <div class="col-12">
-                            <div
-                                class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed">
+                            <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed">
                                 <form class="w-100" action="" method="get" id="search-filter">
                                     <div class="row mr-0">
                                         <div class="col-md-5 d-flex">
@@ -460,169 +459,361 @@
                 </div>
             </section>
 
-            <section class="content margin-top-fixed3">
-                <div class="outer text-nowrap">
-                    <table class="table table-hover bg-white rounded" id="inputcontent">
-                        <thead>
-                            <tr class="height-52">
-                                <th scope="col" class="text-13 text-nowrap padding-left35">
-                                    <span>Ngày báo giá</span>
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th>
-                                <th scope="col" class="text-13 text-nowrap">
-                                    Số báo giá
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th>
-                                <th scope="col" class="text-13 text-nowrap">
-                                    <span>Nhà cung cấp</span>
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th>
-                                <th scope="col" class="text-13 text-nowrap text-right">
-                                    <span>Số lượng nhập</span>
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th>
-                                <th scope="col" class="text-13 text-nowrap text-right">
-                                    <span>Đơn giá</span>
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th>
-                                <th scope="col" class="text-13 text-nowrap text-right">
-                                    <span>Thành tiền</span>
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th>
-                                {{-- <th scope="col" class="text-13 text-nowrap">
-                                    <span>Chiết khấu</span>
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th> --}}
-                                <th scope="col" class="text-13 text-nowrap text-right">
-                                    <span>Tiền thuế</span>
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th>
-                                <th scope="col" class="text-13 text-nowrap text-right">
-                                    <span>Tổng tiền</span>
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th>
-                                <th scope="col" class="text-13 text-nowrap text-center">
-                                    <span>Trạng thái</span>
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                        viewBox='0 0 16 16' fill='none'>
-                                        <path
-                                            d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                            fill='#6B6F76' />
-                                    </svg>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($history as $htr)
-                                @if ($htr->getQuoteImport)
-                                    @php
-                                        $totalPrice = $htr->getQuoteImport->price_export * $htr->product_qty;
-                                        $totalTax =
-                                            ($htr->getQuoteImport->price_export *
-                                                $htr->product_qty *
-                                                ($htr->getQuoteImport->product_tax == 99
-                                                    ? 0
-                                                    : $htr->getQuoteImport->product_tax)) /
-                                            100;
-                                    @endphp
-                                @endif
-                                <tr class="bg-white">
-                                    <td class="padding-left35 text-13-black border-top-0 border-bottom">
-                                        {{ date_format(new DateTime($htr->created_at), 'd/m/Y') }}
-                                    </td>
-                                    <td class="text-13-black border-top-0 border-bottom">
-                                        @if ($htr->getQuotetion)
-                                            {{ $htr->getQuotetion->quotation_number }}
-                                        @endif
-                                    </td>
-                                    <td class="text-13-black border-top-0 border-bottom">
-                                        @if ($htr->getQuotetion)
-                                            {{ $htr->getQuotetion->provide_name }}
-                                        @endif
-                                    </td>
-                                    <td class="text-13-black text-right border-top-0 border-bottom">
-                                        {{ number_format($htr->product_qty) }}
-                                    </td>
-                                    <td class="text-13-black text-right border-top-0 border-bottom">
-                                        @if ($htr->getQuoteImport)
-                                            {{ number_format($htr->getQuoteImport->price_export) }}
-                                        @endif
-                                    </td>
-                                    <td class="text-13-black text-right border-top-0 border-bottom">
-                                        @if ($htr->getQuoteImport)
-                                            {{ number_format($totalPrice) }}
-                                        @endif
-                                    </td>
-                                    {{-- <td class="text-13-black">Chiết khấu</td> --}}
-                                    <td class="text-13-black text-right border-top-0 border-bottom">
-                                        @if ($htr->getQuoteImport)
-                                            {{ number_format($totalTax) }}
-                                        @endif
-                                    </td>
-                                    <td class="text-13-black text-right border-top-0 border-bottom">
-                                        {{ number_format($totalPrice + $totalTax) }}
-                                    </td>
-                                    <td class="text-13-black text-center border-top-0 border-bottom">
-                                        @if (isset($htr->getQuotetion) &&
-                                                $htr->getQuotetion->status_receive == 2 &&
-                                                $htr->getQuotetion->status_reciept == 2 &&
-                                                $htr->getQuotetion->status_pay == 2)
-                                            <span style="color: #08AA36">Close</span>
-                                        @elseif($htr->status == 1)
-                                            <span style="color: #858585">Draft</span>
-                                        @else
-                                            <span style="color: #E8B600">Approved</span>
-                                        @endif
-                                    </td>
+            <section class="content-header--options p-0 mt-5">
+                <ul class="header-options--nav-1 nav nav-tabs margin-left32">
+                    <li>
+                        <a class="text-secondary active" data-toggle="tab" href="#detailExport">Bán hàng</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary pr-3" data-toggle="tab" href="#detailImport">Đặt hàng</a>
+                    </li>
+                </ul>
+            </section>
+            <section class="content">
+                <div class="tab-content">
+                    <div class="content tab-pane in active" id="detailExport">
+                        <div class="outer text-nowrap">
+                            <table id="example2" class="table table-hover bg-white rounded">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width:5%;padding-left: 2rem;" class="height-52">
+                                            <input type="checkbox" name="all" id="checkall">
+                                        </th>
+                                        <th scope="col" class="height-52" style="width: 14%;">
+                                            <span class="d-flex justify-content-start">
+                                                <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="quotation_number" data-sort-type="DESC">
+                                                    <button class="btn-sort text-13" type="submit">
+                                                        Mã phiếu
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-quotation_number"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52" style="width: 15%;">
+                                            <span class="d-flex justify-content-start">
+                                                <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="reference_number" data-sort-type="DESC"><button
+                                                        class="btn-sort text-13" type="submit">Số phiếu</button>
+                                                </a>
+                                                <div class="icon" id="icon-reference_number"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52" style="width: 15%;">
+                                            <span class="d-flex justify-content-start">
+                                                <a href="#" class="sort-link btn-submit" data-sort-by="ngayBG"
+                                                    data-sort-type="DESC">
+                                                    <button class="btn-sort text-13" type="submit">
+                                                        Ngày lập
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-ngayBG"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52" style="width: 15%;">
+                                            <span class="d-flex justify-content-start">
+                                                <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="guest_name_display" data-sort-type="DESC"><button
+                                                        class="btn-sort text-13" type="submit">Khách
+                                                        hàng</button>
+                                                </a>
+                                                <div class="icon" id="icon-guest_name_display"></div>
+                                            </span>
+                                        </th>
+                                        @can('isAdmin')
+                                            <th scope="col" class="height-52" style="width: 15%;">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit" data-sort-by=""
+                                                        data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Người tạo
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id=""></div>
+                                                </span>
+                                            </th>
+                                        @endcan
+                                        <th scope="col" class="height-52" style="width: 15%;">
+                                            <span class="d-flex justify-content-center">
+                                                <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="status_receive" data-sort-type="DESC"><button
+                                                        class="btn-sort text-13" type="submit">Giao hàng</button>
+                                                </a>
+                                                <div class="icon" id="icon-status_receive"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52">
+                                            <span class="d-flex justify-content-end">
+                                                <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="total_price" data-sort-type="DESC"><button
+                                                        class="btn-sort text-13" type="submit">Tổng tiền</button>
+                                                </a>
+                                                <div class="icon" id="icon-total_price"></div>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody-detailExport">
+                                    @foreach ($quoteExport as $value_export)
+                                        <tr class="position-relative detailExport-info height-52"
+                                            data-id="{{ $value_export->maBG }}">
+                                            <input type="hidden" name="id-detailExport" class="id-detailExport"
+                                                id="id-detailExport" value="{{ $value_export->maBG }}">
+                                            <td class="text-13-black border-top-0 border-bottom">
+                                                <span class="margin-Right10">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="6"
+                                                        height="10" viewBox="0 0 6 10" fill="none">
+                                                        <g clip-path="url(#clip0_1710_10941)">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
+                                                                fill="#282A30" />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_1710_10941">
+                                                                <rect width="6" height="10" fill="white" />
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                </span>
+                                                <input type="checkbox" class="checkall-btn p-0 m-0" name="ids[]"
+                                                    id="checkbox" value="" onclick="event.stopPropagation();">
+                                            </td>
+                                            <td class="text-13-black text-left border-top-0 border-bottom">
+                                                <div class="">
+                                                    <a href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $value_export->maBG]) }}"
+                                                        class="duongDan activity" data-name1="BG"
+                                                        data-des="Xem đơn báo giá">{{ $value_export->quotation_number }}</a>
+                                                </div>
+                                            </td>
+                                            <td
+                                                class="text-13-black max-width120 text-left border-top-0 border-bottom">
+                                                {{ $value_export->reference_number }}
+                                            </td>
+                                            <td class="text-13-black text-left border-top-0 border-bottom">
+                                                {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
+                                            <td
+                                                class="text-13-black max-width180 text-left border-top-0 border-bottom">
+                                                {{ $value_export->guest_name_display }}
+                                            </td>
+                                            @can('isAdmin')
+                                                <td
+                                                    class="text-13-black max-width180 text-left border-top-0 border-bottom">
+                                                    {{ $value_export->name }}
+                                                </td>
+                                            @endcan
+                                            <td class="text-13-black text-center border-top-0 border-bottom">
+                                                @if ($value_export->status_receive === 1)
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                                            fill="#858585" />
+                                                    </svg>
+                                                @elseif ($value_export->status_receive === 3)
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <g clip-path="url(#clip0_1699_20021)">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
+                                                                fill="#E8B600" />
+                                                            <path
+                                                                d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
+                                                                fill="#E8B600" />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_1699_20021">
+                                                                <rect width="16" height="16" fill="white" />
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                @elseif($value_export->status_receive === 2)
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                                            fill="#08AA36" fill-opacity="0.75" />
+                                                    </svg>
+                                                @endif
+                                            </td>
+                                            <td class="text-13-black text-right border-top-0 border-bottom">
+                                                {{ number_format($value_export->total_price + $value_export->total_tax) }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="detailImport">
+                        <table id="example2" class="table table-hover">
+                            <thead>
+                                <tr class="height-52">
+                                    <th scope="col" style="width:5%;padding-left: 2rem;"
+                                        class="height-52 border-bottom">
+                                        <input type="checkbox" name="all" id="checkall" class="checkall-btn">
+                                    </th>
+                                    <th scope="col" class="border-bottom" style="width: 15%;">
+                                        <span class="d-flex justify-content-start">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="quotation_number" data-sort-type="DESC">
+                                                <button class="btn-sort text-13" type="submit">Mã
+                                                    phiếu</button>
+                                            </a>
+                                            <div class="icon" id="icon-quotation_number"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="border-bottom" style="width: 15%;">
+                                        <span class="d-flex justify-content-start">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="reference_number" data-sort-type="DESC"><button
+                                                    class="btn-sort text-13" type="submit">Số phiếu</button>
+                                            </a>
+                                            <div class="icon" id="icon-reference_number"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="border-bottom" style="width: 15%;">
+                                        <span class="justify-content-start">
+                                            <a href="#" class="sort-link btn-submit" data-sort-by="created_at"
+                                                data-sort-type="DESC">
+                                                <button class="btn-sort text-13" type="submit">Ngày
+                                                    lập</button>
+                                            </a>
+                                            <div class="icon" id="icon-created_at"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="border-bottom" style="width: 15%;">
+                                        <span class="d-flex justify-content-start">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="provide_name" data-sort-type="DESC"><button
+                                                    class="btn-sort text-13" type="submit">Nhà cung
+                                                    cấp</button>
+                                            </a>
+                                            <div class="icon" id="icon-provide_name"></div>
+                                        </span>
+                                    </th>
+                                    @can('isAdmin')
+                                        <th scope="col" class="border-bottom" style="width: 15%;">
+                                            <span class="d-flex justify-content-start">
+                                                <a href="#" class="sort-link" data-sort-by="total"
+                                                    data-sort-type=""><button class="btn-sort text-13"
+                                                        type="submit">Người tạo</button>
+                                                </a>
+                                                <div class="icon" id="icon-total"></div>
+                                            </span>
+                                        </th>
+                                    @endcan
+                                    <th scope="col" class="border-bottom" style="width: 15%;">
+                                        <span class="d-flex justify-content-center">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="status_receive" data-sort-type="DESC"><button
+                                                    class="btn-sort text-13" type="submit">Nhận hàng</button>
+                                            </a>
+                                            <div class="icon" id="icon-status_receive"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="border-bottom">
+                                        <span class="d-flex justify-content-end">
+                                            <a href="#" class="sort-link btn-submit" data-sort-by="total_tax"
+                                                data-sort-type="DESC"><button class="btn-sort text-13"
+                                                    type="submit">Tổng tiền</button>
+                                            </a>
+                                            <div class="icon" id="icon-total_tax"></div>
+                                        </span>
+                                    </th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="tbody-import">
+                                @php
+                                    $total = 0;
+                                @endphp
+                                @foreach ($import as $item)
+                                    <tr class="position-relative import-info height-52"
+                                        data-id="{{ $item->id }}">
+                                        <input type="hidden" name="id-import" class="id-import" id="id-import"
+                                            value="{{ $item->id }}">
+                                        <td class="text-13-black border-bottom border-top-0">
+                                            <span class="margin-Right10">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10"
+                                                    viewBox="0 0 6 10" fill="none">
+                                                    <g clip-path="url(#clip0_1710_10941)">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
+                                                            fill="#282A30"></path>
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_1710_10941">
+                                                            <rect width="6" height="10" fill="white">
+                                                            </rect>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </span>
+                                            <input type="checkbox" class="checkall-btn p-0 m-0" name="ids[]"
+                                                id="checkbox" value="" onclick="event.stopPropagation();">
+                                        </td>
+                                        <td class="text-13-black border-bottom border-top-0 text-wrap">
+                                            <div class="user_flow" data-type="DMH" data-des="Xem đơn mua hàng">
+                                                <a href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}"
+                                                    class="duongDan">
+                                                    {{ $item->quotation_number == null ? $item->id : $item->quotation_number }}
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td class="text-13-black border-bottom border-top-0 text-wrap">
+                                            {{ $item->reference_number }}
+                                        </td>
+                                        <td class="text-13-black border-bottom border-top-0">
+                                            {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                        </td>
+                                        <td class="text-13-black border-bottom border-top-0 text-wrap">
+                                            {{ $item->provide_name_display }}
+                                        </td>
+                                        @can('isAdmin')
+                                            <td class="text-13-black border-bottom border-top-0">
+                                                @if ($item->getNameUser)
+                                                    {{ $item->getNameUser->name }}
+                                                @endif
+                                            </td>
+                                        @endcan
+                                        <td class="text-center py-2 border-bottom border-top-0">
+                                            @if ($item->status_receive == 0)
+                                            @elseif ($item->status_receive == 1)
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    viewBox="0 0 16 16" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7.9967 13.8636C11.2368 13.8636 13.8634 11.237 13.8634 7.99694C13.8634 4.75687 11.2368 2.13027 7.9967 2.13027C4.75662 2.13027 2.13003 4.75687 2.13003 7.99694C2.13003 11.237 4.75662 13.8636 7.9967 13.8636ZM7.9967 15.4636C12.1204 15.4636 15.4634 12.1207 15.4634 7.99694C15.4634 3.87322 12.1204 0.530273 7.9967 0.530273C3.87297 0.530273 0.530029 3.87322 0.530029 7.99694C0.530029 12.1207 3.87297 15.4636 7.9967 15.4636Z"
+                                                        fill="#E8B600" />
+                                                    <path
+                                                        d="M11.8062 7.99694C11.8062 10.1009 10.1007 11.8064 7.99673 11.8064L7.99646 4.18742C10.1004 4.18742 11.8062 5.89299 11.8062 7.99694Z"
+                                                        fill="#E8B600" />
+                                                </svg>
+                                            @elseif($item->status_receive == 2)
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    viewBox="0 0 14 14" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
+                                                        fill="#08AA36" fill-opacity="0.75" />
+                                                </svg>
+                                            @else
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    viewBox="0 0 14 14" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2ZM0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C14 10.866 10.866 14 7 14C3.13401 14 0 10.866 0 7Z"
+                                                        fill="#858585" />
+                                                </svg>
+                                            @endif
+                                        </td>
+                                        <td class="text-13-black text-right border-bottom border-top-0">
+                                            {{ number_format($item->total_tax) }}
+                                        </td>
+                                    </tr>
+                                    @php
+                                        $total += $item->total_tax;
+                                    @endphp
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
         </div>
@@ -632,8 +823,7 @@
                 <div class="container-fluided">
                     <div class="row">
                         <div class="col-12">
-                            <div
-                                class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed">
+                            <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed">
                                 <form class="w-100" action="" method="get" id="search-filter">
                                     <div class="row mr-0 w-100">
                                         <div class="col-md-5 d-flex">

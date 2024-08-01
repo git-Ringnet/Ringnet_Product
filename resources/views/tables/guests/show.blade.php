@@ -683,6 +683,30 @@
                                                 <div class="icon" id="icon-guest_name_display"></div>
                                             </span>
                                         </th>
+                                        <th scope="col" class="height-52 border"
+                                            style="width: 7.142857142857143%">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="guest_name_display"
+                                                    data-sort-type="ASC">
+                                                    <button class="btn-sort text-13 bold" type="submit">
+                                                        Đơn giá
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-guest_name_display"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52 border"
+                                            style="width: 7.142857142857143%">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="guest_name_display"
+                                                    data-sort-type="ASC">
+                                                    <button class="btn-sort text-13 bold" type="submit">
+                                                        Thành tiền
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-guest_name_display"></div>
+                                            </span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-sell">
@@ -753,6 +777,12 @@
                                                         {{ $matchedItem->product_unit }}</td>
                                                     <td class="text-13-black height-52 border">
                                                         {{ number_format($matchedItem->product_qty) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ number_format($matchedItem->giaXuat) }}
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        {{ number_format($matchedItem->giaXuat * $matchedItem->product_qty) }}
                                                     </td>
                                                 </tr>
                                             @endforeach
