@@ -204,10 +204,10 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="tab-content">
+                            <div class="tab-content" id="example2">
                                 <div id="hanghoa" class="content tab-pane in active">
                                     <div class="outer-4 top-table table-responsive text-nowrap">
-                                        <table id="example2" class="table table-hover">
+                                        <table class="table table-hover">
                                             <thead>
                                                 <tr>
                                                     <th scope="col" class="height-52 border" style="width: 10%">
@@ -350,13 +350,13 @@
 
                                                 <tr>
                                                     <td colspan="10" class="border-bottom bold">Nhóm hàng hóa : Chưa
-                                                        chọn
-                                                        nhóm</td>
+                                                        chọn nhóm
+                                                    </td>
                                                 </tr>
-
                                                 @foreach ($allDeliveries as $item)
                                                     @if ($item->group_id == 0)
-                                                        <tr class="position-relative relative">
+                                                        <tr class="position-relative relative main-row"
+                                                            data-id="{{ $item->id }}" data-status="hanghoa">
                                                             <td class="text-13-black border height-52">
                                                                 {{ $item->maPhieu }}
                                                             </td>
@@ -371,7 +371,8 @@
                                                             <td class="text-13-black border height-52">
                                                                 {{ number_format($item->giaNhap) }}</td>
                                                             <td class="text-13-black border height-52">
-                                                                {{ number_format($item->slxuat * $item->giaNhap) }}</td>
+                                                                {{ number_format($item->slxuat * $item->giaNhap) }}
+                                                            </td>
                                                             <td class="text-13-black border height-52">
                                                                 {{ number_format($item->price_export) }}</td>
                                                             <td class="text-13-black border height-52">
@@ -436,7 +437,7 @@
 
                                                     @foreach ($allDeliveries as $item)
                                                         @if ($item->group_id == $value->id)
-                                                            <tr class="position-relative relative">
+                                                            <tr class="position-relative relative" data-id="{{ $item->id }}" data-status="hanghoa">
                                                                 <td class="text-13-black border height-52">
                                                                     {{ $item->maPhieu }}</td>
                                                                 <td class="text-13-black border height-52">
@@ -511,7 +512,7 @@
                                 {{-- Gom nhóm theo khác hàng --}}
                                 <div id="khachhang" class="tab-pane fade">
                                     <div class="outer-4 top-table table-responsive text-nowrap">
-                                        <table id="example2" class="table table-hover">
+                                        <table class="table table-hover">
                                             <thead>
                                                 <tr>
                                                     <th scope="col" class="height-52 border" style="width: 10%">
@@ -659,7 +660,7 @@
                                                 </tr>
                                                 @foreach ($allDeliveries as $item)
                                                     @if ($item->group_idGuest == 0)
-                                                        <tr class="position-relative relative">
+                                                        <tr class="position-relative relative main-row" data-id="{{ $item->guest_id }}" data-status="khachhang">
                                                             <td class="text-13-black border height-52">
                                                                 {{ $item->maPhieu }}</td>
                                                             <td class="text-13-black border height-52">
@@ -742,7 +743,7 @@
 
                                                     @foreach ($allDeliveries as $item)
                                                         @if ($item->group_idGuest == $value->id)
-                                                            <tr class="position-relative relative">
+                                                            <tr class="position-relative relative main-row" data-id="{{ $item->guest_id }}" data-status="khachhang">
                                                                 <td class="text-13-black border height-52">
                                                                     {{ $item->maPhieu }}</td>
                                                                 <td class="text-13-black border height-52">
@@ -855,6 +856,7 @@
     </div>
 </div>
 <x-print-component :contentId="$title" />
+<x-right-click :workspacename="$workspacename" :page="'viewReportSumSellProfit'"></x-right-click>
 <script>
     $('.khachhang').hide();
     $('.header-options--nav-2 a[data-toggle="tab"]').click(function() {

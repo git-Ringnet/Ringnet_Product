@@ -230,7 +230,8 @@
                                                                     $totalPriceExport += $item->price_export;
                                                                     $totalProductTotalVat += $item->product_total;
                                                                 @endphp
-                                                                <tr class="position-relative relative">
+                                                                <tr class="position-relative relative main-row"
+                                                                    data-id="{{ $itemDetail->provide_id }}">
                                                                     <input type="hidden"
                                                                         value="{{ $itemDetail->id }}" class="buy">
                                                                     <td rowspan="{{ $count }}"
@@ -312,7 +313,7 @@
                                                                         $totalPriceExport += $item->price_export;
                                                                         $totalProductTotalVat += $item->product_total;
                                                                     @endphp
-                                                                    <tr class="position-relative relative">
+                                                                    <tr class="position-relative relative main-row" data-id="{{ $itemDetail->provide_id }}">
                                                                         <input type="hidden"
                                                                             value="{{ $itemDetail->id }}"
                                                                             class="buy">
@@ -366,6 +367,7 @@
     </div>
 </div>
 <x-print-component :contentId="$title" />
+<x-right-click :workspacename="$workspacename" :page="'viewReportBuy'"></x-right-click>
 <script src="{{ asset('/dist/js/report.js') }}"></script>
 <script>
     $(document).ready(function() {

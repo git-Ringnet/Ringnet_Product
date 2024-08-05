@@ -22,7 +22,7 @@
                         <div class="row mr-0">
                             <div class="col-md-5 d-flex align-items-center">
                                 <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative relative relative ml-1">
+                                    <div class="position-relative relative ml-1">
                                         <input type="text" placeholder="Tìm kiếm" name="keywords"
                                             style="outline: none;" class="pr-4 w-100 input-search text-13"
                                             value="{{ request()->keywords }}">
@@ -286,7 +286,8 @@
 
                                                 @if ($matchedItems->isNotEmpty())
                                                     @foreach ($matchedItems as $item)
-                                                        <tr class="position-relative relative">
+                                                        <tr class="position-relative relative main-row"
+                                                            data-id="{{ $itemReturn->id }}">
                                                             <input type="hidden" value="{{ $itemReturn->id }}"
                                                                 class="return">
                                                             <td rowspan="{{ $count }}"
@@ -424,6 +425,7 @@
         </div>
     </div>
 </div>
+<x-right-click :workspacename="$workspacename" :page="'viewReportSumReturnExport'"></x-right-click>
 <x-print-component :contentId="$title" />
 
 <script src="{{ asset('/dist/js/report.js') }}"></script>

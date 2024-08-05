@@ -132,41 +132,41 @@ function calculateTotals() {
 }
 
 //tìm kiếm
-document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.getElementById("search-input");
-    const tableRows = document.querySelectorAll("#example tbody tr");
-    const resultCountSpan = document.getElementById("result-count");
+// document.addEventListener("DOMContentLoaded", function () {
+//     const searchInput = document.getElementById("search-input");
+//     const tableRows = document.querySelectorAll("#example tbody tr");
+//     const resultCountSpan = document.getElementById("result-count");
 
-    // Khôi phục dữ liệu tìm kiếm nếu có từ localStorage
-    const savedSearch = localStorage.getItem("savedSearch");
-    if (savedSearch) {
-        searchInput.value = savedSearch;
-        filterTable(savedSearch);
-    }
+//     // Khôi phục dữ liệu tìm kiếm nếu có từ localStorage
+//     const savedSearch = localStorage.getItem("savedSearch");
+//     if (savedSearch) {
+//         searchInput.value = savedSearch;
+//         filterTable(savedSearch);
+//     }
 
-    searchInput.addEventListener("input", function () {
-        const searchText = this.value.trim(); // Giữ nguyên dữ liệu nhập vào
-        filterTable(searchText);
-        localStorage.setItem("savedSearch", searchText); // Lưu dữ liệu tìm kiếm vào localStorage
-    });
+//     searchInput.addEventListener("input", function () {
+//         const searchText = this.value.trim(); // Giữ nguyên dữ liệu nhập vào
+//         filterTable(searchText);
+//         localStorage.setItem("savedSearch", searchText); // Lưu dữ liệu tìm kiếm vào localStorage
+//     });
 
-    function filterTable(searchText) {
-        let count = 0;
-        tableRows.forEach((row) => {
-            const cellText = row
-                .querySelector("td")
-                .textContent.toLowerCase()
-                .trim();
-            if (cellText.includes(searchText.toLowerCase())) {
-                row.style.display = ""; // Hiển thị hàng nếu có nội dung phù hợp
-                count++;
-            } else {
-                row.style.display = "none"; // Ẩn hàng nếu không phù hợp
-            }
-        });
-        resultCountSpan.textContent = count; // Cập nhật số kết quả tìm kiếm
-    }
-});
+//     function filterTable(searchText) {
+//         let count = 0;
+//         tableRows.forEach((row) => {
+//             const cellText = row
+//                 .querySelector("td")
+//                 .textContent.toLowerCase()
+//                 .trim();
+//             if (cellText.includes(searchText.toLowerCase())) {
+//                 row.style.display = ""; // Hiển thị hàng nếu có nội dung phù hợp
+//                 count++;
+//             } else {
+//                 row.style.display = "none"; // Ẩn hàng nếu không phù hợp
+//             }
+//         });
+//         resultCountSpan.textContent = count; // Cập nhật số kết quả tìm kiếm
+//     }
+// });
 
 function formatDate(dateString) {
     const date = new Date(dateString);

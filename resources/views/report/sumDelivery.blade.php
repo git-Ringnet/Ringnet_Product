@@ -140,7 +140,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 14%">
+                                                {{-- <th scope="col" class="height-52 border" style="width: 14%">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_name"
                                                             data-sort-type="ASC">
@@ -172,7 +172,7 @@
                                                         </a>
                                                         <div class="icon" id="icon-guest_debt"></div>
                                                     </span>
-                                                </th>
+                                                </th> --}}
                                                 <th scope="col" class="height-52 border" style="width: 14%">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="guest_debt"
@@ -209,7 +209,8 @@
                                                     $totalAfterVatSum += $item->tongTien - $item->conLai;
                                                     $totalConlai += $item->conLai;
                                                 @endphp
-                                                <tr class="position-relative relative">
+                                                <tr class="position-relative relative main-row"
+                                                    data-id="{{ $item->id }}">
                                                     <td class="text-13-black height-52 border">
                                                         {{ $item->ngayTao }}
                                                     </td>
@@ -219,7 +220,7 @@
                                                     <td class="text-13-black height-52 border">
                                                         {{ $item->nameGuest }}
                                                     </td>
-                                                    <td class="text-13-black height-52 border">
+                                                    {{-- <td class="text-13-black height-52 border">
                                                         {{ number_format($item->tongTien) }}
                                                     </td>
                                                     <td class="text-13-black height-52 border">
@@ -227,7 +228,7 @@
                                                     </td>
                                                     <td class="text-13-black height-52 border">
                                                         {{ number_format($item->conLai) }}
-                                                    </td>
+                                                    </td> --}}
                                                     <td class="text-13-black height-52 border">
                                                         {{ $item->ngayGiao }}
                                                     </td>
@@ -266,7 +267,7 @@
             </div>
         </section>
     </div>
-    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;" id="foot">
+    {{-- <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;" id="foot">
         <div class="position-relative">
             <table class="table table-hover position-absolute bg-white border-0">
                 <thead>
@@ -290,10 +291,11 @@
                     </tr>
                 </thead>
             </table>
-            {{-- <div class="position-absolute px-4 pt-1 border bg-white" style="right: 37%;">
+            <div class="position-absolute px-4 pt-1 border bg-white" style="right: 37%;">
                 <span class="text-danger font-weight-bold">{{ number_format($total)}}</span>
-            </div> --}}
+            </div>
         </div>
-    </div>
+    </div> --}}
 </div>
+<x-right-click :workspacename="$workspacename" :page="'sumDelivery'"></x-right-click>
 <x-print-component :contentId="$title" />

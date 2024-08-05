@@ -83,13 +83,13 @@
         <section class="content-header--options p-0">
             <ul class="header-options--nav nav nav-tabs margin-left32">
                 <li class="user_flow" data-type="NCC" data-des="Xem thông tin">
-                    <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông tin</a>
+                    <a id="info-tab" class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông tin</a>
                 </li>
                 <li class="user_flow" data-type="NCC" data-des="Lịch sử mua hàng">
-                    <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử mua hàng</a>
+                    <a id="history-tab" class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử mua hàng</a>
                 </li>
                 <li class="user_flow">
-                    <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#detailImport">Đơn hàng</a>
+                    <a id="detailExport-tab" class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#detailImport">Đơn hàng</a>
                 </li>
                 {{-- <li class="user_flow" data-type="NCC" data-des="File đính kèm">
                     <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#">File đính kèm</a>
@@ -864,6 +864,30 @@
 </div>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script>
+    $(document).ready(function() {
+        // Lấy giá trị của 'option' từ URL
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        var option = getUrlParameter('option');
+
+        // Kích hoạt tab tương ứng dựa trên giá trị của 'option'
+        switch (option) {
+            case 'donhang':
+                $('#detailExport-tab').tab('show');
+                break;
+            case 'congno':
+                $('#history-tab').tab('show');
+                break;
+            default:
+                $('#info-tab').tab('show');
+                break;
+        }
+    });
     $(document).on('click', '.user_flow', function(e) {
         var type = $(this).attr('data-type')
         var des = $(this).attr('data-des');

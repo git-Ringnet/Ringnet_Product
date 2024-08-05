@@ -1794,61 +1794,64 @@
             type: "get",
             data: {},
             success: function(data) {
-                $(position).closest('tr').find('#listWarehouse li').remove()
+                var listWarehouse = $(position).closest('tr').find('#listWarehouse');
+                listWarehouse.find('li').remove();
                 data.forEach(item => {
                     var li = `
-                        <li class="w-100">
-                            <a data-id="` + item.id + `" data-value="` + item.warehouse_name + `"
-                            href="javascript:void(0)" 
-                            class="text-dark d-flex w-100 justify-content-between p-2 search-warehouse" 
-                            name="search-warehouse">
-                            <span class="w-100 text-13-black">` + item.warehouse_name + `</span>
-                            </a>
-                        </li>`;
-                    $(position).closest('tr').find('#listWarehouse').append(li);
+                    <li class="w-100">
+                        <a data-id="${item.id}" data-value="${item.warehouse_name}"
+                           href="javascript:void(0)" 
+                           class="text-dark d-flex w-100 justify-content-between p-2 search-warehouse" 
+                           name="search-warehouse">
+                           <span class="w-100 text-13-black">${item.warehouse_name}</span>
+                        </a>
+                    </li>`;
+                    listWarehouse.append(li);
                 });
             }
-        })
-    })
+        });
+    });
 
     $(document).on('click', '.search-warehouse', function() {
         var tr = $(this).closest('tr');
-        $(tr).find('#searchWarehouse').val($(this).data('value'));
-        $(tr).find('.warehouse_id').val($(this).data('id'));
-        $(tr).find('#listWarehouse').hide();
-        var tonkho = $(tr).find('.tonkho');
-        var soTonKho = $(tr).find('.soTonKho');
-        var inventory = $(tr).find('.inventory');
-        var quantity_input = $(tr).find('.quantity-input');
+        var warehouseId = $(this).data('id');
+        var warehouseName = $(this).data('value');
+        var productId = tr.find('.product_id').val();
+
+        tr.find('#searchWarehouse').val(warehouseName);
+        tr.find('.warehouse_id').val(warehouseId);
+        tr.find('#listWarehouse').hide();
+
+        var tonkho = tr.find('.tonkho');
+        var soTonKho = tr.find('.soTonKho');
+        var inventory = tr.find('.inventory');
+        var quantityInput = tr.find('.quantity-input');
 
         $.ajax({
             url: "{{ route('getInventWH') }}",
             type: "get",
             data: {
-                warehouse_id: $(tr).find('.warehouse_id').val(),
-                idProduct: $(tr).find('.product_id').val(),
+                warehouse_id: warehouseId,
+                idProduct: productId,
             },
             success: function(data) {
-                tonkho.val(formatNumber(data
-                    .product_inventory == null ? 0 :
-                    data.product_inventory))
+                var productInventory = data.product_inventory == null ? 0 : data.product_inventory;
+                tonkho.val(productInventory);
                 if (data.type == 2) {
                     soTonKho.text('');
                     inventory.hide();
-                    quantity_input.val(1);
+                    quantityInput.val(1);
                 } else {
-                    soTonKho.text(parseFloat(data
-                        .product_inventory == null ? 0 :
-                        data.product_inventory));
+                    soTonKho.text(parseFloat(productInventory));
                     inventory.show();
-                    quantity_input.val("");
-                    if (data.product_inventory > 0) {
+                    quantityInput.val("");
+                    if (productInventory > 0) {
                         inventory.show();
                     }
                 }
             }
-        })
-    })
+        });
+    });
 
     $(document).on('click', '.user_flow', function(e) {
         var type = $(this).attr('data-type')

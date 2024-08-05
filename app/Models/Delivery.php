@@ -1421,8 +1421,7 @@ class Delivery extends Model
     }
     public function getSumDelivery()
     {
-        $deliveries = DetailExport::leftJoin('delivery', 'detailexport.id', 'delivery.detailexport_id')
-            ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
+        $deliveries = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
             ->leftJoin('groups', 'groups.id', 'guest.group_id')
             ->select(
                 'delivery.id',
@@ -1437,13 +1436,8 @@ class Delivery extends Model
                 'delivery.status as trangThai',
                 'users.name',
                 'guest.guest_name_display as nameGuest',
-                'detailexport.guest_name',
                 'delivery.promotion',
                 'delivery.totalVat as totalVat',
-                'detailexport.amount_owed as conLai',
-                DB::raw(
-                    'detailexport.total_price + detailexport.total_tax as tongTien'
-                ),
                 'groups.name as nhomKH',
                 DB::raw('(
                         SELECT 
@@ -1479,13 +1473,9 @@ class Delivery extends Model
                 'delivery.updated_at',
                 'delivery.status',
                 'guest.guest_name_display',
-                'detailexport.guest_name',
                 'delivery.promotion',
                 'delivery.totalVat',
                 'groups.name',
-                'detailexport.amount_owed',
-                'detailexport.total_price',
-                'detailexport.total_tax',
             )
             ->orderBy('delivery.id', 'desc');
         $deliveries = $deliveries->get();

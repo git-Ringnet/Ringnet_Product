@@ -234,7 +234,7 @@
                                                                     $totalProductTotalVat +=
                                                                         $matchedItem->product_total;
                                                                 @endphp
-                                                                <tr class="position-relative relative">
+                                                                <tr class="position-relative relative main-row" data-id="{{ $itemDelivery->guest_id }}">
                                                                     <input type="hidden"
                                                                         value="{{ $itemDelivery->id }}"
                                                                         class="sell">
@@ -321,7 +321,7 @@
                                                                         $totalProductTotalVat +=
                                                                             $matchedItem->product_total;
                                                                     @endphp
-                                                                    <tr class="position-relative relative">
+                                                                    <tr class="position-relative relative main-row" data-id="{{ $itemDelivery->guest_id }}">
                                                                         <input type="hidden"
                                                                             value="{{ $itemDelivery->id }}"
                                                                             class="sell">
@@ -375,6 +375,7 @@
     </div>
 </div>
 <x-print-component :contentId="$title" />
+<x-right-click :workspacename="$workspacename" :page="'viewReportSales'"></x-right-click>
 <script src="{{ asset('/dist/js/report.js') }}"></script>
 <script>
     $(document).ready(function() {

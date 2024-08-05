@@ -557,6 +557,7 @@ class DetailExport extends Model
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('groups', 'groups.id', 'guest.group_id')
             ->select(
+                'detailexport.id as id',
                 'detailexport.*',
                 'detailexport.created_at as ngayTao',
                 'detailexport.quotation_number as maPhieu',

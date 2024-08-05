@@ -194,8 +194,8 @@
                                                 $totalExportAll = 0;
                                             @endphp
                                             @foreach ($provide as $item)
-                                                <tr class="position-relative relative guests-info"
-                                                    onclick="handleRowClick('checkbox', event);">
+                                                <tr class="position-relative relative guests-info main-row"
+                                                    data-id="{{ $item->id }}">
                                                     <input type="hidden" name="id-guest" class="id-guest"
                                                         id="id-guest" value="{{ $item->guest_id }}">
                                                     <td class="border text-13-black height-52">
@@ -395,4 +395,5 @@
         </div>
     </div>
 </div>
+<x-right-click :workspacename="$workspacename" :page="'viewReportProvides'"></x-right-click>
 <x-print-component :contentId="$title" />

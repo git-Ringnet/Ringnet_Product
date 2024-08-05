@@ -432,7 +432,7 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $sumDelivery = $this->delivery->getSumDelivery();
-        return view('report.sumDelivery', compact('title', 'sumDelivery'));
+        return view('report.sumDelivery', compact('title', 'sumDelivery', 'workspacename'));
     }
     // Tổng kết khách trả hàng
     public function viewReportSumReturnExport()
@@ -442,7 +442,7 @@ class ReportController extends Controller
         $workspacename = $workspacename->workspace_name;
         $sumReturnExport = $this->product_returnE->sumReturnExport();
         $allReturn = $this->returnExport->getSumReport();
-        return view('report.sumReturnExport', compact('title', 'allReturn', 'sumReturnExport'));
+        return view('report.sumReturnExport', compact('title', 'allReturn', 'sumReturnExport', 'workspacename'));
     }
     // Tổng kết trả hàng NCC
     public function viewReportReturnImport()
@@ -483,7 +483,7 @@ class ReportController extends Controller
         $groupGuests = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
 
-        return view('report.reportSumSales', compact('title', 'groupGuests', 'guest', 'productDelivered', 'allDelivery'));
+        return view('report.reportSumSales', compact('title', 'groupGuests', 'guest', 'productDelivered', 'allDelivery', 'workspacename'));
     }
     // Doanh số mua hàng
     public function viewReportBuy()
@@ -511,7 +511,7 @@ class ReportController extends Controller
         $groupProvides = Groups::where('grouptype_id', 3)->where('workspace_id', Auth::user()->current_workspace)->get();
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
 
-        return view('report.reportSumBuy', compact('title', 'groupProvides', 'provides', 'productsQuoteI', 'allImport'));
+        return view('report.reportSumBuy', compact('title', 'groupProvides', 'provides', 'productsQuoteI', 'allImport', 'workspacename'));
     }
     // Tổng kết nhập hàng
     public function viewReportImport()
@@ -548,7 +548,7 @@ class ReportController extends Controller
         $groups = Groups::where('grouptype_id', 4)->where('workspace_id', Auth::user()->current_workspace)->get();
         $groupGuests = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
 
-        return view('report.sumSalesProfit', compact('title', 'groups', 'groupGuests', 'allDeliveries'));
+        return view('report.sumSalesProfit', compact('title', 'groups', 'groupGuests', 'allDeliveries', 'workspacename'));
     }
     public function viewReportDebtGuests()
     {
@@ -567,7 +567,7 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('report.debtProvides', compact('title', 'provide'));
+        return view('report.debtProvides', compact('title', 'provide','workspacename'));
     }
 
     public function viewReportIE()
