@@ -37,6 +37,12 @@
     @if ($page == 'viewReportChangeFunds')
         <a class="dropdown-item text-13-black" href="#" data-option="noidung">Xem chuyển tiền nội bộ</a>
     @endif
+    @if ($page == 'viewReportIEFunds')
+        <a class="dropdown-item text-13-black" href="#" data-type="thu" id="thu" style="display: none;">Xem
+            phiếu thu</a>
+        <a class="dropdown-item text-13-black" href="#" data-type="chi" id="chi" style="display: none;">Xem
+            phiếu chi</a>
+    @endif
 </div>
 <input type="hidden" value="{{ $page }}" id="page">
 <script>
@@ -57,6 +63,7 @@
                 top: e.pageY
             }).data('guest-id', guestId);
             var status = $(this).data('status');
+            var fund = $(this).data('fund');
 
             if (status === "hanghoa") {
                 $('#banhang').show();
@@ -66,6 +73,13 @@
                 $('#banhang').hide();
                 $('#donhang').show();
                 $('#congno').show();
+            }
+            if (fund === "thu") {
+                $('#thu').show();
+                $('#chi').hide();
+            } else {
+                $('#chi').show();
+                $('#thu').hide();
             }
         });
 
@@ -197,6 +211,27 @@
                 window.open(url, '_blank');
 
                 $contextMenu.hide();
+            }
+            if (page == "viewReportIEFunds") {
+                if (type == "thu") {
+                    var url =
+                        `{{ route('cash_receipts.edit', ['workspace' => $workspacename, 'cash_receipt' => 'GUEST_ID']) }}`
+                        .replace('GUEST_ID', guestId);
+                    // Mở tab mới với URL
+                    window.open(url, '_blank');
+
+                    $contextMenu.hide();
+                } else {
+                    var url =
+                        `{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => 'GUEST_ID', 'option' => 'OPTION_ID']) }}`
+                        .replace('GUEST_ID', guestId)
+                        .replace('OPTION_ID', option);
+
+                    // Mở tab mới với URL
+                    window.open(url, '_blank');
+
+                    $contextMenu.hide();
+                }
             }
         });
     });

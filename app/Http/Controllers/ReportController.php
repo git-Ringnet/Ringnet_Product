@@ -622,7 +622,7 @@ class ReportController extends Controller
         $inventoryDebt = Fund::where('workspace_id', Auth::user()->current_workspace)->get();
 
 
-        return view('report.reportIEFunds', compact('title', 'inventoryDebt'));
+        return view('report.reportIEFunds', compact('title', 'inventoryDebt','workspacename'));
     }
 
     public function viewReportIEEnventory()
@@ -641,9 +641,9 @@ class ReportController extends Controller
             ->keyBy('product_id');
 
         $totalQuantities = DB::table('quoteimport')
-            ->leftJoin('detailimport', 'quoteimport.detailimport_id', '=', 'detailimport.id')
+            // ->leftJoin('detailimport', 'quoteimport.detailimport_id', '=', 'detailimport.id')
             ->leftJoin('products', 'products.id', '=', 'quoteimport.product_id')
-            ->whereNotIn('detailimport.status_receive', [0, 1])
+            // ->whereNotIn('detailimport.status_receive', [0, 1])
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'quoteimport.product_id',

@@ -222,7 +222,7 @@
                                                 {{-- Mua hàng --}}
                                                 @if ($va->getPayOrder)
                                                     @foreach ($va->getPayOrder as $item)
-                                                        <tr>
+                                                        <tr class="main-row" data-id="{{ $item->id }}" data-fund="chi">
                                                             <td class="text-13-black border height-52">
                                                                 {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                             </td>
@@ -251,7 +251,7 @@
                                                 @endif
                                                 @if ($va->getPayExport)
                                                     @foreach ($va->getPayExport as $item)
-                                                        <tr>
+                                                        <tr class="main-row" data-id="{{ $item->id }}" data-fund="thu">
                                                             <td class="text-13-black border height-52">
                                                                 {{ date_format(new DateTime($item->date_created), 'd/m/Y') }}
                                                             </td>
@@ -340,4 +340,5 @@
         </div>
     </div>
 </div>
+<x-right-click :workspacename="$workspacename" :page="'viewReportIEFunds'"></x-right-click>
 <x-print-component :contentId="$title" />
