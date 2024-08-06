@@ -83,7 +83,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a id="product-tab" class="text-secondary m-0 pl-3 pr-3 activity" data-toggle="tab"
+                                    <a id="content-tab" class="text-secondary m-0 pl-3 pr-3 activity" data-toggle="tab"
                                         href="#content">Nội dung
                                     </a>
                                 </li>
@@ -287,6 +287,27 @@
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
             document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
                 "Y-m-d");
+        }
+    });
+    $(document).ready(function() {
+        // Lấy giá trị của 'option' từ URL
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        var option = getUrlParameter('option');
+
+        // Kích hoạt tab tương ứng dựa trên giá trị của 'option'
+        switch (option) {
+            case 'noidung':
+                $('#content-tab').tab('show');
+                break;
+            default:
+                $('#info-tab').tab('show');
+                break;
         }
     });
 </script>

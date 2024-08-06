@@ -2923,3 +2923,9 @@ input[type="checkbox"]:checked {
     scrollbar-width: thin;
     max-height: calc(75vh - 125px);
 }
+
+.highlight-due-date td, .highlight-due-date td a{
+    color: red !important;
+    background: #ffff66 !important;
+    font-weight: 700 !important;
+}

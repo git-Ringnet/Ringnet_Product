@@ -304,7 +304,8 @@
                                                             $totalAmount += $item->qtyReturn * $item->priceProduct;
                                                         @endphp
 
-                                                        <tr class="position-relative relative">
+                                                        <tr class="position-relative relative main-row"
+                                                            data-id="{{ $itemReturn->id }}">
                                                             <input type="hidden" value="{{ $itemReturn->id }}"
                                                                 class="return">
                                                             <td rowspan="{{ $count }}"
@@ -447,7 +448,7 @@
     </div>
 </div>
 <x-print-component :contentId="$title" />
-
+<x-right-click :workspacename="$workspacename" :page="'viewReportReturnImport'"></x-right-click>
 <script src="{{ asset('/dist/js/report.js') }}"></script>
 <script>
     $(document).ready(function() {

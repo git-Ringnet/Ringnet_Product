@@ -197,8 +197,9 @@
                                             $total = 0;
                                         @endphp
                                         @foreach ($content as $item)
-                                            <tr class="position-relative relative guests-info"
-                                                onclick="handleRowClick('checkbox', event);">
+                                            <tr class="position-relative relative guests-info main-row"
+                                                onclick="handleRowClick('checkbox', event);"
+                                                data-id="{{ $item->id }}">
                                                 <input type="hidden" name="id-guest" class="id-guest"
                                                     id="id-guest" value="{{ $item->id }}">
                                                 <td class="text-13-black height-52 border">
@@ -288,4 +289,5 @@
     </div>
 </div>
 </div>
+<x-right-click :workspacename="$workspacename" :page="'viewReportChangeFunds'"></x-right-click>
 <x-print-component :contentId="$title" />

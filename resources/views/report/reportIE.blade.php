@@ -214,7 +214,8 @@
                                                         // $totalChi = 0;
                                                     @endphp
                                                 @endif
-                                                <tr class="position-relative relative">
+                                                <tr class="position-relative relative main-row"
+                                                    data-id="{{ $item->content_pay }}">
                                                     <td class="border">
                                                         {{ date_format(new DateTime($item->payment_date), 'd-m-Y') }}
                                                     </td>
@@ -268,7 +269,8 @@
                                                         // $totalThu = 0;
                                                     @endphp
                                                 @endif
-                                                <tr class="position-relative relative">
+                                                <tr class="position-relative relative main-row"
+                                                    data-id="{{ $item->content_id }}">
                                                     <td class="border">
                                                         {{ date_format(new DateTime($item->date_created), 'd-m-Y') }}
                                                     </td>
@@ -341,4 +343,5 @@
         </div>
     </div>
 </div>
+<x-right-click :workspacename="$workspacename" :page="'viewReportIE'"></x-right-click>
 <x-print-component :contentId="$title" />

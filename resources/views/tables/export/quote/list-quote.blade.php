@@ -295,7 +295,7 @@
                                     </thead>
                                     <tbody class="tbody-detailExport">
                                         @foreach ($quoteExport as $value_export)
-                                            <tr class="position-relative detailExport-info height-52"
+                                            <tr class="position-relative detailExport-info height-52 @if($value_export->tinhTrangDon == 2 || $value_export->tinhTrangDon == 3) highlight-due-date @endif"
                                                 data-id="{{ $value_export->maBG }}">
                                                 <input type="hidden" name="id-detailExport" class="id-detailExport"
                                                     id="id-detailExport" value="{{ $value_export->maBG }}">

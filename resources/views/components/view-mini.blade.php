@@ -5,30 +5,62 @@
                 DANH SÁCH
             </p>
         </div>
-        <div class="p-2">
-            <div class="d-flex w-100 my-2">
-                <div class="">
-                    <p class="m-0 p-0 text-13-black">Từ ngày</p>
-                    <input type="text" class="w-100 form-control mr-1">
-                </div>
-                <div class="">
-                    <p class="m-0 p-0 text-13-black">Đến ngày</p>
-                    <input type="text" class="w-100 form-control ml-1">
-                </div>
+        {{-- <div class="d-flex w-100 my-2">
+            <div class="">
+                <p class="m-0 p-0 text-13-black">Từ ngày</p>
+                <input type="date" class="w-100 form-control mr-1">
             </div>
-            <div class="w-100 my-2">
-                <div class="">
-                    <p class="m-0 p-0 text-13-black">Khách hàng</p>
-                    <input type="text" class="w-100 form-control mr-1">
-                </div>
+            <div class="mr-5">
+                <p class="m-0 p-0 text-13-black">Đến ngày</p>
+                <input type="date" class="w-100 form-control ml-1">
             </div>
-            <div class="w-100 my-2">
+        </div>
+        <div class="w-100 my-2">
+            <div class="position-relative">
+                <p class="m-0 p-0 text-13-black">Khách hàng</p>
+                <span class="mx-1 text-13" style="flex: 2;">
+                    <input type="text" placeholder="Chọn thông tin"
+                        class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="myInput1" autocomplete="off">
+                    <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
+                </span>
                 <div class="">
-                    <p class="m-0 p-0 text-13-black">Người lập</p>
-                    <input type="text" class="w-100 form-control mr-1">
+                    <div id="ListGuest" class="bg-white position-absolute rounded list-guest w-100 shadow p-1 z-index-block"
+                        style="z-index: 99;display: none;">
+                        <div class="p-1">
+                            <div class="position-relative">
+                                <input type="text" placeholder="Nhập công ty"
+                                    class="pr-4 w-100 input-search bg-input-guest" id="showListGuest">
+                                <span id="search-icon" class="search-icon">
+                                    <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <ul class="m-0 p-0 scroll-data">
+                            @foreach ($guest as $guest_value)
+                                <li class="p-2 align-items-center text-wrap border-top" data-id="{{ $guest_value->id }}"
+                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                    <a href="#" title="{{ $guest_value->guest_name_display }}" style="flex:2;"
+                                        id="{{ $guest_value->id }}" name="search-info" class="search-info">
+                                        <span class="text-13-black">{{ $guest_value->guest_name_display }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="w-100 my-2">
+            <div class="">
+                <p class="m-0 p-0 text-13-black">Người lập</p>
+                <input type="text" class="w-100 form-control mr-1">
+            </div>
+        </div>
+        <div class="d-flex w-100 my-2 justify-content-between align-items-center">
+            <div class="">
+                <p class="m-0 p-0 text-13-black"></p>
+            </div>
+            <a href="#" class="btn btn-primary" id="search-view-mini">Tìm kiếm</a>
+        </div> --}}
         <div class="outerViewMini text-nowrap">
             @if ($page == 'PBH')
                 <table id="example" class="table table-hover bg-white rounded">

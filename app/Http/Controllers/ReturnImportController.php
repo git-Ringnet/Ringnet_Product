@@ -49,7 +49,7 @@ class ReturnImportController extends Controller
                 $query->select('returnimport.receive_id')
                     ->from('returnimport');
             })
-            ->where('receive_bill.detailimport_id', '!=', 0)
+            // ->where('receive_bill.detailimport_id', '!=', 0)
             ->where('receive_bill.status', 2)
             ->get();
 

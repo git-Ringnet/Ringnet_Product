@@ -403,12 +403,12 @@
                     $('#myInput1').val(data.product[0].receive_id);
                     $('#inputcontent tbody').empty();
 
-                    var promotionAll = JSON.parse(
-                        data.detail.promotion);
-                    $('input[name="promotion-total"]').val(promotionAll['value']).attr(
-                        'readonly', true);
-                    $('.promotion-option-total').val(promotionAll['type']).attr('disabled',
-                        true);
+                    // var promotionAll = JSON.parse(
+                    //     data.detail.promotion);
+                    // $('input[name="promotion-total"]').val(promotionAll['value']).attr(
+                    //     'readonly', true);
+                    // $('.promotion-option-total').val(promotionAll['type']).attr('disabled',
+                    //     true);
                     data.product.forEach((element, index) => {
                         // if (element.product_qty - element
                         //     .receive_qty > 0) 

@@ -455,7 +455,7 @@ class ReportController extends Controller
         $allReturn = $this->returnImport->getSumReport();
 
         $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('report.reportReturnImport', compact('title', 'returnImport', 'allReturn', 'sumReturnImport'));
+        return view('report.reportReturnImport', compact('title', 'returnImport', 'allReturn', 'sumReturnImport','workspacename'));
     }
     // Tổng kết bán hàng
     public function viewReportSell()
@@ -601,9 +601,7 @@ class ReportController extends Controller
             ->orderBy('content_id', 'asc')
             ->get();
 
-
-
-        return view('report.reportIE', compact('title', 'contentImport', 'contentExport'));
+        return view('report.reportIE', compact('title', 'contentImport', 'contentExport','workspacename'));
     }
 
     public function viewReportChangeFunds()
@@ -612,7 +610,7 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $content = ContentImportExport::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('report.reportChangeFunds', compact('title', 'content'));
+        return view('report.reportChangeFunds', compact('title', 'content','workspacename'));
     }
 
 

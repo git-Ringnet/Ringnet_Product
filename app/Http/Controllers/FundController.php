@@ -65,7 +65,7 @@ class FundController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'amount' => str_replace(',', '', $request->amount),
-            'initial_amount' => $request->amount,
+            'initial_amount' => str_replace(',', '', $request->amount),
             'bank_name' => $request->bank_name,
             'bank_account_number' => $request->bank_account_number,
             'bank_account_holder' => $request->bank_account_holder,
