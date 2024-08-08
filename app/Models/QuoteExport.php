@@ -60,6 +60,14 @@ class QuoteExport extends Model
     {
         return $this->hasOne(Delivery::class, 'id', 'deliver_id');
     }
+    public function promotions()
+    {
+        return $this->hasMany(Promotion::class, 'quoteE_id', 'id');
+    }
+    public function commissions()
+    {
+        return $this->hasMany(Commission::class, 'quoteE_id', 'id');
+    }
 
     public function getAllGuest()
     {
@@ -384,12 +392,18 @@ class QuoteExport extends Model
         $quoteE = QuoteExport::leftJoin('detailexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
             ->leftJoin('commissions', 'quoteexport.id', 'commissions.quoteE_id')
+            ->leftJoin('promotions', 'quoteexport.id', 'promotions.quoteE_id')
             ->leftJoin('groups', 'groups.id', 'products.group_id')
             ->where('quoteexport.status', 1)
             ->select(
                 'detailexport.*',
                 'quoteexport.*',
                 'commissions.amount as commission',
+                'commissions.status as statusCM',
+                'commissions.total_amount as total_amount',
+                'promotions.product_quantity as product_quantity',
+                'promotions.cash_value as cash_value',
+                'promotions.gold_value as gold_value',
                 'quoteexport.id as id_quote',
                 'groups.name as nameGr',
                 'quoteexport.product_qty as slxuat',

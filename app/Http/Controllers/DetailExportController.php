@@ -1381,10 +1381,10 @@ class DetailExportController extends Controller
         }
         if ($request->page == "PC") {
             $payment = PayOder::where('pay_order.id', $request['id'])
-                ->leftJoin('provides','provides.id', 'pay_order.guest_id')
-                ->leftJoin('contentgroups','contentgroups.id', 'pay_order.content_pay')
-                ->leftJoin('funds','funds.id', 'pay_order.fund_id')
-                ->select('provides.*','contentgroups.*','funds.*','pay_order.*','contentgroups.name as content','funds.name as nameFund')
+                ->leftJoin('provides', 'provides.id', 'pay_order.guest_id')
+                ->leftJoin('contentgroups', 'contentgroups.id', 'pay_order.content_pay')
+                ->leftJoin('funds', 'funds.id', 'pay_order.fund_id')
+                ->select('provides.*', 'contentgroups.*', 'funds.*', 'pay_order.*', 'contentgroups.name as content', 'funds.name as nameFund')
                 ->first();
             $data['payment'] = $payment;
         }

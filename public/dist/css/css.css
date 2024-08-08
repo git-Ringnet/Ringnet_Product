@@ -1393,6 +1393,10 @@ input[type="number"] {
     font-weight: 500;
 }
 
+.text-13-black .number, .gold_value{
+    background-color: #F0F4FF;
+}
+
 .text-long-special {
     font-size: 16px;
     color: #6d7075 !important;

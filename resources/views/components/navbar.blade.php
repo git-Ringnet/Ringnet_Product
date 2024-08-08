@@ -371,7 +371,7 @@
                                 href="{{ route('commissionSale', $workspacename) }}">Huê hồng Sale
                             </a>
                             <a class="dropdown-item text-13-black"
-                                href="{{ route('changeWarehouse.index', $workspacename) }}">Chương trình khuyến mãi
+                                href="{{ route('promotionGuest', $workspacename) }}">Chương trình khuyến mãi
                             </a>
                         </div>
                     </div>
@@ -424,6 +424,10 @@
                             </a>
                             <a class="dropdown-item text-13-black"
                                 href="{{ route('viewReportIEEnventory', $workspacename) }}">Xuất - nhập - tồn kho
+                            </a>
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('viewReportSumBusiness', $workspacename) }}">Tổng hợp kết quả kinh
+                                doanh
                             </a>
                         </div>
                     </div>
@@ -558,9 +562,9 @@
                             Huê hồng Sale
                         </button>
                     </a>
-                    <a href="{{ route('changeWarehouse.index', $workspacename) }}" class="height-36">
+                    <a href="{{ route('promotionGuest', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'changeWarehouse') active @endif">
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'promotion') active @endif">
                             Chương trình khuyến mãi
                         </button>
                     </a>
@@ -648,6 +652,12 @@
                         <button type="button"
                             class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportIEEnventory') active @endif">
                             Xuất - nhập - tồn kho
+                        </button>
+                    </a>
+                    <a href="{{ route('viewReportSumBusiness', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumBusiness') active @endif">
+                            Tổng hợp kết quả kinh doanh
                         </button>
                     </a>
                 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CashReceipt;
 use App\Models\ChangeWarehouse;
+use App\Models\Commission;
 use App\Models\ContentGroups;
 use App\Models\ContentImportExport;
 use App\Models\Delivered;
@@ -559,6 +560,66 @@ class ReportController extends Controller
         $groups = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
         $debtGuests = $this->guest->debtGuest();
         return view('report.debtGuests', compact('title', 'groups', 'debtGuests', 'workspacename'));
+    }
+
+    // Tổng hợp kết quả kinh doanh
+    public function viewReportSumBusiness()
+    {
+        $title = 'Tổng hợp kết quả kinh doanh';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+
+        $arrData = [];
+
+        // Trả hàng khách hàng
+        $trahangkh = $this->returnExport->getSumReport()->sum('total_return');
+
+        // Doanh số bán hàng
+        $doanhsobanhang = $this->detailExport->allProductsSell()->sum('product_total_vat');
+
+        // Tổng giá vốn bán hàng
+        $giavon = $this->detailExport->allProductsSell()->sum(function ($product) {
+            return $product->slxuat * $product->giaNhap;
+        });
+
+        // Tổng lợi nhuận bán hàng
+        $loinhuan = $doanhsobanhang - $trahangkh - $giavon;
+
+        // Tỷ suất lợi nhuận bán hàng
+        $tysuatloinhuan = $doanhsobanhang != 0 ? (($loinhuan / $doanhsobanhang) * 100) : 0;
+
+        $totalDebt = $this->guest->debtGuest()->sum(function ($item) {
+            return $item->totalProductVat -
+                $item->totalCashReciept -
+                ($item->totalReturn - $item->chiKH);
+        });
+
+        $tongnhap = $this->detailImport->reportAll()->sum('total_tax');
+
+        $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+        $totalProvideDebt = $provides->sum(function ($item) {
+            return $item->calculateProvideDebt();
+        });
+
+        $hoahongSale = Commission::get()->sum('total_amount');
+
+        // Gán giá trị vào mảng
+        $arrData = [
+            'trahangkh' => $trahangkh,
+            'allDeliveries' => $doanhsobanhang,
+            'giavon' => $giavon,
+            'loinhuan' => $loinhuan,
+            'tysuatloinhuan' => $tysuatloinhuan,
+            'totalDebt' => $totalDebt,
+            'tongnhap' => $tongnhap,
+            'totalProvideDebt' => $totalProvideDebt,
+            'hoahongSale' => $hoahongSale,
+        ];
+        $funds = Fund::where('workspace_id', Auth::user()->current_workspace)
+            ->orderby('id', 'desc')
+            ->get();
+
+        return view('report.sumBusiness', compact('title', 'arrData', 'workspacename', 'funds'));
     }
 
     public function viewReportProvides()

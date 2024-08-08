@@ -465,7 +465,7 @@ class DetailExport extends Model
             $detailExport = $detailExport->where('reference_number', 'like', '%' . $data['reference_number'] . '%');
         }
         if (isset($data['guests'])) {
-            $detailExport = $detailExport->where('detailexport.guest_name', 'like', '%' . $data['guests'] . '%');
+            $detailExport = $detailExport->where('guest.guest_name_display', 'like', '%' . $data['guests'] . '%');
         }
         if (isset($data['quotenumber'])) {
             $detailExport = $detailExport->whereIn('detailexport.id', $data['quotenumber']);
@@ -578,7 +578,7 @@ class DetailExport extends Model
         $detaiExport = DB::table($this->table)
             ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
-            ->leftJoin('history_import', 'history_import.product_id', 'quoteexport.product_id')
+            ->leftJoin('quoteimport', 'quoteimport.product_id', 'quoteexport.product_id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('groups', 'groups.id', 'guest.group_id')
             ->select(
@@ -597,10 +597,27 @@ class DetailExport extends Model
                 'quoteexport.product_qty as slxuat',
                 'quoteexport.price_export as price_export',
                 'quoteexport.product_total as product_total_vat',
-                'history_import.price_export as giaNhap',
+                DB::raw('AVG(quoteimport.price_export) as giaNhap')
             )
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->groupBy(
+                'detailexport.id',
+                'detailexport.created_at',
+                'detailexport.quotation_number',
+                'groups.name',
+                'guest.guest_name_display',
+                'detailexport.total_price',
+                'products.product_code',
+                'products.product_name',
+                'products.group_id',
+                'guest.group_id',
+                'products.product_unit',
+                'quoteexport.product_qty',
+                'quoteexport.price_export',
+                'quoteexport.product_total'
+            )
             ->get();
+
         return $detaiExport;
     }
 }

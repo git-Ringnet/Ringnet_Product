@@ -248,4 +248,30 @@ class Provides extends Model
         $provides = $provides->where('provides.id', $id)->get();
         return $provides;
     }
+    public function calculateProvideDebt()
+    {
+        $total = $this->getAllDetailByID
+            ->whereIn('status', [2, 0])
+            ->sum('total_tax');
+
+        $totalReturn = $this->getAllDetailByID->sum(function ($value) {
+            return $value->getAllReceiveBill->sum(function ($value1) {
+                return $value1->getReturnImport->sum('total');
+            });
+        });
+
+        $totalCashReciept = $this->getAllDetailByID->sum(function ($value) {
+            return $value->getAllReceiveBill->sum(function ($value1) {
+                return $value1->getReturnImport->sum(function ($value2) {
+                    return $value2->getAllCashReciept->sum('amount');
+                });
+            });
+        });
+
+        $totalPay = $this->getAllDetailByID->sum(function ($value) {
+            return $value->getPayOrders->sum('total');
+        });
+
+        return $total - $totalReturn + $totalCashReciept - $totalPay;
+    }
 }

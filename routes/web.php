@@ -348,6 +348,8 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('{workspace}/viewReportBuy', [ReportController::class, 'viewReportBuy'])->name('viewReportBuy');
     Route::get('{workspace}/viewReportSumSellProfit', [ReportController::class, 'viewReportSumSellProfit'])->name('viewReportSumSellProfit');
     Route::get('{workspace}/viewReportDebtGuests', [ReportController::class, 'viewReportDebtGuests'])->name('viewReportDebtGuests');
+    // Tổng hợp kết quả kinh doanh
+    Route::get('{workspace}/viewReportSumBusiness', [ReportController::class, 'viewReportSumBusiness'])->name('viewReportSumBusiness');
     //Chi tiết đơn của khách hàng
     Route::get('{workspace}/viewReportInfoGuests/{id}', [ReportController::class, 'viewReportInfoGuests'])->name('viewReportInfoGuests');
 
@@ -405,6 +407,10 @@ Route::resource('{workspace}/users', UserController::class);
 // Hoa hồng sale
 Route::get('{workspace}/commission', [CommissionController::class, 'commissionSale'])->name('commissionSale');
 Route::get('/update-or-create', [CommissionController::class, 'updateOrCreate'])->name('updateOrCreate');
+Route::get('/update-status-com', [CommissionController::class, 'updateStatusCommission'])->name('updateStatusCommission');
+
+Route::get('{workspace}/promotion', [CommissionController::class, 'promotionGuest'])->name('promotionGuest');
+Route::get('/update-or-create-promition', [CommissionController::class, 'promotionGuestAjax'])->name('promotionGuestAjax');
 
 Route::middleware([
     'auth:sanctum',

@@ -82,8 +82,8 @@
                                 <ul class="m-0 p-0 scroll-data">
                                     <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
                                         data-type="DMH" data-des="Tạo nhanh đơn nhận hàng">
-                                        <a href="#" style="flex:2;" onclick="getAction(this)"
-                                            name="search-info" class="search-info">
+                                        <a href="#" style="flex:2;" onclick="getAction(this)" name="search-info"
+                                            class="search-info">
                                             <button class="align-items-left h-100 border-0 w-100 rounded"
                                                 style="background-color: transparent;" name="action"
                                                 value="action_2" type="submit">
@@ -358,8 +358,12 @@
                 </div>
             </section>
         </div>
-        <div class="content margin-top-127">
+        <div class="content margin-top-75">
             <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'DHNCC'" :status="'2'" />
+            <div id="contextMenuDHNCC" class="dropdown-menu"
+                style="display: none; background: #ffffff; position: absolute; width:13%;  padding: 3px 10px;  box-shadow: 0 0 10px -3px rgba(0, 0, 0, .3); border: 1px solid #ccc;">
+                <a class="dropdown-item text-13-black" href="#" data-option="donhang">Tạo phiếu nhập kho</a>
+            </div>
             <div id="main">
                 <section class="content">
                     <div class="container-fluided">
@@ -502,7 +506,8 @@
                                                             class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
                                                         <span class="text-table text-secondary">Mã sản phẩm</span>
                                                     </th>
-                                                    <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
+                                                    <th class="border-right px-2 p-0 text-left"
+                                                        style="width: 15%;z-index:99;">
                                                         <span class="text-table text-secondary">Tên sản phẩm</span>
                                                     </th>
                                                     <th class="border-right px-2 p-0 text-left" style="width: 8%;">

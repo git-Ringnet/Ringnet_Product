@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="manageProfess" activeName="commission"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="promotion"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
     <div class="content-header-fixed p-0">
         <div class="content__header--inner mt-4">
@@ -154,7 +154,7 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="group_type" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Khách hàng</span>
+                                                            <span class="text-13">Nhân viên Sale</span>
                                                         </button>
                                                     </a>
                                                     <div class="icon"></div>
@@ -243,7 +243,7 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="group_type" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Hoa hồng (VND)</span>
+                                                            <span class="text-13">Bao (Số lượng)</span>
                                                         </button>
                                                     </a>
                                                     <div class="icon"></div>
@@ -254,8 +254,7 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="group_type" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Tổng cộng (hoa hồng * số
-                                                                lượng)</span>
+                                                            <span class="text-13">Tiền(VND)</span>
                                                         </button>
                                                     </a>
                                                     <div class="icon"></div>
@@ -266,7 +265,7 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="group_type" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Trạng thái giao</span>
+                                                            <span class="text-13">Vàng</span>
                                                         </button>
                                                     </a>
                                                     <div class="icon"></div>
@@ -276,15 +275,15 @@
                                     </thead>
                                     <tbody class="table-sell">
                                         <tr>
-                                            <td colspan="12" class="border-bottom bold">Nhóm đối tượng:
+                                            <td colspan="12" class="border-bottom bold">Nhóm khách hàng:
                                                 Chưa chọn nhóm</td>
                                         </tr>
-                                        @foreach ($users as $item)
+                                        @foreach ($guest as $item)
                                             @if ($item->group_id == 0)
                                                 <tr>
                                                     <td class="border-bottom bold"></td>
-                                                    <td colspan="11" class="border-bottom bold">Nhân viên:
-                                                        {{ $item->name }}</td>
+                                                    <td colspan="11" class="border-bottom bold">Khách hàng:
+                                                        {{ $item->guest_name_display }}</td>
                                                 </tr>
                                                 @php
                                                     $totalDeliverQty = 0;
@@ -295,6 +294,9 @@
                                                     $Remai = 0;
                                                     $totalPay = 0;
                                                     $totalRemai = 0;
+                                                    $totalProductQuantity = 0;
+                                                    $totalCashValue = 0;
+                                                    $goldValues = []; // Initialize an array to hold gold values
                                                     $stt = 1; // Initialize the STT variable
                                                 @endphp
 
@@ -302,7 +304,7 @@
                                                     @php
                                                         $matchedItems = $productDelivered
                                                             ->where('detailexport_id', $itemDelivery->id)
-                                                            ->where('id_sale', $item->id);
+                                                            ->where('guest_id', $item->id);
                                                         $count = $matchedItems->count();
                                                     @endphp
 
@@ -325,6 +327,11 @@
                                                                 $totalDeliverQty += $matchedItem->product_qty;
                                                                 $totalPriceExport += $matchedItem->price_export;
                                                                 $totalProductTotalVat += $matchedItem->product_total;
+                                                                $totalProductQuantity += $matchedItem->product_quantity;
+                                                                $totalCashValue += $matchedItem->cash_value;
+                                                                if (!empty($matchedItem->gold_value)) {
+                                                                    $goldValues[] = $matchedItem->gold_value; // Collect non-empty gold values into the array
+                                                                }
                                                             @endphp
                                                             <tr class="position-relative relative">
                                                                 <input type="hidden" value="{{ $itemDelivery->id }}"
@@ -332,12 +339,10 @@
                                                                 @if ($loop->first)
                                                                     <td rowspan="{{ $count }}"
                                                                         class="text-13-black height-52 border">
-                                                                        {{ $itemDelivery->maPhieu }}
-                                                                    </td>
+                                                                        {{ $itemDelivery->maPhieu }}</td>
                                                                     <td rowspan="{{ $count }}"
                                                                         class="text-13-black height-52 border">
-                                                                        {{ $itemDelivery->nameGuest }}
-                                                                    </td>
+                                                                        {{ $itemDelivery->nameGuest }}</td>
                                                                 @endif
                                                                 <td class="text-13-black height-52 border">
                                                                     {{ $matchedItem->nameGr }}</td>
@@ -346,11 +351,9 @@
                                                                 <td class="text-13-black height-52 border">
                                                                     {{ $matchedItem->product_name }}</td>
                                                                 <td class="text-13-black height-52 border">
-                                                                    {{ $matchedItem->product_unit }}
-                                                                </td>
+                                                                    {{ $matchedItem->product_unit }}</td>
                                                                 <td class="text-13-black height-52 border">
-                                                                    {{ number_format($matchedItem->product_qty) }}
-                                                                </td>
+                                                                    {{ number_format($matchedItem->product_qty) }}</td>
                                                                 <td class="text-13-black height-52 border">
                                                                     {{ number_format($matchedItem->price_export) }}
                                                                 </td>
@@ -359,64 +362,81 @@
                                                                 </td>
                                                                 <td class="text-13-black height-52 border">
                                                                     <input type="text" autocomplete="off"
-                                                                        class="border-0 px-2 py-1 w-100 number commission height-32"
-                                                                        data-sale="{{ $item->id }}"
+                                                                        class="border-0 px-2 py-1 w-100 number product_quantity height-32"
+                                                                        data-type="quantity"
+                                                                        data-guest="{{ $item->id }}"
                                                                         data-month="{{ $itemDelivery->ngayTao }}"
                                                                         data-quote="{{ $matchedItem->id_quote }}"
-                                                                        value="{{ number_format($matchedItem->commission) }}"
-                                                                        name="commission[]">
+                                                                        value="{{ number_format($matchedItem->product_quantity) }}"
+                                                                        name="product_quantity[]">
                                                                 </td>
                                                                 <td class="text-13-black height-52 border">
                                                                     <input type="text" autocomplete="off"
-                                                                        class="border-0 px-2 py-1 w-100 commission_total height-32"
-                                                                        data-sale="{{ $item->id }}"
+                                                                        class="border-0 px-2 py-1 w-100 cash_value number height-32"
+                                                                        data-type="cash"
+                                                                        data-guest="{{ $item->id }}"
                                                                         data-quote="{{ $matchedItem->id_quote }}"
                                                                         data-month="{{ $itemDelivery->ngayTao }}"
-                                                                        value="{{ number_format($matchedItem->total_amount) }}"
-                                                                        readonly name="commission_total[]">
+                                                                        value="{{ number_format($matchedItem->cash_value) }}"
+                                                                        name="cash_value[]">
                                                                 </td>
-                                                                <td class="text-13-black height-52 border text-center">
-                                                                    <input type="checkbox" class="checkbox-status"
-                                                                        name="checkbox_name[]"
-                                                                        data-sale="{{ $item->id }}"
+                                                                <td class="text-13-black height-52 border">
+                                                                    <input type="text" autocomplete="off"
+                                                                        class="border-0 px-2 py-1 w-100 gold_value height-32"
+                                                                        data-type="gold"
+                                                                        data-guest="{{ $item->id }}"
                                                                         data-quote="{{ $matchedItem->id_quote }}"
                                                                         data-month="{{ $itemDelivery->ngayTao }}"
-                                                                        value="{{ $item->id }}"
-                                                                        {{ $matchedItem->statusCM == 1 ? 'checked' : '' }}>
+                                                                        value="{{ $matchedItem->gold_value }}"
+                                                                        name="gold_value[]">
                                                                 </td>
-                                                                <input type="hidden" class="qty"
-                                                                    value="{{ $matchedItem->product_qty }}">
                                                             </tr>
                                                         @endforeach
-
                                                         @php
                                                             $stt++; // Increment STT after each invoice
                                                         @endphp
                                                     @endif
                                                 @endforeach
+                                                <!-- Add total row for each guest -->
+                                                <tr>
+                                                    <td colspan="6" class="border-top bold text-right">Tổng cộng:
+                                                    </td>
+                                                    <td class="border-top text-13-black height-52 border">
+                                                        {{ number_format($totalDeliverQty) }}</td>
+                                                    <td class="border-top text-13-black height-52 border">
+                                                        {{ number_format($totalPriceExport) }}</td>
+                                                    <td class="border-top text-13-black height-52 border">
+                                                        {{ number_format($totalProductTotalVat) }}</td>
+                                                    <td class="border-top text-13-black height-52 border">
+                                                        {{ number_format($totalProductQuantity) }}</td>
+                                                    <td class="border-top text-13-black height-52 border">
+                                                        {{ number_format($totalCashValue) }}</td>
+                                                    <td class="border-top text-13-black height-52 border">
+                                                        {{ implode(', ', $goldValues) }}</td>
+                                                    <!-- Combine gold values into a comma-separated string -->
+                                                </tr>
                                             @endif
                                         @endforeach
-                                        @foreach ($groupUsers as $value)
+
+                                        @foreach ($groupGuests as $value)
                                             <tr>
-                                                <td colspan="12" class="border-bottom bold">Nhóm nhân viên:
+                                                <td colspan="12" class="border-bottom bold">Nhóm khách hàng:
                                                     {{ $value->name }}</td>
                                             </tr>
-                                            @foreach ($users as $item)
+                                            @foreach ($guest as $item)
                                                 @if ($item->group_id == $value->id)
                                                     <tr>
                                                         <td class="border-bottom bold"></td>
-                                                        <td colspan="11" class="border-bottom bold">Nhân viên:
-                                                            {{ $item->name }}</td>
+                                                        <td colspan="11" class="border-bottom bold">Khách hàng:
+                                                            {{ $item->guest_name_display }}</td>
                                                     </tr>
                                                     @php
                                                         $totalDeliverQty = 0;
                                                         $totalPriceExport = 0;
                                                         $totalProductTotalVat = 0;
-                                                        $totalItemDeliveryTotalProductVat = 0;
-                                                        $Pay = 0;
-                                                        $Remai = 0;
-                                                        $totalPay = 0;
-                                                        $totalRemai = 0;
+                                                        $totalProductQuantity = 0;
+                                                        $totalCashValue = 0;
+                                                        $goldValues = []; // Initialize an array to hold gold values
                                                         $stt = 1; // Initialize the STT variable
                                                     @endphp
 
@@ -424,7 +444,7 @@
                                                         @php
                                                             $matchedItems = $productDelivered
                                                                 ->where('detailexport_id', $itemDelivery->id)
-                                                                ->where('id_sale', $item->id);
+                                                                ->where('guest_id', $item->id);
                                                             $count = $matchedItems->count();
                                                         @endphp
 
@@ -448,6 +468,12 @@
                                                                     $totalPriceExport += $matchedItem->price_export;
                                                                     $totalProductTotalVat +=
                                                                         $matchedItem->product_total;
+                                                                    $totalProductQuantity +=
+                                                                        $matchedItem->product_quantity;
+                                                                    $totalCashValue += $matchedItem->cash_value;
+                                                                    if (!empty($matchedItem->gold_value)) {
+                                                                        $goldValues[] = $matchedItem->gold_value; // Collect non-empty gold values into the array
+                                                                    }
                                                                 @endphp
                                                                 <tr class="position-relative relative">
                                                                     <input type="hidden"
@@ -456,12 +482,10 @@
                                                                     @if ($loop->first)
                                                                         <td rowspan="{{ $count }}"
                                                                             class="text-13-black height-52 border">
-                                                                            {{ $itemDelivery->maPhieu }}
-                                                                        </td>
+                                                                            {{ $itemDelivery->maPhieu }}</td>
                                                                         <td rowspan="{{ $count }}"
                                                                             class="text-13-black height-52 border">
-                                                                            {{ $itemDelivery->nameGuest }}
-                                                                        </td>
+                                                                            {{ $itemDelivery->nameUser }}</td>
                                                                     @endif
                                                                     <td class="text-13-black height-52 border">
                                                                         {{ $matchedItem->nameGr }}</td>
@@ -470,8 +494,7 @@
                                                                     <td class="text-13-black height-52 border">
                                                                         {{ $matchedItem->product_name }}</td>
                                                                     <td class="text-13-black height-52 border">
-                                                                        {{ $matchedItem->product_unit }}
-                                                                    </td>
+                                                                        {{ $matchedItem->product_unit }}</td>
                                                                     <td class="text-13-black height-52 border">
                                                                         {{ number_format($matchedItem->product_qty) }}
                                                                     </td>
@@ -483,46 +506,64 @@
                                                                     </td>
                                                                     <td class="text-13-black height-52 border">
                                                                         <input type="text" autocomplete="off"
-                                                                            class="border-0 px-2 py-1 w-100 number commission height-32"
-                                                                            data-sale="{{ $item->id }}"
+                                                                            class="border-0 px-2 py-1 w-100 number product_quantity height-32"
+                                                                            data-type="quantity"
+                                                                            data-guest="{{ $item->id }}"
                                                                             data-month="{{ $itemDelivery->ngayTao }}"
                                                                             data-quote="{{ $matchedItem->id_quote }}"
-                                                                            value="{{ number_format($matchedItem->commission) }}"
-                                                                            name="commission[]">
+                                                                            value="{{ number_format($matchedItem->product_quantity) }}"
+                                                                            name="product_quantity[]">
                                                                     </td>
                                                                     <td class="text-13-black height-52 border">
                                                                         <input type="text" autocomplete="off"
-                                                                            class="border-0 px-2 py-1 w-100 commission_total height-32"
-                                                                            data-sale="{{ $item->id }}" readonly
+                                                                            class="border-0 px-2 py-1 w-100 cash_value number height-32"
+                                                                            data-type="cash"
+                                                                            data-guest="{{ $item->id }}"
                                                                             data-quote="{{ $matchedItem->id_quote }}"
                                                                             data-month="{{ $itemDelivery->ngayTao }}"
-                                                                            readonly
-                                                                            value="{{ number_format($matchedItem->total_amount) }}"
-                                                                            name="commission_total[]">
+                                                                            value="{{ number_format($matchedItem->cash_value) }}"
+                                                                            name="cash_value[]">
                                                                     </td>
-                                                                    <td
-                                                                        class="text-13-black height-52 border text-center">
-                                                                        <input type="checkbox" class="checkbox-status"
-                                                                            name="checkbox_name[]"
-                                                                            data-sale="{{ $item->id }}"
+                                                                    <td class="text-13-black height-52 border">
+                                                                        <input type="text" autocomplete="off"
+                                                                            class="border-0 px-2 py-1 w-100 gold_value height-32"
+                                                                            data-type="gold"
+                                                                            data-guest="{{ $item->id }}"
                                                                             data-quote="{{ $matchedItem->id_quote }}"
                                                                             data-month="{{ $itemDelivery->ngayTao }}"
-                                                                            value="{{ $item->id }}"
-                                                                            {{ $matchedItem->statusCM == 1 ? 'checked' : '' }}>
+                                                                            value="{{ $matchedItem->gold_value }}"
+                                                                            name="gold_value[]">
                                                                     </td>
-                                                                    <input type="hidden" class="qty"
-                                                                        value="{{ $matchedItem->product_qty }}">
                                                                 </tr>
                                                             @endforeach
-
                                                             @php
                                                                 $stt++; // Increment STT after each invoice
                                                             @endphp
                                                         @endif
                                                     @endforeach
+                                                    <!-- Add total row for each guest -->
+                                                    <tr>
+                                                        <td colspan="6" class="border-top bold text-right">Tổng
+                                                            cộng:</td>
+                                                        <td class="border-top text-13-black height-52 border">
+                                                            {{ number_format($totalDeliverQty) }}</td>
+                                                        <td class="border-top text-13-black height-52 border">
+                                                            {{ number_format($totalPriceExport) }}</td>
+                                                        <td class="border-top text-13-black height-52 border">
+                                                            {{ number_format($totalProductTotalVat) }}</td>
+                                                        <td class="border-top text-13-black height-52 border">
+                                                            {{ number_format($totalProductQuantity) }}</td>
+                                                        <td class="border-top text-13-black height-52 border">
+                                                            {{ number_format($totalCashValue) }}</td>
+                                                        <td class="border-top text-13-black height-52 border">
+                                                            {{ implode(', ', $goldValues) }}</td>
+                                                        <!-- Combine gold values into a comma-separated string -->
+                                                    </tr>
                                                 @endif
                                             @endforeach
                                         @endforeach
+
+
                                     </tbody>
                                 </table>
                             </div>
@@ -547,53 +588,32 @@
 <script src="{{ asset('/dist/js/number.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $(document).on('blur', '.commission', function() {
+        $(document).on('blur', '.product_quantity, .cash_value, .gold_value', function() {
             var $row = $(this).closest('tr');
-            var $commissionTotal = $row.find('.commission_total');
-            var qty = $row.find('.qty').val();
+            var product_quantity = $row.find('.product_quantity').val();
+            var cash_value = $row.find('.cash_value').val();
+            var gold_value = $row.find('.gold_value').val();
             var month = $(this).data('month');
-            var sale = $(this).data('sale');
+            var guest = $(this).data('guest');
             var quote = $(this).data('quote');
+            var type = $(this).data('type');
             var value = $(this).val();
             $.ajax({
-                url: "{{ route('updateOrCreate') }}",
-                type: "get",
+                url: "{{ route('promotionGuestAjax') }}",
+                type: "GET",
                 data: {
                     month: month,
-                    sale: sale,
+                    guest: guest,
                     quote: quote,
+                    type: type,
                     value: value,
-                    qty: qty,
-                    _token: $('meta[name="csrf-token"]').attr(
-                        'content')
-                },
-                success: function(response) {
-                    $commissionTotal.val(formatCurrency(response.data.total_amount))
-                },
-                error: function(xhr, status, error) {
-                    // Xử lý lỗi
-                    console.error('Error:', error);
-                }
-            });
-        });
-
-        $(document).on('change', '.checkbox-status', function() {
-            var sale = $(this).data('sale');
-            var quote = $(this).data('quote');
-            var isChecked = $(this).is(':checked') ? 1 : 0;
-
-            $.ajax({
-                url: "{{ route('updateStatusCommission') }}",
-                type: "get",
-                data: {
-                    sale: sale,
-                    quote: quote,
-                    isChecked: isChecked,
+                    product_quantity: product_quantity,
+                    cash_value: cash_value,
+                    gold_value: gold_value,
                     _token: $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    // Xử lý khi thành công
-                    console.log(response);
+
                 },
                 error: function(xhr, status, error) {
                     // Xử lý lỗi
@@ -601,7 +621,6 @@
                 }
             });
         });
-
         addHighlightFunctionality(".table-sell", ".sell");
     });
 </script>

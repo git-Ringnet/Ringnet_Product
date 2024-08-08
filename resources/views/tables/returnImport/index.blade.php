@@ -92,6 +92,9 @@
                                             </span>
                                         </div>
                                         <div class="scrollbar">
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                data-button="date" type="button">Ngày lập phiếu
+                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-delivery_code" data-button="delivery_code" type="button">Mã
                                                 nhận hàng
@@ -119,9 +122,6 @@
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
                                                 data-button="status" type="button">Trạng thái
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
-                                                data-button="date" type="button">Ngày nhận hàng
-                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-total"
                                                 data-button="total" type="button">
                                                 Tổng tiền
@@ -139,7 +139,7 @@
                                         value2="Đã nhận" color1="#858585" color2="#08AA36BF" title="Trạng thái" />
                                     <x-filter-compare name="total" title="Tổng tiền" />
                                     <x-filter-compare name="shipping_fee" title="Phí vận chuyển" />
-                                    <x-filter-date-time name="date" title="Ngày nhận hàng" />
+                                    <x-filter-date-time name="date" title="Ngày lập phiếu" />
                                 </div>
                             </div>
                         </div>
@@ -336,8 +336,8 @@
                                                 </td>
                                             </tr>
                                             @php
-                                            $total += $item->total;
-                                        @endphp
+                                                $total += $item->total;
+                                            @endphp
                                         @endforeach
                                     </tbody>
                                 </table>

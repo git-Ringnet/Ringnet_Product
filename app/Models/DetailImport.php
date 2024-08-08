@@ -541,4 +541,18 @@ class DetailImport extends Model
             ->get();
         return $detailImport;
     }
+    public function reportAll()
+    {
+        $import = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->select('detailimport.*', 'provides.provide_name_display')
+            ->orderBy('detailimport.id', 'desc');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $import->where('user_id', Auth::user()->id);
+            }
+        }
+        $import = $import->get();
+        return $import;
+    }
 }

@@ -270,7 +270,7 @@
                                                 $totalQtyReturn = 0;
                                                 $totalPriceProduct = 0;
                                                 $totalProductTotal = 0;
-                                                $totalProductVat = 0;
+                                                $total_return = 0;
                                                 $totalPayment = 0;
                                                 $totalRemaining = 0;
                                             @endphp
@@ -314,7 +314,7 @@
                                                                 {{ number_format($item->product_total) }}</td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ number_format($itemReturn->totalProductVat) }}
+                                                                {{ number_format($itemReturn->total_return) }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
@@ -322,7 +322,7 @@
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ number_format($itemReturn->totalProductVat - $itemReturn->payment) }}
+                                                                {{ number_format($itemReturn->total_return - $itemReturn->payment) }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
@@ -345,10 +345,10 @@
                                                         $totalQtyReturn += $matchedItems->sum('qtyReturn');
                                                         $totalPriceProduct += $matchedItems->sum('priceProduct');
                                                         $totalProductTotal += $matchedItems->sum('product_total');
-                                                        $totalProductVat += $itemReturn->totalProductVat;
+                                                        $total_return += $itemReturn->total_return;
                                                         $totalPayment += $itemReturn->payment;
                                                         $totalRemaining +=
-                                                            $itemReturn->totalProductVat - $itemReturn->payment;
+                                                            $itemReturn->total_return - $itemReturn->payment;
                                                     @endphp
                                                 @endif
                                             @endforeach
@@ -365,7 +365,7 @@
                                                 <td class="text-red bold height-52 border">
                                                     {{ number_format($totalProductTotal) }}</td>
                                                 <td class="text-red bold height-52 border">
-                                                    {{ number_format($totalProductVat) }}</td>
+                                                    {{ number_format($total_return) }}</td>
                                                 <td class="text-red bold height-52 border">
                                                     {{ number_format($totalPayment) }}</td>
                                                 <td class="text-red bold height-52 border">
@@ -402,7 +402,7 @@
                             {{ number_format($totalProductTotal) }}
                         </th>
                         <th class="text-center text-red border" style="width: 7.692307692307692%;">
-                            {{ number_format($totalProductVat) }}
+                            {{ number_format($total_return) }}
                         </th>
                         <th class="text-center text-red border" style="width: 7.692307692307692%;">
                             {{ number_format($totalPayment) }}
