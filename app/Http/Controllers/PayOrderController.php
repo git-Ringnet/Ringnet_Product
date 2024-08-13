@@ -128,8 +128,10 @@ class PayOrderController extends Controller
         $listDetail->select('pay_order.*');
 
         $listDetail = $listDetail->get();
+        //danh sách nhân viên
+        $listUser = User::where('origin_workspace', Auth::user()->current_workspace)->get();
 
-        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'content', 'returnExport', 'getQuoteCount', 'listDetail'));
+        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'listUser', 'content', 'returnExport', 'getQuoteCount', 'listDetail'));
     }
 
     /**

@@ -21,7 +21,7 @@ class Delivered extends Model
         'product_total_vat',
         'workspace_id',
         'created_at',
-        'updated_at', 'promotion',
+        'updated_at', 'promotion', 'promotion_qty',
     ];
     protected $table = 'delivered';
 
@@ -121,6 +121,7 @@ class Delivered extends Model
                 'updated_at' => Carbon::now(),
                 'user_id' => Auth::user()->id,
                 'promotion' => json_encode($promotion),
+                'promotion_qty' => $data['promotion_qty'][$i],
             ];
             // DB::table($this->table)->insert($dataDelivered);
             $delivered_id = DB::table($this->table)->insertGetId($dataDelivered);

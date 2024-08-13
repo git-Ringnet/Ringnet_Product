@@ -32,10 +32,8 @@ function calculateTotals() {
         var productPrice = 0;
         var taxValue = parseFloat($(this).find('[name^="product_tax"]').val());
         var promotionValue =
-            $(this)
-                .find('input[name="promotion[]"]')
-                .val()
-                .replace(/,/g, "") || 0;
+            $(this).find('input[name="promotion[]"]').val().replace(/,/g, "") ||
+            0;
 
         var promotionOption =
             parseInt($(this).find('select[name="promotion-option[]"]').val()) ||
@@ -367,6 +365,11 @@ function createProductRow(product, page) {
                 <input type='hidden' class='tonkho'>
                 </div>
                 <div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho'>0</span></div>
+            </td>
+            <td class="border-right p-2 text-13 align-top border-bottom border-top-0 ${
+                page == "PXK" ? "" : "d-none"
+            }">
+            <input type="number" value="" class="border-0 px-2 text-right py-1 w-100 quantity-input height-32" autocomplete="off" name="promotion_qty[]">
             </td>
             <td class='border-right p-2 text-13 align-top border-bottom border-top-0 ${
                 page == "PXK" || page == "PNK" ? "d-none" : ""

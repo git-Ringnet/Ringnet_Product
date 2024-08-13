@@ -125,12 +125,12 @@
                 {{-- Thông tin khách hàng --}}
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-0 text-center">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH
-                            HÀNG
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                            THÔNG TIN PHIẾU XUẤT KHO
                         </p>
                     </div>
                     <div class="d-flex w-100">
-                        <div
+                        {{-- <div
                             class="d-none w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
                             <span class="mx-1 text-13" style="flex: 2;">
@@ -184,7 +184,7 @@
                                             </li>
                                         @endforeach
                                     </ul>
-                                    <!-- <a type="button"
+                                    <a type="button"
                                         class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
                                         data-toggle="modal" data-target="#guestModal"
                                         style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
@@ -198,19 +198,23 @@
                                         </span>
                                         <span class="text-13-black pl-3 pt-1"
                                             style="font-weight: 600 !important;">Thêm khách hàng</span>
-                                    </a> -->
+                                    </a>
                                 </div>
                             </div>
+                        </div> --}}
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">
+                                Ngày lập
+                            </span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker" required
+                                placeholder="Chọn thông tin" style="flex:2;" />
+
+                            <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                            {{-- <input class="text-13-black w-50 border-0 bg-input-guest nameGuest"
-                        style="flex:2;"
-                        value="@isset($yes){{ $getGuestbyId[0]->guest_name }}@endisset" />
-
-                        <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
-                        value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset"> --}}
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nhận</span>
                             <span class="mx-1 text-13" style="flex: 2;">
                                 <input type="text" placeholder="Chọn thông tin" name="guestName"
                                     class="border-0 w-100 bg-input-guest input-search py-2 px-2 nameGuest "
@@ -289,25 +293,16 @@
                                                     fill="#282A30" />
                                             </svg>
                                         </span>
-                                        <span class="text-13-black pl-3 pt-1"
-                                            style="font-weight: 600 !important;">Thêm
-                                            khách hàng</span>
+                                        <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">
+                                            Thêm người nhận
+                                        </span>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao
-                                hàng</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker" required
-                                placeholder="Chọn thông tin" style="flex:2;" />
-
-                            <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
-                        </div>
                     </div>
                     <div class="d-flex w-100">
-                        <div
+                        {{-- <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
                                 diện</span>
@@ -347,30 +342,81 @@
                                         đại diện</span>
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã Giao Hàng</span>
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" required readonly
                                 placeholder="Nhập thông tin" style="flex:2;" name="code_delivery"
                                 value="{{ $invoice }}" />
                         </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                placeholder="Nhập thông tin" style="flex:2;" name="fullname" />
+                        </div>
                     </div>
                     <div class="d-flex w-100">
-                        <div
+                        {{-- <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận
                                 chuyển</span>
                             <input
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 unit_ship"
                                 name="shipping_unit" placeholder="Nhập thông tin" style="flex:2;" />
-                        </div>
-                        <div
+                        </div> --}}
+                        {{-- <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
                             <input
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 fee_ship"
                                 name="shipping_fee" placeholder="Nhập thông tin" style="flex:2;" />
+                        </div> --}}
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                placeholder="Nhập thông tin" style="flex:2;" name="address" />
+                        </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT</span>
+                            <input type="number" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                placeholder="Nhập thông tin" style="flex:2;" name="phone" />
+                        </div>
+                    </div>
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">
+                                Người lập
+                            </span>
+                            <input value="{{ Auth::user()->name }}" disabled
+                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 unit_ship"
+                                style="flex:2;" />
+                        </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">
+                                Thủ kho
+                            </span>
+                            <select name="manager_warehouse"
+                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                @foreach ($users as $user_name)
+                                    <option value="{{ $user_name->id }}">{{ $user_name->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">
+                                Ghi chú
+                            </span>
+                            <textarea name="note" class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue"
+                                placeholder="Nhập thông tin"></textarea>
                         </div>
                     </div>
                 </div>
@@ -398,6 +444,9 @@
                                             </th>
                                             <th class="border-right p-0 px-2 text-right text-13" style="">
                                                 Số lượng
+                                            </th>
+                                            <th class="border-right p-0 px-2 text-right text-13" style="">
+                                                KM
                                             </th>
                                             <th class="border-right p-0 px-2 text-right text-13" style="">
                                                 Kho
@@ -877,7 +926,7 @@
     $(document).ready(function() {
         $('#luuNhap, #giaoHang').click(function(event) {
             if (!$('.idGuest').val()) {
-                showAutoToast('warning', 'Khách hàng chưa được chọn');
+                showAutoToast('warning', 'Người nhận chưa được chọn');
                 event.preventDefault();
             }
         });
@@ -1023,17 +1072,19 @@
             );
             const soLuong = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
-                "<div class='d-flex align-items-center'>" +
                 "<div>" +
                 "<input type='number' value='' data-product-id='' class='border-0 px-2 text-right py-1 w-100 quantity-input height-32' autocomplete='off' required='' name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "<p class='mt-3 text-13-blue inventory text-right mb-0'>Tồn kho: <span class='soTonKho'>0</span></p>" +
                 "</div>" +
-                "</div>" +
-                "</td>" +
                 "</td>" +
                 "<td class='text-center ui-sortable-handle d-none'>" +
                 "<input class='check-add-sn' type='checkbox' name='cbSeri[]' value='1'>" +
+                "</td>"
+            );
+            const km = $(
+                "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
+                "<input type='number' value='' class='border-0 px-2 text-right py-1 w-100 quantity-input height-32' autocomplete='off' name='promotion_qty[]'>" +
                 "</td>"
             );
             const quanLySN = $(
@@ -1115,7 +1166,7 @@
                 "<td style='display:none;'><input type='text' class='type'></td>"
             );
             // Gắn các phần tử vào hàng mới
-            newRow.append(tenSanPham, dvTinh, soLuong, kho,
+            newRow.append(tenSanPham, dvTinh, soLuong, km, kho,
                 ghiChu);
             $("#dynamic-fields").before(newRow);
             checkProductTaxValues();
@@ -1701,7 +1752,7 @@
                                         var sanPhamHetSN = [];
                                         if (!$('.idGuest').val()) {
                                             showAutoToast('warning',
-                                                'Khách hàng chưa được chọn'
+                                                'Người nhận chưa được chọn'
                                             );
                                             e.preventDefault();
 
@@ -1718,6 +1769,17 @@
                                                                 ".soTonKho"
                                                             ).text()
                                                         );
+                                                    var soKM =
+                                                        parseFloat(
+                                                            $(
+                                                                this
+                                                            )
+                                                            .find(
+                                                                '[name="promotion_qty[]"]'
+                                                            )
+                                                            .val() || 0
+                                                        );
+
                                                     var checkbox =
                                                         $(
                                                             this)
@@ -1747,7 +1809,8 @@
                                                     // Kiểm tra số lượng tồn kho
                                                     if (type !=
                                                         2) {
-                                                        if (quantity >
+                                                        if ((quantity +
+                                                                soKM) >
                                                             soTonKho
                                                         ) {
                                                             invalidInventoryProducts
@@ -1944,7 +2007,7 @@
                                         var sanPhamHetSN = [];
                                         if (!$('.idGuest').val()) {
                                             showAutoToast('warning',
-                                                'Khách hàng chưa được chọn'
+                                                'Người nhận chưa được chọn'
                                             );
                                             e.preventDefault();
                                         }
@@ -1959,6 +2022,16 @@
                                                             .find(
                                                                 ".soTonKho"
                                                             ).text()
+                                                        );
+                                                    var soKM =
+                                                        parseFloat(
+                                                            $(
+                                                                this
+                                                            )
+                                                            .find(
+                                                                '[name="promotion_qty[]"]'
+                                                            )
+                                                            .val() || 0
                                                         );
                                                     var checkbox =
                                                         $(
@@ -1989,7 +2062,8 @@
                                                     // Kiểm tra số lượng tồn kho
                                                     if (type !=
                                                         2) {
-                                                        if (quantity >
+                                                        if ((quantity +
+                                                                soKM) >
                                                             soTonKho
                                                         ) {
                                                             invalidInventoryProducts
@@ -3402,6 +3476,17 @@
                                                                 ".soTonKho"
                                                             ).text()
                                                         );
+                                                    var soKM =
+                                                        parseFloat(
+                                                            $(
+                                                                this
+                                                            )
+                                                            .find(
+                                                                '[name="promotion_qty[]"]'
+                                                            )
+                                                            .val() ||
+                                                            0
+                                                        );
                                                     var checkbox =
                                                         $(
                                                             this)
@@ -3431,7 +3516,9 @@
                                                     // Kiểm tra số lượng tồn kho
                                                     if (type !=
                                                         2) {
-                                                        if (quantity >
+                                                        if ((quantity +
+                                                                soKM
+                                                            ) >
                                                             soTonKho
                                                         ) {
                                                             invalidInventoryProducts
@@ -3645,6 +3732,17 @@
                                                                 ".soTonKho"
                                                             ).text()
                                                         );
+                                                    var soKM =
+                                                        parseFloat(
+                                                            $(
+                                                                this
+                                                            )
+                                                            .find(
+                                                                '[name="promotion_qty[]"]'
+                                                            )
+                                                            .val() ||
+                                                            0
+                                                        );
                                                     var checkbox =
                                                         $(
                                                             this)
@@ -3674,7 +3772,9 @@
                                                     // Kiểm tra số lượng tồn kho
                                                     if (type !=
                                                         2) {
-                                                        if (quantity >
+                                                        if ((quantity +
+                                                                soKM
+                                                            ) >
                                                             soTonKho
                                                         ) {
                                                             invalidInventoryProducts
@@ -5114,6 +5214,14 @@
                                                                 ".soTonKho"
                                                             ).text()
                                                         );
+                                                    var soKM = parseFloat(
+                                                        $(
+                                                            this
+                                                        )
+                                                        .find(
+                                                            '[name="promotion_qty[]"]'
+                                                        ).val() || 0
+                                                    );
                                                     var checkbox =
                                                         $(
                                                             this)
@@ -5143,7 +5251,8 @@
                                                     // Kiểm tra số lượng tồn kho
                                                     if (type !=
                                                         2) {
-                                                        if (quantity >
+                                                        if ((quantity +
+                                                                soKM) >
                                                             soTonKho
                                                         ) {
                                                             invalidInventoryProducts
@@ -5357,6 +5466,14 @@
                                                                 ".soTonKho"
                                                             ).text()
                                                         );
+                                                    var soKM = parseFloat(
+                                                        $(
+                                                            this
+                                                        )
+                                                        .find(
+                                                            '[name="promotion_qty[]"]'
+                                                            ).val() || 0
+                                                    );
                                                     var checkbox =
                                                         $(
                                                             this)
@@ -5386,7 +5503,8 @@
                                                     // Kiểm tra số lượng tồn kho
                                                     if (type !=
                                                         2) {
-                                                        if (quantity >
+                                                        if ((quantity +
+                                                                soKM) >
                                                             soTonKho
                                                         ) {
                                                             invalidInventoryProducts
@@ -6442,7 +6560,7 @@
         var previousProductNames = [];
 
         if (!$('.idGuest').val()) {
-            showAutoToast('warning', 'Khách hàng chưa được chọn');
+            showAutoToast('warning', 'Người nhận chưa được chọn');
             event.preventDefault();
         }
 

@@ -167,7 +167,9 @@ class DeliveryController extends Controller
 
         //
         $listDetail = $this->delivery->listDelivery();
-        return view('tables.export.delivery.create-delivery', compact('title', 'convert', 'guest', 'invoice', 'numberQuote', 'product', 'workspacename', 'listDetail'));
+        //danh sách nhân viên
+        $users = User::where('origin_workspace', Auth::user()->origin_workspace)->get();
+        return view('tables.export.delivery.create-delivery', compact('title', 'users', 'convert', 'guest', 'invoice', 'numberQuote', 'product', 'workspacename', 'listDetail'));
     }
 
     /**
@@ -299,7 +301,6 @@ class DeliveryController extends Controller
             abort('404');
         }
         $product = $this->delivery->getProductToId($id);
-        // dd($delivery);
         $serinumber = Serialnumber::leftJoin('delivery', 'delivery.detailexport_id', 'serialnumber.detailexport_id')
             ->where('delivery.id', $id)
             ->where('serialnumber.delivery_id', $id)

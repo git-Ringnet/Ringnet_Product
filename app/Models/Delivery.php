@@ -22,7 +22,7 @@ class Delivery extends Model
         'workspace_id',
         'status',
         'created_at',
-        'updated_at', 'promotion', 'totalVat'
+        'updated_at', 'promotion', 'totalVat','manager_warehouse','id_sale','fullname','address','phone','note'
     ];
     protected $table = 'delivery';
 
@@ -142,9 +142,9 @@ class Delivery extends Model
         $dataDelivery = [
             'guest_id' => $data['guest_id'],
             'quotation_number' => $data['quotation_number'] ?? '',
-            'code_delivery' => $data['code_delivery'],
-            'shipping_unit' => $shipping_unit,
-            'shipping_fee' => $shipping_fee,
+            // 'code_delivery' => $data['code_delivery'],
+            // 'shipping_unit' => $shipping_unit,
+            // 'shipping_fee' => $shipping_fee,
             'detailexport_id' => $data['detailexport_id'] ?? 0,
             'status' => 1,
             'workspace_id' => Auth::user()->current_workspace,
@@ -152,6 +152,12 @@ class Delivery extends Model
             'user_id' => Auth::user()->id,
             'promotion' => json_encode($promotion),
             'totalVat' => $data['totalValue'],
+            'manager_warehouse' => $data['manager_warehouse'],
+            'id_sale' => Auth::user()->id,
+            'fullname' => $data['fullname'],
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'note' => $data['note'],
         ];
         $delivery = new Delivery($dataDelivery);
         $delivery->save();
@@ -272,56 +278,73 @@ class Delivery extends Model
                 'shipping_fee' => $shipping_fee,
             ]);
         }
-        //
-        $quoteExports = QuoteExport::where('detailexport_id', $detailexport_id)
-            ->where('status', 1)
-            ->get();
 
-        // Biến để kiểm tra xem có ít nhất một giá trị nào lớn hơn 0 không
-        $hasNonZeroDifference = false;
+        //Cập nhật trạng thái giao hàng
+        $firstDetailExportId = DetailExport::where('guest_id', $delivery->guest_id)
+            ->where('detailexport.status_receive', '!=', 2)
+            ->orderBy('created_at', 'asc')
+            ->value('id');
 
-        foreach ($quoteExports as $quoteExport) {
-            $product_id = $quoteExport->product_id;
-
-            // Lấy tất cả các bản ghi delivered có product_id tương ứng và status = 2 từ bảng Delivery
-            $deliveriesForProduct = Delivered::join('delivery', 'delivery.id', '=', 'delivered.delivery_id')
-                ->where('delivery.detailexport_id', $detailexport_id)
-                ->where('delivered.product_id', $product_id)
-                ->where('delivery.status', 2)
+        if ($firstDetailExportId) {
+            $quoteExports = QuoteExport::leftJoin('detailexport', 'quoteexport.detailexport_id', 'detailexport.id')
+                ->where('detailexport.status_receive', '!=', 2)
+                ->where('quoteexport.status', 1)
+                ->where('quoteexport.detailexport_id', '!=', 0)
+                ->where('quoteexport.detailexport_id', $firstDetailExportId)
+                ->where('detailexport.guest_id', $delivery->guest_id)
                 ->get();
 
-            // Tính tổng deliver_qty
-            $totalDeliveredQty = $deliveriesForProduct->sum('deliver_qty');
-            $productQty = bcsub($quoteExport->product_qty, '0', 4);
+            // Biến để kiểm tra xem có ít nhất một giá trị nào lớn hơn 0 không
+            $hasNonZeroDifference = false;
 
-            // So sánh tổng deliver_qty với product_qty
-            if (bccomp($totalDeliveredQty, $productQty, 4) !== 0) {
-                $hasNonZeroDifference = true;
-                break;
+            foreach ($quoteExports as $quoteExport) {
+                $product_id = $quoteExport->product_id;
+
+                $lastDeliveryId = Delivery::where('guest_id', $delivery->guest_id)
+                    ->where('status', 2)
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->orderBy('created_at', 'desc')
+                    ->value('id');
+                // Lấy tất cả các bản ghi delivered có product_id tương ứng và status = 2 từ bảng Delivery
+                if ($lastDeliveryId) {
+                    $deliveriesForProduct = Delivered::where('delivery_id', $lastDeliveryId)
+                        ->where('product_id', $product_id)
+                        ->get();
+
+                    // Tính tổng deliver_qty
+                    $totalDeliveredQty = $deliveriesForProduct->sum('deliver_qty');
+                    $productQty = bcsub($quoteExport->product_qty, '0', 4);
+
+                    // So sánh tổng deliver_qty với product_qty
+                    if (bccomp($totalDeliveredQty, $productQty, 4) !== 0) {
+                        $hasNonZeroDifference = true;
+                        break;
+                    }
+                }
             }
-        }
+            $detailExport = DetailExport::where('id', $firstDetailExportId)->first();
 
-        $detailExport = DetailExport::where('id', $detailexport_id)->first();
-
-        if ($detailExport) {
-            $detailExport->update([
-                'status' => 2,
-            ]);
-            if ($hasNonZeroDifference) {
+            if ($detailExport) {
                 $detailExport->update([
-                    'status_receive' => 3,
+                    'status' => 2,
                 ]);
-            } else {
-                $detailExport->update([
-                    'status_receive' => 2,
-                ]);
-                if ($detailExport->status_receive == 2 && $detailExport->status_reciept == 2 && $detailExport->status_pay == 2) {
+                if ($hasNonZeroDifference) {
                     $detailExport->update([
-                        'status' => 3,
+                        'status_receive' => 3,
                     ]);
+                } else {
+                    $detailExport->update([
+                        'status_receive' => 2,
+                    ]);
+                    if ($detailExport->status_receive == 2 && $detailExport->status_reciept == 2 && $detailExport->status_pay == 2) {
+                        $detailExport->update([
+                            'status' => 3,
+                        ]);
+                    }
                 }
             }
         }
+
         // Kiểm tra trạng thái SN
         $checkSN = false;
         $id_history = [];
@@ -331,7 +354,7 @@ class Delivery extends Model
             $product = Products::find($data['product_id'][$i]);
             if ($productWh) {
                 if ($product->type != 2) {
-                    $result = $productWh->qty - $data['product_qty'][$i];
+                    $result = $productWh->qty - ($data['product_qty'][$i] + ($data['promotion_qty'][$i] == null ? 0 : $data['promotion_qty'][$i]));
                     $productWh->update([
                         'qty' => $result,
                     ]);
@@ -836,7 +859,6 @@ class Delivery extends Model
     }
     public function acceptDelivery($data)
     {
-
         //thêm delivery
         if (isset($data['shipping_fee'])) {
             $shipping_fee = $data['shipping_fee'];
@@ -873,6 +895,12 @@ class Delivery extends Model
             'created_at' => $date_deliver,
             'promotion' => json_encode($promotion),
             'totalVat' => $data['totalValue'],
+            'manager_warehouse' => $data['manager_warehouse'],
+            'id_sale' => Auth::user()->id,
+            'fullname' => $data['fullname'],
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'note' => $data['note'],
         ];
         $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
         if ($detaiExport) {
@@ -988,6 +1016,7 @@ class Delivery extends Model
                 'product_total_vat' => $tolTax,
                 'user_id' => Auth::user()->id,
                 'promotion' => json_encode($promotion_product),
+                'promotion_qty' => $data['promotion_qty'][$i],
             ];
             $delivered_id = DB::table('delivered')->insertGetId($dataDelivered);
             $de = Delivered::where('delivery_id', $deliveryId)->first();
@@ -1188,7 +1217,6 @@ class Delivery extends Model
                 }
             }
 
-
             //thêm sản phẩm từ đơn giao hàng
             $checkProduct = Products::where('product_name', $data['product_name'][$i])->first();
             if (!$checkProduct) {
@@ -1245,50 +1273,62 @@ class Delivery extends Model
         }
 
         //xác nhận giao hàng
-        $quoteExports = QuoteExport::where('detailexport_id', $data['detailexport_id'])
-            ->where('status', 1)
-            ->get();
-
-        // Biến để kiểm tra xem có ít nhất một giá trị nào lớn hơn 0 không
-        $hasNonZeroDifference = false;
-
-        foreach ($quoteExports as $quoteExport) {
-            $product_id = $quoteExport->product_id;
-
-            // Lấy tất cả các bản ghi delivered có product_id tương ứng và status = 2 từ bảng Delivery
-            $deliveriesForProduct = Delivered::join('delivery', 'delivery.id', '=', 'delivered.delivery_id')
-                ->where('delivery.detailexport_id', $data['detailexport_id'])
-                ->where('delivered.product_id', $product_id)
-                ->where('delivery.workspace_id', Auth::user()->current_workspace)
-                ->where('delivery.status', 2)
+        $firstDetailExportId = DetailExport::where('guest_id', $data['guest_id'])
+            ->where('detailexport.status_receive', '!=', 2)
+            ->orderBy('created_at', 'asc')
+            ->value('id');
+        if ($firstDetailExportId) {
+            $quoteExports = QuoteExport::leftJoin('detailexport', 'quoteexport.detailexport_id', 'detailexport.id')
+                ->where('detailexport.status_receive', '!=', 2)
+                ->where('quoteexport.status', 1)
+                ->where('quoteexport.detailexport_id', '!=', 0)
+                ->where('quoteexport.detailexport_id', $firstDetailExportId)
+                ->where('detailexport.guest_id', $data['guest_id'])
                 ->get();
+            // Biến để kiểm tra xem có ít nhất một giá trị nào lớn hơn 0 không
+            $hasNonZeroDifference = false;
 
-            // Tính tổng deliver_qty
-            $totalDeliveredQty = $deliveriesForProduct->sum('deliver_qty');
-            $productQty = bcsub($quoteExport->product_qty, '0', 4);
+            foreach ($quoteExports as $quoteExport) {
+                $product_id = $quoteExport->product_id;
 
-            // So sánh tổng deliver_qty với product_qty
-            if (bccomp($totalDeliveredQty, $productQty, 4) !== 0) {
-                $hasNonZeroDifference = true;
-                break;
+                $lastDeliveryId = Delivery::where('guest_id', $data['guest_id'])
+                    ->where('status', 2)
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->orderBy('created_at', 'desc')
+                    ->value('id');
+                // Lấy tất cả các bản ghi delivered có product_id tương ứng và status = 2 từ bảng Delivery
+                if ($lastDeliveryId) {
+                    $deliveriesForProduct = Delivered::where('delivery_id', $lastDeliveryId)
+                        ->where('product_id', $product_id)
+                        ->get();
+
+                    // Tính tổng deliver_qty
+                    $totalDeliveredQty = $deliveriesForProduct->sum('deliver_qty');
+                    $productQty = bcsub($quoteExport->product_qty, '0', 4);
+
+                    // So sánh tổng deliver_qty với product_qty
+                    if (bccomp($totalDeliveredQty, $productQty, 4) !== 0) {
+                        $hasNonZeroDifference = true;
+                        break;
+                    }
+                }
             }
-        }
+            $detailExport = DetailExport::where('id', $firstDetailExportId)->first();
 
-        $detailExport = DetailExport::where('id', $data['detailexport_id'])->first();
-
-        if ($detailExport) {
-            if ($hasNonZeroDifference) {
-                $detailExport->update([
-                    'status_receive' => 3,
-                ]);
-            } else {
-                $detailExport->update([
-                    'status_receive' => 2,
-                ]);
-                if ($detailExport->status_receive == 2 && $detailExport->status_reciept == 2 && $detailExport->status_pay == 2) {
+            if ($detailExport) {
+                if ($hasNonZeroDifference) {
                     $detailExport->update([
-                        'status' => 3,
+                        'status_receive' => 3,
                     ]);
+                } else {
+                    $detailExport->update([
+                        'status_receive' => 2,
+                    ]);
+                    if ($detailExport->status_receive == 2 && $detailExport->status_reciept == 2 && $detailExport->status_pay == 2) {
+                        $detailExport->update([
+                            'status' => 3,
+                        ]);
+                    }
                 }
             }
         }
@@ -1301,7 +1341,7 @@ class Delivery extends Model
             $product = Products::find($data['product_id'][$i]);
             if ($product) {
                 if ($product->type != 2) {
-                    $result = $productWh->qty - $data['product_qty'][$i];
+                    $result = $productWh->qty - ($data['product_qty'][$i] + ($data['promotion_qty'][$i] == null ? 0 : $data['promotion_qty'][$i]));
                     $productWh->update([
                         'qty' => $result,
                     ]);

@@ -1395,6 +1395,8 @@
                     var productCode = clickedRow.find('.product_code');
                     var productName = clickedRow.find('.product_name');
                     var productUnit = clickedRow.find('.product_unit');
+                    var productUnit = clickedRow.find('.product_unit');
+                    var productPrice = clickedRow.find('.product_price');
                     var thue = clickedRow.find('.product_tax');
                     var product_id = clickedRow.find('.product_id');
                     var idProduct = $(this).attr('id');
@@ -1420,11 +1422,13 @@
                             idProduct: idProduct,
                             warehouse_id: clickedRow.find('.warehouse_id')
                                 .val(),
+                            guestId: $('.idGuest').val(),
                         },
                         success: function(data) {
                             productCode.val(data.product_code);
                             productName.val(data.product_name);
                             productUnit.val(data.product_unit);
+                            productPrice.val(data.price_export == null ? '' : formatCurrency(data.price_export));
                             thue.val(data.product_tax);
                             product_id.val(data.id);
 

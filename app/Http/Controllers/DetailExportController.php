@@ -937,11 +937,20 @@ class DetailExportController extends Controller
         $data = $request->all();
 
         // Lấy sản phẩm với điều kiện
-        $product = Products::leftJoin('productwarehouse', 'productwarehouse.product_id', 'products.id')
+        $query = Products::leftJoin('productwarehouse', 'productwarehouse.product_id', 'products.id')
+            ->leftJoin('quoteexport', 'quoteexport.product_id', 'products.id')
+            ->leftJoin('detailexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->where('quoteexport.price_export', '!=', 0)
+            ->where('detailexport.guest_id', $data['guestId'])
             ->where('products.id', $data['idProduct'])
-            ->where('productwarehouse.warehouse_id', $data['warehouse_id'])
-            ->select('products.*', 'productwarehouse.qty as product_inventory')
-            ->first();
+            ->select('products.*', 'productwarehouse.qty as product_inventory', 'quoteexport.price_export');
+
+        if (!empty($data['warehouse_id'])) {
+            $query->where('productwarehouse.warehouse_id', $data['warehouse_id']);
+        }
+
+        $product = $query->first();
+
         if (!$product) {
             $product = Products::where('id', $data['idProduct'])
                 ->select('products.*')

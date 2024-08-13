@@ -372,15 +372,13 @@
                                                     </td>
                                                     <td
                                                         class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="">
-                                                                <input type="text" readonly
-                                                                    data-row="row{{ $item_quote->product_id }}"
-                                                                    value="{{ is_int($item_quote->deliver_qty) ? $item_quote->deliver_qty : rtrim(rtrim(number_format($item_quote->deliver_qty, 4, '.', ''), '0'), '.') }}"
-                                                                    class='text-right border-0 pl-2 pr-0 py-1 w-100 quantity-input height-32'
-                                                                    autocomplete="off" name="product_qty[]">
-                                                                <input type="hidden" class="tonkho">
-                                                            </div>
+                                                        <div class="">
+                                                            <input type="text" readonly
+                                                                data-row="row{{ $item_quote->product_id }}"
+                                                                value="{{ is_int($item_quote->deliver_qty) ? $item_quote->deliver_qty : rtrim(rtrim(number_format($item_quote->deliver_qty, 4, '.', ''), '0'), '.') }}"
+                                                                class='text-right border-0 pl-2 pr-0 py-1 w-100 quantity-input height-32'
+                                                                autocomplete="off" name="product_qty[]">
+                                                            <input type="hidden" class="tonkho">
                                                         </div>
                                                         @if ($item_quote->type != 2)
                                                             <div class='text-13-blue inventory text-right mt-3'>Tồn
