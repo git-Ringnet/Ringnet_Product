@@ -1395,7 +1395,6 @@
                     var productCode = clickedRow.find('.product_code');
                     var productName = clickedRow.find('.product_name');
                     var productUnit = clickedRow.find('.product_unit');
-                    var productUnit = clickedRow.find('.product_unit');
                     var productPrice = clickedRow.find('.product_price');
                     var thue = clickedRow.find('.product_tax');
                     var product_id = clickedRow.find('.product_id');

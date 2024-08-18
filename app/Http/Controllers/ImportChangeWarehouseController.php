@@ -14,7 +14,7 @@ use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ChangeWarehouseController extends Controller
+class ImportChangeWarehouseController extends Controller
 {
     private $workspaces;
     private $content;
@@ -35,20 +35,16 @@ class ChangeWarehouseController extends Controller
      */
     public function index()
     {
-        // $content = ContentImportExport::where('workspace_id', Auth::user()->current_workspace)
-        //     ->orderBy('id', 'desc')
-        //     ->get();
-
         $changeWarehouse = ChangeWarehouse::where('workspace_id', Auth::user()->current_workspace)
-            ->where('type_change_warehouse', 1)
+            ->where('type_change_warehouse', 2)
             ->orderBy('id', 'desc')
             ->get();
 
-        $title = "Phiếu xuất chuyển kho";
+        $title = "Phiếu nhập chuyển kho";
 
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.abc.changeWarehouse.index', compact('title', 'workspacename', 'changeWarehouse'));
+        return view('tables.abc.changeWarehouse.indexImport', compact('title', 'workspacename', 'changeWarehouse'));
     }
 
     /**
@@ -59,14 +55,14 @@ class ChangeWarehouseController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
 
-        $title = "Tạo mới phiếu xuất chuyển kho";
+        $title = "Tạo mới phiếu nhập chuyển kho";
 
         $warehouse = Warehouse::where('workspace_id', Auth::user()->current_workspace)->get();
         $product = $this->product->getAllProducts();
         //danh sách nhân viên
         $users = User::where('origin_workspace', Auth::user()->origin_workspace)->get();
 
-        return view('tables.abc.changeWarehouse.create', compact('title', 'workspacename', 'warehouse', 'product', 'users'));
+        return view('tables.abc.changeWarehouse.createImport', compact('title', 'workspacename', 'warehouse', 'product', 'users'));
     }
 
     /**
@@ -77,12 +73,12 @@ class ChangeWarehouseController extends Controller
     {
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $status = $this->changeWarehouse->addChangeWarehouse($request->all(), 1);
+        $status = $this->changeWarehouse->addChangeWarehouse($request->all(), 2);
         $this->productChangeWarehouse->addChangeProduct($request->all(), $status['id']);
         if ($status['status']) {
-            return redirect()->route('changeWarehouse.index', ['workspace' => $workspacename])->with('msg', 'Tạo mới phiếu chuyển kho thành công!');
+            return redirect()->route('importChangeWarehouse.index', ['workspace' => $workspacename])->with('msg', 'Tạo mới phiếu chuyển kho thành công!');
         } else {
-            return redirect()->route('changeWarehouse.index', ['workspace' => $workspacename])->with('warning', 'Tạo mới phiếu chuyển kho thất bại!');
+            return redirect()->route('importChangeWarehouse.index', ['workspace' => $workspacename])->with('warning', 'Tạo mới phiếu chuyển kho thất bại!');
         }
     }
 
@@ -104,7 +100,7 @@ class ChangeWarehouseController extends Controller
             $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
             $workspacename = $workspacename->workspace_name;
             $listDetail = ChangeWarehouse::where('workspace_id', Auth::user()->current_workspace)
-                ->where('type_change_warehouse', 1)
+                ->where('type_change_warehouse', 2)
                 ->orderBy('id', 'desc')
                 ->get();
             $title = "Chỉnh sửa phiếu xuất chuyển kho";
@@ -113,7 +109,7 @@ class ChangeWarehouseController extends Controller
             $products = ProductChangeWarehouse::where('workspace_id', Auth::user()->current_workspace)
                 ->where('id_change_warehouse', $id)
                 ->get();
-            return view('tables.abc.changeWarehouse.edit', compact('title', 'workspacename', 'changeWarehouse', 'listDetail', 'users', 'products'));
+            return view('tables.abc.changeWarehouse.editImport', compact('title', 'workspacename', 'changeWarehouse', 'listDetail', 'users', 'products'));
         }
     }
 
@@ -132,12 +128,11 @@ class ChangeWarehouseController extends Controller
     {
         $status = $this->changeWarehouse->deleteChangeWarehouse($id);
         if ($status['status']) {
-            return redirect()->route('changeWarehouse.index', ['workspace' => $workspacename])->with('msg', 'Xóa phiếu chuyển kho thành công!');
+            return redirect()->route('importChangeWarehouse.index', ['workspace' => $workspacename])->with('msg', 'Xóa phiếu chuyển kho thành công!');
         } else {
-            return redirect()->route('changeWarehouse.index', ['workspace' => $workspacename])->with('warning', 'Không tìm thấy phiếu chuyển kho!');
+            return redirect()->route('importChangeWarehouse.index', ['workspace' => $workspacename])->with('warning', 'Không tìm thấy phiếu chuyển kho!');
         }
     }
-
 
     public function getProductByWarehouse(Request $request)
     {
@@ -145,7 +140,6 @@ class ChangeWarehouseController extends Controller
         if ($request->warehouse_id) {
             $productWarehosue = ProductWarehouse::where('warehouse_id', $request->warehouse_id)
                 ->where('workspace_id', Auth::user()->current_workspace)->get();
-
 
             if ($productWarehosue) {
                 $product_id = [];
@@ -158,25 +152,6 @@ class ChangeWarehouseController extends Controller
             }
             $quoteImport = Products::whereIn('id', $product_id)->get();
             $data['quoteImport'] = $quoteImport;
-
-            // $quoteImport = QuoteImport::where('warehouse_id', $request->warehouse_id)
-            //     ->where('workspace_id', Auth::user()->current_workspace)
-            //     ->get();
-
-            // // Trừ số lượng nếu đã tạo đơn chuyển kho
-            // $filteredQuoteImport = $quoteImport->filter(function ($item) {
-            //     $changeWarehouseQty = ChangeWarehouse::where('quoteImport_id', $item->id)->sum('qty');
-
-            //     if ($changeWarehouseQty >= $item->product_qty) {
-            //         return false; // Loại bỏ phần tử này
-            //     } elseif ($changeWarehouseQty < $item->product_qty) {
-            //         $item->product_inventory = $item->product_qty - $changeWarehouseQty;
-            //         return true; // Giữ lại phần tử này
-
-            //     }
-            // });
-
-            // $data['quoteImport'] = $filteredQuoteImport->values();
         } else {
             // Lấy số lượng sản phẩm tồn trong kho 
             $product = ProductWarehouse::where('product_id', $request->id_product)
@@ -193,14 +168,7 @@ class ChangeWarehouseController extends Controller
                 $data['seri'] = $seri;
             }
 
-            // $product = Products::where('id', $request->id_product)
-            //     ->where('product_inventory', '>', 0)
-            //     ->first();
-            // if ($product && $product->check_seri == 1) {
-
-            // }
             $data['qty'] = $product->qty;
-
             $data['product'] = $getProduct;
         }
 

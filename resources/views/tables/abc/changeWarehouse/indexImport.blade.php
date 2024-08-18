@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="manageProfess" activeName="changeWarehouse"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="importChangeWarehouse"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
@@ -14,10 +14,10 @@
                             fill="#26273B" fill-opacity="0.8" />
                     </svg>
                 </span>
-                <span class="font-weight-bold text-secondary">Phiếu xuất chuyển kho</span>
+                <span class="font-weight-bold text-secondary">Phiếu nhập chuyển kho</span>
             </div>
             <div class="d-flex content__heading--right">
-                <a href="{{ route('changeWarehouse.create', $workspacename) }}" class="mr-1">
+                <a href="{{ route('importChangeWarehouse.create', $workspacename) }}" class="mr-1">
                     <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                         <svg width="12" height="12" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -233,7 +233,7 @@
                                             style="right: 10px; top: 7px;">
                                             <div class="d-flex w-100">
                                                 <a
-                                                    href="{{ route('changeWarehouse.edit', ['workspace' => $workspacename, 'changeWarehouse' => $item->id]) }}">
+                                                    href="{{ route('importChangeWarehouse.edit', ['workspace' => $workspacename, 'importChangeWarehouse' => $item->id]) }}">
                                                     <div class="m-0 px-2 py-1 mx-2 rounded">
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -252,7 +252,7 @@
                                             <a href="#">
                                                 <div class="m-0 mx-2 rounded">
                                                     <form onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                        action="{{ route('changeWarehouse.destroy', ['workspace' => $workspacename, 'changeWarehouse' => $item->id]) }}"
+                                                        action="{{ route('importChangeWarehouse.destroy', ['workspace' => $workspacename, 'importChangeWarehouse' => $item->id]) }}"
                                                         method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')

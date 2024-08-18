@@ -365,7 +365,11 @@
                                 tiền nội bộ
                             </a>
                             <a class="dropdown-item text-13-black"
-                                href="{{ route('changeWarehouse.index', $workspacename) }}">Phiếu chuyển kho
+                                href="{{ route('changeWarehouse.index', $workspacename) }}">Phiếu xuất chuyển kho
+                            </a>
+                            <a class="dropdown-item text-13-black"
+                                href="{{ route('importChangeWarehouse.index', $workspacename) }}">
+                                Phiếu nhập chuyển kho
                             </a>
                             <a class="dropdown-item text-13-black"
                                 href="{{ route('commissionSale', $workspacename) }}">Huê hồng Sale
@@ -553,7 +557,13 @@
                     <a href="{{ route('changeWarehouse.index', $workspacename) }}" class="height-36">
                         <button type="button"
                             class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'changeWarehouse') active @endif">
-                            Phiếu chuyển kho
+                            Phiếu xuất chuyển kho
+                        </button>
+                    </a>
+                    <a href="{{ route('importChangeWarehouse.index', $workspacename) }}" class="height-36">
+                        <button type="button"
+                            class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'importChangeWarehouse') active @endif">
+                            Phiếu nhập chuyển kho
                         </button>
                     </a>
                     <a href="{{ route('commissionSale', $workspacename) }}" class="height-36">

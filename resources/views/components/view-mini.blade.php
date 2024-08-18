@@ -234,8 +234,7 @@
                     <tbody class="tbody-detailExport">
                         @foreach ($listDetail as $detail)
                             <tr class="position-relative detailExport-info height-52"
-                                data-id="{{ $detail->maGiaoHang }}" data-page="PXK"
-                                data-status="{{ $status }}">
+                                data-id="{{ $detail->maGiaoHang }}" data-page="PXK" data-status="{{ $status }}">
                                 <td class="text-13-black text-left border-top-0 border-bottom">
                                     {{ $detail->code_delivery }}
                                 </td>
@@ -427,6 +426,100 @@
                     </tbody>
                 </table>
             @endif
+            @if ($page == 'PXCK')
+                <table id="example" class="table table-hover bg-white rounded">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="height-52">
+                                <span class="d-flex justify-content-start text-13">
+                                    Ngày lập
+                                </span>
+                            </th>
+                            <th scope="col" class="height-52">
+                                <span class="d-flex justify-content-start text-13">
+                                    Mã phiếu
+                                </span>
+                            </th>
+                            <th scope="col" class="height-52">
+                                <span class="d-flex justify-content-start text-13">
+                                    Ghi chú
+                                </span>
+                            </th>
+                            <th scope="col" class="height-52">
+                                <span class="d-flex justify-content-start text-13">
+                                    Người lập
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody-detailExport">
+                        @foreach ($listDetail as $detail)
+                            <tr class="position-relative detailExport-info height-52" data-id="{{ $detail->id }}"
+                                data-page="PXCK" data-status="{{ $status }}">
+                                <td class="text-13-black text-left border-top-0 border-bottom">
+                                    {{ date_format(new DateTime($detail->created_at), 'd/m/Y') }}
+                                </td>
+                                <td class="text-13-black max-width120 text-left border-top-0 border-bottom">
+                                    {{ $detail->change_warehouse_code }}
+                                </td>
+                                <td class="text-13-black text-left border-top-0 border-bottom">
+                                    {{ $detail->note }}
+                                </td>
+                                <td class="text-13-black max-width180 text-left border-top-0 border-bottom">
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+            @if ($page == 'PNCK')
+                <table id="example" class="table table-hover bg-white rounded">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="height-52">
+                                <span class="d-flex justify-content-start text-13">
+                                    Ngày lập
+                                </span>
+                            </th>
+                            <th scope="col" class="height-52">
+                                <span class="d-flex justify-content-start text-13">
+                                    Mã phiếu
+                                </span>
+                            </th>
+                            <th scope="col" class="height-52">
+                                <span class="d-flex justify-content-start text-13">
+                                    Ghi chú
+                                </span>
+                            </th>
+                            <th scope="col" class="height-52">
+                                <span class="d-flex justify-content-start text-13">
+                                    Người lập
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody-detailExport">
+                        @foreach ($listDetail as $detail)
+                            <tr class="position-relative detailExport-info height-52" data-id="{{ $detail->id }}"
+                                data-page="PNCK" data-status="{{ $status }}">
+                                <td class="text-13-black text-left border-top-0 border-bottom">
+                                    {{ date_format(new DateTime($detail->created_at), 'd/m/Y') }}
+                                </td>
+                                <td class="text-13-black max-width120 text-left border-top-0 border-bottom">
+                                    {{ $detail->change_warehouse_code }}
+                                </td>
+                                <td class="text-13-black text-left border-top-0 border-bottom">
+                                    {{ $detail->note }}
+                                </td>
+                                <td class="text-13-black max-width180 text-left border-top-0 border-bottom">
+                                    
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
         </div>
         <div class="bg-filter-search position-fixed" style="height: 30px; bottom: 0;right: 0; width: 310px;">
             <div class="position-relative">
@@ -441,7 +534,9 @@
                             $page == 'PT' ||
                             $page == 'PC' ||
                             $page == 'CTNB' ||
-                            $page == 'PCK')
+                            $page == 'PCK' ||
+                            $page == 'PXCK' ||
+                            $page == 'PNCK')
                         <div class="text-danger font-weight-bold">Có <span class="text-danger font-weight-bold"
                                 id="result-count">{{ count($listDetail) }}</span> phiếu</div>
                     @endif
@@ -800,6 +895,14 @@
                         url =
                             "{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => ':id']) }}";
                     }
+                    if (page === 'PXCK') {
+                        url =
+                            "{{ route('changeWarehouse.edit', ['workspace' => $workspacename, 'changeWarehouse' => ':id']) }}";
+                    }
+                    if (page === 'PNCK') {
+                        url =
+                            "{{ route('importChangeWarehouse.edit', ['workspace' => $workspacename, 'importChangeWarehouse' => ':id']) }}";
+                    }
                     window.location.href = url.replace(':id', id);
                 }
                 if (status == 3) {
@@ -817,3 +920,4 @@
         });
     });
 </script>
+ 

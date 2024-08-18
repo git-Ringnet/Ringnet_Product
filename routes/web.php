@@ -26,6 +26,7 @@ use App\Http\Controllers\DateFormController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\GroupsController;
+use App\Http\Controllers\ImportChangeWarehouseController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RecieptController;
@@ -131,6 +132,7 @@ Route::get('/getDebtProvide', [ProvidesController::class, 'getDebtProvide'])->na
 // Phiếu chuyển kho
 // Route::resource('{workspace}/changeWarehouse',[ChangeWarehouseController::class]);
 Route::resource('{workspace}/changeWarehouse', ChangeWarehouseController::class);
+Route::resource('{workspace}/importChangeWarehouse', ImportChangeWarehouseController::class);
 Route::get('/getProductByWarehouse', [ChangeWarehouseController::class, 'getProductByWarehouse'])->name('getProductByWarehouse');
 
 // Trả hàng NCC

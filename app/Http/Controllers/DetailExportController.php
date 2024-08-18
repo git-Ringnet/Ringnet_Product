@@ -941,12 +941,14 @@ class DetailExportController extends Controller
             ->leftJoin('quoteexport', 'quoteexport.product_id', 'products.id')
             ->leftJoin('detailexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('quoteexport.price_export', '!=', 0)
-            ->where('detailexport.guest_id', $data['guestId'])
             ->where('products.id', $data['idProduct'])
             ->select('products.*', 'productwarehouse.qty as product_inventory', 'quoteexport.price_export');
 
         if (!empty($data['warehouse_id'])) {
             $query->where('productwarehouse.warehouse_id', $data['warehouse_id']);
+        }
+        if (!empty($data['guestId'])) {
+            $query->where('detailexport.guest_id', $data['guestId']);
         }
 
         $product = $query->first();

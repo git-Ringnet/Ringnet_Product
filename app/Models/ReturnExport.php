@@ -21,7 +21,11 @@ class ReturnExport extends Model
         'updated_at',
         'workspace_id',
         'user_id',
-        'status', 'total_return', 'guest_id', 'payment', 'code_return'
+        'status',
+        'total_return',
+        'guest_id',
+        'payment',
+        'code_return'
     ];
     public function getDelivery()
     {
@@ -219,6 +223,11 @@ class ReturnExport extends Model
                         if ($product->type != 2) {
                             $product->product_inventory += $data['product_qty'][$i];
                             $product->save();
+                            //cập nhật công nợ khách hàng
+                            $guest = Guest::find($data['guest_id']);
+                            $product_price = str_replace(',', '', $data['product_price'][$i]) ?? 0;
+                            $guest->guest_debt -= ($data['product_qty'][$i] * $product_price);
+                            $guest->save();
                         }
                     }
                 }
@@ -316,6 +325,11 @@ class ReturnExport extends Model
                         if ($product->type != 2) {
                             $product->product_inventory += $data['product_qty'][$i];
                             $product->save();
+                            //cập nhật công nợ khách hàng
+                            $guest = Guest::find($data['guest_id']);
+                            $product_price = str_replace(',', '', $data['product_price'][$i]) ?? 0;
+                            $guest->guest_debt -= ($data['product_qty'][$i] * $product_price);
+                            $guest->save();
                         }
                     }
                 }

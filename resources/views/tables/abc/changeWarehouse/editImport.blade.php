@@ -1,6 +1,6 @@
-<x-navbar :title="$title" activeGroup="manageProfess" activeName="changeWarehouse"></x-navbar>
+<x-navbar :title="$title" activeGroup="manageProfess" activeName="importChangeWarehouse"></x-navbar>
 <form
-    action="{{ route('changeWarehouse.update', ['workspace' => $workspacename, 'changeWarehouse' => $changeWarehouse->id]) }}"
+    action="{{ route('importChangeWarehouse.update', ['workspace' => $workspacename, 'importChangeWarehouse' => $changeWarehouse->id]) }}"
     method="POST" id="formSubmit" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -31,7 +31,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="last-span">Chỉnh sửa phiếu xuất chuyển kho</span>
+                    <span class="last-span">Chỉnh sửa phiếu nhập chuyển kho</span>
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
@@ -198,8 +198,9 @@
                     </div>
                 </div>
             </div>
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PXCK'" :status="'2'" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PNCK'" :status="'2'" />
         </div>
+    </div>
 </form>
 </div>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
