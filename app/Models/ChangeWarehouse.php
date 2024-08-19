@@ -86,4 +86,24 @@ class ChangeWarehouse extends Model
         }
         return $status;
     }
+    public function ajax($data)
+    {
+        $changeWarehouse = ChangeWarehouse::where('workspace_id', Auth::user()->current_workspace);
+        if (isset($data['search'])) {
+            $changeWarehouse = $changeWarehouse->where(function ($query) use ($data) {
+                $query->orWhere('form_code', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+            $changeWarehouse = $changeWarehouse->whereBetween('change_warehouse.created_at', [$dateStart, $dateEnd]);
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $changeWarehouse = $changeWarehouse->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+
+        $changeWarehouse = $changeWarehouse->get();
+        return $changeWarehouse;
+    }
 }
