@@ -92,6 +92,9 @@
                                             </span>
                                         </div>
                                         <div class="scrollbar">
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                data-button="date" type="button">Ngày lập phiếu
+                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-delivery_code" data-button="delivery_code" type="button">Mã
                                                 nhận hàng
@@ -119,9 +122,7 @@
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
                                                 data-button="status" type="button">Trạng thái
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
-                                                data-button="date" type="button">Ngày nhận hàng
-                                            </button>
+
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-total"
                                                 data-button="total" type="button">
                                                 Tổng tiền
@@ -393,21 +394,6 @@
     var svgbot =
         "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
 
-    var delivery_code = [];
-    var users = [];
-    var statusDe = [];
-
-    function filterstatus() {
-        filterButtons("myInput-status", "ks-cboxtags-status");
-    }
-
-    function filterusers() {
-        filterButtons("myInput-users", "ks-cboxtags-users");
-    }
-
-    function filterdelivery_code() {
-        filterButtons("myInput-delivery_code", "ks-cboxtags-delivery_code");
-    }
     // get id check box name
     $(document).on('click', '.btn-submit', function(e) {
         if (!$(e.target).is('input[type="checkbox"]')) {
@@ -416,59 +402,9 @@
         var buttonName = $(this).data('button');
         var btn_submit = $(this).data('button-name');
         var search = $('#search').val();
-        var quotenumber = $('#quotenumber').val();
-        var provides = $('#provides').val();
-        var shipping_unit = $('#shipping_unit').val();
-        var operator_total = $('.total-operator').val();
-        var val_total = $('.total-quantity').val();
-        var total = [operator_total, val_total];
-        var operator_shipping_fee = $('.shipping_fee-operator').val();
-        var val_shipping_fee = $('.shipping_fee-quantity').val();
-        var shipping_fee = [operator_shipping_fee, val_shipping_fee];
         var date_start = $('#date_start_date').val();
         var date_end = $('#date_end_date').val();
         var date = [date_start, date_end];
-        if ($(this).data('button-name') === 'status') {
-            $('.ks-cboxtags-status input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked')) {
-                    if (status.indexOf(value) === -1 && statusDe.indexOf(value) === -1) {
-                        statusDe.push(value);
-                    }
-                } else {
-                    const index = statusDe.indexOf(value);
-                    if (index !== -1) {
-                        statusDe.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'delivery_code') {
-            $('.ks-cboxtags-delivery_code input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && delivery_code.indexOf(value) === -1) {
-                    delivery_code.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = delivery_code.indexOf(value);
-                    if (index !== -1) {
-                        delivery_code.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'users') {
-            $('.ks-cboxtags-users input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && users.indexOf(value) === -1) {
-                    users.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = users.indexOf(value);
-                    if (index !== -1) {
-                        users.splice(index, 1);
-                    }
-                }
-            });
-        }
         var sort_by = '';
         if (typeof $(this).data('sort-by') !== 'undefined') {
             sort_by = $(this).data('sort-by');
@@ -486,42 +422,6 @@
         if (!$(e.target).closest('li, input[type="checkbox"]').length) {
             $('#' + btn_submit + '-options').hide();
         }
-        $(".btn-filter_search").prop("disabled", false);
-        if ($(this).data('delete') === 'quotenumber') {
-            quotenumber = null;
-            $('#quotenumber').val('');
-        }
-        if ($(this).data('delete') === 'shipping_unit') {
-            shipping_unit = null;
-            $('#shipping_unit').val('');
-        }
-        if ($(this).data('delete') === 'delivery_code') {
-            delivery_code = [];
-            // $('.deselect-all-delivery_code').click();
-            $('.ks-cboxtags-delivery_code input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'provides') {
-            provides = null;
-            $('#provides').val('');
-        }
-        if ($(this).data('delete') === 'users') {
-            users = [];
-            $('.ks-cboxtags-users input[type="checkbox"]').prop('checked', false);
-
-        }
-        if ($(this).data('delete') === 'status') {
-            statusDe = [];
-            $('.ks-cboxtags-status input[type="checkbox"]').prop('checked', false);
-
-        }
-        if ($(this).data('delete') === 'total') {
-            total = null;
-            $('.total-quantity').val('');
-        }
-        if ($(this).data('delete') === 'shipping_fee') {
-            shipping_fee = null;
-            $('.shipping_fee-quantity').val('');
-        }
         if ($(this).data('delete') === 'date') {
             date = null;
             $('#date_start_date').val('');
@@ -529,17 +429,9 @@
         }
         $.ajax({
             type: 'get',
-            url: "{{ route('searchReceive') }}",
+            url: "{{ route('searchCashRe') }}",
             data: {
                 search: search,
-                quotenumber: quotenumber,
-                shipping_unit: shipping_unit,
-                shipping_fee: shipping_fee,
-                users: users,
-                provides: provides,
-                delivery_code: delivery_code,
-                status: statusDe,
-                total: total,
                 date: date,
                 sort: sort,
             },

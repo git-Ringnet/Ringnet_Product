@@ -22,7 +22,15 @@ class Delivery extends Model
         'workspace_id',
         'status',
         'created_at',
-        'updated_at', 'promotion', 'totalVat','manager_warehouse','id_sale','fullname','address','phone','note'
+        'updated_at',
+        'promotion',
+        'totalVat',
+        'manager_warehouse',
+        'id_sale',
+        'fullname',
+        'address',
+        'phone',
+        'note'
     ];
     protected $table = 'delivery';
 
@@ -1520,6 +1528,55 @@ class Delivery extends Model
             ->orderBy('delivery.id', 'desc');
         $deliveries = $deliveries->get();
         // dd($deliveries);
+        return $deliveries;
+    }
+
+    public function AjaxGetSumDelivery($data)
+    {
+        $deliveries = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            ->leftJoin('groups', 'groups.id', 'guest.group_id')
+            ->select(
+                'delivery.id',
+                'delivery.guest_id',
+                'delivery.quotation_number',
+                'delivery.code_delivery as maPhieu',
+                'delivery.shipping_unit',
+                'delivery.shipping_fee',
+                'delivery.id as maGiaoHang',
+                'delivery.created_at as ngayTao',
+                'delivery.updated_at as ngayGiao',
+                'delivery.status as trangThai',
+                'users.name',
+                'guest.guest_name_display as nameGuest',
+                'delivery.promotion',
+                'delivery.totalVat as totalVat',
+                'groups.name as nhomKH',
+            )
+            ->leftJoin('users', 'users.id', 'delivery.user_id')
+            ->where('delivery.workspace_id', Auth::user()->current_workspace);
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+            $deliveries = $deliveries->whereBetween('delivery.created_at', [$dateStart, $dateEnd]);
+        }
+        $deliveries = $deliveries->groupBy(
+            'delivery.id',
+            'delivery.guest_id',
+            'delivery.quotation_number',
+            'delivery.code_delivery',
+            'delivery.shipping_unit',
+            'delivery.shipping_fee',
+            'users.name',
+            'delivery.created_at',
+            'delivery.updated_at',
+            'delivery.status',
+            'guest.guest_name_display',
+            'delivery.promotion',
+            'delivery.totalVat',
+            'groups.name',
+        )
+            ->orderBy('delivery.id', 'desc');
+        $deliveries = $deliveries->get();
         return $deliveries;
     }
 }

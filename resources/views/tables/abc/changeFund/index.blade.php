@@ -54,8 +54,7 @@
                                     </div>
                                 </form>
                                 <div class="dropdown mx-2 filter-all">
-                                    <button class="btn-filter_search" type="button" id="dropdownMenuButton"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button class="btn-filter_search" data-toggle="dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">
                                             <path
@@ -78,32 +77,66 @@
                                                 d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
                                                 fill="#6B6F76" />
                                         </svg>
-                                        </span>
                                     </button>
-                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                        style="z-index:">
                                         <div class="search-container px-2">
-                                            <input type="text" placeholder="Tìm kiếm" id="myInput"
-                                                onkeyup="filterFunction()" class="text-13">
+                                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
+                                                onkeyup="filterFunction()" style="outline: none;">
                                             <span class="search-icon mr-2">
                                                 <i class="fas fa-search"></i>
                                             </span>
                                         </div>
                                         <div class="scrollbar">
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-code"
-                                                data-button="code" type="button">Mã hàng hóa
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                data-button="date" type="button">Ngày lập phiếu
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-idName"
-                                                data-button="idName" type="button">Tên hàng hóa
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-delivery_code" data-button="delivery_code" type="button">Mã
+                                                nhận hàng
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-inventory"
-                                                data-button="inventory" type="button">Số lượng tồn
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-quotenumber" data-button="quotenumber" type="button">Đơn mua
+                                                hàng
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-provides"
+                                                data-button="provides" type="button">Nhà cung cấp
+                                            </button>
+                                            @can('isAdmin')
+                                                <button class="dropdown-item btndropdown text-13-black" id="btn-users"
+                                                    data-button="users" type="button">Người tạo
+                                                </button>
+                                            @endcan
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-shipping_unit" data-button="shipping_unit" type="button">Đơn
+                                                vị vận chuyển
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-shipping_fee" data-button="shipping_fee" type="button">
+                                                Phí vận chuyển
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-status"
+                                                data-button="status" type="button">Trạng thái
+                                            </button>
+
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-total"
+                                                data-button="total" type="button">
+                                                Tổng tiền
                                             </button>
                                         </div>
                                     </div>
-                                    {{-- <x-filter-text name="code" title="Mã hàng hoá" />
-                                    <x-filter-checkbox :dataa='$product' button="products" name="idName"
-                                        title="Tên hàng hóa" namedisplay="product_name" />
-                                    <x-filter-compare name="inventory" button="products" title="Số lượng tồn" /> --}}
+                                    <x-filter-text name="quotenumber" title="Đơn mua hàng" />
+                                    {{-- <x-filter-checkbox :dataa='$data' name="delivery_code" title="Mã nhận hàng"
+                                        namedisplay="delivery_code" /> --}}
+                                    <x-filter-text name="provides" title="Nhà cung cấp" />
+                                    <x-filter-text name="shipping_unit" title="Đơn vị vận chuyển" />
+                                    {{-- <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
+                                        namedisplay="name" /> --}}
+                                    <x-filter-status name="status" key1="1" value1="Chưa giao" key2="2"
+                                        value2="Đã nhận" color1="#858585" color2="#08AA36BF" title="Trạng thái" />
+                                    <x-filter-compare name="total" title="Tổng tiền" />
+                                    <x-filter-compare name="shipping_fee" title="Phí vận chuyển" />
+                                    <x-filter-date-time name="date" title="Ngày nhận hàng" />
                                 </div>
                             </div>
                         </div>
@@ -226,7 +259,7 @@
                                     <tr class="position-relative product-info"
                                         onclick="handleRowClick('checkbox', event);">
                                         <input type="hidden" name="id-product" class="id-product" id="id-product"
-                                            value="">
+                                            value="{{ $item->id }}">
                                         <td class="border-bottom border-top-0">
                                             <span class="margin-Right10">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10"
@@ -348,7 +381,7 @@
 </div> --}}
 
 </div>
-{{-- <script src="{{ asset('/dist/js/filter.js') }}"></script> --}}
+<script src="{{ asset('/dist/js/filter.js') }}"></script>
 
 <script type="text/javascript">
     $(document).on('change', '#file_restore', function(e) {
@@ -356,13 +389,6 @@
         $('#restore_data')[0].submit();
     })
 
-    function filtername() {
-        filterButtons("myInput-name", "ks-cboxtags-name");
-    }
-
-    function filtercode() {
-        filterButtons("myInput-code", "ks-cboxtags-code");
-    }
     var filters = [];
     var idName = [];
     var svgtop =
@@ -376,25 +402,10 @@
         }
         var buttonName = $(this).data('button');
         var btn_submit = $(this).data('button-name');
-
-        if ($(this).data('button-name') === 'idName') {
-            $('.ks-cboxtags-idName input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && idName.indexOf(value) === -1) {
-                    idName.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = idName.indexOf(value);
-                    if (index !== -1) {
-                        idName.splice(index, 1);
-                    }
-                }
-            });
-        }
         var search = $('#search').val();
-        var code = $('#code').val();
-        var inventory_op = $('.inventory-operator').val();
-        var inventory_val = $('.inventory-quantity').val();
-        var inventory = [inventory_op, inventory_val];
+        var date_start = $('#date_start_date').val();
+        var date_end = $('#date_end_date').val();
+        var date = [date_start, date_end];
         var sort_by = '';
         if (typeof $(this).data('sort-by') !== 'undefined') {
             sort_by = $(this).data('sort-by');
@@ -412,29 +423,17 @@
         if (!$(e.target).closest('li, input[type="checkbox"]').length) {
             $('#' + btn_submit + '-options').hide();
         }
-        $(".btn-filter_search").prop("disabled", false);
-
-        if ($(this).data('delete') === 'code') {
-            code = null;
-            $('#code').val('');
-        }
-        if ($(this).data('delete') === 'idName') {
-            idName = [];
-            // $('.deselect-all-idName').click();
-            $('.ks-cboxtags-name input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'inventory') {
-            inventory = null;
-            $('.inventory-quantity').val('');
+        if ($(this).data('delete') === 'date') {
+            date = null;
+            $('#date_start_date').val('');
+            $('#date_end_date').val('');
         }
         $.ajax({
             type: 'get',
-            url: "{{ route('searchInventory') }}",
+            url: "{{ route('searchChangeFun') }}",
             data: {
                 search: search,
-                inventory: inventory,
-                idName: idName,
-                code: code,
+                date: date,
                 sort: sort,
             },
             success: function(data) {
@@ -462,7 +461,7 @@
                     var index = filters.indexOf(item.name);
                     // Tạo thẻ item-filter
                     var itemFilter = $('<div>').addClass(
-                        'item-filter span input-search d-flex justify-content-center align-items-center mr-2'
+                        'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
                     ).attr({
                         'data-icon': item.icon,
                         'data-button': item.name
@@ -480,18 +479,19 @@
                 });
 
                 // Ẩn hiện dữ liệu khi đã filters
-                var productIds = [];
-                // Lặp qua mảng provides và thu thập các productIds
-                data.products.forEach(function(item) {
-                    var productId = item.id;
-                    productIds.push(productId);
+                var receiveIds = [];
+                // Lặp qua mảng provides và thu thập các deleveryIds
+                data.data.forEach(function(item) {
+                    var deleveryId = item.id;
+                    receiveIds.push(deleveryId);
                 });
-                // Ẩn tất cả các phần tử .product-info
-                // $('.product-info').hide();
-                // Lặp qua từng phần tử .product-info để hiển thị và cập nhật data-position
+                // Ẩn tất cả các phần tử .detailExport-info
+                // $('.detailExport-info').hide();
+                // Lặp qua từng phần tử .detailExport-info để hiển thị và cập nhật data-position
                 $('.product-info').each(function() {
-                    var value = parseInt($(this).find('.id-product').val());
-                    var index = productIds.indexOf(value);
+                    var value = parseInt($(this).find('.id-product')
+                        .val());
+                    var index = receiveIds.indexOf(value);
                     if (index !== -1) {
                         $(this).show();
                         // Cập nhật data-position

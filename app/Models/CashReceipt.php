@@ -23,7 +23,8 @@ class CashReceipt extends Model
         'user_id',
         'note',
         'status',
-        'workspace_id', 'delivery_id',
+        'workspace_id',
+        'delivery_id',
         'returnImport_id'
     ];
     public function guest()
@@ -188,5 +189,31 @@ class CashReceipt extends Model
             $detailE->save();
         }
         return $cashReceipt;
+    }
+
+    public function ajax($data)
+    {
+        $returnImport = CashReceipt::with(['guest', 'fund', 'user', 'workspace'])->where('workspace_id', Auth::user()->current_workspace);
+        if (isset($data['search'])) {
+            $returnImport = $returnImport->where(function ($query) use ($data) {
+                $query->orWhere('return_code', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+            $returnImport = $returnImport->whereBetween('cash_receipts.created_at', [$dateStart, $dateEnd]);
+        }
+        if (!empty($data['date_thu'][0]) && !empty($data['date_thu'][1])) {
+            $dateStart = Carbon::parse($data['date_thu'][0]);
+            $dateEnd = Carbon::parse($data['date_thu'][1])->endOfDay();
+            $returnImport = $returnImport->whereBetween('cash_receipts.created_at', [$dateStart, $dateEnd]);
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $returnImport = $returnImport->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+
+        $returnImport = $returnImport->get();
+        return $returnImport;
     }
 }

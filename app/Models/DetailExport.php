@@ -583,7 +583,7 @@ class DetailExport extends Model
             ->leftJoin('groups', 'groups.id', 'guest.group_id')
             ->select(
                 'detailexport.id as id',
-                'detailexport.*',
+                'detailexport.guest_id as guest_id',
                 'detailexport.created_at as ngayTao',
                 'detailexport.quotation_number as maPhieu',
                 'groups.name as nhomKH',
@@ -603,6 +603,7 @@ class DetailExport extends Model
             ->groupBy(
                 'detailexport.id',
                 'detailexport.created_at',
+                'detailexport.guest_id',
                 'detailexport.quotation_number',
                 'groups.name',
                 'guest.guest_name_display',
@@ -616,6 +617,64 @@ class DetailExport extends Model
                 'quoteexport.price_export',
                 'quoteexport.product_total'
             )
+            ->get();
+
+        return $detaiExport;
+    }
+    public function AjaxAllProductsSell($data)
+    {
+        $detaiExport = DB::table($this->table)
+            ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->leftJoin('products', 'products.id', 'quoteexport.product_id')
+            ->leftJoin('quoteimport', 'quoteimport.product_id', 'quoteexport.product_id')
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->leftJoin('groups', 'groups.id', 'guest.group_id')
+            ->select(
+                'detailexport.id as id',
+                'detailexport.guest_id as guest_id',
+                'detailexport.created_at as ngayTao',
+                'detailexport.quotation_number as maPhieu',
+                'groups.name as nhomKH',
+                'guest.guest_name_display as nameGuest',
+                'detailexport.total_price as totalProductVat',
+                'products.product_code as product_code',
+                'products.product_name as product_name',
+                'products.group_id as group_id',
+                'guest.group_id as group_idGuest',
+                'products.product_unit as product_unit',
+                'quoteexport.product_qty as slxuat',
+                'quoteexport.price_export as price_export',
+                'quoteexport.product_total as product_total_vat',
+                DB::raw('AVG(quoteimport.price_export) as giaNhap')
+            )
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace);
+        if (!empty($data['date_guest'][0]) && !empty($data['date_guest'][1])) {
+            $dateStart = Carbon::parse($data['date_guest'][0]);
+            $dateEnd = Carbon::parse($data['date_guest'][1])->endOfDay();
+            $detaiExport = $detaiExport->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
+        }
+        if (!empty($data['date_product'][0]) && !empty($data['date_product'][1])) {
+            $dateStart = Carbon::parse($data['date_product'][0]);
+            $dateEnd = Carbon::parse($data['date_product'][1])->endOfDay();
+            $detaiExport = $detaiExport->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
+        }
+        $detaiExport = $detaiExport->groupBy(
+            'detailexport.id',
+            'detailexport.created_at',
+            'detailexport.guest_id',
+            'detailexport.quotation_number',
+            'groups.name',
+            'guest.guest_name_display',
+            'detailexport.total_price',
+            'products.product_code',
+            'products.product_name',
+            'products.group_id',
+            'guest.group_id',
+            'products.product_unit',
+            'quoteexport.product_qty',
+            'quoteexport.price_export',
+            'quoteexport.product_total'
+        )
             ->get();
 
         return $detaiExport;

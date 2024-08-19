@@ -103,6 +103,9 @@
                                             </span>
                                         </div>
                                         <div class="scrollbar">
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                data-button="date" type="button">Ngày lập phiếu
+                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-code_delivery" data-button="code_delivery" type="button">Mã
                                                 giao hàng
@@ -129,9 +132,6 @@
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
                                                 data-button="status" type="button">Trạng thái
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
-                                                data-button="date" type="button">Ngày giao hàng
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-total"
                                                 data-button="total" type="button">
@@ -551,77 +551,8 @@
                 sort: sort,
             },
             success: function(data) {
-                // Hiển thị label dữ liệu tìm kiếm ...
-                var existingNames = [];
-                data.filters.forEach(function(item) {
-                    // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
-                    if (filters.indexOf(item.name) === -1) {
-                        filters.push(item.name);
-                    }
-                    existingNames.push(item.name);
-                });
-
-                filters = filters.filter(function(name) {
-                    return existingNames.includes(name);
-                });
-                $('.result-filter-delivery').empty();
-                if (data.filters.length > 0) {
-                    $('.result-filter-delivery').addClass('has-filters');
-                } else {
-                    $('.result-filter-delivery').removeClass('has-filters');
-                }
-                // Lặp qua mảng filters để tạo và render các phần tử
-                data.filters.forEach(function(item) {
-                    var index = filters.indexOf(item.name);
-                    // Tạo thẻ item-filter
-                    var itemFilter = $('<div>').addClass(
-                        'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
-                    ).attr({
-                        'data-icon': item.icon,
-                        'data-button': item.name
-                    });
-                    itemFilter.css('order', index);
-                    // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                    itemFilter.append(
-                        '<span class="text text-13-black m-0" style="flex:2;">' +
-                        item.value +
-                        '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
-                        item.name + '" data-button="' + buttonName +
-                        '"></i>');
-                    // Thêm thẻ item-filter vào 
-                    $('.result-filter-delivery').append(itemFilter);
-                });
-
-                // Ẩn hiện dữ liệu khi đã filters
-                var deliveryIds = [];
-                // Lặp qua mảng provides và thu thập các deleveryIds
-                data.data.forEach(function(item) {
-                    var deleveryId = item.maGiaoHang;
-                    deliveryIds.push(deleveryId);
-                });
-                // Ẩn tất cả các phần tử .delivery-info
-                // $('.delivery-info').hide();
-                // Lặp qua từng phần tử .delivery-info để hiển thị và cập nhật data-position
-                $('.delivery-info').each(function() {
-                    var value = parseInt($(this).find('.id-delivery')
-                        .val());
-                    var index = deliveryIds.indexOf(value);
-                    if (index !== -1) {
-                        $(this).show();
-                        // Cập nhật data-position
-                        $(this).attr('data-position', index + 1);
-                    } else {
-                        $(this).hide();
-                    }
-                });
-                // Tạo một bản sao của mảng phần tử .delivery-info
-                var clonedElements = $('.delivery-info').clone();
-                // Sắp xếp các phần tử trong bản sao theo data-position
-                var sortedElements = clonedElements.sort(function(a, b) {
-                    return $(a).data('position') - $(b).data('position');
-                });
-                // Thay thế các phần tử trong .tbody-delivery bằng các phần tử đã sắp xếp
-                $('.tbody-delivery').empty().append(sortedElements);
+                updateFilters(data, filters, '.result-filter-delivery', '.tbody-delivery',
+                    '.delivery-info', '.id-delivery', buttonName);
             }
         })
         $.ajaxSetup({

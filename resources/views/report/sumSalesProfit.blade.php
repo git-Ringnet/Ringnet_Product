@@ -67,26 +67,32 @@
                                                 </span>
                                             </div>
                                             <div class="scrollbar">
+                                                <button class="dropdown-item btndropdown text-13-black"
+                                                    data-button="product" id="btn-date-product" type="button">Ngày báo
+                                                    giá
+                                                </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-code"
-                                                    id="btn-code-import" data-button="code" data-button="import"
+                                                    id="btn-code-import" data-button="code" data-button="product"
                                                     type="button">Mã nhà cung cấp
                                                 </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-name"
-                                                    id="btn-name-import" data-button="name" data-button="import"
+                                                    id="btn-name-import" data-button="name" data-button="product"
                                                     type="button">Công ty
                                                 </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-total"
-                                                    id="btn-total-import" data-button="import" data-button="total"
+                                                    id="btn-total-import" data-button="product" data-button="total"
                                                     type="button">
                                                     Tổng thanh toán
                                                 </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-debt"
-                                                    id="btn-debt-import" data-button="import" data-button="debt"
+                                                    id="btn-debt-import" data-button="product" data-button="debt"
                                                     type="button">
                                                     Công nợ
                                                 </button>
                                             </div>
                                         </div>
+                                        <x-filter-date-time name="date-product" button="product"
+                                            title="Ngày báo giá" />
                                     </div>
                                     <button class="mx-1 d-flex align-items-center btn-primary rounded"
                                         onclick="printContent('printContent', 'hanghoa','foot')">In
@@ -151,26 +157,31 @@
                                                 </span>
                                             </div>
                                             <div class="scrollbar">
+                                                <button class="dropdown-item btndropdown text-13-black"
+                                                    id="btn-date-guest" data-button="guest" type="button">Ngày báo
+                                                    giá
+                                                </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-code"
-                                                    id="btn-code-import" data-button="code" data-button="import"
+                                                    id="btn-code-guest" data-button="code" data-button="guest"
                                                     type="button">Mã nhà cung cấp
                                                 </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-name"
-                                                    id="btn-name-import" data-button="name" data-button="import"
+                                                    id="btn-name-guest" data-button="name" data-button="guest"
                                                     type="button">Công ty
                                                 </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-total"
-                                                    id="btn-total-import" data-button="import" data-button="total"
+                                                    id="btn-total-guest" data-button="guest" data-button="total"
                                                     type="button">
                                                     Tổng thanh toán
                                                 </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-debt"
-                                                    id="btn-debt-import" data-button="import" data-button="debt"
+                                                    id="btn-debt-guest" data-button="guest" data-button="debt"
                                                     type="button">
                                                     Công nợ
                                                 </button>
                                             </div>
                                         </div>
+                                        <x-filter-date-time name="date-guest" button="guest" title="Ngày báo giá" />
                                     </div>
                                     <button class="mx-1 d-flex align-items-center btn-primary rounded"
                                         onclick="printContent('printContent', 'khachhang','foot')">In
@@ -183,8 +194,12 @@
             </div>
         </div>
     </div>
-    <div class="content" style="margin-top: 13.8rem;">
+    <div class="content" style="margin-top: 14.5rem;">
         <section class="container-fluided">
+            <div class="row result-filter-product hanghoa margin-left30 my-1">
+            </div>
+            <div class="row result-filter-guest khachhang margin-left30 my-1" style="display: none">
+            </div>
             <div class="tab-content">
                 <div id="buy" class="content tab-pane in active">
                     <div class="row p-0 m-0">
@@ -329,7 +344,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="table-hanghoa">
                                                 @php
                                                     $totalUngrouped = 0;
                                                     $totalGrouped = 0;
@@ -355,8 +370,10 @@
                                                 </tr>
                                                 @foreach ($allDeliveries as $item)
                                                     @if ($item->group_id == 0)
-                                                        <tr class="position-relative relative main-row"
+                                                        <tr class="position-relative relative main-row hanghoa-info"
                                                             data-id="{{ $item->id }}" data-status="hanghoa">
+                                                            <input type="hidden" value="{{ $item->id }}"
+                                                                class="hanghoa-item">
                                                             <td class="text-13-black border height-52">
                                                                 {{ $item->maPhieu }}
                                                             </td>
@@ -437,7 +454,10 @@
 
                                                     @foreach ($allDeliveries as $item)
                                                         @if ($item->group_id == $value->id)
-                                                            <tr class="position-relative relative" data-id="{{ $item->id }}" data-status="hanghoa">
+                                                            <tr class="position-relative relative hanghoa-info"
+                                                                data-id="{{ $item->id }}" data-status="hanghoa">
+                                                                <input type="hidden" value="{{ $item->id }}"
+                                                                    class="hanghoa-item">
                                                                 <td class="text-13-black border height-52">
                                                                     {{ $item->maPhieu }}</td>
                                                                 <td class="text-13-black border height-52">
@@ -634,7 +654,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="table-khachhang">
                                                 @php
                                                     // Khởi tạo các biến tổng cộng không nhóm
                                                     $totalUngrouped = 0;
@@ -660,7 +680,10 @@
                                                 </tr>
                                                 @foreach ($allDeliveries as $item)
                                                     @if ($item->group_idGuest == 0)
-                                                        <tr class="position-relative relative main-row" data-id="{{ $item->guest_id }}" data-status="khachhang">
+                                                        <tr class="position-relative relative main-row khachhang-info"
+                                                            data-id="{{ $item->guest_id }}" data-status="khachhang">
+                                                            <input type="hidden" value="{{ $item->id }}"
+                                                                class="khachhang-item">
                                                             <td class="text-13-black border height-52">
                                                                 {{ $item->maPhieu }}</td>
                                                             <td class="text-13-black border height-52">
@@ -743,7 +766,11 @@
 
                                                     @foreach ($allDeliveries as $item)
                                                         @if ($item->group_idGuest == $value->id)
-                                                            <tr class="position-relative relative main-row" data-id="{{ $item->guest_id }}" data-status="khachhang">
+                                                            <tr class="position-relative relative main-row khachhang-info"
+                                                                data-id="{{ $item->guest_id }}"
+                                                                data-status="khachhang">
+                                                                <input type="hidden" value="{{ $item->id }}"
+                                                                    class="khachhang-item">
                                                                 <td class="text-13-black border height-52">
                                                                     {{ $item->maPhieu }}</td>
                                                                 <td class="text-13-black border height-52">
@@ -857,6 +884,8 @@
 </div>
 <x-print-component :contentId="$title" />
 <x-right-click :workspacename="$workspacename" :page="'viewReportSumSellProfit'"></x-right-click>
+<script src="{{ asset('/dist/js/number.js') }}"></script>
+<script src="{{ asset('/dist/js/filter.js') }}"></script>
 <script>
     $('.khachhang').hide();
     $('.header-options--nav-2 a[data-toggle="tab"]').click(function() {
@@ -865,5 +894,91 @@
         // Hiển thị hoặc ẩn các phần tử tương ứng với tab được chọn
         $('.hanghoa').toggle(targetId === '#hanghoa');
         $('.khachhang').toggle(targetId === '#khachhang');
+    });
+
+    var filters = [];
+    var idName = [];
+    var svgtop =
+        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 19.0009C11.6332 19.0009 11.7604 18.9482 11.8542 18.8544C11.9480 18.7607 12.0006 18.6335 12.0006 18.5009V6.70789L15.1466 9.85489C15.2405 9.94878 15.3679 10.0015 15.5006 10.0015C15.6334 10.0015 15.7607 9.94878 15.8546 9.85489C15.9485 9.76101 16.0013 9.63367 16.0013 9.50089C16.0013 9.36812 15.9485 9.24078 15.8546 9.14689L11.8546 5.14689C11.8082 5.10033 11.7530 5.06339 11.6923 5.03818C11.6315 5.01297 11.5664 5 11.5006 5C11.4349 5 11.3697 5.01297 11.3090 5.03818C11.2483 5.06339 11.1931 5.10033 11.1466 5.14689L7.14663 9.14689C7.10014 9.19338 7.06327 9.24857 7.03811 9.30931C7.01295 9.37005 7 9.43515 7 9.50089C7 9.63367 7.05274 9.76101 7.14663 9.85489C7.24052 9.94878 7.36786 10.0015 7.50063 10.0015C7.63341 10.0015 7.76075 9.94878 7.85463 9.85489L11.0006 6.70789V18.5009C11.0006 18.6335 11.0533 18.7607 11.1471 18.8544C11.2408 18.9482 11.3680 19.0009 11.5006 19.0009Z' fill='#555555'/></svg>";
+    var svgbot =
+        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
+    $(document).on('click', '.btn-submit', function(e) {
+        if (!$(e.target).is('input[type="checkbox"]')) {
+            e.preventDefault();
+        }
+        var buttonName = $(this).data('button');
+        var btn_submit = $(this).data('button-name');
+        var search = $('#search').val();
+        var date_start_product = $('#date_start_date-product').val();
+        var date_end_product = $('#date_end_date-product').val();
+        var date_product = [date_start_product, date_end_product];
+
+        var date_start_guest = $('#date_start_date-guest').val();
+        var date_end_guest = $('#date_end_date-guest').val();
+        var date_guest = [date_start_guest, date_end_guest];
+        var sort_by = '';
+        if (typeof $(this).data('sort-by') !== 'undefined') {
+            sort_by = $(this).data('sort-by');
+        }
+        var sort_type = $(this).data('sort-type');
+        sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
+        $(this).data('sort-type', sort_type);
+        $('.icon').text('');
+        var iconId = 'icon-' + sort_by;
+        var iconDiv = $('#' + iconId);
+        iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
+        sort = [
+            sort_by, sort_type
+        ];
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + btn_submit + '-options').hide();
+        }
+        if ($(this).data('delete') === 'date_product') {
+            date_product = null;
+            $('#date_start_date-product').val('');
+            $('#date_end_date-product').val('');
+        }
+        if ($(this).data('delete') === 'date_guest') {
+            date_guest = null;
+            $('#date_start_date-guest').val('');
+            $('#date_end_date-guest').val('');
+        }
+        if (buttonName == 'product') {
+            $.ajax({
+                type: 'get',
+                url: "{{ route('searchReportSumSellProfit') }}",
+                data: {
+                    search: search,
+                    date_product: date_product,
+                    sort: sort,
+                },
+                success: function(data) {
+                    console.log(data);
+                    updateFilters(data, filters, '.result-filter-product', '.table-hanghoa',
+                        '.hanghoa-info', '.hanghoa-item', buttonName);
+                }
+            });
+        }
+        if (buttonName == 'guest') {
+            $.ajax({
+                type: 'get',
+                url: "{{ route('searchReportSumSellProfit') }}",
+                data: {
+                    search: search,
+                    date_guest: date_guest,
+                    sort: sort,
+                },
+                success: function(data) {
+                    console.log(data);
+                    updateFilters(data, filters, '.result-filter-guest', '.table-khachhang',
+                        '.khachhang-info', '.khachhang-item', buttonName);
+                }
+            });
+        }
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
+        });
     });
 </script>

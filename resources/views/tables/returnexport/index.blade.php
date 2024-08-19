@@ -92,6 +92,9 @@
                                             </span>
                                         </div>
                                         <div class="scrollbar">
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                data-button="date" type="button">Ngày lập phiếu
+                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-delivery_code" data-button="delivery_code" type="button">Mã
                                                 nhận hàng
@@ -118,9 +121,6 @@
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
                                                 data-button="status" type="button">Trạng thái
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
-                                                data-button="date" type="button">Ngày nhận hàng
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-total"
                                                 data-button="total" type="button">
@@ -411,59 +411,10 @@
         var buttonName = $(this).data('button');
         var btn_submit = $(this).data('button-name');
         var search = $('#search').val();
-        var quotenumber = $('#quotenumber').val();
-        var provides = $('#provides').val();
-        var shipping_unit = $('#shipping_unit').val();
-        var operator_total = $('.total-operator').val();
-        var val_total = $('.total-quantity').val();
-        var total = [operator_total, val_total];
-        var operator_shipping_fee = $('.shipping_fee-operator').val();
-        var val_shipping_fee = $('.shipping_fee-quantity').val();
-        var shipping_fee = [operator_shipping_fee, val_shipping_fee];
         var date_start = $('#date_start_date').val();
         var date_end = $('#date_end_date').val();
         var date = [date_start, date_end];
-        if ($(this).data('button-name') === 'status') {
-            $('.ks-cboxtags-status input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked')) {
-                    if (status.indexOf(value) === -1 && statusDe.indexOf(value) === -1) {
-                        statusDe.push(value);
-                    }
-                } else {
-                    const index = statusDe.indexOf(value);
-                    if (index !== -1) {
-                        statusDe.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'delivery_code') {
-            $('.ks-cboxtags-delivery_code input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && delivery_code.indexOf(value) === -1) {
-                    delivery_code.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = delivery_code.indexOf(value);
-                    if (index !== -1) {
-                        delivery_code.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'users') {
-            $('.ks-cboxtags-users input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && users.indexOf(value) === -1) {
-                    users.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = users.indexOf(value);
-                    if (index !== -1) {
-                        users.splice(index, 1);
-                    }
-                }
-            });
-        }
+
         var sort_by = '';
         if (typeof $(this).data('sort-by') !== 'undefined') {
             sort_by = $(this).data('sort-by');
@@ -482,41 +433,6 @@
             $('#' + btn_submit + '-options').hide();
         }
         $(".btn-filter_search").prop("disabled", false);
-        if ($(this).data('delete') === 'quotenumber') {
-            quotenumber = null;
-            $('#quotenumber').val('');
-        }
-        if ($(this).data('delete') === 'shipping_unit') {
-            shipping_unit = null;
-            $('#shipping_unit').val('');
-        }
-        if ($(this).data('delete') === 'delivery_code') {
-            delivery_code = [];
-            // $('.deselect-all-delivery_code').click();
-            $('.ks-cboxtags-delivery_code input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'provides') {
-            provides = null;
-            $('#provides').val('');
-        }
-        if ($(this).data('delete') === 'users') {
-            users = [];
-            $('.ks-cboxtags-users input[type="checkbox"]').prop('checked', false);
-
-        }
-        if ($(this).data('delete') === 'status') {
-            statusDe = [];
-            $('.ks-cboxtags-status input[type="checkbox"]').prop('checked', false);
-
-        }
-        if ($(this).data('delete') === 'total') {
-            total = null;
-            $('.total-quantity').val('');
-        }
-        if ($(this).data('delete') === 'shipping_fee') {
-            shipping_fee = null;
-            $('.shipping_fee-quantity').val('');
-        }
         if ($(this).data('delete') === 'date') {
             date = null;
             $('#date_start_date').val('');
@@ -524,17 +440,9 @@
         }
         $.ajax({
             type: 'get',
-            url: "{{ route('searchReceive') }}",
+            url: "{{ route('searchReturnE') }}",
             data: {
                 search: search,
-                quotenumber: quotenumber,
-                shipping_unit: shipping_unit,
-                shipping_fee: shipping_fee,
-                users: users,
-                provides: provides,
-                delivery_code: delivery_code,
-                status: statusDe,
-                total: total,
                 date: date,
                 sort: sort,
             },

@@ -387,6 +387,27 @@ class QuoteExport extends Model
             ->get();
         return $quoteE;
     }
+    public function AjaxSumProductsQuote($data)
+    {
+        $quoteE = QuoteExport::leftJoin('detailexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->leftJoin('products', 'products.id', 'quoteexport.product_id')
+            ->leftJoin('groups', 'groups.id', 'products.group_id')
+            ->where('quoteexport.status', 1)
+            ->select(
+                'detailexport.*',
+                'quoteexport.*',
+                'groups.name as nameGr',
+                'quoteexport.product_qty as slxuat',
+            );
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+            $quoteE = $quoteE->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
+        }
+        $quoteE = $quoteE->get();
+
+        return $quoteE;
+    }
     public function sumProductsQuoteSale()
     {
         $quoteE = QuoteExport::leftJoin('detailexport', 'quoteexport.detailexport_id', 'detailexport.id')

@@ -6,7 +6,7 @@
         </div>
         <div class="input-groups p-2">
             <div class="filter-container">
-                <select id="month-filter">
+                <select id="month-filter" class="form-control">
                     <option value="">Chọn tháng</option>
                     <option value="1">January</option>
                     <option value="2">February</option>
@@ -21,9 +21,8 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select>
-                <select id="year-filter">
+                <select id="year-filter" class="form-control">
                     <option value="">Chọn năm</option>
-                    <!-- Options will be populated dynamically -->
                 </select>
             </div>
         </div>

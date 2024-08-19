@@ -441,4 +441,24 @@ class ReturnExport extends Model
             ->get();
         return $sumReturnExport;
     }
+    public function ajax($data)
+    {
+        $returnExport = ReturnExport::where('workspace_id', Auth::user()->current_workspace);
+        if (isset($data['search'])) {
+            $returnExport = $returnExport->where(function ($query) use ($data) {
+                $query->orWhere('return_code', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+            $returnExport = $returnExport->whereBetween('return_export.created_at', [$dateStart, $dateEnd]);
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $returnExport = $returnExport->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+
+        $returnExport = $returnExport->get();
+        return $returnExport;
+    }
 }

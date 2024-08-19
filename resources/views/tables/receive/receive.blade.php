@@ -92,6 +92,9 @@
                                             </span>
                                         </div>
                                         <div class="scrollbar">
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                data-button="date" type="button">Ngày lập phiếu
+                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-delivery_code" data-button="delivery_code" type="button">Mã
                                                 nhận hàng
@@ -118,9 +121,6 @@
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
                                                 data-button="status" type="button">Trạng thái
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
-                                                data-button="date" type="button">Ngày nhận hàng
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-total"
                                                 data-button="total" type="button">
@@ -172,7 +172,7 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="delivery_code" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Phiếu nhập 
+                                                        <button class="btn-sort text-13" type="submit">Phiếu nhập
                                                             kho#</button>
                                                     </a>
                                                     <div class="icon" id="icon-delivery_code"></div>

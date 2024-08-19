@@ -418,4 +418,81 @@ class Products extends Model
         }
         return $result;
     }
+    public function ajaxEnventory($data)
+    {
+        $result = [];
+        $quoteExportQty = DB::table('quoteexport')
+            // ->leftJoin('detailexport', 'quoteexport.detailexport_id', '=', 'detailexport.id')
+            ->select('quoteexport.product_id', DB::raw('SUM(quoteexport.product_qty) as totalExportQty'))
+            // ->whereNotIn('detailexport.status_receive', [0, 1])
+            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+            ->groupBy('quoteexport.product_id')
+            ->get()
+            ->keyBy('product_id');
+        $totalQuantities = DB::table('quoteimport')
+            // ->leftJoin('detailimport', 'quoteimport.detailimport_id', '=', 'detailimport.id')
+            ->leftJoin('products', 'products.id', '=', 'quoteimport.product_id')
+            // ->whereNotIn('detailimport.status_receive', [0, 1])
+            ->where('quoteimport.workspace_id', Auth::user()->current_workspace);
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+            $totalQuantities = $totalQuantities->whereBetween('quoteimport.created_at', [$dateStart, $dateEnd]);
+        }
+        $totalQuantities = $totalQuantities->select(
+            'quoteimport.product_id',
+            'quoteimport.product_code',
+            'quoteimport.product_name',
+            'quoteimport.product_unit',
+            'products.product_inventory',
+            DB::raw('SUM(quoteimport.product_qty) as totalImportQty')
+        )
+            ->groupBy('quoteimport.product_id', 'quoteimport.product_code', 'quoteimport.product_name', 'quoteimport.product_unit', 'products.product_inventory')
+            ->get();
+        $htrImport = [];
+        foreach ($totalQuantities as $quantity) {
+            $productId = $quantity->product_id;
+            $totalImportQty = $quantity->totalImportQty;
+            $totalExportQty = isset($quoteExportQty[$productId]) ? $quoteExportQty[$productId]->totalExportQty : 0;
+
+            $quoteImports = DB::table('quoteimport')
+                ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
+                ->where('product_id', $productId)
+                ->orderBy('id', 'asc') // Sắp xếp theo thứ tự nhập
+                ->get();
+
+            $remainingExportQty = $totalExportQty;
+            $totalCost = 0;
+            $remainingQty = 0;
+
+            foreach ($quoteImports as $import) {
+                if ($remainingExportQty <= 0) {
+                    $remainingQty += $import->product_qty;
+                    $totalCost += $import->product_qty * $import->price_export;
+                    continue;
+                }
+
+                if ($import->product_qty <= $remainingExportQty) {
+                    $remainingExportQty -= $import->product_qty;
+                } else {
+                    $remainingQty += ($import->product_qty - $remainingExportQty);
+                    $totalCost += ($import->product_qty - $remainingExportQty) * $import->price_export;
+                    $remainingExportQty = 0;
+                }
+            }
+
+            $giaTon = $remainingQty > 0 ? $totalCost : null;
+
+            $htrImport[] = [
+                'product_code' => $quantity->product_code,
+                'product_name' => $quantity->product_name,
+                'product_unit' => $quantity->product_unit,
+                'product_inventory' => $quantity->product_inventory,
+                'slNhap' => $totalImportQty,
+                'slXuat' => $totalExportQty,
+                'giaTon' => $giaTon
+            ];
+        }
+        return $htrImport;
+    }
 }

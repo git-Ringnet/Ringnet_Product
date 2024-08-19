@@ -221,4 +221,23 @@ class ReturnExportController extends Controller
 
         return $processedDelivery;
     }
+
+    public function search(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $returnExport = $this->returnExport->ajax($data);
+            return response()->json([
+                'data' => $returnExport,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
 }

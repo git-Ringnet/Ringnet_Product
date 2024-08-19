@@ -19,11 +19,20 @@ class PayOder extends Model
         'reciept_id',
         'provide_id',
         'status',
-        'payment_date', 'payment_code', 'payment_day',
+        'payment_date',
+        'payment_code',
+        'payment_day',
         'total',
         'payment',
-        'debt', 'created_at', 'workspace_id', 'payment_type',
-        'guest_id', 'content_pay', 'fund_id', 'usercreate_id', 'note'
+        'debt',
+        'created_at',
+        'workspace_id',
+        'payment_type',
+        'guest_id',
+        'content_pay',
+        'fund_id',
+        'usercreate_id',
+        'note'
     ];
 
     public function getProvideName()
@@ -916,5 +925,23 @@ class PayOder extends Model
         }
         $payment = $payment->get();
         return $payment;
+    }
+    public function ajaxContentI($data)
+    {
+        $contentImport = PayOder::where('workspace_id', Auth::user()->current_workspace)
+            ->select('id', 'payment_code', 'workspace_id', 'total', 'payment_date', 'content_pay', 'guest_id', 'fund_id', 'note')
+            ->orderBy('content_pay', 'asc');
+        if (!empty($data['date_chi'][0]) && !empty($data['date_chi'][1])) {
+            $dateStart = Carbon::parse($data['date_chi'][0]);
+            $dateEnd = Carbon::parse($data['date_chi'][1])->endOfDay();
+            $contentImport = $contentImport->whereBetween('created_at', [$dateStart, $dateEnd]);
+        }
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+            $contentImport = $contentImport->whereBetween('created_at', [$dateStart, $dateEnd]);
+        }
+        $contentImport = $contentImport->get();
+        return $contentImport;
     }
 }

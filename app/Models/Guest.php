@@ -446,4 +446,81 @@ class Guest extends Model
 
         return $guests;
     }
+
+    public function ajaxReportDebtGuest($data)
+    {
+        // Tìm tất cả các khách hàng thuộc workspace hiện tại
+        $guests = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
+
+        // Mảng chứa kết quả
+        $results = [];
+
+        // Kiểm tra xem 'date' có tồn tại và là một mảng hợp lệ không
+        if (isset($data['date']) && is_array($data['date']) && !empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+        } else {
+            // Nếu không có ngày tháng, sử dụng khoảng thời gian mặc định hoặc xử lý khác
+            $dateStart = Carbon::minValue(); // Hoặc một giá trị mặc định
+            $dateEnd = Carbon::maxValue();   // Hoặc một giá trị mặc định
+        }
+
+        // Lặp qua từng khách hàng
+        foreach ($guests as $guest) {
+            // Tính tổng cho từng loại dữ liệu
+            $totalProductVat = DB::table('detailexport')
+                ->where('guest_id', $guest->id)
+                ->whereBetween('created_at', [$dateStart, $dateEnd])
+                ->sum(DB::raw('total_price + total_tax'));
+
+            $totalDelivery = DB::table('delivery')
+                ->where('guest_id', $guest->id)
+                ->where('status', 2)
+                ->whereBetween('created_at', [$dateStart, $dateEnd])
+                ->sum('totalVat');
+
+            $totalCashReciept = DB::table('cash_receipts')
+                ->where('guest_id', $guest->id)
+                ->where('status', 2)
+                ->whereBetween('created_at', [$dateStart, $dateEnd])
+                ->sum('amount');
+
+            $totalReturn = DB::table('return_export')
+                ->where('guest_id', $guest->id)
+                ->where('status', 2)
+                ->whereBetween('created_at', [$dateStart, $dateEnd])
+                ->sum('total_return');
+
+            $daTraKH = DB::table('return_export')
+                ->where('guest_id', $guest->id)
+                ->where('status', 2)
+                ->whereBetween('created_at', [$dateStart, $dateEnd])
+                ->sum('payment');
+
+            $chiKH = DB::table('pay_order')
+                ->where('guest_id', $guest->id)
+                ->whereBetween('created_at', [$dateStart, $dateEnd])
+                ->sum('payment');
+
+            // Tính giá trị theo công thức và lưu vào mảng kết quả
+            $calculatedValue = $totalProductVat - $totalCashReciept - ($totalReturn - $chiKH);
+
+            // Lưu kết quả cho khách hàng hiện tại vào mảng
+            $results[] = [
+                'id' => $guest->id,
+                'maKhach' => $guest->key,
+                'group_id' => $guest->group_id,
+                'tenKhach' => $guest->guest_name_display,
+                'totalProductVat' => $totalProductVat,
+                'totalDelivery' => $totalDelivery,
+                'totalCashReciept' => $totalCashReciept,
+                'totalReturn' => $totalReturn,
+                'daTraKH' => $daTraKH,
+                'chiKH' => $chiKH,
+                'calculatedValue' => $calculatedValue,
+            ];
+        }
+
+        return $results;
+    }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Fund extends Model
 {
@@ -57,5 +59,38 @@ class Fund extends Model
         } else {
             throw new \Exception("Fund not found.");
         }
+    }
+    public function ajax($data)
+    {
+        $dateStart = null;
+        $dateEnd = null;
+        // Kiểm tra xem có dữ liệu ngày không
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+        }
+        // Lấy danh sách các bản ghi từ getPayOrder với điều kiện ngày tháng
+        $payOrderResults = Fund::where('workspace_id', Auth::user()->current_workspace)
+            ->whereHas('getPayOrder', function ($query) use ($dateStart, $dateEnd) {
+                if ($dateStart && $dateEnd) {
+                    $query->whereBetween('created_at', [$dateStart, $dateEnd]);
+                }
+            })
+            ->get();
+        // Lấy danh sách các bản ghi từ getPayExport với điều kiện ngày tháng
+        $payExportResults = Fund::where('workspace_id', Auth::user()->current_workspace)
+            ->whereHas('getPayExport', function ($query) use ($dateStart, $dateEnd) {
+                if ($dateStart && $dateEnd) {
+                    $query->whereBetween('created_at', [$dateStart, $dateEnd]);
+                }
+            })
+            ->get();
+        // Kết hợp cả hai mảng kết quả nếu cần
+        $combinedResults = $payOrderResults->merge($payExportResults);
+        return [
+            'payOrderResults' => $payOrderResults,
+            'payExportResults' => $payExportResults,
+            'combinedResults' => $combinedResults,
+        ];
     }
 }

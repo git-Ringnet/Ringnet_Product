@@ -15,10 +15,20 @@ class QuoteImport extends Model
     protected $fillable = [
         'id',
         'detailimport_id',
-        'product_id', 'product_name',
-        'product_unit', 'product_qty',
-        'product_tax', 'product_total', 'reciept_qty', 'payment_qty',
-        'price_export', 'version', 'warehouse_id', 'workspace_id', 'product_code', 'created_at',
+        'product_id',
+        'product_name',
+        'product_unit',
+        'product_qty',
+        'product_tax',
+        'product_total',
+        'reciept_qty',
+        'payment_qty',
+        'price_export',
+        'version',
+        'warehouse_id',
+        'workspace_id',
+        'product_code',
+        'created_at',
         'promotion'
     ];
     public function getProductCode()
@@ -121,6 +131,23 @@ class QuoteImport extends Model
                 'quoteimport.product_qty as slxuat',
             )
             ->get();
+        return $quoteI;
+    }
+    public function AjaxSumProductsQuote($data)
+    {
+        $quoteI = QuoteImport::leftJoin('detailimport', 'quoteimport.detailimport_id', 'detailimport.id')
+            ->select(
+                'detailimport.*',
+                'quoteimport.*',
+                'detailimport.id as id',
+                'quoteimport.product_qty as slxuat',
+            );
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+            $quoteI = $quoteI->whereBetween('detailimport.created_at', [$dateStart, $dateEnd]);
+        };
+        $quoteI = $quoteI->get();
         return $quoteI;
     }
 

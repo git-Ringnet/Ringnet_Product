@@ -144,6 +144,26 @@ Route::get('/checkQuotetionExport', [DetailExportController::class, 'checkQuotet
 Route::get('/checkQuotetionExportEdit', [DetailExportController::class, 'checkQuotetionExportEdit'])->name('checkQuotetionExportEdit');
 Route::get('/searchDetailExport', [DetailExportController::class, 'searchDetailExport'])->name('searchDetailExport');
 
+Route::get('/searchReturnI', [ReturnImportController::class, 'search'])->name('searchReturnI');
+Route::get('/searchReturnE', [ReturnExportController::class, 'search'])->name('searchReturnE');
+Route::get('/searchCashRe', [CashReceiptController::class, 'search'])->name('searchCashRe');
+Route::get('/searchChangeFun', [ContentImportExportController::class, 'search'])->name('searchChangeFun');
+Route::get('/searchChangeWH', [ChangeWarehouseController::class, 'search'])->name('searchChangeWH');
+// Ajax report 
+Route::get('/searchDebtGuests', [ReportController::class, 'searchDebtGuests'])->name('searchDebtGuests');
+Route::get('/searchDebtProvides', [ReportController::class, 'searchDebtProvides'])->name('searchDebtProvides');
+Route::get('/searchSale', [ReportController::class, 'searchSale'])->name('searchSale');
+Route::get('/searchBuy', [ReportController::class, 'searchBuy'])->name('searchBuy');
+Route::get('/searchRPDelivery', [ReportController::class, 'searchRPDelivery'])->name('searchRPDelivery');
+Route::get('/searchRPReturnE', [ReportController::class, 'searchRPReturnE'])->name('searchRPReturnE');
+Route::get('/searchRPReturnI', [ReportController::class, 'searchRPReturnI'])->name('searchRPReturnI');
+Route::get('/searchRPContentI', [ReportController::class, 'searchRPContentI'])->name('searchRPContentI');
+Route::get('/searchRPContentE', [ReportController::class, 'searchRPContentE'])->name('searchRPContentE');
+Route::get('/searchReportSumSellProfit', [ReportController::class, 'searchReportSumSellProfit'])->name('searchReportSumSellProfit');
+Route::get('/searchRPChangeFunds', [ReportController::class, 'searchRPChangeFunds'])->name('searchRPChangeFunds');
+Route::get('/searchRPIEFunds', [ReportController::class, 'searchRPIEFunds'])->name('searchRPIEFunds');
+Route::get('/searchRPEnventory', [ReportController::class, 'searchRPEnventory'])->name('searchRPEnventory');
+
 Route::resource('DateForm', DateFormController::class);
 Route::get('/addUserFlow', [DateFormController::class, 'addUserFlow'])->name('addUserFlow');
 

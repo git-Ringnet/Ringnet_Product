@@ -76,4 +76,33 @@ class ReturnProduct extends Model
         // dd($detailReturnExport);
         return $detailReturnExport;
     }
+
+    public function AjaxSumReturnImport($data)
+    {
+        $detailReturnExport = ReturnProduct::leftJoin('returnimport', 'returnproduct.returnImport_id', 'returnimport.id')
+            ->leftJoin('receive_bill', 'receive_bill.id', 'returnimport.receive_id')
+            ->leftJoin('quoteimport', 'quoteimport.id', 'returnproduct.quoteimport_id')
+            ->leftJoin('provides', 'provides.id', 'receive_bill.provide_id')
+            ->select(
+                'returnimport.id as id',
+                'returnimport.created_at as ngayTao',
+                'returnimport.return_code as maPhieu',
+                'provides.provide_name_display as nameProvide',
+                'quoteimport.product_name as nameProduct',
+                'quoteimport.product_unit as unitProduct',
+                'returnproduct.qty as qtyReturn',
+                'quoteimport.price_export as priceProduct',
+                'returnimport.payment as payment',
+                'returnimport.status as trangThai',
+                'returnimport.description as description',
+            );
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+            $detailReturnExport = $detailReturnExport->whereBetween('returnimport.created_at', [$dateStart, $dateEnd]);
+        }
+        $detailReturnExport = $detailReturnExport->get();
+        // dd($detailReturnExport);
+        return $detailReturnExport;
+    }
 }

@@ -54,7 +54,10 @@ class ReportController extends Controller
     private $history;
     private $quoteE;
     private $quoteI;
-
+    private $cash_rc;
+    private $content;
+    private $product;
+    private $fund;
     public function __construct()
     {
         $this->payExport = new PayExport();
@@ -73,6 +76,10 @@ class ReportController extends Controller
         $this->history = new History();
         $this->quoteE = new QuoteExport();
         $this->quoteI = new QuoteImport();
+        $this->cash_rc = new CashReceipt();
+        $this->content = new ContentImportExport();
+        $this->fund = new Fund();
+        $this->product = new Products();
     }
     public function index()
     {
@@ -435,6 +442,25 @@ class ReportController extends Controller
         $sumDelivery = $this->delivery->getSumDelivery();
         return view('report.sumDelivery', compact('title', 'sumDelivery', 'workspacename'));
     }
+    // Ajax tổng kết giao hàng
+    public function searchRPDelivery(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $sumDelivery = $this->delivery->AjaxGetSumDelivery($data);
+            return response()->json([
+                'data' => $sumDelivery,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
     // Tổng kết khách trả hàng
     public function viewReportSumReturnExport()
     {
@@ -444,6 +470,25 @@ class ReportController extends Controller
         $sumReturnExport = $this->product_returnE->sumReturnExport();
         $allReturn = $this->returnExport->getSumReport();
         return view('report.sumReturnExport', compact('title', 'allReturn', 'sumReturnExport', 'workspacename'));
+    }
+    // Ajax tổng kết giao hàng
+    public function searchRPReturnE(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $sumReturnExport = $this->product_returnE->AjaxSumReturnExport($data);
+            return response()->json([
+                'data' => $sumReturnExport,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
     // Tổng kết trả hàng NCC
     public function viewReportReturnImport()
@@ -456,7 +501,27 @@ class ReportController extends Controller
         $allReturn = $this->returnImport->getSumReport();
 
         $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('report.reportReturnImport', compact('title', 'returnImport', 'allReturn', 'sumReturnImport','workspacename'));
+        return view('report.reportReturnImport', compact('title', 'returnImport', 'allReturn', 'sumReturnImport', 'workspacename'));
+    }
+
+    // Ajax tổng kết giao hàng
+    public function searchRPReturnI(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $sumReturnImport = $this->product_returnI->AjaxSumReturnImport($data);
+            return response()->json([
+                'data' => $sumReturnImport,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
     // Tổng kết bán hàng
     public function viewReportSell()
@@ -486,6 +551,25 @@ class ReportController extends Controller
 
         return view('report.reportSumSales', compact('title', 'groupGuests', 'guest', 'productDelivered', 'allDelivery', 'workspacename'));
     }
+    // Ajax debt guests
+    public function searchSale(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $productDelivered = $this->quoteE->AjaxSumProductsQuote($data);
+            return response()->json([
+                'data' => $productDelivered,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
     // Doanh số mua hàng
     public function viewReportBuy()
     {
@@ -497,7 +581,7 @@ class ReportController extends Controller
         // // Get All đơn
         $allImport = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
             ->leftJoin('groups', 'groups.id', 'provides.group_id')
-            ->leftJoin('users', 'users.id', 'detailimport.id_sale')
+            ->leftJoin('users', 'users.id', 'detailimport.user_id')
             ->select(
                 'detailimport.*',
                 'users.name as nameUser',
@@ -513,6 +597,25 @@ class ReportController extends Controller
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
 
         return view('report.reportSumBuy', compact('title', 'groupProvides', 'provides', 'productsQuoteI', 'allImport', 'workspacename'));
+    }
+    // Ajax debt guests
+    public function searchBuy(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $productsQuoteI = $this->quoteI->AjaxSumProductsQuote($data);
+            return response()->json([
+                'data' => $productsQuoteI,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
     // Tổng kết nhập hàng
     public function viewReportImport()
@@ -551,6 +654,30 @@ class ReportController extends Controller
 
         return view('report.sumSalesProfit', compact('title', 'groups', 'groupGuests', 'allDeliveries', 'workspacename'));
     }
+    // Ajax báo cáo lợi nhuận bán hàng
+    public function searchReportSumSellProfit(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date_guest']) && $data['date_guest'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date_guest'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date_guest'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date_guest', 'icon' => 'date_guest'];
+        }
+        if (isset($data['date_product']) && $data['date_product'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date_product'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date_product'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date_product', 'icon' => 'date_product'];
+        }
+        if ($request->ajax()) {
+            $allDeliveries = $this->detailExport->AjaxAllProductsSell($data);
+            return response()->json([
+                'data' => $allDeliveries,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
     public function viewReportDebtGuests()
     {
         $title = 'Thống kê công nợ khách hàng';
@@ -560,6 +687,25 @@ class ReportController extends Controller
         $groups = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
         $debtGuests = $this->guest->debtGuest();
         return view('report.debtGuests', compact('title', 'groups', 'debtGuests', 'workspacename'));
+    }
+    // Ajax debt guests
+    public function searchDebtGuests(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $changeWarehouse = $this->guest->ajaxReportDebtGuest($data);
+            return response()->json([
+                'data' => $changeWarehouse,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
 
     // Tổng hợp kết quả kinh doanh
@@ -628,7 +774,26 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('report.debtProvides', compact('title', 'provide','workspacename'));
+        return view('report.debtProvides', compact('title', 'provide', 'workspacename'));
+    }
+    // Ajax debt guests
+    public function searchDebtProvides(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $provides = $this->provide->ajaxReportDebtProvides($data);
+            return response()->json([
+                'data' => $provides,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
 
     public function viewReportIE()
@@ -654,15 +819,52 @@ class ReportController extends Controller
         foreach ($contetnType1 as $va) {
             array_push($listIDContent1, $va->id);
         }
-
-
         $contentExport = CashReceipt::whereIn('content_id', $listIDContent1)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->select('id', 'receipt_code', 'workspace_id', 'amount', 'date_created', 'content_id', 'guest_id', 'fund_id', 'note')
             ->orderBy('content_id', 'asc')
             ->get();
 
-        return view('report.reportIE', compact('title', 'contentImport', 'contentExport','workspacename'));
+        return view('report.reportIE', compact('title', 'contentImport', 'contentExport', 'workspacename'));
+    }
+    // Ajax nội dung thu chi
+    // Thu
+    public function searchRPContentE(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date_thu']) && $data['date_thu'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date_thu'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date_thu'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date_thu', 'icon' => 'date_thu'];
+        }
+        if ($request->ajax()) {
+            $contentExport = $this->cash_rc->ajax($data);
+            return response()->json([
+                'data' => $contentExport,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
+    // Chi
+    public function searchRPContentI(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date_chi']) && $data['date_chi'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date_chi'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date_chi'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date_chi', 'icon' => 'date_chi'];
+        }
+        if ($request->ajax()) {
+            $contentImport = $this->payOrder->ajaxContentI($data);
+            return response()->json([
+                'data' => $contentImport,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
 
     public function viewReportChangeFunds()
@@ -671,19 +873,55 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $content = ContentImportExport::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('report.reportChangeFunds', compact('title', 'content','workspacename'));
+        return view('report.reportChangeFunds', compact('title', 'content', 'workspacename'));
     }
-
-
+    // ajax chuyển tiền nội bộ
+    public function searchRPChangeFunds(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $content = $this->content->ajax($data);
+            return response()->json([
+                'data' => $content,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
     public function viewReportIEFunds()
     {
         $title = 'Thống kê thu chi tồn quỹ';
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $inventoryDebt = Fund::where('workspace_id', Auth::user()->current_workspace)->get();
-
-
-        return view('report.reportIEFunds', compact('title', 'inventoryDebt','workspacename'));
+        return view('report.reportIEFunds', compact('title', 'inventoryDebt', 'workspacename'));
+    }
+    // ajax thống kê thu chi tồn quỹ
+    public function searchRPIEFunds(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $contentExport = $this->cash_rc->ajax($data);
+            $contentImport = $this->payOrder->ajaxContentI($data);
+            return response()->json([
+                'contentExport' => $contentExport,
+                'contentImport' => $contentImport,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
 
     public function viewReportIEEnventory()
@@ -762,8 +1000,26 @@ class ReportController extends Controller
                 'giaTon' => $giaTon
             ];
         }
-
         return view('report.reportIEEnventory', compact('title', 'htrImport'));
+    }
+    // ajax Xuất nhập tồn kho
+    public function searchRPEnventory(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $products = $this->product->ajaxEnventory($data);
+            return response()->json([
+                'data' => $products,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
 
     public function viewReportInfoGuests(Request $request)
@@ -782,50 +1038,6 @@ class ReportController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
     public function searchReportGuests(Request $request)
     {
         $data = $request->all();

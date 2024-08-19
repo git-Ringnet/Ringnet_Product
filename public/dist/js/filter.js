@@ -328,6 +328,26 @@ handleFilterClick(
 );
 // Báo cáo
 handleFilterClick(
+    $("#btn-date-guest"),
+    $("#date-guest-options"),
+    $(".date-guest-input")
+);
+handleFilterClick(
+    $("#btn-date-product"),
+    $("#date-product-options"),
+    $(".date-product-input")
+);
+handleFilterClick(
+    $("#btn-date-thu"),
+    $("#date-thu-options"),
+    $(".date-thu-input")
+);
+handleFilterClick(
+    $("#btn-date-chi"),
+    $("#date-chi-options"),
+    $(".date-chi-input")
+);
+handleFilterClick(
     $("#btn-code-import"),
     $("#code-import-options"),
     $(".code-import-input")
@@ -611,6 +631,26 @@ handleCancelClick(
 );
 // Báo cáo
 handleCancelClick(
+    $("#cancel-date-product"),
+    $(".date-product-input"),
+    $("#date-product-options")
+);
+handleCancelClick(
+    $("#cancel-date-guest"),
+    $(".date-guest-input"),
+    $("#date-guest-options")
+);
+handleCancelClick(
+    $("#cancel-date-thu"),
+    $(".date-thu-input"),
+    $("#date-thu-options")
+);
+handleCancelClick(
+    $("#cancel-date-chi"),
+    $(".date-chi-input"),
+    $("#date-chi-options")
+);
+handleCancelClick(
     $("#cancel-code-import"),
     $(".code-import-input"),
     $("#code-import-options")
@@ -681,4 +721,359 @@ function filterButtons(inputId, containerClass) {
             $(this).hide();
         }
     });
+}
+
+function updateFilters(
+    data,
+    filterClass,
+    resultFilterClass,
+    tbodyClass,
+    elementClass,
+    idClass,
+    buttonName
+) {
+    var existingNames = [];
+
+    // Update filters and keep track of existing names
+    data.filters.forEach(function (item) {
+        if (filters.indexOf(item.name) === -1) {
+            filters.push(item.name);
+        }
+        existingNames.push(item.name);
+    });
+
+    filters = filters.filter(function (name) {
+        return existingNames.includes(name);
+    });
+
+    $(resultFilterClass).empty();
+
+    if (data.filters.length > 0) {
+        $(resultFilterClass).addClass("has-filters");
+    } else {
+        $(resultFilterClass).removeClass("has-filters");
+    }
+
+    // Render each filter item
+    data.filters.forEach(function (item) {
+        var index = filters.indexOf(item.name);
+        var itemFilter = $("<div>")
+            .addClass(
+                "item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2"
+            )
+            .attr({
+                "data-icon": item.icon,
+                "data-button": item.name,
+            });
+        itemFilter.css("order", index);
+        itemFilter.append(
+            '<span class="text text-13-black m-0" style="flex:2;">' +
+                item.value +
+                '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                item.name +
+                '" data-button="' +
+                buttonName +
+                '"></i>'
+        );
+        $(resultFilterClass).append(itemFilter);
+    });
+
+    // Hide and show relevant elements
+    var ids = [];
+    data.data.forEach(function (item) {
+        ids.push(item.id);
+    });
+
+    $(elementClass).each(function () {
+        var value = parseInt($(this).find(idClass).val());
+        var index = ids.indexOf(value);
+        if (index !== -1) {
+            $(this).show();
+            $(this).attr("data-position", index + 1);
+        } else {
+            $(this).hide();
+        }
+    });
+
+    // Sort elements and append to tbody
+    var clonedElements = $(elementClass).clone();
+    var sortedElements = clonedElements.sort(function (a, b) {
+        return $(a).data("position") - $(b).data("position");
+    });
+    $(tbodyClass).empty().append(sortedElements);
+}
+
+// Chỉ dùng cho Báo cáo Thống kê thu chi tồn quỹ
+function updateFilters2(
+    data,
+    filterClass,
+    resultFilterClass,
+    tbodyClass,
+    buttonName
+) {
+    var existingNames = [];
+
+    // Update filters and keep track of existing names
+    data.filters.forEach(function (item) {
+        if (filters.indexOf(item.name) === -1) {
+            filters.push(item.name);
+        }
+        existingNames.push(item.name);
+    });
+
+    filters = filters.filter(function (name) {
+        return existingNames.includes(name);
+    });
+
+    $(resultFilterClass).empty();
+
+    if (data.filters.length > 0) {
+        $(resultFilterClass).addClass("has-filters");
+    } else {
+        $(resultFilterClass).removeClass("has-filters");
+    }
+
+    // Render each filter item
+    data.filters.forEach(function (item) {
+        var index = filters.indexOf(item.name);
+        var itemFilter = $("<div>")
+            .addClass(
+                "item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2"
+            )
+            .attr({
+                "data-icon": item.icon,
+                "data-button": item.name,
+            });
+        itemFilter.css("order", index);
+        itemFilter.append(
+            '<span class="text text-13-black m-0" style="flex:2;">' +
+                item.value +
+                '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                item.name +
+                '" data-button="' +
+                buttonName +
+                '"></i>'
+        );
+        $(resultFilterClass).append(itemFilter);
+    });
+
+    // Process both contentExport and contentImport data
+    var allData = [].concat(data.contentExport, data.contentImport);
+    var ids = [];
+    allData.forEach(function (item) {
+        ids.push(item.id);
+    });
+
+    var elementClasses = [".thu-info", ".chi-info"];
+    var idClasses = [".id-thu", ".id-chi"];
+
+    elementClasses.forEach(function (elementClass, index) {
+        var idClass = idClasses[index];
+
+        $(elementClass).each(function () {
+            var value = parseInt($(this).find(idClass).val());
+            var dataIndex = ids.indexOf(value);
+            if (dataIndex !== -1) {
+                $(this).show();
+                $(this).attr("data-position", dataIndex + 1);
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Sort elements and append to tbody
+    var clonedElements = $(elementClasses.join(",")).clone();
+    var sortedElements = clonedElements.sort(function (a, b) {
+        return $(a).data("position") - $(b).data("position");
+    });
+    $(tbodyClass).empty().append(sortedElements);
+}
+
+// Update report
+function updateFiltersReport(
+    data,
+    filterClass,
+    resultFilterClass,
+    tbodyClass,
+    elementClass,
+    idClass,
+    buttonName
+) {
+    var existingNames = [];
+
+    // Update filters and keep track of existing names
+    data.filters.forEach(function (item) {
+        if (filters.indexOf(item.name) === -1) {
+            filters.push(item.name);
+        }
+        existingNames.push(item.name);
+    });
+
+    filters = filters.filter(function (name) {
+        return existingNames.includes(name);
+    });
+
+    $(resultFilterClass).empty();
+
+    if (data.filters.length > 0) {
+        $(resultFilterClass).addClass("has-filters");
+    } else {
+        $(resultFilterClass).removeClass("has-filters");
+    }
+
+    // Render each filter item
+    data.filters.forEach(function (item) {
+        var index = filters.indexOf(item.name);
+        var itemFilter = $("<div>")
+            .addClass(
+                "item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2"
+            )
+            .attr({
+                "data-icon": item.icon,
+                "data-button": item.name,
+            });
+        itemFilter.css("order", index);
+        itemFilter.append(
+            '<span class="text text-13-black m-0" style="flex:2;">' +
+                item.value +
+                '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                item.name +
+                '" data-button="' +
+                buttonName +
+                '"></i>'
+        );
+        $(resultFilterClass).append(itemFilter);
+    });
+
+    // Hide and show relevant elements
+    var ids = [];
+    var groupTotals = {};
+    var grandTotals = {
+        totalProductVat: 0,
+        totalDelivery: 0,
+        totalCashReciept: 0,
+        totalReturn: 0,
+        chiKH: 0,
+        totalDebt: 0,
+    };
+
+    // Tạo danh sách các id và tính tổng theo group_id từ dữ liệu server
+    data.data.forEach(function (item) {
+        ids.push(item.id);
+
+        if (!groupTotals[item.group_id]) {
+            groupTotals[item.group_id] = {
+                totalProductVat: 0,
+                totalDelivery: 0,
+                totalCashReciept: 0,
+                totalReturn: 0,
+                chiKH: 0,
+                totalDebt: 0,
+            };
+        }
+
+        // Cập nhật tổng theo group_id
+        groupTotals[item.group_id].totalProductVat += parseFloat(
+            item.totalProductVat
+        );
+        groupTotals[item.group_id].totalDelivery += parseFloat(
+            item.totalDelivery
+        );
+        groupTotals[item.group_id].totalCashReciept += parseFloat(
+            item.totalCashReciept
+        );
+        groupTotals[item.group_id].totalReturn += parseFloat(item.totalReturn);
+        groupTotals[item.group_id].chiKH += parseFloat(item.chiKH);
+        groupTotals[item.group_id].totalDebt += parseFloat(
+            item.calculatedValue
+        );
+
+        // Cập nhật grand totals
+        grandTotals.totalProductVat += parseFloat(item.totalProductVat);
+        grandTotals.totalDelivery += parseFloat(item.totalDelivery);
+        grandTotals.totalCashReciept += parseFloat(item.totalCashReciept);
+        grandTotals.totalReturn += parseFloat(item.totalReturn);
+        grandTotals.chiKH += parseFloat(item.chiKH);
+        grandTotals.totalDebt += parseFloat(item.calculatedValue);
+    });
+
+    $(elementClass).each(function () {
+        var value = parseInt($(this).find(idClass).val()); // Lấy giá trị id từ thẻ input
+        var index = ids.indexOf(value); // Tìm vị trí của id trong danh sách ids
+
+        if (index !== -1) {
+            $(this).show(); // Hiển thị hàng nếu id có trong danh sách
+            $(this).attr("data-position", index + 1); // Cập nhật thuộc tính data-position
+            var id = $(this).attr("data-id");
+            // Tìm đối tượng dữ liệu tương ứng với id
+            var correspondingData = data.data.find(
+                (item) => item.id === parseInt(id)
+            );
+            if (correspondingData) {
+                // Cập nhật các giá trị vào các phần tử HTML
+                $(this)
+                    .find(".totalProductVat")
+                    .text(formatCurrency(correspondingData.totalProductVat));
+                $(this)
+                    .find(".totalDelivery")
+                    .text(formatCurrency(correspondingData.totalDelivery));
+                $(this)
+                    .find(".totalCashReciept")
+                    .text(formatCurrency(correspondingData.totalCashReciept));
+                $(this)
+                    .find(".totalReturn")
+                    .text(formatCurrency(correspondingData.totalReturn));
+                $(this)
+                    .find(".chiKH")
+                    .text(formatCurrency(correspondingData.chiKH));
+                $(this)
+                    .find(".totalDebt")
+                    .text(formatCurrency(correspondingData.calculatedValue));
+            }
+        } else {
+            $(this).hide(); // Ẩn hàng nếu id không có trong danh sách
+        }
+    });
+
+    // Hiển thị tổng theo group_id
+    $.each(groupTotals, function (groupId, totals) {
+        var groupRow = $('tr[data-group="' + groupId + '"]');
+        if (groupRow.length) {
+            groupRow
+                .find(".totalProductVatUngrouped")
+                .text(formatCurrency(totals.totalProductVat));
+            groupRow
+                .find(".totalDeliveryUngrouped")
+                .text(formatCurrency(totals.totalDelivery));
+            groupRow
+                .find(".totalCashRecieptUngrouped")
+                .text(formatCurrency(totals.totalCashReciept));
+            groupRow
+                .find(".totalReturnUngrouped")
+                .text(formatCurrency(totals.totalReturn));
+            groupRow.find(".chiKHUngrouped").text(formatCurrency(totals.chiKH));
+            groupRow
+                .find(".totalRemainingUngrouped")
+                .text(formatCurrency(totals.totalDebt));
+        }
+    });
+
+    // Hiển thị grand totals
+    $("#grandTotalProductVat").text(
+        formatCurrency(grandTotals.totalProductVat)
+    );
+    $("#grandTotalReturn").text(formatCurrency(grandTotals.totalReturn));
+    $("#grandTotalCashReciept").text(
+        formatCurrency(grandTotals.totalCashReciept)
+    );
+    $("#grandTotalChiKH").text(formatCurrency(grandTotals.chiKH));
+    $("#grandTotalRemaining").text(formatCurrency(grandTotals.totalDebt));
+
+    // Sort elements and append to tbody
+    var clonedElements = $(elementClass).clone();
+    var sortedElements = clonedElements.sort(function (a, b) {
+        return $(a).data("position") - $(b).data("position");
+    });
+    $(tbodyClass).empty().append(sortedElements);
 }

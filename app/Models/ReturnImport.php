@@ -267,4 +267,24 @@ class ReturnImport extends Model
             ->get();
         return $sumReturnImport;
     }
+    public function ajax($data)
+    {
+        $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace);
+        if (isset($data['search'])) {
+            $returnImport = $returnImport->where(function ($query) use ($data) {
+                $query->orWhere('return_code', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+            $returnImport = $returnImport->whereBetween('returnimport.created_at', [$dateStart, $dateEnd]);
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $returnImport = $returnImport->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+
+        $returnImport = $returnImport->get();
+        return $returnImport;
+    }
 }
