@@ -82,12 +82,12 @@ class ContentGroupsController extends Controller
         $contentChi = ContentGroups::where('pay_order.content_pay', $id)
             ->leftJoin('pay_order', 'pay_order.content_pay', 'contentgroups.id')
             ->leftJoin('funds', 'pay_order.fund_id', 'funds.id')
-            ->select('contentgroups.*', 'pay_order.*', 'funds.name as tenQuy')
+            ->select('contentgroups.*', 'pay_order.*', 'funds.name as tenQuy','pay_order.id as id')
             ->get();
         $contentThu = ContentGroups::where('cash_receipts.content_id', $id)
             ->leftJoin('cash_receipts', 'cash_receipts.content_id', 'contentgroups.id')
             ->leftJoin('funds', 'cash_receipts.fund_id', 'funds.id')
-            ->select('contentgroups.*', 'cash_receipts.*')
+            ->select('contentgroups.*', 'cash_receipts.*','cash_receipts.id as id', 'funds.name as tenQuy')
             ->get();
         return view('tables.abc.content.showContent', compact('title', 'workspacename', 'content', 'type', 'contentChi', 'contentThu'));
     }

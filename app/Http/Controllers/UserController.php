@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailExport;
+use App\Models\DetailImport;
 use App\Models\Groups;
 use App\Models\Guest;
 use App\Models\QuoteExport;
@@ -104,8 +105,33 @@ class UserController extends Controller
         $allDelivery = $this->detailExport->getSumDetailE();
         $groupGuests = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
+        //Đơn hàng
+        $detailExport = $this->detailExport->getAllDetailExportByUser($id);
+        $detailImport = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->select('detailimport.*', 'provides.provide_name_display')
+            ->orderBy('detailimport.id', 'desc');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $detailImport->where('user_id', Auth::user()->id);
+            }
+        }
+        $detailImport = $detailImport->get();
 
-        return view('tables.user.show', compact('title', 'groups', 'user', 'workspacename', 'title', 'roles', 'groupGuests', 'guest', 'productDelivered', 'allDelivery'));
+        return view('tables.user.show', compact(
+            'title',
+            'groups',
+            'user',
+            'workspacename',
+            'title',
+            'roles',
+            'groupGuests',
+            'guest',
+            'productDelivered',
+            'allDelivery',
+            'detailExport',
+            'detailImport'
+        ));
     }
 
     public function edit(string $workspace, string $id)

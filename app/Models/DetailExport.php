@@ -105,6 +105,49 @@ class DetailExport extends Model
 
         return $detailExport;
     }
+
+    public function getAllDetailExportByUser($id)
+    {
+        $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->where('detailexport.user_id', $id)
+            ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
+            ->leftJoin('users', 'users.id', 'detailexport.user_id')
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id');
+
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $detailExport->where('user_id', Auth::user()->id);
+            }
+        }
+
+        $detailExport = $detailExport->orderBy('detailexport.id', 'desc')->get();
+
+        // Ngày hiện tại
+        $current_date = Carbon::now();
+
+        // Duyệt qua từng bản ghi và thêm tình trạng đơn
+        foreach ($detailExport as $detail) {
+            if ($detail->date_payment) {
+                $date_payment = Carbon::parse($detail->date_payment);
+                if ($date_payment->lt($current_date)) {
+                    //quá hạn
+                    $detail->tinhTrangDon = 3;
+                } elseif ($date_payment->eq($current_date)) {
+                    //tới hạn thanh toán
+                    $detail->tinhTrangDon = 2;
+                } else {
+                    //còn hạn
+                    $detail->tinhTrangDon = 1;
+                }
+            } else {
+                //không có ngày thanh toán
+                $detail->tinhTrangDon = 4;
+            }
+        }
+
+        return $detailExport;
+    }
+
     public function getAllDetailExportByProduct($idProduct)
     {
         $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)

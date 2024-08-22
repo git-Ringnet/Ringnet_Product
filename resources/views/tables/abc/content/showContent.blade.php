@@ -208,11 +208,11 @@
                                                         <tr id="dynamic-row-1"
                                                             class="bg-white addWarehouse representative-row">
                                                             <td
-                                                                class="border border-top-0 border-left-0 padding-left35">
-                                                                <input autocomplete="off"
-                                                                    value="{{ $item_chi->payment_code }}"
-                                                                    class="border-0 px-2 py-1 w-100 text-13-black"
-                                                                    readonly>
+                                                                class="border border-top-0 border-left-0 padding-left35 text-13-black">
+                                                                <a
+                                                                    href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item_chi->id]) }}">
+                                                                    {{ $item_chi->payment_code }}
+                                                                </a>
                                                             </td>
                                                             <td
                                                                 class="border border-top-0 padding-left35 border-left-0">
@@ -240,11 +240,11 @@
                                                         <tr id="dynamic-row-1"
                                                             class="bg-white addWarehouse representative-row">
                                                             <td
-                                                                class="border border-top-0 border-left-0 padding-left35">
-                                                                <input autocomplete="off"
-                                                                    value="{{ $item_thu->receipt_code }}"
-                                                                    class="border-0 px-2 py-1 w-100 text-13-black"
-                                                                    readonly>
+                                                                class="border border-top-0 border-left-0 padding-left35 text-13-black">
+                                                                <a
+                                                                    href="{{ route('cash_receipts.edit', ['workspace' => $workspacename, 'cash_receipt' => $item_thu->id]) }}">
+                                                                    {{ $item_thu->receipt_code }}
+                                                                </a>
                                                             </td>
                                                             <td
                                                                 class="border border-top-0 padding-left35 border-left-0">

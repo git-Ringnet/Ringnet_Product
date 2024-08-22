@@ -75,6 +75,10 @@
                             data-des="Xem thông tin" data-toggle="tab" href="#info">Thông tin</a>
                     </li>
                     <li>
+                        <a id="detail-tab" class="text-secondary m-0 pl-3 activity" data-toggle="tab" href="#detail">Đơn
+                            hàng</a>
+                    </li>
+                    <li>
                         <a id="history-tab" class="text-secondary m-0 pl-3 pr-3 activity" data-toggle="tab"
                             data-name1="KH" data-des="Xem doanh số" href="#history">Doanh số</a>
                     </li>
@@ -183,6 +187,122 @@
                                 </ul>
                             </div>
                         @endif --}}
+                        </div>
+                    </div>
+                    <div id="detail" class="tab-pane fade">
+                        {{-- THÔNG TIN CHUNG --}}
+                        <div class="bg-filter-search border-0 text-left border-custom">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-left">DOANH SỐ BÁN HÀNG
+                            </p>
+                        </div>
+                        <div class="info-chung">
+                            <div class="col-12 p-0 m-0">
+                                <div class="card">
+                                    <!-- /.card-header -->
+                                    <div class="outer2 table-responsive text-nowrap">
+                                        <table id="example2" class="table table-hover bg-white rounded">
+                                            <thead class="border-custom">
+                                                <tr style="height: 44px;">
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Mã phiếu</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Ngày lập</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Diễn giải</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th class="height-52 border" scope="col" style="">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="group_type" data-sort-type="DESC">
+                                                                <button class="btn-sort" type="submit">
+                                                                    <span class="text-13">Khách hàng / NCC</span>
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon"></div>
+                                                        </span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    // Kết hợp hai mảng
+                                                    $combined = $detailExport->concat($detailImport);
+
+                                                    // Sắp xếp mảng kết hợp theo ngày tạo (created_at) tăng dần
+                                                    $sortedCombined = $combined->sortBy('created_at');
+
+                                                    $currentDebt = 0;
+
+                                                @endphp
+                                                @foreach ($sortedCombined as $item)
+                                                    <tr>
+                                                        <td
+                                                            class="text-13-black max-width120 border-bottom border-right">
+                                                            @if (isset($item->guest_id))
+                                                                <a
+                                                                    href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $item->maBG]) }}">
+                                                                    {{ $item->quotation_number }}
+                                                                </a>
+                                                            @else
+                                                                <a
+                                                                    href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}">
+                                                                    {{ $item->quotation_number }}
+                                                                </a>
+                                                            @endif
+                                                        </td>
+                                                        <td
+                                                            class="text-13-black padding-left35 border-bottom border-right">
+                                                            {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                        </td>
+                                                        <td
+                                                            class="text-13-black max-width120 border-bottom border-right">
+                                                            @if (isset($item->guest_id))
+                                                                Phiếu bán hàng
+                                                            @else
+                                                                Phiếu đặt hàng NCC
+                                                            @endif
+                                                        </td>
+                                                        <td
+                                                            class="text-13-black text-nowrap border-bottom border-right">
+                                                            @if (isset($item->guest_name_display))
+                                                                {{ $item->guest_name_display }}
+                                                            @else
+                                                                {{ $item->provide_name_display }}
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id="history" class="tab-pane fade">

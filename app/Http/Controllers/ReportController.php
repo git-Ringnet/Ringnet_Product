@@ -931,18 +931,15 @@ class ReportController extends Controller
         $workspacename = $workspacename->workspace_name;
 
         $quoteExportQty = DB::table('quoteexport')
-            // ->leftJoin('detailexport', 'quoteexport.detailexport_id', '=', 'detailexport.id')
-            ->select('quoteexport.product_id', DB::raw('SUM(quoteexport.product_qty) as totalExportQty'))
-            // ->whereNotIn('detailexport.status_receive', [0, 1])
+            ->select('quoteexport.product_id', 'quoteexport.product_delivery', DB::raw('SUM(quoteexport.product_qty) as totalExportQty'))
             ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
-            ->groupBy('quoteexport.product_id')
+            ->groupBy('quoteexport.product_id', 'quoteexport.product_delivery')
             ->get()
             ->keyBy('product_id');
 
         $totalQuantities = DB::table('quoteimport')
-            // ->leftJoin('detailimport', 'quoteimport.detailimport_id', '=', 'detailimport.id')
             ->leftJoin('products', 'products.id', '=', 'quoteimport.product_id')
-            // ->whereNotIn('detailimport.status_receive', [0, 1])
+            ->leftJoin('products_import', 'quoteimport.id', '=', 'products_import.quoteImport_id')
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'quoteimport.product_id',
@@ -950,9 +947,10 @@ class ReportController extends Controller
                 'quoteimport.product_name',
                 'quoteimport.product_unit',
                 'products.product_inventory',
+                'products_import.receive_id',  // Select receive_id from products_import
                 DB::raw('SUM(quoteimport.product_qty) as totalImportQty')
             )
-            ->groupBy('quoteimport.product_id', 'quoteimport.product_code', 'quoteimport.product_name', 'quoteimport.product_unit', 'products.product_inventory')
+            ->groupBy('quoteimport.product_id', 'quoteimport.product_code', 'quoteimport.product_name', 'quoteimport.product_unit', 'products.product_inventory', 'products_import.receive_id')
             ->get();
 
         $htrImport = [];
@@ -997,7 +995,9 @@ class ReportController extends Controller
                 'product_inventory' => $quantity->product_inventory,
                 'slNhap' => $totalImportQty,
                 'slXuat' => $totalExportQty,
-                'giaTon' => $giaTon
+                'giaTon' => $giaTon,
+                'product_delivery' => $quoteExportQty[$productId]->product_delivery ?? null,
+                'receive_id' => $quantity->receive_id
             ];
         }
 
