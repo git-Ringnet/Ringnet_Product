@@ -129,7 +129,6 @@ class ReturnImport extends Model
                             $product->product_inventory = $qty;
                             $product->save();
 
-
                             // Xóa SN khỏi sản phẩm
                             if ($product->check_seri == 1) {
                                 $sn = json_decode($item->sn, true);
@@ -161,6 +160,23 @@ class ReturnImport extends Model
                         ];
                         DB::table('products_import')->insert($dataProductImport);
                     }
+                }
+                //cập nhật công nợ NCC
+                if (isset($data['provide_id'])) {
+                    for ($i = 0; $i < count($data['product_name']); $i++) {
+                        $provide = Provides::find($data['provide_id']);
+                        $product_price = str_replace(',', '', $data['price_export'][$i]) ?? 0;
+                        $provide->provide_debt -= ($data['product_qty'][$i] * $product_price);
+                        $provide->save();
+                    }
+                } else {
+                    $provide = Provides::leftJoin('receive_bill', 'receive_bill.provide_id', 'provides.id')
+                        ->leftJoin('returnimport', 'returnimport.receive_id', 'receive_bill.id')
+                        ->where('returnimport.id', $id)
+                        ->select('provides.id', 'provides.provide_debt')
+                        ->first();
+                    $provide->provide_debt = $provide->provide_debt - $returnImport->total;
+                    $provide->save();
                 }
                 // Cập nhật trạng thái đơn hàng
                 $returnImport->status = 2;
@@ -247,6 +263,14 @@ class ReturnImport extends Model
                 // Xóa thông tin sản phẩm trả hàng
                 ReturnProduct::where('id', $item->id)->delete();
             }
+            //cập nhật công nợ NCC
+            $provide = Provides::leftJoin('receive_bill', 'receive_bill.provide_id', 'provides.id')
+                ->leftJoin('returnimport', 'returnimport.receive_id', 'receive_bill.id')
+                ->where('returnimport.id', $id)
+                ->select('provides.id', 'provides.provide_debt')
+                ->first();
+            $provide->provide_debt = $provide->provide_debt + $returnImport->total;
+            $provide->save();
             // Xóa đơn trả hàng
             ReturnImport::where('id', $returnImport->id)->delete();
             $status['status'] = true;

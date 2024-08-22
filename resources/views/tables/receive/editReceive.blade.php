@@ -165,7 +165,7 @@
         </div>
 
         <div class="content margin-top-127">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PNK'" :status="'2'" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PNK'" :status="'2'" :guest="$provides" :listUser="$listUser" />
             <div id="main">
                 <div class="container-fluided">
                     <div class="content">

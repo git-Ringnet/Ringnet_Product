@@ -144,6 +144,9 @@ Route::get('/checkQuotetionExport', [DetailExportController::class, 'checkQuotet
 Route::get('/checkQuotetionExportEdit', [DetailExportController::class, 'checkQuotetionExportEdit'])->name('checkQuotetionExportEdit');
 Route::get('/searchDetailExport', [DetailExportController::class, 'searchDetailExport'])->name('searchDetailExport');
 
+//
+Route::get('/searchMiniView', [DetailExportController::class, 'searchMiniView'])->name('searchMiniView');
+
 Route::get('/searchReturnI', [ReturnImportController::class, 'search'])->name('searchReturnI');
 Route::get('/searchReturnE', [ReturnExportController::class, 'search'])->name('searchReturnE');
 Route::get('/searchCashRe', [CashReceiptController::class, 'search'])->name('searchCashRe');

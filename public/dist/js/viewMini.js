@@ -166,6 +166,41 @@ function calculateTotals() {
 //     }
 // });
 
+$("#listProject").hide();
+$(document).ready(function () {
+    function toggleListGuest(input, list, filterInput) {
+        input.on("click", function () {
+            list.show();
+        });
+
+        $(document).click(function (event) {
+            if (
+                !$(event.target).closest(input).length &&
+                !$(event.target).closest(filterInput).length
+            ) {
+                list.hide();
+            }
+        });
+
+        var applyFilter = function () {
+            var value = filterInput.val().toUpperCase();
+            list.find("li").each(function () {
+                var text = $(this).find("a").text().toUpperCase();
+                $(this).toggle(text.indexOf(value) > -1);
+            });
+        };
+
+        input.on("keyup", applyFilter);
+        filterInput.on("keyup", applyFilter);
+    }
+
+    toggleListGuest(
+        $("#inputGuest"),
+        $("#listGuestMiniView"),
+        $("#searchGuestMiniView")
+    );
+});
+
 function formatDate(dateString) {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
@@ -242,6 +277,7 @@ function calculateGrandTotal1() {
     var grandTotal = totalAmount + totalTax;
     grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
     $("#grand-total").text(formatCurrency(grandTotal));
+    $("#total_bill").val(formatCurrency(grandTotal));
 
     // Update data-value attribute
     $("#grand-total").attr("data-value", grandTotal);

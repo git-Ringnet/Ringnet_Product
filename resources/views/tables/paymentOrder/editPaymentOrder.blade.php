@@ -226,7 +226,7 @@
 
         </div>
         <div class="content margin-top-127" style="width: 100%;">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PC'" :status="'2'" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PC'" :status="'2'" :guest="$guest" :listUser="$listUser" />
             <div id="main">
                 <div class="container-fluided">
                     <div class="tab-content">

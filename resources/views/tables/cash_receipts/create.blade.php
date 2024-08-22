@@ -104,7 +104,7 @@
         </div>
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PT'" :status="'1'" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PT'" :status="'1'" :guest="$guest" :listUser="$listUser" />
             <div id="main">
                 {{-- <section class="content">
                     <div class="bg-filter-search border-0 text-center">

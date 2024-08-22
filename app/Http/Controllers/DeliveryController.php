@@ -309,7 +309,10 @@ class DeliveryController extends Controller
         $quoteExport = $this->detailExport->getProductToId($delivery->detailexport_id);
 
         $listDetail = $this->delivery->listDelivery();
-        return view('tables.export.delivery.watch-delivery', compact('title', 'quoteExport', 'delivery', 'product', 'serinumber', 'workspacename', 'listDetail'));
+        $guest = $this->guest->getAllGuest();
+        //danh sách nhân viên
+        $users = User::where('origin_workspace', Auth::user()->origin_workspace)->get();
+        return view('tables.export.delivery.watch-delivery', compact('title', 'quoteExport', 'delivery', 'product', 'serinumber', 'workspacename', 'listDetail', 'guest', 'users'));
     }
 
     /**

@@ -198,7 +198,7 @@
                     </div>
                 </div>
             </div>
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PXCK'" :status="'2'" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PXCK'" :status="'2'" :listUser="$users" />
         </div>
 </form>
 </div>

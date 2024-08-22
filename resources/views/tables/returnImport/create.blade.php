@@ -8,6 +8,7 @@
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">
         <input type="hidden" value="" name="action" id="getAction">
+        <input type="hidden" name="provide_id" id="provide_id">
         <div class="content-header-fixed p-0 border-0">
             <div class="content__header--inner">
                 <div class="content__heading--left">
@@ -373,7 +374,6 @@
     $(document).on('click', '.search-info', function() {
         var id = $(this).attr('id')
         var text = $(this).find('span').text()
-        $('#provide_id').val(id)
         $('input[name="provides_name"]').val(text)
 
         // Ẩn Đơn mua hàng
@@ -398,7 +398,7 @@
                     table: table
                 },
                 success: function(data) {
-                    console.log(data);
+                    $('#provide_id').val(data.receive.provide_id);
                     $('#detailimport_id').val(data.product[0].receive_id);
                     $('#myInput1').val(data.product[0].receive_id);
                     $('#inputcontent tbody').empty();

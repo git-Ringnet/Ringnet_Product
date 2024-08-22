@@ -129,7 +129,9 @@ class ReceiveController extends Controller
         }
         $listDetail->select('receive_bill.*', 'provides.provide_name_display');
         $listDetail = $listDetail->get();
-        return view('tables.receive.insertReceive', compact('title', 'listDetailImport', 'workspacename', 'provide', 'code', 'listDetail'));
+        $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+        return view('tables.receive.insertReceive', compact('title', 'listDetailImport', 'workspacename', 'provide', 'code', 'listDetail', 'provides', 'listUser'));
     }
 
     /**
@@ -271,7 +273,19 @@ class ReceiveController extends Controller
             )
             ->with('getSerialNumber')
             ->get();
-        return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename', 'nameRepresent', 'detail', 'listDetail'));
+        $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+        return view('tables.receive.editReceive', compact(
+            'receive',
+            'title',
+            'product',
+            'workspacename',
+            'nameRepresent',
+            'detail',
+            'listDetail',
+            'provides',
+            'listUser'
+        ));
     }
 
     /**
@@ -331,7 +345,7 @@ class ReceiveController extends Controller
         $data = [];
         $detail = DetailImport::where('detailimport.id', $request->detail_id)
             ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
-            ->select('provides.*','detailimport.*','detailimport.id as id')
+            ->select('provides.*', 'detailimport.*', 'detailimport.id as id')
             ->first();
         if ($detail) {
             $nameProvide = $detail->provide_name_display;

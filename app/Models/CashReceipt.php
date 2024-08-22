@@ -92,6 +92,13 @@ class CashReceipt extends Model
 
         return $invoicenumber;
     }
+    public function cashReceiptByGuest($id)
+    {
+        $cashReceipt = CashReceipt::where('guest_id', $id)
+            ->where('cash_receipts.workspace_id', Auth::user()->current_workspace)
+            ->get();
+        return $cashReceipt;
+    }
     public function fetchDelivery($data)
     {
         $detailOwed = DetailExport::leftJoin('guest', 'detailexport.guest_id', 'guest.id')
@@ -119,6 +126,12 @@ class CashReceipt extends Model
                 'returnImport_id' => isset($data['returnImport_id']) ? $data['returnImport_id'] : 0,
             ];
             $cashRC = CashReceipt::create($dataCashRC);
+
+            //Cập nhật công nợ khách hàng
+            $guest = Guest::where('id', $data['guest_id'])->first();
+            $guest->guest_debt = $guest->guest_debt - isset($data['total']) ? str_replace(',', '', $data['total']) : 0;
+            $guest->save();
+
             // Cộng tiền vào đơn trả hàng
             $returnImport = ReturnImport::where('id', $data['returnImport_id'])->first();
             if ($returnImport) {
@@ -145,6 +158,10 @@ class CashReceipt extends Model
             $guest->save();
 
             if ($cashRC->status == 2) {
+                //Cập nhật công nợ khách hàng
+                $guest = Guest::where('id', $data['guest_id'])->first();
+                $guest->guest_debt = $guest->guest_debt - (isset($data['total']) ? str_replace(',', '', $data['total']) : 0);
+                $guest->save();
                 $detailE = $this->fetchDelivery($data);
                 if ($detailE) {
                     $conlai =  $detailE->amount_owed - $cashRC->amount;

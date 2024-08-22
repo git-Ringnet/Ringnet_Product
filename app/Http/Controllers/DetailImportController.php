@@ -565,10 +565,16 @@ class DetailImportController extends Controller
                 $resultNumber = "DDH" . str_pad($newNumber, $length, '0', STR_PAD_LEFT) . "-" . Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY');
 
                 $msg = response()->json([
-                    'success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công',
-                    'id' => $new_provide, 'name' => $provide->provide_name_display, 'key' => $key,
-                    'id_represent' => isset($id_represent) ? $id_represent : "", 'represent_name' => $request->provide_represent,
-                    'price_effect' => $price_effect, 'terms_pay' => $terms_pay, 'resultNumber' => $resultNumber
+                    'success' => true,
+                    'msg' => 'Thêm mới nhà cung cấp thành công',
+                    'id' => $new_provide,
+                    'name' => $provide->provide_name_display,
+                    'key' => $key,
+                    'id_represent' => isset($id_represent) ? $id_represent : "",
+                    'represent_name' => $request->provide_represent,
+                    'price_effect' => $price_effect,
+                    'terms_pay' => $terms_pay,
+                    'resultNumber' => $resultNumber
                 ]);
             }
         } else {
@@ -685,7 +691,11 @@ class DetailImportController extends Controller
                     $resultNumber = ($date == "" ? Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY') : $date) . "/RN-" . $key . "-" . $count;
 
                     $msg = response()->json([
-                        'success' => true, 'msg' => 'Chỉnh sửa nhà cung cấp thành công', 'provide_id' => $request->id, 'key' => $key, 'resultNumber' => $resultNumber
+                        'success' => true,
+                        'msg' => 'Chỉnh sửa nhà cung cấp thành công',
+                        'provide_id' => $request->id,
+                        'key' => $key,
+                        'resultNumber' => $resultNumber
                     ]);
                 }
             }
@@ -736,10 +746,12 @@ class DetailImportController extends Controller
                 }
             }
             if (!$check) {
-                if ($data['listQty'][$i] != $data['listSN'][$i] && $data['checkSN'][$i] == 1) {
-                    $status = "false";
-                    $productName = $data['listProductName'][$i];
-                    array_push($listProduct, $data['listProductName'][$i]);
+                if (isset($data['checkSN'][$i])) {
+                    if ($data['listQty'][$i] != $data['listSN'][$i] && $data['checkSN'][$i] == 1) {
+                        $status = "false";
+                        $productName = $data['listProductName'][$i];
+                        array_push($listProduct, $data['listProductName'][$i]);
+                    }
                 }
             }
         }
@@ -956,12 +968,16 @@ class DetailImportController extends Controller
                     ->where('represent_phone', $request->provide_phone)->first();
                 if ($check) {
                     $msg = response()->json([
-                        'success' => true, 'msg' => 'Người đại diện dã tồn tại'
+                        'success' => true,
+                        'msg' => 'Người đại diện dã tồn tại'
                     ]);
                 } else {
                     $new = DB::table('represent_provide')->insertGetId($dataRepresent);
                     $msg = response()->json([
-                        'success' => true, 'msg' => 'Thêm mới người đại diện thành công', 'data' => $request->provide_represent, 'id' => $new
+                        'success' => true,
+                        'msg' => 'Thêm mới người đại diện thành công',
+                        'data' => $request->provide_represent,
+                        'id' => $new
                     ]);
                 }
             }
@@ -973,7 +989,8 @@ class DetailImportController extends Controller
                 ->first();
             if ($checkF) {
                 $msg = response()->json([
-                    'success' => false, 'msg' => $request->table == "import" ? 'Hiệu lực báo giá đã tồn tại' : "Điều khoản thanh toán đã tồn tại"
+                    'success' => false,
+                    'msg' => $request->table == "import" ? 'Hiệu lực báo giá đã tồn tại' : "Điều khoản thanh toán đã tồn tại"
                 ]);
             } else {
                 $dataForm = [
@@ -988,8 +1005,11 @@ class DetailImportController extends Controller
                 ];
                 $newId = DB::table('date_form')->insertGetId($dataForm);
                 $msg = response()->json([
-                    'success' => true, 'msg' => $request->table == "import" ? 'Tạo mới hiệu lực báo giá thành công' : 'Tạo mới điều khoản thanh toán thành công',
-                    'data' => $request->inputDesc, 'id' => $newId, 'inputName' => $request->inputName
+                    'success' => true,
+                    'msg' => $request->table == "import" ? 'Tạo mới hiệu lực báo giá thành công' : 'Tạo mới điều khoản thanh toán thành công',
+                    'data' => $request->inputDesc,
+                    'id' => $newId,
+                    'inputName' => $request->inputName
                 ]);
             }
         }
@@ -1005,7 +1025,8 @@ class DetailImportController extends Controller
                 ->first();
             if ($check) {
                 $msg = response()->json([
-                    'success' => false, 'msg' => 'Người đại diện đã trùng'
+                    'success' => false,
+                    'msg' => 'Người đại diện đã trùng'
                 ]);
             } else {
                 $dataRepresent = [
@@ -1018,7 +1039,9 @@ class DetailImportController extends Controller
                     ->where('id', $request->present_id)
                     ->update($dataRepresent);
                 $msg = response()->json([
-                    'success' => true, 'msg' => 'Chỉnh sửa thông tin thành công', 'data' => $request->provide_represent,
+                    'success' => true,
+                    'msg' => 'Chỉnh sửa thông tin thành công',
+                    'data' => $request->provide_represent,
                     'id' => $request->present_id
                 ]);
             }
@@ -1031,7 +1054,8 @@ class DetailImportController extends Controller
                 ->first();
             if ($checkF) {
                 $msg = response()->json([
-                    'success' => false, 'msg' => 'Thông tin đã tồn tại'
+                    'success' => false,
+                    'msg' => 'Thông tin đã tồn tại'
                 ]);
             } else {
                 $dataForm = [
@@ -1042,8 +1066,11 @@ class DetailImportController extends Controller
                     ->where('id', $request->present_id)
                     ->update($dataForm);
                 $msg = response()->json([
-                    'success' => true, 'msg' => 'Chỉnh sửa thông tin thành công', 'id' => $request->present_id,
-                    'form_name' => $request->inputName, 'form_desc' => $request->inputDesc
+                    'success' => true,
+                    'msg' => 'Chỉnh sửa thông tin thành công',
+                    'id' => $request->present_id,
+                    'form_name' => $request->inputName,
+                    'form_desc' => $request->inputDesc
                 ]);
             }
         }
@@ -1062,17 +1089,22 @@ class DetailImportController extends Controller
                     ->first();
                 if ($check_exist) {
                     $msg = response()->json([
-                        'success' => false, 'msg' => 'Người đại diện đã tồn tại trong đơn mua hàng khác'
+                        'success' => false,
+                        'msg' => 'Người đại diện đã tồn tại trong đơn mua hàng khác'
                     ]);
                 } else {
                     $msg = response()->json([
-                        'success' => true, 'msg' => 'Xóa người đại diện thành công', 'id' => $check->id, 'list' => "listRepresent"
+                        'success' => true,
+                        'msg' => 'Xóa người đại diện thành công',
+                        'id' => $check->id,
+                        'list' => "listRepresent"
                     ]);
                     $check->delete();
                 }
             } else {
                 $msg = response()->json([
-                    'success' => false, 'msg' => 'Không tìm thấy dữ liệu cần xóa'
+                    'success' => false,
+                    'msg' => 'Không tìm thấy dữ liệu cần xóa'
                 ]);
             }
         } else {
@@ -1081,12 +1113,16 @@ class DetailImportController extends Controller
                 ->first();
             if ($check) {
                 $msg = response()->json([
-                    'success' => true, 'msg' => 'Xóa thành công', 'id' => $check->id, 'list' => $request->table == 'priceeffect' ? "listPriceEffect" : "listTermsPay"
+                    'success' => true,
+                    'msg' => 'Xóa thành công',
+                    'id' => $check->id,
+                    'list' => $request->table == 'priceeffect' ? "listPriceEffect" : "listTermsPay"
                 ]);
                 $check->delete();
             } else {
                 $msg = response()->json([
-                    'success' => false, 'msg' => 'Không tìm thấy dữ liệu cần xóa'
+                    'success' => false,
+                    'msg' => 'Không tìm thấy dữ liệu cần xóa'
                 ]);
             }
         }

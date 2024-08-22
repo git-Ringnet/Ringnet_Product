@@ -176,11 +176,13 @@ class ReturnImportController extends Controller
             }
             $detail = DetailImport::where('id', $quoteImport[0]->detailimport_id)->first();
         }
+        $receive = Receive_bill::where('id', $request->detail_id)->first();
 
         $data['warehouse'] = $warehouse;
         $data['qty'] = $qty;
         $data['product'] = $quoteImport;
         $data['detail'] = $detail;
+        $data['receive'] = $receive;
         return $data;
     }
 

@@ -104,7 +104,7 @@
 
         </div>
         <div class="content margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PNK'" :status="'1'" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PNK'" :status="'1'" :guest="$provides" :listUser="$listUser" />
             <div id="main">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-top-0 text-center">

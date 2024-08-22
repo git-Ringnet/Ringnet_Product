@@ -10,6 +10,7 @@ use App\Models\DetailExport;
 use App\Models\Fund;
 use App\Models\Guest;
 use App\Models\ReturnImport;
+use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -117,7 +118,19 @@ class CashReceiptController extends Controller
             ->where(DB::raw('COALESCE(total,0)'), '!=', DB::raw('COALESCE(payment,0)'))
             ->get();
         $listDetail = CashReceipt::with(['guest', 'fund', 'user', 'workspace'])->where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('tables.cash_receipts.create', compact('title', 'invoiceAuto', 'detailOwed', 'guest', 'funds', 'workspacename', 'content', 'returnImport', 'listDetail'));
+        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+        return view('tables.cash_receipts.create', compact(
+            'title',
+            'invoiceAuto',
+            'detailOwed',
+            'guest',
+            'funds',
+            'workspacename',
+            'content',
+            'returnImport',
+            'listDetail',
+            'listUser'
+        ));
     }
 
     public function store(string $workspace, Request $request)
@@ -148,7 +161,20 @@ class CashReceiptController extends Controller
         $cashReceipt = CashReceipt::with(['guest', 'fund', 'user', 'content', 'workspace', 'delivery'])->findOrFail($id);
         $disabled = ($cashReceipt->status == 2) ? 'disabled' : '';
         $listDetail = CashReceipt::with(['guest', 'fund', 'user', 'workspace'])->where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('tables.cash_receipts.edit', compact('title', 'invoiceAuto', 'detailOwed', 'guest', 'cashReceipt', 'disabled', 'funds', 'workspacename', 'content', 'listDetail'));
+        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+        return view('tables.cash_receipts.edit', compact(
+            'title',
+            'invoiceAuto',
+            'detailOwed',
+            'guest',
+            'cashReceipt',
+            'disabled',
+            'funds',
+            'workspacename',
+            'content',
+            'listDetail',
+            'listUser'
+        ));
     }
     public function update(string $workspace, Request $request, string $id)
     {

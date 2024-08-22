@@ -729,8 +729,8 @@
         $('#listReceive').show();
     })
     // Xóa đơn hàng
-    // deleteImport('#delete_receive',
-    //     '{{ route('returnImport.destroy', ['workspace' => $workspacename, 'returnImport' => $returnImport->id]) }}')
+    deleteImport('#delete_receive',
+        '{{ route('returnImport.destroy', ['workspace' => $workspacename, 'returnImport' => $returnImport->id]) }}')
 
     // Tạo INPUT SERI
     createRowInput('seri');

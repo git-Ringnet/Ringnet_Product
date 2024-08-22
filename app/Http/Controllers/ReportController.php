@@ -965,7 +965,7 @@ class ReportController extends Controller
             $quoteImports = DB::table('quoteimport')
                 ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
                 ->where('product_id', $productId)
-                ->orderBy('id', 'asc') // Sắp xếp theo thứ tự nhập
+                ->orderBy('id', 'asc')
                 ->get();
 
             $remainingExportQty = $totalExportQty;
@@ -1000,7 +1000,8 @@ class ReportController extends Controller
                 'giaTon' => $giaTon
             ];
         }
-        return view('report.reportIEEnventory', compact('title', 'htrImport'));
+
+        return view('report.reportIEEnventory', compact('title', 'htrImport', 'workspacename'));
     }
     // ajax Xuất nhập tồn kho
     public function searchRPEnventory(Request $request)

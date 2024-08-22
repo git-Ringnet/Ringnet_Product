@@ -120,7 +120,7 @@
             </div>
         </div>
         <div class="content margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PXK'" :status="'1'" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PXK'" :status="'1'" :guest="$guest" :listUser="$users" />
             <div id="main">
                 {{-- Thông tin khách hàng --}}
                 <div id="show_info_Guest">

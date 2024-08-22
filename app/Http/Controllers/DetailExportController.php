@@ -6,6 +6,7 @@ use App\Exports\UsersExport;
 use App\Models\Attachment;
 use App\Models\BillSale;
 use App\Models\CashReceipt;
+use App\Models\ChangeWarehouse;
 use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
@@ -380,8 +381,17 @@ class DetailExportController extends Controller
                 return redirect()->route('delivery.index', ['workspace' => $workspace])->with('warning', 'Đơn giao hàng đã tạo hết!');
             } else {
                 return view('tables.export.delivery.create-delivery', [
-                    'active' => 'active', 'yes' => $yes, 'getInfoQuote' => $getInfoQuote, 'getGuestbyId' => $getGuestbyId, 'getRepresentbyId' => $getRepresentbyId, 'data' => $data, 'title' => $title, 'numberQuote' => $numberQuote,
-                    'product' => $product, 'getProductQuote' => $getProductQuote, 'workspacename' => $workspace
+                    'active' => 'active',
+                    'yes' => $yes,
+                    'getInfoQuote' => $getInfoQuote,
+                    'getGuestbyId' => $getGuestbyId,
+                    'getRepresentbyId' => $getRepresentbyId,
+                    'data' => $data,
+                    'title' => $title,
+                    'numberQuote' => $numberQuote,
+                    'product' => $product,
+                    'getProductQuote' => $getProductQuote,
+                    'workspacename' => $workspace
                 ]);
             }
         }
@@ -858,7 +868,9 @@ class DetailExportController extends Controller
                 $this->userFlow->addUserFlow($arrCapNhatKH);
             }
             $msg = response()->json([
-                'success' => true, 'msg' => 'Thêm mới dự án thành công', 'id' => $new_guest,
+                'success' => true,
+                'msg' => 'Thêm mới dự án thành công',
+                'id' => $new_guest,
                 'project_name' => $request->project_name,
             ]);
         } else {
@@ -923,7 +935,9 @@ class DetailExportController extends Controller
                 $this->userFlow->addUserFlow($arrCapNhatKH);
             }
             $msg = response()->json([
-                'success' => true, 'msg' => 'Thêm mới người đại diện thành công', 'id' => $new_guest,
+                'success' => true,
+                'msg' => 'Thêm mới người đại diện thành công',
+                'id' => $new_guest,
                 'represent_name' => $request->represent_name,
             ]);
         } else {
@@ -1295,6 +1309,251 @@ class DetailExportController extends Controller
         }
         return $data;
     }
+
+    public function searchMiniView(Request $request)
+    {
+        // Định dạng lại ngày truyền vào để chắc chắn không có phần giờ
+        $fromDate = Carbon::parse($request->fromDate)->format('Y-m-d');
+        $toDate = Carbon::parse($request->toDate)->format('Y-m-d');
+
+        if ($request->page == "PBH") {
+            $detailExport = DetailExport::query()
+                ->when($request->idGuest, function ($query, $idGuest) {
+                    return $query->where('guest_id', $idGuest);
+                })
+                ->when($request->creator, function ($query, $creator) {
+                    return $query->where('detailexport.user_id', $creator);
+                })
+                ->whereBetween(DB::raw("DATE(detailexport.created_at)"), [$fromDate, $toDate])
+                ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
+                ->leftJoin('users', 'detailexport.user_id', 'users.id')
+                ->select('detailexport.id', 'detailexport.quotation_number', 'detailexport.reference_number', 'guest.guest_name_display', 'detailexport.created_at', 'users.name')
+                ->get();
+
+            $data = $detailExport->map(function ($detail) {
+                return [
+                    'id' => $detail->id,
+                    'quotation_number' => $detail->quotation_number,
+                    'reference_number' => $detail->reference_number,
+                    'guest_name' => $detail->guest_name_display,
+                    'created_at' => Carbon::parse($detail->created_at)->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y'),
+                    'creator_name' => $detail->name,
+                ];
+            });
+
+            return response()->json($data);
+        }
+        if ($request->page == "DHNCC") {
+            $detailExport = DetailImport::query()
+                ->when($request->idGuest, function ($query, $idGuest) {
+                    return $query->where('provide_id', $idGuest);
+                })
+                ->when($request->creator, function ($query, $creator) {
+                    return $query->where('detailimport.user_id', $creator);
+                })
+                ->whereBetween(DB::raw("DATE(detailimport.created_at)"), [$fromDate, $toDate])
+                ->leftJoin('provides', 'detailimport.provide_id', 'provides.id')
+                ->leftJoin('users', 'detailimport.user_id', 'users.id')
+                ->select('detailimport.id', 'detailimport.quotation_number', 'detailimport.reference_number', 'provides.provide_name_display', 'detailimport.created_at', 'users.name')
+                ->get();
+
+            $data = $detailExport->map(function ($detail) {
+                return [
+                    'id' => $detail->id,
+                    'quotation_number' => $detail->quotation_number,
+                    'reference_number' => $detail->reference_number,
+                    'guest_name' => $detail->provide_name_display,
+                    'created_at' => Carbon::parse($detail->created_at)->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y'),
+                    'creator_name' => $detail->name,
+                ];
+            });
+
+            return response()->json($data);
+        }
+        if ($request->page == "PNK") {
+            $detailExport = Receive_bill::query()
+                ->when($request->idGuest, function ($query, $idGuest) {
+                    return $query->where('receive_bill.provide_id', $idGuest);
+                })
+                ->when($request->creator, function ($query, $creator) {
+                    return $query->where('receive_bill.user_id', $creator);
+                })
+                ->whereBetween(DB::raw("DATE(receive_bill.created_at)"), [$fromDate, $toDate])
+                ->leftJoin('provides', 'receive_bill.provide_id', 'provides.id')
+                ->leftJoin('users', 'receive_bill.user_id', 'users.id')
+                ->select('receive_bill.id', 'receive_bill.delivery_code', 'provides.provide_name_display', 'receive_bill.created_at', 'users.name')
+                ->get();
+
+            $data = $detailExport->map(function ($detail) {
+                return [
+                    'id' => $detail->id,
+                    'quotation_number' => $detail->delivery_code,
+                    'guest_name' => $detail->provide_name_display,
+                    'created_at' => Carbon::parse($detail->created_at)->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y'),
+                    'creator_name' => $detail->name,
+                ];
+            });
+
+            return response()->json($data);
+        }
+        if ($request->page == "PXK") {
+            $detailExport = Delivery::query()
+                ->when($request->idGuest, function ($query, $idGuest) {
+                    return $query->where('delivery.guest_id', $idGuest);
+                })
+                ->when($request->creator, function ($query, $creator) {
+                    return $query->where('delivery.user_id', $creator);
+                })
+                ->whereBetween(DB::raw("DATE(delivery.created_at)"), [$fromDate, $toDate])
+                ->leftJoin('guest', 'delivery.guest_id', 'guest.id')
+                ->leftJoin('users', 'delivery.user_id', 'users.id')
+                ->select('delivery.id', 'delivery.code_delivery', 'guest.guest_name_display', 'delivery.created_at', 'users.name')
+                ->get();
+
+            $data = $detailExport->map(function ($detail) {
+                return [
+                    'id' => $detail->id,
+                    'quotation_number' => $detail->code_delivery,
+                    'guest_name' => $detail->guest_name_display,
+                    'created_at' => Carbon::parse($detail->created_at)->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y'),
+                    'creator_name' => $detail->name,
+                ];
+            });
+
+            return response()->json($data);
+        }
+        if ($request->page == "PT") {
+            $detailExport = CashReceipt::query()
+                ->when($request->idGuest, function ($query, $idGuest) {
+                    return $query->where('cash_receipts.guest_id', $idGuest);
+                })
+                ->when($request->creator, function ($query, $creator) {
+                    return $query->where('cash_receipts.user_id', $creator);
+                })
+                ->whereBetween(DB::raw("DATE(cash_receipts.created_at)"), [$fromDate, $toDate])
+                ->leftJoin('guest', 'cash_receipts.guest_id', 'guest.id')
+                ->leftJoin('users', 'cash_receipts.user_id', 'users.id')
+                ->select(
+                    'cash_receipts.id',
+                    'cash_receipts.receipt_code',
+                    'guest.guest_name_display',
+                    'cash_receipts.created_at',
+                    'users.name',
+                    'cash_receipts.payer',
+                    'cash_receipts.amount',
+                )
+                ->get();
+
+            $data = $detailExport->map(function ($detail) {
+                return [
+                    'id' => $detail->id,
+                    'quotation_number' => $detail->receipt_code,
+                    'guest_name' => $detail->guest_name_display,
+                    'payer' => $detail->payer,
+                    'amount' => $detail->amount,
+                    'created_at' => Carbon::parse($detail->created_at)->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y'),
+                    'creator_name' => $detail->name,
+                ];
+            });
+
+            return response()->json($data);
+        }
+        if ($request->page == "PC") {
+            $detailExport = PayOder::query()
+                ->when($request->idGuest, function ($query, $idGuest) {
+                    return $query->where('pay_order.guest_id', $idGuest);
+                })
+                ->when($request->creator, function ($query, $creator) {
+                    return $query->where('pay_order.user_id', $creator);
+                })
+                ->whereBetween(DB::raw("DATE(pay_order.created_at)"), [$fromDate, $toDate])
+                ->leftJoin('provides', 'pay_order.guest_id', 'provides.id')
+                ->leftJoin('users', 'pay_order.user_id', 'users.id')
+                ->select(
+                    'pay_order.id',
+                    'pay_order.payment_code',
+                    'provides.provide_name_display',
+                    'pay_order.created_at',
+                    'users.name',
+                    'pay_order.payment_type',
+                    'pay_order.payment',
+                )
+                ->get();
+
+            $data = $detailExport->map(function ($detail) {
+                return [
+                    'id' => $detail->id,
+                    'quotation_number' => $detail->payment_code,
+                    'guest_name' => $detail->provide_name_display,
+                    'payment_type' => $detail->payment_type,
+                    'amount' => $detail->total,
+                    'created_at' => Carbon::parse($detail->created_at)->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y'),
+                    'creator_name' => $detail->name,
+                ];
+            });
+
+            return response()->json($data);
+        }
+        if ($request->page == "PXCK") {
+            $detailExport = ChangeWarehouse::query()
+                ->when($request->creator, function ($query, $creator) {
+                    return $query->where('change_warehouse.user_id', $creator);
+                })
+                ->whereBetween(DB::raw("DATE(change_warehouse.created_at)"), [$fromDate, $toDate])
+                ->where('change_warehouse.type_change_warehouse', 1)
+                ->leftJoin('users', 'change_warehouse.user_id', 'users.id')
+                ->select(
+                    'change_warehouse.id',
+                    'change_warehouse.created_at',
+                    'change_warehouse.change_warehouse_code',
+                    'change_warehouse.note',
+                    'users.name',
+                )
+                ->get();
+
+            $data = $detailExport->map(function ($detail) {
+                return [
+                    'id' => $detail->id,
+                    'change_warehouse_code' => $detail->change_warehouse_code,
+                    'note' => $detail->note,
+                    'created_at' => Carbon::parse($detail->created_at)->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y'),
+                    'creator_name' => $detail->name,
+                ];
+            });
+
+            return response()->json($data);
+        }
+        if ($request->page == "PNCK") {
+            $detailExport = ChangeWarehouse::query()
+                ->when($request->creator, function ($query, $creator) {
+                    return $query->where('change_warehouse.user_id', $creator);
+                })
+                ->whereBetween(DB::raw("DATE(change_warehouse.created_at)"), [$fromDate, $toDate])
+                ->where('change_warehouse.type_change_warehouse', 2)
+                ->leftJoin('users', 'change_warehouse.user_id', 'users.id')
+                ->select(
+                    'change_warehouse.id',
+                    'change_warehouse.created_at',
+                    'change_warehouse.change_warehouse_code',
+                    'change_warehouse.note',
+                    'users.name',
+                )
+                ->get();
+
+            $data = $detailExport->map(function ($detail) {
+                return [
+                    'id' => $detail->id,
+                    'change_warehouse_code' => $detail->change_warehouse_code,
+                    'note' => $detail->note,
+                    'created_at' => Carbon::parse($detail->created_at)->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y'),
+                    'creator_name' => $detail->name,
+                ];
+            });
+
+            return response()->json($data);
+        }
+    }
+
     public function getListExport(Request $request)
     {
         $data = [];
@@ -1325,6 +1584,7 @@ class DetailExportController extends Controller
         }
         return $data;
     }
+
     public function getViewMini(Request $request)
     {
         $data = [];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailImport;
 use App\Models\Groups;
+use App\Models\PayOder;
 use App\Models\ProvideRepesent;
 use App\Models\Provides;
 use App\Models\QuoteImport;
@@ -107,11 +108,12 @@ class ProvidesController extends Controller
         }
         $getId = $id;
         // $request->session()->put('id', $id);
+        $payOrder = PayOder::where('guest_id', $id)->get();
         $productDelivered = $this->quoteImport->sumProductsQuoteByProvide($id);
         // Get All đơn
         $allDelivery = $this->detailImport->getSumDetailEByProvide($id);
 
-        return view('tables.provides.showProvides', compact('title', 'provide', 'repesent', 'workspacename','productDelivered','allDelivery'));
+        return view('tables.provides.showProvides', compact('title', 'provide', 'repesent', 'workspacename', 'productDelivered', 'allDelivery', 'payOrder'));
     }
 
     /**
@@ -322,7 +324,9 @@ class ProvidesController extends Controller
                         DB::table('provides')->where('id', $request->id)->update($dataProvide);
 
                         $msg = response()->json([
-                            'success' => true, 'msg' => 'Chỉnh sửa nhà cung cấp thành công', 'provide_id' => $request->id
+                            'success' => true,
+                            'msg' => 'Chỉnh sửa nhà cung cấp thành công',
+                            'provide_id' => $request->id
                         ]);
                     }
                 }

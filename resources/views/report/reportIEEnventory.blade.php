@@ -216,7 +216,8 @@
                                                     $totalSlXuat += $slXuat;
                                                     $totalGiaTon += $giaTon;
                                                 @endphp
-                                                <tr class="position-relative relative product-info"
+
+                                                <tr class="position-relative relative product-info main-row"
                                                     onclick="handleRowClick('checkbox', event);">
                                                     <input type="hidden" name="id-product" class="id-product"
                                                         id="id-product" value="">
@@ -279,6 +280,7 @@
     </div>
 </div>
 <x-print-component :contentId="$title" />
+<x-right-click :workspacename="$workspacename" :page="'viewReportIEEnventory'"></x-right-click>
 <script src="{{ asset('/dist/js/number.js') }}"></script>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 <script>

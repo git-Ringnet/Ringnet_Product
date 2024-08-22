@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\GuestExport;
+use App\Models\CashReceipt;
 use App\Models\DetailExport;
 use App\Models\Groups;
 use App\Models\Guest;
@@ -32,6 +33,8 @@ class GuestController extends Controller
     private $users;
     private $guest;
     private $quoteE;
+    private $cash_receipts;
+
     public function __construct()
     {
         $this->guests = new Guest();
@@ -43,6 +46,7 @@ class GuestController extends Controller
         $this->users = new User();
         $this->guest = new Guest();
         $this->quoteE = new QuoteExport();
+        $this->cash_receipts = new CashReceipt();
     }
     public function index(Request $request)
     {
@@ -127,8 +131,9 @@ class GuestController extends Controller
         $sumDebt = $this->detailExport->sumDebt($id);
         //Lịch sử giao dịch
         $historyGuest = $this->detailExport->historyGuest($id);
-        $productDelivered = $this->quoteE->sumProductsQuoteByGuest($id);
+        $cash_receipts = $this->cash_receipts->cashReceiptByGuest($id);
         // Get All đơn
+        $productDelivered = $this->quoteE->sumProductsQuoteByGuest($id);
         $allDelivery = $this->detailExport->getSumDetailEByGuest($id);
         return view('tables.guests.show', compact(
             'title',
@@ -142,7 +147,8 @@ class GuestController extends Controller
             'sumSell',
             'workspacename',
             'allDelivery',
-            'productDelivered'
+            'productDelivered',
+            'cash_receipts',
         ));
     }
 

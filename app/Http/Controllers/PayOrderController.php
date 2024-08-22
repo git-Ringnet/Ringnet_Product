@@ -154,8 +154,6 @@ class PayOrderController extends Controller
         //     $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
         // }
 
-
-
         if (isset($request->returnImport_id)) {
             // Cập nhật tiền đã trả cho khách khi trả hàng
             $returnE = ReturnExport::findOrFail($request->returnImport_id);
@@ -252,7 +250,20 @@ class PayOrderController extends Controller
             $listDetail->select('pay_order.*');
 
             $listDetail = $listDetail->get();
-            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'workspacename', 'nameRepresent', 'listDetail'));
+            $guest = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+            //danh sách nhân viên
+            $listUser = User::where('origin_workspace', Auth::user()->current_workspace)->get();
+            return view('tables.paymentOrder.editPaymentOrder', compact(
+                'payment',
+                'title',
+                'product',
+                'history',
+                'workspacename',
+                'nameRepresent',
+                'listDetail',
+                'guest',
+                'listUser'
+            ));
         }
     }
 

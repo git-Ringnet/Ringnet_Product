@@ -83,13 +83,16 @@
         <section class="content-header--options p-0">
             <ul class="header-options--nav nav nav-tabs margin-left32">
                 <li class="user_flow" data-type="NCC" data-des="Xem thông tin">
-                    <a id="info-tab" class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông tin</a>
+                    <a id="info-tab" class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông
+                        tin</a>
                 </li>
                 <li class="user_flow" data-type="NCC" data-des="Lịch sử mua hàng">
-                    <a id="history-tab" class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử mua hàng</a>
+                    <a id="history-tab" class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử
+                        công nợ</a>
                 </li>
                 <li class="user_flow">
-                    <a id="detailExport-tab" class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#detailImport">Đơn hàng</a>
+                    <a id="detailExport-tab" class="text-secondary m-0 pl-3 pr-3" data-toggle="tab"
+                        href="#detailImport">Đơn hàng</a>
                 </li>
                 {{-- <li class="user_flow" data-type="NCC" data-des="File đính kèm">
                     <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#">File đính kèm</a>
@@ -169,36 +172,6 @@
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
 
-                                        {{-- <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0  margin-left32 text-13">Fax</p>
-                                            </div>
-                                            <input readonly type="text"
-                                                name="provide_name"
-                                                value="{{ old('provide_name') ?? $provide->provide_fax }}"
-                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                        </div>
-
-                                        <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0  margin-left32 text-13">Đỉnh mức nợ</p>
-                                            </div>
-                                            <input readonly type="text"
-                                                name="provide_name"
-                                                value="{{ old('provide_name') ?? number_format($provide->quota_debt) }}"
-                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                        </div> --}}
-
-                                        {{-- <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0  margin-left32 text-13">Nợ ban đầu</p>
-                                            </div>
-                                            <input readonly type="text"
-                                                name="provide_name"
-                                                value="{{ old('provide_name') ?? number_format($provide->provide_debt) }}"
-                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                        </div> --}}
-
                                         <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Nhóm</p>
@@ -207,16 +180,6 @@
                                                 value="@if ($provide->getGroup) {{ $provide->getGroup->name }} @endif"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
-
-                                        {{-- <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0  margin-left32 text-13">Tên đầy đủ</p>
-                                            </div>
-                                            <input readonly type="text"
-                                                name="provide_name"
-                                                value="{{ old('provide_name') ?? $provide->provide_name }}"
-                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -371,8 +334,17 @@
                             <table class="table table-hover bg-white rounded" id="inputcontent">
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="text-13 text-nowrap padding-left35">
-                                            <span>Ngày mua hàng</span>
+                                        <th scope="col" class="text-13 text-nowrap text-center">
+                                            <span>Chứng từ</span>
+                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                                                viewBox='0 0 16 16' fill='none'>
+                                                <path
+                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
+                                                    fill='#6B6F76' />
+                                            </svg>
+                                        </th>
+                                        <th scope="col" class="text-13 text-nowrap text-center">
+                                            <span>Ngày</span>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                                 viewBox='0 0 16 16' fill='none'>
                                                 <path
@@ -381,79 +353,7 @@
                                             </svg>
                                         </th>
                                         <th scope="col" class="text-13 text-nowrap">
-                                            <span>Đơn mua</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
-                                        </th>
-                                        {{-- <th scope="col" class="text-13 text-nowrap">
-                                            <span>Số tham chiếu</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
-                                        </th> --}}
-                                        {{-- <th scope="col" class="text-13 text-nowrap text-left">
-                                            <span>Nhà cung cấp</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
-                                        </th> --}}
-                                        {{-- <th scope="col" class="text-13 text-nowrap text-left">
-                                            <span>Dự án</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
-                                        </th> --}}
-                                        {{-- <th scope="col" class="text-13 text-nowrap text-center">
-                                            <span>Trạng thái</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
-                                        </th>
-                                        <th scope="col" class="text-13 text-nowrap text-center">
-                                            <span>Nhận hàng</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
-                                        </th>
-                                        <th scope="col" class="text-13 text-nowrap text-center">
-                                            <span>Xuất hóa đơn</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
-                                        </th> --}}
-                                        {{-- <th scope="col" class="text-13 text-nowrap text-center">
-                                            <span>Thanh toán</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
-                                        </th> --}}
-                                        <th scope="col" class="text-13 text-nowrap text-right">
-                                            <span>Tổng tiền</span>
+                                            <span>Diễn giải</span>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                                 viewBox='0 0 16 16' fill='none'>
                                                 <path
@@ -462,7 +362,25 @@
                                             </svg>
                                         </th>
                                         <th scope="col" class="text-13 text-nowrap text-right">
-                                            <span>Dự nợ</span>
+                                            <span>Tiền toa</span>
+                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                                                viewBox='0 0 16 16' fill='none'>
+                                                <path
+                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
+                                                    fill='#6B6F76' />
+                                            </svg>
+                                        </th>
+                                        <th scope="col" class="text-13 text-nowrap text-right">
+                                            <span>Chi</span>
+                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                                                viewBox='0 0 16 16' fill='none'>
+                                                <path
+                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
+                                                    fill='#6B6F76' />
+                                            </svg>
+                                        </th>
+                                        <th scope="col" class="text-13 text-nowrap text-right">
+                                            <span>Còn nợ</span>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                                 viewBox='0 0 16 16' fill='none'>
                                                 <path
@@ -473,153 +391,81 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        // Kết hợp hai mảng và sắp xếp theo ngày tạo (tăng dần)
+                                        $sortedCombined = $provide->getAllDetail
+                                            ->concat($payOrder)
+                                            ->sortBy('created_at');
+
+                                        // Khởi tạo biến để giữ giá trị còn nợ
+                                        $currentDebt = 0;
+                                    @endphp
                                     @if ($provide->getAllDetail)
-                                        @foreach ($provide->getAllDetail as $detail)
-                                            <tr class="bg-white">
-                                                <td class="text-13-black padding-left35 border-top-0 border-bottom">
-                                                    {{ date_format(new DateTime($detail->created_at), 'd/m/Y') }}
+                                        @foreach ($sortedCombined as $item)
+                                            <tr>
+                                                <td class="text-13-black max-width120 border-bottom text-center">
+                                                    @if (isset($item->quotation_number))
+                                                        <a
+                                                            href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}">
+                                                            {{ $item->quotation_number }}
+                                                        </a>
+                                                    @else
+                                                        <a
+                                                            href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item->id]) }}">
+                                                            {{ $item->payment_code }}
+                                                        </a>
+                                                    @endif
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom">
-                                                    {{ $detail->quotation_number }}
+                                                <td class="text-13-black padding-left35 border-bottom text-center">
+                                                    {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
-                                                {{-- <td class="text-13-black border-top-0 border-bottom">
-                                                    {{ $detail->reference_number }}
-                                                </td> --}}
-                                                {{-- <td class="text-13-black border-top-0 border-bottom">
-                                                    @if ($detail->getProvideName)
-                                                        {{ $detail->getProvideName->provide_name_display }}
-                                                    @endif
-                                                </td> --}}
-                                                {{-- <td class="text-13-black border-top-0 border-bottom">
-                                                    @if ($detail->getProjectName)
-                                                        {{ $detail->getProjectName->project_name }}
-                                                    @endif
-                                                </td> --}}
-                                                {{-- <td class="text-13-black text-center border-top-0 border-bottom">
-                                                    @if ($detail->status_receive == 2 && $detail->status_reciept == 2 && $detail->status_pay == 2)
-                                                        <span class="text-success">Close</span>
-                                                    @elseif($detail->status == 1)
-                                                        <span class="text-secondary">Draft</span>
+                                                <td class="text-13-black max-width120 border-bottom">
+                                                    @if (isset($item->quotation_number))
+                                                        Phiếu đặt hàng
                                                     @else
-                                                        <span class="text-primary">Approved</span>
+                                                        Phiếu chi
                                                     @endif
-                                                </td> --}}
-                                                {{-- <td class="text-13-black text-center border-top-0 border-bottom">
-                                                    @if ($detail->status_receive == 0)
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" viewBox="0 0 16 16" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
-                                                                fill="#858585" />
-                                                        </svg>
-                                                    @elseif ($detail->status_receive == 1)
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" viewBox="0 0 16 16" fill="none">
-                                                            <g clip-path="url(#clip0_2466_23134)">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M7.99694 13.8636C11.237 13.8636 13.8636 11.237 13.8636 7.99694C13.8636 4.75687 11.237 2.13027 7.99694 2.13027C4.75687 2.13027 2.13027 4.75687 2.13027 7.99694C2.13027 11.237 4.75687 13.8636 7.99694 13.8636ZM7.99694 15.4636C12.1207 15.4636 15.4636 12.1207 15.4636 7.99694C15.4636 3.87322 12.1207 0.530273 7.99694 0.530273C3.87322 0.530273 0.530273 3.87322 0.530273 7.99694C0.530273 12.1207 3.87322 15.4636 7.99694 15.4636Z"
-                                                                    fill="#E8B600" />
-                                                                <path
-                                                                    d="M11.8065 7.99694C11.8065 10.1009 10.1009 11.8064 7.99697 11.8064L7.9967 4.18742C10.1007 4.18742 11.8065 5.89299 11.8065 7.99694Z"
-                                                                    fill="#E8B600" />
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_2466_23134">
-                                                                    <rect width="16" height="16"
-                                                                        fill="white" />
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
+                                                </td>
+                                                <td class="text-13-black text-nowrap border-bottom text-right">
+                                                    @if (isset($item->total_price))
+                                                        {{ number_format($item->total_price) }}
                                                     @else
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" viewBox="0 0 16 16" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                                                fill="#08AA36" fill-opacity="0.75" />
-                                                        </svg>
+                                                        0
                                                     @endif
-                                                </td> --}}
-                                                {{-- <td class="text-13-black text-center border-top-0 border-bottom">
-                                                    @if ($detail->status_reciept == 0)
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" viewBox="0 0 16 16" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
-                                                                fill="#858585" />
-                                                        </svg>
-                                                    @elseif ($detail->status_reciept == 1)
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" viewBox="0 0 16 16" fill="none">
-                                                            <g clip-path="url(#clip0_2466_23134)">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M7.99694 13.8636C11.237 13.8636 13.8636 11.237 13.8636 7.99694C13.8636 4.75687 11.237 2.13027 7.99694 2.13027C4.75687 2.13027 2.13027 4.75687 2.13027 7.99694C2.13027 11.237 4.75687 13.8636 7.99694 13.8636ZM7.99694 15.4636C12.1207 15.4636 15.4636 12.1207 15.4636 7.99694C15.4636 3.87322 12.1207 0.530273 7.99694 0.530273C3.87322 0.530273 0.530273 3.87322 0.530273 7.99694C0.530273 12.1207 3.87322 15.4636 7.99694 15.4636Z"
-                                                                    fill="#E8B600" />
-                                                                <path
-                                                                    d="M11.8065 7.99694C11.8065 10.1009 10.1009 11.8064 7.99697 11.8064L7.9967 4.18742C10.1007 4.18742 11.8065 5.89299 11.8065 7.99694Z"
-                                                                    fill="#E8B600" />
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_2466_23134">
-                                                                    <rect width="16" height="16"
-                                                                        fill="white" />
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
+                                                </td>
+                                                <td class="text-13-black text-nowrap border-bottom text-right">
+                                                    @if (isset($item->total))
+                                                        {{ number_format($item->total) }}
                                                     @else
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" viewBox="0 0 16 16" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                                                fill="#08AA36" fill-opacity="0.75" />
-                                                        </svg>
+                                                        0
                                                     @endif
-                                                </td> --}}
-                                                {{-- <td class="text-13-black text-center border-top-0 border-bottom">
-                                                    @if ($detail->status_pay == 0)
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" viewBox="0 0 16 16" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
-                                                                fill="#858585" />
-                                                        </svg>
-                                                    @elseif ($detail->status_pay == 1)
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" viewBox="0 0 16 16" fill="none">
-                                                            <g clip-path="url(#clip0_2466_23134)">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M7.99694 13.8636C11.237 13.8636 13.8636 11.237 13.8636 7.99694C13.8636 4.75687 11.237 2.13027 7.99694 2.13027C4.75687 2.13027 2.13027 4.75687 2.13027 7.99694C2.13027 11.237 4.75687 13.8636 7.99694 13.8636ZM7.99694 15.4636C12.1207 15.4636 15.4636 12.1207 15.4636 7.99694C15.4636 3.87322 12.1207 0.530273 7.99694 0.530273C3.87322 0.530273 0.530273 3.87322 0.530273 7.99694C0.530273 12.1207 3.87322 15.4636 7.99694 15.4636Z"
-                                                                    fill="#E8B600" />
-                                                                <path
-                                                                    d="M11.8065 7.99694C11.8065 10.1009 10.1009 11.8064 7.99697 11.8064L7.9967 4.18742C10.1007 4.18742 11.8065 5.89299 11.8065 7.99694Z"
-                                                                    fill="#E8B600" />
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_2466_23134">
-                                                                    <rect width="16" height="16"
-                                                                        fill="white" />
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    @else
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" viewBox="0 0 16 16" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                                                fill="#08AA36" fill-opacity="0.75" />
-                                                        </svg>
+                                                </td>
+                                                <td class="text-13-black text-nowrap border-bottom text-right">
+                                                    @if (isset($item->total_price))
+                                                        @php
+                                                            $currentDebt += $item->total_price;
+                                                        @endphp
+                                                    @elseif (isset($item->total))
+                                                        @php
+                                                            $currentDebt -= $item->total;
+                                                        @endphp
                                                     @endif
-                                                </td> --}}
-                                                <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    {{ number_format($detail->total_tax) }}</td>
-                                                <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    @if ($detail->getPayOrder && $detail->getPayOrder->getHistoryPaymentByID)
-                                                        {{ number_format($detail->total_tax - $detail->getPayOrder->getHistoryPaymentByID->sum('payment')) }}
-                                                    @else
-                                                        {{ number_format($detail->total_tax) }}
-                                                    @endif
+                                                    {{ number_format($currentDebt) }}
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        <tr>
+                                            <td colspan="2" class="border-bottom"></td>
+                                            <td class="text-red text-nowrap border-bottom"><strong>Tổng</strong></td>
+                                            <td class="text-red text-nowrap border-bottom text-right">
+                                                {{ number_format($sortedCombined->where('total_price', '!=', null)->sum('total_price')) }}
+                                            </td>
+                                            <td class="text-red text-nowrap border-bottom text-right">
+                                                {{ number_format($sortedCombined->where('amount', '!=', null)->sum('amount')) }}
+                                            </td>
+                                            <td class="text-red text-nowrap border-bottom text-right">
+                                                {{ number_format($currentDebt) }}</td>
+                                        </tr>
                                     @endif
                                 </tbody>
                             </table>
