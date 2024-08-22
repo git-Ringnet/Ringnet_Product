@@ -34,6 +34,22 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
+                        <div class="dropdown">
+                            <button type="submit" data-toggle="dropdown"
+                                class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
+                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <span class="text-button">In phiếu</span>
+                            </button>
+                            <div class="dropdown-menu" style="z-index: 9999;">
+                                <a class="dropdown-item text-13-black" href="#"
+                                    onclick="printCashRC('printContent','PHIẾU CHI')">Phiếu thu</a>
+                            </div>
+                        </div>
                         <a href="{{ route('paymentOrder.index', $workspacename) }}" class="user_flow" data-type="TTMH"
                             data-des="Hủy">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
@@ -327,7 +343,7 @@
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
                             <input type="text"
-                                class="border-0 text-13-black text-left py-1 w-100 height-32 searchProductName"
+                                class="border-0 text-13-black text-left py-1 w-100 height-32 searchProductName quote"
                                 value="{{ $getQuoteCount }}" readonly name="payment_code">
                         </div>
                         <div
@@ -340,7 +356,7 @@
                                     style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" readonly
                                     required="required">
                                 <input type="hidden" name="guest_id" id="guest_id">
-
+                                <input type="hidden" name="addr" id="addr" value="">
                                 <ul id="listGuest"
                                     class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
                                     style="z-index: 99;display: none; right:0; width:100%">
@@ -734,8 +750,13 @@
 </div>
 
 </div>
+<x-print-export :title="$title" />
+
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
+<script src="{{ asset('/dist/js/print.js') }}"></script>
+<script src="{{ asset('/dist/js/export.js') }}"></script>
+
 <script>
     const lastDevicePixelRatio = window.devicePixelRatio;
     window.addEventListener('resize', function() {
@@ -886,6 +907,7 @@
                     provide_id: detail_id,
                 },
                 success: function(data) {
+                    $('#addr').val(data['guest_address']);
                     var provideDebt = parseFloat(data['provide_debt']);
                     if (isNaN(provideDebt)) {
                         provideDebt = 0;

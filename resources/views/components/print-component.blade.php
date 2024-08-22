@@ -48,4 +48,40 @@
         $('.top-table.outer-temp').removeClass('outer-temp').addClass('outer');
         $('.top-table.outer-4-temp').removeClass('outer-4-temp').addClass('outer-4');
     }
+
+    function exportTableToExcel(tableID, filename = '') {
+        var downloadLink;
+        var dataType = 'application/vnd.ms-excel';
+        var tableSelect = document.getElementById(tableID);
+        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+        // Loại bỏ các thẻ không cần thiết
+        tableHTML = tableHTML.replace(/<A[^>]*>|<\/A>/g, ""); // Loại bỏ các liên kết
+        tableHTML = tableHTML.replace(/<img[^>]*>/gi, ""); // Loại bỏ các hình ảnh
+        tableHTML = tableHTML.replace(/<input[^>]*>|<\/input>/gi, ""); // Loại bỏ các input
+
+        // Đặt tên tệp nếu không có tên tệp được chỉ định
+        filename = filename ? filename + '.xls' : 'exported_data.xls';
+
+        // Tạo link tải về
+        downloadLink = document.createElement("a");
+
+        document.body.appendChild(downloadLink);
+
+        if (navigator.msSaveOrOpenBlob) {
+            var blob = new Blob(['\ufeff', tableHTML], {
+                type: dataType
+            });
+            navigator.msSaveOrOpenBlob(blob, filename);
+        } else {
+            // Tạo URL cho file Excel và gán vào link download
+            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+            // Đặt tên tệp cho link download
+            downloadLink.download = filename;
+
+            // Kích hoạt click để tải về
+            downloadLink.click();
+        }
+    }
 </script>

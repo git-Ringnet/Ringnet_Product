@@ -88,6 +88,7 @@
                                 <button class="mx-1 d-flex align-items-center btn-primary rounded"
                                     onclick="printContent('printContent', 'hanghoa','foot')">In
                                     trang</button>
+                                <button onclick="exportTableToExcel('example2', 'my-data')">Xuất Excel</button>
                             </div>
                         </div>
                     </div>
@@ -105,7 +106,7 @@
                         <div class="col-12 p-0 m-0">
                             <div class="tab-content">
                                 <div id="hanghoa" class="content tab-pane in active">
-                                    <div class="outer top-table table-responsive text-nowrap">
+                                    <div class="outer-4 top-table table-responsive text-nowrap">
                                         <table id="example2" class="table table-hover">
                                             <thead>
                                                 <tr class="">

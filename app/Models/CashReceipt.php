@@ -140,6 +140,10 @@ class CashReceipt extends Model
                 'workspace_id' => Auth::user()->current_workspace,
             ];
             $cashRC = CashReceipt::create($dataCashRC);
+            $guest = Guest::find($data['guest_id']);
+            $guest->guest_debt = $guest->guest_debt - $cashRC->amount;
+            $guest->save();
+
             if ($cashRC->status == 2) {
                 $detailE = $this->fetchDelivery($data);
                 if ($detailE) {
@@ -175,7 +179,9 @@ class CashReceipt extends Model
             'workspace_id' => Auth::user()->current_workspace,
         ];
         $cashReceipt->update($dataCashRC);
-
+        $guest = Guest::find($data['guest_id']);
+        $guest->guest_debt = $guest->guest_debt - $cashReceipt->amount;
+        $guest->save();
         $detailE = $this->fetchDelivery($data);
         if ($detailE) {
             $conlai = $detailE->amount_owed - $cashReceipt->amount;

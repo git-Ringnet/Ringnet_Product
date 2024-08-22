@@ -262,7 +262,7 @@ class GuestController extends Controller
         return false;
     }
 
-    // Search filter trang edit -.-
+    // Search filter trang edit
     public function searchDetailGuest(Request $request)
     {
         $data = $request->all();

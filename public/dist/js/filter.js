@@ -890,7 +890,7 @@ function updateFilters2(
     $(tbodyClass).empty().append(sortedElements);
 }
 
-// Update report
+// Update report dành cho guest
 function updateFiltersReport(
     data,
     filterClass,
@@ -1069,6 +1069,158 @@ function updateFiltersReport(
     );
     $("#grandTotalChiKH").text(formatCurrency(grandTotals.chiKH));
     $("#grandTotalRemaining").text(formatCurrency(grandTotals.totalDebt));
+
+    // Sort elements and append to tbody
+    var clonedElements = $(elementClass).clone();
+    var sortedElements = clonedElements.sort(function (a, b) {
+        return $(a).data("position") - $(b).data("position");
+    });
+    $(tbodyClass).empty().append(sortedElements);
+}
+
+// Update report dành cho provides
+function updateFiltersReport2(
+    data,
+    filters,
+    resultFilterClass,
+    tbodyClass,
+    elementClass,
+    idClass,
+    buttonName
+) {
+    var existingNames = [];
+
+    // Update filters (nếu cần)
+    if (data.filters && Array.isArray(data.filters)) {
+        data.filters.forEach(function (item) {
+            if (filters.indexOf(item.name) === -1) {
+                filters.push(item.name);
+            }
+            existingNames.push(item.name);
+        });
+
+        filters = filters.filter(function (name) {
+            return existingNames.includes(name);
+        });
+
+        $(resultFilterClass).empty();
+
+        if (data.filters.length > 0) {
+            $(resultFilterClass).addClass("has-filters");
+        } else {
+            $(resultFilterClass).removeClass("has-filters");
+        }
+
+        // Render each filter item
+        data.filters.forEach(function (item) {
+            var index = filters.indexOf(item.name);
+            var itemFilter = $("<div>")
+                .addClass(
+                    "item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2"
+                )
+                .attr({
+                    "data-icon": item.icon,
+                    "data-button": item.name,
+                });
+            itemFilter.css("order", index);
+            itemFilter.append(
+                '<span class="text text-13-black m-0" style="flex:2;">' +
+                    item.value +
+                    '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                    item.name +
+                    '" data-button="' +
+                    buttonName +
+                    '"></i>'
+            );
+            $(resultFilterClass).append(itemFilter);
+        });
+    }
+
+    // Xử lý và hiển thị dữ liệu
+    var ids = [];
+    var groupTotals = {};
+
+    data.data.results.forEach(function (item) {
+        ids.push(item.id);
+
+        if (!groupTotals[item.group_id]) {
+            groupTotals[item.group_id] = {
+                total: 0,
+                totalReturn: 0,
+                totalCashReciept: 0,
+                totalPay: 0,
+                totalEnd: 0,
+            };
+        }
+
+        // Cập nhật tổng theo group_id
+        groupTotals[item.group_id].total += parseFloat(item.total);
+        groupTotals[item.group_id].totalReturn += parseFloat(item.totalReturn);
+        groupTotals[item.group_id].totalCashReciept += parseFloat(
+            item.totalCashReciept
+        );
+        groupTotals[item.group_id].totalPay += parseFloat(item.totalPay);
+        groupTotals[item.group_id].totalEnd += parseFloat(item.totalEnd);
+    });
+    $(elementClass).each(function () {
+        var value = parseInt($(this).find(idClass).val());
+        var index = ids.indexOf(value);
+
+        if (index !== -1) {
+            $(this).show();
+            $(this).attr("data-position", index + 1);
+            var id = $(this).attr("data-id");
+            var correspondingData = data.data.results.find(
+                (item) => item.id === parseInt(id)
+            );
+            if (correspondingData) {
+                $(this)
+                    .find(".total")
+                    .text(formatCurrency(correspondingData.total));
+                $(this)
+                    .find(".totalReturn")
+                    .text(formatCurrency(correspondingData.totalReturn));
+                $(this)
+                    .find(".totalCashReciept")
+                    .text(formatCurrency(correspondingData.totalCashReciept));
+                $(this)
+                    .find(".totalPay")
+                    .text(formatCurrency(correspondingData.totalPay));
+                $(this)
+                    .find(".totalEnd")
+                    .text(formatCurrency(correspondingData.totalEnd));
+            }
+        } else {
+            $(this).hide();
+        }
+    });
+
+    // Hiển thị tổng theo group_id
+    $.each(groupTotals, function (groupId, totals) {
+        var groupRow = $('tr[data-group="' + groupId + '"]');
+        if (groupRow.length) {
+            groupRow.find(".totalUngrouped").text(formatCurrency(totals.total));
+            groupRow
+                .find(".totalReturnUngrouped")
+                .text(formatCurrency(totals.totalReturn));
+            groupRow
+                .find(".totalCashRecieptUngrouped")
+                .text(formatCurrency(totals.totalCashReciept));
+            groupRow
+                .find(".totalPayUngrouped")
+                .text(formatCurrency(totals.totalPay));
+            groupRow
+                .find(".totalEndUngrouped")
+                .text(formatCurrency(totals.totalEnd));
+        }
+    });
+
+    // Hiển thị grand totals
+    $("#grandTotal").text(formatCurrency(data.data.totalBillAll));
+    $("#grandTotalReturn").text(formatCurrency(data.data.totalReturnAll));
+    $("#grandTotalCashReciept").text(formatCurrency(data.data.totalImportAll));
+    $("#grandTotalPay").text(formatCurrency(data.data.totalExportAll));
+    $("#grandTotalEnd").text(formatCurrency(data.data.totalEndAll));
 
     // Sort elements and append to tbody
     var clonedElements = $(elementClass).clone();

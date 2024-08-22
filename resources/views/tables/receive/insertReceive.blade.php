@@ -33,6 +33,22 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
+                        <div class="dropdown">
+                            <button type="submit" data-toggle="dropdown"
+                                class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
+                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <span class="text-button">In phiếu</span>
+                            </button>
+                            <div class="dropdown-menu" style="z-index: 9999;">
+                                <a class="dropdown-item text-13-black" href="#"
+                                    onclick="printContentImportWH('printContent')">Phiếu nhập kho</a>
+                            </div>
+                        </div>
                         <a href="{{ route('receive.index', $workspacename) }}" class="user_flow" data-type="DNH"
                             data-des="Hủy">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
@@ -75,8 +91,8 @@
                         <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)"
-                                    fill="#ECEEFA"></rect>
+                                <rect x="16" width="16" height="16" rx="5"
+                                    transform="rotate(90 16 0)" fill="#ECEEFA"></rect>
                                 <path
                                     d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
                                     fill="#26273B" fill-opacity="0.8"></path>
@@ -433,9 +449,12 @@
     <x-formmodalseri :product="$product" :status="2" id="product"></x-formmodalseri>
 </form>
 </div>
+<x-print-export :title="$title" />
 
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
+<script src="{{ asset('/dist/js/print.js') }}"></script>
+<script src="{{ asset('/dist/js/export.js') }}"></script>
 <script>
     flatpickr("#datePicker", {
         locale: "vn",

@@ -185,6 +185,10 @@ class CashReceiptController extends Controller
                 $this->fund->calculateFunds($cashReceipt->fund_id, $cashReceipt->amount, '-');
             }
         }
+        // + tiền công nợ lại khi xoá phiếu
+        $guest = Guest::find($cashReceipt->guest_id);
+        $guest->guest_debt = $guest->guest_debt + $cashReceipt->amount;
+        $guest->save();
 
         $cashReceipt->delete();
         return redirect()->route('cash_receipts.index', ['workspace' => $workspace])->with('msg', 'Xóa phiếu thu thành công!');

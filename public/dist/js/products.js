@@ -377,7 +377,7 @@ function addRowTable(status) {
     console.log(status);
     count = $("#inputcontent tbody tr").length + 1;
     var tr =
-        '<tr class="bg-white" style="height:80px;">' +
+        '<tr class="bg-white addProduct" style="height:80px;">' +
         '<td class="border-right p-2 text-13 align-top border-bottom border-top-0 ' +
         (status == 3 ? "d-none" : "") +
         '">' +
@@ -407,7 +407,7 @@ function addRowTable(status) {
         "</td>" +
         '<td class="border-right p-2 text-13 align-top position-relative border-bottom border-top-0"> ' +
         '<input type="hidden" class="product_id" autocomplete="off" name="product_id[]" value="">' +
-        '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-2 py-1 w-100 height-32" name="product_name[]">' +
+        '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-2 py-1 w-100 height-32 product_name" name="product_name[]">' +
         '<ul id="listProductName" class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
         "</ul>" +
         "</td>" +

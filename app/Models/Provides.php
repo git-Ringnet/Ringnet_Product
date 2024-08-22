@@ -39,7 +39,7 @@ class Provides extends Model
     public function getAllDetailByID()
     {
         return $this->hasMany(DetailImport::class, 'provide_id', 'id')
-            ->whereIn('detailimport.status', [2, 0]);
+            ->whereIn('detailimport.status', [2, 0, 1]);
     }
 
     public function getPayment()
@@ -276,78 +276,90 @@ class Provides extends Model
     }
     public function ajaxReportDebtProvides($data)
     {
-        // Tìm tất cả các khách hàng thuộc workspace hiện tại
-        $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+        $provides = Provides::with([
+            'getAllDetailByID.getAllReceiveBill.getReturnImport.getAllCashReciept',
+            'getAllDetailByID.getPayOrders'
+        ])
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
 
-        // Mảng chứa kết quả
         $results = [];
 
-        // Kiểm tra xem 'date' có tồn tại và là một mảng hợp lệ không
         if (isset($data['date']) && is_array($data['date']) && !empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
             $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
         } else {
-            // Nếu không có ngày tháng, sử dụng khoảng thời gian mặc định hoặc xử lý khác
-            $dateStart = Carbon::minValue(); // Hoặc một giá trị mặc định
-            $dateEnd = Carbon::maxValue();   // Hoặc một giá trị mặc định
+            $dateStart = Carbon::minValue();
+            $dateEnd = Carbon::maxValue();
         }
 
-        // Lặp qua từng khách hàng
+        $totalBillAll = 0;
+        $totalReturnAll = 0;
+        $totalImportAll = 0;
+        $totalExportAll = 0;
+        $totalEndAll = 0;
+
         foreach ($provides as $provide) {
-            // Tính tổng cho từng loại dữ liệu
-            $totalProductVat = DB::table('detailexport')
-                ->where('guest_id', $provide->id)
+            $total = $provide->getAllDetailByID
+                ->whereIn('status', [2, 0, 1])
                 ->whereBetween('created_at', [$dateStart, $dateEnd])
-                ->sum(DB::raw('total_price + total_tax'));
+                ->sum('total_tax');
 
-            $totalDelivery = DB::table('delivery')
-                ->where('provide_id', $provide->id)
-                ->where('status', 2)
-                ->whereBetween('created_at', [$dateStart, $dateEnd])
-                ->sum('totalVat');
+            $totalBillAll += $total;
 
-            $totalCashReciept = DB::table('cash_receipts')
-                ->where('provide_id', $provide->id)
-                ->where('status', 2)
-                ->whereBetween('created_at', [$dateStart, $dateEnd])
-                ->sum('amount');
+            $totalReturn = 0;
+            $totalCashReciept = 0;
+            $totalPay = 0;
 
-            $totalReturn = DB::table('return_export')
-                ->where('provide_id', $provide->id)
-                ->where('status', 2)
-                ->whereBetween('created_at', [$dateStart, $dateEnd])
-                ->sum('total_return');
+            foreach ($provide->getAllDetailByID as $detail) {
+                foreach ($detail->getAllReceiveBill as $receiveBill) {
+                    foreach ($receiveBill->getReturnImport as $returnImport) {
+                        if ($returnImport->created_at->between($dateStart, $dateEnd)) {
+                            $totalReturn += $returnImport->total;
 
-            $daTraKH = DB::table('return_export')
-                ->where('provide_id', $provide->id)
-                ->where('status', 2)
-                ->whereBetween('created_at', [$dateStart, $dateEnd])
-                ->sum('payment');
+                            foreach ($returnImport->getAllCashReciept as $cashReciept) {
+                                if ($cashReciept->created_at->between($dateStart, $dateEnd)) {
+                                    $totalCashReciept += $cashReciept->amount;
+                                }
+                            }
+                        }
+                    }
+                }
 
-            $chiKH = DB::table('pay_order')
-                ->where('provide_id', $provide->id)
-                ->whereBetween('created_at', [$dateStart, $dateEnd])
-                ->sum('payment');
+                foreach ($detail->getPayOrders as $payOrder) {
+                    if ($payOrder->created_at->between($dateStart, $dateEnd)) {
+                        $totalPay += $payOrder->total;
+                    }
+                }
+            }
 
-            // Tính giá trị theo công thức và lưu vào mảng kết quả
-            $calculatedValue = $totalProductVat - $totalCashReciept - ($totalReturn - $chiKH);
+            $totalReturnAll += $totalReturn;
+            $totalImportAll += $totalCashReciept;
+            $totalExportAll += $totalPay;
 
-            // Lưu kết quả cho khách hàng hiện tại vào mảng
+            $totalEnd = $total - $totalReturn + $totalCashReciept - $totalPay;
+            $totalEndAll += $totalEnd;
+
             $results[] = [
                 'id' => $provide->id,
-                'maKhach' => $provide->key,
+                'maNCC' => $provide->key,
                 'group_id' => $provide->group_id,
-                'tenKhach' => $provide->guest_name_display,
-                'totalProductVat' => $totalProductVat,
-                'totalDelivery' => $totalDelivery,
-                'totalCashReciept' => $totalCashReciept,
+                'tenNCC' => $provide->guest_name_display,
+                'total' => $total,
                 'totalReturn' => $totalReturn,
-                'daTraKH' => $daTraKH,
-                'chiKH' => $chiKH,
-                'calculatedValue' => $calculatedValue,
+                'totalCashReciept' => $totalCashReciept,
+                'totalPay' => $totalPay,
+                'totalEnd' => $totalEnd,
             ];
         }
 
-        return $results;
+        return [
+            'results' => $results,
+            'totalBillAll' => $totalBillAll,
+            'totalReturnAll' => $totalReturnAll,
+            'totalImportAll' => $totalImportAll,
+            'totalExportAll' => $totalExportAll,
+            'totalEndAll' => $totalEndAll,
+        ];
     }
 }

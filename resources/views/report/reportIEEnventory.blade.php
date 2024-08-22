@@ -322,7 +322,7 @@
         }
         $.ajax({
             type: 'get',
-            url: "{{ route('searchDebtGuests') }}",
+            url: "{{ route('searchRPEnventory') }}",
             data: {
                 search: search,
                 date: date,

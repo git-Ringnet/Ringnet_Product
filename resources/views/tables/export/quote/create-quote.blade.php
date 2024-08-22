@@ -1427,7 +1427,8 @@
                             productCode.val(data.product_code);
                             productName.val(data.product_name);
                             productUnit.val(data.product_unit);
-                            productPrice.val(data.price_export == null ? '' : formatCurrency(data.price_export));
+                            productPrice.val(data.price_export == null ?
+                                '' : formatCurrency(data.price_export));
                             thue.val(data.product_tax);
                             product_id.val(data.id);
 

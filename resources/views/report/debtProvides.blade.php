@@ -140,6 +140,17 @@
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
                                                             <button class="btn-sort text-13 bold" type="submit">
+                                                                Đầu kì
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-guest_name_display"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="height-52 border" style="width: 14%;">
+                                                    <span class="d-flex justify-content-end">
+                                                        <a href="#" class="sort-link"
+                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                            <button class="btn-sort text-13 bold" type="submit">
                                                                 Mua hàng
                                                             </button>
                                                         </a>
@@ -210,19 +221,22 @@
                                                     <td class="border text-13-black height-52">
                                                         {{ $item->provide_name_display }}
                                                     </td>
-                                                    <td class="border text-13-black text-wrap text-right height-52">
+                                                    <td class="border text-13-black text-right height-52">
+                                                        Đầu kỳ
+                                                    </td>
+                                                    <td
+                                                        class="border text-13-black text-wrap text-right height-52 total">
                                                         @if ($item->getAllDetailByID)
                                                             @php
                                                                 $total = $item->getAllDetailByID
-                                                                    ->whereIn('status', [2, 0])
+                                                                    ->whereIn('status', [2, 0, 1])
                                                                     ->sum('total_tax');
-
                                                                 $totalBillAll += $total;
                                                             @endphp
                                                             {{ number_format($total) }}
                                                         @endif
                                                     </td>
-                                                    <td class="border text-13-black text-right height-52">
+                                                    <td class="border text-13-black text-right height-52 totalReturn">
                                                         @php
                                                             $totalReturn = 0;
                                                         @endphp
@@ -249,7 +263,8 @@
                                                             $totalReturnAll += $totalReturn;
                                                         @endphp
                                                     </td>
-                                                    <td class="border text-13-black text-right height-52">
+                                                    <td
+                                                        class="border text-13-black text-right height-52 totalCashReciept">
                                                         @if ($item->getAllDetailByID)
                                                             @php
                                                                 $totalCashReciept = 0;
@@ -280,7 +295,7 @@
                                                             $totalImportAll += $totalCashReciept;
                                                         @endphp
                                                     </td>
-                                                    <td class="border text-13-black text-right height-52">
+                                                    <td class="border text-13-black text-right height-52 totalPay">
                                                         @php
                                                             $totalPay = 0;
                                                         @endphp
@@ -300,7 +315,7 @@
                                                             $totalExportAll += $totalPay;
                                                         @endphp
                                                     </td>
-                                                    <td class="border text-13-black text-right height-52">
+                                                    <td class="border text-13-black text-right height-52 totalEnd">
                                                         @php
                                                             $totalEnd = 0;
                                                             $totalEnd +=
@@ -331,19 +346,21 @@
                 <thead>
                     <tr>
                         <th class="text-center text-danger border height-52" style="width: 30%;">Tổng cộng</th>
-                        <th class="text-right text-red border" style="width: 14%;">
+                        <th class="text-right text-red border" id="grandTotal" style="width: 14%;">
                             {{ number_format($totalBillAll) }}
                         </th>
-                        <th class="text-right text-red border" style="width: 14%;">
+                        <th class="text-right text-red border grandTotalReturn" id="grandTotalReturn"
+                            style="width: 14%;">
                             {{ number_format($totalReturnAll) }}
                         </th>
-                        <th class="text-right text-red border" style="width: 14%;">
+                        <th class="text-right text-red border grandTotalCashReciept" id="grandTotalCashReciept"
+                            style="width: 14%;">
                             {{ number_format($totalImportAll) }}
                         </th>
-                        <th class="text-right text-red border" style="width: 14%;">
+                        <th class="text-right text-red border grandTotalPay" id="grandTotalPay" style="width: 14%;">
                             {{ number_format($totalExportAll) }}
                         </th>
-                        <th class="text-right text-red border" style="width: 14%;">
+                        <th class="text-right text-red border grandTotalEnd" id="grandTotalEnd" style="width: 14%;">
                             {{ number_format($totalBillAll - $totalReturnAll + $totalImportAll - $totalExportAll) }}
                         </th>
                     </tr>
@@ -406,7 +423,7 @@
             },
             success: function(data) {
                 console.log(data);
-                updateFiltersReport(data, filters, '.result-filter-product', '.tbody-product',
+                updateFiltersReport2(data, filters, '.result-filter-product', '.tbody-product',
                     '.provide-info', '.id-provide', buttonName);
             }
         });

@@ -42,6 +42,22 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
+                        <div class="dropdown">
+                            <button type="submit" data-toggle="dropdown"
+                                class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
+                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <span class="text-button">In phiếu</span>
+                            </button>
+                            <div class="dropdown-menu" style="z-index: 9999;">
+                                <a class="dropdown-item text-13-black" href="#"
+                                    onclick="printContentImportWH('printContent')">Phiếu nhập kho</a>
+                            </div>
+                        </div>
                         <a href="{{ route('receive.index', $workspacename) }}" class="user_flow" data-type="DNH"
                             data-des="Trở về">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
@@ -108,7 +124,8 @@
 
                         <a href="#" id="delete_receive">
                             <button name="action" value="action_2" type="submit" id="xoaBtn"
-                                class="btn--remove d-flex align-items-center h-100 mx-1" style="background-color:red;">
+                                class="btn--remove d-flex align-items-center h-100 mx-1"
+                                style="background-color:red;">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
@@ -314,8 +331,11 @@
                                                         value="{{ $item->cbSN }}" class="mt-1 checkall-btn"
                                                         @if ($item->cbSN == 1) {{ 'checked' }} @endif>
                                                 </td>
-                                                <td class="border border-top-0 border-bottom-0 align-top text-center border-right-0">
-                                                    <input class="border-0 px-2 py-1 w-100 price_export text-right" type="text" value="{{$item->product_guarantee}}" readonly>
+                                                <td
+                                                    class="border border-top-0 border-bottom-0 align-top text-center border-right-0">
+                                                    <input class="border-0 px-2 py-1 w-100 price_export text-right"
+                                                        type="text" value="{{ $item->product_guarantee }}"
+                                                        readonly>
                                                 </td>
                                                 <td class="border bg-white align-top text-13-black d-none">
                                                     <div>
@@ -382,8 +402,7 @@
                         <x-formsynthetic :import="$import"></x-formsynthetic>
                     </div>
                     <div id="files" class="tab-pane fade">
-                        <div id="title--fixed"
-                            class="content-title--fixed top-111">
+                        <div id="title--fixed" class="content-title--fixed top-111">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM
                             </p>
                         </div>
@@ -459,7 +478,7 @@
                                     <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest"
                                         style="flex:2;" readonly placeholder="Chọn thông tin" id="provide_name"
                                         {{-- value="{{ $receive->getNameProvide->provide_name_display }}"  --}}
-                                        value="@if ($receive->getQuotation) {{ $receive->getQuotation->provide_name }} @endif" />
+                                        value="@if ($receive->getQuotation) {{ $receive->getQuotation->provide_name_display }} @endif" />
                                 </li>
 
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
@@ -531,10 +550,12 @@
         </div>
     </div>
 </div>
-
+<x-print-export :title="$title" />
 
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
+<script src="{{ asset('/dist/js/print.js') }}"></script>
+<script src="{{ asset('/dist/js/export.js') }}"></script>
 <script>
     // Hiển thị sản phẩm
     $(document).on('click', '.info-product', function() {
@@ -652,7 +673,7 @@
 
     // Tạo INPUT SERI
     createRowInput('seri');
-    
+
     $('#file_restore').on('change', function(e) {
         e.preventDefault();
         $('#formSubmit').attr('action', '{{ route('addAttachment') }}');

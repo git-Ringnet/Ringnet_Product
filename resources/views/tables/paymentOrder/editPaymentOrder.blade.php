@@ -53,6 +53,22 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
+                        <div class="dropdown">
+                            <button type="submit" data-toggle="dropdown"
+                                class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
+                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <span class="text-button">In phiếu</span>
+                            </button>
+                            <div class="dropdown-menu" style="z-index: 9999;">
+                                <a class="dropdown-item text-13-black" href="#"
+                                    onclick="printCashRC('printContent','PHIẾU CHI')">Phiếu thu</a>
+                            </div>
+                        </div>
                         <a href="{{ route('paymentOrder.index', $workspacename) }}" class="user_flow" data-type="TTMH"
                             data-des="Trở về">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
@@ -418,14 +434,17 @@
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
                                         <input type="text" name="payment_code" readonly
-                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black quote"
                                             value="{{ $payment->payment_code }}">
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44 w-100">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                                        <input readonly type="text" class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                        <input readonly type="text"
+                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black" id="myGuest"
                                             @if ($payment->getGuest) value="{{ $payment->getGuest->provide_name_display }}" @endif>
+                                        <input type="hidden" name="addr" id="addr"
+                                            value="{{ $payment->getGuest->guest_address }}">
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
@@ -438,20 +457,22 @@
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày</span>
-                                        <input readonly type="text" class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                        <input readonly type="text"
+                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black" id="datePicker"
                                             value="{{ date_format(new DateTime($payment->payment_date), 'd-m-Y') }}">
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tiền</span>
                                         <input readonly type="text"
-                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black price_export"
                                             value="{{ number_format($payment->total) }}">
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nội dung</span>
-                                        <input readonly type="text" class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                        <input readonly type="text" id="myContent"
+                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black"
                                             value="@if ($payment->getContentPay) {{ $payment->getContentPay->name }} @endif">
                                     </div>
                                 </div>
@@ -459,20 +480,23 @@
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Quỹ</span>
-                                        <input readonly type="text" class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                        <input readonly type="text"
+                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black"
                                             @if ($payment->getFund) value="{{ $payment->getFund->name }}" @endif>
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập
                                             phiếu</span>
-                                        <input readonly type="text" class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                        <input readonly type="text"
+                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black"
                                             @if ($payment->getNameUser) value="{{ $payment->getNameUser->name }}" @endif>
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
-                                        <input readonly type="text" class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                        <input readonly type="text"
+                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black note"
                                             value="{{ $payment->note }}">
                                     </div>
                                 </div>
@@ -566,6 +590,9 @@
         </p>
     </div>
     <x-form-attachment :value="$payment" name="TTMH"></x-form-attachment>
+    <x-print-export :title="$title" />
+    <script src="{{ asset('/dist/js/print.js') }}"></script>
+    <script src="{{ asset('/dist/js/export.js') }}"></script>
 </div>
 </div>
 </div>

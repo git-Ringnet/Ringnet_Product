@@ -41,6 +41,22 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
+                        <div class="dropdown">
+                            <button type="submit" data-toggle="dropdown"
+                                class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
+                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <span class="text-button">In phiếu</span>
+                            </button>
+                            <div class="dropdown-menu" style="z-index: 9999;">
+                                <a class="dropdown-item text-13-black" href="#"
+                                    onclick="printContentImportWH('printContent')">Phiếu nhập kho</a>
+                            </div>
+                        </div>
                         <a href="{{ route('receive.index', $workspacename) }}" class="user_flow" data-type="DNH"
                             data-des="Trở về">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
@@ -167,8 +183,7 @@
                                         </span>
                                         <span class="mx-1 text-13" style="flex: 2;">
                                             <input type="text" placeholder="Chọn thông tin"
-                                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest "
-                                                id="search_quotation"
+                                                class="border-0 w-100 bg-input-guest py-2 px-2 " id="search_quotation"
                                                 style="background-color:#F0F4FF; border-radius:4px;"
                                                 name="quotation_number" autocomplete="off" required
                                                 value="@if ($receive->getQuotation) {{ $receive->getQuotation->quotation_number }}@else{{ $receive->id }} @endif"
@@ -186,7 +201,7 @@
                                             @if ($receive->detailimport_id == 0) @if ($receive->getNameProvide)
                                             value="{{ $receive->getNameProvide->provide_name_display }}" @endif
                                         @else
-                                            @if ($receive->getQuotation) value="{{ $receive->getQuotation->provide_name }}" @endif
+                                            @if ($receive->getQuotation) value="{{ $receive->getNameProvide->provide_name_display }}" @endif
                                             @endif>
                                     </div>
                                 </div>
@@ -377,7 +392,7 @@
                                         <tbody>
                                             <?php $st = 0; ?>
                                             @foreach ($product as $item)
-                                                <tr class="bg-white" style="height:80px;">
+                                                <tr class="bg-white addProduct" style="height:80px;">
                                                     <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none"
                                                         style="width:5%;padding-left: 2rem !important;">
                                                         <input readonly type="text" name="product_code[]"
@@ -388,7 +403,7 @@
                                                         style="width:15%">
                                                         <div class="d-flex align-items-center">
                                                             <input type="text"
-                                                                class="searchProductName w-100 border-0 px-2 py-1"
+                                                                class="searchProductName w-100 border-0 px-2 py-1 product_name"
                                                                 name="product_name[]"
                                                                 value="{{ $item->product_name }}" readonly>
                                                             <div class='info-product' data-toggle='modal'
@@ -638,9 +653,12 @@
     </div>
 </div>
 
+<x-print-export :title="$title" />
 
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
+<script src="{{ asset('/dist/js/print.js') }}"></script>
+<script src="{{ asset('/dist/js/export.js') }}"></script>
 <script>
     // Hiển thị sản phẩm
     $(document).on('click', '.info-product', function() {
