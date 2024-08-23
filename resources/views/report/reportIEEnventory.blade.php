@@ -185,59 +185,39 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border"
-                                                    style="width: 14.28571428571429%">
-                                                    <span class="d-flex justify-content-end">
-                                                        <a href="#" class="sort-link"
-                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Giá tồn
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-guest_name_display"></div>
-                                                    </span>
-                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody class="tbody-product">
                                             @php
                                                 $totalSlNhap = 0;
                                                 $totalSlXuat = 0;
-                                                $totalGiaTon = 0;
                                             @endphp
-                                            @foreach ($htrImport as $item)
+                                            @foreach ($products as $product)
                                                 @php
-                                                    $slNhap = $item['slNhap'];
-                                                    $slXuat = $item['slXuat'];
-                                                    $giaTon = $item['giaTon'];
-                                                    $slConLai = $slNhap - $slXuat;
-
-                                                    $totalSlNhap += $slNhap;
-                                                    $totalSlXuat += $slXuat;
-                                                    $totalGiaTon += $giaTon;
+                                                    $totalSlNhap += $product['totalImportQty'];
+                                                    $totalSlXuat += $product['totalExportQty'];
                                                 @endphp
-
-                                                <tr class="position-relative relative product-info main-row"
+                                                <tr class="position-relative relative product-info"
                                                     onclick="handleRowClick('checkbox', event);">
                                                     <input type="hidden" name="id-product" class="id-product"
                                                         id="id-product" value="">
                                                     <td class="text-13-black height-52 border">
-                                                        {{ $item['product_code'] }}</td>
+                                                        {{ $product['product_code'] }}
+                                                    </td>
                                                     <td class="text-13-black height-52 border text-wrap">
-                                                        {{ $item['product_name'] }}</td>
+                                                        {{ $product['product_name'] }}
+                                                    </td>
                                                     <td class="text-13-black height-52 border">
-                                                        {{ $item['product_unit'] }}</td>
+                                                        {{ $product['product_unit'] }}
+                                                    </td>
                                                     <td class="text-13-black height-52 border text-right">
-                                                        {{ number_format($slNhap) }}</td>
+                                                        {{ number_format($product['totalImportQty']) }}
+                                                    </td>
                                                     <td class="text-13-black height-52 border text-right">
-                                                        {{ number_format($slXuat) }}</td>
+                                                        {{ number_format($product['totalExportQty']) }}
+                                                    </td>
                                                     <td class="text-13-black height-52 border text-right">
-                                                        {{ number_format($slConLai) }}</td>
-                                                    <td class="text-13-black height-52 border text-right">
-                                                        {{ number_format($giaTon) }}</td>
-                                                    <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                        style="right: 10px; top: 7px;">
-                                                        <div class="d-flex w-100"></div>
+                                                        {{ number_format($product['finalQty']) }}
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -269,9 +249,6 @@
                         </th>
                         <th class="text-center text-red border" style="width: 14.28571428571429%;">
                             {{ number_format($totalSlNhap - $totalSlXuat) }}
-                        </th>
-                        <th class="text-center text-red border" style="width: 14.28571428571429%;">
-                            {{ number_format($totalGiaTon) }}
                         </th>
                     </tr>
                 </thead>

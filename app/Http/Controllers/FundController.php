@@ -90,10 +90,10 @@ class FundController extends Controller
                 'cash_receipts.fund_id',
                 'funds.name as fund_name',
                 'cash_receipts.created_at',
-                'cash_receipts.amount as change_amount',
-                DB::raw('"receipt" as type')
+                'cash_receipts.amount',
+                'cash_receipts.receipt_code',
             )
-            ->where('cash_receipts.fund_id', $fund->id);
+            ->where('cash_receipts.fund_id', $fund->id)->get();
 
         $fundPayments = DB::table('pay_order')
             ->join('funds', 'pay_order.fund_id', '=', 'funds.id')
@@ -101,16 +101,11 @@ class FundController extends Controller
                 'pay_order.fund_id',
                 'funds.name as fund_name',
                 'pay_order.created_at',
-                DB::raw('pay_order.payment * -1 as change_amount'),
-                DB::raw('"payment" as type')
+                'pay_order.payment',
+                'pay_order.payment_code',
             )
-            ->where('pay_order.fund_id', $fund->id);
-
-        $fundsHistory = $fundReceipts
-            ->unionAll($fundPayments)
-            ->orderBy('created_at', 'asc')
-            ->get();
-        return view('tables.funds.show', compact('fund', 'title', 'workspacename', 'fundsHistory'));
+            ->where('pay_order.fund_id', $fund->id)->get();
+        return view('tables.funds.show', compact('fund', 'title', 'workspacename', 'fundReceipts', 'fundPayments'));
     }
 
     public function edit(Fund $fund)

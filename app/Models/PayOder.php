@@ -440,6 +440,13 @@ class PayOder extends Model
                 'usercreate_id' => Auth::user()->id
             ];
             $payment_id = DB::table($this->table)->insertGetId($dataReciept);
+            //cập nhật công nợ
+            if (isset($data['guest_id'])) {
+                $provide = Provides::where('id', $data['guest_id'])->first();
+                $total = isset($data['total']) ? str_replace(',', '', $data['total']) : 0;
+                $provide->provide_debt = $provide->provide_debt - $total;
+                $provide->save();
+            }
         }
         return $payment_id;
     }

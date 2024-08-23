@@ -241,7 +241,7 @@
                                                                         $matchedItem->product_total;
                                                                 @endphp
                                                                 <tr class="position-relative relative main-row product-info"
-                                                                    data-id="{{ $itemDetail->guest_id }}">
+                                                                    data-id="{{ $itemDetail->id }}">
                                                                     <input type="hidden"
                                                                         value="{{ $itemDetail->id }}"
                                                                         name="id-product" class="sell id-product"

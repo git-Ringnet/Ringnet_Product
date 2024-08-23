@@ -168,32 +168,61 @@
                             <table class="table table-hover bg-white rounded" id="warehouseTable">
                                 <thead>
                                     <tr>
+                                        <th class="border-right height/-52 padding-left35 text-13">
+                                            Ngày
+                                        </th>
+                                        <th class="border-right height/-52 padding-left35 text-13">
+                                            Chứng từ
+                                        </th>
                                         <th class="border-right height-52 padding-left35 text-13">
                                             Tên quỹ
                                         </th>
                                         <th class="border-right height-52 padding-left35 text-13">
-                                            Tiền quỹ
+                                            Thu
                                         </th>
-                                        <th class="border-right height/-52 padding-left35 text-13">
-                                            Ngày
+                                        <th class="border-right height-52 padding-left35 text-13">
+                                            Chi
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($fundsHistory as $entry)
-                                        <tr id="dynamic-row-1" class="bg-white addWarehouse representative-row">
-                                            <td class="border border-top-0 border-left-0 padding-left35">
-                                                <input autocomplete="off" value="{{ $entry->fund_name }}"
-                                                    class="border-0 px-2 py-1 w-100 text-13-black" readonly>
+                                    @php
+                                        // Kết hợp hai mảng
+                                        $combined = $fundReceipts->concat($fundPayments);
+
+                                        // Sắp xếp mảng kết hợp theo ngày tạo (created_at) tăng dần
+                                        $sortedCombined = $combined->sortBy('created_at');
+
+                                        $currentDebt = 0;
+                                    @endphp
+                                    @foreach ($sortedCombined as $item)
+                                        <tr>
+                                            <td class="text-13-black padding-left35 border-bottom">
+                                                {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                             </td>
-                                            <td class="border border-top-0 border-left-0 padding-left35">
-                                                <input autocomplete="off"
-                                                    value="{{ number_format($entry->change_amount) }}"
-                                                    class="border-0 px-2 py-1 w-100 {{ $entry->type == 'receipt' ? 'text-success' : 'text-danger' }}" readonly>
+                                            <td class="text-13-black max-width120 border-bottom">
+                                                @if (isset($item->receipt_code))
+                                                    {{ $item->receipt_code }}
+                                                @else
+                                                    {{ $item->payment_code }}
+                                                @endif
                                             </td>
-                                            <td class="border border-top-0 border-left-0 padding-left35">
-                                                <input autocomplete="off" value="{{ date_format(new DateTime($entry->created_at), 'd/m/Y') }}"
-                                                    class="border-0 px-2 py-1 w-100 text-13-black" readonly>
+                                            <td class="text-13-black text-nowrap border-bottom">
+                                                {{ $item->fund_name }}
+                                            </td>
+                                            <td class="text-13-black text-nowrap border-bottom">
+                                                @if (isset($item->amount))
+                                                    {{ number_format($item->amount) }}
+                                                @else
+                                                    0
+                                                @endif
+                                            </td>
+                                            <td class="text-13-black text-nowrap border-bottom">
+                                                @if (isset($item->payment))
+                                                    {{ number_format($item->payment) }}
+                                                @else
+                                                    0
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

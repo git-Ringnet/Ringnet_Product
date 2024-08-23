@@ -930,78 +930,44 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
 
-        $quoteExportQty = DB::table('quoteexport')
-            ->select('quoteexport.product_id', 'quoteexport.product_delivery', DB::raw('SUM(quoteexport.product_qty) as totalExportQty'))
-            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
-            ->groupBy('quoteexport.product_id', 'quoteexport.product_delivery')
-            ->get()
-            ->keyBy('product_id');
-
-        $totalQuantities = DB::table('quoteimport')
-            ->leftJoin('products', 'products.id', '=', 'quoteimport.product_id')
-            ->leftJoin('products_import', 'quoteimport.id', '=', 'products_import.quoteImport_id')
-            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
-            ->select(
-                'quoteimport.product_id',
-                'quoteimport.product_code',
-                'quoteimport.product_name',
-                'quoteimport.product_unit',
-                'products.product_inventory',
-                'products_import.receive_id',  // Select receive_id from products_import
-                DB::raw('SUM(quoteimport.product_qty) as totalImportQty')
-            )
-            ->groupBy('quoteimport.product_id', 'quoteimport.product_code', 'quoteimport.product_name', 'quoteimport.product_unit', 'products.product_inventory', 'products_import.receive_id')
+        $delivery = Delivered::leftJoin('products', 'products.id', '=', 'delivered.product_id')
+            ->select(DB::raw('SUM(delivered.deliver_qty) as totalExportQty'), 'products.product_code', 'products.product_name', 'products.product_unit')
+            ->groupBy('delivered.product_id', 'products.product_code', 'products.product_name', 'products.product_unit')
             ->get();
 
-        $htrImport = [];
+        $receive = ProductImport::leftJoin('products', 'products.id', '=', 'products_import.product_id')
+            ->select(DB::raw('SUM(products_import.product_qty) as totalImportQty'), 'products.product_code', 'products.product_name', 'products.product_unit')
+            ->groupBy('products_import.product_id', 'products.product_code', 'products.product_name', 'products.product_unit')
+            ->get();
 
-        foreach ($totalQuantities as $quantity) {
-            $productId = $quantity->product_id;
-            $totalImportQty = $quantity->totalImportQty;
-            $totalExportQty = isset($quoteExportQty[$productId]) ? $quoteExportQty[$productId]->totalExportQty : 0;
-
-            $quoteImports = DB::table('quoteimport')
-                ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
-                ->where('product_id', $productId)
-                ->orderBy('id', 'asc')
-                ->get();
-
-            $remainingExportQty = $totalExportQty;
-            $totalCost = 0;
-            $remainingQty = 0;
-
-            foreach ($quoteImports as $import) {
-                if ($remainingExportQty <= 0) {
-                    $remainingQty += $import->product_qty;
-                    $totalCost += $import->product_qty * $import->price_export;
-                    continue;
-                }
-
-                if ($import->product_qty <= $remainingExportQty) {
-                    $remainingExportQty -= $import->product_qty;
-                } else {
-                    $remainingQty += ($import->product_qty - $remainingExportQty);
-                    $totalCost += ($import->product_qty - $remainingExportQty) * $import->price_export;
-                    $remainingExportQty = 0;
-                }
-            }
-
-            $giaTon = $remainingQty > 0 ? $totalCost : null;
-
-            $htrImport[] = [
-                'product_code' => $quantity->product_code,
-                'product_name' => $quantity->product_name,
-                'product_unit' => $quantity->product_unit,
-                'product_inventory' => $quantity->product_inventory,
-                'slNhap' => $totalImportQty,
-                'slXuat' => $totalExportQty,
-                'giaTon' => $giaTon,
-                'product_delivery' => $quoteExportQty[$productId]->product_delivery ?? null,
-                'receive_id' => $quantity->receive_id
+        // Combine the data
+        $products = $receive->map(function ($item) use ($delivery) {
+            $product = $delivery->firstWhere('id', $item->id);
+            return [
+                'product_code' => $item->product_code,
+                'product_name' => $item->product_name,
+                'product_unit' => $item->product_unit,
+                'totalImportQty' => $item->totalImportQty,
+                'totalExportQty' => $product ? $product->totalExportQty : 0,
+                'finalQty' => $item->totalImportQty - ($product ? $product->totalExportQty : 0),
             ];
-        }
+        });
 
-        return view('report.reportIEEnventory', compact('title', 'htrImport', 'workspacename'));
+        // Add remaining products from the delivery list that are not in the import list
+        $delivery->each(function ($item) use (&$products) {
+            if (!$products->firstWhere('product_code', $item->product_code)) {
+                $products->push([
+                    'product_code' => $item->product_code,
+                    'product_name' => $item->product_name,
+                    'product_unit' => $item->product_unit,
+                    'totalImportQty' => 0,
+                    'totalExportQty' => $item->totalExportQty,
+                    'finalQty' => -$item->totalExportQty,
+                ]);
+            }
+        });
+
+        return view('report.reportIEEnventory', compact('title', 'workspacename', 'products'));
     }
     // ajax Xuất nhập tồn kho
     public function searchRPEnventory(Request $request)
