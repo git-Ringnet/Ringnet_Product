@@ -104,7 +104,8 @@
 
         </div>
         <div class="content margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PNK'" :status="'1'" :guest="$provides" :listUser="$listUser" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PNK'" :status="'1'" :guest="$provides"
+                :listUser="$listUser" />
             <div id="main">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-top-0 text-center">
@@ -166,6 +167,15 @@
                                 </ul>
                             </div>
                         </div> --}}
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
+                            <input type="text" placeholder="Nhập thông tin"
+                                class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
+                                style="flex:2;" value="{{ date('Y-m-d') }}" id="datePicker" />
+                            <input id="hiddenDateInput" type="hidden" value="{{ date('Y-m-d') }}"
+                                name="received_date">
+                        </div>
                         {{-- Nhà cung cấp --}}
                         <div class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44"
                             style="height:43px;">
@@ -206,14 +216,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                        </div>
                     </div>
                     <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu nhập</span>
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
                             <input type="text" placeholder="Chọn thông tin" name="delivery_code"
                                 class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                 style="flex:2; background-color:#F0F4FF; border-radius:4px;"
@@ -221,28 +228,55 @@
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
-                            <input type="text" placeholder="Nhập thông tin"
-                                class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                style="flex:2; background-color:#F0F4FF; border-radius:4px;" name="shipping_unit" />
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
+                            <input type="text" placeholder="Nhập thông tin" name="fullname"
+                                class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
                         </div>
                     </div>
                     <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
-                            <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
+                            <input type="text" placeholder="Chọn thông tin" name="address"
+                                class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                 style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận hàng</span>
-                            <input type="text" placeholder="Nhập thông tin"
-                                class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
-                                style="flex:2;" value="{{ date('Y-m-d') }}" id="datePicker" />
-                            <input id="hiddenDateInput" type="hidden" value="{{ date('Y-m-d') }}"
-                                name="received_date">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT</span>
+                            <input type="text" placeholder="Nhập thông tin" name="phone"
+                                class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
+                        </div>
+                    </div>
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập</span>
+                            <input type="text" placeholder="Chọn thông tin"
+                                value="{{ Auth::user()->name }}"
+                                class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" readonly
+                                style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
+                        </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thủ kho</span>
+                            <select name="manager_warehouse"
+                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                @foreach ($listUser as $itemU)
+                                    <option value="{{ $itemU->id }}">{{ $itemU->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex w-100">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
+                            <input type="text" placeholder="Chọn thông tin" name="note_receive"
+                                class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                style="flex:5; background-color:#F0F4FF; border-radius:4px;" />
                         </div>
                     </div>
                 </div>

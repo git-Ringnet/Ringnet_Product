@@ -119,56 +119,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="bg-filter-search border-top-0 text-left border-custom">
-                                    <p class="font-weight-bold text-uppercase info-chung--heading">THỦ KHO</p>
-                                </div>
-                                <div class="info-chung">
-                                    <div class="outer container-fluided order_content">
-                                        <table class="table table-hover bg-white rounded" id="warehouseTable">
-                                            <thead>
-                                                <tr>
-                                                    <th class="border-right height-52 padding-left35 text-13"
-                                                        style="width: 23%;">
-                                                        Tên thủ kho
-                                                    </th>
-                                                    <th class="border-right height-52 padding-left35 text-13"
-                                                        style="width: 23%;">
-                                                        Số điện thoại
-                                                    </th>
-                                                    <th class="border-right height/-52 padding-left35 text-13"
-                                                        style="width: 23%;">
-                                                        Email
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($warehouseManager as $item)
-                                                    <tr id="dynamic-row-1"
-                                                        class="bg-white addWarehouse representative-row">
-                                                        <td class="border border-top-0 border-left-0 padding-left35">
-                                                            <input type="text" autocomplete="off"
-                                                                value="{{ $item->name }}"
-                                                                class="border-0 px-2 py-1 w-100" name="name[]"
-                                                                readonly>
-                                                            <input type="hidden" autocomplete="off"
-                                                                value="{{ $item->id }}" name="manager_id[]">
-                                                        </td>
-                                                        <td class="border border-top-0 padding-left35 border-left-0">
-                                                            <input type="number" autocomplete="off" readonly
-                                                                value="{{ $item->phone }}"
-                                                                class="border-0 px-2 py-1 w-100" name="phone[]">
-                                                        </td>
-                                                        <td class="border border-top-0 padding-left35 border-left-0">
-                                                            <input type="email" autocomplete="off" readonly
-                                                                value="{{ $item->email }}"
-                                                                class="border-0 px-2 py-1 w-100" name="email[]">
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
                             </div>
                             <div id="product" class="tab-pane fade">
                                 <div class="info-chung">

@@ -61,8 +61,8 @@ class ImportChangeWarehouseController extends Controller
         $product = $this->product->getAllProducts();
         //danh sách nhân viên
         $users = User::where('origin_workspace', Auth::user()->origin_workspace)->get();
-
-        return view('tables.abc.changeWarehouse.createImport', compact('title', 'workspacename', 'warehouse', 'product', 'users'));
+        $invoiceAuto = $this->changeWarehouse->getQuoteCount1();
+        return view('tables.abc.changeWarehouse.createImport', compact('title', 'workspacename', 'warehouse', 'product', 'users', 'invoiceAuto'));
     }
 
     /**

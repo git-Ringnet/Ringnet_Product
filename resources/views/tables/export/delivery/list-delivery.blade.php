@@ -176,37 +176,25 @@
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 14%;">
+                                            <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="code_delivery" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Mã giao
-                                                            hàng#</button>
+                                                        <button class="btn-sort text-13" type="submit">Mã phiếu</button>
                                                     </a>
                                                     <div class="icon" id="icon-code_delivery"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 10%;">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="quotation_number" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Số báo
-                                                            giá#</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-quotation_number"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52" style="width: 10%;">
+                                            <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="ngayGiao" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Ngày giao
-                                                            hàng</button>
+                                                            class="btn-sort text-13" type="submit">Ngày lập</button>
                                                     </a>
                                                     <div class="icon" id="icon-ngayGiao"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 14%;">
+                                            <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="guest_name" data-sort-type="DESC"><button
@@ -217,7 +205,7 @@
                                                 </span>
                                             </th>
                                             @can('isAdmin')
-                                                <th scope="col" class="height-52" style="width: 10%;">
+                                                <th scope="col" class="height-52">
                                                     <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link btn-submit" data-sort-by=""
                                                             data-sort-type="DESC">
@@ -229,27 +217,7 @@
                                                     </span>
                                                 </th>
                                             @endcan
-                                            <th scope="col" class="height-52" style="width: 10%;">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="shipping_unit" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Đơn vị vận
-                                                            chuyển</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-shipping_unit"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52" style="width: 10%;">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="shipping_fee" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Phí giao
-                                                            hàng</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-shipping_fee"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52" style="">
+                                            <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="trangThai" data-sort-type="DESC"><button
@@ -257,15 +225,6 @@
                                                             thái</button>
                                                     </a>
                                                     <div class="icon" id="icon-trangThai"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52 d-none">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="totalProductVat" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Tổng tiền</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-totalProductVat"></div>
                                                 </span>
                                             </th>
                                         </tr>
@@ -304,10 +263,6 @@
                                                         {{ $item_delivery->code_delivery }}
                                                     </a>
                                                 </td>
-                                                <td
-                                                    class="text-13-black max-width120 text-left border-bottom border-top-0">
-                                                    {{ $item_delivery->quotation_number }}
-                                                </td>
                                                 <td class="text-13-black text-left border-bottom border-top-0">
                                                     {{ date_format(new DateTime($item_delivery->ngayGiao), 'd/m/Y') }}
                                                 </td>
@@ -321,21 +276,12 @@
                                                         {{ $item_delivery->name }}
                                                     </td>
                                                 @endcan
-                                                <td class="text-13-black text-left border-bottom border-top-0">
-                                                    {{ $item_delivery->shipping_unit }}
-                                                </td>
-                                                <td class="text-13-black text-right border-bottom border-top-0">
-                                                    {{ number_format($item_delivery->shipping_fee) }}
-                                                </td>
                                                 <td class="text-13-black text-center border-bottom border-top-0">
                                                     @if ($item_delivery->trangThai == 1)
                                                         <span>Chưa giao</span>
                                                     @else
                                                         <span class="text-success">Đã giao</span>
                                                     @endif
-                                                </td>
-                                                <td class="text-13-black text-right border-bottom border-top-0 d-none">
-                                                    {{ number_format($item_delivery->totalProductVat) }}
                                                 </td>
                                                 <td
                                                     class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">

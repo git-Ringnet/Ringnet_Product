@@ -168,39 +168,26 @@
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width: 14%;">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="delivery_code" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Phiếu nhập
-                                                            kho#</button>
+                                                        <button class="btn-sort text-13" type="submit">Mã phiếu</button>
                                                     </a>
                                                     <div class="icon" id="icon-delivery_code"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width: 10%;">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="quotation_number" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Đơn mua
-                                                            hàng#</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-quotation_number"></div>
-                                                </span>
-                                            </th>
-
-                                            <th scope="col" class="border-bottom" style="width: 10%;">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="created_at" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Ngày nhận
-                                                            hàng</button>
+                                                            class="btn-sort text-13" type="submit">Ngày lập</button>
                                                     </a>
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="border-bottom" style="width: 14%;">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display"
@@ -212,7 +199,7 @@
                                                 </span>
                                             </th>
                                             @can('isAdmin')
-                                                <th scope="col" class="border-bottom" style="width: 10%;">
+                                                <th scope="col" class="border-bottom">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="users"
                                                             data-sort-type=""><button class="btn-sort text-13"
@@ -222,26 +209,6 @@
                                                     </span>
                                                 </th>
                                             @endcan
-                                            <th scope="col" class="border-bottom" style="width: 10%;">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="shipping_unit" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Đơn vị vận
-                                                            chuyển</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-shipping_unit"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-bottom" style="width: 10%;">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="delivery_charges" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Phí vận
-                                                            chuyển</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-delivery_charges"></div>
-                                                </span>
-                                            </th>
                                             <th scope="col" class="border-bottom">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -295,12 +262,6 @@
                                                         {{ $item->delivery_code }}
                                                     </a>
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom text-wrap">
-                                                    @if ($item->getQuotation)
-                                                        {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
-                                                    @endif
-                                                </td>
-
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
@@ -315,13 +276,6 @@
                                                         @endif
                                                     </td>
                                                 @endcan
-
-                                                <td class="text-13-black border-top-0 border-bottom text-wrap">
-                                                    {{ $item->shipping_unit }}
-                                                </td>
-                                                <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    {{ number_format($item->delivery_charges) }}
-                                                </td>
                                                 <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($item->status == 1)
                                                         <span style="color: #858585">Chưa nhận</span>

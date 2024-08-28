@@ -19,8 +19,17 @@ class Receive_bill extends Model
         'provide_id',
         'total_tax',
         'shipping_unit',
-        'delivery_charges', 'delivery_code',
-        'status', 'created_at', 'workspace_id'
+        'delivery_charges',
+        'delivery_code',
+        'status',
+        'created_at',
+        'workspace_id',
+        'manager_warehouse',
+        'fullname',
+        'address',
+        'phone',
+        'note_receive',
+        'user_id'
     ];
 
     public function getQuotation()
@@ -89,14 +98,18 @@ class Receive_bill extends Model
             $dataReceive = [
                 'detailimport_id' => $id,
                 'provide_id' => $detail->provide_id,
-                'shipping_unit' => isset($data['shipping_unit']) ? $data['shipping_unit'] : "",
                 'delivery_charges' => isset($data['delivery_charges']) ? str_replace(',', '', $data['delivery_charges']) : 0,
                 'status' => 1,
                 'created_at' => isset($data['received_date']) ? $data['received_date'] : Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,
                 'delivery_code' => isset($data['delivery_code']) ? $data['delivery_code'] : $delivery_code,
                 'user_id' => Auth::user()->id,
-                'promotion' => json_encode($promotion)
+                'promotion' => json_encode($promotion),
+                'manager_warehouse' => isset($data['manager_warehouse']) ? str_replace(',', '', $data['manager_warehouse']) : "",
+                'fullname' => isset($data['fullname']) ? str_replace(',', '', $data['fullname']) : "",
+                'address' => isset($data['address']) ? str_replace(',', '', $data['address']) : "",
+                'phone' => isset($data['phone']) ? str_replace(',', '', $data['phone']) : "",
+                'note_receive' => isset($data['note_receive']) ? str_replace(',', '', $data['note_receive']) : "",
             ];
             $receive_id = DB::table($this->table)->insertGetId($dataReceive);
 
@@ -196,14 +209,18 @@ class Receive_bill extends Model
             $dataReceive = [
                 'detailimport_id' => 0,
                 'provide_id' => isset($data['provide_id']) ? $data['provide_id'] : 0,
-                'shipping_unit' => isset($data['shipping_unit']) ? $data['shipping_unit'] : "",
                 'delivery_charges' => isset($data['delivery_charges']) ? str_replace(',', '', $data['delivery_charges']) : 0,
                 'status' => 1,
                 'created_at' => isset($data['received_date']) ? $data['received_date'] : Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,
                 'delivery_code' => isset($data['delivery_code']) ? $data['delivery_code'] : $delivery_code,
                 'user_id' => Auth::user()->id,
-                'promotion' => json_encode($promotion)
+                'promotion' => json_encode($promotion),
+                'manager_warehouse' => isset($data['manager_warehouse']) ? str_replace(',', '', $data['manager_warehouse']) : "",
+                'fullname' => isset($data['fullname']) ? str_replace(',', '', $data['fullname']) : "",
+                'address' => isset($data['address']) ? str_replace(',', '', $data['address']) : "",
+                'phone' => isset($data['phone']) ? str_replace(',', '', $data['phone']) : "",
+                'note_receive' => isset($data['note_receive']) ? str_replace(',', '', $data['note_receive']) : "",
             ];
             $receive_id = DB::table($this->table)->insertGetId($dataReceive);
 
@@ -328,10 +345,6 @@ class Receive_bill extends Model
             $dataUpdate = [
                 'status' => 2,
             ];
-            if (!isset($data['id_import'])) {
-                $dataUpdate['shipping_unit'] = $data['shipping_unit'];
-                $dataUpdate['delivery_charges'] = $data['delivery_charges'] == null ? 0 : str_replace(',', '', $data['delivery_charges']);
-            }
 
             DB::table($this->table)->where('id', $receive->id)
                 ->where('workspace_id', Auth::user()->current_workspace)

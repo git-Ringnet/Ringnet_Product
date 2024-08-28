@@ -65,8 +65,10 @@ class ChangeWarehouseController extends Controller
         $product = $this->product->getAllProducts();
         //danh sách nhân viên
         $users = User::where('origin_workspace', Auth::user()->origin_workspace)->get();
+        //
+        $invoiceAuto = $this->changeWarehouse->getQuoteCount();
 
-        return view('tables.abc.changeWarehouse.create', compact('title', 'workspacename', 'warehouse', 'product', 'users'));
+        return view('tables.abc.changeWarehouse.create', compact('title', 'workspacename', 'warehouse', 'product', 'users','invoiceAuto'));
     }
 
     /**

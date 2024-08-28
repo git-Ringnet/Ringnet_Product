@@ -90,51 +90,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-filter-search border-top-0 text-left border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading">THỦ KHO</p>
-                    </div>
-                    <div class="info-chung">
-                        <div class="outer container-fluided order_content">
-                            <table class="table table-hover bg-white rounded" id="warehouseTable">
-                                <thead>
-                                    <tr>
-                                        <th class="border-right height-52 padding-left35 text-13-red required-label"
-                                            style="width: 23%;">
-                                            Tên thủ kho
-                                        </th>
-                                        <th class="border-right height-52 padding-left35 text-13" style="width: 23%;">
-                                            Số điện thoại
-                                        </th>
-                                        <th class="border-right height/-52 padding-left35 text-13" style="width: 23%;">
-                                            Email
-                                        </th>
-                                        <th style="width: 8%;"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id="dynamic-fields" class="bg-white"></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <section class="content">
-                            <div class="container-fluided">
-                                <div class="d-flex">
-                                    <button type="button" data-toggle="dropdown" id="add-warehouse-manager"
-                                        data-name1="K" data-des="Thêm thủ kho"
-                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 ml-4 rounded activity"
-                                        style="margin-right:10px">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                fill="#6D7075" />
-                                        </svg>
-                                        <span class="text-13 pl-2">Thêm thủ kho</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
                 </div>
             </section>
         </div>
@@ -145,17 +100,6 @@
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        $("form").on("submit", function(e) {
-            var rows = $("#warehouseTable .addWarehouse");
-            if (rows.length === 0) {
-                showAutoToast("warning", "Vui lòng thêm thủ kho!");
-                e.preventDefault(); // Ngăn không cho form submit
-            }
-        });
-    });
-</script>
 {{-- <script>
     getKeyProvide($('input[name="provide_name_display"]'))
     $('form').on('submit', function(e) {

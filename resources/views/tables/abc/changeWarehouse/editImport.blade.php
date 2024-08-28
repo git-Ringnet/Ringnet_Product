@@ -117,7 +117,7 @@
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-60-mobile">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
-                                        <input type="text" readonly name="change_warehouse_code"
+                                        <input type="text" readonly name="change_warehouse_code" value="{{ $changeWarehouse->change_warehouse_code }}"
                                             class="border-0 w-100 py-2 px-3 text-13-black height-100">
                                     </div>
                                     <div
