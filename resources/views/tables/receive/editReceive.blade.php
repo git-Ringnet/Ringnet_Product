@@ -181,13 +181,15 @@
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
-                                        <input type="text" placeholder="Nhập thông tin"
-                                            class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
-                                            style="flex:2;" id="datePicker"
-                                            value="{{ date_format(new DateTime($receive->created_at), 'd/m/Y') }}"
-                                            @if ($receive->status == 2) readonly @endif>
-                                        <input type="hidden" name="received_date" id="hiddenDateInput"
-                                            value="{{ $receive->created_at->toDateString() }}">
+                                        <span class="mx-1 text-13" style="flex: 2;">
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                                style="flex:2;"
+                                                value="{{ date_format(new DateTime($receive->created_at), 'd/m/Y') }}"
+                                                @if ($receive->status == 2) readonly @endif>
+                                            <input type="hidden" name="received_date" id="hiddenDateInput"
+                                                value="{{ $receive->created_at->toDateString() }}">
+                                        </span>
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
@@ -196,12 +198,24 @@
                                         <input type="text"
                                             class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                             style="flex:2;" readonly placeholder="Chọn thông tin" id="provide_name"
+                                            {{-- value="{{ $receive->getNameProvide->provide_name_display }}"  --}}
                                             @if ($receive->detailimport_id == 0) @if ($receive->getNameProvide)
                                             value="{{ $receive->getNameProvide->provide_name_display }}" @endif
                                         @else
                                             @if ($receive->getQuotation) value="{{ $receive->getNameProvide->provide_name_display }}" @endif
                                             @endif>
                                     </div>
+                                </div>
+                                <div class="d-flex w-100">
+                                    {{-- <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
+                                            diện</span>
+                                        <input type="text"
+                                            class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                            style="flex:2;" id="represent" placeholder="Chọn thông tin" readonly
+                                            @if ($nameRepresent) value="{{ $nameRepresent }}" @endif />
+                                    </div> --}}
                                 </div>
                                 <div class="d-flex w-100">
                                     <div
@@ -254,7 +268,9 @@
                                         <select name="manager_warehouse" disabled
                                             class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
                                             @foreach ($listUser as $itemU)
-                                                <option value="{{ $itemU->id }}" @if($itemU->id == $receive->user_id) selected @endif>{{ $itemU->name }}</option>
+                                                <option value="{{ $itemU->id }}"
+                                                    @if ($itemU->id == $receive->user_id) selected @endif>
+                                                    {{ $itemU->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -263,7 +279,8 @@
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
-                                        <input type="text" placeholder="Chọn thông tin" name="note_receive" value="{{$receive->note_receive }}" readonly
+                                        <input type="text" placeholder="Chọn thông tin" name="note_receive"
+                                            value="{{ $receive->note_receive }}" readonly
                                             class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                             style="flex:5; background-color:#F0F4FF; border-radius:4px;">
                                     </div>

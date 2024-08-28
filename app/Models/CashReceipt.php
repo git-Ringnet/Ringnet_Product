@@ -127,11 +127,6 @@ class CashReceipt extends Model
             ];
             $cashRC = CashReceipt::create($dataCashRC);
 
-            //Cập nhật công nợ khách hàng
-            $guest = Guest::where('id', $data['guest_id'])->first();
-            $guest->guest_debt = $guest->guest_debt - isset($data['total']) ? str_replace(',', '', $data['total']) : 0;
-            $guest->save();
-
             // Cộng tiền vào đơn trả hàng
             $returnImport = ReturnImport::where('id', $data['returnImport_id'])->first();
             if ($returnImport) {
@@ -158,10 +153,6 @@ class CashReceipt extends Model
             $guest->save();
 
             if ($cashRC->status == 2) {
-                //Cập nhật công nợ khách hàng
-                $guest = Guest::where('id', $data['guest_id'])->first();
-                $guest->guest_debt = $guest->guest_debt - (isset($data['total']) ? str_replace(',', '', $data['total']) : 0);
-                $guest->save();
                 $detailE = $this->fetchDelivery($data);
                 if ($detailE) {
                     $conlai =  $detailE->amount_owed - $cashRC->amount;

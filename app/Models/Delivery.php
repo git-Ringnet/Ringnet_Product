@@ -198,7 +198,16 @@ class Delivery extends Model
             ->leftJoin('guest', 'delivery.guest_id', 'guest.id')
             ->leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
             ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
-            ->select('*', 'delivery.id as soGiaoHang', 'delivery.status as tinhTrang', 'delivery.created_at as ngayGiao', 'delivery.promotion as promotion_delivery', 'delivery.guest_id as guest_id')
+            ->leftJoin('users', 'users.id', 'delivery.user_id')
+            ->select(
+                '*',
+                'delivery.id as soGiaoHang',
+                'delivery.status as tinhTrang',
+                'delivery.created_at as ngayGiao',
+                'delivery.promotion as promotion_delivery',
+                'delivery.guest_id as guest_id',
+                'delivery.note as ghiChu'
+            )
             ->first();
         return $delivery;
     }

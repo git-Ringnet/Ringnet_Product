@@ -187,7 +187,8 @@
             </section>
         </div>
         <div class="content margin-top-127">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PXK'" :status="'2'" :guest="$guest" :listUser="$users" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PXK'" :status="'2'" :guest="$guest"
+                :listUser="$users" />
             <div id="main">
                 <div class="container-fluided">
                     {{-- Thông tin khách hàng --}}
@@ -202,18 +203,15 @@
                                 <div class="d-flex w-100">
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                        <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
-                                        <span class="mx-1 text-13" style="flex: 2;">
-                                            <input type="text" placeholder="Chọn thông tin" readonly
-                                                value="{{ $delivery->quotation_number }}"
-                                                class="border-0 w-100 bg-input-guest py-2 px-2 numberQute"
-                                                style="background-color:#F0F4FF; border-radius:4px;" id="myInput"
-                                                autocomplete="off" name="quotation_number">
-                                        </span>
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
+                                        <input type="text" readonly
+                                            class="text-13-black w-50 border-0 bg-input-guest" name="date_deliver"
+                                            style="flex:2;"
+                                            value="{{ date_format(new DateTime($delivery->ngayGiao), 'd/m/Y') }}" />
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nhận</span>
                                         <input readonly class="text-13-black w-50 border-0 bg-input-guest"
                                             value="{{ $delivery->guest_name_display }}" style="flex:2;"
                                             id="myInput">
@@ -223,53 +221,67 @@
                                 <div class="d-flex w-100">
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
-                                            diện</span>
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
                                         <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
-                                            value="{{ $delivery->represent_name }}" readonly />
+                                            placeholder="Nhập thông tin" value="{{ $delivery->code_delivery }}"
+                                            readonly />
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã giao hàng</span>
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
                                         <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
-                                            placeholder="Nhập thông tin" value="{{ $delivery->code_delivery }}"
+                                            value="{{ $delivery->fullname }}" readonly />
+                                    </div>
+                                </div>
+                                <div class="d-flex w-100">
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
+                                        <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                            value="{{ $delivery->address }}" style="flex:2;" name="address"
+                                            readonly />
+                                    </div>
+                                    <div
+                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT</span>
+                                        <input type="number"
+                                            class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                            value="{{ $delivery->phone }}" style="flex:2;" name="phone"
                                             readonly />
                                     </div>
                                 </div>
                                 <div class="d-flex w-100">
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn vị vận
-                                            chuyển</span>
-                                        <input type="text" class="text-13-black w-50 border-0 bg-input-guest"
-                                            <?php if ($delivery->tinhTrang == 2) {
-                                                echo 'readonly';
-                                            } ?> placeholder="Nhập thông tin" name="shipping_unit"
-                                            style="flex:2;" value="{{ $delivery->shipping_unit }}" />
+                                        <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">
+                                            Người lập
+                                        </span>
+                                        <input value="{{ Auth::user()->name }}" disabled
+                                            class="text-13-black w-50 border-0 bg-input-guest px-2 py-2 unit_ship"
+                                            style="flex:2;" />
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
-                                        <input type="text"
-                                            class="text-13-black w-50 border-0 shipping_fee bg-input-guest"
-                                            style="flex:2;" placeholder="Nhập thông tin" name="shipping_fee"
-                                            placeholder="Nhập thông tin"
-                                            value="{{ number_format($delivery->shipping_fee) }}" />
+                                        <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">
+                                            Thủ kho
+                                        </span>
+                                        <select name="manager_warehouse" disabled
+                                            class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
+                                            @foreach ($users as $user_name)
+                                                <option value="{{ $user_name->id }}"
+                                                    @if ($delivery->manager_warehouse) selected @endif>
+                                                    {{ $user_name->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="d-flex w-100">
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao
-                                            hàng</span>
-                                        <input type="text" readonly
-                                            class="text-13-black w-50 border-0 bg-input-guest" name="date_deliver"
-                                            style="flex:2;"
-                                            value="{{ date_format(new DateTime($delivery->ngayGiao), 'd/m/Y') }}" />
-                                    </div>
-                                    <div
-                                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-
+                                        <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">
+                                            Ghi chú
+                                        </span>
+                                        <textarea name="note" class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue" readonly>{{ $delivery->ghiChu }}</textarea>
                                     </div>
                                 </div>
                             </div>

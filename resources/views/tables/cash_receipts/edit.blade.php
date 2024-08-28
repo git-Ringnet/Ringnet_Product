@@ -400,8 +400,8 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nộp</span>
-                                <input type="text" required
-                                    class="text-13-black w-100 border-0 bg-input-guest flatpickr-input p-2"
+                                <input type="text" readonly
+                                    class="text-13-black w-100 border-0 bg-input-guest p-2"
                                     name="payer" style="background-color:#F0F4FF; border-radius:4px;"
                                     placeholder="Nhập người nộp">
                             </div>

@@ -194,11 +194,27 @@
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã trả hàng</span>
+                                <input name="return_code" type="text" placeholder="Nhập thông tin"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
+                                    style="flex:2;" value="{{ $returnImport->return_code }}" readonly />
+                            </div>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày trả hàng</span>
+                                <input type="text" placeholder="Nhập thông tin" readonly
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
+                                    style="flex:2;" value="{{ date_format(new DateTime($returnImport->created_at), 'd/m/Y') }}" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 btn-click" style="flex: 1.5;">Nội dung trả hàng
                                 </span>
                                 <span class="mx-1 text-13" style="flex: 2;">
                                     <input type="text" class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
-                                        value="{{ $returnImport->description }}">
+                                        value="{{ $returnImport->description }}" readonly>
                                 </span>
                             </div>
                         </div>
@@ -730,7 +746,8 @@
     })
     // Xóa đơn hàng
     deleteImport('#delete_receive',
-        '{{ route('returnImport.destroy', ['workspace' => $workspacename, 'returnImport' => $returnImport->id]) }}')
+        '{{ route('returnImport.destroy', ['workspace' => $workspacename, 'returnImport' => $returnImport->id]) }}'
+    )
 
     // Tạo INPUT SERI
     createRowInput('seri');
