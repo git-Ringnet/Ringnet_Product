@@ -168,7 +168,7 @@
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width: 14%;">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="code_delivery" data-sort-type="DESC">
@@ -178,7 +178,7 @@
                                                     <div class="icon" id="icon-code_delivery"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width: 14%;">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="code_delivery" data-sort-type="DESC">
@@ -188,7 +188,7 @@
                                                     <div class="icon" id="icon-code_delivery"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width: 10%;">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="created_at" data-sort-type="DESC"><button
@@ -199,7 +199,7 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="border-bottom" style="width: 14%;">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display"
@@ -210,7 +210,7 @@
                                                 </span>
                                             </th>
                                             {{-- @can('isAdmin') --}}
-                                            <th scope="col" class="border-bottom" style="width: 10%;">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="users"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -240,7 +240,7 @@
                                                     <div class="icon" id="icon-delivery_charges"></div>
                                                 </span>
                                             </th> --}}
-                                            <th scope="col" class="border-bottom" style="width: 8%;">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button

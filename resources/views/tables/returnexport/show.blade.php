@@ -4483,10 +4483,11 @@
             }
             grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
             $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
+            $('#total').val(grandTotal);
             // Cập nhật giá trị data-value
         }
         $('#grand-total').attr('data-value', grandTotal);
-        $('#total').val(totalAmount);
+        $('#total').val(grandTotal);
     }
 
     function formatCurrency(value) {

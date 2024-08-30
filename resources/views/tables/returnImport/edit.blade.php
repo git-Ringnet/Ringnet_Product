@@ -281,15 +281,6 @@
                                                         <span class="d-flex justify-content-end">
                                                             <a href="#" class="sort-link" data-sort-by="total"
                                                                 data-sort-type=""><button class="btn-sort text-13"
-                                                                    type="submit">KM</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border-right border-bottom">
-                                                        <span class="d-flex justify-content-end">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13"
                                                                     type="submit">Thuế</button>
                                                             </a>
                                                             <div class="icon" id="icon-total"></div>
@@ -422,7 +413,7 @@
                                                             </div>
                                                         </td>
                                                         <td
-                                                            class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                            class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
                                                             @php
                                                                 $promotionArray = json_decode($item->promotion, true);
                                                                 $promotionValue = isset($promotionArray['value'])

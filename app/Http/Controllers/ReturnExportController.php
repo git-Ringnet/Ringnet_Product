@@ -88,7 +88,6 @@ class ReturnExportController extends Controller
             }
         }
         if ($request->action == 2) {
-            // dd($request->all());
             $returnExport_id = $this->returnExport->acceptReturnExport($request->all());
             $this->returnExport->addProductReturn($request->all(), $returnExport_id);
             if ($request->redirect == "returnExport") {

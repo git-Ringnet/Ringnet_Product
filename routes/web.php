@@ -136,7 +136,9 @@ Route::resource('{workspace}/importChangeWarehouse', ImportChangeWarehouseContro
 Route::get('/getProductByWarehouse', [ChangeWarehouseController::class, 'getProductByWarehouse'])->name('getProductByWarehouse');
 
 // Trả hàng NCC
-Route::resource('{workspace}/returnImport', ReturnImportController::class);
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/returnImport', ReturnImportController::class);
+});
 Route::get('/show_receiveBill', [ReturnImportController::class, 'show_receiveBill'])->name('show_receiveBill');
 Route::get('/getSNByBill', [ReturnImportController::class, 'getSNByBill'])->name('getSNByBill');
 

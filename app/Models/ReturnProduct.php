@@ -20,6 +20,7 @@ class ReturnProduct extends Model
         'updated_at',
         'sn',
         'returnImport_id',
+        'price_return',
     ];
 
     public function getQuoteImport()
@@ -48,6 +49,7 @@ class ReturnProduct extends Model
                     'created_at' => Carbon::now(),
                     'sn' => json_encode($SN),
                     'returnImport_id' => $id,
+                    'price_return' => str_replace(',', '', $data['price_export'][$i]) ?? 0,
                 ];
                 DB::table($this->table)->insert($dataReturnProduct);
             }

@@ -224,15 +224,6 @@
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">KM</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="border-right border-bottom">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Thuế</button>
                                                     </a>
                                                     <div class="icon" id="icon-total"></div>
@@ -473,11 +464,8 @@
                                                         <input type="text" required="" class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]"
                                                         value="` + formatCurrency(element.price_export) + `">
                                                         </div>
-                                                    <div class="mt-3 text-13-blue transaction text-right" id="transaction" data-toggle="modal" data-target="#recentModal">
-                                                        Giao dịch gần đây
-                                                        </div>
                                                 </td>
-                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
                                                     <div>
                                                         <input type="text" class="border-0 px-2 py-1 w-100 text-right height-32 promotion" name="promotion[]"
                                                         value="` + formatCurrency(promotionObject['value']) + `" name="promotion[]" readonly>

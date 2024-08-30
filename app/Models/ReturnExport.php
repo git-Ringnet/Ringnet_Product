@@ -217,21 +217,14 @@ class ReturnExport extends Model
                     ];
                     DB::table('delivered')->insert($dataDelivered);
                 }
-                if ($returnExport->status == 2) {
-                    $product = Products::find($data['product_id'][$i]);
-                    if ($product) {
-                        if ($product->type != 2) {
-                            $product->product_inventory += $data['product_qty'][$i];
-                            $product->save();
-                            //cập nhật công nợ khách hàng
-                            $guest = Guest::find($data['guest_id']);
-                            $product_price = str_replace(',', '', $data['product_price'][$i]) ?? 0;
-                            $guest->guest_debt -= ($data['product_qty'][$i] * $product_price);
-                            $guest->save();
-                        }
-                    }
-                }
             }
+        }
+        $returnExport = ReturnExport::find($id);
+        if ($returnExport->status == 2) {
+            //cập nhật công nợ khách hàng
+            $guest = Guest::find($data['guest_id']);
+            $guest->guest_debt = $guest->guest_debt - ($data['totalValue'] ?? 0);
+            $guest->save();
         }
     }
     public function getReturnExportToId($id)
@@ -325,14 +318,13 @@ class ReturnExport extends Model
                         if ($product->type != 2) {
                             $product->product_inventory += $data['product_qty'][$i];
                             $product->save();
-                            //cập nhật công nợ khách hàng
-                            $guest = Guest::find($data['guest_id']);
-                            $product_price = str_replace(',', '', $data['product_price'][$i]) ?? 0;
-                            $guest->guest_debt -= ($data['product_qty'][$i] * $product_price);
-                            $guest->save();
                         }
                     }
                 }
+                //cập nhật công nợ khách hàng
+                $guest = Guest::find($data['guest_id']);
+                $guest->guest_debt = $guest->guest_debt - ($data['totalValue'] ?? 0);
+                $guest->save();
             } else {
                 abort('404');
             }
@@ -371,6 +363,10 @@ class ReturnExport extends Model
     {
         $returnExport = ReturnExport::where('id', $id)->first();
         if ($returnExport) {
+            //cập nhật công nợ khách hàng
+            $guest = Guest::where('id', $returnExport->guest_id)->first();
+            $guest->guest_debt = $guest->guest_debt + $returnExport->total_return;
+            $guest->save();
             // Xoá seri
             $seriReturns = SeriReturn::where('return_id', $id)->get();
             foreach ($seriReturns as $seriReturn) {
