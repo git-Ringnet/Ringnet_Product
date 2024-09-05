@@ -107,7 +107,6 @@ class ProvidesController extends Controller
             $repesent = ProvideRepesent::where('provide_id', $provide->id)->get();
         }
         $getId = $id;
-        // $request->session()->put('id', $id);
         $payOrder = PayOder::where('guest_id', $id)->get();
         $productDelivered = $this->quoteImport->sumProductsQuoteByProvide($id);
         // Get All đơn

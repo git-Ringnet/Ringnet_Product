@@ -118,6 +118,23 @@
                                     </div>
                                     <x-filter-month name="date" title="Tháng" />
                                 </div>
+                                {{-- In and export --}}
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContentCustom('printContent', 'print-promotion')">In
+                                    trang
+                                </button>
+                                <form id="exportForm" action="{{ route('exportPromotion') }}" method="GET"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -134,7 +151,7 @@
                     <div class="col-md-12 p-0 m-0 pl-2">
                         <div class="card">
                             <!-- /.card-header -->
-                            <div class="outer2 text-nowrap">
+                            <div class="outer2 text-nowrap" id="print-promotion">
                                 <table id="example2" class="table table-hover bg-white rounded">
                                     <thead class="border-custom">
                                         <tr style="height: 44px;">

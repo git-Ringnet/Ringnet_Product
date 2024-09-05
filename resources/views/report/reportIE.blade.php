@@ -96,6 +96,19 @@
                                     <button class="mx-1 d-flex align-items-center btn-primary rounded"
                                         onclick="printContent('printContent', 'thu','foot')">In
                                         trang</button>
+                                    <form id="exportForm" action="{{ route('exportReportIE') }}" method="GET"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
+
+                                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                        onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                                        <button type="button"
+                                            class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                            <i class="fa-regular fa-file-excel"></i>
+                                            <span class="m-0 ml-1">Xuất Excel</span>
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -185,6 +198,19 @@
                                     <button class="mx-1 d-flex align-items-center btn-primary rounded"
                                         onclick="printContent('printContent', 'chi','foot')">In
                                         trang</button>
+                                    <form id="exportFormChi" action="{{ route('exportReportIEChi') }}"
+                                        method="GET" style="display: none;">
+                                        @csrf
+                                    </form>
+
+                                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                        onclick="event.preventDefault(); document.getElementById('exportFormChi').submit();">
+                                        <button type="button"
+                                            class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                            <i class="fa-regular fa-file-excel"></i>
+                                            <span class="m-0 ml-1">Xuất Excel</span>
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

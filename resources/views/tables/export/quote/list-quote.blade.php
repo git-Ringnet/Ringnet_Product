@@ -166,6 +166,23 @@
                                     <x-filter-compare name="total" title="Tổng tiền" />
                                     <x-filter-date-time name="date" title="Ngày báo giá" />
                                 </div>
+                                {{-- Export and print --}}
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContentCustom('printContent', 'print-quote')">In
+                                    trang
+                                </button>
+                                <form id="exportForm" action="{{ route('exportQuote') }}" method="GET"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -181,7 +198,7 @@
                 <div class="row">
                     <div class="col-md-12 p-0 m-0 pl-2">
                         <div class="card">
-                            <div class="outer2 text-nowrap">
+                            <div class="outer2 text-nowrap" id="print-quote">
                                 <table id="example2" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr>
@@ -295,7 +312,7 @@
                                     </thead>
                                     <tbody class="tbody-detailExport">
                                         @foreach ($quoteExport as $value_export)
-                                            <tr class="position-relative detailExport-info height-52 @if($value_export->tinhTrangDon == 2 || $value_export->tinhTrangDon == 3) highlight-due-date @endif"
+                                            <tr class="position-relative detailExport-info height-52 @if ($value_export->tinhTrangDon == 2 || $value_export->tinhTrangDon == 3) highlight-due-date @endif"
                                                 data-id="{{ $value_export->maBG }}">
                                                 <input type="hidden" name="id-detailExport" class="id-detailExport"
                                                     id="id-detailExport" value="{{ $value_export->maBG }}">
@@ -713,6 +730,7 @@
         </div>
     </div>
 </form>
+<x-print-component :contentId="$title" />
 <x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 <script src="{{ asset('/dist/js/export.js') }}"></script>

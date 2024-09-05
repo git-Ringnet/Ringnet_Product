@@ -93,6 +93,19 @@
                                 <button class="mx-1 d-flex align-items-center btn-primary rounded"
                                     onclick="printContent('printContent', 'buy','foot')">In
                                     trang</button>
+                                <form id="exportForm" action="{{ route('exportReportChangeFunds') }}" method="GET"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+
+                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>

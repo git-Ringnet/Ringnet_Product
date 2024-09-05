@@ -30,11 +30,6 @@
 
         // Lấy nội dung của extraContent nếu tồn tại
         var extraContentHtml = extraContent ? $('#' + extraContent).html() : '';
-
-        console.log('printContents:', printContents);
-        console.log('additionalContentHtml:', additionalContentHtml);
-        console.log('extraContentHtml:', extraContentHtml);
-
         $('.top-table').css('margin-top', '200px');
         $('body').css('margin-top', '100px');
 
@@ -49,39 +44,30 @@
         $('.top-table.outer-4-temp').removeClass('outer-4-temp').addClass('outer-4');
     }
 
-    function exportTableToExcel(tableID, filename = '') {
-        var downloadLink;
-        var dataType = 'application/vnd.ms-excel';
-        var tableSelect = document.getElementById(tableID);
-        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    function printContentCustom(contentId, tableElementId) {
+        // Loại bỏ các lớp trước khi in
+        $('.relative').removeClass('position-relative');
+        $('.top-table.outer').removeClass('outer').addClass('outer-temp');
+        $('.top-table.outer-4').removeClass('outer-4').addClass('outer-4-temp');
 
-        // Loại bỏ các thẻ không cần thiết
-        tableHTML = tableHTML.replace(/<A[^>]*>|<\/A>/g, ""); // Loại bỏ các liên kết
-        tableHTML = tableHTML.replace(/<img[^>]*>/gi, ""); // Loại bỏ các hình ảnh
-        tableHTML = tableHTML.replace(/<input[^>]*>|<\/input>/gi, ""); // Loại bỏ các input
+        var additionalContentHtml = $('#' + tableElementId).html();
+        console.log(additionalContentHtml);
 
-        // Đặt tên tệp nếu không có tên tệp được chỉ định
-        filename = filename ? filename + '.xls' : 'exported_data.xls';
+        var printContents = $('#' + contentId).html();
+        var originalContents = $('body').html();
 
-        // Tạo link tải về
-        downloadLink = document.createElement("a");
+        $('#example2').css('margin-top', '200px');
+        $('body').css('margin-top', '200px');
 
-        document.body.appendChild(downloadLink);
+        // Nối thêm nội dung từ printContent và bảng vào nội dung trang
+        $('body').html(printContents + additionalContentHtml);
 
-        if (navigator.msSaveOrOpenBlob) {
-            var blob = new Blob(['\ufeff', tableHTML], {
-                type: dataType
-            });
-            navigator.msSaveOrOpenBlob(blob, filename);
-        } else {
-            // Tạo URL cho file Excel và gán vào link download
-            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+        window.print();
 
-            // Đặt tên tệp cho link download
-            downloadLink.download = filename;
-
-            // Kích hoạt click để tải về
-            downloadLink.click();
-        }
+        // Khôi phục các lớp sau khi in
+        $('body').html(originalContents);
+        $('.relative').addClass('position-relative');
+        $('.top-table.outer-temp').removeClass('outer-temp').addClass('outer');
+        $('.top-table.outer-4-temp').removeClass('outer-4-temp').addClass('outer-4');
     }
 </script>

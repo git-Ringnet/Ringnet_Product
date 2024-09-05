@@ -138,6 +138,23 @@
                                     <x-filter-compare name="shipping_fee" title="Phí vận chuyển" />
                                     <x-filter-date-time name="date" title="Ngày nhận hàng" />
                                 </div>
+                                {{-- In and export --}}
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContentCustom('printContent', 'print-changeWH')">In
+                                    trang
+                                </button>
+                                <form id="exportForm" action="{{ route('exportChangeWH') }}" method="GET"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -155,7 +172,7 @@
             <div class="col-12 p-0 m-0">
                 <div class="card">
                     <!-- /.card-header -->
-                    <div class="outer2">
+                    <div class="outer2" id="print-changeWH">
                         <table id="example2" class="table table-hover">
                             <thead>
                                 <tr>
@@ -163,6 +180,18 @@
                                         class="border-top-0 bg-white">
                                         <input type="checkbox" name="all" id="checkall" class="checkall-btn">
 
+                                    </th>
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="product_code" data-sort-type="DESC">
+                                                <button class="btn-sort" type="submit">
+                                                    <span class="text-13">Mã phiếu
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <div class="icon" id="icon-product_code"></div>
+                                        </span>
                                     </th>
                                     <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
                                         <span class="d-flex">
@@ -243,6 +272,9 @@
                                             </span>
                                             <input type="checkbox" class="checkall-btn" name="ids[]"
                                                 id="checkbox" value="" onclick="event.stopPropagation();">
+                                        </td>
+                                        <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
+                                            {{ $item->change_warehouse_code }}
                                         </td>
                                         <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
                                             @if ($item->getFromWarehouse)
@@ -337,6 +369,8 @@
 </div> --}}
 
 </div>
+<x-print-component :contentId="$title" />
+
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
 <script type="text/javascript">

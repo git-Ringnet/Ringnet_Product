@@ -335,12 +335,28 @@
                                                 here</a>
                                         </div>
                                     </div>
+                                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                        onclick="printContentCustom('printContent', 'print-debt')">In trang
+                                    </button>
+                                    <form id="exportForm" action="{{ route('exportDebtGuest', $guest->id) }}"
+                                        method="GET" style="display: none;">
+                                        @csrf
+                                    </form>
+
+                                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                        onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                                        <button type="button"
+                                            class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                            <i class="fa-regular fa-file-excel"></i>
+                                            <span class="m-0 ml-1">Xuất Excel</span>
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <section class="content-infor" style="padding-top:3rem;">
-                        <div class="outer table-responsive text-nowrap">
+                        <div class="outer table-responsive text-nowrap" id="print-debt">
                             <table class="table table-hover bg-white rounded" id="inputcontent">
                                 <thead>
                                     <tr>
@@ -466,9 +482,14 @@
                                     <tr>
                                         <td colspan="2" class="border-bottom"></td>
                                         <td class="text-red text-nowrap border-bottom"><strong>Tổng</strong></td>
-                                        <td class="text-red text-nowrap border-bottom text-right">{{ number_format($combined->where('total_price', '!=', null)->sum('total_price') + $combined->where('total_tax', '!=', null)->sum('total_tax')) }}</td>
-                                        <td class="text-red text-nowrap border-bottom text-right">{{ number_format($combined->where('amount', '!=', null)->sum('amount')) }}</td>
-                                        <td class="text-red text-nowrap border-bottom text-right">{{ number_format($currentDebt) }}</td>
+                                        <td class="text-red text-nowrap border-bottom text-right">
+                                            {{ number_format($combined->where('total_price', '!=', null)->sum('total_price') + $combined->where('total_tax', '!=', null)->sum('total_tax')) }}
+                                        </td>
+                                        <td class="text-red text-nowrap border-bottom text-right">
+                                            {{ number_format($combined->where('amount', '!=', null)->sum('amount')) }}
+                                        </td>
+                                        <td class="text-red text-nowrap border-bottom text-right">
+                                            {{ number_format($currentDebt) }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -524,12 +545,28 @@
                                                 here</a>
                                         </div>
                                     </div>
+                                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                        onclick="printContentCustom('printContent', 'print-detail')">In trang
+                                    </button>
+                                    <form id="exportFormDetail" action="{{ route('exportDetailGuest', $guest->id) }}"
+                                        method="GET" style="display: none;">
+                                        @csrf
+                                    </form>
+
+                                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                        onclick="event.preventDefault(); document.getElementById('exportFormDetail').submit();">
+                                        <button type="button"
+                                            class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                            <i class="fa-regular fa-file-excel"></i>
+                                            <span class="m-0 ml-1">Xuất Excel</span>
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <section class="content-infor" style="padding-top:3rem;">
-                        <div class="outer table-responsive text-nowrap">
+                        <div class="outer table-responsive text-nowrap" id="print-detail">
                             <table id="example2" class="table table-hover">
                                 <thead style="position: sticky">
                                     <tr>
@@ -731,6 +768,7 @@
         </div>
     </div>
 </form>
+<x-print-component :contentId="$title" />
 <x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script>

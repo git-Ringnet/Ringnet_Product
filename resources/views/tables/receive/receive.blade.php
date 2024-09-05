@@ -141,6 +141,23 @@
                                     <x-filter-compare name="shipping_fee" title="Phí vận chuyển" />
                                     <x-filter-date-time name="date" title="Ngày nhận hàng" />
                                 </div>
+                                {{-- In and export --}}
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContentCustom('printContent', 'print-receive')">In
+                                    trang
+                                </button>
+                                <form id="exportForm" action="{{ route('exportReceive') }}" method="GET"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -159,7 +176,7 @@
                     <div class="col-12 p-0">
                         <div class="card ">
                             <!-- /.card-header -->
-                            <div class="content-info position-relative outer2 text-nowrap">
+                            <div class="content-info position-relative outer2 text-nowrap" id="print-receive">
                                 <table id="example2" class="table table-hover">
                                     <thead>
                                         <tr class="height-52 border-custom">
@@ -172,7 +189,8 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="delivery_code" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Mã phiếu</button>
+                                                        <button class="btn-sort text-13" type="submit">Mã
+                                                            phiếu</button>
                                                     </a>
                                                     <div class="icon" id="icon-delivery_code"></div>
                                                 </span>
@@ -341,6 +359,8 @@
     {{ $receive->appends(request()->except('page'))->links() }}
 </div> --}}
 </div>
+<x-print-component :contentId="$title" />
+
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
 <script type="text/javascript">

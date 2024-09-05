@@ -151,6 +151,23 @@
                                     <x-filter-compare name="total" title="Tổng tiền" />
                                     <x-filter-date-time name="date" title="Ngày báo giá" />
                                 </div>
+                                {{-- In and export --}}
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContentCustom('printContent', 'print-import')">In
+                                    trang
+                                </button>
+                                <form id="exportForm" action="{{ route('exportImport') }}" method="GET"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -168,7 +185,7 @@
                     <div class="col-md-12 p-0 m-0 pl-2">
                         <div class="card">
                             <!-- /.card-header -->
-                            <div class="outer2 text-nowrap">
+                            <div class="outer2 text-nowrap" id="print-import">
                                 <table id="example2" class="table table-hover">
                                     <thead>
                                         <tr class="height-52">
@@ -684,6 +701,7 @@
 </div>
 
 </div>
+<x-print-component :contentId="$title" />
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>

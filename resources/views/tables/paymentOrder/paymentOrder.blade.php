@@ -145,6 +145,23 @@
                                     <x-filter-compare name="debt" title="Dư nợ" />
                                     <x-filter-date-time name="date" title="Hạn thanh toán" />
                                 </div>
+                                {{-- In and export --}}
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContentCustom('printContent', 'print-payOrder')">In
+                                    trang
+                                </button>
+                                <form id="exportForm" action="{{ route('exportPayOrder') }}" method="GET"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -162,10 +179,10 @@
                     <div class="col-12 p-0">
                         <div class="card">
                             <!-- /.card-header -->
-                            <div class="content-info position-relative outer2 text-nowrap">
+                            <div class="content-info position-relative outer2 text-nowrap" id="print-payOrder">
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
-                                        <tr style="height:44px;">
+                                        <tr style="height:44px;" class="border-custom">
                                             <th scope="col" class="border-bottom"
                                                 style="width:5%;padding-left: 2rem;" class="height-52">
                                                 <input type="checkbox" name="all" id="checkall"
@@ -474,6 +491,8 @@
 
 
 </div>
+<x-print-component :contentId="$title" />
+
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
 <script type="text/javascript">

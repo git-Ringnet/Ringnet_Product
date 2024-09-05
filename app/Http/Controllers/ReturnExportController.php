@@ -176,9 +176,7 @@ class ReturnExportController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $workspace, string $id)
-    {
-    }
+    public function show(string $workspace, string $id) {}
     public function getProductDeliveryRtExport(Request $request)
     {
         $data = $request->all();

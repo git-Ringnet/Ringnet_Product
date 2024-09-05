@@ -68,7 +68,7 @@ class ChangeWarehouseController extends Controller
         //
         $invoiceAuto = $this->changeWarehouse->getQuoteCount();
 
-        return view('tables.abc.changeWarehouse.create', compact('title', 'workspacename', 'warehouse', 'product', 'users','invoiceAuto'));
+        return view('tables.abc.changeWarehouse.create', compact('title', 'workspacename', 'warehouse', 'product', 'users', 'invoiceAuto'));
     }
 
     /**

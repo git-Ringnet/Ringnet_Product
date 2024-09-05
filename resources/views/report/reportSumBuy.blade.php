@@ -93,6 +93,19 @@
                                 <button class="mx-1 d-flex align-items-center btn-primary rounded"
                                     onclick="printContent('printContent', 'data','foot')">In
                                     trang</button>
+                                <form id="exportForm" action="{{ route('exportReportBuy') }}" method="GET"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+
+                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -189,14 +202,14 @@
                                         </thead>
                                         <tbody class="table-buy">
                                             <tr>
-                                                <td colspan="10" class="border-bottom bold">Nhóm khách hàng:
+                                                <td colspan="10" class="border-bottom bold">Nhóm nhà cung cấp:
                                                     Chưa chọn nhóm</td>
                                             </tr>
                                             @foreach ($provides as $item)
                                                 @if ($item->group_id == 0)
                                                     <tr>
                                                         <td class="border-bottom bold"></td>
-                                                        <td colspan="9" class="border-bottom bold">Khách hàng:
+                                                        <td colspan="9" class="border-bottom bold">Nhà cung cấp:
                                                             {{ $item->provide_name_display }}</td>
                                                     </tr>
                                                     @php
@@ -278,14 +291,15 @@
 
                                             @foreach ($groupProvides as $value)
                                                 <tr>
-                                                    <td colspan="10" class="border-bottom bold">Nhóm khách hàng:
+                                                    <td colspan="10" class="border-bottom bold">Nhóm nhà cung cấp:
                                                         {{ $value->name }}</td>
                                                 </tr>
                                                 @foreach ($provides as $item)
                                                     @if ($item->group_id == $value->id)
                                                         <tr>
                                                             <td class="border-bottom bold"></td>
-                                                            <td colspan="9" class="border-bottom bold">Khách hàng:
+                                                            <td colspan="9" class="border-bottom bold">Nhà cung
+                                                                cấp:
                                                                 {{ $item->provide_name_display }}</td>
                                                         </tr>
                                                         @php
