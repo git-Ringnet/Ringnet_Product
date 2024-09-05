@@ -169,9 +169,6 @@ class PayOrderController extends Controller
             $this->payment->calculateFunds($request->fund_id, $request->total);
         }
 
-
-
-
         if ($payment) {
             $dataUserFlow = [
                 'user_id' => Auth::user()->id,
@@ -302,8 +299,6 @@ class PayOrderController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
 
-
-
         // Cập nhật tiền đã trả cho khách khi trả hàng
         $phieuChi = PayOder::findOrFail($id);
         if ($phieuChi->return_id != 0) {
@@ -311,6 +306,10 @@ class PayOrderController extends Controller
             $returnE->payment = $returnE->payment - $phieuChi->payment;
             $returnE->save();
         } else {
+            //cập nhật công nợ
+            $provide = Provides::where('id', $phieuChi->guest_id)->first();
+            $provide->provide_debt = $provide->provide_debt + $phieuChi->payment;
+            $provide->save();
             $status = $this->payment->deletePayment($id);
         }
 

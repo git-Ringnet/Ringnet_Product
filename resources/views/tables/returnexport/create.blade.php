@@ -175,7 +175,7 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                            <span class="mx-1 text-13" style="flex: 2;">
+                            <span class="mx-1 text-13" style="flex: 5;">
                                 <input type="text" placeholder="Chọn thông tin" name="guestName"
                                     class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="myInput1" readonly
                                     style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
@@ -259,7 +259,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div
+                        {{-- <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
                                 diện</span>
@@ -298,7 +298,7 @@
                                         người đại diện</span>
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="d-flex w-100">
                         <div
@@ -361,15 +361,15 @@
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Số lượng
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                        {{-- <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Quản lý SN
-                                        </th>
+                                        </th> --}}
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Đơn giá
                                         </th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:15%;">
+                                        {{-- <th class="border-right p-0 px-2 text-center text-13" style="width:15%;">
                                             %CK
-                                        </th>
+                                        </th> --}}
                                         <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
                                             Thuế
                                         </th>
@@ -993,7 +993,7 @@
             );
             // 
             // Gắn các phần tử vào hàng mới
-            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, quanLySN, donGia, chiTietChietKhau,
+            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, quanLySN, donGia,
                 thue, thanhTien,
                 ghiChu,
                 option);
@@ -2854,7 +2854,7 @@
                                         </div>  
                                         </div>
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
                                         <a class="open-modal-btn text-center ${(item.check_seri == 1) ? 'd-block' : ''}" href="#" data-target="#exampleModal0" data-toggle="modal">
                                             <div class="sn--modal pt-2">
                                                 <span class="border-span--modal">SN</span>
@@ -2868,15 +2868,15 @@
                                     <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                         <input type="text" value="${formatCurrency(item.price_export)}" 
                                             class="border-0 px-2 py-1 w-100 text-right product_price height-32" autocomplete="off" name="product_price[]" required="">
-                                            <a href='#'><p class="mt-3 text-13-blue recentModal mb-0" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</p></a>
+                                            <a href='#'><p class="mt-3 text-13-blue recentModal mb-0 text-right" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</p></a>
                                     </td>
-                                    <td class="border-right p-2 align-top border-bottom border-top-0">
+                                    <td class="border-right p-2 align-top border-bottom border-top-0 d-none">
                                         <div class="d-flex flex-column align-items-center">
                                             <input type="text" name="discount_input[]" 
                                                 class="discount_input text-13-black text-right py-1 w-100 height-32 mt-1" 
                                                 placeholder="Giá trị chiết khấu" style="border: none;" 
                                                 value="${formatCurrency(parseFloat(value) || 0)}">
-                                            <select name="discount_option[]" class="discount_option border-0 mt-2 text-right">
+                                            <select name="discount_option[]" class="discount_option border-0 mt-2 text-center">
                                                 <option value="" disabled="">Chọn chiết khấu</option>
                                                 <option value="1" ${(type == 1) ? 'selected' : ''}>Nhập tiền</option>
                                                 <option value="2" ${(type == 2) ? 'selected' : ''}>Nhập %</option>

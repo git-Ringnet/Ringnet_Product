@@ -293,6 +293,7 @@ class DeliveryController extends Controller
 
     public function watchDelivery(string $workspace, string $id)
     {
+
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $title = 'Chỉnh sửa phiếu xuất kho';

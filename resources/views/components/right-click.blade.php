@@ -19,7 +19,7 @@
     @endif
     @if ($page == 'viewReportSumSellProfit')
         <a class="dropdown-item text-13-black" href="#" data-type="hanghoa" id="banhang"
-            style="display: none;">Xem đơn hàng</a>
+            style="display: none;">Xem phiếu bán hàng</a>
         <a class="dropdown-item text-13-black" href="#" data-option="donhang" id="donhang"
             style="display: none;">Xem đơn hàng</a>
         <a class="dropdown-item text-13-black" href="#" data-option="congno" id="congno"

@@ -70,7 +70,9 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::resource('{workspace}/content', ContentGroupsController::class);
 });
 
-Route::resource('{workspace}/changeFund', ContentImportExportController::class);
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/changeFund', ContentImportExportController::class);
+});
 // Route::resource('{workspace}/changeInventory',ChangeInventoryController::class);
 // Route::get('/checkInventory',[ChangeInventoryController::class,'checkInventory'])->name('checkInventory');
 
@@ -82,9 +84,11 @@ Route::middleware([CheckLogin::class])->group(function () {
 });
 
 // Khách hàng
-Route::resource('{workspace}/guests', GuestController::class);
-Route::get('/search', [GuestController::class, 'search'])->name('searchGuest');
-Route::get('/searchDetailGuest', [GuestController::class, 'searchDetailGuest'])->name('searchDetailGuest');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/guests', GuestController::class);
+    Route::get('/search', [GuestController::class, 'search'])->name('searchGuest');
+    Route::get('/searchDetailGuest', [GuestController::class, 'searchDetailGuest'])->name('searchDetailGuest');
+});
 
 // Mua hàng
 Route::middleware([CheckLogin::class])->group(function () {
@@ -120,66 +124,75 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/getWarehouse', [DetailImportController::class, 'getWarehouse'])->name('getWarehouse');
 });
 
-// Trả hàng KH
-Route::resource('{workspace}/returnExport', ReturnExportController::class);
-// Phiếu Thu
-Route::resource('{workspace}/cash_receipts', CashReceiptController::class);
-Route::get('/getInfoDeliveryReciepts', [CashReceiptController::class, 'getInfoDeliveryReciepts'])->name('getInfoDeliveryReciepts');
-Route::get('/getInfoDeliveryRecieptsEdit', [CashReceiptController::class, 'getInfoDeliveryRecieptsEdit'])->name('getInfoDeliveryRecieptsEdit');
+Route::middleware([CheckLogin::class])->group(function () {
+    // Trả hàng KH
+    Route::resource('{workspace}/returnExport', ReturnExportController::class);
+    // Phiếu Thu
+    Route::resource('{workspace}/cash_receipts', CashReceiptController::class);
+    Route::get('/getInfoDeliveryReciepts', [CashReceiptController::class, 'getInfoDeliveryReciepts'])->name('getInfoDeliveryReciepts');
+    Route::get('/getInfoDeliveryRecieptsEdit', [CashReceiptController::class, 'getInfoDeliveryRecieptsEdit'])->name('getInfoDeliveryRecieptsEdit');
 
-Route::get('/getDebtGuest', [GuestController::class, 'getDebtGuest'])->name('getDebtGuest');
-Route::get('/getDebtProvide', [ProvidesController::class, 'getDebtProvide'])->name('getDebtProvide');
+    Route::get('/getDebtGuest', [GuestController::class, 'getDebtGuest'])->name('getDebtGuest');
+    Route::get('/getDebtProvide', [ProvidesController::class, 'getDebtProvide'])->name('getDebtProvide');
+});
 
 
 // Phiếu chuyển kho
 // Route::resource('{workspace}/changeWarehouse',[ChangeWarehouseController::class]);
-Route::resource('{workspace}/changeWarehouse', ChangeWarehouseController::class);
-Route::resource('{workspace}/importChangeWarehouse', ImportChangeWarehouseController::class);
-Route::get('/getProductByWarehouse', [ChangeWarehouseController::class, 'getProductByWarehouse'])->name('getProductByWarehouse');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/changeWarehouse', ChangeWarehouseController::class);
+    Route::resource('{workspace}/importChangeWarehouse', ImportChangeWarehouseController::class);
+    Route::get('/getProductByWarehouse', [ChangeWarehouseController::class, 'getProductByWarehouse'])->name('getProductByWarehouse');
+});
 
 // Trả hàng NCC
 Route::middleware([CheckLogin::class])->group(function () {
     Route::resource('{workspace}/returnImport', ReturnImportController::class);
 });
-Route::get('/show_receiveBill', [ReturnImportController::class, 'show_receiveBill'])->name('show_receiveBill');
-Route::get('/getSNByBill', [ReturnImportController::class, 'getSNByBill'])->name('getSNByBill');
 
-Route::get('/checkQuotetionExport', [DetailExportController::class, 'checkQuotetionExport'])->name('checkQuotetionExport');
-Route::get('/checkQuotetionExportEdit', [DetailExportController::class, 'checkQuotetionExportEdit'])->name('checkQuotetionExportEdit');
-Route::get('/searchDetailExport', [DetailExportController::class, 'searchDetailExport'])->name('searchDetailExport');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::get('/show_receiveBill', [ReturnImportController::class, 'show_receiveBill'])->name('show_receiveBill');
+    Route::get('/getSNByBill', [ReturnImportController::class, 'getSNByBill'])->name('getSNByBill');
 
-//
-Route::get('/searchMiniView', [DetailExportController::class, 'searchMiniView'])->name('searchMiniView');
+    Route::get('/checkQuotetionExport', [DetailExportController::class, 'checkQuotetionExport'])->name('checkQuotetionExport');
+    Route::get('/checkQuotetionExportEdit', [DetailExportController::class, 'checkQuotetionExportEdit'])->name('checkQuotetionExportEdit');
+    Route::get('/searchDetailExport', [DetailExportController::class, 'searchDetailExport'])->name('searchDetailExport');
+});
 
-Route::get('/searchReturnI', [ReturnImportController::class, 'search'])->name('searchReturnI');
-Route::get('/searchReturnE', [ReturnExportController::class, 'search'])->name('searchReturnE');
-Route::get('/searchCashRe', [CashReceiptController::class, 'search'])->name('searchCashRe');
-Route::get('/searchChangeFun', [ContentImportExportController::class, 'search'])->name('searchChangeFun');
-Route::get('/searchChangeWH', [ChangeWarehouseController::class, 'search'])->name('searchChangeWH');
-// Ajax report 
-Route::get('/searchDebtGuests', [ReportController::class, 'searchDebtGuests'])->name('searchDebtGuests');
-Route::get('/searchDebtProvides', [ReportController::class, 'searchDebtProvides'])->name('searchDebtProvides');
-Route::get('/searchSale', [ReportController::class, 'searchSale'])->name('searchSale');
-Route::get('/searchBuy', [ReportController::class, 'searchBuy'])->name('searchBuy');
-Route::get('/searchRPDelivery', [ReportController::class, 'searchRPDelivery'])->name('searchRPDelivery');
-Route::get('/searchRPReturnE', [ReportController::class, 'searchRPReturnE'])->name('searchRPReturnE');
-Route::get('/searchRPReturnI', [ReportController::class, 'searchRPReturnI'])->name('searchRPReturnI');
-Route::get('/searchRPContentI', [ReportController::class, 'searchRPContentI'])->name('searchRPContentI');
-Route::get('/searchRPContentE', [ReportController::class, 'searchRPContentE'])->name('searchRPContentE');
-Route::get('/searchReportSumSellProfit', [ReportController::class, 'searchReportSumSellProfit'])->name('searchReportSumSellProfit');
-Route::get('/searchRPChangeFunds', [ReportController::class, 'searchRPChangeFunds'])->name('searchRPChangeFunds');
-Route::get('/searchRPIEFunds', [ReportController::class, 'searchRPIEFunds'])->name('searchRPIEFunds');
-Route::get('/searchRPEnventory', [ReportController::class, 'searchRPEnventory'])->name('searchRPEnventory');
+Route::middleware([CheckLogin::class])->group(function () {
+    //
+    Route::get('/searchMiniView', [DetailExportController::class, 'searchMiniView'])->name('searchMiniView');
 
-Route::resource('DateForm', DateFormController::class);
-Route::get('/addUserFlow', [DateFormController::class, 'addUserFlow'])->name('addUserFlow');
+    Route::get('/searchReturnI', [ReturnImportController::class, 'search'])->name('searchReturnI');
+    Route::get('/searchReturnE', [ReturnExportController::class, 'search'])->name('searchReturnE');
+    Route::get('/searchCashRe', [CashReceiptController::class, 'search'])->name('searchCashRe');
+    Route::get('/searchChangeFun', [ContentImportExportController::class, 'search'])->name('searchChangeFun');
+    Route::get('/searchChangeWH', [ChangeWarehouseController::class, 'search'])->name('searchChangeWH');
+    // Ajax report 
+    Route::get('/searchDebtGuests', [ReportController::class, 'searchDebtGuests'])->name('searchDebtGuests');
+    Route::get('/searchDebtProvides', [ReportController::class, 'searchDebtProvides'])->name('searchDebtProvides');
+    Route::get('/searchSale', [ReportController::class, 'searchSale'])->name('searchSale');
+    Route::get('/searchBuy', [ReportController::class, 'searchBuy'])->name('searchBuy');
+    Route::get('/searchRPDelivery', [ReportController::class, 'searchRPDelivery'])->name('searchRPDelivery');
+    Route::get('/searchRPReturnE', [ReportController::class, 'searchRPReturnE'])->name('searchRPReturnE');
+    Route::get('/searchRPReturnI', [ReportController::class, 'searchRPReturnI'])->name('searchRPReturnI');
+    Route::get('/searchRPContentI', [ReportController::class, 'searchRPContentI'])->name('searchRPContentI');
+    Route::get('/searchRPContentE', [ReportController::class, 'searchRPContentE'])->name('searchRPContentE');
+    Route::get('/searchReportSumSellProfit', [ReportController::class, 'searchReportSumSellProfit'])->name('searchReportSumSellProfit');
+    Route::get('/searchRPChangeFunds', [ReportController::class, 'searchRPChangeFunds'])->name('searchRPChangeFunds');
+    Route::get('/searchRPIEFunds', [ReportController::class, 'searchRPIEFunds'])->name('searchRPIEFunds');
+    Route::get('/searchRPEnventory', [ReportController::class, 'searchRPEnventory'])->name('searchRPEnventory');
 
-Route::get('/addDateForm', [DateFormController::class, 'addDateForm'])->name('addDateForm');
-Route::get('/updateDateForm', [DateFormController::class, 'updateDateForm'])->name('updateDateForm');
-Route::get('/deleteDateForm', [DateFormController::class, 'deleteDateForm'])->name('deleteDateForm');
-Route::get('/setDefaultGuest', [DateFormController::class, 'setDefault'])->name('setDefaultGuest');
-Route::get('/searchDateForm', [DateFormController::class, 'searchDateForm'])->name('searchDateForm');
-Route::get('/searchFormByGuestId', [DetailExportController::class, 'searchFormByGuestId'])->name('searchFormByGuestId');
+    Route::resource('DateForm', DateFormController::class);
+    Route::get('/addUserFlow', [DateFormController::class, 'addUserFlow'])->name('addUserFlow');
+
+    Route::get('/addDateForm', [DateFormController::class, 'addDateForm'])->name('addDateForm');
+    Route::get('/updateDateForm', [DateFormController::class, 'updateDateForm'])->name('updateDateForm');
+    Route::get('/deleteDateForm', [DateFormController::class, 'deleteDateForm'])->name('deleteDateForm');
+    Route::get('/setDefaultGuest', [DateFormController::class, 'setDefault'])->name('setDefaultGuest');
+    Route::get('/searchDateForm', [DateFormController::class, 'searchDateForm'])->name('searchDateForm');
+    Route::get('/searchFormByGuestId', [DetailExportController::class, 'searchFormByGuestId'])->name('searchFormByGuestId');
+});
 
 // Đơn nhận hàng
 Route::middleware([CheckLogin::class])->group(function () {
@@ -238,49 +251,51 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('{workspace}/seeInfo/{id}', [DetailExportController::class, 'seeInfo'])->name('seeInfo');
 });
 
-//tìm kiếm tên khách hàng
-Route::get('/searchExport', [DetailExportController::class, 'searchGuest'])->name('searchExport');
-//người đại diện
-Route::get('/searchRepresent', [DetailExportController::class, 'searchRepresent'])->name('searchRepresent');
-//Xóa người đại diện
-Route::get('/deleteRepresentGuest', [DetailExportController::class, 'deleteRepresentGuest'])->name('deleteRepresentGuest');
-//Xóa dự án
-Route::get('/deleteProject', [DetailExportController::class, 'deleteProject'])->name('deleteProject');
-//thông tin chi tiết người đại diện
-Route::get('/editRepresent', [DetailExportController::class, 'editRepresent'])->name('editRepresent');
-//Lấy thông tin chi tiết khách
-Route::get('/editGuest', [DetailExportController::class, 'editGuest'])->name('editGuest');
-//Cập nhật thông tin khách hàng
-Route::get('/updateGuest', [DetailExportController::class, 'updateGuest'])->name('updateGuest');
-//Cập nhật thông tin người đại diện
-Route::get('/updateRepresent', [DetailExportController::class, 'updateRepresent'])->name('updateRepresent');
-//Mặc định thông tin người đại diện
-Route::get('/defaultRepresent', [DetailExportController::class, 'defaultRepresent'])->name('defaultRepresent');
-//tìm kiếm tên project
-Route::get('/searchProject', [DetailExportController::class, 'searchProject'])->name('searchProject');
-//Thêm khách hàng
-Route::get('/addGuest', [DetailExportController::class, 'addGuest'])->name('addGuest');
-//
-Route::get('/deleteGuest', [DetailExportController::class, 'deleteGuest'])->name('deleteGuest');
-//Thêm người đại diện
-Route::get('/addRepresentGuest', [DetailExportController::class, 'addRepresentGuest'])->name('addRepresentGuest');
-//Thêm dự án
-Route::get('/addProject', [DetailExportController::class, 'addProject'])->name('addProject');
-//Lấy thông tin sản phẩm
-Route::get('/getProduct', [DetailExportController::class, 'getProduct'])->name('getProduct');
-Route::get('/getInventWH', [DetailExportController::class, 'getInventWH'])->name('getInventWH');
-//Lấy mã sản phẩm
-Route::get('/getProductCode', [DetailExportController::class, 'getProductCode'])->name('getProductCode');
-//Lấy người đại diện theo khách hàng
-Route::get('/getRepresentGuest', [DetailExportController::class, 'getRepresentGuest'])->name('getRepresentGuest');
-//
-Route::get('/getRecentTransaction', [DetailExportController::class, 'getRecentTransaction'])->name('getRecentTransaction');
-//
-Route::get('/checkProductExist', [DetailExportController::class, 'checkProductExist'])->name('checkProductExist');
-//
-Route::get('/getDataExport', [DetailExportController::class, 'getDataExport'])->name('getDataExport');
-Route::get('/getListExport', [DetailExportController::class, 'getListExport'])->name('getListExport');
-Route::get('/getViewMini', [DetailExportController::class, 'getViewMini'])->name('getViewMini');
+Route::middleware([CheckLogin::class])->group(function () {
+    //tìm kiếm tên khách hàng
+    Route::get('/searchExport', [DetailExportController::class, 'searchGuest'])->name('searchExport');
+    //người đại diện
+    Route::get('/searchRepresent', [DetailExportController::class, 'searchRepresent'])->name('searchRepresent');
+    //Xóa người đại diện
+    Route::get('/deleteRepresentGuest', [DetailExportController::class, 'deleteRepresentGuest'])->name('deleteRepresentGuest');
+    //Xóa dự án
+    Route::get('/deleteProject', [DetailExportController::class, 'deleteProject'])->name('deleteProject');
+    //thông tin chi tiết người đại diện
+    Route::get('/editRepresent', [DetailExportController::class, 'editRepresent'])->name('editRepresent');
+    //Lấy thông tin chi tiết khách
+    Route::get('/editGuest', [DetailExportController::class, 'editGuest'])->name('editGuest');
+    //Cập nhật thông tin khách hàng
+    Route::get('/updateGuest', [DetailExportController::class, 'updateGuest'])->name('updateGuest');
+    //Cập nhật thông tin người đại diện
+    Route::get('/updateRepresent', [DetailExportController::class, 'updateRepresent'])->name('updateRepresent');
+    //Mặc định thông tin người đại diện
+    Route::get('/defaultRepresent', [DetailExportController::class, 'defaultRepresent'])->name('defaultRepresent');
+    //tìm kiếm tên project
+    Route::get('/searchProject', [DetailExportController::class, 'searchProject'])->name('searchProject');
+    //Thêm khách hàng
+    Route::get('/addGuest', [DetailExportController::class, 'addGuest'])->name('addGuest');
+    //
+    Route::get('/deleteGuest', [DetailExportController::class, 'deleteGuest'])->name('deleteGuest');
+    //Thêm người đại diện
+    Route::get('/addRepresentGuest', [DetailExportController::class, 'addRepresentGuest'])->name('addRepresentGuest');
+    //Thêm dự án
+    Route::get('/addProject', [DetailExportController::class, 'addProject'])->name('addProject');
+    //Lấy thông tin sản phẩm
+    Route::get('/getProduct', [DetailExportController::class, 'getProduct'])->name('getProduct');
+    Route::get('/getInventWH', [DetailExportController::class, 'getInventWH'])->name('getInventWH');
+    //Lấy mã sản phẩm
+    Route::get('/getProductCode', [DetailExportController::class, 'getProductCode'])->name('getProductCode');
+    //Lấy người đại diện theo khách hàng
+    Route::get('/getRepresentGuest', [DetailExportController::class, 'getRepresentGuest'])->name('getRepresentGuest');
+    //
+    Route::get('/getRecentTransaction', [DetailExportController::class, 'getRecentTransaction'])->name('getRecentTransaction');
+    //
+    Route::get('/checkProductExist', [DetailExportController::class, 'checkProductExist'])->name('checkProductExist');
+    //
+    Route::get('/getDataExport', [DetailExportController::class, 'getDataExport'])->name('getDataExport');
+    Route::get('/getListExport', [DetailExportController::class, 'getListExport'])->name('getListExport');
+    Route::get('/getViewMini', [DetailExportController::class, 'getViewMini'])->name('getViewMini');
+});
 
 //Giao hàng
 Route::middleware([CheckLogin::class])->group(function () {
@@ -288,27 +303,28 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('{workspace}/watchDelivery/{id}', [DeliveryController::class, 'watchDelivery'])->name('watchDelivery');
 });
 
-Route::get('searchDelivery', [DeliveryController::class, 'searchDelivery'])->name('searchDelivery');
-//Lấy thông tin từ số báo giá
-Route::get('/getInfoQuote', [DeliveryController::class, 'getInfoQuote'])->name('getInfoQuote');
-Route::get('/getProductQuote', [DeliveryController::class, 'getProductQuote'])->name('getProductQuote');
-Route::get('/getProductFromQuote', [DeliveryController::class, 'getProductFromQuote'])->name('getProductFromQuote');
-Route::get('/getInfoDeliveryReturnExport', [ReturnExportController::class, 'getInfoDeliveryReturnExport'])->name('getInfoDeliveryReturnExport');
-Route::get('/getProductDeliveryRtExport', [ReturnExportController::class, 'getProductDeliveryRtExport'])->name('getProductDeliveryRtExport');
-//Hóa đơn bán hàng
-Route::resource('{workspace}/billSale', BillSaleController::class);
-//lấy thông tin từ số báo giá trong hóa đơn
-Route::get('/getInfoDelivery', [BillSaleController::class, 'getInfoDelivery'])->name('getInfoDelivery');
-Route::get('/getProductDelivery', [BillSaleController::class, 'getProductDelivery'])->name('getProductDelivery');
-//Kiểm tra số hóa đơn
-Route::get('/checkNumberBill', [BillSaleController::class, 'checkNumberBill'])->name('checkNumberBill');
-// ajax Bilsale
-Route::get('/searchBillSale', [BillSaleController::class, 'searchBillSale'])->name('searchBillSale');
-//Kiểm tra mã giao hàng
-Route::get('/checkCodeDelivery', [DeliveryController::class, 'checkCodeDelivery'])->name('checkCodeDelivery');
-//Kiểm tra mã thanh toán
-Route::get('/checkCodePayment', [PayExportController::class, 'checkCodePayment'])->name('checkCodePayment');
-
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::get('searchDelivery', [DeliveryController::class, 'searchDelivery'])->name('searchDelivery');
+    //Lấy thông tin từ số báo giá
+    Route::get('/getInfoQuote', [DeliveryController::class, 'getInfoQuote'])->name('getInfoQuote');
+    Route::get('/getProductQuote', [DeliveryController::class, 'getProductQuote'])->name('getProductQuote');
+    Route::get('/getProductFromQuote', [DeliveryController::class, 'getProductFromQuote'])->name('getProductFromQuote');
+    Route::get('/getInfoDeliveryReturnExport', [ReturnExportController::class, 'getInfoDeliveryReturnExport'])->name('getInfoDeliveryReturnExport');
+    Route::get('/getProductDeliveryRtExport', [ReturnExportController::class, 'getProductDeliveryRtExport'])->name('getProductDeliveryRtExport');
+    //Hóa đơn bán hàng
+    Route::resource('{workspace}/billSale', BillSaleController::class);
+    //lấy thông tin từ số báo giá trong hóa đơn
+    Route::get('/getInfoDelivery', [BillSaleController::class, 'getInfoDelivery'])->name('getInfoDelivery');
+    Route::get('/getProductDelivery', [BillSaleController::class, 'getProductDelivery'])->name('getProductDelivery');
+    //Kiểm tra số hóa đơn
+    Route::get('/checkNumberBill', [BillSaleController::class, 'checkNumberBill'])->name('checkNumberBill');
+    // ajax Bilsale
+    Route::get('/searchBillSale', [BillSaleController::class, 'searchBillSale'])->name('searchBillSale');
+    //Kiểm tra mã giao hàng
+    Route::get('/checkCodeDelivery', [DeliveryController::class, 'checkCodeDelivery'])->name('checkCodeDelivery');
+    //Kiểm tra mã thanh toán
+    Route::get('/checkCodePayment', [PayExportController::class, 'checkCodePayment'])->name('checkCodePayment');
+});
 //thanh toán bán hàng
 Route::middleware([CheckLogin::class])->group(function () {
     Route::resource('{workspace}/payExport', PayExportController::class);

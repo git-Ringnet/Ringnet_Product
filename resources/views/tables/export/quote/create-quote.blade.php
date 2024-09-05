@@ -298,12 +298,12 @@
                             </div>
                         </div>
                         <div class="d-flex w-100">
-                            <div
+                            {{-- <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thông tin liên hệ</span>
                                 <input disabled class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
                                     style="flex:5.5;" />
-                            </div>
+                            </div> --}}
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
