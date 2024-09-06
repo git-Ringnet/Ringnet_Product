@@ -1,7 +1,7 @@
 <x-navbar :title="$title" activeGroup="manageProfess" activeName="commission"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
     <div class="content-header-fixed p-0">
-        <div class="content__header--inner mt-4">
+        <div class="content__header--inner">
             <div class="content__heading--left">
                 <span class="ml-4">Báo cáo</span>
                 <span>
@@ -13,6 +13,26 @@
                     </svg>
                 </span>
                 <span class="font-weight-bold">{{ $title }}</span>
+            </div>
+            <div class="d-flex content__heading--right">
+                <div class="row m-0">
+                    {{-- In and export --}}
+                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                        onclick="printContentCustom('printContent', 'print-commission')">In
+                        trang
+                    </button>
+                    <form id="exportFormSales" action="{{ route('exportCommission') }}" method="GET"
+                        style="display: none;">
+                        @csrf
+                    </form>
+                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                        onclick="event.preventDefault(); document.getElementById('exportFormSales').submit();">
+                        <button type="button" class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                            <i class="fa-regular fa-file-excel"></i>
+                            <span class="m-0 ml-1">Xuất Excel</span>
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="bg-filter-search pl-4">
@@ -118,23 +138,6 @@
                                     </div>
                                     <x-filter-month name="date" title="Tháng" />
                                 </div>
-                                {{-- In and export --}}
-                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                    onclick="printContentCustom('printContent', 'print-commission')">In
-                                    trang
-                                </button>
-                                <form id="exportFormSales" action="{{ route('exportCommission') }}" method="GET"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
-                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
-                                    onclick="event.preventDefault(); document.getElementById('exportFormSales').submit();">
-                                    <button type="button"
-                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                        <i class="fa-regular fa-file-excel"></i>
-                                        <span class="m-0 ml-1">Xuất Excel</span>
-                                    </button>
-                                </a>
                             </div>
                         </div>
                     </div>

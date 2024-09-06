@@ -15,6 +15,23 @@
                 <span class="font-weight-bold text-secondary">Phiếu bán hàng</span>
             </div>
             <div class="d-flex content__heading--right">
+                {{-- Export and print --}}
+                <div class="row m-0">
+                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                        onclick="printContentCustom('printContent', 'print-quote')">In
+                        trang
+                    </button>
+                    <form id="exportForm" action="{{ route('exportQuote') }}" method="GET" style="display: none;">
+                        @csrf
+                    </form>
+                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                        onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                        <button type="button" class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                            <i class="fa-regular fa-file-excel"></i>
+                            <span class="m-0 ml-1">Xuất Excel</span>
+                        </button>
+                    </a>
+                </div>
                 <div class="row m-0">
                     <a href="{{ route('detailExport.create', ['workspace' => $workspacename]) }}" class="activity mr-3"
                         data-name1="BG" data-des="Tạo mới">
@@ -93,11 +110,11 @@
                                                 fill="#6B6F76" />
                                         </svg>
                                     </button>
-                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                        style="z-index:">
+                                    <div class="dropdown-menu" id="dropdown-menu"
+                                        aria-labelledby="dropdownMenuButton" style="z-index:">
                                         <div class="search-container px-2">
-                                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
-                                                onkeyup="filterFunction()" style="outline: none;">
+                                            <input type="text" placeholder="Tìm kiếm" id="myInput"
+                                                class="text-13" onkeyup="filterFunction()" style="outline: none;">
                                             <span class="search-icon mr-2">
                                                 <i class="fas fa-search"></i>
                                             </span>
@@ -166,23 +183,6 @@
                                     <x-filter-compare name="total" title="Tổng tiền" />
                                     <x-filter-date-time name="date" title="Ngày báo giá" />
                                 </div>
-                                {{-- Export and print --}}
-                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                    onclick="printContentCustom('printContent', 'print-quote')">In
-                                    trang
-                                </button>
-                                <form id="exportForm" action="{{ route('exportQuote') }}" method="GET"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
-                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
-                                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
-                                    <button type="button"
-                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                        <i class="fa-regular fa-file-excel"></i>
-                                        <span class="m-0 ml-1">Xuất Excel</span>
-                                    </button>
-                                </a>
                             </div>
                         </div>
                     </div>

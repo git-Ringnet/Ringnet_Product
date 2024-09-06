@@ -17,20 +17,39 @@
                 <span class="font-weight-bold text-secondary">Phiếu xuất chuyển kho</span>
             </div>
             <div class="d-flex content__heading--right">
-                <a href="{{ route('changeWarehouse.create', $workspacename) }}" class="mr-1">
-                    <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
-                        <svg width="12" height="12" viewBox="0 0 18 18" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                fill="white"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                fill="white"></path>
-                        </svg>
-                        <p class="m-0 ml-1">Tạo mới</p>
+                <div class="row m-0">
+                    {{-- In and export --}}
+                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                        onclick="printContentCustom('printContent', 'print-changeWH')">In
+                        trang
                     </button>
-                </a>
+                    <form id="exportForm" action="{{ route('exportChangeWH') }}" method="GET" style="display: none;">
+                        @csrf
+                    </form>
+                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                        onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                        <button type="button" class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                            <i class="fa-regular fa-file-excel"></i>
+                            <span class="m-0 ml-1">Xuất Excel</span>
+                        </button>
+                    </a>
+                </div>
+                <div class="row m-0">
+                    <a href="{{ route('changeWarehouse.create', $workspacename) }}" class="mr-3">
+                        <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
+                            <svg width="12" height="12" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                    fill="white"></path>
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                    fill="white"></path>
+                            </svg>
+                            <p class="m-0 ml-1">Tạo mới</p>
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -81,8 +100,8 @@
                                     <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
                                         style="z-index:">
                                         <div class="search-container px-2">
-                                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
-                                                onkeyup="filterFunction()" style="outline: none;">
+                                            <input type="text" placeholder="Tìm kiếm" id="myInput"
+                                                class="text-13" onkeyup="filterFunction()" style="outline: none;">
                                             <span class="search-icon mr-2">
                                                 <i class="fas fa-search"></i>
                                             </span>
@@ -96,11 +115,13 @@
                                                 nhận hàng
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-quotenumber" data-button="quotenumber" type="button">Đơn mua
+                                                id="btn-quotenumber" data-button="quotenumber" type="button">Đơn
+                                                mua
                                                 hàng
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-provides"
-                                                data-button="provides" type="button">Nhà cung cấp
+                                                data-button="provides" type="button">Nhà cung
+                                                cấp
                                             </button>
                                             @can('isAdmin')
                                                 <button class="dropdown-item btndropdown text-13-black" id="btn-users"
@@ -138,23 +159,6 @@
                                     <x-filter-compare name="shipping_fee" title="Phí vận chuyển" />
                                     <x-filter-date-time name="date" title="Ngày nhận hàng" />
                                 </div>
-                                {{-- In and export --}}
-                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                    onclick="printContentCustom('printContent', 'print-changeWH')">In
-                                    trang
-                                </button>
-                                <form id="exportForm" action="{{ route('exportChangeWH') }}" method="GET"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
-                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
-                                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
-                                    <button type="button"
-                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                        <i class="fa-regular fa-file-excel"></i>
-                                        <span class="m-0 ml-1">Xuất Excel</span>
-                                    </button>
-                                </a>
                             </div>
                         </div>
                     </div>

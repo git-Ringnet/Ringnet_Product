@@ -52,6 +52,14 @@ li {
     min-height: 0 !important;
 }
 
+.btn.btn-outline-secondary,.row .btn-primary.rounded {
+    border-radius: 5px !important;
+    padding: 7px 8px !important;
+    font-weight: 500;
+    font-size: 13px;
+    
+}
+
 .height-50 {
     height: 50px;
     padding-left: 32px;

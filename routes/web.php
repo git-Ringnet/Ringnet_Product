@@ -422,7 +422,7 @@ Route::middleware([CheckLogin::class])->prefix('export')->group(function () {
     Route::get('exportReportReturnE', [ExcelController::class, 'exportReportReturnE'])->name('exportReportReturnE');
     Route::get('exportSellProfit', [ExcelController::class, 'exportSellProfit'])->name('exportSellProfit');
     Route::get('exportSellProfitGuest', [ExcelController::class, 'exportSellProfitGuest'])->name('exportSellProfitGuest');
-    Route::get('exportDebtProvides', [ExcelController::class, 'exportDebtProvides'])->name('exportDebtProvides');
+    Route::get('exportDebtProvide', [ExcelController::class, 'exportDebtProvides'])->name('exportDebtProvide');
     Route::get('exportReportReturnI', [ExcelController::class, 'exportReportReturnI'])->name('exportReportReturnI');
     Route::get('exportReportIE', [ExcelController::class, 'exportReportIE'])->name('exportReportIE');
     Route::get('exportReportIEChi', [ExcelController::class, 'exportReportIEChi'])->name('exportReportIEChi');

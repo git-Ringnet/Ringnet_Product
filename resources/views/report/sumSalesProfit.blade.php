@@ -14,6 +14,52 @@
                 </span>
                 <span class="font-weight-bold">{{ $title }}</span>
             </div>
+            <div class="hanghoa">
+                <div class="d-flex content__heading--right">
+                    <div class="row m-0">
+                        {{-- In and export --}}
+                        <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                            onclick="printContent('printContent', 'hanghoa','foot')">In
+                            trang</button>
+                        <form id="exportForm" action="{{ route('exportSellProfit') }}" method="GET"
+                            style="display: none;">
+                            @csrf
+                        </form>
+
+                        <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                            onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                            <button type="button"
+                                class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                <i class="fa-regular fa-file-excel"></i>
+                                <span class="m-0 ml-1">Xuất Excel</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="khachhang">
+                <div class="d-flex content__heading--right khachhang">
+                    <div class="row m-0">
+                        {{-- In and export --}}
+                        <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                            onclick="printContent('printContent', 'khachhang','foot')">In
+                            trang</button>
+                        <form id="exportFormGuest" action="{{ route('exportSellProfitGuest') }}" method="GET"
+                            style="display: none;">
+                            @csrf
+                        </form>
+
+                        <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                            onclick="event.preventDefault(); document.getElementById('exportFormGuest').submit();">
+                            <button type="button"
+                                class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                <i class="fa-regular fa-file-excel"></i>
+                                <span class="m-0 ml-1">Xuất Excel</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="hanghoa">
             <div class="bg-filter-search pl-4">
@@ -61,14 +107,16 @@
                                             aria-labelledby="dropdownMenuButton">
                                             <div class="search-container px-2">
                                                 <input type="text" placeholder="Tìm kiếm" id="myInput"
-                                                    class="text-13" onkeyup="filterFunction()" style="outline: none;">
+                                                    class="text-13" onkeyup="filterFunction()"
+                                                    style="outline: none;">
                                                 <span class="search-icon mr-2">
                                                     <i class="fas fa-search"></i>
                                                 </span>
                                             </div>
                                             <div class="scrollbar">
                                                 <button class="dropdown-item btndropdown text-13-black"
-                                                    data-button="product" id="btn-date-product" type="button">Ngày báo
+                                                    data-button="product" id="btn-date-product" type="button">Ngày
+                                                    báo
                                                     giá
                                                 </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-code"
@@ -94,22 +142,6 @@
                                         <x-filter-date-time name="date-product" button="product"
                                             title="Ngày báo giá" />
                                     </div>
-                                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                        onclick="printContent('printContent', 'hanghoa','foot')">In
-                                        trang</button>
-                                    <form id="exportForm" action="{{ route('exportSellProfit') }}" method="GET"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
-
-                                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
-                                        onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
-                                        <button type="button"
-                                            class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                            <i class="fa-regular fa-file-excel"></i>
-                                            <span class="m-0 ml-1">Xuất Excel</span>
-                                        </button>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -196,22 +228,6 @@
                                         </div>
                                         <x-filter-date-time name="date-guest" button="guest" title="Ngày báo giá" />
                                     </div>
-                                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                        onclick="printContent('printContent', 'khachhang','foot')">In
-                                        trang</button>
-                                    <form id="exportFormGuest" action="{{ route('exportSellProfitGuest') }}"
-                                        method="GET" style="display: none;">
-                                        @csrf
-                                    </form>
-
-                                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
-                                        onclick="event.preventDefault(); document.getElementById('exportFormGuest').submit();">
-                                        <button type="button"
-                                            class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                            <i class="fa-regular fa-file-excel"></i>
-                                            <span class="m-0 ml-1">Xuất Excel</span>
-                                        </button>
-                                    </a>
                                 </div>
                             </div>
                         </div>

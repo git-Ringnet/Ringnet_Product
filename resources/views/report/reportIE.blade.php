@@ -14,6 +14,52 @@
                 </span>
                 <span class="font-weight-bold">{{ $title }}</span>
             </div>
+            <div class="chi">
+                <div class="d-flex content__heading--right">
+                    <div class="row m-0">
+                        {{-- In and export --}}
+                        <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                            onclick="printContent('printContent', 'chi','foot')">In
+                            trang</button>
+                        <form id="exportFormChi" action="{{ route('exportReportIEChi') }}" method="GET"
+                            style="display: none;">
+                            @csrf
+                        </form>
+
+                        <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                            onclick="event.preventDefault(); document.getElementById('exportFormChi').submit();">
+                            <button type="button"
+                                class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                <i class="fa-regular fa-file-excel"></i>
+                                <span class="m-0 ml-1">Xuất Excel</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="thu">
+                <div class="d-flex content__heading--right">
+                    <div class="row m-0">
+                        {{-- In and export --}}
+                        <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                            onclick="printContent('printContent', 'thu','foot')">In
+                            trang</button>
+                        <form id="exportForm" action="{{ route('exportReportIE') }}" method="GET"
+                            style="display: none;">
+                            @csrf
+                        </form>
+
+                        <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                            onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                            <button type="button"
+                                class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                <i class="fa-regular fa-file-excel"></i>
+                                <span class="m-0 ml-1">Xuất Excel</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="thu">
             <div class="bg-filter-search pl-4">
@@ -61,7 +107,8 @@
                                             aria-labelledby="dropdownMenuButton">
                                             <div class="search-container px-2">
                                                 <input type="text" placeholder="Tìm kiếm" id="myInput"
-                                                    class="text-13" onkeyup="filterFunction()" style="outline: none;">
+                                                    class="text-13" onkeyup="filterFunction()"
+                                                    style="outline: none;">
                                                 <span class="search-icon mr-2">
                                                     <i class="fas fa-search"></i>
                                                 </span>
@@ -93,22 +140,6 @@
                                         </div>
                                         <x-filter-date-time name="date-thu" button="thu" title="Ngày báo giá" />
                                     </div>
-                                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                        onclick="printContent('printContent', 'thu','foot')">In
-                                        trang</button>
-                                    <form id="exportForm" action="{{ route('exportReportIE') }}" method="GET"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
-
-                                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
-                                        onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
-                                        <button type="button"
-                                            class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                            <i class="fa-regular fa-file-excel"></i>
-                                            <span class="m-0 ml-1">Xuất Excel</span>
-                                        </button>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -195,22 +226,6 @@
                                         </div>
                                         <x-filter-date-time name="date-chi" button="chi" title="Ngày báo giá" />
                                     </div>
-                                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                        onclick="printContent('printContent', 'chi','foot')">In
-                                        trang</button>
-                                    <form id="exportFormChi" action="{{ route('exportReportIEChi') }}"
-                                        method="GET" style="display: none;">
-                                        @csrf
-                                    </form>
-
-                                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
-                                        onclick="event.preventDefault(); document.getElementById('exportFormChi').submit();">
-                                        <button type="button"
-                                            class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                            <i class="fa-regular fa-file-excel"></i>
-                                            <span class="m-0 ml-1">Xuất Excel</span>
-                                        </button>
-                                    </a>
                                 </div>
                             </div>
                         </div>

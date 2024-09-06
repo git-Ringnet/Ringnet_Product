@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="systemFirst" activeName="users" :workspacename="$workspacename"></x-navbar>
-<form action="{{ route('users.store', $workspacename) }}" method="POST">
+<form action="{{ route('users.store', $workspacename) }}" method="POST" autocomplete="off">
     @csrf
     <div class="content-wrapper m-0 min-height--none">
         <div class="content-header-fixed p-0">
