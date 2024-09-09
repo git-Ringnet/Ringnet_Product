@@ -285,7 +285,7 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT người nhận hàng</span>
-                            <input name="phone_receive" value="{{ $detailExport->phone_receive }}"
+                            <input name="phone_receive" value="{{ $detailExport->phone_receive }}" type="number"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                         </div>
                     </div>

@@ -88,6 +88,30 @@ class DetailImport extends Model
         return $this->hasMany(PayOder::class, 'detailimport_id', 'id');
     }
 
+    public function getQuoteCount()
+    {
+        // Tạo DGH
+        $currentDate = Carbon::now()->format('dmY');
+
+        // Lấy số thứ tự lớn nhất của mã phiếu hiện có
+        $lastInvoiceNumber = DetailImport::where('workspace_id', Auth::user()->current_workspace)
+            ->max('quotation_number');
+
+        // Tách phần số thứ tự từ mã phiếu lớn nhất
+        $lastNumber = 0;
+        if ($lastInvoiceNumber) {
+            preg_match('/DDH(\d+)/', $lastInvoiceNumber, $matches);
+            $lastNumber = isset($matches[1]) ? (int)$matches[1] : 0;
+        }
+
+        // Tăng số thứ tự lên 1 để tạo mã phiếu mới
+        $newInvoiceNumber = $lastNumber + 1;
+        $countFormattedInvoice = str_pad($newInvoiceNumber, 2, '0', STR_PAD_LEFT);
+        $invoicenumber = "DDH{$countFormattedInvoice}-{$currentDate}";
+
+        return $invoicenumber;
+    }
+
     public function listImport($id)
     {
         $import = DetailImport::where('detailimport.id', $id)
@@ -433,7 +457,8 @@ class DetailImport extends Model
             ->get();
         return $import;
     }
-    public function getSumDetailEByProvide($idProvide) {
+    public function getSumDetailEByProvide($idProvide)
+    {
         $detaiExport = DB::table($this->table)
             ->where('detailimport.provide_id', $idProvide)
             ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')

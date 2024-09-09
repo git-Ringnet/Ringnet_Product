@@ -112,7 +112,8 @@
             </div>
         </div>
         <div class="content-wrapper2 px-0 py-0 margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" :status="'1'" :guest="$guest" :listUser="$listUser" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" :status="'1'" :guest="$guest"
+                :listUser="$listUser" />
             <div id="contextMenuPBH" class="dropdown-menu"
                 style="display: none; background: #ffffff; position: absolute; width:13%;  padding: 3px 10px;  box-shadow: 0 0 10px -3px rgba(0, 0, 0, .3); border: 1px solid #ccc;">
                 <a class="dropdown-item text-13-black" href="#" data-option="donhang">Tạo phiếu xuất kho</a>
@@ -236,7 +237,7 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
-                                <input
+                                <input value="{{ $invoiceAuto }}"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;"
                                     name="quotation_number" />
                             </div>
@@ -293,7 +294,7 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT người nhận hàng</span>
-                                <input name="phone_receive"
+                                <input name="phone_receive" type="number"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                             </div>
                         </div>

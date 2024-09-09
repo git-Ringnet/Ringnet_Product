@@ -245,7 +245,7 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT</span>
-                            <input type="text" placeholder="Nhập thông tin" name="phone"
+                            <input type="number" placeholder="Nhập thông tin" name="phone"
                                 class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                 style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
                         </div>

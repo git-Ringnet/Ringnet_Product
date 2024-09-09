@@ -112,7 +112,6 @@ class CashReceiptController extends Controller
         $detailOwed = DetailExport::where('workspace_id', Auth::user()->current_workspace)->where('amount_owed', '>', 0)->get();
         $invoiceAuto = $this->cash_receipts->getQuoteCount();
 
-
         // Trả hàng NCC
         $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)
             ->where(DB::raw('COALESCE(total,0)'), '!=', DB::raw('COALESCE(payment,0)'))

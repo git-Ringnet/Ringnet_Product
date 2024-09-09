@@ -117,7 +117,9 @@ class DetailImportController extends Controller
             }
         }
         $listDetail = $listDetail->get();
-        return view('tables.import.insertImport', compact('title', 'provides', 'project', 'workspacename', 'listUser', 'listDetail'));
+        //
+        $invoiceAuto = $this->detailImport->getQuoteCount();
+        return view('tables.import.insertImport', compact('title', 'provides', 'project', 'workspacename', 'listUser', 'listDetail','invoiceAuto'));
     }
 
     /**

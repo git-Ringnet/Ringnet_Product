@@ -126,8 +126,22 @@ class DetailExportController extends Controller
         $listDetail = $this->detailExport->getAllDetailExport();
         //danh sách nhân viên
         $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+        //
+        $invoiceAuto = $this->detailExport->getQuoteCount();
+
         // dd($data);
-        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product', 'project', 'date_form', 'dataForm', 'workspacename', 'listDetail', 'listUser'));
+        return view('tables.export.quote.create-quote', compact(
+            'title',
+            'guest',
+            'product',
+            'project',
+            'date_form',
+            'dataForm',
+            'workspacename',
+            'listDetail',
+            'listUser',
+            'invoiceAuto'
+        ));
     }
     public function searchFormByGuestId(Request $request)
     {

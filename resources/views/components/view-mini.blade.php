@@ -620,9 +620,6 @@
                             .date_delivery));
                         $("#hiddenDateDelivery").val(data.infoGuest
                             .date_delivery);
-                        $("input[name='quotation_number']").val(data
-                            .infoGuest
-                            .quotation_number);
                         $("input[name='guestName']").val(data.infoGuest
                             .guest_name);
                         $("input[name='address_delivery']").val(data
@@ -701,8 +698,6 @@
                         $("#myInput").val(data.import.provide_name_display);
                         $(".debt-old").val(formatCurrency(data.import
                             .provide_debt));
-                        $("input[name='quotation_number']").val(data.import
-                            .quotation_number);
                         $("input[name='provides_name']").val(data.import
                             .provide_name);
                         $("input[name='provides_id']").val(data.import
