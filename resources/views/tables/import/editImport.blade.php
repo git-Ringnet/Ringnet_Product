@@ -195,13 +195,13 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
-                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue" placeholder="Nhập thông tin"
                                     value="{{ $import->provide_name }}" name="provides_name" style="flex:2;">
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số điện thoại</span>
-                                <input type="number" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                <input type="number" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue" placeholder="Nhập thông tin"
                                     value="{{ $import->phone }}" name="phone" style="flex:2;">
                             </div>
                         </div>
@@ -213,12 +213,12 @@
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                     name="reference_number"
                                     style="flex:2; background-color:#F0F4FF; border-radius:4px;"
-                                    placeholder="Chọn thông tin" value="{{ $import->reference_number }}">
+                                    placeholder="Nhập thông tin" value="{{ $import->reference_number }}">
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
-                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue" placeholder="Nhập thông tin"
                                     value="{{ $import->address }}" name="address" style="flex:2;">
                             </div>
                             <div
@@ -241,7 +241,7 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên</span>
-                                <select name="id_sale" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
+                                <select name="id_sale" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue">
                                     <option value=""></option>
                                     @foreach ($listUser as $listU)
                                         <option value="{{ $listU->id }}" <?php if ($listU->id === $import->id_sale) {
@@ -256,7 +256,7 @@
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Trạng thái</span>
                                 <select name="status_receive"
-                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue">
                                     <option value="0" class="text-uppercase" <?php if ($import->status_receive == 0) {
                                         echo 'selected';
                                     } ?>>Chưa nhận
@@ -272,7 +272,7 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
-                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue" placeholder="Nhập thông tin"
                                     value="{{ $import->note }}" name="note" style="flex:10;">
                             </div>
                         </div>

@@ -206,7 +206,6 @@ class GuestController extends Controller
             'group_id' => $request->grouptype_id,
             'guest_email_personal' => $request->guest_email_personal,
             'guest_phone_receiver' => $request->guest_phone_receiver,
-            'guest_debt' => $request->guest_debt == null ? 0 : $request->guest_debt,
             'guest_note' => $request->guest_note
         ];
         $this->guests->updateProvide($data, $id);

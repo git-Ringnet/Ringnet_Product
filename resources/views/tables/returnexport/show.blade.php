@@ -388,21 +388,21 @@
                                             <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                                 Số lượng
                                             </th>
-                                            <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                            {{-- <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                                 Quản lý SN
-                                            </th>
+                                            </th> --}}
                                             <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                                 Đơn giá
                                             </th>
-                                            <th class="border-right p-0 px-2 text-center text-13" style="width:15%;">
+                                            {{-- <th class="border-right p-0 px-2 text-center text-13" style="width:15%;">
                                                 %CK
-                                            </th>
+                                            </th> --}}
                                             <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
                                                 Thuế
                                             </th>
-                                            <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
+                                            {{-- <th class="border-right p-0 px-2 text-13" style="width:15%;">
                                                 Chọn kho
-                                            </th>
+                                            </th> --}}
                                             <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
                                                 Thành tiền
                                             </th>
@@ -479,7 +479,7 @@
                                                     </div>
                             </div>
                             </td>
-                            <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                            {{-- <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                 <div class="d-flex align-items-center justify-content-center">
                                     @if ($item->check_seri == 1)
                                         <a href="#" class="btn btn-primary sn1 activity" data-name1="GH"
@@ -492,7 +492,7 @@
                                         </a>
                                     @endif
                                 </div>
-                            </td>
+                            </td> --}}
                             <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                 <div>
                                     <input type="text" required=""
@@ -501,7 +501,7 @@
                                         readonly>
                                 </div>
                             </td>
-                            <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                            <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right d-none">
                                 @php
                                     $promotionArray = json_decode($item->promotion, true);
                                     $promotionValue = isset($promotionArray['value']) ? $promotionArray['value'] : 0;
@@ -536,11 +536,11 @@
                                 <input type="hidden" class="product_tax" value="{{ $item->product_tax }}"
                                     name="product_tax[]">
                             </td>
-                            <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                            {{-- <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                 <input id="searchWarehouse" type="text" placeholder="Chọn kho"
                                     class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse"
                                     name="warehouse[]" readonly>
-                            </td>
+                            </td> --}}
                             {{-- Tổng tiền --}}
                             <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                 <input type="text"

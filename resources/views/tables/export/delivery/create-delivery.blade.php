@@ -353,7 +353,7 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                            <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2 bg-input-guest-blue"
                                 placeholder="Nhập thông tin" style="flex:2;" name="fullname" />
                         </div>
                     </div>
@@ -376,13 +376,13 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                            <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2 bg-input-guest-blue"
                                 placeholder="Nhập thông tin" style="flex:2;" name="address" />
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT</span>
-                            <input type="number" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                            <input type="number" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2 bg-input-guest-blue"
                                 placeholder="Nhập thông tin" style="flex:2;" name="phone" />
                         </div>
                     </div>
@@ -448,7 +448,7 @@
                                             <th class="border-right p-0 px-2 text-right text-13" style="">
                                                 KM
                                             </th>
-                                            <th class="border-right p-0 px-2 text-right text-13" style="">
+                                            <th class="border-right p-0 px-2 text-13" style="">
                                                 Kho
                                             </th>
                                             <th class="border-right p-0 px-2 text-right text-13 d-none"

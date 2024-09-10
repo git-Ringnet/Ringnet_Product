@@ -308,7 +308,9 @@
                                                 <th class="border-right p-0 px-2 text-13" style=";">Đơn vị</th>
                                                 <th class="border-right p-0 px-2 text-right text-13" style="">
                                                     Số lượng</th>
-                                                <th class="border-right p-0 px-1 text-center text-13"style="">
+                                                <th class="border-right p-0 px-2 text-13" style="">
+                                                    KM</th>
+                                                <th class="border-right p-0 px-1 text-13"style="">
                                                     Kho</th>
                                                 <th class="border-right p-0 px-2 text-center text-13 d-none"
                                                     style="width:8%;">
@@ -400,6 +402,13 @@
                                                                 </span>
                                                             </div>
                                                         @endif
+                                                    </td>
+                                                    <td
+                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                        <input type="text" autocomplete="off" readonly
+                                                            value="{{ $item_quote->promotion_qty }}"
+                                                            class="border-0 px-2 py-1 w-100 promotion_qty height-32"
+                                                            name="promotion_qty[]">
                                                     </td>
                                                     <td
                                                         class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">

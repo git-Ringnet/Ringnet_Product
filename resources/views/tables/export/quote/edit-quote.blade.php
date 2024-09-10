@@ -496,13 +496,13 @@
                                                         autocomplete='off' name='product_price[]' required
                                                         value="{{ number_format($item_quote->price_export) }}">
                                                 </div>
-                                                <a href="#" class="activity" data-name1="BG"
+                                                {{-- <a href="#" class="activity" data-name1="BG"
                                                     data-des="Xem giao dịch gần đây ở trang chỉnh sửa">
                                                     <div class="mt-3 text-13-blue recentModal text-right"
                                                         data-toggle="modal" data-target="#recentModal"
                                                         style="">Giao dịch gần đây
                                                     </div>
-                                                </a>
+                                                </a> --}}
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                 @php
