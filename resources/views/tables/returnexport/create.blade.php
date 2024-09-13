@@ -110,8 +110,8 @@
                             <span class="text-13 btn-click" style="flex: 1.5;">Mã giao hàng</span>
                             <span class="mx-1 text-13" style="flex: 2;">
                                 <input type="text" placeholder="Chọn thông tin" name="code_delivery"
-                                    class="border-0 w-100 bg-input-guest py-2 px-2 numberQute " id="myInput"
-                                    style="border-radius:4px;" autocomplete="off"
+                                    class="border-0 w-100 bg-input-guest py-2 px-2 bg-input-guest-blue numberQute " id="myInput"
+                                    style="border-radius:4px;flex:2;" autocomplete="off"
                                     value="@isset($yes) {{ $data['code_delivery'] }} @endisset">
                                 <input type="hidden" name="detail_id" id="detail_id"
                                     value="@isset($yes) {{ $data['detail_id'] }} @endisset">
@@ -165,7 +165,7 @@
                             <span class="text-13 btn-click" style="flex: 1.5;">Mã trả hàng</span>
                             <span class="mx-1 text-13" style="flex: 2;">
                                 <input type="text" placeholder="Chọn thông tin" name="code_return"
-                                    class="border-0 w-100 bg-input-guest py-2 px-2 code_return "
+                                    class="border-0 w-100 bg-input-guest py-2 px-2 code_return bg-input-guest-blue"
                                     style="border-radius:4px;" autocomplete="off" value="{{ $invoice }}"
                                     readonly>
                             </span>
@@ -174,10 +174,10 @@
                     <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                            <span class="mx-1 text-13" style="flex: 5;">
+                            <span class="text-13 text-nowrap" style="flex: 1.5;">Khách hàng</span>
+                            <span class="mx-1 text-13" style="flex: 2;">
                                 <input type="text" placeholder="Chọn thông tin" name="guestName"
-                                    class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="myInput1" readonly
+                                    class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput1" readonly
                                     style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
                                 <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                             </span>
@@ -259,6 +259,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày trả hàng</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue p-2" id="datePicker" required
+                                placeholder="Chọn thông tin" style="flex:2;" />
+                            <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
+                        </div>
                         {{-- <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
@@ -300,7 +307,7 @@
                             </div>
                         </div> --}}
                     </div>
-                    <div class="d-flex w-100">
+                    {{-- <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-1" style="flex: 1.6;">
@@ -317,20 +324,12 @@
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 fee_ship"
                                 name="shipping_fee" placeholder="Nhập thông tin" style="flex:2;" />
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày trả hàng</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker" required
-                                placeholder="Chọn thông tin" style="flex:2;" />
-
-                            <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
-                        </div>
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 btn-click" style="flex: 1.5;">Nội dung trả hàng</span>
-                            <span class="mx-1 text-13" style="flex: 2;">
+                            <span class="text-13" style="flex: 5.5;">
                                 <textarea placeholder="Nhập nội dung trả hàng" name="description" rows="1" cols="10"
                                     class="border w-100 bg-input-guest py-2 px-2 description" style="border-radius:4px;" autocomplete="off" required></textarea>
                             </span>
@@ -354,9 +353,11 @@
                                         <th class="border-bottom border-right" style="width: 15%;padding-left:2rem;">
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">Tên sản
-                                            phẩm</th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">
+                                            Tên sản phẩm
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">
+                                            Đơn vị
                                         </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Số lượng
@@ -957,7 +958,7 @@
             const donGia = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
                 "<div>" +
-                "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price height-32' autocomplete='off' name='product_price[]' required>" +
+                "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price height-32 bg-input-guest-blue' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
                 "<a href='#'><div class='mt-3 text-13-blue recentModal mb-0 text-right' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
                 "</td>"
@@ -2867,7 +2868,7 @@
                                     </td>
                                     <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                         <input type="text" value="${formatCurrency(item.price_export)}" 
-                                            class="border-0 px-2 py-1 w-100 text-right product_price height-32" autocomplete="off" name="product_price[]" required="">
+                                            class="border-0 px-2 py-1 w-100 text-right product_price height-32 bg-input-guest-blue" autocomplete="off" name="product_price[]" required="">
                                             <a href='#'><p class="mt-3 text-13-blue recentModal mb-0 text-right" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</p></a>
                                     </td>
                                     <td class="border-right p-2 align-top border-bottom border-top-0 d-none">

@@ -415,7 +415,8 @@
             </section>
         </div>
         <div class="content margin-top-127">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" :status="'2'" :guest="$guest" :listUser="$listUser" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" :status="'2'" :guest="$guest"
+                :listUser="$listUser" />
             <div id="contextMenuPBH" class="dropdown-menu"
                 style="display: none; background: #ffffff; position: absolute; width:13%;  padding: 3px 10px;  box-shadow: 0 0 10px -3px rgba(0, 0, 0, .3); border: 1px solid #ccc;">
                 <a class="dropdown-item text-13-black" href="#" data-option="donhang">Tạo phiếu xuất kho</a>
@@ -498,7 +499,7 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Trạng thái giao</span>
-                                <select name="status_receive" disabled
+                                <select name="status_receive" disabled style="flex:2;"
                                     class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
                                     <option value="1" class="text-uppercase" <?php if ($detailExport->status_receive == 1) {
                                         echo 'selected';
@@ -532,25 +533,10 @@
                             </div>
                         </div>
                         <div class="d-flex w-100">
-                            {{-- <div
-                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thông tin liên hệ</span>
-                                <input disabled class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                    style="flex:5.5;" />
-                            </div> --}}
-                            <div
-                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
-                                <input disabled=""
-                                    class="text-13-black text-right w-50 border-0 bg-input-guest py-2 px-2 debt-old"
-                                    value="{{ number_format($detailExport->guest_debt) }}" style="flex:5.5;">
-                            </div>
-                        </div>
-                        <div class="d-flex w-100">
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên Sale</span>
-                                <select name="id_sale" disabled
+                                <select name="id_sale" disabled style="flex:2;"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
                                     <option value=""></option>
                                     @foreach ($listUser as $listU)
@@ -574,8 +560,17 @@
                                     <input id="date_payment"
                                         value="{{ date_format(new DateTime($detailExport->date_payment), 'd/m/Y') }}"
                                         readonly
-                                        class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"style="flex:2;" />
+                                        class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" style="flex:2;" />
                                 @endif
+                            </div>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
+                                <input disabled="" style="flex:10;"
+                                    class="text-13-black text-right w-50 border-0 bg-input-guest py-2 px-2 debt-old"
+                                    value="{{ number_format($detailExport->guest_debt) }}" style="flex:5.5;">
                             </div>
                         </div>
                     </div>

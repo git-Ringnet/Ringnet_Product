@@ -120,7 +120,8 @@
             </div>
         </div>
         <div class="content margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PXK'" :status="'1'" :guest="$guest" :listUser="$users" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PXK'" :status="'1'" :guest="$guest"
+                :listUser="$users" />
             <div id="main">
                 {{-- Thông tin khách hàng --}}
                 <div id="show_info_Guest">
@@ -207,15 +208,15 @@
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">
                                 Ngày lập
                             </span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker" required
-                                placeholder="Chọn thông tin" style="flex:2;" />
+                            <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue p-2"
+                                id="datePicker" required placeholder="Chọn thông tin" style="flex:2;" />
 
                             <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nhận</span>
-                            <span class="mx-1 text-13" style="flex: 2;">
+                            <span class="text-13 text-nowrap" style="flex: 1.5;">Người nhận</span>
+                            <span class="text-13" style="flex: 2;">
                                 <input type="text" placeholder="Chọn thông tin" name="guestName"
                                     class="border-0 w-100 bg-input-guest input-search py-2 px-2 nameGuest "
                                     id="myInput1" readonly style="background-color:#F0F4FF; border-radius:4px;"
@@ -346,15 +347,18 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" required readonly
-                                placeholder="Nhập thông tin" style="flex:2;" name="code_delivery"
+                            <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2 bg-input-guest-blue"
+                                required readonly placeholder="Nhập thông tin" style="flex:2;" name="code_delivery"
                                 value="{{ $invoice }}" />
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2 bg-input-guest-blue"
-                                placeholder="Nhập thông tin" style="flex:2;" name="fullname" />
+                            <span class="text-13 text-nowrap" style="flex: 1.5;">Họ và tên</span>
+                            <span class="text-13" style="flex: 2;">
+                                <input
+                                    class="text-13-black w-100 border-0 bg-input-guest px-2 py-2 bg-input-guest-blue"
+                                    placeholder="Nhập thông tin" style="flex:2;" name="fullname" />
+                            </span>
                         </div>
                     </div>
                     <div class="d-flex w-100">
@@ -381,15 +385,18 @@
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT</span>
-                            <input type="number" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2 bg-input-guest-blue"
-                                placeholder="Nhập thông tin" style="flex:2;" name="phone" />
+                            <span class="text-13 text-nowrap" style="flex: 1.5;">SĐT</span>
+                            <span class="text-13" style="flex: 2;">
+                                <input type="number"
+                                    class="text-13-black w-100 border-0 bg-input-guest px-2 py-2 bg-input-guest-blue"
+                                    placeholder="Nhập thông tin" style="flex:2;" name="phone" />
+                            </span>
                         </div>
                     </div>
                     <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">
                                 Người lập
                             </span>
                             <input value="{{ Auth::user()->name }}" disabled
@@ -401,12 +408,14 @@
                             <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">
                                 Thủ kho
                             </span>
-                            <select name="manager_warehouse"
-                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
-                                @foreach ($users as $user_name)
-                                    <option value="{{ $user_name->id }}">{{ $user_name->name }}</option>
-                                @endforeach
-                            </select>
+                            <span class="text-13" style="flex: 2;">
+                                <select name="manager_warehouse"
+                                    class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                    @foreach ($users as $user_name)
+                                        <option value="{{ $user_name->id }}">{{ $user_name->name }}</option>
+                                    @endforeach
+                                </select>
+                            </span>
                         </div>
                     </div>
                     <div class="d-flex w-100">
@@ -415,8 +424,8 @@
                             <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">
                                 Ghi chú
                             </span>
-                            <textarea name="note" class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue"
-                                placeholder="Nhập thông tin"></textarea>
+                            <textarea name="note" style="flex: 5.5;" class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue" placeholder="Nhập thông tin">
+                            </textarea>
                         </div>
                     </div>
                 </div>
@@ -5472,7 +5481,7 @@
                                                         )
                                                         .find(
                                                             '[name="promotion_qty[]"]'
-                                                            ).val() || 0
+                                                        ).val() || 0
                                                     );
                                                     var checkbox =
                                                         $(

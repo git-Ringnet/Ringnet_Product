@@ -91,7 +91,7 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
+                                <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue"
                                     name="" placeholder="Chọn thông tin" style="flex:2;" id="datePicker"
                                     value="{{ date('Y-m-d') }}" />
                                 <input type="hidden" name="date_quote" id="hiddenDateInput"
@@ -169,8 +169,8 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
-                                <input tye="text"
-                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 text-right debt-old"
+                                <input tye="text" style="flex: 2;"
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 text-right rounded debt-old"
                                     value="0" disabled>
                             </div>
                         </div>
@@ -233,7 +233,7 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên</span>
-                                <select name="id_sale"
+                                <select name="id_sale" style="flex: 2;"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
                                     <option value=""></option>
                                     @foreach ($listUser as $listU)
@@ -244,7 +244,7 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Trạng thái</span>
-                                <select name="status_receive"
+                                <select name="status_receive" style="flex: 2;"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
                                     <option value="0" class="text-uppercase">Chưa nhận</option>
                                     <option value="2" class="text-uppercase">Đã nhận</option>

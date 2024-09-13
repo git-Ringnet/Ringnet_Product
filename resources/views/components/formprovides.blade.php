@@ -46,7 +46,7 @@
                                     class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
                                     autocomplete="off">
                             </div>
-                            <div class="mt-2">
+                            <div class="mt-2 d-none">
                                 <p class="p-0 m-0 px-2 text-nav">
                                     Người đại diện
                                 </p>

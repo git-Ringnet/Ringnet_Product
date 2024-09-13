@@ -224,7 +224,7 @@
                                         <input type="text" placeholder="Chọn thông tin" name="delivery_code"
                                             readonly
                                             class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
-                                            style="flex:2; background-color:#F0F4FF; border-radius:4px;"
+                                            style="flex:2;"
                                             value="{{ $receive->delivery_code }}" />
                                     </div>
                                     <div
@@ -233,7 +233,7 @@
                                         <input type="text" placeholder="Nhập thông tin" name="fullname"
                                             value="{{ $receive->fullname }}"
                                             class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" readonly
-                                            style="flex:2; background-color:#F0F4FF; border-radius:4px;">
+                                            style="flex:2;">
                                     </div>
                                 </div>
                                 <div class="d-flex w-100">
@@ -243,7 +243,7 @@
                                         <input type="text" placeholder="Chọn thông tin" name="address"
                                             value="{{ $receive->address }}" readonly
                                             class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
-                                            style="flex:2; background-color:#F0F4FF; border-radius:4px;">
+                                            style="flex:2;">
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
@@ -251,7 +251,7 @@
                                         <input type="number" placeholder="Nhập thông tin" name="phone"
                                             value="{{ $receive->phone }}" readonly
                                             class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
-                                            style="flex:2; background-color:#F0F4FF; border-radius:4px;">
+                                            style="flex:2;">
                                     </div>
                                 </div>
                                 <div class="d-flex w-100">
@@ -260,13 +260,13 @@
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập</span>
                                         <input type="text" placeholder="Chọn thông tin" value="Admin"
                                             class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" readonly
-                                            style="flex:2; background-color:#F0F4FF; border-radius:4px;">
+                                            style="flex:2;">
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thủ kho</span>
-                                        <select name="manager_warehouse" disabled
-                                            class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                        <select name="manager_warehouse" disabled style="flex: 2;"
+                                            class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
                                             @foreach ($listUser as $itemU)
                                                 <option value="{{ $itemU->id }}"
                                                     @if ($itemU->id == $receive->user_id) selected @endif>
@@ -279,10 +279,10 @@
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
-                                        <input type="text" placeholder="Chọn thông tin" name="note_receive"
+                                        <input type="text"  name="note_receive"
                                             value="{{ $receive->note_receive }}" readonly
                                             class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
-                                            style="flex:5; background-color:#F0F4FF; border-radius:4px;">
+                                            style="flex: 5.5;">
                                     </div>
                                 </div>
                             </div>

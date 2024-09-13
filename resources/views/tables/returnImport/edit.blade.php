@@ -304,7 +304,7 @@
                                                             <div class="icon" id="icon-total"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border-right border-bottom">
+                                                    {{-- <th scope="col" class="border-right border-bottom">
                                                         <span class="d-flex justify-content-center">
                                                             <a href="#" class="sort-link" data-sort-by="total"
                                                                 data-sort-type=""><button class="btn-sort text-13"
@@ -321,7 +321,7 @@
                                                             </a>
                                                             <div class="icon" id="icon-total"></div>
                                                         </span>
-                                                    </th>
+                                                    </th> --}}
                                                     <th scope="col" class="border-right border-bottom">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link" data-sort-by="total"
@@ -331,7 +331,6 @@
                                                             <div class="icon" id="icon-total"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border-bottom"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -480,7 +479,7 @@
                                                                 name="warehouse[]" readonly
                                                                 value="{{ $item->nameWarehouse }}">
                                                         </td>
-                                                        <td
+                                                        {{-- <td
                                                             class="align-top text-center border-top-0 border-bottom border-right">
                                                             <div style="margin-top: 6px;">
                                                                 <input type="checkbox" name="cbSeri[]" disabled
@@ -498,14 +497,13 @@
                                                                     </a>
                                                                 @endif
                                                             </div>
-
                                                         </td>
                                                         <td
                                                             class="align-top text-center border-top-0 border-bottom border-right">
                                                             <input class="border-0 px-2 py-1 w-100 price_export"
                                                                 type="text" value="{{ $item->product_guarantee }}"
                                                                 readonly>
-                                                        </td>
+                                                        </td> --}}
                                                         <td
                                                             class="bg-white align-top text-13-black d-none border-top-0 border-bottom border-right">
                                                             <div>
@@ -550,15 +548,6 @@
                                                             <input type="text" class="border-0 py-1 w-100" readonly
                                                                 name="product_note[]" placeholder='Nhập ghi chú'
                                                                 value="{{ $item->product_note }}">
-                                                        </td>
-                                                        <td
-                                                            class="text-center bg-white align-top text-13-black @if ($returnImport->status == 3) deleteRow @endif border-top-0 border-bottom">
-                                                            <svg width="17" height="17" viewBox="0 0 17 17"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z"
-                                                                    fill="#6B6F76"></path>
-                                                            </svg>
                                                         </td>
                                                     </tr>
                                                     <?php $st++; ?>

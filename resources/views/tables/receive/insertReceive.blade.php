@@ -177,8 +177,7 @@
                                 name="received_date">
                         </div>
                         {{-- Nhà cung cấp --}}
-                        <div class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44"
-                            style="height:43px;">
+                        <div class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
                             <span class="mx-1 text-13" style="flex: 2;">
                                 <input type="text" placeholder="Chọn thông tin"
@@ -262,7 +261,7 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thủ kho</span>
-                            <select name="manager_warehouse"
+                            <select name="manager_warehouse" style="flex: 2;"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
                                 @foreach ($listUser as $itemU)
                                     <option value="{{ $itemU->id }}">{{ $itemU->name }}</option>
@@ -276,7 +275,7 @@
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
                             <input type="text" placeholder="Chọn thông tin" name="note_receive"
                                 class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
-                                style="flex:5; background-color:#F0F4FF; border-radius:4px;" />
+                                style="flex: 5.5; background-color:#F0F4FF; border-radius:4px;" />
                         </div>
                     </div>
                 </div>

@@ -89,7 +89,7 @@
                         <div class="d-flex w-100">
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 btn-click" style="flex: 1.5;">
+                                <span class="text-13 text-nowrap" style="flex: 1.5;">
                                     Phiếu nhập kho
                                 </span>
                                 <span class="mx-1 text-13" style="flex: 2;">
@@ -141,25 +141,27 @@
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã trả hàng</span>
+                                <span class="text-13 text-nowrap" style="flex: 1.5;">Mã trả hàng</span>
                                 <input name="return_code" type="text" placeholder="Nhập thông tin"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 bg-input-guest-blue"
                                     style="flex:2;" value="{{ $returnCode }}" readonly />
                             </div>
                         </div>
                         <div class="d-flex w-100">
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày trả hàng</span>
-                                <input type="text" placeholder="Nhập thông tin"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
-                                    style="flex:2;" value="{{ date('Y-m-d') }}" id="datePicker" />
-                                <input id="hiddenDateInput" type="hidden" value="{{ date('Y-m-d') }}"
-                                    name="received_date">
+                                <span class="text-13 text-nowrap" style="flex: 1.5;">Ngày trả hàng</span>
+                                <span class="mx-1 text-13" style="flex: 2;">
+                                    <input type="text" placeholder="Nhập thông tin"
+                                        class="text-13-black w-100 border-0 bg-input-guest nameGuest px-2 py-2 bg-input-guest-blue"
+                                        value="{{ date('Y-m-d') }}" id="datePicker" />
+                                    <input id="hiddenDateInput" type="hidden" value="{{ date('Y-m-d') }}"
+                                        name="received_date">
+                                </span>
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5">Nội dung trả hàng</span>
+                                <span class="text-13 text-nowrap" style="flex: 1.5">Nội dung trả hàng</span>
                                 <input type="text" placeholder="Nhập thông tin" name="content"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
@@ -183,7 +185,8 @@
                                                 style="width: 10%;padding-left:2rem;">
                                                 <span class="text-table text-secondary">Mã sản phẩm</span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom" style="width: 10%;">
+                                            <th scope="col" class="border-right border-bottom"
+                                                style="width: 10%;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="">
@@ -247,7 +250,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-right border-bottom">
+                                            {{-- <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -264,7 +267,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                             <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
@@ -461,7 +464,7 @@
 
                                                 <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div>
-                                                        <input type="text" required="" class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]"
+                                                        <input type="text" required="" class="border-0 px-2 py-1 w-100 price_export text-right height-32 bg-input-guest-blue" name="price_export[]"
                                                         value="` + formatCurrency(element.price_export) + `">
                                                         </div>
                                                 </td>
@@ -514,7 +517,7 @@
                                                 </td>
 
 
-                                                <td class="p-2 text-13 align-top text-center border-top-0 border-bottom border-right">
+                                                <td class="p-2 text-13 align-top text-center border-top-0 border-bottom border-right d-none">
                                                     <div style="margin-top: 6px;">
                                                         <input onclick="getDataCheckbox(this)" 
                                                             type="checkbox"  ` + (element.check_seri == 1 ?
@@ -534,7 +537,7 @@
                                                     </div>
                                                 </td>
 
-                                                <td class="p-2 note text-13 align-top border-top-0 border-bottom border-right">
+                                                <td class="p-2 note text-13 align-top border-top-0 border-bottom border-right d-none">
                                                     <input type="text" name="product_guarantee[]" class="border-0 py-1 w-100 height-32" placeholder="Nhập bảo hành"
                                                     value="">
                                                 </td>

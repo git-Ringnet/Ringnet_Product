@@ -416,8 +416,8 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 2;">Người nộp</span>
-                                <select name="payer" required
-                                    class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                <select name="payer" required style="flex: 2;"
+                                    class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
                                     @foreach ($guest as $item_guest)
                                         <option value="{{ $item_guest->guest_name_display }}">
                                             {{ $item_guest->guest_name_display }}</option>

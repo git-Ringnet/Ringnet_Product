@@ -281,7 +281,7 @@
                                         <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">
                                             Ghi chú
                                         </span>
-                                        <textarea name="note" class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue" readonly>{{ $delivery->ghiChu }}</textarea>
+                                        <textarea name="note" style="flex: 5.5;" placeholder="Nhập thông tin" class="text-13-black w-50 border-0 bg-input-guest" readonly>{{ $delivery->ghiChu }}</textarea>
                                     </div>
                                 </div>
                             </div>

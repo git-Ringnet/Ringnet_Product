@@ -101,7 +101,8 @@
             </div>
         </div>
         <div class="content margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" :status="'3'" :guest="$guest" :listUser="$listUser" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" :status="'3'" :guest="$guest"
+                :listUser="$listUser" />
             <div id="contextMenuPBH" class="dropdown-menu"
                 style="display: none; background: #ffffff; position: absolute; width:13%;  padding: 3px 10px;  box-shadow: 0 0 10px -3px rgba(0, 0, 0, .3); border: 1px solid #ccc;">
                 <a class="dropdown-item text-13-black" href="#" data-option="donhang">Tạo phiếu xuất kho</a>
@@ -118,16 +119,15 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest" id="datePicker" style="flex:2;"
+                            <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
+                                id="datePicker" style="flex:2;"
                                 value="{{ date_format(new DateTime($detailExport->ngayBG), 'd/m/Y') }}" />
                             <input type="hidden" id="hiddenDateInput" name="date_quote"
                                 value="{{ date_format(new DateTime($detailExport->ngayBG), 'Y-m-d') }}">
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 btn-click" style="flex: 1.5;">
-                                Khách hàng
-                            </span>
+                            <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng </span>
                             <span class="mx-1 text-13" style="flex: 2;">
                                 <input type="text" readonly placeholder="Chọn thông tin" <?php if ($detailExport->tinhTrang != 1) {
                                     echo 'disabled';
@@ -204,12 +204,116 @@
                                     </div>
                                 </div>
                             </span>
+                            <div class="">
+                                <div id="myUL"
+                                    class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block"
+                                    style="z-index: 99;display: none;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập công ty"
+                                                class="pr-4 w-100 input-search bg-input-guest" id="companyFilter">
+                                            <span id="search-icon" class="search-icon">
+                                                <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <ul class="m-0 p-0 scroll-data">
+                                        <li class="p-2 align-items-center text-wrap border-top" data-id="2"
+                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <a href="#" title="Khách hàng 10" style="flex:2;" id="2"
+                                                name="search-info" class="search-info">
+                                                <span class="text-13-black">Khách hàng 10</span>
+                                            </a>
+                                            <div class="dropdown">
+                                                <button type="button" data-toggle="dropdown"
+                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
+                                                    <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                </button>
+                                                <div class="dropdown-menu date-form-setting" style="z-index: 1000;">
+                                                    <a class="dropdown-item edit-guest w-50" href="#"
+                                                        data-toggle="modal" data-target="#guestModal" data-id="2">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                height="14" viewBox="0 0 14 14" fill="none">
+                                                                <path
+                                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                                    fill="black"></path>
+                                                                <path
+                                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                                    fill="black"></path>
+                                                                <path
+                                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                                    fill="black"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                    <a class="dropdown-item delete-guest w-50" href="#"
+                                                        data-id="2" data-name="guest">
+                                                        <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="p-2 align-items-center text-wrap border-top" data-id="1"
+                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <a href="#" title="Hieu" style="flex:2;" id="1"
+                                                name="search-info" class="search-info">
+                                                <span class="text-13-black">Hieu</span>
+                                            </a>
+                                            <div class="dropdown">
+                                                <button type="button" data-toggle="dropdown"
+                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
+                                                    <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                </button>
+                                                <div class="dropdown-menu date-form-setting" style="z-index: 1000;">
+                                                    <a class="dropdown-item edit-guest w-50" href="#"
+                                                        data-toggle="modal" data-target="#guestModal" data-id="1">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                height="14" viewBox="0 0 14 14" fill="none">
+                                                                <path
+                                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                                    fill="black"></path>
+                                                                <path
+                                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                                    fill="black"></path>
+                                                                <path
+                                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                                    fill="black"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                    <a class="dropdown-item delete-guest w-50" href="#"
+                                                        data-id="1" data-name="guest">
+                                                        <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <a type="button"
+                                        class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                                        data-toggle="modal" data-target="#guestModal"
+                                        style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                viewBox="0 0 16 16" fill="none">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30"></path>
+                                            </svg>
+                                        </span>
+                                        <span class="text-13-black pl-3 pt-1"
+                                            style="font-weight: 600 !important;">Thêm
+                                            khách hàng</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 btn-click" style="flex: 1.5;"> Ngày giao hàng
-                            </span>
-                            <input id="date_delivery" readonly
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao hàng</span>
+                            <input id="date_delivery" readonly style="flex: 2;"
                                 value="{{ date_format(new DateTime($detailExport->date_delivery), 'd/m/Y') }}"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2" />
                             <input type="hidden" id="hiddenDateDelivery" name="date_delivery"
@@ -229,14 +333,14 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
-                            <input name="guestName" value="{{ $detailExport->guest_name }}"
+                            <input name="guestName" value="{{ $detailExport->guest_name }}" placeholder="Nhập thông tin"
                                 class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue"style="flex:2;" />
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ giao hàng</span>
-                            <input name="address_delivery" value="{{ $detailExport->address_delivery }}"
-                                class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue"style="flex:2;" />
+                            <input name="address_delivery" value="{{ $detailExport->address_delivery }}" placeholder="Nhập thông tin"
+                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                         </div>
 
                     </div>
@@ -245,19 +349,19 @@
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số phiếu</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
-                                placeholder="Chọn thông tin" style="flex:2;"
+                                placeholder="Nhập thông tin" style="flex:2;" 
                                 value="{{ $detailExport->reference_number }}" name="reference_number" />
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
-                            <input name="address_guest" value="{{ $detailExport->address_guest }}"
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span> 
+                            <input name="address_guest" value="{{ $detailExport->address_guest }}" placeholder="Nhập thông tin"
                                 class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue"style="flex:2;" />
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Trạng thái giao</span>
-                            <select name="status_receive"
+                            <select name="status_receive" style="flex: 2;"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
                                 <option value="1" class="text-uppercase" <?php if ($detailExport->status_receive == 1) {
                                     echo 'selected';
@@ -279,36 +383,21 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
-                            <input name="note" value="{{ $detailExport->note }}"
+                            <input name="note" value="{{ $detailExport->note }}" placeholder="Nhập thông tin"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT người nhận hàng</span>
-                            <input name="phone_receive" value="{{ $detailExport->phone_receive }}" type="number"
+                            <input name="phone_receive" value="{{ $detailExport->phone_receive }}" type="number" placeholder="Nhập thông tin"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
-                        </div>
-                    </div>
-                    <div class="d-flex w-100">
-                        {{-- <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thông tin liên hệ</span>
-                            <input disabled class="text-13-black w-50 border-0 bg-input-guest  py-2 px-2"
-                                style="flex:5.5;" />
-                        </div> --}}
-                        <div
-                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
-                            <input disabled=""
-                                class="text-13-black text-right w-50 border-0 bg-input-guest py-2 px-2 debt-old"
-                                value="{{ number_format($detailExport->guest_debt) }}" style="flex:5.5;">
                         </div>
                     </div>
                     <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên Sale</span>
-                            <select name="id_sale"
+                            <select name="id_sale" style="flex: 2;"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
                                 <option value=""></option>
                                 @foreach ($listUser as $listU)
@@ -322,7 +411,7 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nhận hàng</span>
-                            <input name="receiver" value="{{ $detailExport->receiver }}"
+                            <input name="receiver" value="{{ $detailExport->receiver }}" placeholder="Nhập thông tin"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                         </div>
                         <div
@@ -334,6 +423,15 @@
                             <input type="hidden" id="hiddenDatePayment" name="date_payment"
                                 value="{{ date_format(new DateTime($detailExport->date_payment), 'd/m/Y') }}">
                         </div>
+                    </div>
+                </div>
+                <div class="d-flex w-100">
+                    <div
+                        class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
+                        <input disabled=""
+                            class="text-13-black text-right w-50 border-0 bg-input-guest py-2 px-2 debt-old"
+                            value="{{ number_format($detailExport->guest_debt) }}" style="flex:10;">
                     </div>
                 </div>
                 <div class="bg-filter-search text-center border-custom border-0">
@@ -756,7 +854,7 @@
                                     class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
                                     id="guest_name" autocomplete="off">
                             </div>
-                            <div class="mt-2">
+                            <div class="mt-2 d-none">
                                 <p class="p-0 m-0 px-2 text-nav">
                                     Người đại diện
                                 </p>
@@ -935,7 +1033,8 @@
                             <tr>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id"
+                                            data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Tên sản phẩm
                                             </button>
@@ -945,7 +1044,8 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id"
+                                            data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Khách hàng
                                             </button>
@@ -955,7 +1055,8 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id"
+                                            data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Giá bán
                                             </button>
@@ -965,7 +1066,8 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id"
+                                            data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Thuế
                                             </button>
@@ -975,7 +1077,8 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id"
+                                            data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Ngày bán
                                             </button>

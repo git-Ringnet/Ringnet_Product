@@ -133,7 +133,7 @@
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
                                 <input type="text" id="datePicker" style="flex:2;" placeholder="Chọn thông tin"
-                                    class="text-13-black w-50 border-0 bg-input-guest">
+                                    class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
                                 <input type="hidden" id="hiddenDateInput" name="date_quote" value="">
                             </div>
                             <div
@@ -244,13 +244,13 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
-                                <input name="guestName"
+                                <input name="guestName" placeholder="Nhập thông tin"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ giao hàng</span>
-                                <input name="address_delivery"
+                                <input name="address_delivery" placeholder="Nhập thông tin"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                             </div>
                         </div>
@@ -259,18 +259,18 @@
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số phiếu</span>
                                 <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
-                                    placeholder="Chọn thông tin" style="flex:2;" name="reference_number" />
+                                    placeholder="Nhập thông tin" style="flex:2;" name="reference_number" />
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
-                                <input name="address_guest"
+                                <input name="address_guest" placeholder="Nhập thông tin"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Trạng thái giao</span>
-                                <select name="status_receive"
+                                <select name="status_receive" style="flex: 2;"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
                                     <option value="1" class="text-uppercase">Chưa giao</option>
                                     <option value="2" class="text-uppercase">Đã giao</option>
@@ -288,36 +288,21 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
-                                <input name="note"
+                                <input name="note" placeholder="Nhập thông tin"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT người nhận hàng</span>
-                                <input name="phone_receive" type="number"
+                                <input name="phone_receive" type="number" placeholder="Nhập thông tin"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
-                            </div>
-                        </div>
-                        <div class="d-flex w-100">
-                            {{-- <div
-                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thông tin liên hệ</span>
-                                <input disabled class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                    style="flex:5.5;" />
-                            </div> --}}
-                            <div
-                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
-                                <input disabled
-                                    class="text-13-black text-right w-50 border-0 bg-input-guest py-2 px-2 debt-old"
-                                    value="0" style="flex:5.5;" />
                             </div>
                         </div>
                         <div class="d-flex w-100">
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên Sale</span>
-                                <select name="id_sale"
+                                <select name="id_sale" style="flex: 2;"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
                                     <option value=""></option>
                                     @foreach ($listUser as $listU)
@@ -328,7 +313,7 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nhận hàng</span>
-                                <input name="receiver"
+                                <input name="receiver" placeholder="Nhập thông tin"
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                             </div>
                             <div
@@ -337,6 +322,15 @@
                                 <input id="date_payment" readonly
                                     class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                                 <input type="hidden" id="hiddenDatePayment" name="date_payment" value="">
+                            </div>
+                        </div>
+                        <div class="d-flex w-100">
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
+                                <input disabled
+                                    class="text-13-black text-right w-50 border-0 bg-input-guest py-2 px-2 debt-old rounded"
+                                    value="0" style="flex:10;" />
                             </div>
                         </div>
                     </div>
@@ -503,7 +497,7 @@
                                                 class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
                                                 id="guest_name" autocomplete="off">
                                         </div>
-                                        <div class="mt-2">
+                                        <div class="mt-2 d-none">
                                             <p class="p-0 m-0 px-2 text-nav">
                                                 Người đại diện
                                             </p>

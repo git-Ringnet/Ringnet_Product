@@ -72,7 +72,7 @@
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-60-mobile">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
                                     <input type="text" placeholder="Chọn ngày" id="datePicker"
-                                        class="border-0 w-100 py-2 px-3 text-13-black height-100">
+                                        class="border-0 w-100 py-2 px-3 text-13-black height-100 bg-input-guest-blue">
                                     <input type="hidden" name="created_at" id="hiddenDateInput">
                                 </div>
                                 <div
@@ -90,7 +90,7 @@
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Kho xuất</span>
                                     <div class="w-100 text-13-black position-relative">
                                         <input id="searchWarehouse" type="text" placeholder="Chọn kho"
-                                            class="border-0 w-100 py-2 px-3 text-13-black height-100 searchWarehouse"
+                                            class="border-0 w-100 py-2 px-3 text-13-black height-100 searchWarehouse bg-input-guest-blue"
                                             readonly>
                                         <input type="hidden"
                                             class="border-0 py-1 w-100 height-32 text-13-black warehouse_id"
@@ -142,7 +142,7 @@
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Kho nhận</span>
                                     <div class="border-0 w-100 text-13-black position-relative">
                                         <input id="searchWarehouse1" type="text" placeholder="Chọn kho"
-                                            class="w-100 py-2 border-0 px-3 text-13-black height-100 searchWarehouse"
+                                            class="w-100 py-2 border-0 px-3 text-13-black height-100 searchWarehouse bg-input-guest-blue"
                                             readonly>
                                         <input type="hidden"
                                             class="border-0 py-1 w-100 height-32 text-13-black warehouse_id"
@@ -180,7 +180,7 @@
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-60-mobile">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
                                     <input type="text" placeholder="Nhập thông tin" name="note"
-                                        class="border-0 w-100 py-2 px-3 text-13-black height-100">
+                                        class="border-0 w-100 py-2 px-3 text-13-black height-100 bg-input-guest-blue">
                                 </div>
                             </div>
                             {{-- <div class="d-flex align-items-center height-60-mobile">
