@@ -179,8 +179,7 @@
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                    name="quotation_number" value="{{ $invoiceAuto }}"
-                                    style="flex:2; background-color:#F0F4FF;border-radius:4px;"
+                                    name="quotation_number" value="{{ $invoiceAuto }}" readonly style="flex:2;"
                                     placeholder="Chọn thông tin">
                             </div>
                             <div
