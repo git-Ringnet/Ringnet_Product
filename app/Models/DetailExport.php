@@ -105,24 +105,23 @@ class DetailExport extends Model
         $detailExport = $detailExport->orderBy('detailexport.id', 'desc')->get();
 
         // Ngày hiện tại
-        $current_date = Carbon::now();
+        $current_date = Carbon::now()->toDateString();
 
-        // Duyệt qua từng bản ghi và thêm tình trạng đơn
         foreach ($detailExport as $detail) {
             if ($detail->date_payment) {
-                $date_payment = Carbon::parse($detail->date_payment);
-                if ($date_payment->lt($current_date)) {
-                    //quá hạn
+                $date_payment = Carbon::parse($detail->date_payment)->toDateString();
+                if ($date_payment < $current_date) {
+                    // Quá hạn
                     $detail->tinhTrangDon = 3;
-                } elseif ($date_payment->eq($current_date)) {
-                    //tới hạn thanh toán
+                } elseif ($date_payment == $current_date) {
+                    // Tới hạn thanh toán
                     $detail->tinhTrangDon = 2;
                 } else {
-                    //còn hạn
+                    // Còn hạn
                     $detail->tinhTrangDon = 1;
                 }
             } else {
-                //không có ngày thanh toán
+                // Không có ngày thanh toán
                 $detail->tinhTrangDon = 4;
             }
         }

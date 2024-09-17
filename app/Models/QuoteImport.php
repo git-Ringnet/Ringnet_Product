@@ -94,7 +94,8 @@ class QuoteImport extends Model
                 'receive_qty' => 0,
                 'reciept_qty' => 0,
                 'payment_qty' => 0,
-                'promotion' => json_encode($promotion)
+                'promotion' => json_encode($promotion),
+                'warehouse_id' => isset($data['warehouse_id'][$i]) ? $data['warehouse_id'][$i] : 0,
             ];
             $quote_id = DB::table($this->table)->insertGetId($dataQuote);
             $getProvide = DetailImport::where('id', $id)->first();

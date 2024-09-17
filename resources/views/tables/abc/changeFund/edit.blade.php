@@ -77,7 +77,7 @@
                                         <p class="p-0 m-0  margin-left32 text-13">Ngày lập</p>
                                     </div>
                                     <input
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                         name="" placeholder="Chọn thông tin" id="datePicker"
                                         value="{{ date_format(new DateTime($content->payment_day), 'd/m/Y') }}" />
                                     <input type="hidden" name="payment_day" id="hiddenDateInput"
@@ -89,7 +89,7 @@
                                         <p class="p-0 m-0 margin-left32 text-13">Mã phiếu</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="form_code" required
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                         value="{{ $content->form_code }}">
                                 </div>
                                 <div class="d-flex align-items-center height-60-mobile">
@@ -108,7 +108,7 @@
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="qty_money"
                                         id="qty_money" required
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                         value="{{ number_format($content->qty_money) }}">
                                 </div>
 
@@ -149,7 +149,7 @@
                                         <p class="p-0 m-0 margin-left32 text-13">Ghi chú</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="notes" required
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                         value="{{ $content->notes }}">
                                 </div>
                             </div>

@@ -88,7 +88,7 @@
                                     <p class="p-0 m-0  margin-left32 text-13">Ngày lập</p>
                                 </div>
                                 <input
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                     name="" placeholder="Chọn thông tin" id="datePicker"
                                     value="{{ date('Y-m-d') }}" />
                                 <input type="hidden" class="date" name="payment_day" id="hiddenDateInput"
@@ -100,7 +100,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13">Mã phiếu</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="form_code" required readonly
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 quote"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 quote bg-input-guest-blue"
                                     value="{{ $getQuoteCount }}">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
@@ -119,7 +119,7 @@
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" id="qty_money" name="qty_money"
                                     required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 price">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 price bg-input-guest-blue">
                             </div>
 
                             <div class="d-flex align-items-center height-60-mobile">
@@ -127,7 +127,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13">Từ quỹ</p>
                                 </div>
                                 <select name="from_fund" id="from_fund" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 fund1">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 fund1 bg-input-guest-blue">
                                     <option value="" disabled selected>Chọn quỹ</option>
                                     @foreach ($fund as $va)
                                         <option value="{{ $va->id }}">{{ $va->name }}</option>
@@ -141,7 +141,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13">Đến quỹ</p>
                                 </div>
                                 <select name="to_fund" id="to_fund" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 fund2">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 fund2 bg-input-guest-blue">
                                     <option value="" disabled selected>Chọn quỹ đích</option>
                                     @foreach ($fund as $va)
                                         <option value="{{ $va->id }}">{{ $va->name }}</option>
@@ -154,7 +154,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13">Ghi chú</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="notes" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 note">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 note bg-input-guest-blue">
                             </div>
                         </div>
                     </div>
