@@ -79,7 +79,7 @@
                                         </div>
                                         <input type="text" placeholder="Nhập thông tin" name="key"
                                             value="{{ old('key') ?? $provide->key }}" required
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     </div>
 
                                     <div class="d-flex align-items-center height-60-mobile">
@@ -89,7 +89,7 @@
                                         <input type="text" required placeholder="Nhập thông tin"
                                             name="provide_name_display"
                                             value="{{ old('provide_name_display') ?? $provide->provide_name_display }}"
-                                            class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     </div>
 
                                     <div class="d-flex align-items-center height-60-mobile">
@@ -99,7 +99,7 @@
                                         <input type="text" required placeholder="Nhập thông tin"
                                             name="provide_address"
                                             value="{{ old('provide_address') ?? $provide->provide_address }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     </div>
 
                                     {{-- <div class="d-flex align-items-center height-60-mobile">
@@ -118,7 +118,7 @@
                                         </div>
                                         <input type="text" placeholder="Nhập thông tin" name="provide_phone"
                                             value="{{ old('provide_address') ?? $provide->provide_phone }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     </div>
 
                                     <div class="d-flex align-items-center height-60-mobile">
@@ -127,7 +127,7 @@
                                         </div>
                                         <input type="email" placeholder="Nhập thông tin" name="provide_email"
                                             value="{{ old('provide_email') ?? $provide->provide_email }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     </div>
 
                                     {{-- <div class="d-flex align-items-center height-60-mobile">
@@ -153,7 +153,7 @@
                                             <p class="p-0 m-0  margin-left32 text-13">Nhóm</p>
                                         </div>
                                         <select name="category_id" id=""
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                             <option value="0" @if ($provide->group_id == 0) selected @endif>
                                                 Chọn nhóm đối tượng</option>
                                             @foreach ($category as $item)

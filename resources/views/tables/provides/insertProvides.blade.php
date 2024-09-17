@@ -87,7 +87,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13-red required-label">Mã nhà cung cấp</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="key" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                             </div>
 
                             <div class="d-flex align-items-center height-60-mobile">
@@ -95,7 +95,7 @@
                                     <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên nhà cung cấp</p>
                                 </div>
                                 <input type="text" required placeholder="Nhập thông tin" name="provide_name_display"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                             </div>
 
                             <div class="d-flex align-items-center height-60-mobile">
@@ -103,7 +103,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13">Địa chỉ</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="provide_address"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                             </div>
 
                             <div class="d-flex align-items-center height-60-mobile">
@@ -111,7 +111,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13">Điện thoại</p>
                                 </div>
                                 <input type="number" placeholder="Nhập thông tin" name="provide_phone"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                             </div>
 
                             <div class="d-flex align-items-center height-60-mobile">
@@ -119,7 +119,7 @@
                                     <p class="p-0 m-0  margin-left32 text-13">Email</p>
                                 </div>
                                 <input type="email" placeholder="Nhập thông tin" name="provide_email"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                             </div>
 
                             {{-- <div class="d-flex align-items-center height-60-mobile">
@@ -135,7 +135,7 @@
                                     <p class="p-0 m-0  margin-left32 text-13">Nhóm</p>
                                 </div>
                                 <select name="category_id" id=""
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     <option value="0">Chọn nhóm nhà cung cấp</option>
                                     @foreach ($category as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>

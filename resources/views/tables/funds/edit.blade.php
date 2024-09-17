@@ -76,7 +76,7 @@
                                         </div>
                                         <input type="text" name="name" id="name" placeholder="Nhập thông tin"
                                             value="{{ $fund->name }}"
-                                            class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                            class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                             required>
                                     </div>
                                     <div class="d-flex  align-items-center height-60-mobile ">
@@ -85,7 +85,7 @@
                                         </div>
                                         <input type="text" name="amount" id="amount"
                                             value="{{ number_format($fund->amount) }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                             placeholder="Nhập thông tin" required>
                                     </div>
                                     <div class="d-flex  align-items-center height-60-mobile ">
@@ -95,7 +95,7 @@
                                         </div>
                                         <input type="date" placeholder="Nhập thông tin" name="start_date"
                                             id="start_date" value="{{ $fund->start_date }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue"
                                             required>
                                     </div>
                                     <div class="d-flex align-items-center height-60-mobile">
@@ -104,7 +104,7 @@
                                         </div>
                                         <input type="text" name="description" id="description"
                                             placeholder="Nhập thông tin" value="{{ $fund->description }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     </div>
                                     <div class="d-flex align-items-center height-60-mobile ">
                                         <div class="title-info height-100 py-2 border border-top-0 border-left-0">
@@ -112,15 +112,15 @@
                                         </div>
                                         <input type="text" name="bank_name" id="bank_name"
                                             placeholder="Nhập thông tin" value="{{ $fund->bank_name }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     </div>
                                     <div class="d-flex  align-items-center height-60-mobile ">
                                         <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                             <p class="p-0 m-0 margin-left32 text-13">Số tài khoản</p>
                                         </div>
-                                        <input type="text" name="bank_account_number" placeholder="Nhập thông tin"
+                                        <input type="number" name="bank_account_number" placeholder="Nhập thông tin"
                                             id="bank_account_number" value="{{ $fund->bank_account_number }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     </div>
                                     <div class="d-flex  align-items-center height-60-mobile ">
                                         <div class="title-info height-100 py-2 border border-top-0 border-left-0">
@@ -128,7 +128,7 @@
                                         </div>
                                         <input type="text" name="bank_account_holder" id="bank_account_holder"
                                             placeholder="Nhập thông tin" value="{{ $fund->bank_account_holder }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     </div>
 
                                     <div class="d-none  align-items-center height-60-mobile ">
@@ -137,7 +137,7 @@
                                         </div>
                                         <input type="date" name="end_date" id="end_date"
                                             value="{{ $fund->end_date }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue">
                                     </div>
                                 </div>
                             </div>

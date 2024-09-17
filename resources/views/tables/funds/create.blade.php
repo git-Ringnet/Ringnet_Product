@@ -69,7 +69,7 @@
                                     <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên quỹ</p>
                                 </div>
                                 <input type="text" name="name" id="name" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                     required>
                             </div>
                             <div class="d-flex align-items-center height-60-mobile ">
@@ -77,7 +77,7 @@
                                     <p class="p-0 m-0 required-label margin-left32 text-13-red">Tiền quỹ</p>
                                 </div>
                                 <input type="text" name="amount" id="amount"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                     placeholder="Nhập thông tin" required>
                             </div>
                             <div class="d-flex  align-items-center height-60-mobile ">
@@ -85,7 +85,7 @@
                                     <p class="p-0 m-0 required-label margin-left32 text-13-red">Ngày bắt đầu</p>
                                 </div>
                                 <input type="date" placeholder="Nhập thông tin" name="start_date" id="start_date"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue"
                                     value="{{ now()->format('Y-m-d') }}" required>
                             </div>
                             <div class="align-items-center height-60-mobile d-none">
@@ -93,7 +93,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13">Ngày kết thúc</p>
                                 </div>
                                 <input type="date" name="end_date" id="end_date"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue"
                                     value="{{ now()->format('Y-m-d') }}">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
@@ -102,7 +102,7 @@
                                 </div>
                                 <input type="text" name="description" id="description"
                                     placeholder="Nhập thông tin"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                             </div>
 
                             <div class="d-flex align-items-center height-60-mobile ">
@@ -110,7 +110,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13">Tên ngân hàng</p>
                                 </div>
                                 <input type="text" name="bank_name" id="bank_name" placeholder="Nhập thông tin"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                             </div>
                             <div class="d-flex  align-items-center height-60-mobile ">
                                 <div class="title-info height-100 py-2 border border-top-0 border-left-0">
@@ -118,7 +118,7 @@
                                 </div>
                                 <input type="text" name="bank_account_number" placeholder="Nhập thông tin"
                                     id="bank_account_number"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                             </div>
                             <div class="d-flex  align-items-center height-60-mobile ">
                                 <div class="title-info height-100 py-2 border border-top-0 border-left-0">
@@ -126,7 +126,7 @@
                                 </div>
                                 <input type="text" name="bank_account_holder" id="bank_account_holder"
                                     placeholder="Nhập thông tin"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                             </div>
 
                         </div>

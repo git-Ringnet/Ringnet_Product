@@ -72,7 +72,7 @@
                                     <p class="p-0 m-0  margin-left32 text-13">Loại</p>
                                 </div>
                                 <select name="type" id=""
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     @foreach ($type as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
@@ -84,7 +84,7 @@
                                     <p class="p-0 m-0 required-label margin-left32 text-13-red">Nội dung thu chi</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="content" required
-                                    class="border  border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                    class="border  border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                     autocomplete="off">
                             </div>
 

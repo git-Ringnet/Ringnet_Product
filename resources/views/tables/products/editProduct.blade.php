@@ -101,19 +101,19 @@
                                     chung</p>
                                 <div class="content-info">
 
-                                    <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="d-none align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                             <p class="p-0 m-0 text-danger margin-left32 text-13">Danh mục sản phẩm</p>
                                         </div>
                                         <div
                                             class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black d-flex">
                                             <input type="radio" id="hanghoa" name="type_product" value="1"
-                                                class="py-2" @if ($product->type == 1) checked @endif
-                                                disabled style="margin-right:10px;">
+                                                class="py-2" @if ($product->type == 1) checked @endif disabled
+                                                style="margin-right:10px;">
                                             <label for="html" class="m-0">Hàng hóa</label>
                                             <input type="radio" id="dichvu" name="type_product" value="2"
-                                                class="py-2" @if ($product->type == 2) checked @endif
-                                                disabled style="margin-left:40px; margin-right:10px;">
+                                                class="py-2" @if ($product->type == 2) checked @endif disabled
+                                                style="margin-left:40px; margin-right:10px;">
                                             <label for="html" class="m-0">Dịch vụ</label>
                                         </div>
                                     </div>
@@ -123,7 +123,7 @@
                                         </div>
                                         <input type="text" placeholder="Nhập thông tin" name="product_code"
                                             value="{{ $product->product_code }}"
-                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black bg-input-guest-blue">
                                     </div>
 
                                     <div class="d-flex align-items-center height-60-mobile">
@@ -135,7 +135,7 @@
                                         </div>
                                         <input required type="text" placeholder="Nhập thông tin"
                                             name="product_name" value="{{ $product->product_name }}"
-                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black bg-input-guest-blue">
                                     </div>
 
                                     <div class="d-flex align-items-center height-60-mobile">
@@ -144,7 +144,7 @@
                                         </div>
                                         <input type="text" placeholder="Nhập thông tin" name="product_unit"
                                             value="{{ $product->product_unit }}"
-                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black bg-input-guest-blue">
                                     </div>
 
                                     <div class="d-flex align-items-center height-60-mobile">
@@ -154,7 +154,7 @@
                                         <input type="text" placeholder="Nhập thông tin"
                                             name="product_price_import"
                                             value="{{ number_format($product->product_price_import) }}"
-                                            class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                            class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue" />
                                     </div>
                                     @if ($product->type == 1)
                                         <div class="d-flex align-items-center height-60-mobile">
@@ -163,7 +163,7 @@
                                             </div>
                                             <input type="text" placeholder="Nhập thông tin" name="price_retail"
                                                 value="{{ number_format($product->price_retail) }}"
-                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue" />
                                         </div>
 
                                         <div class="d-flex align-items-center height-60-mobile">
@@ -172,7 +172,7 @@
                                             </div>
                                             <input type="text" placeholder="Nhập thông tin" name="price_wholesale"
                                                 value="{{ number_format($product->price_wholesale) }}"
-                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue" />
                                         </div>
 
                                         <div class="d-flex align-items-center height-60-mobile">
@@ -182,7 +182,7 @@
                                             <input type="text" placeholder="Nhập thông tin"
                                                 name="price_specialsale"
                                                 value="{{ number_format($product->price_specialsale) }}"
-                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue" />
                                         </div>
 
                                         <div class="d-flex align-items-center height-60-mobile">
@@ -191,7 +191,7 @@
                                             </div>
                                             <input type="text" placeholder="Nhập thông tin" name="product_weight"
                                                 value="{{ number_format($product->product_weight) }}"
-                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue" />
                                         </div>
                                     @endif
                                     <div class="d-flex align-items-center height-60-mobile ">
@@ -199,9 +199,9 @@
                                             <p class="p-0 m-0 margin-left32 text-13">Thuế</p>
                                         </div>
                                         <div
-                                            class="border border-top-0 w-100 border-left-0 border-right-0 px-3 height-100 pt-2 pb-1">
-                                            <select name="product_tax" id="" class="text-13-black border-0"
-                                                style="background-color:white; width:10%;">
+                                            class="border border-top-0 w-100 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue">
+                                            <select name="product_tax" id=""
+                                                class="form-control text-13-black bg-input-guest-blue border-0 p-0 w-100">
                                                 <option value="0"
                                                     @if ($product->product_tax == 0) selected @endif>0%
                                                 </option>
@@ -224,7 +224,7 @@
                                             </div>
                                             <input type="text" placeholder="Nhập thông tin" name="product_type"
                                                 value="{{ $product->product_type }}"
-                                                class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                                                class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black bg-input-guest-blue">
                                         </div>
                                         <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-left-0 border-top-0 height-100">
@@ -233,7 +233,7 @@
                                             <input type="text" placeholder="Nhập thông tin"
                                                 name="product_manufacturer"
                                                 value="{{ $product->product_manufacturer }}"
-                                                class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                                                class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black bg-input-guest-blue">
                                         </div>
                                         <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-left-0 border-top-0 height-100">
@@ -241,7 +241,7 @@
                                             </div>
                                             <input type="text" placeholder="Nhập thông tin" name="product_origin"
                                                 value="{{ $product->product_origin }}"
-                                                class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                                                class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black bg-input-guest-blue">
                                         </div>
                                         <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-left-0 border-top-0 height-100">
@@ -249,11 +249,11 @@
                                             </div>
                                             <input type="text" placeholder="Nhập thông tin"
                                                 name="product_guarantee" value="{{ $product->product_guarantee }}"
-                                                class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                                                class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black bg-input-guest-blue">
                                         </div>
                                         @if ($product->getSerialNumber)
                                             @if (count($product->getSerialNumber) == 0 && $product->product_inventory == 0)
-                                                <div class="d-flex align-items-center height-60-mobile">
+                                                <div class="d-none align-items-center height-60-mobile">
                                                     <div
                                                         class="title-info py-2 border border-left-0 border-top-0 height-100">
                                                         <p class="p-0 m-0 margin-left32 text-13">Quản lý Serial Number
@@ -271,17 +271,21 @@
                                             <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 margin-left32 text-13">Nhóm</p>
                                             </div>
-                                            <select name="group_id" id=""
-                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
-                                                <option value="0"
-                                                    @if ($product->group_id == 0) selected @endif>Chọn loại nhóm
-                                                </option>
-                                                @foreach ($category as $item)
-                                                    <option value="{{ $item->id }}"
-                                                        @if ($item->id == $product->group_id) selected @endif>
-                                                        {{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <div
+                                                class="border border-top-0 w-100 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue">
+                                                <select name="group_id" id=""
+                                                    class="form-control text-13-black bg-input-guest-blue border-0 p-0 w-100">
+                                                    <option value="0"
+                                                        @if ($product->group_id == 0) selected @endif>Chọn loại
+                                                        nhóm
+                                                    </option>
+                                                    @foreach ($category as $item)
+                                                        <option value="{{ $item->id }}"
+                                                            @if ($item->id == $product->group_id) selected @endif>
+                                                            {{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     @endif
                                 </div>

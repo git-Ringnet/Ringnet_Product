@@ -103,7 +103,7 @@
                                 <p class="font-weight-bold text-uppercase info-chung--heading">Thông tin chung</p>
                                 <div class="content-info">
 
-                                    <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="d-none align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 height-100 border-bottom-0">
                                             <p class="p-0 m-0 text-danger margin-left32 text-13">Danh mục sản phẩm</p>
                                         </div>
@@ -256,7 +256,7 @@
                                                 name="product_guarantee" value="{{ $product->product_guarantee }}"
                                                 class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                                         </div>
-                                        <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="d-none align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0 height-100 margin-left32 text-13">Quản lý Serial
                                                     Number
@@ -326,7 +326,7 @@
                     </div>
                 </div>
             </section> --}}
-            @if ($product->type == 1)
+            {{-- @if ($product->type == 1)
                 <section class="content">
                     <div class="container-fluided">
                         <div class="row">
@@ -390,7 +390,7 @@
                         </div>
                     </div>
                 </section>
-            @endif
+            @endif --}}
         </div>
         <div id="history" class="tab-pane fade">
             <section class="content">

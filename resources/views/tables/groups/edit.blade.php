@@ -77,9 +77,9 @@
                                                 Mã đối tượng
                                             </p>
                                         </div>
-                                        <input type="text" required placeholder="Nhập thông tin"
-                                            name="group_code" value="{{ $group->group_code }}" required
-                                            class="border w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                        <input type="text" required placeholder="Nhập thông tin" name="group_code"
+                                            value="{{ $group->group_code }}" required
+                                            class="border w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black bg-input-guest-blue">
                                     </div>
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 height-100">
@@ -89,7 +89,7 @@
                                         </div>
                                         <input type="text" required placeholder="Nhập thông tin"
                                             name="group_name_display" value="{{ $group->name }}" required
-                                            class="border w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                            class="border w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black bg-input-guest-blue">
                                     </div>
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
@@ -111,14 +111,14 @@
                                             <p class="p-0 m-0 margin-left32 text-13">Mô tả</p>
                                         </div>
                                         <input type="text" placeholder="Nhập thông tin" name="group_desc"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                             value="{{ $group->description }}">
                                     </div>
                                     <button type="button" data-toggle="modal" data-target="#listModal"
                                         class="btn-save-print d-flex align-items-center h-100 py-1 px-2 my-2 ml-4 rounded addGuestNew"
                                         style="margin-right:10px">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="mr-2"
-                                            viewBox="0 0 16 16" fill="none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            class="mr-2" viewBox="0 0 16 16" fill="none">
                                             <path
                                                 d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
                                                 fill="#282A30" />
@@ -370,11 +370,13 @@
                         $('.listData').empty();
                         data_obj = data.obj;
                         data.results.forEach(function(item) {
-                            var listItem = '<li class="d-flex align-items-center border-bottom">';
+                            var listItem =
+                                '<li class="d-flex align-items-center border-bottom">';
                             listItem += '<input type="checkbox" id="' + data.obj +
                                 '_' + item.id + '" name="' + data.obj +
                                 '[]" value="' + item.id + '">';
-                            listItem += '<span class="text-13 px-4 py-2" for="' + item.name + '_' + item.id +
+                            listItem += '<span class="text-13 px-4 py-2" for="' +
+                                item.name + '_' + item.id +
                                 '">' + item.name + '</span>';
                             listItem += '</li>';
                             $('.listData').append(listItem);
