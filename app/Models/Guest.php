@@ -70,6 +70,7 @@ class Guest extends Model
                 'represent_guest.represent_phone',
                 'users.name',
                 'guest.group_id',
+                'guest.guest_debt',
             )
             ->select(
                 'guest.id',
@@ -88,6 +89,7 @@ class Guest extends Model
                 'represent_guest.represent_phone',
                 'users.name as name',
                 'guest.group_id',
+                'guest.guest_debt',
                 DB::raw('COALESCE((SELECT SUM(amount_owed) FROM detailexport WHERE guest_id = guest.id AND status = 2), 0) as sumDebt')
             )
             ->get();

@@ -90,7 +90,7 @@
                                             <p class="p-0 m-0 margin-left32 text-13">Loại</p>
                                         </div>
                                         <select name="type" id=""
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                             @foreach($type as $item)
                                             <option value="{{$item->id}}" @if($item->id == $content->contenttype_id) selected @endif>{{$item->name}}</option>
                                             @endforeach
@@ -104,7 +104,7 @@
                                         </div>
                                         <input type="text" placeholder="Nhập thông tin" name="content"
                                             value="{{ $content->name }}"
-                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
+                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black bg-input-guest-blue">
                                     </div>
 
 

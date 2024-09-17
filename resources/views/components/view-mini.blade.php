@@ -8,11 +8,11 @@
         <div class="d-flex w-100 my-2">
             <div class="">
                 <p class="m-0 p-0 text-13-black">Từ ngày</p>
-                <input type="date" class="w-100 form-control mr-1" id="fromDate">
+                <input type="date" class="w-100 form-control mr-1 bg-input-guest-blue" id="fromDate">
             </div>
             <div class="mr-5">
                 <p class="m-0 p-0 text-13-black">Đến ngày</p>
-                <input type="date" class="w-100 form-control ml-1" id="toDate">
+                <input type="date" class="w-100 form-control ml-1 bg-input-guest-blue" id="toDate">
             </div>
         </div>
         <div class="w-100 my-2">
@@ -20,7 +20,7 @@
                 <div class="position-relative">
                     <p class="m-0 p-0 text-13-black">Khách hàng</p>
                     <input type="text" placeholder="Chọn thông tin"
-                        class="w-100 bg-input-guest py-2 px-2 form-control text-13-black nameGuestMiniView"
+                        class="w-100 bg-input-guest py-2 px-2 form-control text-13-black nameGuestMiniView bg-input-guest-blue"
                         autocomplete="off" id="inputGuest">
                     <input type="hidden" class="idGuestMiniView" autocomplete="off">
                     <div id="listGuestMiniView" class="bg-white rounded list-guest w-100 shadow p-1 z-index-block"
@@ -52,7 +52,7 @@
                 <div class="position-relative">
                     <p class="m-0 p-0 text-13-black">Nhà cung cấp</p>
                     <input type="text" placeholder="Chọn thông tin"
-                        class="w-100 bg-input-guest py-2 px-2 form-control text-13-black nameGuestMiniView"
+                        class="w-100 bg-input-guest py-2 px-2 form-control text-13-black nameGuestMiniView bg-input-guest-blue"
                         autocomplete="off" id="inputGuest">
                     <input type="hidden" class="idGuestMiniView">
                     <div id="listGuestMiniView"
@@ -86,7 +86,7 @@
         <div class="w-100 my-2">
             <div class="">
                 <p class="m-0 p-0 text-13-black">Người lập</p>
-                <select id="creator" class="form-control text-13-black">
+                <select id="creator" class="form-control text-13-black bg-input-guest-blue">
                     @foreach ($listUser as $listU)
                         <option value="{{ $listU->id }}">{{ $listU->name }}</option>
                     @endforeach

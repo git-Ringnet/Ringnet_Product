@@ -199,7 +199,7 @@
                                                 <div class="icon" id="icon-guest_code"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col">
+                                        {{-- <th class="height-52" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_code" data-sort-type="DESC">
@@ -220,7 +220,7 @@
                                                 </a>
                                                 <div class="icon" id="icon-guest_code"></div>
                                             </span>
-                                        </th>
+                                        </th> --}}
                                         <th class="height-52" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
@@ -291,18 +291,18 @@
                                                 </td>
                                                 <td class="text-13-black border border-bottom border-top-0">
                                                     {{ $item->guest_email }}</td>
-                                                <td class="text-13-black border border-bottom border-top-0">
-                                                    {{-- {{ $item->price_type }} --}} N/A
+                                                {{-- <td class="text-13-black border border-bottom border-top-0">
+                                                    {{ $item->price_type }} N/A
                                                 </td>
                                                 <td class="text-13-black border border-bottom border-top-0">
                                                     {{ $item->debt_limit }}
                                                 </td>
                                                 <td class="text-13-black border border-bottom border-top-0">
                                                     {{ $item->initial_debt }}
-                                                </td>
-                                                {{-- <td class="text-13-black border text-right border-bottom border-top-0">
-                                                    {{ number_format($item->sumDebt) }}
                                                 </td> --}}
+                                                <td class="text-13-black border text-right border-bottom border-top-0">
+                                                    {{ number_format($item->guest_debt) }}
+                                                </td>
                                                 <td
                                                     class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">

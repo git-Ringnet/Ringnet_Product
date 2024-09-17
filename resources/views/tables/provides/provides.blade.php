@@ -197,7 +197,7 @@
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom border height-52">
+                                            {{-- <th scope="col" class="border-bottom border height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
@@ -207,7 +207,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                             <th scope="col" class="border-bottom border height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
@@ -219,7 +219,7 @@
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom border height-52">
+                                            {{-- <th scope="col" class="border-bottom border height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
@@ -229,7 +229,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                             <th scope="col" class="border-bottom border height-52">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
@@ -306,18 +306,18 @@
                                                 <td class="text-13-black border border-bottom">
                                                     {{ $item->provide_phone }}
                                                 </td>
-                                                <td class="text-13-black border border-bottom">
+                                                {{-- <td class="text-13-black border border-bottom">
                                                     {{ $item->provide_code }}
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-13-black border border-bottom">
                                                     {{ $item->provide_email }}
                                                 </td>
                                                 {{-- <td class="text-13-black border border-bottom">
                                                     {{ $item->provide_fax }}
                                                 </td> --}}
-                                                <td class="text-13-black border border-bottom">
+                                                {{-- <td class="text-13-black border border-bottom">
                                                     {{ number_format($item->quota_debt) }}
-                                                </td>
+                                                </td> --}}
                                                 {{-- <td class="text-13-black border border-bottom">
                                                     {{ number_format($item->quota_debt) }}
                                                 </td> --}}

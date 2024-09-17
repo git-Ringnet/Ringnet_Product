@@ -71,7 +71,7 @@
                                     <p class="p-0 m-0 required-label margin-left32 text-13-red">Mã nhân viên</p>
                                 </div>
                                 <input type="text" required placeholder="Nhập thông tin" name="user_code"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                     autocomplete="off">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
@@ -79,7 +79,7 @@
                                     <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên</p>
                                 </div>
                                 <input type="text" required placeholder="Nhập thông tin" name="name"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                     autocomplete="off">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
@@ -87,7 +87,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13-red required-label">Chức vụ</p>
                                 </div>
                                 <select name="role_id" id="roleSelect"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     <option value="0">Chọn chức vụ</option>
                                     @foreach ($roles as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -100,7 +100,7 @@
                                         nhập)</p>
                                 </div>
                                 <input type="email" placeholder="Nhập thông tin" name="email"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                     autocomplete="off">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
@@ -108,7 +108,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13-black">Mật khẩu</p>
                                 </div>
                                 <input type="password" placeholder="Nhập thông tin" name="password"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                     autocomplete="off">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
@@ -116,7 +116,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13-black">Địa chỉ</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="address"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                     autocomplete="off">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
@@ -125,7 +125,7 @@
                                 </div>
                                 <input type="text" oninput="validateInput(this)" placeholder="Nhập thông tin"
                                     name="phone_number"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                     autocomplete="off">
                             </div>
 
@@ -134,7 +134,7 @@
                                     <p class="p-0 m-0 margin-left32 text-13-black">Chọn nhóm đối tượng</p>
                                 </div>
                                 <select name="grouptype_id" id="grouptypeSelect"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     <option value="0">Chọn nhóm</option>
                                     @foreach ($groups as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>

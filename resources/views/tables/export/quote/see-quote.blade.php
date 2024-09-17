@@ -537,7 +537,7 @@
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên Sale</span>
                                 <select name="id_sale" disabled style="flex:2;"
-                                    class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                    class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
                                     <option value=""></option>
                                     @foreach ($listUser as $listU)
                                         <option value="{{ $listU->id }}" <?php if ($listU->id === $detailExport->id_sale) {
@@ -559,8 +559,8 @@
                                 @if ($detailExport->date_payment)
                                     <input id="date_payment"
                                         value="{{ date_format(new DateTime($detailExport->date_payment), 'd/m/Y') }}"
-                                        readonly
-                                        class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" style="flex:2;" />
+                                        readonly class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                        style="flex:2;" />
                                 @endif
                             </div>
                         </div>
@@ -811,7 +811,6 @@
                                                 <span class="text-13-black">Khuyến mãi</span>
                                                 <input name="promotion-total" type="number" disabled
                                                     class="text-table border-0 text-right"
-                                                    style="background-color:#F0F4FF "
                                                     @if ($detailExport != '') value="{{ $promotionValue ? number_format($promotionValue) : 0 }}" @endif>
                                             </div>
                                             <div class="d-flex justify-content-between mt-2 align-items-center">
