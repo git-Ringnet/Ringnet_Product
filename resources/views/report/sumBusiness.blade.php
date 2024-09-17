@@ -51,7 +51,7 @@
                                     </div>
                                 </form>
                                 <div class="dropdown mx-1">
-                                    <button class="filter-btn ml-2 align-items-center d-flex  mb-0"
+                                    <button class="filter-btn ml-2 align-items-center d-flex border mb-0"
                                         data-toggle="dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">

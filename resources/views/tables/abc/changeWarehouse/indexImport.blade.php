@@ -26,6 +26,7 @@
                     <form id="exportForm" action="{{ route('exportImportChangeWH') }}" method="GET"
                         style="display: none;">
                         @csrf
+                        <input class="datavalue" type="hidden" name="data[]">
                     </form>
                     <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
                         onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
@@ -110,6 +111,9 @@
                                             </span>
                                         </div>
                                         <div class="scrollbar">
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                data-button="date" type="button">Ngày lập phiếu
+                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-code"
                                                 data-button="code" type="button">Mã hàng hóa
                                             </button>
@@ -121,6 +125,7 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <x-filter-date-time name="date" title="Ngày lập phiếu" />
                                     {{-- <x-filter-text name="code" title="Mã hàng hoá" />
                                     <x-filter-checkbox :dataa='$product' button="products" name="idName"
                                         title="Tên hàng hóa" namedisplay="product_name" />
@@ -151,6 +156,18 @@
                                         class="border-top-0 bg-white">
                                         <input type="checkbox" name="all" id="checkall" class="checkall-btn">
 
+                                    </th>
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="product_code" data-sort-type="DESC">
+                                                <button class="btn-sort" type="submit">
+                                                    <span class="text-13">Ngày lập phiếu
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <div class="icon" id="icon-product_code"></div>
+                                        </span>
                                     </th>
                                     <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
                                         <span class="d-flex">
@@ -224,7 +241,7 @@
                                     <tr class="position-relative product-info"
                                         onclick="handleRowClick('checkbox', event);">
                                         <input type="hidden" name="id-product" class="id-product" id="id-product"
-                                            value="">
+                                            value="{{ $item->id }}">
                                         <td class="border-bottom border-top-0">
                                             <span class="margin-Right10">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10"
@@ -243,6 +260,9 @@
                                             </span>
                                             <input type="checkbox" class="checkall-btn" name="ids[]"
                                                 id="checkbox" value="" onclick="event.stopPropagation();">
+                                        </td>
+                                        <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
+                                            {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                         </td>
                                         <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
                                             {{ $item->change_warehouse_code }}
@@ -343,6 +363,7 @@
 
 {{-- <script src="{{ asset('/dist/js/filter.js') }}"></script> --}}
 <x-print-component :contentId="$title" />
+<script src="{{ asset('/dist/js/filter.js') }}"></script>
 
 <script type="text/javascript">
     $(document).on('change', '#file_restore', function(e) {
@@ -370,25 +391,18 @@
         }
         var buttonName = $(this).data('button');
         var btn_submit = $(this).data('button-name');
-
-        if ($(this).data('button-name') === 'idName') {
-            $('.ks-cboxtags-idName input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && idName.indexOf(value) === -1) {
-                    idName.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = idName.indexOf(value);
-                    if (index !== -1) {
-                        idName.splice(index, 1);
-                    }
-                }
-            });
-        }
         var search = $('#search').val();
-        var code = $('#code').val();
-        var inventory_op = $('.inventory-operator').val();
-        var inventory_val = $('.inventory-quantity').val();
-        var inventory = [inventory_op, inventory_val];
+        var date_start = $('#date_start_date').val();
+        var date_end = $('#date_end_date').val();
+        var date = [date_start, date_end];
+
+        var dataArray = [{
+            key: 'date',
+            value: date
+        }, ];
+
+        // Chuyển đổi mảng thành chuỗi JSON và lưu vào input hidden
+        $('.datavalue').val(JSON.stringify(dataArray));
         var sort_by = '';
         if (typeof $(this).data('sort-by') !== 'undefined') {
             sort_by = $(this).data('sort-by');
@@ -406,102 +420,24 @@
         if (!$(e.target).closest('li, input[type="checkbox"]').length) {
             $('#' + btn_submit + '-options').hide();
         }
-        $(".btn-filter_search").prop("disabled", false);
+        if ($(this).data('delete') === 'date') {
+            date = null;
+            $('#date_start_date').val('');
+            $('#date_end_date').val('');
+            $('.datavalue').val('');
 
-        if ($(this).data('delete') === 'code') {
-            code = null;
-            $('#code').val('');
-        }
-        if ($(this).data('delete') === 'idName') {
-            idName = [];
-            // $('.deselect-all-idName').click();
-            $('.ks-cboxtags-name input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'inventory') {
-            inventory = null;
-            $('.inventory-quantity').val('');
         }
         $.ajax({
             type: 'get',
-            url: "{{ route('searchInventory') }}",
+            url: "{{ route('searchChangeWH') }}",
             data: {
                 search: search,
-                inventory: inventory,
-                idName: idName,
-                code: code,
+                date: date,
                 sort: sort,
             },
             success: function(data) {
-                // Hiển thị label dữ liệu tìm kiếm ...
-                var existingNames = [];
-                data.filters.forEach(function(item) {
-                    // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
-                    if (filters.indexOf(item.name) === -1) {
-                        filters.push(item.name);
-                    }
-                    existingNames.push(item.name);
-                });
-
-                filters = filters.filter(function(name) {
-                    return existingNames.includes(name);
-                });
-                $('.result-filter-product').empty();
-                if (data.filters.length > 0) {
-                    $('.result-filter-product').addClass('has-filters');
-                } else {
-                    $('.result-filter-product').removeClass('has-filters');
-                }
-                // Lặp qua mảng filters để tạo và render các phần tử
-                data.filters.forEach(function(item) {
-                    var index = filters.indexOf(item.name);
-                    // Tạo thẻ item-filter
-                    var itemFilter = $('<div>').addClass(
-                        'item-filter span input-search d-flex justify-content-center align-items-center mr-2'
-                    ).attr({
-                        'data-icon': item.icon,
-                        'data-button': item.name
-                    });
-                    itemFilter.css('order', index);
-                    // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                    itemFilter.append(
-                        '<span class="text text-13-black m-0" style="flex:2;">' +
-                        item.value +
-                        '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
-                        item.name + '" data-button="' + buttonName +
-                        '"></i>');
-                    // Thêm thẻ item-filter vào resultfilters
-                    $('.result-filter-product').append(itemFilter);
-                });
-
-                // Ẩn hiện dữ liệu khi đã filters
-                var productIds = [];
-                // Lặp qua mảng provides và thu thập các productIds
-                data.products.forEach(function(item) {
-                    var productId = item.id;
-                    productIds.push(productId);
-                });
-                // Ẩn tất cả các phần tử .product-info
-                // $('.product-info').hide();
-                // Lặp qua từng phần tử .product-info để hiển thị và cập nhật data-position
-                $('.product-info').each(function() {
-                    var value = parseInt($(this).find('.id-product').val());
-                    var index = productIds.indexOf(value);
-                    if (index !== -1) {
-                        $(this).show();
-                        // Cập nhật data-position
-                        $(this).attr('data-position', index + 1);
-                    } else {
-                        $(this).hide();
-                    }
-                });
-                // Tạo một bản sao của mảng phần tử .product-info
-                var clonedElements = $('.product-info').clone();
-                // Sắp xếp các phần tử trong bản sao theo data-position
-                var sortedElements = clonedElements.sort(function(a, b) {
-                    return $(a).data('position') - $(b).data('position');
-                });
-                // Thay thế các phần tử trong .tbody-product bằng các phần tử đã sắp xếp
-                $('.tbody-product').empty().append(sortedElements);
+                updateFilters(data, filters, '.result-filter-product', '.tbody-product',
+                    '.product-info', '.id-product', buttonName);
             }
         });
         $.ajaxSetup({

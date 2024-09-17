@@ -23,8 +23,8 @@
                     <form id="exportForm" action="{{ route('exportDebtGuests') }}" method="GET"
                         style="display: none;">
                         @csrf
+                        <input class="datavalue" type="hidden" name="data[]">
                     </form>
-
                     <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
                         onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
                         <button type="button" class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
@@ -51,7 +51,7 @@
                                     </div>
                                 </form>
                                 <div class="dropdown mx-1">
-                                    <button class="filter-btn ml-2 align-items-center d-flex  mb-0"
+                                    <button class="filter-btn ml-2 align-items-center d-flex border mb-0"
                                         data-toggle="dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">
@@ -480,6 +480,14 @@
         var date_start = $('#date_start_date').val();
         var date_end = $('#date_end_date').val();
         var date = [date_start, date_end];
+
+        var dataArray = [{
+            key: 'date',
+            value: date
+        }, ];
+
+        // Chuyển đổi mảng thành chuỗi JSON và lưu vào input hidden
+        $('.datavalue').val(JSON.stringify(dataArray));
         var sort_by = '';
         if (typeof $(this).data('sort-by') !== 'undefined') {
             sort_by = $(this).data('sort-by');
@@ -501,6 +509,8 @@
             date = null;
             $('#date_start_date').val('');
             $('#date_end_date').val('');
+            $('.datavalue').val('');
+
         }
         $.ajax({
             type: 'get',
@@ -511,8 +521,8 @@
                 sort: sort,
             },
             success: function(data) {
-                console.log(data);
-                updateFiltersReport(data, filters, '.result-filter-product', '.tbody-product',
+
+                updateFiltersReport(data, filters, '.result-filter-product', '.-product',
                     '.product-info', '.id-product', buttonName);
             }
         });

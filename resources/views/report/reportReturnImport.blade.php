@@ -23,6 +23,7 @@
                     <form id="exportForm" action="{{ route('exportReportReturnI') }}" method="GET"
                         style="display: none;">
                         @csrf
+                        <input class="datavalue" type="hidden" name="data[]">
                     </form>
 
                     <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
@@ -471,6 +472,13 @@
         var date_start = $('#date_start_date').val();
         var date_end = $('#date_end_date').val();
         var date = [date_start, date_end];
+        var dataArray = [{
+            key: 'date',
+            value: date
+        }, ];
+
+        // Chuyển đổi mảng thành chuỗi JSON và lưu vào input hidden
+        $('.datavalue').val(JSON.stringify(dataArray));
         var sort_by = '';
         if (typeof $(this).data('sort-by') !== 'undefined') {
             sort_by = $(this).data('sort-by');
@@ -492,6 +500,7 @@
             date = null;
             $('#date_start_date').val('');
             $('#date_end_date').val('');
+            $('.datavalue').val('');
         }
         $.ajax({
             type: 'get',
@@ -502,7 +511,7 @@
                 sort: sort,
             },
             success: function(data) {
-                console.log(data);
+
                 updateFilters(data, filters, '.result-filter-product', '.table-return',
                     '.product-info', '.return', buttonName);
             }

@@ -32,8 +32,8 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('importChangeWarehouse.index', $workspacename) }}" class="user_flow" data-type="NCC"
-                            data-des="Hủy thêm nhà cung cấp">
+                        <a href="{{ route('importChangeWarehouse.index', $workspacename) }}" class="user_flow"
+                            data-type="NCC" data-des="Hủy thêm nhà cung cấp">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                     viewBox="0 0 14 14" fill="none">
@@ -126,7 +126,8 @@
                                 <div
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-60-mobile">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã phiếu</span>
-                                    <input type="text" readonly name="change_warehouse_code" value="{{ $invoiceAuto }}"
+                                    <input type="text" readonly name="change_warehouse_code"
+                                        value="{{ $invoiceAuto }}"
                                         class="border-0 w-100 py-2 px-3 text-13-black height-100">
                                 </div>
                                 <div
@@ -807,7 +808,7 @@
                     status: "add"
                 },
                 success: function(data) {
-                    console.log(data);
+    
                     if (data.success) {
                         $('form')[1].submit();
                     } else {

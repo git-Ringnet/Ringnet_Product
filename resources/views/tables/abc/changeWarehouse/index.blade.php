@@ -25,6 +25,7 @@
                     </button>
                     <form id="exportForm" action="{{ route('exportChangeWH') }}" method="GET" style="display: none;">
                         @csrf
+                        <input class="datavalue" type="hidden" name="data[]">
                     </form>
                     <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
                         onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
@@ -97,8 +98,8 @@
                                                 fill="#6B6F76" />
                                         </svg>
                                     </button>
-                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                        style="z-index:">
+                                    <div class="dropdown-menu" id="dropdown-menu"
+                                        aria-labelledby="dropdownMenuButton" style="z-index:">
                                         <div class="search-container px-2">
                                             <input type="text" placeholder="Tìm kiếm" id="myInput"
                                                 class="text-13" onkeyup="filterFunction()" style="outline: none;">
@@ -184,6 +185,18 @@
                                         class="border-top-0 bg-white">
                                         <input type="checkbox" name="all" id="checkall" class="checkall-btn">
 
+                                    </th>
+                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link btn-submit"
+                                                data-sort-by="product_code" data-sort-type="DESC">
+                                                <button class="btn-sort" type="submit">
+                                                    <span class="text-13">Ngày lập phiếu
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            <div class="icon" id="icon-product_code"></div>
+                                        </span>
                                     </th>
                                     <th scope="col" class="border-top-0 bg-white pl-0 border-bottom">
                                         <span class="d-flex">
@@ -276,6 +289,9 @@
                                             </span>
                                             <input type="checkbox" class="checkall-btn" name="ids[]"
                                                 id="checkbox" value="" onclick="event.stopPropagation();">
+                                        </td>
+                                        <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
+                                            {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                         </td>
                                         <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
                                             {{ $item->change_warehouse_code }}
@@ -399,6 +415,14 @@
         var date_start = $('#date_start_date').val();
         var date_end = $('#date_end_date').val();
         var date = [date_start, date_end];
+
+        var dataArray = [{
+            key: 'date',
+            value: date
+        }, ];
+
+        // Chuyển đổi mảng thành chuỗi JSON và lưu vào input hidden
+        $('.datavalue').val(JSON.stringify(dataArray));
         var sort_by = '';
         if (typeof $(this).data('sort-by') !== 'undefined') {
             sort_by = $(this).data('sort-by');
@@ -420,6 +444,8 @@
             date = null;
             $('#date_start_date').val('');
             $('#date_end_date').val('');
+            $('.datavalue').val('');
+
         }
         $.ajax({
             type: 'get',

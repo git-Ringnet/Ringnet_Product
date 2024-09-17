@@ -24,6 +24,7 @@
                         <form id="exportForm" action="{{ route('exportSellProfit') }}" method="GET"
                             style="display: none;">
                             @csrf
+                            <input class="datavalue_hanghoa" type="hidden" name="data[]">
                         </form>
 
                         <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
@@ -47,6 +48,7 @@
                         <form id="exportFormGuest" action="{{ route('exportSellProfitGuest') }}" method="GET"
                             style="display: none;">
                             @csrf
+                            <input class="datavalue_khachhang" type="hidden" name="data[]">
                         </form>
 
                         <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
@@ -78,7 +80,7 @@
                                         </div>
                                     </form>
                                     <div class="dropdown mx-1">
-                                        <button class="filter-btn ml-2 align-items-center d-flex  mb-0"
+                                        <button class="filter-btn ml-2 align-items-center d-flex border mb-0"
                                             data-toggle="dropdown">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 16 16" fill="none">
@@ -166,7 +168,7 @@
                                         </div>
                                     </form>
                                     <div class="dropdown mx-1">
-                                        <button class="filter-btn ml-2 align-items-center d-flex  mb-0"
+                                        <button class="filter-btn ml-2 align-items-center d-flex border mb-0"
                                             data-toggle="dropdown">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 16 16" fill="none">
@@ -954,10 +956,24 @@
         var date_start_product = $('#date_start_date-product').val();
         var date_end_product = $('#date_end_date-product').val();
         var date_product = [date_start_product, date_end_product];
+        var dataArrayProduct = [{
+            key: 'date',
+            value: date_product
+        }, ];
+
+        // Chuyển đổi mảng thành chuỗi JSON và lưu vào input hidden
+        $('.datavalue_hanghoa').val(JSON.stringify(dataArrayProduct));
 
         var date_start_guest = $('#date_start_date-guest').val();
         var date_end_guest = $('#date_end_date-guest').val();
         var date_guest = [date_start_guest, date_end_guest];
+        var dataArrayGuest = [{
+            key: 'date',
+            value: date_guest
+        }, ];
+
+        // Chuyển đổi mảng thành chuỗi JSON và lưu vào input hidden
+        $('.datavalue_khachhang').val(JSON.stringify(dataArrayGuest));
         var sort_by = '';
         if (typeof $(this).data('sort-by') !== 'undefined') {
             sort_by = $(this).data('sort-by');
@@ -979,12 +995,17 @@
             date_product = null;
             $('#date_start_date-product').val('');
             $('#date_end_date-product').val('');
+            $('.datavalue_hanghoa').val('');
         }
         if ($(this).data('delete') === 'date_guest') {
             date_guest = null;
             $('#date_start_date-guest').val('');
             $('#date_end_date-guest').val('');
+            $('.datavalue_khachhang').val('');
         }
+        console.log(dataArrayGuest);
+        console.log('dasjdlaskd' + dataArrayProduct);
+
         if (buttonName == 'product') {
             $.ajax({
                 type: 'get',
@@ -995,8 +1016,8 @@
                     sort: sort,
                 },
                 success: function(data) {
-                    console.log(data);
-                    updateFilters(data, filters, '.result-filter-product', '.table-hanghoa',
+
+                    updateFilters(data, filters, '.result-filter-product', '.-hanghoa',
                         '.hanghoa-info', '.hanghoa-item', buttonName);
                 }
             });
@@ -1011,8 +1032,8 @@
                     sort: sort,
                 },
                 success: function(data) {
-                    console.log(data);
-                    updateFilters(data, filters, '.result-filter-guest', '.table-khachhang',
+
+                    updateFilters(data, filters, '.result-filter-guest', '.-khachhang',
                         '.khachhang-info', '.khachhang-item', buttonName);
                 }
             });

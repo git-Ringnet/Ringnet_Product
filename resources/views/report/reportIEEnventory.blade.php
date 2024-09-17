@@ -325,7 +325,7 @@
                 sort: sort,
             },
             success: function(data) {
-                console.log(data);
+
                 updateFiltersReport(data, filters, '.result-filter-product', '.tbody-product',
                     '.product-info', '.id-product', buttonName);
             }

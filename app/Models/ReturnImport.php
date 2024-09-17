@@ -276,7 +276,7 @@ class ReturnImport extends Model
         }
         return $status;
     }
-    public function getSumReport()
+    public function getSumReport($data = null)
     {
         $sumReturnImport = ReturnImport::leftJoin('receive_bill', 'receive_bill.id', 'returnimport.receive_id')
             ->leftJoin('provides', 'provides.id', 'receive_bill.provide_id')
@@ -284,8 +284,9 @@ class ReturnImport extends Model
                 'receive_bill.*',
                 'returnimport.*',
                 'provides.provide_name_display as nameProvide',
-            )
-            ->get();
+            );
+        $sumReturnImport = filterByDate($data, $sumReturnImport, 'returnimport.created_at');
+        $sumReturnImport = $sumReturnImport->get();
         return $sumReturnImport;
     }
     public function ajax($data)

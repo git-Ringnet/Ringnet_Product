@@ -281,7 +281,7 @@ class ContentImportExport extends Model
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
             $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
-            $content = $content->whereBetween('content-import-export.created_at', [$dateStart, $dateEnd]);
+            $content = $content->whereBetween('content-import-export.payment_day', [$dateStart, $dateEnd]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $content = $content->orderBy($data['sort'][0], $data['sort'][1]);

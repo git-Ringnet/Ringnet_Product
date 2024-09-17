@@ -686,7 +686,7 @@
                 des: "Đính kèm file"
             },
             success: function(data) {
-                console.log(data);
+
             }
         })
         $('#formSubmit')[0].submit();

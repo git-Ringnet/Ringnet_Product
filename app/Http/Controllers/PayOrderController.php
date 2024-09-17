@@ -111,7 +111,8 @@ class PayOrderController extends Controller
         // $funds = Fund::all();
         $funds = Fund::where('workspace_id', Auth::user()->current_workspace)->get();
 
-        $guest = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+        $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
+        $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $content = ContentGroups::where('contenttype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
         // Lấy đơn trả hàng KH
         $returnExport = ReturnExport::where('workspace_id', Auth::user()->current_workspace)
@@ -131,7 +132,7 @@ class PayOrderController extends Controller
         //danh sách nhân viên
         $listUser = User::where('origin_workspace', Auth::user()->current_workspace)->get();
 
-        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'listUser', 'content', 'returnExport', 'getQuoteCount', 'listDetail'));
+        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'provides', 'listUser', 'content', 'returnExport', 'getQuoteCount', 'listDetail'));
     }
 
     /**

@@ -168,6 +168,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/searchCashRe', [CashReceiptController::class, 'search'])->name('searchCashRe');
     Route::get('/searchChangeFun', [ContentImportExportController::class, 'search'])->name('searchChangeFun');
     Route::get('/searchChangeWH', [ChangeWarehouseController::class, 'search'])->name('searchChangeWH');
+    Route::get('/searchCommission', [CommissionController::class, 'search'])->name('searchCommission');
     // Ajax report 
     Route::get('/searchDebtGuests', [ReportController::class, 'searchDebtGuests'])->name('searchDebtGuests');
     Route::get('/searchDebtProvides', [ReportController::class, 'searchDebtProvides'])->name('searchDebtProvides');

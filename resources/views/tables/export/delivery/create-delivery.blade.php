@@ -424,7 +424,8 @@
                             <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">
                                 Ghi chú
                             </span>
-                            <textarea name="note" style="flex: 5.5;" class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue" placeholder="Nhập thông tin">
+                            <textarea name="note" style="flex: 5.5;" class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue"
+                                placeholder="Nhập thông tin">
                             </textarea>
                         </div>
                     </div>
@@ -2926,7 +2927,7 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
-                    console.log(data);
+
                     // $('input[name="code_delivery"]').val(data.code_delivery);
                     $('.idRepresent').val(data.represent_id)
                     $('.numberQute').val(data.quotation_number)
@@ -3017,8 +3018,7 @@
                                     } catch (error) {
                                         console.error(error);
                                     }
-                                };
-                                console.log(data);
+                                };;
                                 var newRow = `
                                 <tr id="dynamic-row-${item.maSP}" class="bg-white addProduct">
                                     <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
@@ -4664,7 +4664,7 @@
                     idQuote: convert
                 },
                 success: function(data) {
-                    console.log(data);
+
                     // $('input[name="code_delivery"]').val(data.code_delivery);
                     $('.idRepresent').val(data.represent_id)
                     $('.numberQute').val(data.quotation_number)
@@ -4755,8 +4755,7 @@
                                     } catch (error) {
                                         console.error(error);
                                     }
-                                };
-                                console.log(data);
+                                };;
                                 var newRow = `
                                 <tr id="dynamic-row-${item.maSP}" class="bg-white addProduct">
                                     <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
@@ -4801,6 +4800,9 @@
                                         <p class="mt-3 text-13-blue inventory text-right mb-0 ${item.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(item.tonkho == null ? 0 : item.tonkho)}</span></p>
                                         </div>  
                                         </div>
+                                    </td>
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                        <input type="number" value="" class="border-0 px-2 text-right py-1 w-100 quantity-input height-32" autocomplete="off" name="promotion_qty[]">
                                     </td>
                                     <td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">
                                         <input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]"

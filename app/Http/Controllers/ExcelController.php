@@ -197,7 +197,8 @@ class ExcelController extends Controller
     public function exportDebtGuests(Request $request)
     {
         // Lấy dữ liệu khách hàng nợ và nhóm khách hàng
-        $debtGuests = (new \App\Models\Guest)->debtGuest(); // Thay thế bằng truy vấn thực tế của bạn
+        $debtGuests = (new \App\Models\Guest)->debtGuest($request->all()); // Thay thế bằng truy vấn thực tế của bạn
+        // dd($request->all());
         $groups = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
 
         // Tạo Collection để lưu trữ dữ liệu xuất ra Excel
@@ -283,7 +284,7 @@ class ExcelController extends Controller
     public function exportSalesReport(Request $request)
     {
         $productDelivered = (new \App\Models\QuoteExport())->sumProductsQuote();
-        $allDelivery = (new \App\Models\DetailExport())->getSumDetailE();
+        $allDelivery = (new \App\Models\DetailExport())->getSumDetailE($request->all());
         $groupGuests = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
         $guests = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
 
@@ -417,8 +418,9 @@ class ExcelController extends Controller
                 'provides.provide_name_display as nameProvide',
                 'detailimport.total_price as totalProductVat',
             )
-            ->where('detailimport.workspace_id', Auth::user()->current_workspace)
-            ->get();
+            ->where('detailimport.workspace_id', Auth::user()->current_workspace);
+        $allImport = filterByDate($request->all(), $allImport, 'detailimport.created_at');
+        $allImport = $allImport->get();
         $groupProvides = Groups::where('grouptype_id', 3)->where('workspace_id', Auth::user()->current_workspace)->get();
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
 
@@ -541,7 +543,7 @@ class ExcelController extends Controller
     public function exportReportDelivery(Request $request)
     {
         // Lấy sản phẩm trong đơn đó
-        $sumDelivery = (new \App\Models\Delivery())->getSumDelivery();
+        $sumDelivery = (new \App\Models\Delivery())->getSumDelivery($request->all());
 
         // Chuẩn bị dữ liệu tương tự như trong view
         $collection = collect();
@@ -569,32 +571,51 @@ class ExcelController extends Controller
 
     public function exportReportReturnE(Request $request)
     {
-        // Lấy dữ liệu cần thiết
+        // Lấy dữ liệu từ model ProductReturnExport và ReturnExport
         $sumReturnExport = (new \App\Models\ProductReturnExport())->sumReturnExport();
-        $allReturn = (new \App\Models\ReturnExport())->getSumReport();
+        $allReturn = (new \App\Models\ReturnExport())->getSumReport($request->all());
 
-        // Chuẩn bị dữ liệu tương tự như trong view
+        // Chuẩn bị collection để lưu dữ liệu cho từng hàng trong bảng Excel
         $collection = collect();
 
-        foreach ($sumReturnExport as $item) {
-            // Lưu trữ dữ liệu cho từng hàng của bảng
-            $collection->push([
-                'Ngày' => $item->ngayTao,
-                'Mã phiếu' => $item->maPhieu,
-                'Tên khách hàng' => $item->nameGuest,
-                'Tên hàng hoá' => $item->nameProduct,
-                'ĐVT' => $item->unitProduct,
-                'Số lượng' => $item->qtyReturn,
-                'Đơn giá' => number_format($item->priceProduct),
-                'Thành tiền' => number_format($item->product_total),
-                'Tổng cộng' => number_format($item->total_return),
-                'Thanh toán' => number_format($item->payment),
-                'Còn lại' => number_format($item->total_return - $item->payment),
-                'Ghi chú' => $item->description,
-                'Trạng thái giao' => $item->status == 1 ? 'Nháp' : 'Đã giao',
-            ]);
+        foreach ($allReturn as $itemReturn) {
+            // Lấy tất cả các item liên quan đến từng phiếu trả hàng
+            $matchedItems = $sumReturnExport->where('idReturn', $itemReturn->id);
+
+            // Kiểm tra nếu có item trùng khớp
+            if ($matchedItems->isNotEmpty()) {
+                $isFirstRow = true; // Biến này dùng để kiểm tra nếu là dòng đầu tiên của một nhóm
+
+                foreach ($matchedItems as $item) {
+                    // Tính toán các giá trị cần thiết
+                    $totalReturn = $itemReturn->total_return ?? 0; // Tổng cộng
+                    $payment = $itemReturn->payment ?? 0;          // Thanh toán
+                    $remaining = $totalReturn - $payment;          // Còn lại
+
+                    // Lưu trữ dữ liệu cho từng hàng trong bảng
+                    $collection->push([
+                        'Ngày' => $isFirstRow ? $itemReturn->created_at : '', // Chỉ điền ở hàng đầu tiên
+                        'Mã phiếu' => $isFirstRow ? $itemReturn->code_return : '',
+                        'Tên khách hàng' => $isFirstRow ? $itemReturn->nameGuest : '',
+                        'Tên hàng hoá' => $item->nameProduct,
+                        'ĐVT' => $item->unitProduct,
+                        'Số lượng' => $item->qtyReturn,
+                        'Đơn giá' => number_format($item->priceProduct),
+                        'Thành tiền' => number_format($item->product_total),
+                        'Tổng cộng' => $isFirstRow ? number_format($totalReturn) : '', // Chỉ điền ở hàng đầu tiên
+                        'Thanh toán' => $isFirstRow ? number_format($payment) : '',
+                        'Còn lại' => $isFirstRow ? number_format($remaining) : '',
+                        'Ghi chú' => $isFirstRow ? $itemReturn->description : '',
+                        'Trạng thái giao' => $isFirstRow ? ($itemReturn->status == 1 ? 'Nháp' : 'Đã giao') : '',
+                    ]);
+
+                    // Sau dòng đầu tiên, chuyển biến $isFirstRow thành false để không điền lại các cột phiếu
+                    $isFirstRow = false;
+                }
+            }
         }
 
+        // Định nghĩa các cột trong Excel
         $headings = [
             'Ngày',
             'Mã phiếu',
@@ -611,6 +632,7 @@ class ExcelController extends Controller
             'Trạng thái giao',
         ];
 
+        // Xuất dữ liệu ra file Excel
         return Excel::download(new SalesReportExport($collection, $headings), 'returnE.xlsx');
     }
 
@@ -618,7 +640,7 @@ class ExcelController extends Controller
     public function exportSellProfit(Request $request)
     {
         // Get all sales data
-        $allDeliveries = (new \App\Models\DetailExport())->allProductsSell();
+        $allDeliveries = (new \App\Models\DetailExport())->allProductsSell($request->all());
 
         // Get product groups by type
         $groups = Groups::where('grouptype_id', 4)
@@ -631,11 +653,19 @@ class ExcelController extends Controller
         // Initialize totals for ungrouped items
         $totalUngrouped = [
             'totalSlXuat' => 0,
+            'totalImport' => 0,
             'totalPriceImport' => 0,
             'totalPriceExport' => 0,
             'totalProductTotalVat' => 0,
             'totalProfit' => 0,
-            'totalGiaNhap' => 0,  // Accumulate total value
+        ];
+        $grandTotal = [
+            'totalSlXuat' => 0,
+            'totalImport' => 0,
+            'totalPriceImport' => 0,
+            'totalPriceExport' => 0,
+            'totalProductTotalVat' => 0,
+            'totalProfit' => 0,
         ];
 
         // Add header for ungrouped items
@@ -674,11 +704,11 @@ class ExcelController extends Controller
 
                 // Accumulate ungrouped totals
                 $totalUngrouped['totalSlXuat'] += $slxuat;
+                $totalUngrouped['totalImport'] += $giaNhap;
                 $totalUngrouped['totalPriceImport'] += $slxuat * $giaNhap;
                 $totalUngrouped['totalPriceExport'] += $priceExport;
                 $totalUngrouped['totalProductTotalVat'] += $productTotalVat;
                 $totalUngrouped['totalProfit'] += $productTotalVat - ($slxuat * $giaNhap);
-                $totalUngrouped['totalGiaNhap'] += ($giaNhap * $slxuat);  // Accumulate total value
             }
         }
 
@@ -689,12 +719,16 @@ class ExcelController extends Controller
             'Tên hàng' => '',
             'ĐVT' => '',
             'Số lượng bán' => number_format($totalUngrouped['totalSlXuat']),
-            'Đơn giá vốn' => number_format($totalUngrouped['totalPriceImport'] / max($totalUngrouped['totalSlXuat'], 1)), // Average unit cost
+            'Đơn giá vốn' => number_format($totalUngrouped['totalImport']),
             'Giá trị vốn' => number_format($totalUngrouped['totalPriceImport']),
             'Giá xuất' => number_format($totalUngrouped['totalPriceExport']),
             'Doanh số' => number_format($totalUngrouped['totalProductTotalVat']),
             'Chênh lệch' => number_format($totalUngrouped['totalProfit']),
         ]);
+        // Accumulate ungrouped totals into grand total
+        foreach ($totalUngrouped as $key => $value) {
+            $grandTotal[$key] += $value;
+        }
 
         // Process grouped items
         foreach ($groups as $group) {
@@ -713,11 +747,11 @@ class ExcelController extends Controller
 
             $totalGrouped = [
                 'totalSlXuat' => 0,
+                'totalImport' => 0,
                 'totalPriceImport' => 0,
                 'totalPriceExport' => 0,
                 'totalProductTotalVat' => 0,
                 'totalProfit' => 0,
-                'totalGiaNhap' => 0,  // Accumulate total value
             ];
 
             foreach ($allDeliveries as $item) {
@@ -742,11 +776,11 @@ class ExcelController extends Controller
 
                     // Accumulate group totals
                     $totalGrouped['totalSlXuat'] += $slxuat;
+                    $totalGrouped['totalImport'] += $giaNhap;
                     $totalGrouped['totalPriceImport'] += $slxuat * $giaNhap;
                     $totalGrouped['totalPriceExport'] += $priceExport;
                     $totalGrouped['totalProductTotalVat'] += $productTotalVat;
                     $totalGrouped['totalProfit'] += $productTotalVat - ($slxuat * $giaNhap);
-                    $totalGrouped['totalGiaNhap'] += ($giaNhap * $slxuat);  // Accumulate total value
                 }
             }
 
@@ -757,12 +791,15 @@ class ExcelController extends Controller
                 'Tên hàng' => '',
                 'ĐVT' => '',
                 'Số lượng bán' => number_format($totalGrouped['totalSlXuat']),
-                'Đơn giá vốn' => number_format($totalGrouped['totalPriceImport'] / max($totalGrouped['totalSlXuat'], 1)), // Average unit cost
+                'Đơn giá vốn' => number_format($totalGrouped['totalImport']), // Average unit cost
                 'Giá trị vốn' => number_format($totalGrouped['totalPriceImport']),
                 'Giá xuất' => number_format($totalGrouped['totalPriceExport']),
                 'Doanh số' => number_format($totalGrouped['totalProductTotalVat']),
                 'Chênh lệch' => number_format($totalGrouped['totalProfit']),
             ]);
+        }
+        foreach ($totalGrouped as $key => $value) {
+            $grandTotal[$key] += $value;
         }
 
         // Add grand totals
@@ -771,12 +808,12 @@ class ExcelController extends Controller
             'Mã hàng' => '',
             'Tên hàng' => '',
             'ĐVT' => '',
-            'Số lượng bán' => number_format($totalUngrouped['totalSlXuat']),
-            'Đơn giá vốn' => number_format($totalUngrouped['totalPriceImport'] / max($totalUngrouped['totalSlXuat'], 1)), // Average unit cost
-            'Giá trị vốn' => number_format($totalUngrouped['totalPriceImport']),
-            'Giá xuất' => number_format($totalUngrouped['totalPriceExport']),
-            'Doanh số' => number_format($totalUngrouped['totalProductTotalVat']),
-            'Chênh lệch' => number_format($totalUngrouped['totalProfit']),
+            'Số lượng bán' => number_format($grandTotal['totalSlXuat']),
+            'Đơn giá vốn' => number_format($grandTotal['totalImport']), // Average unit cost
+            'Giá trị vốn' => number_format($grandTotal['totalPriceImport']),
+            'Giá xuất' => number_format($grandTotal['totalPriceExport']),
+            'Doanh số' => number_format($grandTotal['totalProductTotalVat']),
+            'Chênh lệch' => number_format($grandTotal['totalProfit']),
         ]);
 
         $headings = [
@@ -794,11 +831,12 @@ class ExcelController extends Controller
 
         return Excel::download(new SalesReportExport($collection, $headings), 'sales_report.xlsx');
     }
+
     // Xuất excel lợi nhuận bán hàng khách hàng
     public function exportSellProfitGuest(Request $request)
     {
         // Get all sales data
-        $allDeliveries = (new \App\Models\DetailExport())->allProductsSell();
+        $allDeliveries = (new \App\Models\DetailExport())->allProductsSell($request->all());
 
         // Get customer groups
         $groupGuests = Groups::where('grouptype_id', 2)
@@ -868,7 +906,7 @@ class ExcelController extends Controller
                 $totalUngrouped['totalPriceExport'] += $priceExport;
                 $totalUngrouped['totalProductTotalVat'] += $productTotalVat;
                 $totalUngrouped['totalProfit'] += $productTotalVat - ($slxuat * $giaNhap);
-                $totalUngrouped['totalGiaNhap'] += ($giaNhap * $slxuat);
+                $totalUngrouped['totalGiaNhap'] += ($giaNhap);
 
                 // Accumulate grand totals
                 $grandTotal['totalSlXuat'] += $slxuat;
@@ -876,7 +914,7 @@ class ExcelController extends Controller
                 $grandTotal['totalPriceExport'] += $priceExport;
                 $grandTotal['totalProductTotalVat'] += $productTotalVat;
                 $grandTotal['totalProfit'] += $productTotalVat - ($slxuat * $giaNhap);
-                $grandTotal['totalGiaNhap'] += ($giaNhap * $slxuat);
+                $grandTotal['totalGiaNhap'] += ($giaNhap);
             }
         }
 
@@ -887,7 +925,7 @@ class ExcelController extends Controller
             'Tên hàng' => '',
             'ĐVT' => '',
             'Số lượng bán' => number_format($totalUngrouped['totalSlXuat']),
-            'Đơn giá vốn' => number_format($totalUngrouped['totalPriceImport'] / max($totalUngrouped['totalSlXuat'], 1)),
+            'Đơn giá vốn' => number_format($totalUngrouped['totalGiaNhap']),
             'Giá trị vốn' => number_format($totalUngrouped['totalPriceImport']),
             'Giá xuất' => number_format($totalUngrouped['totalPriceExport']),
             'Doanh số' => number_format($totalUngrouped['totalProductTotalVat']),
@@ -944,7 +982,7 @@ class ExcelController extends Controller
                     $totalGrouped['totalPriceExport'] += $priceExport;
                     $totalGrouped['totalProductTotalVat'] += $productTotalVat;
                     $totalGrouped['totalProfit'] += $productTotalVat - ($slxuat * $giaNhap);
-                    $totalGrouped['totalGiaNhap'] += ($giaNhap * $slxuat);
+                    $totalGrouped['totalGiaNhap'] += ($giaNhap);
 
                     // Accumulate grand totals
                     $grandTotal['totalSlXuat'] += $slxuat;
@@ -952,7 +990,7 @@ class ExcelController extends Controller
                     $grandTotal['totalPriceExport'] += $priceExport;
                     $grandTotal['totalProductTotalVat'] += $productTotalVat;
                     $grandTotal['totalProfit'] += $productTotalVat - ($slxuat * $giaNhap);
-                    $grandTotal['totalGiaNhap'] += ($giaNhap * $slxuat);
+                    $grandTotal['totalGiaNhap'] += ($giaNhap);
                 }
             }
 
@@ -963,7 +1001,7 @@ class ExcelController extends Controller
                 'Tên hàng' => '',
                 'ĐVT' => '',
                 'Số lượng bán' => number_format($totalGrouped['totalSlXuat']),
-                'Đơn giá vốn' => number_format($totalGrouped['totalPriceImport'] / max($totalGrouped['totalSlXuat'], 1)),
+                'Đơn giá vốn' => number_format($totalGrouped['totalGiaNhap']),
                 'Giá trị vốn' => number_format($totalGrouped['totalPriceImport']),
                 'Giá xuất' => number_format($totalGrouped['totalPriceExport']),
                 'Doanh số' => number_format($totalGrouped['totalProductTotalVat']),
@@ -978,7 +1016,7 @@ class ExcelController extends Controller
             'Tên hàng' => '',
             'ĐVT' => '',
             'Số lượng bán' => number_format($grandTotal['totalSlXuat']),
-            'Đơn giá vốn' => number_format($grandTotal['totalPriceImport'] / max($grandTotal['totalSlXuat'], 1)),
+            'Đơn giá vốn' => number_format($grandTotal['totalGiaNhap']),
             'Giá trị vốn' => number_format($grandTotal['totalPriceImport']),
             'Giá xuất' => number_format($grandTotal['totalPriceExport']),
             'Doanh số' => number_format($grandTotal['totalProductTotalVat']),
@@ -1003,7 +1041,9 @@ class ExcelController extends Controller
     // Xuất excel Công nợ nhà cung cấp
     public function exportDebtProvides(Request $request)
     {
-        $provide = Provides::with(['getAllDetailByID.getAllReceiveBill.getReturnImport.getAllCashReciept', 'getAllDetailByID.getPayOrders'])->get();
+        $provide = Provides::with(['getAllDetailByID.getAllReceiveBill.getReturnImport.getAllCashReciept', 'getAllDetailByID.getPayOrders']);
+        // $provide = filterByDate($request->all(), $provide, 'detailexport.created_at');
+        $provide = $provide->get();
 
         $collection = collect();
         foreach ($provide as $item) {
@@ -1057,37 +1097,45 @@ class ExcelController extends Controller
     // Trả hàng NCC
     public function exportReportReturnI(Request $request)
     {
-        // Collect all data for export
+        // Lấy dữ liệu từ model ReturnProduct và ReturnImport
         $sumReturnImport = (new \App\Models\ReturnProduct())->sumReturnImport();
-        $allReturn = (new \App\Models\ReturnImport())->getSumReport();
+        $allReturn = (new \App\Models\ReturnImport())->getSumReport($request->all());
 
-        // Initialize collection for Excel export
+        // Khởi tạo collection để lưu dữ liệu xuất Excel
         $collection = collect();
 
         foreach ($allReturn as $itemReturn) {
+            // Lấy các sản phẩm liên quan đến từng phiếu nhập
             $matchedItems = $sumReturnImport->where('idReturn', $itemReturn->id);
-            $count = count($matchedItems);
 
-            foreach ($matchedItems as $index => $item) {
-                $collection->push([
-                    'Ngày' => $index === 0 ? $itemReturn->created_at : '',
-                    'Số phiếu' => $index === 0 ? $itemReturn->return_code : '',
-                    'Tên nhà cung cấp' => $index === 0 ? $itemReturn->nameProvide : '',
-                    'Tên hàng hóa' => $item->nameProduct,
-                    'ĐVT' => $item->unitProduct,
-                    'Số lượng' => number_format($item->qtyReturn),
-                    'Đơn giá' => number_format($item->priceProduct),
-                    'Thành tiền' => number_format($item->qtyReturn * $item->priceProduct),
-                    'Tổng cộng' => $index === 0 ? number_format($itemReturn->total) : '',
-                    'Thanh toán' => $index === 0 ? number_format($itemReturn->payment) : '',
-                    'Còn lại' => $index === 0 ? number_format($itemReturn->total - $itemReturn->payment) : '',
-                    'Ghi chú' => $index === 0 ? $itemReturn->description : '',
-                    'Trạng thái' => $index === 0 ? ($itemReturn->status == 1 ? 'Nháp' : 'Đã giao') : '',
-                ]);
+            // Kiểm tra số lượng mặt hàng
+            if ($matchedItems->isNotEmpty()) {
+                $isFirstRow = true; // Cờ để đảm bảo chỉ điền thông tin phiếu một lần
+
+                foreach ($matchedItems as $item) {
+                    $collection->push([
+                        'Ngày' => $isFirstRow ? $itemReturn->created_at : '', // Chỉ điền ở dòng đầu tiên
+                        'Số phiếu' => $isFirstRow ? $itemReturn->return_code : '',
+                        'Tên nhà cung cấp' => $isFirstRow ? $itemReturn->nameProvide : '',
+                        'Tên hàng hóa' => $item->nameProduct,
+                        'ĐVT' => $item->unitProduct,
+                        'Số lượng' => number_format($item->qtyReturn),
+                        'Đơn giá' => number_format($item->priceProduct),
+                        'Thành tiền' => number_format($item->qtyReturn * $item->priceProduct),
+                        'Tổng cộng' => $isFirstRow ? number_format($itemReturn->total) : '', // Chỉ điền ở dòng đầu tiên
+                        'Thanh toán' => $isFirstRow ? number_format($itemReturn->payment) : '',
+                        'Còn lại' => $isFirstRow ? number_format($itemReturn->total - $itemReturn->payment) : '',
+                        'Ghi chú' => $isFirstRow ? $itemReturn->description : '',
+                        'Trạng thái' => $isFirstRow ? ($itemReturn->status == 1 ? 'Nháp' : 'Đã giao') : '',
+                    ]);
+
+                    // Sau dòng đầu tiên, tắt cờ $isFirstRow để không điền lại thông tin phiếu
+                    $isFirstRow = false;
+                }
             }
         }
 
-        // Define the headings
+        // Định nghĩa tiêu đề các cột trong Excel
         $headings = [
             'Ngày',
             'Số phiếu',
@@ -1104,9 +1152,10 @@ class ExcelController extends Controller
             'Trạng thái'
         ];
 
-        // Export Excel file
+        // Xuất file Excel
         return Excel::download(new DebtGuestsExport($collection, $headings), 'return_import.xlsx');
     }
+
     // Tổng hợp nội dung thu chi THU
     public function exportReportIE(Request $request)
     {
@@ -1120,8 +1169,9 @@ class ExcelController extends Controller
         $contentExport = CashReceipt::whereIn('content_id', $listIDContent1)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->select('id', 'receipt_code', 'workspace_id', 'amount', 'date_created', 'content_id', 'guest_id', 'fund_id', 'note')
-            ->orderBy('content_id', 'asc')
-            ->get();
+            ->orderBy('content_id', 'asc');
+        $contentExport = filterByDate($request->all(), $contentExport, 'cash_receipts.date_created');
+        $contentExport = $contentExport->get();
 
         // Khởi tạo tập hợp dữ liệu cho xuất khẩu
         $collection = collect();
@@ -1178,7 +1228,7 @@ class ExcelController extends Controller
         ];
 
         // Xuất file Excel
-        return Excel::download(new DebtGuestsExport($collection, $headings), 'return_import.xlsx');
+        return Excel::download(new DebtGuestsExport($collection, $headings), 'baocao_thu.xlsx');
     }
 
     // Tổng hợp nội dung thu chi CHI
@@ -1194,8 +1244,9 @@ class ExcelController extends Controller
         $contentImport = PayOder::whereIn('content_pay', $listIDContent)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->select('id', 'payment_code', 'workspace_id', 'total', 'payment_date', 'content_pay', 'guest_id', 'fund_id', 'note')
-            ->orderBy('content_pay', 'asc')
-            ->get();
+            ->orderBy('content_pay', 'asc');
+        $contentImport = filterByDate($request->all(), $contentImport, 'pay_order.payment_date');
+        $contentImport = $contentImport->get();
 
         // Khởi tạo tập hợp dữ liệu cho xuất khẩu
         $collection = collect();
@@ -1252,15 +1303,16 @@ class ExcelController extends Controller
         ];
 
         // Xuất file Excel
-        return Excel::download(new DebtGuestsExport($collection, $headings), 'return_import.xlsx');
+        return Excel::download(new DebtGuestsExport($collection, $headings), 'baocao_chi.xlsx');
     }
     // Chuyển tiền nội bộ
     public function exportReportChangeFunds(Request $request)
     {
         // Lấy dữ liệu từ cơ sở dữ liệu
         $content = ContentImportExport::with(['getFromFund', 'getToFund', 'getUser']) // Bao gồm các quan hệ cần thiết
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->get();
+            ->where('workspace_id', Auth::user()->current_workspace);
+        $content = filterByDate($request->all(), $content, 'content-import-export.payment_day');
+        $content = $content->get();
 
         // Khởi tạo tập hợp dữ liệu cho xuất khẩu
         $collection = collect();
@@ -1338,11 +1390,14 @@ class ExcelController extends Controller
             $totalExport = 0;
             $total = 0;
 
-            // Duyệt qua các giao dịch mua hàng
-            if ($va->getPayOrder) {
-                foreach ($va->getPayOrder as $item) {
+            // Duyệt qua các giao dịch chi (PayOrder)
+            if ($va->getPayOrder()->exists()) {
+                // Áp dụng bộ lọc ngày lên mối quan hệ getPayOrder
+                $filteredPayOrders = filterByDate($request->all(), $va->getPayOrder(), 'pay_order.payment_date')->get();
+
+                foreach ($filteredPayOrders as $item) {
                     $collection->push([
-                        'Ngày' => date_format(new DateTime($item->created_at), 'd/m/Y'),
+                        'Ngày' => date_format(new DateTime($item->payment_date), 'd/m/Y'),
                         'Chứng từ' => $item->payment_code,
                         'Tên' => $item->getGuest ? $item->getGuest->guest_name_display : '',
                         'Nội dung thu chi' => $item->getContentPay ? $item->getContentPay->name : '',
@@ -1356,9 +1411,12 @@ class ExcelController extends Controller
                 }
             }
 
-            // Duyệt qua các giao dịch bán hàng
-            if ($va->getPayExport) {
-                foreach ($va->getPayExport as $item) {
+            // Duyệt qua các giao dịch thu (PayExport)
+            if ($va->getPayExport()->exists()) {
+                // Áp dụng bộ lọc ngày lên mối quan hệ getPayExport
+                $filteredPayExports = filterByDate($request->all(), $va->getPayExport(), 'pay_export.date_created')->get();
+
+                foreach ($filteredPayExports as $item) {
                     $collection->push([
                         'Ngày' => date_format(new DateTime($item->date_created), 'd/m/Y'),
                         'Chứng từ' => $item->receipt_code,
@@ -1416,6 +1474,7 @@ class ExcelController extends Controller
         // Xuất file Excel
         return Excel::download(new DebtGuestsExport($collection, $headings), 'funds_report.xlsx');
     }
+
 
     // Xuất nhập tồn kho
     public function exportReportEnventory(Request $request)

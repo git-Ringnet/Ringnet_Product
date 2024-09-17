@@ -1901,7 +1901,7 @@
                     provide_name: provide_name,
                 },
                 success: function(data) {
-                    console.log(data);
+
                     if (data.success) {
                         $('.btn.btn-secondary').click()
                         if (data.provide_id == $('#provides_id').val()) {

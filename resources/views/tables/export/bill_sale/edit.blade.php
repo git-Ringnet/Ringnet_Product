@@ -514,8 +514,8 @@
                     <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                         style="height:48px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số hóa đơn</span>
-                        <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2" required
-                            style="flex:2;" placeholder="Nhập thông tin" name="number_bill"
+                        <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
+                            required style="flex:2;" placeholder="Nhập thông tin" name="number_bill"
                             value="{{ $billSale->number_bill }}" />
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
@@ -817,7 +817,7 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
-                    console.log(data);
+
                     $("#delivery_id").val(data.maGiaoHang);
                     $('.numberQute').val(data.quotation_number)
                     $('.nameGuest').val(data.guest_name_display)

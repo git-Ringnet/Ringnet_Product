@@ -119,7 +119,8 @@
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" id="qty_money" name="qty_money"
                                     required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 price bg-input-guest-blue">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 price bg-input-guest-blue"
+                                    autocomplete="off">
                             </div>
 
                             <div class="d-flex align-items-center height-60-mobile">
@@ -153,8 +154,9 @@
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Ghi chú</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" name="notes" required
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 note bg-input-guest-blue">
+                                <input type="text" placeholder="Nhập thông tin" name="notes"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 note bg-input-guest-blue"
+                                    autocomplete="off">
                             </div>
                         </div>
                     </div>

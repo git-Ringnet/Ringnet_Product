@@ -423,30 +423,35 @@ class Guest extends Model
         $guests = $guests->pluck('guest_name_display')->all();
         return $guests;
     }
-    public function debtGuest()
+    public function debtGuest($data = null)
     {
         $guests = Guest::leftJoin('delivery', 'guest.id', '=', 'delivery.guest_id')
-            ->leftJoin('detailexport', 'detailexport.guest_id', '=', 'guest.id')
+            ->leftJoin('detailexport', function ($join) use ($data) {
+                $join->on('detailexport.guest_id', '=', 'guest.id');
+                // Áp dụng filterByDate chỉ cho detailexport
+                $join = filterByDate($data, $join, 'detailexport.created_at');
+            })
             ->leftJoin('return_export', 'delivery.id', '=', 'return_export.delivery_id')
             ->leftJoin('cash_receipts', 'delivery.id', '=', 'cash_receipts.delivery_id')
             ->leftJoin('pay_order', 'return_export.id', '=', 'pay_order.return_id')
-            ->where('guest.workspace_id', Auth::user()->current_workspace)
-            ->select(
-                'guest.id as id',
-                'guest.key as maKhach',
-                'guest.group_id as group_id',
-                'guest.guest_name_display as tenKhach',
-                DB::raw('SUM(detailexport.total_price + detailexport.total_tax) as totalProductVat'), // Tổng tiền đã bán
-                DB::raw('(SELECT SUM(totalVat) FROM delivery WHERE guest_id = guest.id AND status = 2) as totalDelivery'), // Tổng tiền đơn hàng đã tính đã trả
-                DB::raw('(SELECT SUM(amount) FROM cash_receipts WHERE guest_id = guest.id AND status = 2) as totalCashReciept'), // Tổng tiền đã trả đơn hàng
-                DB::raw('(SELECT SUM(total_return) FROM return_export WHERE guest_id = guest.id AND status = 2) as totalReturn'), // Tổng tiền phải trả cho khách khi trả hàng
-                DB::raw('(SELECT SUM(payment) FROM return_export WHERE guest_id = guest.id AND status = 2) as daTraKH'), // Tổng tiền đã trả cho khách khi trả hàng
-                DB::raw('(SELECT SUM(payment) FROM pay_order WHERE guest_id = guest.id) as chiKH'), // Tiền chi
-            )
-            ->groupBy('guest.id', 'guest.key', 'guest.guest_name', 'group_id', 'guest.guest_name_display')
-            ->get();
+            ->where('guest.workspace_id', Auth::user()->current_workspace);
 
-        return $guests;
+        $guests = $guests->select(
+            'guest.id as id',
+            'guest.key as maKhach',
+            'guest.group_id as group_id',
+            'guest.guest_name_display as tenKhach',
+            // Sử dụng subquery để tính tổng tiền đã bán
+            DB::raw('(SELECT COALESCE(SUM(total_price + total_tax), 0) FROM detailexport WHERE guest_id = guest.id AND ' . filterByDateCondition($data, 'detailexport.created_at') . ') as totalProductVat'),
+            DB::raw('(SELECT SUM(totalVat) FROM delivery WHERE guest_id = guest.id AND status = 2) as totalDelivery'), // Tổng tiền đơn hàng đã tính đã trả
+            DB::raw('(SELECT SUM(amount) FROM cash_receipts WHERE guest_id = guest.id AND status = 2) as totalCashReciept'), // Tổng tiền đã trả đơn hàng
+            DB::raw('(SELECT SUM(total_return) FROM return_export WHERE guest_id = guest.id AND status = 2) as totalReturn'), // Tổng tiền phải trả cho khách khi trả hàng
+            DB::raw('(SELECT SUM(payment) FROM return_export WHERE guest_id = guest.id AND status = 2) as daTraKH'), // Tổng tiền đã trả cho khách khi trả hàng
+            DB::raw('(SELECT SUM(payment) FROM pay_order WHERE guest_id = guest.id) as chiKH') // Tiền chi
+        )
+            ->groupBy('guest.id', 'guest.key', 'guest.guest_name', 'group_id', 'guest.guest_name_display');
+
+        return $guests->get();
     }
 
     public function ajaxReportDebtGuest($data)

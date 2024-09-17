@@ -1281,7 +1281,7 @@
                     'product_id': product_id,
                 },
                 success: function(data) {
-                    console.log(data);
+
                     data.serinumber.forEach(function(item, index) {
                         var newRow = $('<tr></tr>');
                         var numberCell = $('<td></td>').text(index + 1)

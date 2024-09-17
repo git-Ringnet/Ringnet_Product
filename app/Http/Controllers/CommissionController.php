@@ -145,4 +145,22 @@ class CommissionController extends Controller
 
         return response()->json(['success' => true, 'data' => $record]);
     }
+    public function search(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $result = $this->detailExport->ajax($data);
+            return response()->json([
+                'data' => $result,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
 }

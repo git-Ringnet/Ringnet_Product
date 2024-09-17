@@ -101,7 +101,8 @@
                                         <th class="border-right border-bottom px-2 p-0 text-13" style="width: 7%;">
                                             <span class="text-table text-secondary">Đơn vị</span>
                                         </th>
-                                        <th class="border-right border-bottom px-2 p-0 text-right text-13" style="width: 10%;">
+                                        <th class="border-right border-bottom px-2 p-0 text-right text-13"
+                                            style="width: 10%;">
                                             <span class="text-table text-secondary">Số lượng</span>
                                         </th>
                                         <th class="border-right border-bottom px-2 p-0 text-right text-13"
@@ -116,7 +117,8 @@
                                             style="width: 12%;">
                                             <span class="text-table text-secondary">Thành tiền</span>
                                         </th>
-                                        <th class="border-right border-bottom note px-2 p-0 text-13" style="width: 10%;">
+                                        <th class="border-right border-bottom note px-2 p-0 text-13"
+                                            style="width: 10%;">
                                             <span class="text-table text-secondary">Ghi chú</span>
                                         </th>
                                         <th class="border-bottom"></th>
@@ -315,7 +317,7 @@
                 product_name: nameProduct,
             },
             success: function(data) {
-                console.log(data);
+
                 $('#recentModal .modal-body tbody').empty()
                 if (data['history']) {
                     data['history'].forEach(
@@ -325,8 +327,10 @@
                                     <td class="text-13-black border-bottom">` + element.product_name + `</td>
                                     <td class="text-13-black border-bottom">` + element.nameProvide + `</td>
                                     <td class="text-13-black border-bottom">` + formatCurrency(element.price_export) + `</td>
-                                    <td class="text-13-black border-bottom">` + (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") + `</td>
-                                    <td class="text-13-black border-bottom">` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                                    <td class="text-13-black border-bottom">` + (element.product_tax == 99 ? "NOVAT" :
+                                    element.product_tax + "%") + `</td>
+                                    <td class="text-13-black border-bottom">` + new Date(element.created_at)
+                                .toLocaleDateString('vi-VN'); + `</td>
                                 </tr> `;
                             $('#recentModal .modal-body tbody').append(tr);
                         })
@@ -371,7 +375,7 @@
                     table: table
                 },
                 success: function(data) {
-                    // console.log(data);
+                    // ;
                     $('#myInput').val(data.quotation_number == null ? data.id :
                         data
                         .quotation_number);

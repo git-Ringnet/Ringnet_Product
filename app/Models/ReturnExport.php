@@ -406,7 +406,7 @@ class ReturnExport extends Model
             return false;
         }
     }
-    public function getSumReport()
+    public function getSumReport($data = null)
     {
         $sumReturnExport = ReturnExport::leftJoin('delivery', 'delivery.id', 'return_export.delivery_id')
             ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
@@ -433,8 +433,9 @@ class ReturnExport extends Model
                         LEFT JOIN products ON delivered.product_id = products.id
                         WHERE delivered.delivery_id = delivery.id
                     ) as totalProductVat'),
-            )
-            ->get();
+            );
+        $sumReturnExport = filterByDate($data, $sumReturnExport, 'return_export.created_at');
+        $sumReturnExport = $sumReturnExport->get();
         return $sumReturnExport;
     }
     public function ajax($data)

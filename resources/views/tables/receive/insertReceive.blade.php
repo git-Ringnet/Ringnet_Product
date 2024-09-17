@@ -177,7 +177,8 @@
                                 name="received_date">
                         </div>
                         {{-- Nhà cung cấp --}}
-                        <div class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                        <div
+                            class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
                             <span class="mx-1 text-13" style="flex: 2;">
                                 <input type="text" placeholder="Chọn thông tin"
@@ -253,8 +254,7 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập</span>
-                            <input type="text" placeholder="Chọn thông tin"
-                                value="{{ Auth::user()->name }}"
+                            <input type="text" placeholder="Chọn thông tin" value="{{ Auth::user()->name }}"
                                 class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" readonly
                                 style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
                         </div>
@@ -672,7 +672,7 @@
                                                 </td>
                                                 <td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">
                                                     <input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]"
-                                                    value="" readonly>
+                                                    value="" readonly autocomplete="off">
                                                     <input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]" value="">
                                                     <div id="listWareH" class="bg-white position-absolute rounded shadow p-1 z-index-block" style="z-index: 99;">
                                                     <ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse" style="display:none;">
@@ -785,7 +785,7 @@
                     table: table
                 },
                 success: function(data) {
-                    console.log(data);
+
                     var promotionAll = JSON.parse(
                         data.detail.promotion);
                     // $('input[name^="delivery_code"]').val(data.resultNumber)
@@ -921,7 +921,7 @@
                                                 </td>
                                                 <td class="border-right note p-2 align-top border-bottom border-top-0 position-relative">
                                                     <input id="searchWarehouse" type="text" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black searchWarehouse" name="warehouse[]"
-                                                    value="" >
+                                                    value="" autocomplete="off">
                                                     <input type="hidden" placeholder="Chọn kho" class="border-0 py-1 w-100 height-32 text-13-black warehouse_id" name="warehouse_id[]" value="">
                                                     <div id="listWareH" class="bg-white position-absolute rounded shadow p-1 z-index-block" style="z-index: 99;">
                                                     <ul class="m-0 p-0 scroll-data listWarehouse" id="listWarehouse" style="display:none;">

@@ -333,13 +333,15 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
-                            <input name="guestName" value="{{ $detailExport->guest_name }}" placeholder="Nhập thông tin"
+                            <input name="guestName" value="{{ $detailExport->guest_name }}"
+                                placeholder="Nhập thông tin"
                                 class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue"style="flex:2;" />
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ giao hàng</span>
-                            <input name="address_delivery" value="{{ $detailExport->address_delivery }}" placeholder="Nhập thông tin"
+                            <input name="address_delivery" value="{{ $detailExport->address_delivery }}"
+                                placeholder="Nhập thông tin"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                         </div>
 
@@ -349,13 +351,14 @@
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số phiếu</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
-                                placeholder="Nhập thông tin" style="flex:2;" 
+                                placeholder="Nhập thông tin" style="flex:2;"
                                 value="{{ $detailExport->reference_number }}" name="reference_number" />
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span> 
-                            <input name="address_guest" value="{{ $detailExport->address_guest }}" placeholder="Nhập thông tin"
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
+                            <input name="address_guest" value="{{ $detailExport->address_guest }}"
+                                placeholder="Nhập thông tin"
                                 class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue"style="flex:2;" />
                         </div>
                         <div
@@ -389,7 +392,8 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT người nhận hàng</span>
-                            <input name="phone_receive" value="{{ $detailExport->phone_receive }}" type="number" placeholder="Nhập thông tin"
+                            <input name="phone_receive" value="{{ $detailExport->phone_receive }}" type="number"
+                                placeholder="Nhập thông tin"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                         </div>
                     </div>
@@ -411,7 +415,8 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nhận hàng</span>
-                            <input name="receiver" value="{{ $detailExport->receiver }}" placeholder="Nhập thông tin"
+                            <input name="receiver" value="{{ $detailExport->receiver }}"
+                                placeholder="Nhập thông tin"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"style="flex:2;" />
                         </div>
                         <div
@@ -1033,8 +1038,7 @@
                             <tr>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id"
-                                            data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Tên sản phẩm
                                             </button>
@@ -1044,8 +1048,7 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id"
-                                            data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Khách hàng
                                             </button>
@@ -1055,8 +1058,7 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id"
-                                            data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Giá bán
                                             </button>
@@ -1066,8 +1068,7 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id"
-                                            data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Thuế
                                             </button>
@@ -1077,8 +1078,7 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id"
-                                            data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Ngày bán
                                             </button>
@@ -1865,7 +1865,7 @@
                         des: des,
                     },
                     success: function(data) {
-                        console.log(data);
+
                     }
                 });
             });

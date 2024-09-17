@@ -24,6 +24,7 @@
                         <form id="exportFormChi" action="{{ route('exportReportIEChi') }}" method="GET"
                             style="display: none;">
                             @csrf
+                            <input class="datavalue_chi" type="hidden" name="data[]">
                         </form>
 
                         <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
@@ -47,6 +48,7 @@
                         <form id="exportForm" action="{{ route('exportReportIE') }}" method="GET"
                             style="display: none;">
                             @csrf
+                            <input class="datavalue_thu" type="hidden" name="data[]">
                         </form>
 
                         <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
@@ -78,7 +80,7 @@
                                         </div>
                                     </form>
                                     <div class="dropdown mx-1">
-                                        <button class="filter-btn ml-2 align-items-center d-flex  mb-0"
+                                        <button class="filter-btn ml-2 align-items-center d-flex border mb-0"
                                             data-toggle="dropdown">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 16 16" fill="none">
@@ -164,7 +166,7 @@
                                         </div>
                                     </form>
                                     <div class="dropdown mx-1">
-                                        <button class="filter-btn ml-2 align-items-center d-flex  mb-0"
+                                        <button class="filter-btn ml-2 align-items-center d-flex border mb-0"
                                             data-toggle="dropdown">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 16 16" fill="none">
@@ -635,10 +637,24 @@
         var date_start_thu = $('#date_start_date-thu').val();
         var date_end_thu = $('#date_end_date-thu').val();
         var date_thu = [date_start_thu, date_end_thu];
+        var dataArrayThu = [{
+            key: 'date',
+            value: date_thu
+        }, ];
+
+        // Chuyển đổi mảng thành chuỗi JSON và lưu vào input hidden
+        $('.datavalue_thu').val(JSON.stringify(dataArrayThu));
 
         var date_start_chi = $('#date_start_date-chi').val();
         var date_end_chi = $('#date_end_date-chi').val();
         var date_chi = [date_start_chi, date_end_chi];
+        var dataArrayChi = [{
+            key: 'date',
+            value: date_chi
+        }, ];
+
+        // Chuyển đổi mảng thành chuỗi JSON và lưu vào input hidden
+        $('.datavalue_chi').val(JSON.stringify(dataArrayChi));
         var sort_by = '';
         if (typeof $(this).data('sort-by') !== 'undefined') {
             sort_by = $(this).data('sort-by');
@@ -660,11 +676,15 @@
             date_thu = null;
             $('#date_start_date-thu').val('');
             $('#date_end_date-thu').val('');
+            $('.datavalue_thu').val('');
+
         }
         if ($(this).data('delete') === 'date_chi') {
             date_chi = null;
             $('#date_start_date-chi').val('');
             $('#date_end_date-chi').val('');
+            $('.datavalue_chi').val('');
+
         }
 
         if (buttonName == 'thu') {
@@ -677,8 +697,8 @@
                     sort: sort,
                 },
                 success: function(data) {
-                    console.log(data);
-                    updateFilters(data, filters, '.result-filter-thu', '.table-thu',
+
+                    updateFilters(data, filters, '.result-filter-thu', '.-thu',
                         '.thu-info', '.thu-item', buttonName);
                 }
             });
@@ -693,8 +713,8 @@
                     sort: sort,
                 },
                 success: function(data) {
-                    console.log(data);
-                    updateFilters(data, filters, '.result-filter-chi', '.table-chi',
+
+                    updateFilters(data, filters, '.result-filter-chi', '.-chi',
                         '.chi-info', '.chi-item', buttonName);
                 }
             });

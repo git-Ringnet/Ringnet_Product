@@ -89,7 +89,8 @@
         </div>
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PC'" :status="'1'" :guest="$guest" :listUser="$listUser" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PC'" :status="'1'" :guest="$guest"
+                :listUser="$listUser" />
             <section class="content" id="main">
                 <div class="bg-filter-search border-0 text-center">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">
@@ -362,7 +363,7 @@
                                     style="z-index: 99;display: none; right:0; width:100%">
                                     <div class="p-1">
                                         <div class="position-relative">
-                                            <input type="text" placeholder="Nhập đơn mua hàng"
+                                            <input type="text" placeholder="Chọn thông tin"
                                                 class="pr-4 w-100 input-search bg-input-guest text-13-black search_guest"
                                                 id="provideFilter">
                                             <span id="search-icon" class="search-icon"><i
@@ -374,7 +375,7 @@
                                             style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                             <a href="javascript:void(0)" id="{{ $value->id }}" name="search-info"
                                                 class="search-guest" style="flex:2;">
-                                                <span class="text-13-black">{{ $value->provide_name_display }}</span>
+                                                <span class="text-13-black">{{ $value->guest_name_display }}</span>
                                             </a>
                                         </li>
                                     @endforeach

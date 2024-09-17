@@ -258,6 +258,9 @@
                                                                 @if ($item->getGuest)
                                                                     {{ $item->getGuest->guest_name_display }}
                                                                 @endif
+                                                                @if ($item->getProvideName)
+                                                                    {{ $item->getProvideName->provide_name_display }}
+                                                                @endif
                                                             </td>
                                                             <td class="text-13-black border height-52">
                                                                 @if ($item->getContentPay)

@@ -1478,7 +1478,7 @@ class Delivery extends Model
         // dd($delivery);
         return $delivery;
     }
-    public function getSumDelivery()
+    public function getSumDelivery($data = null)
     {
         $deliveries = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
             ->leftJoin('groups', 'groups.id', 'guest.group_id')
@@ -1519,23 +1519,24 @@ class Delivery extends Model
                     ) as totalProductVat')
             )
             ->leftJoin('users', 'users.id', 'delivery.user_id')
-            ->where('delivery.workspace_id', Auth::user()->current_workspace)
-            ->groupBy(
-                'delivery.id',
-                'delivery.guest_id',
-                'delivery.quotation_number',
-                'delivery.code_delivery',
-                'delivery.shipping_unit',
-                'delivery.shipping_fee',
-                'users.name',
-                'delivery.created_at',
-                'delivery.updated_at',
-                'delivery.status',
-                'guest.guest_name_display',
-                'delivery.promotion',
-                'delivery.totalVat',
-                'groups.name',
-            )
+            ->where('delivery.workspace_id', Auth::user()->current_workspace);
+        $deliveries = filterByDate($data, $deliveries, 'delivery.created_at');
+        $deliveries = $deliveries->groupBy(
+            'delivery.id',
+            'delivery.guest_id',
+            'delivery.quotation_number',
+            'delivery.code_delivery',
+            'delivery.shipping_unit',
+            'delivery.shipping_fee',
+            'users.name',
+            'delivery.created_at',
+            'delivery.updated_at',
+            'delivery.status',
+            'guest.guest_name_display',
+            'delivery.promotion',
+            'delivery.totalVat',
+            'groups.name',
+        )
             ->orderBy('delivery.id', 'desc');
         $deliveries = $deliveries->get();
         // dd($deliveries);

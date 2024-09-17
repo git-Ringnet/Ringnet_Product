@@ -16,6 +16,7 @@ use App\Models\ReturnExport;
 use App\Models\ReturnImport;
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,18 +33,18 @@ class BusinessManagementController extends Controller
     public function exportQuote(Request $request)
     {
         // Lấy dữ liệu
-        $quoteExport = (new \App\Models\DetailExport())->getAllDetailExport();
+        $quoteExport = (new \App\Models\DetailExport())->getAllDetailExport($request->all());
 
         // Chuẩn bị dữ liệu để xuất ra Excel
         $dataCollection = $quoteExport->map(function ($item) {
             return [
-                'Mã phiếu'    => $item->quotation_number,
-                'Số phiếu'    => $item->reference_number,
-                'Ngày lập'    => date('d/m/Y', strtotime($item->ngayBG)),
-                'Khách hàng'  => $item->guest_name_display,
-                'Người tạo'   => $item->name,
-                'Giao hàng'   => $this->getStatusReceiveText($item->status_receive),
-                'Tổng tiền'   => number_format($item->total_price + $item->total_tax),
+                'Mã phiếu' => $item->quotation_number,
+                'Số phiếu' => $item->reference_number,
+                'Ngày lập' => date('d/m/Y', strtotime($item->ngayBG)),
+                'Khách hàng' => $item->guest_name_display,
+                'Người tạo' => $item->name,
+                'Giao hàng' => $this->getStatusReceiveText($item->status_receive),
+                'Tổng tiền' => number_format($item->total_price + $item->total_tax),
             ];
         });
 
@@ -90,6 +91,8 @@ class BusinessManagementController extends Controller
                 $import->where('user_id', Auth::user()->id);
             }
         }
+        $data = $request->all();
+        $import = filterByDate($data, $import, 'detailimport.created_at');
 
         // Lấy dữ liệu
         $import = $import->get();
@@ -126,8 +129,13 @@ class BusinessManagementController extends Controller
     public function exportReturnI(Request $request)
     {
         // Lấy dữ liệu từ ReturnImport
-        $data = ReturnImport::where('workspace_id', Auth::user()->current_workspace)
-            ->get();
+        $data = ReturnImport::where('workspace_id', Auth::user()->current_workspace);
+        $data = filterByDate(
+            $request->all(),
+            $data,
+            'returnimport.created_at'
+        );
+        $data = $data->get();
 
         // Định nghĩa tiêu đề cho các cột
         $headings = [
@@ -158,7 +166,14 @@ class BusinessManagementController extends Controller
     public function exportReturnE(Request $request)
     {
         // Lấy dữ liệu từ ReturnExport
-        $data = ReturnExport::where('workspace_id', Auth::user()->current_workspace)->get();
+        $data = ReturnExport::where('workspace_id', Auth::user()->current_workspace);
+        $data = filterByDate(
+            $request->all(),
+            $data,
+            'return_export.created_at'
+        );
+        $data = $data->get();
+
 
         // Định nghĩa tiêu đề cho các cột
         $headings = [
@@ -199,8 +214,12 @@ class BusinessManagementController extends Controller
             $receive->join('detailimport', 'detailimport.id', 'receive_bill.detailimport_id')
                 ->where('detailimport.user_id', Auth::user()->id);
         }
-
         $receive->select('receive_bill.*', 'provides.provide_name_display');
+        $receive = filterByDate(
+            $request->all(),
+            $receive,
+            'receive_bill.created_at'
+        );
         $data = $receive->get();
 
         // Tạo dữ liệu cho xuất Excel
@@ -287,7 +306,11 @@ class BusinessManagementController extends Controller
         if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
             $deliveriesQuery->where('delivery.user_id', Auth::user()->id);
         }
-
+        $deliveriesQuery = filterByDate(
+            $request->all(),
+            $deliveriesQuery,
+            'delivery.created_at'
+        );
         $deliveries = $deliveriesQuery->get();
 
         $dataCollection = $deliveries->map(function ($item) {
@@ -316,8 +339,13 @@ class BusinessManagementController extends Controller
         // Truy vấn dữ liệu
         $cashReceipts = CashReceipt::with(['guest', 'fund', 'user', 'workspace'])
             ->where('workspace_id', Auth::user()->current_workspace)
-            ->orderby('id', 'DESC')
-            ->get();
+            ->orderby('id', 'DESC');
+        $cashReceipts = filterByDate(
+            $request->all(),
+            $cashReceipts,
+            'cash_receipts.date_created'
+        );
+        $cashReceipts = $cashReceipts->get();
 
         // Chuyển đổi dữ liệu thành định dạng phù hợp để xuất Excel
         $dataCollection = $cashReceipts->map(function ($item) {
@@ -383,21 +411,26 @@ class BusinessManagementController extends Controller
         }
 
         $payment->select('pay_order.*');
+        $payment = filterByDate(
+            $request->all(),
+            $payment,
+            'pay_order.payment_date'
+        );
         $payment = $payment->get();
 
         // Chuẩn bị dữ liệu để xuất
         $dataCollection = $payment->map(function ($item) {
             return [
-                'payment_code'    => $item->payment_code,
-                'payment_date'    => date_format(new DateTime($item->payment_date), 'd/m/Y'),
-                'guest_name'      => $item->getGuest ? $item->getGuest->provide_name_display : '',
-                'receiver_name'   => $item->payment_type,
-                'creator_name'    => $item->getNameUser ? $item->getNameUser->name : '',
-                'total'           => number_format($item->total),
-                'content'         => $item->getContentPay ? $item->getContentPay->name : '',
-                'fund'            => $item->getFund ? $item->getFund->name : '',
-                'employee_name'   => $item->getNameUser ? $item->getNameUser->name : '',
-                'note'            => $item->note
+                'payment_code' => $item->payment_code,
+                'payment_date' => date_format(new DateTime($item->payment_date), 'd/m/Y'),
+                'guest_name' => $item->getGuest ? $item->getGuest->provide_name_display : '',
+                'receiver_name' => $item->payment_type,
+                'creator_name' => $item->getNameUser ? $item->getNameUser->name : '',
+                'total' => number_format($item->total),
+                'content' => $item->getContentPay ? $item->getContentPay->name : '',
+                'fund' => $item->getFund ? $item->getFund->name : '',
+                'employee_name' => $item->getNameUser ? $item->getNameUser->name : '',
+                'note' => $item->note
             ];
         });
 
@@ -422,8 +455,13 @@ class BusinessManagementController extends Controller
     public function exportChangeFund(Request $request)
     {
         $content = ContentImportExport::where('workspace_id', Auth::user()->current_workspace)
-            ->orderBy('id', 'desc')
-            ->get();
+            ->orderBy('id', 'desc');
+        $content = filterByDate(
+            $request->all(),
+            $content,
+            'content-import-export.payment_day'
+        );
+        $content = $content->get();
 
         // Prepare data for export
         $dataCollection = $content->map(function ($item) {
@@ -450,12 +488,18 @@ class BusinessManagementController extends Controller
         // Fetching data for export
         $changeWarehouse = ChangeWarehouse::where('workspace_id', Auth::user()->current_workspace)
             ->where('type_change_warehouse', 1)
-            ->orderBy('id', 'desc')
-            ->get();
+            ->orderBy('id', 'desc');
+        $changeWarehouse = filterByDate(
+            $request->all(),
+            $changeWarehouse,
+            'change_warehouse.created_at'
+        );
+        $changeWarehouse = $changeWarehouse->get();
 
         // Formatting data for export
         $dataCollection = $changeWarehouse->map(function ($item) {
             return [
+                'day_created' => $item->created_at,
                 'change_warehouse_code' => $item->change_warehouse_code,
                 'from_warehouse' => $item->getFromWarehouse ? $item->getFromWarehouse->warehouse_name : 'N/A',
                 'to_warehouse' => $item->getToWarehouse ? $item->getToWarehouse->warehouse_name : 'N/A',
@@ -466,6 +510,7 @@ class BusinessManagementController extends Controller
 
         // Defining headings
         $headings = [
+            'Ngày lập phiếu',
             'Mã phiếu',
             'Kho xuất',
             'Kho nhập',
@@ -481,12 +526,18 @@ class BusinessManagementController extends Controller
         // Fetching data for export
         $changeWarehouse = ChangeWarehouse::where('workspace_id', Auth::user()->current_workspace)
             ->where('type_change_warehouse', 2)
-            ->orderBy('id', 'desc')
-            ->get();
+            ->orderBy('id', 'desc');
+        $changeWarehouse = filterByDate(
+            $request->all(),
+            $changeWarehouse,
+            'change_warehouse.created_at'
+        );
+        $changeWarehouse = $changeWarehouse->get();
 
         // Formatting data for export
         $dataCollection = $changeWarehouse->map(function ($item) {
             return [
+                'day_created' => $item->created_at,
                 'change_warehouse_code' => $item->change_warehouse_code,
                 'from_warehouse' => $item->getFromWarehouse ? $item->getFromWarehouse->warehouse_name : 'N/A',
                 'to_warehouse' => $item->getToWarehouse ? $item->getToWarehouse->warehouse_name : 'N/A',
@@ -497,6 +548,7 @@ class BusinessManagementController extends Controller
 
         // Defining headings
         $headings = [
+            'Ngày lập phiếu',
             'Mã phiếu',
             'Kho xuất',
             'Kho nhập',
@@ -512,7 +564,7 @@ class BusinessManagementController extends Controller
         // Fetching data for export
         $users = User::all();
         $productDelivered = (new \App\Models\QuoteExport())->sumProductsQuoteSale();
-        $allDelivery = (new \App\Models\DetailExport())->getSumDetailESale();
+        $allDelivery = (new \App\Models\DetailExport())->getSumDetailESale($request->all());
         $groupUsers = Groups::where('grouptype_id', 1)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
@@ -590,12 +642,35 @@ class BusinessManagementController extends Controller
     public function exportPromotion(Request $request)
     {
         // Fetching data for export
+        $guests = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
         $productDelivered = (new \App\Models\QuoteExport())->sumProductsQuoteSale();
-        $allDelivery = (new \App\Models\DetailExport())->getSumDetailESale();
+        $allDelivery = (new \App\Models\DetailExport())->getSumDetailESale($request->all());
         $groupGuests = Groups::where('grouptype_id', 2)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
-        $guests = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
+
+        // Formatting data for export
+        $dataCollection = collect();
+
+        // Add guests without a group first
+        $dataCollection->push(['Nhóm khách hàng: Chưa chọn nhóm']);
+        foreach ($guests as $guest) {
+            if ($guest->group_id == 0 || $guest->group_id === null) {
+                $dataCollection->push(['Khách hàng: ' . $guest->guest_name_display]);
+                $this->addGuestData($dataCollection, $guest, $allDelivery, $productDelivered);
+            }
+        }
+
+        // Then add guests with groups
+        foreach ($groupGuests as $group) {
+            $dataCollection->push(['Nhóm khách hàng: ' . $group->name]);
+            foreach ($guests as $guest) {
+                if ($guest->group_id == $group->id) {
+                    $dataCollection->push(['Khách hàng: ' . $guest->guest_name_display]);
+                    $this->addGuestData($dataCollection, $guest, $allDelivery, $productDelivered);
+                }
+            }
+        }
 
         // Defining headings
         $headings = [
@@ -613,83 +688,33 @@ class BusinessManagementController extends Controller
             'Vàng',
         ];
 
-        // Collecting data
-        $dataCollection = collect();
-
-        foreach ($groupGuests as $group) {
-            // Add group heading
-            $dataCollection->push(['Nhóm khách hàng: ' . $group->name]);
-
-            foreach ($guests as $guest) {
-                if ($guest->group_id == $group->id) {
-                    // Add guest heading
-                    $dataCollection->push(['Khách hàng: ' . $guest->guest_name_display]);
-
-                    // Initialize totals for each guest
-                    $totalDeliverQty = 0;
-                    $totalPriceExport = 0;
-                    $totalProductTotalVat = 0;
-                    $totalProductQuantity = 0;
-                    $totalCashValue = 0;
-                    $goldValues = [];
-
-                    foreach ($allDelivery as $delivery) {
-                        $matchedItems = $productDelivered
-                            ->where('detailexport_id', $delivery->id)
-                            ->where('guest_id', $guest->id);
-
-                        if ($matchedItems->isNotEmpty()) {
-                            foreach ($matchedItems as $item) {
-                                $totalDeliverQty += $item->product_qty;
-                                $totalPriceExport += $item->price_export;
-                                $totalProductTotalVat += $item->product_total;
-                                $totalProductQuantity += $item->product_quantity;
-                                $totalCashValue += $item->cash_value;
-                                if (!empty($item->gold_value)) {
-                                    $goldValues[] = $item->gold_value;
-                                }
-
-                                $dataCollection->push([
-                                    $delivery->maPhieu,
-                                    $delivery->nameGuest,
-                                    $item->nameGr,
-                                    $item->product_code,
-                                    $item->product_name,
-                                    $item->product_unit,
-                                    $item->product_qty,
-                                    $item->price_export,
-                                    $item->product_total,
-                                    number_format($item->product_quantity), // Assuming Bao represents quantity
-                                    number_format($item->cash_value),
-                                    implode(', ', $goldValues), // Combine gold values into a string
-                                ]);
-                            }
-                        }
-                    }
-
-                    // Add totals for each guest after all items
-                    $dataCollection->push([
-                        'Tổng cộng:',
-                        '',
-                        '',
-                        '',
-                        '',
-                        '',
-                        number_format($totalDeliverQty),
-                        number_format($totalPriceExport),
-                        number_format($totalProductTotalVat),
-                        number_format($totalProductQuantity),
-                        number_format($totalCashValue),
-                        implode(', ', $goldValues),
-                    ]);
-                }
-            }
-
-            // Add an empty row between groups for readability
-            $dataCollection->push([]);
-        }
-
         // Exporting data using Laravel Excel
         return Excel::download(new GenericExport($dataCollection, $headings), 'promotion_report.xlsx');
+    }
+
+    private function addGuestData($dataCollection, $guest, $allDelivery, $productDelivered)
+    {
+        foreach ($allDelivery as $delivery) {
+            $matchedItems = $productDelivered
+                ->where('detailexport_id', $delivery->id)
+                ->where('guest_id', $guest->id);
+
+            foreach ($matchedItems as $item) {
+                $dataCollection->push([
+                    $delivery->maPhieu,
+                    $delivery->nameGuest,
+                    $item->nameGr,
+                    $item->product_code,
+                    $item->product_name,
+                    $item->product_unit,
+                    $item->product_qty,
+                    $item->price_export,
+                    $item->product_total,
+                    number_format($item->product_quantity), // Assuming Bao represents quantity
+                    number_format($item->cash_value),
+                    $item->gold_value ? $item->gold_value : '',
+                ]);
+            }
+        }
     }
 }

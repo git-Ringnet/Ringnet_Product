@@ -25,6 +25,7 @@
                     </button>
                     <form id="exportForm" action="{{ route('exportPayOrder') }}" method="GET" style="display: none;">
                         @csrf
+                        <input class="datavalue" type="hidden" name="data[]">
                     </form>
                     <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
                         onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
@@ -541,6 +542,14 @@
         var date_start = $('#date_start_date').val();
         var date_end = $('#date_end_date').val();
         var date = [date_start, date_end];
+
+        var dataArray = [{
+            key: 'date',
+            value: date
+        }, ];
+
+        // Chuyển đổi mảng thành chuỗi JSON và lưu vào input hidden
+        $('.datavalue').val(JSON.stringify(dataArray));
         if ($(this).data('button-name') === 'status') {
             $('.ks-cboxtags-status input[type="checkbox"]').each(function() {
                 const value = $(this).val();

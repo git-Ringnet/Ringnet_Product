@@ -297,8 +297,7 @@
                     $('#SN').attr('style', 'display: flex !important');
                 } else {
                     $('#SN').attr('style', 'display: none !important');
-                }
-                console.log(data);
+                };
                 // if (data.status == false) {
                 //     showNotification('warning', data.msg);
                 // } else {

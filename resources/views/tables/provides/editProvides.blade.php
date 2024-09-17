@@ -75,7 +75,8 @@
                                 <div class="content-info">
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                            <p class="p-0 m-0 required-label margin-left32 text-13-red">Mã nhà cung cấp</p>
+                                            <p class="p-0 m-0 required-label margin-left32 text-13-red">Mã nhà cung cấp
+                                            </p>
                                         </div>
                                         <input type="text" placeholder="Nhập thông tin" name="key"
                                             value="{{ old('key') ?? $provide->key }}" required
@@ -84,7 +85,8 @@
 
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 height-100">
-                                            <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên nhà cung cấp</p>
+                                            <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên nhà cung cấp
+                                            </p>
                                         </div>
                                         <input type="text" required placeholder="Nhập thông tin"
                                             name="provide_name_display"
@@ -311,7 +313,7 @@
                     id: id
                 },
                 success: function(data) {
-                    // console.log(data);
+                    // ;
                     if (data.success) {
                         $('form')[1].submit();
                     } else {

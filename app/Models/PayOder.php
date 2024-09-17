@@ -77,7 +77,7 @@ class PayOder extends Model
 
     public function getGuest()
     {
-        return $this->hasOne(Provides::class, 'id', 'guest_id');
+        return $this->hasOne(Guest::class, 'id', 'guest_id');
     }
     public function getFund()
     {
@@ -941,12 +941,12 @@ class PayOder extends Model
         if (!empty($data['date_chi'][0]) && !empty($data['date_chi'][1])) {
             $dateStart = Carbon::parse($data['date_chi'][0]);
             $dateEnd = Carbon::parse($data['date_chi'][1])->endOfDay();
-            $contentImport = $contentImport->whereBetween('created_at', [$dateStart, $dateEnd]);
+            $contentImport = $contentImport->whereBetween('payment_date', [$dateStart, $dateEnd]);
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
             $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
-            $contentImport = $contentImport->whereBetween('created_at', [$dateStart, $dateEnd]);
+            $contentImport = $contentImport->whereBetween('payment_date', [$dateStart, $dateEnd]);
         }
         $contentImport = $contentImport->get();
         return $contentImport;

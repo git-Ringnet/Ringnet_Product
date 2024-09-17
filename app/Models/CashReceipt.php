@@ -216,12 +216,12 @@ class CashReceipt extends Model
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
             $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
-            $returnImport = $returnImport->whereBetween('cash_receipts.created_at', [$dateStart, $dateEnd]);
+            $returnImport = $returnImport->whereBetween('cash_receipts.date_created', [$dateStart, $dateEnd]);
         }
         if (!empty($data['date_thu'][0]) && !empty($data['date_thu'][1])) {
             $dateStart = Carbon::parse($data['date_thu'][0]);
             $dateEnd = Carbon::parse($data['date_thu'][1])->endOfDay();
-            $returnImport = $returnImport->whereBetween('cash_receipts.created_at', [$dateStart, $dateEnd]);
+            $returnImport = $returnImport->whereBetween('cash_receipts.date_created', [$dateStart, $dateEnd]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $returnImport = $returnImport->orderBy($data['sort'][0], $data['sort'][1]);

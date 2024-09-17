@@ -89,7 +89,7 @@ class DetailExport extends Model
         return $invoicenumber;
     }
 
-    public function getAllDetailExport()
+    public function getAllDetailExport($data = null)
     {
         $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
@@ -101,6 +101,8 @@ class DetailExport extends Model
                 $detailExport->where('user_id', Auth::user()->id);
             }
         }
+        // Xử lí xuất excel
+        $detailExport = filterByDate($data, $detailExport, 'detailexport.created_at');
 
         $detailExport = $detailExport->orderBy('detailexport.id', 'desc')->get();
 
@@ -577,7 +579,7 @@ class DetailExport extends Model
         $detaiExport = $detaiExport->pluck('reference_number')->all();
         return $detaiExport;
     }
-    public function getSumDetailE()
+    public function getSumDetailE($data = null)
     {
         $detaiExport = DB::table($this->table)
             // ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
@@ -593,13 +595,14 @@ class DetailExport extends Model
                 'guest.guest_name_display as nameGuest',
                 'detailexport.total_price as totalProductVat',
             )
-            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->get();
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace);
+        $detaiExport = filterByDate($data, $detaiExport, 'detailexport.created_at');
+        $detaiExport = $detaiExport->get();
         return $detaiExport;
     }
-    public function getSumDetailESale()
+    public function getSumDetailESale($data = null)
     {
-        $detaiExport = DB::table($this->table)
+        $detailExport = DB::table($this->table)
             // ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('groups', 'groups.id', 'guest.group_id')
@@ -612,10 +615,12 @@ class DetailExport extends Model
                 'groups.name as nhomKH',
                 'guest.guest_name_display as nameGuest',
                 'detailexport.total_price as totalProductVat',
-            )
-            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->get();
-        return $detaiExport;
+            );
+        $detailExport = $detailExport->where('detailexport.workspace_id', Auth::user()->current_workspace);
+        // Xử lí xuất excel
+        $detailExport = filterByDate($data, $detailExport, 'detailexport.created_at');
+        $detailExport = $detailExport->get();
+        return $detailExport;
     }
     public function getSumDetailEByGuest($idGuest)
     {
@@ -639,7 +644,7 @@ class DetailExport extends Model
         return $detaiExport;
     }
 
-    public function allProductsSell()
+    public function allProductsSell($data = null)
     {
         $detaiExport = DB::table($this->table)
             ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
@@ -665,24 +670,26 @@ class DetailExport extends Model
                 'quoteexport.product_total as product_total_vat',
                 DB::raw('AVG(quoteimport.price_export) as giaNhap')
             )
-            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->groupBy(
-                'detailexport.id',
-                'detailexport.created_at',
-                'detailexport.guest_id',
-                'detailexport.quotation_number',
-                'groups.name',
-                'guest.guest_name_display',
-                'detailexport.total_price',
-                'products.product_code',
-                'products.product_name',
-                'products.group_id',
-                'guest.group_id',
-                'products.product_unit',
-                'quoteexport.product_qty',
-                'quoteexport.price_export',
-                'quoteexport.product_total'
-            )
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace);
+        $detaiExport = filterByDate($data, $detaiExport, 'detailexport.created_at');
+
+        $detaiExport = $detaiExport->groupBy(
+            'detailexport.id',
+            'detailexport.created_at',
+            'detailexport.guest_id',
+            'detailexport.quotation_number',
+            'groups.name',
+            'guest.guest_name_display',
+            'detailexport.total_price',
+            'products.product_code',
+            'products.product_name',
+            'products.group_id',
+            'guest.group_id',
+            'products.product_unit',
+            'quoteexport.product_qty',
+            'quoteexport.price_export',
+            'quoteexport.product_total'
+        )
             ->get();
 
         return $detaiExport;

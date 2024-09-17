@@ -352,8 +352,7 @@
                     </div>
 
                     <div id="files" class="tab-pane fade">
-                        <div id="title--fixed"
-                            class="content-title--fixed top-111">
+                        <div id="title--fixed" class="content-title--fixed top-111">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM
                             </p>
                         </div>
@@ -626,7 +625,7 @@
                 des: "Đính kèm file"
             },
             success: function(data) {
-                console.log(data);
+
             }
         })
         $('#formSubmit')[0].submit();

@@ -471,7 +471,7 @@
                     'invi_workspace_id': invi_workspace_id,
                 },
                 success: function(data) {
-                    console.log(data);
+
                     if (isChecked) {
                         $('.div-url').show();
                         $('#copyButton').prop('disabled', false);

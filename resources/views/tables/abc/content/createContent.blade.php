@@ -204,7 +204,7 @@
                     status: "add"
                 },
                 success: function(data) {
-                    console.log(data);
+    
                     if (data.success) {
                         $('form')[1].submit();
                     } else {
