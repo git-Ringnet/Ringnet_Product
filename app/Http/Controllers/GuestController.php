@@ -8,6 +8,7 @@ use App\Models\DetailExport;
 use App\Models\Groups;
 use App\Models\Guest;
 use App\Models\PayExport;
+use App\Models\Provides;
 use App\Models\QuoteExport;
 use App\Models\representGuest;
 use App\Models\Role;
@@ -393,7 +394,12 @@ class GuestController extends Controller
     }
     public function getDebtGuest(Request $request)
     {
-        $getGuestbyId = $this->guest->getGuestbyId($request->guest_id)->first();
+        if ($request->dataName == "guest") {
+            $getGuestbyId = $this->guest->getGuestbyId($request->guest_id)->first();
+        }
+        if ($request->dataName == "provide") {
+            $getGuestbyId = Provides::where('id', $request->guest_id)->first();
+        }
         return response()->json($getGuestbyId);
     }
 }

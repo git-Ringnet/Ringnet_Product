@@ -105,7 +105,7 @@ class DetailImportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         //danh sách nhân viên
-        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+        $listUser = User::all();
         //
         $listDetail = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
@@ -164,7 +164,7 @@ class DetailImportController extends Controller
             $listDetail = DetailImport::where('workspace_id', Auth::user()->current_workspace)
                 ->orderBy('id', 'desc')->get();
             //danh sách nhân viên
-            $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+            $listUser = User::all();
             return view('tables.import.showImport', compact(
                 'import',
                 'title',
@@ -223,7 +223,7 @@ class DetailImportController extends Controller
                 ->orderBy('id', 'desc')
                 ->get();
             //danh sách nhân viên
-            $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+            $listUser = User::all();
             //
             $listDetail = DetailImport::where('workspace_id', Auth::user()->current_workspace)
                 ->orderBy('id', 'desc')->get();

@@ -91,7 +91,8 @@
         </div>
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PT'" :status="'2'" :guest="$guest" :listUser="$listUser" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PT'" :status="'2'" :guest="$guest"
+                :listUser="$listUser" />
             <div id="main">
                 {{-- <section class="content">
                     <div class="bg-filter-search border-0 text-center">
@@ -359,18 +360,19 @@
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng - NCC</span>
                                 <div
                                     class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative w-100">
                                     <input type="text" placeholder="Chọn thông tin" id="myGuest"
                                         class="border-0 text-13-black px-2 py-1 w-100 height-32 search_guest w-100"
                                         style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                                        readonly value="{{ $cashReceipt->guest->guest_name_display }}"
+                                        readonly
+                                        @if ($cashReceipt->guest_id != 0) value="{{ $cashReceipt->guest->guest_name_display }}" @elseif($cashReceipt->provide_id != 0) value="{{ $cashReceipt->provide->provide_name_display }}" @endif
                                         {{ $disabled }}>
                                     <input type="hidden" name="guest_id" id="guest_id"
-                                        value="{{ $cashReceipt->guest->id }}">
+                                        @if ($cashReceipt->guest_id != 0) value="{{ $cashReceipt->guest->id }}" @elseif($cashReceipt->provide_id != 0) value="{{ $cashReceipt->provide->id }}" @endif>
                                     <input type="hidden" name="addr" id="addr"
-                                        value="{{ $cashReceipt->guest->guest_address }}">
+                                        @if ($cashReceipt->guest_id != 0) value="{{ $cashReceipt->guest->guest_address }}" @elseif($cashReceipt->provide_id != 0) value="{{ $cashReceipt->provide->provide_address }}" @endif>
                                     <ul id="listGuest"
                                         class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
                                         style="z-index: 99;display: none; right:0; width:100%">
@@ -400,10 +402,13 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nộp</span>
-                                <input type="text" readonly
-                                    class="text-13-black w-100 border-0 bg-input-guest p-2"
-                                    name="payer" style="background-color:#F0F4FF; border-radius:4px;"
-                                    placeholder="Nhập người nộp">
+                                <select name="payer" required style="flex: 2;" disabled
+                                    class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                    @foreach ($guest as $item_guest)
+                                        <option @if($item_guest->id == $value->user_id) selected @endif value="{{ $item_guest->guest_name_display }}">
+                                            {{ $item_guest->guest_name_display }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="d-flex w-100">

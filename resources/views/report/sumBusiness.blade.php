@@ -256,7 +256,8 @@
                                                     <td class="border border-border p-2">8</td>
                                                     <td class="border border-border p-2">Thực thu tiền bán hàng + khách
                                                         đặt cọc*</td>
-                                                    <td class="border border-border p-2">0</td>
+                                                    <td class="border border-border p-2">
+                                                        {{ number_format($arrData['thucThuBanHang']) }}</td>
                                                     <td class="border border-border p-2">Đồng</td>
                                                 </tr>
                                                 <tr class="hover:bg-muted">
@@ -264,14 +265,16 @@
                                                     <td class="border border-border p-2">Tỷ lệ thu tiền so với doanh số
                                                         *
                                                     </td>
-                                                    <td class="border border-border p-2">0</td>
-                                                    <td class="border border-border p-2">Đồng</td>
+                                                    <td class="border border-border p-2">
+                                                        {{ number_format($arrData['tyLeThuTien']) }}
+                                                    </td>
+                                                    <td class="border border-border p-2">%</td>
                                                 </tr>
                                                 <tr class="hover:bg-muted">
                                                     <td class="border border-border p-2">10</td>
                                                     <td class="border border-border p-2">Trả tiền hàng khách trả lại*
                                                     </td>
-                                                    <td class="border border-border p-2">0</td>
+                                                    <td class="border border-border p-2">{{ number_format($arrData['traTienKhachTraHang']) }}</td>
                                                     <td class="border border-border p-2">Đồng</td>
                                                 </tr>
 
@@ -293,21 +296,23 @@
                                                     <td class="border border-border p-2">Trả tiền mua hàng nhà cung
                                                         cấp*
                                                     </td>
-                                                    <td class="border border-border p-2">0</td>
+                                                    <td class="border border-border p-2">
+                                                        {{ number_format($arrData['traTienMuaHang']) }}</td>
                                                     <td class="border border-border p-2">Đồng</td>
                                                 </tr>
                                                 <tr class="hover:bg-muted">
                                                     <td class="border border-border p-2">14</td>
                                                     <td class="border border-border p-2">Hàng trả lại nhà cung cấp*
                                                     </td>
-                                                    <td class="border border-border p-2">0</td>
+                                                    <td class="border border-border p-2">
+                                                        {{ number_format($arrData['hangTraLai']) }}</td>
                                                     <td class="border border-border p-2">Đồng</td>
                                                 </tr>
                                                 <tr class="hover:bg-muted">
                                                     <td class="border border-border p-2">15</td>
                                                     <td class="border border-border p-2">Thu lại tiền xuất trả hàng nhà
                                                         cung cấp*</td>
-                                                    <td class="border border-border p-2">0</td>
+                                                    <td class="border border-border p-2">{{ number_format($arrData['thuTienTraHangNCC']) }}</td>
                                                     <td class="border border-border p-2">Đồng</td>
                                                 </tr>
                                                 <tr class="hover:bg-muted">

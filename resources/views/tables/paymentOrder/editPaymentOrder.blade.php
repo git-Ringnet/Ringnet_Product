@@ -66,7 +66,7 @@
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
                                 <a class="dropdown-item text-13-black" href="#"
-                                    onclick="printCashRC('printContent','PHIẾU CHI')">Phiếu thu</a>
+                                    onclick="printCashRC('printContent','PHIẾU CHI')">Phiếu chi</a>
                             </div>
                         </div>
                         <a href="{{ route('paymentOrder.index', $workspacename) }}" class="user_flow" data-type="TTMH"
@@ -226,7 +226,8 @@
 
         </div>
         <div class="content margin-top-127" style="width: 100%;">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PC'" :status="'2'" :guest="$guest" :listUser="$listUser" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PC'" :status="'2'" :guest="$guest"
+                :listUser="$listUser" />
             <div id="main">
                 <div class="container-fluided">
                     <div class="tab-content">
@@ -442,9 +443,9 @@
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
                                         <input readonly type="text"
                                             class="w-100 border-0 px-2 py-1 height-32 text-13-black" id="myGuest"
-                                            @if ($payment->getGuest) value="{{ $payment->getGuest->provide_name_display }}" @endif>
+                                            @if ($payment->getGuest) value="{{ $payment->getGuest->guest_name_display }}" @elseif ($payment->getProvide) value="{{ $payment->getProvide->provide_name_display }}" @endif>
                                         <input type="hidden" name="addr" id="addr"
-                                            value="{{ $payment->getGuest->guest_address }}">
+                                            @if ($payment->getGuest) value="{{ $payment->getGuest->guest_address }}" @elseif ($payment->getProvide) value="{{ $payment->getProvide->provide_address }}" @endif>
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">

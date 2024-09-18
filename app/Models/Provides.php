@@ -57,6 +57,13 @@ class Provides extends Model
         // return DB::table($this->table)->where('workspace_id', Auth::user()->current_workspace)->get();
         return Provides::where('workspace_id', Auth::user()->current_workspace)->get();
     }
+
+    public function getDebtProvide()
+    {
+        $totalPayment = Provides::sum('provide_debt');
+        return $totalPayment;
+    }
+
     public function addProvide($data)
     {
         $result = [];
@@ -242,11 +249,14 @@ class Provides extends Model
             ->select('provides.*', 'users.name as name', 'users.*')->get();
         return $provides;
     }
-    public function getProvidebyId($id)
+    public function getGuestbyId($id, $dataName)
     {
-        $provides = DB::table($this->table);
-        $provides = $provides->where('provides.id', $id)->get();
-        return $provides;
+        if ($dataName == 'guest') {
+            $guest = Guest::where('guest.id', $id)->get();
+        } else {
+            $guest = Provides::where('provides.id', $id)->get();
+        }
+        return $guest;
     }
     public function calculateProvideDebt()
     {

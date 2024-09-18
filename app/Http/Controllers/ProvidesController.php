@@ -335,7 +335,7 @@ class ProvidesController extends Controller
     }
     public function getDebtProvide(Request $request)
     {
-        $getProvidebyId = $this->provides->getProvidebyId($request->provide_id)->first();
+        $getProvidebyId = $this->provides->getGuestbyId($request->provide_id, $request->dataName)->first();
         return response()->json($getProvidebyId);
     }
 }

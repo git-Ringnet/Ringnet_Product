@@ -9,6 +9,7 @@ use App\Models\Delivery;
 use App\Models\DetailExport;
 use App\Models\Fund;
 use App\Models\Guest;
+use App\Models\Provides;
 use App\Models\ReturnImport;
 use App\Models\User;
 use App\Models\Workspace;
@@ -51,6 +52,7 @@ class CashReceiptController extends Controller
         $workspacename = $workspacename->workspace_name;
         $funds = Fund::where('workspace_id', Auth::user()->current_workspace)->get();
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
+        $provide = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $content = ContentGroups::where('contenttype_id', 1)->where('workspace_id', Auth::user()->current_workspace)->get();
 
         // $deliveries = Delivery::select(
@@ -128,7 +130,8 @@ class CashReceiptController extends Controller
             'content',
             'returnImport',
             'listDetail',
-            'listUser'
+            'listUser',
+            'provide'
         ));
     }
 
@@ -211,9 +214,16 @@ class CashReceiptController extends Controller
             }
         }
         // + tiền công nợ lại khi xoá phiếu
-        $guest = Guest::find($cashReceipt->guest_id);
-        $guest->guest_debt = $guest->guest_debt + $cashReceipt->amount;
-        $guest->save();
+        if ($cashReceipt->provide_id != 0) {
+            $provide = Provides::find($cashReceipt->provide_id);
+            $provide->provide_debt = $provide->provide_debt + $cashReceipt->amount;
+            $provide->save();
+        }
+        if ($cashReceipt->guest_id != 0) {
+            $guest = Guest::find($cashReceipt->guest_id);
+            $guest->guest_debt = $guest->guest_debt + $cashReceipt->amount;
+            $guest->save();
+        }
 
         $cashReceipt->delete();
         return redirect()->route('cash_receipts.index', ['workspace' => $workspace])->with('msg', 'Xóa phiếu thu thành công!');

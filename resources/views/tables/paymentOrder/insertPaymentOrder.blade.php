@@ -349,7 +349,7 @@
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44 w-100">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng - NCC</span>
                             <div
                                 class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative w-100">
                                 <input type="text" placeholder="Chọn thông tin" id="myGuest"
@@ -357,6 +357,7 @@
                                     style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" readonly
                                     required="required">
                                 <input type="hidden" name="guest_id" id="guest_id">
+                                <input type="hidden" name="provide_id" id="provide_id">
                                 <input type="hidden" name="addr" id="addr" value="">
                                 <ul id="listGuest"
                                     class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
@@ -374,8 +375,19 @@
                                         <li class="p-2 align-items-center"
                                             style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                             <a href="javascript:void(0)" id="{{ $value->id }}" name="search-info"
-                                                class="search-guest" style="flex:2;">
+                                                class="search-guest" style="flex:2;" data-name="guest">
                                                 <span class="text-13-black">{{ $value->guest_name_display }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                    @foreach ($provides as $value_provide)
+                                        <li class="p-2 align-items-center"
+                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <a href="javascript:void(0)" id="{{ $value_provide->id }}"
+                                                name="search-info" class="search-guest" style="flex:2;"
+                                                data-name="provide">
+                                                <span
+                                                    class="text-13-black">{{ $value_provide->provide_name_display }}</span>
                                             </a>
                                         </li>
                                     @endforeach
@@ -438,8 +450,7 @@
                                     <div class="p-1">
                                         <div class="position-relative">
                                             <input type="text" placeholder="Nhập thông tin"
-                                                class="pr-4 w-100 input-search bg-input-guest text-13-black search_content"
-                                                id="provideFilter">
+                                                class="pr-4 w-100 input-search bg-input-guest text-13-black search_content" id="contentFilter">
                                             <span id="search-icon" class="search-icon"><i
                                                     class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
@@ -475,8 +486,7 @@
                                     <div class="p-1">
                                         <div class="position-relative">
                                             <input type="text" placeholder="Nhập thông tin"
-                                                class="pr-4 w-100 input-search bg-input-guest text-13-black search_funds"
-                                                id="provideFilter">
+                                                class="pr-4 w-100 input-search bg-input-guest text-13-black search_funds" id="fundFilter">
                                             <span id="search-icon" class="search-icon"><i
                                                     class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
@@ -846,7 +856,44 @@
         document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
     }
 
+    //Tìm kiếm 
     $('#listReceive').hide();
+
+    function toggleListGuest(input, list, filterInput) {
+        input.on("click", function() {
+            list.show();
+        });
+
+        $(document).click(function(event) {
+            if (
+                !$(event.target).closest(input).length &&
+                !$(event.target).closest(filterInput).length
+            ) {
+                list.hide();
+            }
+        });
+
+        var applyFilter = function() {
+            var value = filterInput.val().toUpperCase();
+            list.find("li").each(function() {
+                var text = $(this).find("a").text().toUpperCase();
+                $(this).toggle(text.indexOf(value) > -1);
+            });
+        };
+
+        input.on("keyup", applyFilter);
+        filterInput.on("keyup", applyFilter);
+    }
+
+    toggleListGuest(
+        $("#myGuest"), $("#listGuest"), $("#provideFilter")
+    );
+    toggleListGuest(
+        $("#fund"), $("#listFunds"), $("#fundFilter")
+    );
+    toggleListGuest(
+        $("#myContent"), $("#listContent"), $("#contentFilter")
+    );
     $('.search_quotation').on('click', function() {
         $('#listReceive').show();
     })
@@ -856,9 +903,6 @@
             $(list).show();
         })
     }
-    showList('#myGuest', '#listGuest');
-    showList('#fund', '#listFunds');
-    showList('#myContent', '#listContent');
 
     $(document).ready(function() {
         $('.search-return').on('click', function(event, detail_id) {
@@ -893,12 +937,19 @@
 
     $(document).ready(function() {
         $('.search-guest').on('click', function(event, detail_id) {
+            var dataName = $(this).data('name');
             if (detail_id) {
                 detail_id = detail_id
             } else {
                 detail_id = parseInt($(this).attr('id'), 10);
             }
-            $('#guest_id').val(detail_id);
+            if (dataName == "guest") {
+                $('#guest_id').val(detail_id);
+                $('#provide_id').val("");
+            } else {
+                $('#guest_id').val("");
+                $('#provide_id').val(detail_id);
+            }
             $('#myGuest').val($(this).find('span').text())
             $('#listGuest').hide();
             $.ajax({
@@ -906,34 +957,51 @@
                 type: "get",
                 data: {
                     provide_id: detail_id,
+                    dataName: dataName,
                 },
                 success: function(data) {
-                    $('#addr').val(data['guest_address']);
-                    var provideDebt = parseFloat(data['provide_debt']);
-                    if (isNaN(provideDebt)) {
-                        provideDebt = 0;
-                    }
-                    $('#total_bill').val(formatCurrency(provideDebt));
-                    $('.cash_reciept').attr('style', 'display:block');
-
-                    // Xóa sự kiện input trước đó
-                    $('input[name="total_bill"]').off('input');
-
-                    // Thiết lập sự kiện input mới với giá trị data['provide_debt']
-                    $('input[name="total_bill"]').on('input', function() {
-                        var inputValue = parseFloat($(this).val().replace(
-                            /[^0-9.-]+/g, ""));
-                        if (inputValue > provideDebt) {
-                            inputValue = provideDebt;
+                    if (dataName == "guest") {
+                        $('#addr').val(data['guest_address']);
+                        var provideDebt = parseFloat(data['guest_debt']);
+                        if (isNaN(provideDebt)) {
+                            provideDebt = 0;
                         }
-                        $(this).val(formatCurrency(inputValue));
-                    });
+                        $('#total_bill').val(formatCurrency(provideDebt));
+                        $('.cash_reciept').attr('style', 'display:block');
+
+                        // Xóa sự kiện input trước đó
+                        $('input[name="total_bill"]').off('input');
+
+                        // Thiết lập sự kiện input mới với giá trị data['provide_debt']
+                        $('input[name="total_bill"]').on('input', function() {
+                            var inputValue = parseFloat($(this).val().replace(
+                                /[^0-9.-]+/g, ""));
+                            if (inputValue > provideDebt) {
+                                inputValue = provideDebt;
+                            }
+                            $(this).val(formatCurrency(inputValue));
+                        });
+                    } else {
+                        $('#addr').val(data['provide_address']);
+                        var provideDebt = parseFloat(data['provide_debt']);
+                        if (isNaN(provideDebt)) {
+                            provideDebt = 0;
+                        }
+                        $('#total_bill').val(formatCurrency(provideDebt));
+                        $('.cash_reciept').attr('style', 'display:block');
+                        $('input[name="total_bill"]').on('input', function() {
+                            var inputValue = parseFloat($(this).val().replace(
+                                /[^0-9.-]+/g, ""));
+                            if (inputValue > provideDebt) {
+                                inputValue = provideDebt;
+                            }
+                            $(this).val(formatCurrency(inputValue));
+                        });
+                    }
                 }
             });
         });
     })
-
-
 
     $(document).ready(function() {
         $('.search-receive').on('click', function(event, detail_id) {

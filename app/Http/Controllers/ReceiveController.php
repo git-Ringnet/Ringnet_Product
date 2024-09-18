@@ -130,7 +130,7 @@ class ReceiveController extends Controller
         $listDetail->select('receive_bill.*', 'provides.provide_name_display');
         $listDetail = $listDetail->get();
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
-        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+        $listUser = User::all();
         return view('tables.receive.insertReceive', compact('title', 'listDetailImport', 'workspacename', 'provide', 'code', 'listDetail', 'provides', 'listUser'));
     }
 
@@ -274,7 +274,7 @@ class ReceiveController extends Controller
             ->with('getSerialNumber')
             ->get();
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
-        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+        $listUser = User::all();
         return view('tables.receive.editReceive', compact(
             'receive',
             'title',

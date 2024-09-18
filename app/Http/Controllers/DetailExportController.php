@@ -125,7 +125,7 @@ class DetailExportController extends Controller
         //danh sách phiếu bán hàng
         $listDetail = $this->detailExport->getAllDetailExport();
         //danh sách nhân viên
-        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+        $listUser = User::all();
         //
         $invoiceAuto = $this->detailExport->getQuoteCount();
 
@@ -274,7 +274,7 @@ class DetailExportController extends Controller
         $product = $this->product->getAllProducts();
         $detailExport = $this->detailExport->getDetailExportToId($id);
         //danh sách nhân viên
-        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+        $listUser = User::all();
         //danh sách phiếu bán hàng
         $listDetail = $this->detailExport->getAllDetailExport();
         if (!$detailExport) {
@@ -320,7 +320,7 @@ class DetailExportController extends Controller
         ];
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $listUser = User::where('current_workspace', Auth::user()->current_workspace)->get();
+        $listUser = User::all();
         $warehouse = Warehouse::where('workspace_id', Auth::user()->current_workspace)->get();
         //danh sách phiếu bán hàng
         $listDetail = $this->detailExport->getAllDetailExport();

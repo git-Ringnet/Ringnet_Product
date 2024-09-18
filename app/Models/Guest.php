@@ -43,6 +43,12 @@ class Guest extends Model
         return $this->belongsTo(representGuest::class, 'guest_id', 'id');
     }
 
+    public function getDebtGuest()
+    {
+        $totalPayment = Guest::sum('guest_debt');
+        return $totalPayment;
+    }
+
     public function getAllGuest()
     {
         $guests = DB::table($this->table)

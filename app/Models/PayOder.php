@@ -79,9 +79,27 @@ class PayOder extends Model
     {
         return $this->hasOne(Guest::class, 'id', 'guest_id');
     }
+    public function getprovide()
+    {
+        return $this->hasOne(Provides::class, 'id', 'provide_id');
+    }
     public function getFund()
     {
         return $this->hasOne(Fund::class, 'id', 'fund_id');
+    }
+
+    public function getTotalPaymentProvide()
+    {
+        $totalPayment = PayOder::where('provide_id', '!=', 0)->sum('payment');
+
+        return $totalPayment;
+    }
+
+    public function getTotalPaymentGuest()
+    {
+        $totalPayment = PayOder::where('guest_id', '!=', 0)->sum('payment');
+
+        return $totalPayment;
     }
 
     public function getQuoteCount()
@@ -392,7 +410,7 @@ class PayOder extends Model
         if ($detail) {
             $dataReciept = [
                 'detailimport_id' => $detail->id,
-                'provide_id' => $detail->provide_id,
+                'provide_id' => isset($data['provide_id']) ? $data['provide_id'] : 0,
                 // 'status' => (isset($data['payment']) ? ($data['payment'] > 0 ? 6 : 1) : 1),
                 'status' => 2,
                 'payment_date' => isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now(),
@@ -420,7 +438,7 @@ class PayOder extends Model
         } else {
             $dataReciept = [
                 'detailimport_id' => 0,
-                // 'provide_id' => $detail->provide_id,
+                'provide_id' => isset($data['provide_id']) ? $data['provide_id'] : 0,
                 'status' => 2,
                 'payment_date' => isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now(),
                 'total' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
@@ -442,7 +460,13 @@ class PayOder extends Model
             $payment_id = DB::table($this->table)->insertGetId($dataReciept);
             //cập nhật công nợ
             if (isset($data['guest_id'])) {
-                $provide = Provides::where('id', $data['guest_id'])->first();
+                $guest = Guest::where('id', $data['guest_id'])->first();
+                $total = isset($data['total']) ? str_replace(',', '', $data['total']) : 0;
+                $guest->guest_debt = $guest->guest_debt - $total;
+                $guest->save();
+            }
+            if (isset($data['provide_id'])) {
+                $provide = Provides::where('id', $data['provide_id'])->first();
                 $total = isset($data['total']) ? str_replace(',', '', $data['total']) : 0;
                 $provide->provide_debt = $provide->provide_debt - $total;
                 $provide->save();

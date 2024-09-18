@@ -25,11 +25,16 @@ class CashReceipt extends Model
         'status',
         'workspace_id',
         'delivery_id',
-        'returnImport_id'
+        'returnImport_id',
+        'provide_id'
     ];
     public function guest()
     {
         return $this->belongsTo(Guest::class);
+    }
+    public function provide()
+    {
+        return $this->belongsTo(Provides::class);
     }
 
     public function getGuest()
@@ -69,6 +74,13 @@ class CashReceipt extends Model
     {
         return $this->belongsTo(DetailExport::class, 'delivery_id', 'id');
     }
+
+    public function getTotalAmount()
+    {
+        $totalAmount = CashReceipt::sum('amount');
+        return $totalAmount;
+    }
+
     public function getQuoteCount()
     {
         // Tạo DGH
@@ -114,7 +126,8 @@ class CashReceipt extends Model
             $dataCashRC = [
                 'receipt_code' => $data['code_reciept'],
                 'date_created' =>  $data['payment_date'],
-                'guest_id' =>  $data['guest_id'],
+                'guest_id' =>  isset($data['guest_id']) ? $data['guest_id'] : 0,
+                'provide_id' =>  isset($data['provide_id']) ? $data['provide_id'] : 0,
                 'payer' =>  $data['payer'] ?? '',
                 'amount' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
                 'content_id' =>  $data['content_pay'] ?? 0,
@@ -137,7 +150,8 @@ class CashReceipt extends Model
             $dataCashRC = [
                 'receipt_code' => $data['code_reciept'],
                 'date_created' =>  $data['payment_date'],
-                'guest_id' =>  $data['guest_id'],
+                'guest_id' =>  isset($data['guest_id']) ? $data['guest_id'] : 0,
+                'provide_id' =>  isset($data['provide_id']) ? $data['provide_id'] : 0,
                 'payer' =>  $data['payer'] ?? '',
                 'amount' => isset($data['total']) ? str_replace(',', '', $data['total']) : 0,
                 'content_id' =>  $data['content_pay'] ?? 0,
@@ -148,9 +162,17 @@ class CashReceipt extends Model
                 'workspace_id' => Auth::user()->current_workspace,
             ];
             $cashRC = CashReceipt::create($dataCashRC);
-            $guest = Guest::find($data['guest_id']);
-            $guest->guest_debt = $guest->guest_debt - $cashRC->amount;
-            $guest->save();
+            //cập nhật công nợ
+            if (isset($data['guest_id'])) {
+                $guest = Guest::find($data['guest_id']);
+                $guest->guest_debt = $guest->guest_debt - $cashRC->amount;
+                $guest->save();
+            }
+            if (isset($data['provide_id'])) {
+                $provide = Provides::find($data['provide_id']);
+                $provide->provide_debt = $provide->provide_debt - $cashRC->amount;
+                $provide->save();
+            }
 
             if ($cashRC->status == 2) {
                 $detailE = $this->fetchDelivery($data);

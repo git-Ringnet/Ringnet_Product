@@ -407,7 +407,7 @@
                                                                 <input type="text" required=""
                                                                     class="border-0 px-2 py-1 w-100 price_export text-right height-32"
                                                                     name="price_export[]"
-                                                                    value="{{ number_format($item->price_export) }}"
+                                                                    value="{{ number_format($item->price_return) }}"
                                                                     readonly>
                                                             </div>
                                                         </td>

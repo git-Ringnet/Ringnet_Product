@@ -105,7 +105,7 @@ class Receive_bill extends Model
                 'delivery_code' => isset($data['delivery_code']) ? $data['delivery_code'] : $delivery_code,
                 'user_id' => Auth::user()->id,
                 'promotion' => json_encode($promotion),
-                'manager_warehouse' => isset($data['manager_warehouse']) ? str_replace(',', '', $data['manager_warehouse']) : "",
+                'manager_warehouse' => isset($data['manager_warehouse']) ? $data['manager_warehouse'] : "",
                 'fullname' => isset($data['fullname']) ? str_replace(',', '', $data['fullname']) : "",
                 'address' => isset($data['address']) ? str_replace(',', '', $data['address']) : "",
                 'phone' => isset($data['phone']) ? str_replace(',', '', $data['phone']) : "",

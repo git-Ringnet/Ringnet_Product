@@ -48,6 +48,12 @@ class ReturnImport extends Model
         return $this->hasMany(CashReceipt::class, 'returnImport_id', 'id');
     }
 
+    public function getTotal()
+    {
+        $total = ReturnImport::sum('total');
+        return $total;
+    }
+
 
     public function getQuoteCount()
     {

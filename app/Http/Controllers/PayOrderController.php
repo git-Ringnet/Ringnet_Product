@@ -307,11 +307,20 @@ class PayOrderController extends Controller
             $returnE->payment = $returnE->payment - $phieuChi->payment;
             $returnE->save();
         } else {
-            //cập nhật công nợ
-            $provide = Provides::where('id', $phieuChi->guest_id)->first();
-            $provide->provide_debt = $provide->provide_debt + $phieuChi->payment;
-            $provide->save();
-            $status = $this->payment->deletePayment($id);
+            if ($phieuChi->provide_id != 0) {
+                //cập nhật công nợ
+                $provide = Provides::where('id', $phieuChi->provide_id)->first();
+                $provide->provide_debt = $provide->provide_debt + $phieuChi->payment;
+                $provide->save();
+                $status = $this->payment->deletePayment($id);
+            }
+            if ($phieuChi->guest_id != 0) {
+                //cập nhật công nợ
+                $guest = Guest::where('id', $phieuChi->guest_id)->first();
+                $guest->guest_debt = $guest->guest_debt + $phieuChi->payment;
+                $guest->save();
+                $status = $this->payment->deletePayment($id);
+            }
         }
 
         if ($status) {

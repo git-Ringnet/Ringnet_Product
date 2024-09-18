@@ -269,7 +269,7 @@
                                             class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
                                             @foreach ($listUser as $itemU)
                                                 <option value="{{ $itemU->id }}"
-                                                    @if ($itemU->id == $receive->user_id) selected @endif>
+                                                    @if ($itemU->id == $receive->manager_warehouse) selected @endif>
                                                     {{ $itemU->name }}</option>
                                             @endforeach
                                         </select>

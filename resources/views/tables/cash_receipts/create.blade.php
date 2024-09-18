@@ -104,7 +104,8 @@
         </div>
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-75">
-            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PT'" :status="'1'" :guest="$guest" :listUser="$listUser" />
+            <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PT'" :status="'1'" :guest="$guest"
+                :listUser="$listUser" />
             <div id="main">
                 {{-- <section class="content">
                     <div class="bg-filter-search border-0 text-center">
@@ -379,7 +380,7 @@
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng - NCC</span>
                                 <div
                                     class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative w-100">
                                     <input type="text" placeholder="Chọn thông tin" id="myGuest"
@@ -387,6 +388,7 @@
                                         style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
                                         readonly>
                                     <input type="hidden" name="guest_id" id="guest_id">
+                                    <input type="hidden" name="provide_id" id="provide_id">
                                     <input type="hidden" name="addr" id="addr" value="">
                                     <ul id="listGuest"
                                         class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
@@ -405,8 +407,20 @@
                                             <li class="p-2 align-items-center"
                                                 style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                 <a href="javascript:void(0)" id="{{ $value->id }}"
-                                                    name="search-info" class="search-guest" style="flex:2;">
+                                                    name="search-info" class="search-guest" style="flex:2;"
+                                                    data-name="guest">
                                                     <span class="text-13-black">{{ $value->guest_name_display }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                        @foreach ($provide as $value_provide)
+                                            <li class="p-2 align-items-center"
+                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                <a href="javascript:void(0)" id="{{ $value_provide->id }}"
+                                                    name="search-info" class="search-guest" style="flex:2;"
+                                                    data-name="provide">
+                                                    <span
+                                                        class="text-13-black">{{ $value_provide->provide_name_display }}</span>
                                                 </a>
                                             </li>
                                         @endforeach
@@ -636,13 +650,20 @@
     // DebtGuest
     $(document).ready(function() {
         $('.search-guest').on('click', function(event, detail_id) {
+            var dataName = $(this).data('name');
             $('input.price_export').val('');
             if (detail_id) {
                 detail_id = detail_id;
             } else {
                 detail_id = parseInt($(this).attr('id'), 10);
             }
-            $('#guestId').val(detail_id);
+            if (dataName == "guest") {
+                $('#guest_id').val(detail_id);
+                $('#provide_id').val("");
+            } else {
+                $('#guest_id').val("");
+                $('#provide_id').val(detail_id);
+            }
             $('#myGuest').val($(this).find('span').text());
             $('#listGuest').hide();
             $.ajax({
@@ -650,28 +671,52 @@
                 type: "get",
                 data: {
                     guest_id: detail_id,
+                    dataName: dataName,
                 },
                 success: function(data) {
-                    $('#addr').val(data['guest_address']);
-                    var guestDebt = parseFloat(data['guest_debt']);
-                    if (isNaN(guestDebt)) {
-                        guestDebt = 0;
-                    }
-                    $('#money_reciept').val(formatCurrency(guestDebt));
-                    $('.cash_reciept').attr('style', 'display:block');
-
-                    // Xóa sự kiện input trước đó
-                    $('input[name="total"]').off('input');
-
-                    // Thiết lập sự kiện input mới với giá trị data['guest_debt']
-                    $('input[name="total"]').on('input', function() {
-                        var inputValue = parseFloat($(this).val().replace(
-                            /[^0-9.-]+/g, ""));
-                        if (inputValue > guestDebt) {
-                            inputValue = guestDebt;
+                    if (dataName == "guest") {
+                        $('#addr').val(data['guest_address']);
+                        var guestDebt = parseFloat(data['guest_debt']);
+                        if (isNaN(guestDebt)) {
+                            guestDebt = 0;
                         }
-                        $(this).val(formatCurrency(inputValue));
-                    });
+                        $('#money_reciept').val(formatCurrency(guestDebt));
+                        $('.cash_reciept').attr('style', 'display:block');
+
+                        // Xóa sự kiện input trước đó
+                        $('input[name="total"]').off('input');
+
+                        // Thiết lập sự kiện input mới với giá trị data['guest_debt']
+                        $('input[name="total"]').on('input', function() {
+                            var inputValue = parseFloat($(this).val().replace(
+                                /[^0-9.-]+/g, ""));
+                            if (inputValue > guestDebt) {
+                                inputValue = guestDebt;
+                            }
+                            $(this).val(formatCurrency(inputValue));
+                        });
+                    } else {
+                        $('#addr').val(data['provide_address']);
+                        var guestDebt = parseFloat(data['provide_debt']);
+                        if (isNaN(guestDebt)) {
+                            guestDebt = 0;
+                        }
+                        $('#money_reciept').val(formatCurrency(guestDebt));
+                        $('.cash_reciept').attr('style', 'display:block');
+
+                        // Xóa sự kiện input trước đó
+                        $('input[name="total"]').off('input');
+
+                        // Thiết lập sự kiện input mới với giá trị data['guest_debt']
+                        $('input[name="total"]').on('input', function() {
+                            var inputValue = parseFloat($(this).val().replace(
+                                /[^0-9.-]+/g, ""));
+                            if (inputValue > guestDebt) {
+                                inputValue = guestDebt;
+                            }
+                            $(this).val(formatCurrency(inputValue));
+                        });
+                    }
                 }
             });
         });

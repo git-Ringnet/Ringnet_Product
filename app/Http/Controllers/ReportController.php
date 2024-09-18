@@ -733,20 +733,41 @@ class ReportController extends Controller
         // Tỷ suất lợi nhuận bán hàng
         $tysuatloinhuan = $doanhsobanhang != 0 ? (($loinhuan / $doanhsobanhang) * 100) : 0;
 
-        $totalDebt = $this->guest->debtGuest()->sum(function ($item) {
-            return $item->totalProductVat -
-                $item->totalCashReciept -
-                ($item->totalReturn - $item->chiKH);
-        });
+        //Khách hàng còn nợ
+        // $totalDebt = $this->guest->debtGuest()->sum(function ($item) {
+        //     return $item->totalProductVat -
+        //         $item->totalCashReciept -
+        //         ($item->totalReturn - $item->chiKH);
+        // });
+        $totalDebt = $this->guest->getDebtGuest();
 
         $tongnhap = $this->detailImport->reportAll()->sum('total_tax');
 
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
-        $totalProvideDebt = $provides->sum(function ($item) {
-            return $item->calculateProvideDebt();
-        });
+        // $totalProvideDebt = $provides->sum(function ($item) {
+        //     return $item->calculateProvideDebt();
+        // });
+        $totalProvideDebt = $this->provide->getDebtProvide();
 
         $hoahongSale = Commission::get()->sum('total_amount');
+
+        //Thực thu tiền bán hàng + khách đặt cọc
+        $thucThuBanHang = $this->cash_rc->getTotalAmount();
+
+        //Tỷ lệ thu tiền so với doanh số
+        $tyLeThuTien = ($thucThuBanHang / $doanhsobanhang) * 100;
+
+        //Trả tiền hàng khách trả lại
+        $traTienKhachTraHang = $this->payOrder->getTotalPaymentGuest();
+
+        //Trả tiền mua hàng nhà cung cấp
+        $traTienMuaHang = $this->payOrder->getTotalPaymentProvide();
+
+        //Hàng trả lại nhà cung cấp
+        $hangTraLai = $this->returnImport->getTotal();
+
+        //Thu lại tiền xuất trả hàng nhà cung cấp
+        $thuTienTraHangNCC = CashReceipt::where('provide_id', '!=', 0)->sum('amount');
 
         // Gán giá trị vào mảng
         $arrData = [
@@ -759,6 +780,12 @@ class ReportController extends Controller
             'tongnhap' => $tongnhap,
             'totalProvideDebt' => $totalProvideDebt,
             'hoahongSale' => $hoahongSale,
+            'thucThuBanHang' => $thucThuBanHang,
+            'tyLeThuTien' => $tyLeThuTien,
+            'hangTraLai' => $hangTraLai,
+            'traTienMuaHang' => $traTienMuaHang,
+            'traTienKhachTraHang' => $traTienKhachTraHang,
+            'thuTienTraHangNCC' => $thuTienTraHangNCC,
         ];
         $funds = Fund::where('workspace_id', Auth::user()->current_workspace)
             ->orderby('id', 'desc')
