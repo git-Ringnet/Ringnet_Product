@@ -153,7 +153,7 @@
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="height-52 border" style="width: 14%;">
+                                                {{-- <th scope="col" class="height-52 border" style="width: 14%;">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -163,7 +163,7 @@
                                                         </a>
                                                         <div class="icon" id="icon-guest_name_display"></div>
                                                     </span>
-                                                </th>
+                                                </th> --}}
                                                 <th scope="col" class="height-52 border" style="width: 14%;">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link"
@@ -239,9 +239,9 @@
                                                     <td class="border text-13-black height-52">
                                                         {{ $item->provide_name_display }}
                                                     </td>
-                                                    <td class="border text-13-black text-right height-52">
+                                                    {{-- <td class="border text-13-black text-right height-52">
                                                         Đầu kỳ
-                                                    </td>
+                                                    </td> --}}
                                                     <td
                                                         class="border text-13-black text-wrap text-right height-52 total">
                                                         @if ($item->getAllDetailByID)
