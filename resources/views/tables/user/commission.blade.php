@@ -210,28 +210,6 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="group_type" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Đơn giá</span>
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon"></div>
-                                                </span>
-                                            </th>
-                                            <th class="height-52 border" scope="col" style="">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="group_type" data-sort-type="DESC">
-                                                        <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Thành tiền</span>
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon"></div>
-                                                </span>
-                                            </th>
-                                            <th class="height-52 border" scope="col" style="">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="group_type" data-sort-type="DESC">
-                                                        <button class="btn-sort" type="submit">
                                                             <span class="text-13">Hoa hồng (VND)</span>
                                                         </button>
                                                     </a>
@@ -264,18 +242,16 @@
                                         </tr>
                                     </thead>
                                     <tbody class="table-sell">
-                                        <!-- Nhóm đối tượng: Chưa chọn nhóm -->
                                         <tr>
                                             <td colspan="12" class="border-bottom bold">Nhóm đối tượng: Chưa chọn
                                                 nhóm</td>
                                         </tr>
 
                                         @php
+                                            // Tổng cộng cho tất cả nhân viên
                                             $grandTotalDeliverQty = 0;
-                                            $grandTotalPriceExport = 0;
-                                            $grandTotalProductTotalVat = 0;
                                             $grandTotalCommission = 0;
-                                            $grandTotalCommissionAmount = 0;
+                                            $grandTotalAmount = 0;
                                         @endphp
 
                                         @foreach ($users as $item)
@@ -285,13 +261,10 @@
                                                     <td colspan="11" class="border-bottom bold">Nhân viên:
                                                         {{ $item->name }}</td>
                                                 </tr>
-
                                                 @php
                                                     $totalDeliverQty = 0;
-                                                    $totalPriceExport = 0;
-                                                    $totalProductTotalVat = 0;
                                                     $totalCommission = 0;
-                                                    $totalCommissionAmount = 0;
+                                                    $totalAmount = 0;
                                                 @endphp
 
                                                 @foreach ($allDelivery as $itemDelivery)
@@ -305,29 +278,23 @@
                                                     @if ($matchedItems->isNotEmpty())
                                                         @foreach ($matchedItems as $matchedItem)
                                                             @php
-                                                                $commissionTotal =
-                                                                    $matchedItem->commission *
-                                                                    $matchedItem->product_qty;
                                                                 $totalDeliverQty += $matchedItem->product_qty;
-                                                                $totalPriceExport += $matchedItem->price_export;
-                                                                $totalProductTotalVat += $matchedItem->product_total;
                                                                 $totalCommission += $matchedItem->commission;
-                                                                $totalCommissionAmount += $commissionTotal;
+                                                                $totalAmount += $matchedItem->total_amount;
                                                             @endphp
-
-                                                            <tr class="position-relative sell-info">
+                                                            <tr class="position-relative relative sell-info">
                                                                 <input type="hidden" value="{{ $itemDelivery->id }}"
-                                                                    class="sell" id="sell">
-
+                                                                    class="sell">
                                                                 @if ($loop->first)
                                                                     <td rowspan="{{ $count }}"
                                                                         class="text-13-black height-52 border">
-                                                                        {{ $itemDelivery->maPhieu }}</td>
+                                                                        {{ $itemDelivery->maPhieu }}
+                                                                    </td>
                                                                     <td rowspan="{{ $count }}"
                                                                         class="text-13-black height-52 border">
-                                                                        {{ $itemDelivery->nameGuest }}</td>
+                                                                        {{ $itemDelivery->nameGuest }}
+                                                                    </td>
                                                                 @endif
-
                                                                 <td class="text-13-black height-52 border">
                                                                     {{ $matchedItem->nameGr }}</td>
                                                                 <td class="text-13-black height-52 border">
@@ -339,15 +306,23 @@
                                                                 <td class="text-13-black height-52 border">
                                                                     {{ number_format($matchedItem->product_qty) }}</td>
                                                                 <td class="text-13-black height-52 border">
-                                                                    {{ number_format($matchedItem->price_export) }}
+                                                                    <input type="text" autocomplete="off"
+                                                                        class="border-0 px-2 py-1 w-100 number commission height-32"
+                                                                        data-sale="{{ $item->id }}"
+                                                                        data-month="{{ $itemDelivery->ngayTao }}"
+                                                                        data-quote="{{ $matchedItem->id_quote }}"
+                                                                        value="{{ number_format($matchedItem->commission) }}"
+                                                                        name="commission[]">
                                                                 </td>
                                                                 <td class="text-13-black height-52 border">
-                                                                    {{ number_format($matchedItem->product_total) }}
+                                                                    <input type="text" autocomplete="off"
+                                                                        class="border-0 px-2 py-1 w-100 commission_total height-32"
+                                                                        data-sale="{{ $item->id }}"
+                                                                        data-quote="{{ $matchedItem->id_quote }}"
+                                                                        data-month="{{ $itemDelivery->ngayTao }}"
+                                                                        value="{{ number_format($matchedItem->total_amount) }}"
+                                                                        readonly name="commission_total[]">
                                                                 </td>
-                                                                <td class="text-13-black height-52 border">
-                                                                    {{ number_format($matchedItem->commission) }}</td>
-                                                                <td class="text-13-black height-52 border">
-                                                                    {{ number_format($commissionTotal) }}</td>
                                                                 <td class="text-13-black height-52 border text-center">
                                                                     <input type="checkbox" class="checkbox-status"
                                                                         name="checkbox_name[]"
@@ -357,184 +332,50 @@
                                                                         value="{{ $item->id }}"
                                                                         {{ $matchedItem->statusCM == 1 ? 'checked' : '' }}>
                                                                 </td>
+                                                                <input type="hidden" class="qty"
+                                                                    value="{{ $matchedItem->product_qty }}">
                                                             </tr>
                                                         @endforeach
                                                     @endif
                                                 @endforeach
 
-                                                <!-- Tổng cho mỗi nhân viên -->
-                                                <tr class="font-weight-bold">
+                                                <!-- Tổng cộng cho từng nhân viên -->
+                                                @php
+                                                    // Cộng dồn vào tổng cộng chung
+                                                    $grandTotalDeliverQty += $totalDeliverQty;
+                                                    $grandTotalCommission += $totalCommission;
+                                                    $grandTotalAmount += $totalAmount;
+                                                @endphp
+
+                                                <tr class="bold">
                                                     <td colspan="6" class="text-right border">Tổng cộng cho nhân
-                                                        viên
-                                                        {{ $item->name }}:</td>
+                                                        viên {{ $item->name }}:</td>
                                                     <td class="text-13-black height-52 border">
                                                         {{ number_format($totalDeliverQty) }}</td>
                                                     <td class="text-13-black height-52 border">
-                                                        {{ number_format($totalPriceExport) }}</td>
-                                                    <td class="text-13-black height-52 border">
-                                                        {{ number_format($totalProductTotalVat) }}</td>
-                                                    <td class="text-13-black height-52 border">
                                                         {{ number_format($totalCommission) }}</td>
                                                     <td class="text-13-black height-52 border">
-                                                        {{ number_format($totalCommissionAmount) }}</td>
-                                                    <td class="text-13-black height-52 border"></td>
-                                                    <!-- Cột checkbox -->
+                                                        {{ number_format($totalAmount) }}</td>
+                                                    <td colspan="4" class="border"></td>
                                                 </tr>
-
-                                                <!-- Cộng dồn tổng cho tất cả nhân viên trong nhóm "Chưa chọn nhóm" -->
-                                                @php
-                                                    $grandTotalDeliverQty += $totalDeliverQty;
-                                                    $grandTotalPriceExport += $totalPriceExport;
-                                                    $grandTotalProductTotalVat += $totalProductTotalVat;
-                                                    $grandTotalCommission += $totalCommission;
-                                                    $grandTotalCommissionAmount += $totalCommissionAmount;
-                                                @endphp
                                             @endif
                                         @endforeach
 
-                                        <!-- Nhóm nhân viên -->
-                                        @foreach ($groupUsers as $value)
-                                            <tr>
-                                                <td colspan="12" class="border-bottom bold">Nhóm nhân viên:
-                                                    {{ $value->name }}</td>
-                                            </tr>
-
-                                            @foreach ($users as $item)
-                                                @if ($item->group_id == $value->id)
-                                                    <tr>
-                                                        <td class="border-bottom bold"></td>
-                                                        <td colspan="11" class="border-bottom bold">Nhân viên:
-                                                            {{ $item->name }}</td>
-                                                    </tr>
-
-                                                    @php
-                                                        $totalDeliverQty = 0;
-                                                        $totalPriceExport = 0;
-                                                        $totalProductTotalVat = 0;
-                                                        $totalCommission = 0;
-                                                        $totalCommissionAmount = 0;
-                                                    @endphp
-
-                                                    @foreach ($allDelivery as $itemDelivery)
-                                                        @php
-                                                            $matchedItems = $productDelivered
-                                                                ->where('detailexport_id', $itemDelivery->id)
-                                                                ->where('id_sale', $item->id);
-                                                            $count = $matchedItems->count();
-                                                        @endphp
-
-                                                        @if ($matchedItems->isNotEmpty())
-                                                            @foreach ($matchedItems as $matchedItem)
-                                                                @php
-                                                                    $commissionTotal =
-                                                                        $matchedItem->commission *
-                                                                        $matchedItem->product_qty;
-                                                                    $totalDeliverQty += $matchedItem->product_qty;
-                                                                    $totalPriceExport += $matchedItem->price_export;
-                                                                    $totalProductTotalVat +=
-                                                                        $matchedItem->product_total;
-                                                                    $totalCommission += $matchedItem->commission;
-                                                                    $totalCommissionAmount += $commissionTotal;
-                                                                @endphp
-
-                                                                <tr class="position-relative">
-                                                                    <input type="hidden"
-                                                                        value="{{ $itemDelivery->id }}"
-                                                                        class="sell">
-
-                                                                    @if ($loop->first)
-                                                                        <td rowspan="{{ $count }}"
-                                                                            class="text-13-black height-52 border">
-                                                                            {{ $itemDelivery->maPhieu }}</td>
-                                                                        <td rowspan="{{ $count }}"
-                                                                            class="text-13-black height-52 border">
-                                                                            {{ $itemDelivery->nameGuest }}</td>
-                                                                    @endif
-
-                                                                    <td class="text-13-black height-52 border">
-                                                                        {{ $matchedItem->nameGr }}</td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        {{ $matchedItem->product_code }}</td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        {{ $matchedItem->product_name }}</td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        {{ $matchedItem->product_unit }}</td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        {{ number_format($matchedItem->product_qty) }}
-                                                                    </td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        {{ number_format($matchedItem->price_export) }}
-                                                                    </td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        {{ number_format($matchedItem->product_total) }}
-                                                                    </td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        {{ number_format($matchedItem->commission) }}
-                                                                    </td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        {{ number_format($commissionTotal) }}</td>
-                                                                    <td
-                                                                        class="text-13-black height-52 border text-center">
-                                                                        <input type="checkbox" class="checkbox-status"
-                                                                            name="checkbox_name[]"
-                                                                            data-sale="{{ $item->id }}"
-                                                                            data-quote="{{ $matchedItem->id_quote }}"
-                                                                            data-month="{{ $itemDelivery->ngayTao }}"
-                                                                            value="{{ $item->id }}"
-                                                                            {{ $matchedItem->statusCM == 1 ? 'checked' : '' }}>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        @endif
-                                                    @endforeach
-
-                                                    <!-- Tổng cho mỗi nhân viên -->
-                                                    <tr class="font-weight-bold">
-                                                        <td colspan="6" class="text-right border">Tổng cộng cho
-                                                            nhân viên
-                                                            {{ $item->name }}:</td>
-                                                        <td class="text-13-black height-52 border">
-                                                            {{ number_format($totalDeliverQty) }}</td>
-                                                        <td class="text-13-black height-52 border">
-                                                            {{ number_format($totalPriceExport) }}</td>
-                                                        <td class="text-13-black height-52 border">
-                                                            {{ number_format($totalProductTotalVat) }}</td>
-                                                        <td class="text-13-black height-52 border">
-                                                            {{ number_format($totalCommission) }}</td>
-                                                        <td class="text-13-black height-52 border">
-                                                            {{ number_format($totalCommissionAmount) }}</td>
-                                                        <td class="text-13-black height-52 border"></td>
-                                                        <!-- Cột checkbox -->
-                                                    </tr>
-
-                                                    <!-- Cộng dồn tổng cho tất cả nhân viên trong nhóm -->
-                                                    @php
-                                                        $grandTotalDeliverQty += $totalDeliverQty;
-                                                        $grandTotalPriceExport += $totalPriceExport;
-                                                        $grandTotalProductTotalVat += $totalProductTotalVat;
-                                                        $grandTotalCommission += $totalCommission;
-                                                        $grandTotalCommissionAmount += $totalCommissionAmount;
-                                                    @endphp
-                                                @endif
-                                            @endforeach
-                                        @endforeach
-
-                                        <!-- Tổng cộng của tất cả nhân viên -->
-                                        <tr class="font-weight-bold">
-                                            <td colspan="6" class="text-right border">Tổng cộng tất cả:</td>
+                                        <!-- Tổng cộng cuối cùng cho tất cả nhân viên -->
+                                        <tr class="bold">
+                                            <td colspan="6" class="text-right border">Tổng cộng tất cả nhân viên:
+                                            </td>
                                             <td class="text-13-black height-52 border">
                                                 {{ number_format($grandTotalDeliverQty) }}</td>
                                             <td class="text-13-black height-52 border">
-                                                {{ number_format($grandTotalPriceExport) }}</td>
-                                            <td class="text-13-black height-52 border">
-                                                {{ number_format($grandTotalProductTotalVat) }}</td>
-                                            <td class="text-13-black height-52 border">
                                                 {{ number_format($grandTotalCommission) }}</td>
                                             <td class="text-13-black height-52 border">
-                                                {{ number_format($grandTotalCommissionAmount) }}</td>
-                                            <td class="text-13-black height-52 border"></td> <!-- Cột checkbox -->
+                                                {{ number_format($grandTotalAmount) }}</td>
+                                            <td colspan="4" class="border"></td>
                                         </tr>
                                     </tbody>
+
+
 
                                 </table>
                             </div>

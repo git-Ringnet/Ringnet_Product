@@ -11,6 +11,7 @@ use App\Models\DetailImport;
 use App\Models\Groups;
 use App\Models\Guest;
 use App\Models\PayOder;
+use App\Models\Promotion;
 use App\Models\Receive_bill;
 use App\Models\ReturnExport;
 use App\Models\ReturnImport;
@@ -648,6 +649,7 @@ class BusinessManagementController extends Controller
         $groupGuests = Groups::where('grouptype_id', 2)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
+        $promotions = Promotion::where('month', Carbon::now()->month)->get();
 
         // Formatting data for export
         $dataCollection = collect();
@@ -657,7 +659,8 @@ class BusinessManagementController extends Controller
         foreach ($guests as $guest) {
             if ($guest->group_id == 0 || $guest->group_id === null) {
                 $dataCollection->push(['Khách hàng: ' . $guest->guest_name_display]);
-                $this->addGuestData($dataCollection, $guest, $allDelivery, $productDelivered);
+                $this->addGuestData($dataCollection, $guest, $allDelivery, $productDelivered, $promotions);
+                $this->addTotalRow($dataCollection, $guest, $allDelivery, $productDelivered, $promotions);
             }
         }
 
@@ -667,7 +670,8 @@ class BusinessManagementController extends Controller
             foreach ($guests as $guest) {
                 if ($guest->group_id == $group->id) {
                     $dataCollection->push(['Khách hàng: ' . $guest->guest_name_display]);
-                    $this->addGuestData($dataCollection, $guest, $allDelivery, $productDelivered);
+                    $this->addGuestData($dataCollection, $guest, $allDelivery, $productDelivered, $promotions);
+                    $this->addTotalRow($dataCollection, $guest, $allDelivery, $productDelivered, $promotions);
                 }
             }
         }
@@ -681,18 +685,16 @@ class BusinessManagementController extends Controller
             'Tên hàng',
             'Đơn vị tính',
             'Số lượng',
-            'Đơn giá',
-            'Thành tiền',
             'Bao (Số lượng)',
             'Tiền (VND)',
             'Vàng',
+            'Mô tả'
         ];
 
         // Exporting data using Laravel Excel
         return Excel::download(new GenericExport($dataCollection, $headings), 'promotion_report.xlsx');
     }
-
-    private function addGuestData($dataCollection, $guest, $allDelivery, $productDelivered)
+    private function addGuestData($dataCollection, $guest, $allDelivery, $productDelivered, $promotions)
     {
         foreach ($allDelivery as $delivery) {
             $matchedItems = $productDelivered
@@ -700,21 +702,70 @@ class BusinessManagementController extends Controller
                 ->where('guest_id', $guest->id);
 
             foreach ($matchedItems as $item) {
+                // Find promotion for the guest
+                $promotion = $promotions->firstWhere('guest_id', $guest->id);
+
                 $dataCollection->push([
                     $delivery->maPhieu,
-                    $delivery->nameGuest,
+                    $delivery->nameUser,
                     $item->nameGr,
                     $item->product_code,
                     $item->product_name,
                     $item->product_unit,
-                    $item->product_qty,
-                    $item->price_export,
-                    $item->product_total,
-                    number_format($item->product_quantity), // Assuming Bao represents quantity
-                    number_format($item->cash_value),
-                    $item->gold_value ? $item->gold_value : '',
+                    '',
+                    '',
+                    '',
+                    ''
                 ]);
             }
         }
+    }
+    private function addTotalRow($dataCollection, $guest, $allDelivery, $productDelivered, $promotions)
+    {
+        $totalDeliverQty = 0;
+        $totalProductTotalVat = 0;
+        $totalProductQuantity = 0;
+        $totalCashValue = 0;
+        $goldValues = [];
+
+        foreach ($allDelivery as $delivery) {
+            $matchedItems = $productDelivered
+                ->where('detailexport_id', $delivery->id)
+                ->where('guest_id', $guest->id);
+
+            foreach ($matchedItems as $item) {
+                $totalDeliverQty += $item->product_qty;
+                $totalProductTotalVat += $item->product_total; // Assuming this is the total money for the item
+                $totalProductQuantity += $item->product_quantity;
+                $totalCashValue += $item->cash_value;
+                if (!empty($item->gold_value)) {
+                    $goldValues[] = $item->gold_value;
+                }
+            }
+        }
+
+        // Find promotion for the guest
+        $promotion = $promotions->firstWhere('guest_id', $guest->id);
+
+        // If promotion exists, override the calculated values
+        if ($promotion) {
+            $totalProductQuantity = $promotion->product_quantity;
+            $totalCashValue = $promotion->cash_value;
+            $goldValues = [$promotion->gold_value];
+        }
+
+        $dataCollection->push([
+            'Tổng cộng', // Label for total row
+            '', // Empty cell for 'Nhân viên Sale'
+            '', // Empty cell for 'Nhóm hàng'
+            '', // Empty cell for 'Mã hàng'
+            '', // Empty cell for 'Tên hàng'
+            '', // Empty cell for 'Đơn vị tính'
+            number_format($totalDeliverQty),
+            $totalProductQuantity,
+            number_format($totalCashValue),
+            implode(', ', $goldValues),
+            $promotion ? $promotion->description : ''
+        ]);
     }
 }

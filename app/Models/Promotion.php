@@ -19,7 +19,9 @@ class Promotion extends Model
         'gold_value',
         'product_quantity',
         'total',
-        'month', 'status'
+        'month',
+        'year',
+        'status'
     ];
     public function guest()
     {

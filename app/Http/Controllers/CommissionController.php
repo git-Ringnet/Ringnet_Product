@@ -11,6 +11,7 @@ use App\Models\QuoteExport;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Workspace;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -97,11 +98,17 @@ class CommissionController extends Controller
 
         $productDelivered = $this->quoteE->sumProductsQuoteSale();
         // // Get All đơn
-        $allDelivery = $this->detailExport->getSumDetailESale();
+        $today = Carbon::now()->format('Y-m-d');
+        $dateArray = [
+            'today' => $today,
+        ];
+
+        $allDelivery = $this->detailExport->getSumDetailESale($dateArray);
         $groupGuests = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
-
-        return view('tables.guests.promotion', compact('title', 'groupGuests', 'guest', 'productDelivered', 'allDelivery'));
+        $promotions = Promotion::where('month', Carbon::now()->month)
+            ->get();
+        return view('tables.guests.promotion', compact('title', 'promotions', 'groupGuests', 'guest', 'productDelivered', 'allDelivery'));
     }
 
     // Tạo mới hoặc cập nhật khuyến mãi KH
@@ -110,26 +117,30 @@ class CommissionController extends Controller
         // Xác thực dữ liệu
         $validated = $request->validate([
             'month' => 'required|string',
+            'year' => 'required|string',
             'guest' => 'required|integer',
-            'quote' => 'required|integer',
             'type' => 'required|string',
+            'desc' => 'nullable|string',
             'value' => 'nullable|string',
             'product_quantity' => 'nullable|string',
             'cash_value' => 'nullable|string',
             'gold_value' => 'nullable|string',
         ]);
 
-        // Loại bỏ dấu phẩy khỏi các giá trị
+        // Loại bỏ dấu phẩy khỏi các giá trị để xử lý chính xác số
         $validated['cash_value'] = str_replace(',', '', $validated['cash_value']);
         $validated['product_quantity'] = str_replace(',', '', $validated['product_quantity']);
+        $validated['gold_value'] = str_replace(',', '', $validated['gold_value']);
 
-        // Tạo mới hoặc cập nhật bản ghi
+        // Tạo mảng dữ liệu cần lưu
         $data = [
             'guest_id' => $validated['guest'],
-            'quoteE_id' => $validated['quote'],
             'month' => $validated['month'],
+            'year' => $validated['year'],
+            'description' => $validated['desc'],
         ];
 
+        // Cập nhật dữ liệu dựa trên loại
         if ($validated['type'] == 'cash') {
             $data['cash_value'] = $validated['cash_value'];
         } elseif ($validated['type'] == 'gold') {
@@ -138,13 +149,16 @@ class CommissionController extends Controller
             $data['product_quantity'] = $validated['product_quantity'];
         }
 
+        // Tạo mới hoặc cập nhật bản ghi
         $record = Promotion::updateOrCreate(
-            ['guest_id' => $validated['guest'], 'quoteE_id' => $validated['quote']],
+            ['guest_id' => $validated['guest'], 'month' => $validated['month'], 'year' => $validated['year']],
             $data
         );
 
+        // Trả về phản hồi JSON
         return response()->json(['success' => true, 'data' => $record]);
     }
+
     public function search(Request $request)
     {
         $data = $request->all();
@@ -154,11 +168,28 @@ class CommissionController extends Controller
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
             $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
+        $promotionQuery = Promotion::query();
+
+        if (isset($data['monthYear']) && $data['monthYear'][1] !== null) {
+            $month = $data['monthYear'][0];
+            $year = $data['monthYear'][1];
+
+            // Thêm vào mảng filters (nếu cần)
+            $filters[] = ['value' => 'CTKM: tháng ' . $month . ' năm ' . $year, 'name' => 'monthYear', 'icon' => 'monthYear'];
+
+            // Lọc theo tháng và năm
+            $promotionQuery->where('month', $month)
+                ->where('year', $year);
+        }
+
+        // Thực hiện truy vấn
+        $promotion = $promotionQuery->get();
         if ($request->ajax()) {
             $result = $this->detailExport->ajax($data);
             return response()->json([
                 'data' => $result,
                 'filters' => $filters,
+                'promotion' => $promotion,
             ]);
         }
         return false;

@@ -130,7 +130,10 @@
                     <tbody class="tbody-detailExport" id="PBH">
                         @foreach ($listDetail as $detail)
                             <tr class="position-relative detailExport-info height-52" data-id="{{ $detail->maBG }}"
-                                data-page="PBH" data-status="{{ $status }}">
+                                data-page="PBH" data-status="{{ $status }}"
+                                @if ($detail->status_receive == 2) style="background-color: #d1e7dd;"  {{-- Màu nền cho trạng thái "đã nhận hết" --}}
+                                @elseif($detail->status_receive == 3)
+                                    style="background-color: #fff3cd;"  {{-- Màu nền cho trạng thái "nhận 1 phần" --}} @endif>
                                 <td class="text-13-black text-left border-top-0 border-bottom">
                                     {{ $detail->quotation_number }}
                                 </td>
@@ -526,7 +529,7 @@
             $('#contextMenuPBH').css({
                 display: 'block',
                 left: e.pageX + 'px',
-                top: (e.pageY - 150) + 'px'
+                top: (e.pageY - 200) + 'px'
             }).addClass('show');
         });
 
@@ -565,7 +568,7 @@
             $('#contextMenuDHNCC').css({
                 display: 'block',
                 left: e.pageX + 'px',
-                top: (e.pageY - 150) + 'px'
+                top: (e.pageY - 200) + 'px'
             }).addClass('show');
         });
 

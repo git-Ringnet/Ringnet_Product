@@ -85,9 +85,9 @@
                                             </span>
                                         </div>
                                         <div class="scrollbar">
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                            {{-- <button class="dropdown-item btndropdown text-13-black" id="btn-date"
                                                 data-button="date" type="button">Ngày
-                                            </button>
+                                            </button> --}}
                                             {{-- <button class="dropdown-item btndropdown text-13-black btn-code"
                                                 id="btn-code-import" data-button="code" data-button="import"
                                                 type="button">Mã nhà cung cấp
@@ -103,10 +103,9 @@
                                             </button> --}}
                                         </div>
                                     </div>
-                                    <x-filter-date-time name="date" title="Ngày lập phiếu" />
                                 </div>
                                 {{--  --}}
-                                {{-- <div class="dropdown mx-1">
+                                <div class="dropdown mx-1">
                                     <button class="filter-btn ml-2 align-items-center d-flex border mb-0"
                                         id="filter-date" data-toggle="dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -141,7 +140,7 @@
                                         </div>
                                     </div>
                                     <x-filter-month name="date" title="Tháng" />
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -245,28 +244,6 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="group_type" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Đơn giá</span>
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon"></div>
-                                                </span>
-                                            </th>
-                                            <th class="height-52 border" scope="col" style="">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="group_type" data-sort-type="DESC">
-                                                        <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Thành tiền</span>
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon"></div>
-                                                </span>
-                                            </th>
-                                            <th class="height-52 border" scope="col" style="">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="group_type" data-sort-type="DESC">
-                                                        <button class="btn-sort" type="submit">
                                                             <span class="text-13">Bao (Số lượng)</span>
                                                         </button>
                                                     </a>
@@ -295,6 +272,17 @@
                                                     <div class="icon"></div>
                                                 </span>
                                             </th>
+                                            <th class="height-52 border" scope="col" style="">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="group_type" data-sort-type="DESC">
+                                                        <button class="btn-sort" type="submit">
+                                                            <span class="text-13">Ghi chú</span>
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon"></div>
+                                                </span>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-sell">
@@ -302,6 +290,20 @@
                                             <td colspan="12" class="border-bottom bold">Nhóm khách hàng:
                                                 Chưa chọn nhóm</td>
                                         </tr>
+                                        @php
+                                            $totalDeliverQty = 0;
+                                            $totalPriceExport = 0;
+                                            $totalProductTotalVat = 0;
+                                            $totalItemDeliveryTotalProductVat = 0;
+                                            $Pay = 0;
+                                            $Remai = 0;
+                                            $totalPay = 0;
+                                            $totalRemai = 0;
+                                            $totalProductQuantity = 0;
+                                            $totalCashValue = 0;
+                                            $goldValues = []; // Initialize an array to hold gold values
+                                            $stt = 1; // Initialize the STT variable
+                                        @endphp
                                         @foreach ($guest as $item)
                                             @if ($item->group_id == 0)
                                                 <tr>
@@ -378,42 +380,10 @@
                                                                     {{ $matchedItem->product_unit }}</td>
                                                                 <td class="text-13-black height-52 border">
                                                                     {{ number_format($matchedItem->product_qty) }}</td>
-                                                                <td class="text-13-black height-52 border">
-                                                                    {{ number_format($matchedItem->price_export) }}
-                                                                </td>
-                                                                <td class="text-13-black height-52 border">
-                                                                    {{ number_format($matchedItem->product_total) }}
-                                                                </td>
-                                                                <td class="text-13-black height-52 border">
-                                                                    <input type="text" autocomplete="off"
-                                                                        class="border-0 px-2 py-1 w-100 number product_quantity height-32"
-                                                                        data-type="quantity"
-                                                                        data-guest="{{ $item->id }}"
-                                                                        data-month="{{ $itemDelivery->ngayTao }}"
-                                                                        data-quote="{{ $matchedItem->id_quote }}"
-                                                                        value="{{ number_format($matchedItem->product_quantity) }}"
-                                                                        name="product_quantity[]">
-                                                                </td>
-                                                                <td class="text-13-black height-52 border">
-                                                                    <input type="text" autocomplete="off"
-                                                                        class="border-0 px-2 py-1 w-100 cash_value number height-32"
-                                                                        data-type="cash"
-                                                                        data-guest="{{ $item->id }}"
-                                                                        data-quote="{{ $matchedItem->id_quote }}"
-                                                                        data-month="{{ $itemDelivery->ngayTao }}"
-                                                                        value="{{ number_format($matchedItem->cash_value) }}"
-                                                                        name="cash_value[]">
-                                                                </td>
-                                                                <td class="text-13-black height-52 border">
-                                                                    <input type="text" autocomplete="off"
-                                                                        class="border-0 px-2 py-1 w-100 gold_value height-32"
-                                                                        data-type="gold"
-                                                                        data-guest="{{ $item->id }}"
-                                                                        data-quote="{{ $matchedItem->id_quote }}"
-                                                                        data-month="{{ $itemDelivery->ngayTao }}"
-                                                                        value="{{ $matchedItem->gold_value }}"
-                                                                        name="gold_value[]">
-                                                                </td>
+                                                                <td class="border"></td>
+                                                                <td class="border"></td>
+                                                                <td class="border"></td>
+                                                                <td class="border"></td>
                                                             </tr>
                                                         @endforeach
                                                         @php
@@ -423,20 +393,51 @@
                                                 @endforeach
                                                 <!-- Add total row for each guest -->
                                                 <tr>
-                                                    <td colspan="6" class="border-top bold text-right">Tổng cộng:
-                                                    </td>
-                                                    <td class="border-top text-13-black height-52 border">
+                                                    @php
+                                                        // Tìm promotion theo guest_id
+                                                        $promotion = $promotions->firstWhere('guest_id', $item->id);
+                                                    @endphp
+
+                                                    <td colspan="6" class="border bold text-right">Tổng
+                                                        cộng:</td>
+                                                    <td class="border text-13-black height-52 border">
                                                         {{ number_format($totalDeliverQty) }}</td>
-                                                    <td class="border-top text-13-black height-52 border">
-                                                        {{ number_format($totalPriceExport) }}</td>
-                                                    <td class="border-top text-13-black height-52 border">
-                                                        {{ number_format($totalProductTotalVat) }}</td>
-                                                    <td class="border-top text-13-black height-52 border">
-                                                        {{ number_format($totalProductQuantity) }}</td>
-                                                    <td class="border-top text-13-black height-52 border">
-                                                        {{ number_format($totalCashValue) }}</td>
-                                                    <td class="border-top text-13-black height-52 border">
-                                                        {{ implode(', ', $goldValues) }}</td>
+                                                    <td class="text-13-black height-52 border">
+                                                        <input type="text" autocomplete="off"
+                                                            class="border-0 px-2 py-1 w-100 product_quantity height-32"
+                                                            data-type="quantity" data-guest="{{ $item->id }}"
+                                                            data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
+                                                            data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
+                                                            value="{{ $promotion ? $promotion->product_quantity : '' }}"
+                                                            name="product_quantity[]">
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        <input type="text" autocomplete="off"
+                                                            class="border-0 px-2 py-1 w-100 cash_value number height-32"
+                                                            data-type="cash" data-guest="{{ $item->id }}"
+                                                            data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
+                                                            data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
+                                                            value="{{ $promotion ? number_format($promotion->cash_value) : '' }}"
+                                                            name="cash_value[]">
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        <input type="text" autocomplete="off"
+                                                            class="border-0 px-2 py-1 w-100 gold_value height-32"
+                                                            data-type="gold" data-guest="{{ $item->id }}"
+                                                            data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
+                                                            data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
+                                                            value="{{ $promotion ? $promotion->gold_value : '' }}"
+                                                            name="gold_value[]">
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        <input type="text" autocomplete="off"
+                                                            class="border-0 px-2 py-1 w-100 desc height-32"
+                                                            data-type="desc" data-guest="{{ $item->id }}"
+                                                            data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
+                                                            data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
+                                                            value="{{ $promotion ? $promotion->description : '' }}"
+                                                            name="desc[]">
+                                                    </td>
                                                     <!-- Combine gold values into a comma-separated string -->
                                                 </tr>
                                             @endif
@@ -522,42 +523,10 @@
                                                                     <td class="text-13-black height-52 border">
                                                                         {{ number_format($matchedItem->product_qty) }}
                                                                     </td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        {{ number_format($matchedItem->price_export) }}
-                                                                    </td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        {{ number_format($matchedItem->product_total) }}
-                                                                    </td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        <input type="text" autocomplete="off"
-                                                                            class="border-0 px-2 py-1 w-100 number product_quantity height-32"
-                                                                            data-type="quantity"
-                                                                            data-guest="{{ $item->id }}"
-                                                                            data-month="{{ $itemDelivery->ngayTao }}"
-                                                                            data-quote="{{ $matchedItem->id_quote }}"
-                                                                            value="{{ number_format($matchedItem->product_quantity) }}"
-                                                                            name="product_quantity[]">
-                                                                    </td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        <input type="text" autocomplete="off"
-                                                                            class="border-0 px-2 py-1 w-100 cash_value number height-32"
-                                                                            data-type="cash"
-                                                                            data-guest="{{ $item->id }}"
-                                                                            data-quote="{{ $matchedItem->id_quote }}"
-                                                                            data-month="{{ $itemDelivery->ngayTao }}"
-                                                                            value="{{ number_format($matchedItem->cash_value) }}"
-                                                                            name="cash_value[]">
-                                                                    </td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        <input type="text" autocomplete="off"
-                                                                            class="border-0 px-2 py-1 w-100 gold_value height-32"
-                                                                            data-type="gold"
-                                                                            data-guest="{{ $item->id }}"
-                                                                            data-quote="{{ $matchedItem->id_quote }}"
-                                                                            data-month="{{ $itemDelivery->ngayTao }}"
-                                                                            value="{{ $matchedItem->gold_value }}"
-                                                                            name="gold_value[]">
-                                                                    </td>
+                                                                    <td class="border"></td>
+                                                                    <td class="border"></td>
+                                                                    <td class="border"></td>
+                                                                    <td class="border"></td>
                                                                 </tr>
                                                             @endforeach
                                                             @php
@@ -567,27 +536,56 @@
                                                     @endforeach
                                                     <!-- Add total row for each guest -->
                                                     <tr>
-                                                        <td colspan="6" class="border-top bold text-right">Tổng
+                                                        @php
+                                                            // Tìm promotion theo guest_id
+                                                            $promotion = $promotions->firstWhere('guest_id', $item->id);
+                                                        @endphp
+
+                                                        <td colspan="6" class="border bold text-right">Tổng
                                                             cộng:</td>
-                                                        <td class="border-top text-13-black height-52 border">
+                                                        <td class="border text-13-black height-52 border">
                                                             {{ number_format($totalDeliverQty) }}</td>
-                                                        <td class="border-top text-13-black height-52 border">
-                                                            {{ number_format($totalPriceExport) }}</td>
-                                                        <td class="border-top text-13-black height-52 border">
-                                                            {{ number_format($totalProductTotalVat) }}</td>
-                                                        <td class="border-top text-13-black height-52 border">
-                                                            {{ number_format($totalProductQuantity) }}</td>
-                                                        <td class="border-top text-13-black height-52 border">
-                                                            {{ number_format($totalCashValue) }}</td>
-                                                        <td class="border-top text-13-black height-52 border">
-                                                            {{ implode(', ', $goldValues) }}</td>
+                                                        <td class="text-13-black height-52 border">
+                                                            <input type="text" autocomplete="off"
+                                                                class="border-0 px-2 py-1 w-100 product_quantity height-32"
+                                                                data-type="quantity" data-guest="{{ $item->id }}"
+                                                                data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
+                                                                data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
+                                                                value="{{ $promotion ? $promotion->product_quantity : '' }}"
+                                                                name="product_quantity[]">
+                                                        </td>
+                                                        <td class="text-13-black height-52 border">
+                                                            <input type="text" autocomplete="off"
+                                                                class="border-0 px-2 py-1 w-100 cash_value number height-32"
+                                                                data-type="cash" data-guest="{{ $item->id }}"
+                                                                data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
+                                                                data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
+                                                                value="{{ $promotion ? number_format($promotion->cash_value) : '' }}"
+                                                                name="cash_value[]">
+                                                        </td>
+                                                        <td class="text-13-black height-52 border">
+                                                            <input type="text" autocomplete="off"
+                                                                class="border-0 px-2 py-1 w-100 gold_value height-32"
+                                                                data-type="gold" data-guest="{{ $item->id }}"
+                                                                data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
+                                                                data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
+                                                                value="{{ $promotion ? $promotion->gold_value : '' }}"
+                                                                name="gold_value[]">
+                                                        </td>
+                                                        <td class="text-13-black height-52 border">
+                                                            <input type="text" autocomplete="off"
+                                                                class="border-0 px-2 py-1 w-100 desc height-32"
+                                                                data-type="desc" data-guest="{{ $item->id }}"
+                                                                data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
+                                                                data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
+                                                                value="{{ $promotion ? $promotion->description : '' }}"
+                                                                name="desc[]">
+                                                        </td>
                                                         <!-- Combine gold values into a comma-separated string -->
                                                     </tr>
                                                 @endif
                                             @endforeach
                                         @endforeach
-
-
                                     </tbody>
                                 </table>
                             </div>
@@ -611,42 +609,6 @@
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 <script src="{{ asset('/dist/js/number.js') }}"></script>
 <script>
-    $(document).ready(function() {
-        $(document).on('blur', '.product_quantity, .cash_value, .gold_value', function() {
-            var $row = $(this).closest('tr');
-            var product_quantity = $row.find('.product_quantity').val();
-            var cash_value = $row.find('.cash_value').val();
-            var gold_value = $row.find('.gold_value').val();
-            var month = $(this).data('month');
-            var guest = $(this).data('guest');
-            var quote = $(this).data('quote');
-            var type = $(this).data('type');
-            var value = $(this).val();
-            $.ajax({
-                url: "{{ route('promotionGuestAjax') }}",
-                type: "GET",
-                data: {
-                    month: month,
-                    guest: guest,
-                    quote: quote,
-                    type: type,
-                    value: value,
-                    product_quantity: product_quantity,
-                    cash_value: cash_value,
-                    gold_value: gold_value,
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-
-                },
-                error: function(xhr, status, error) {
-                    // Xử lý lỗi
-                    console.error('Error:', error);
-                }
-            });
-        });
-        addHighlightFunctionality(".table-sell", ".sell");
-    });
     var filters = [];
     var idName = [];
     var svgtop =
@@ -664,6 +626,13 @@
         var date_start = $('#date_start_date').val();
         var date_end = $('#date_end_date').val();
         var date = [date_start, date_end];
+        var month = $('#month-filter').val();
+        var year = $('#year-filter').val();
+        if (month === '' || year === '') {
+            alert('Vui lòng chọn cả tháng và năm.');
+            return;
+        }
+        var monthYear = [month, year];
 
         var dataArray = [{
             key: 'date',
@@ -694,7 +663,13 @@
             $('#date_start_date').val('');
             $('#date_end_date').val('');
             $('.datavalue').val('');
-
+        }
+        if ($(this).data('delete') === 'monthYear') {
+            $('#month-filter').val('');
+            $('#year-filter').val('');
+            monthYear = null;
+            month = new Date().getMonth() + 1;
+            year = new Date().getFullYear();
         }
         $.ajax({
             type: 'get',
@@ -702,17 +677,88 @@
             data: {
                 search: search,
                 date: date,
+                monthYear: monthYear,
                 sort: sort,
             },
             success: function(data) {
+                var promotions = data.promotion;
+
+                // Đặt tất cả các input về rỗng trước khi đổ dữ liệu
+                $('input[data-guest]').each(function() {
+                    var $input = $(this);
+                    $input.val(''); // Đặt giá trị của tất cả các input về rỗng
+                });
+
+                // Cập nhật các bộ lọc
                 updateFilters(data, filters, '.result-filter-import', '.tbody-sell',
                     '.sell-info', '.sell', buttonName);
+
+                // Đổ lại giá trị cho các ô input dựa trên dữ liệu trả về
+                promotions.forEach(function(promotion) {
+                    // Tìm các input có guest_id trùng với dữ liệu trong JSON
+                    $('input[data-guest="' + promotion.guest_id + '"]').each(function() {
+                        var $input = $(this);
+                        var type = $input.data(
+                            'type'); // Lấy type để xác định giá trị nào cần đổ vào
+
+                        // Cập nhật giá trị dựa trên type
+                        if (type === 'quantity') {
+                            $input.val(promotion.product_quantity);
+                        } else if (type === 'cash') {
+                            $input.val(formatCurrency(promotion.cash_value));
+                        } else if (type === 'gold') {
+                            $input.val(promotion.gold_value);
+                        } else if (type === 'desc') {
+                            $input.val(promotion.description);
+                        }
+                    });
+                });
             }
+
+
         });
         $.ajaxSetup({
             headers: {
                 'csrftoken': '{{ csrf_token() }}'
             }
         });
+    });
+    $(document).ready(function() {
+        $(document).on('blur', '.product_quantity, .cash_value, .gold_value,.desc', function() {
+            var $row = $(this).closest('tr');
+            var product_quantity = $row.find('.product_quantity').val();
+            var cash_value = $row.find('.cash_value').val();
+            var gold_value = $row.find('.gold_value').val();
+            var desc = $row.find('.desc').val();
+            var month = parseInt($(this).attr('data-month'), 10);
+            var year = parseInt($(this).attr('data-year'), 10);
+            var guest = $(this).data('guest');
+            var value = $(this).val();
+            var type = $(this).data('type');
+            $.ajax({
+                url: "{{ route('promotionGuestAjax') }}",
+                type: "GET",
+                data: {
+                    month: month,
+                    year: year, // Gửi cả year qua AJAX
+                    guest: guest,
+                    value: value,
+                    desc: desc,
+                    product_quantity: product_quantity,
+                    cash_value: cash_value,
+                    type: type,
+                    gold_value: gold_value,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+
+
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+        addHighlightFunctionality(".table-sell", ".sell");
     });
 </script>

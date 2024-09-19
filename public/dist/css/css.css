@@ -1401,7 +1401,7 @@ input[type="number"] {
     font-weight: 500;
 }
 
-.text-13-black .number, .gold_value{
+.text-13-black .number, .gold_value ,.product_quantity,.desc{
     background-color: #F0F4FF;
 }
 

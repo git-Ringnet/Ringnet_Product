@@ -857,33 +857,40 @@ function updateFilters2(
         $(resultFilterClass).append(itemFilter);
     });
 
-    // Process both contentExport and contentImport data
-    var allData = [].concat(data.contentExport, data.contentImport);
-    var ids = [];
-    allData.forEach(function (item) {
-        ids.push(item.id);
+    // Process contentExport data for 'thu-info'
+    var exportIds = data.contentExport.map(function (item) {
+        return item.id;
     });
 
-    var elementClasses = [".thu-info", ".chi-info"];
-    var idClasses = [".id-thu", ".id-chi"];
+    $(".thu-info").each(function () {
+        var value = parseInt($(this).find(".id-thu").val());
+        var dataIndex = exportIds.indexOf(value);
+        if (dataIndex !== -1) {
+            $(this).show();
+            $(this).attr("data-position", dataIndex + 1);
+        } else {
+            $(this).hide();
+        }
+    });
 
-    elementClasses.forEach(function (elementClass, index) {
-        var idClass = idClasses[index];
+    // Process contentImport data for 'chi-info'
+    var importIds = data.contentImport.map(function (item) {
+        return item.id;
+    });
 
-        $(elementClass).each(function () {
-            var value = parseInt($(this).find(idClass).val());
-            var dataIndex = ids.indexOf(value);
-            if (dataIndex !== -1) {
-                $(this).show();
-                $(this).attr("data-position", dataIndex + 1);
-            } else {
-                $(this).hide();
-            }
-        });
+    $(".chi-info").each(function () {
+        var value = parseInt($(this).find(".id-chi").val());
+        var dataIndex = importIds.indexOf(value);
+        if (dataIndex !== -1) {
+            $(this).show();
+            $(this).attr("data-position", dataIndex + 1);
+        } else {
+            $(this).hide();
+        }
     });
 
     // Sort elements and append to tbody
-    var clonedElements = $(elementClasses.join(",")).clone();
+    var clonedElements = $(".thu-info, .chi-info").clone();
     var sortedElements = clonedElements.sort(function (a, b) {
         return $(a).data("position") - $(b).data("position");
     });

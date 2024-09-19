@@ -51,3 +51,50 @@ function formatCurrency(value) {
     }
     return formattedValue;
 }
+function sumElements(className = "", elementType = "td") {
+    // Tạo một đối tượng để lưu tổng theo từng data-id
+    let totalsById = {};
+
+    // Biến để lưu tổng của tất cả các phần tử
+    let grandTotal = 0;
+
+    // Tạo selector cho các phần tử với class cụ thể
+    let selector = `${elementType}.${className}`;
+
+    // Duyệt qua tất cả các phần tử có selector
+    $(selector).each(function () {
+        // Kiểm tra xem phần tử có bị ẩn không
+        if ($(this).css("display") === "none") {
+            return; // Bỏ qua phần tử này nếu bị ẩn
+        }
+
+        // Lấy giá trị text từ phần tử, bỏ qua dấu phẩy và các khoảng trắng
+        let value = $(this).text().trim().replace(/,/g, "");
+
+        // Chuyển giá trị về số
+        value = parseFloat(value);
+
+        // Lấy data-id của phần tử
+        let dataId = $(this).attr("data-id");
+
+        // Kiểm tra nếu giá trị là số hợp lệ thì cộng vào tổng theo data-id và grand total
+        if (!isNaN(value)) {
+            // Cộng vào tổng cho từng data-id
+            if (!totalsById[dataId]) {
+                totalsById[dataId] = 0;
+            }
+            totalsById[dataId] += value;
+
+            // Cộng vào tổng toàn bộ
+            grandTotal += value;
+        } else {
+            console.log("Giá trị không hợp lệ:", $(this).text());
+        }
+    });
+
+    // Trả về cả tổng cộng và tổng theo từng data-id
+    return {
+        grandTotal: grandTotal, // Tổng cộng của tất cả các phần tử
+        totalsById: totalsById, // Tổng theo từng data-id
+    };
+}

@@ -250,7 +250,7 @@
                                                             <input type="hidden" value="{{ $item->id }}"
                                                                 name="id-chi" class="sell id-chi" id="id-chi">
                                                             <td class="text-13-black border height-52">
-                                                                {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                                {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}
                                                             </td>
                                                             <td class="text-13-black border height-52">
                                                                 {{ $item->payment_code }}</td>
@@ -424,6 +424,8 @@
                 sort: sort,
             },
             success: function(data) {
+                console.log(data);
+
                 updateFilters2(data, filters, '.result-filter-product', '.table-fund', buttonName);
             }
         });

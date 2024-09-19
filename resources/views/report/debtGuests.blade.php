@@ -150,7 +150,7 @@
                                                             <div class="icon" id="icon-guest_name_display"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border height-52 ">
+                                                    {{-- <th scope="col" class="border height-52 ">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link"
                                                                 data-sort-by="guest_name_display"
@@ -161,8 +161,8 @@
                                                             </a>
                                                             <div class="icon" id="icon-guest_name_display"></div>
                                                         </span>
-                                                    </th>
-                                                    <th scope="col" class="border height-52 " style="width: 14%">
+                                                    </th> --}}
+                                                    <th scope="col" class="border height-52" style="width: 14%">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link"
                                                                 data-sort-by="guest_name_display"
@@ -265,9 +265,10 @@
                                                                 {{ $item->maKhach }}</td>
                                                             <td class="text-13-black border height-52">
                                                                 {{ $item->tenKhach }}</td>
-                                                            <td class="text-13-black period border height-52">
-                                                                Nợ đầu kì</td>
-                                                            <td class="text-13-black totalProductVat border height-52">
+                                                            {{-- <td class="text-13-black period border height-52">
+                                                                Nợ đầu kì</td> --}}
+                                                            <td class="text-13-black totalProductVat border height-52"
+                                                                data-id="{{ $item->id }}">
                                                                 {{ number_format($item->totalProductVat) }}</td>
                                                             <td class="text-13-black totalReturn border height-52">
                                                                 {{ number_format($item->totalReturn) }}</td>
@@ -286,7 +287,7 @@
                                                     <td class="text-green bold border height-52 text-right"
                                                         colspan="2">Tổng cộng:
                                                     </td>
-                                                    <td>Tổng nợ đầu kì</td>
+                                                    {{-- <td>Tổng nợ đầu kì</td> --}}
                                                     <td
                                                         class="text-green bold border height-52 totalProductVatUngrouped">
                                                         {{ number_format($totalProductVatUngrouped) }}
@@ -341,10 +342,10 @@
                                                                     {{ $item->maKhach }}</td>
                                                                 <td class="text-13-black border height-52">
                                                                     {{ $item->tenKhach }}</td>
-                                                                <td class="text-13-black period border height-52">
-                                                                    Nợ đầu kì</td>
-                                                                <td
-                                                                    class="text-13-black totalProductVat border height-52">
+                                                                {{-- <td class="text-13-black period border height-52">
+                                                                    Nợ đầu kì</td> --}}
+                                                                <td class="text-13-black totalProductVat border height-52"
+                                                                    data-id="{{ $item->id }}">
                                                                     {{ number_format($item->totalProductVat) }}</td>
                                                                 <td class="text-13-black totalReturn border height-52">
                                                                     {{ number_format($item->totalReturn) }}</td>
@@ -364,8 +365,8 @@
                                                         <td class="text-green bold border height-52 text-right"
                                                             colspan="2">Tổng
                                                             cộng:</td>
-                                                        <td>Tổng nợ đầu kì</td>
-                                                        <td class="text-green bold border height-52 totalProductVat">
+                                                        {{-- <td>Tổng nợ đầu kì</td> --}}
+                                                        <td class="text-green bold border height-52">
                                                             {{ number_format($totalProductVatGrouped) }}
                                                         </td>
                                                         <td class="text-green bold border height-52 totalReturn">
@@ -521,6 +522,14 @@
                 sort: sort,
             },
             success: function(data) {
+                // Tính tổng của tất cả các phần tử có class 'totalProductVat'
+                var result = sumElements("totalProductVat");
+
+                // In ra tổng cộng tất cả các phần tử
+                console.log("Tổng cộng tất cả phần tử:", result.grandTotal);
+
+                // In ra tổng theo từng data-id
+                console.log("Tổng theo data-id:", result.totalsById);
 
                 updateFiltersReport(data, filters, '.result-filter-product', '.-product',
                     '.product-info', '.id-product', buttonName);

@@ -1391,32 +1391,31 @@ class ExcelController extends Controller
             $total = 0;
 
             // Duyệt qua các giao dịch chi (PayOrder)
-            if ($va->getPayOrder()->exists()) {
-                // Áp dụng bộ lọc ngày lên mối quan hệ getPayOrder
-                $filteredPayOrders = filterByDate($request->all(), $va->getPayOrder(), 'pay_order.payment_date')->get();
+            if ($va->getPayOrder) {
+                $payorders = $va->getPayOrder;
+                $payorders = filterByDate($request->all(), $payorders, 'pay_order.payment_date')->get();
 
-                foreach ($filteredPayOrders as $item) {
-                    $collection->push([
-                        'Ngày' => date_format(new DateTime($item->payment_date), 'd/m/Y'),
-                        'Chứng từ' => $item->payment_code,
-                        'Tên' => $item->getGuest ? $item->getGuest->guest_name_display : '',
-                        'Nội dung thu chi' => $item->getContentPay ? $item->getContentPay->name : '',
-                        'Thu' => 0,
-                        'Chi' => number_format($item->total),
-                        'Cuối kỳ' => '',
-                    ]);
+                if ($payorders) {
+                    foreach ($payorders as $item) {
+                        $collection->push([
+                            'Ngày' => date_format(new DateTime($item->created_at), 'd/m/Y'),
+                            'Chứng từ' => $item->payment_code,
+                            'Tên' => $item->getGuest ? $item->getGuest->guest_name_display : '',
+                            'Nội dung thu chi' => $item->getContentPay ? $item->getContentPay->name : '',
+                            'Thu' => 0,
+                            'Chi' => number_format($item->total),
+                            'Cuối kỳ' => '',
+                        ]);
 
-                    $total -= $item->total;
-                    $totalExport += $item->total;
+                        $total -= $item->total;  // Giảm chi tiêu khỏi tổng số
+                        $totalExport += $item->total;  // Cộng vào tổng chi
+                    }
                 }
             }
 
             // Duyệt qua các giao dịch thu (PayExport)
-            if ($va->getPayExport()->exists()) {
-                // Áp dụng bộ lọc ngày lên mối quan hệ getPayExport
-                $filteredPayExports = filterByDate($request->all(), $va->getPayExport(), 'pay_export.date_created')->get();
-
-                foreach ($filteredPayExports as $item) {
+            if ($va->getPayExport) {
+                foreach ($va->getPayExport as $item) {
                     $collection->push([
                         'Ngày' => date_format(new DateTime($item->date_created), 'd/m/Y'),
                         'Chứng từ' => $item->receipt_code,
@@ -1427,8 +1426,8 @@ class ExcelController extends Controller
                         'Cuối kỳ' => '',
                     ]);
 
-                    $total += $item->amount;
-                    $totalImport += $item->amount;
+                    $total += $item->amount;  // Cộng thu nhập vào tổng số
+                    $totalImport += $item->amount;  // Cộng vào tổng thu
                 }
             }
 

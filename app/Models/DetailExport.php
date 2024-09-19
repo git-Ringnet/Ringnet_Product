@@ -559,6 +559,16 @@ class DetailExport extends Model
 
             $detailExport = $detailExport->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
         }
+        if ($data && isset($data['monthYear']) && is_array($data['monthYear'])) {
+            $month = $data['monthYear'][0];
+            $year = $data['monthYear'][1];
+
+            // Tạo đối tượng Carbon với tháng và năm
+            $startOfMonth = Carbon::create($year, $month, 1)->startOfMonth()->format('Y-m-d');
+            $endOfMonth = Carbon::create($year, $month, 1)->endOfMonth()->format('Y-m-d');
+
+            $detailExport = $detailExport->whereBetween('detailexport.created_at', [$startOfMonth, $endOfMonth]);
+        }
         if (isset($data['total'][0]) && isset($data['total'][1])) {
             $detailExport = $detailExport->having('totaltong', $data['total'][0], $data['total'][1]);
         }
@@ -616,6 +626,12 @@ class DetailExport extends Model
                 'guest.guest_name_display as nameGuest',
                 'detailexport.total_price as totalProductVat',
             );
+        if ($data && isset($data['today'])) {
+            $today = Carbon::parse($data['today']);
+            $startOfMonth = $today->startOfMonth()->format('Y-m-d');
+            $endOfMonth = $today->endOfMonth()->format('Y-m-d');
+            $detailExport = $detailExport->whereBetween('detailexport.created_at', [$startOfMonth, $endOfMonth]);
+        }
         $detailExport = $detailExport->where('detailexport.workspace_id', Auth::user()->current_workspace);
         // Xử lí xuất excel
         $detailExport = filterByDate($data, $detailExport, 'detailexport.created_at');
