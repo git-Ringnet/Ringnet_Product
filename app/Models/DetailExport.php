@@ -70,11 +70,6 @@ class DetailExport extends Model
         return $this->hasOne(User::class, 'id', 'id_sale');
     }
 
-    public function getSale()
-    {
-        return $this->hasOne(User::class, 'id', 'id_sale');
-    }
-
     public function getQuoteCount()
     {
         // Tạo DGH
