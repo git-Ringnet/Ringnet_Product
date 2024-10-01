@@ -235,7 +235,7 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
-                                                            Công nợ ban đầu
+                                                            Công nợ
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-provide_name"></div>

@@ -18,7 +18,7 @@
                 <div class="row m-0">
                     {{-- In and export --}}
                     <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                        onclick="printContent('printContent', 'hanghoa','foot')">In
+                        onclick="printContent('printContent', 'hanghoa')">In
                         trang</button>
                     <form id="exportForm" action="{{ route('exportDebtGuests') }}" method="GET"
                         style="display: none;">
@@ -126,18 +126,6 @@
                                         <table id="example2" class="table table-hover">
                                             <thead>
                                                 <tr class="">
-                                                    <th scope="col" class="border height-52 " style="width: 15%">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link"
-                                                                data-sort-by="guest_name_display"
-                                                                data-sort-type="ASC">
-                                                                <button class="btn-sort text-13 bold" type="submit">
-                                                                    Mã khách hàng
-                                                                </button>
-                                                            </a>
-                                                            <div class="icon" id="icon-guest_name_display"></div>
-                                                        </span>
-                                                    </th>
                                                     <th scope="col" class="border height-52 " style="width: 15%">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link"
@@ -262,8 +250,6 @@
                                                                 class="id-product" id="id-product"
                                                                 value="{{ $item->id }}">
                                                             <td class="text-13-black border height-52">
-                                                                {{ $item->maKhach }}</td>
-                                                            <td class="text-13-black border height-52">
                                                                 {{ $item->tenKhach }}</td>
                                                             {{-- <td class="text-13-black period border height-52">
                                                                 Nợ đầu kì</td> --}}
@@ -285,7 +271,7 @@
                                                 @endforeach
                                                 <tr class="position-relative relative" data-group="0">
                                                     <td class="text-green bold border height-52 text-right"
-                                                        colspan="2">Tổng cộng:
+                                                        colspan="1">Tổng cộng:
                                                     </td>
                                                     {{-- <td>Tổng nợ đầu kì</td> --}}
                                                     <td
@@ -339,8 +325,6 @@
                                                                     class="id-product" id="id-product"
                                                                     value="{{ $item->id }}">
                                                                 <td class="text-13-black border height-52">
-                                                                    {{ $item->maKhach }}</td>
-                                                                <td class="text-13-black border height-52">
                                                                     {{ $item->tenKhach }}</td>
                                                                 {{-- <td class="text-13-black period border height-52">
                                                                     Nợ đầu kì</td> --}}
@@ -363,7 +347,7 @@
                                                     <tr class="position-relative relative bg-light"
                                                         data-group="{{ $value->id }}">
                                                         <td class="text-green bold border height-52 text-right"
-                                                            colspan="2">Tổng
+                                                            colspan="1">Tổng
                                                             cộng:</td>
                                                         {{-- <td>Tổng nợ đầu kì</td> --}}
                                                         <td class="text-green bold border height-52">
@@ -401,25 +385,34 @@
                                                     $grandTotalRemaining += $totalRemainingUngrouped;
                                                 @endphp
                                             </tbody>
-
-                                            {{-- <tfoot id="total-footer">
-                                                <tr class="position-relative relative  bg-light">
-                                                    <td class="text-red bold border height-52 text-right"
-                                                        colspan="2">
-                                                        Tổng
-                                                        tiền của tất cả các nhóm:</td>
-                                                    <td class="text-red bold border height-52">
-                                                        {{ number_format($grandTotalProductVat) }}</td>
-                                                    <td class="text-red bold border height-52">
-                                                        {{ number_format($grandTotalReturn) }}</td>
-                                                    <td class="text-red bold border height-52">
-                                                        {{ number_format($grandTotalCashReciept) }}</td>
-                                                    <td class="text-red bold border height-52">
-                                                        {{ number_format($grandTotalChiKH) }}</td>
-                                                    <td class="text-red bold border height-52">
-                                                        {{ number_format($grandTotalRemaining) }}</td>
+                                            <thead class="sticky-footer">
+                                                <tr>
+                                                    <th class="text-center text-danger font-weight-bold border height-52"
+                                                        style="width: 15%;">
+                                                        Tổng cộng tất cả
+                                                    </th>
+                                                    <th class="text-center text-red border" style="width: 14%;"
+                                                        id="grandTotalProductVat">
+                                                        {{ number_format($grandTotalProductVat) }}
+                                                    </th>
+                                                    <th class="text-center text-red border" style="width: 14%;"
+                                                        id="grandTotalReturn">
+                                                        {{ number_format($grandTotalReturn) }}
+                                                    </th>
+                                                    <th class="text-center text-red border" style="width: 14%;"
+                                                        id="grandTotalCashReciept">
+                                                        {{ number_format($grandTotalCashReciept) }}
+                                                    </th>
+                                                    <th class="text-center text-red border" style="width: 14%;"
+                                                        id="grandTotalChiKH">
+                                                        {{ number_format($grandTotalChiKH) }}
+                                                    </th>
+                                                    <th class="text-center text-red border" style="width: 14%;"
+                                                        id="grandTotalRemaining">
+                                                        {{ number_format($grandTotalRemaining) }}
+                                                    </th>
                                                 </tr>
-                                            </tfoot> --}}
+                                            </thead>
                                         </table>
                                     </div>
                                 </div>
@@ -429,35 +422,6 @@
                 </div>
             </div>
         </section>
-    </div>
-    <div class="w-100 bg-filter-search position-fixed" style="height: 30px;bottom: 10px;left: 0;" id="foot">
-        <div class="position-relative">
-            <table class="table table-hover position-absolute bg-white border-0">
-                <thead>
-                    <tr>
-                        <th class="text-center text-danger font-weight-bold border height-52" style="width: 30%;">
-                            Tổng cộng tất cả
-                        </th>
-                        <th class="text-center text-red border" style="width: 14%;" id="grandTotalProductVat">
-                            {{ number_format($grandTotalProductVat) }}
-                        </th>
-                        <th class="text-center text-red border" style="width: 14%;" id="grandTotalReturn">
-                            {{ number_format($grandTotalReturn) }}
-                        </th>
-                        <th class="text-center text-red border" style="width: 14%;" id="grandTotalCashReciept">
-                            {{ number_format($grandTotalCashReciept) }}
-                        </th>
-                        <th class="text-center text-red border" style="width: 14%;" id="grandTotalChiKH">
-                            {{ number_format($grandTotalChiKH) }}
-                        </th>
-                        <th class="text-center text-red border" style="width: 14%;" id="grandTotalRemaining">
-                            {{ number_format($grandTotalRemaining) }}
-                        </th>
-                    </tr>
-                </thead>
-            </table>
-
-        </div>
     </div>
 </div>
 <x-print-component :contentId="$title" />
@@ -522,17 +486,14 @@
                 sort: sort,
             },
             success: function(data) {
-                // Tính tổng của tất cả các phần tử có class 'totalProductVat'
-                var result = sumElements("totalProductVat");
-
-                // In ra tổng cộng tất cả các phần tử
-                console.log("Tổng cộng tất cả phần tử:", result.grandTotal);
-
-                // In ra tổng theo từng data-id
-                console.log("Tổng theo data-id:", result.totalsById);
-
                 updateFiltersReport(data, filters, '.result-filter-product', '.-product',
                     '.product-info', '.id-product', buttonName);
+                // Tính tổng của tất cả các phần tử có class 'totalProductVat'
+                var result = sumElements("totalProductVat");
+                // In ra tổng cộng tất cả các phần tử
+                console.log("Tổng cộng tất cả phần tử:", result.grandTotal);
+                // In ra tổng theo từng data-id
+                console.log("Tổng theo data-id:", result.totalsById);
             }
         });
         $.ajaxSetup({

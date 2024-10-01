@@ -65,6 +65,10 @@ class DetailExport extends Model
     {
         return $this->hasOne(Guest::class, 'id', 'guest_id');
     }
+    public function getSale()
+    {
+        return $this->hasOne(User::class, 'id', 'id_sale');
+    }
 
     public function getSale()
     {
@@ -668,8 +672,7 @@ class DetailExport extends Model
 
     public function allProductsSell($data = null)
     {
-        $detaiExport = DB::table($this->table)
-            ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+        $detaiExport = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
             ->leftJoin('quoteimport', 'quoteimport.product_id', 'quoteexport.product_id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
@@ -679,6 +682,7 @@ class DetailExport extends Model
                 'detailexport.guest_id as guest_id',
                 'detailexport.created_at as ngayTao',
                 'detailexport.quotation_number as maPhieu',
+                'detailexport.id_sale as id_sale',
                 'groups.name as nhomKH',
                 'guest.guest_name_display as nameGuest',
                 'detailexport.total_price as totalProductVat',
@@ -700,6 +704,7 @@ class DetailExport extends Model
             'detailexport.created_at',
             'detailexport.guest_id',
             'detailexport.quotation_number',
+            'detailexport.id_sale',
             'groups.name',
             'guest.guest_name_display',
             'detailexport.total_price',

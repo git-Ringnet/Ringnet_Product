@@ -206,9 +206,16 @@
                                             </tr>
                                         </thead>
                                         <tbody class="table-sell">
+                                            <!-- Tạo mảng tổng cộng product_id cho toàn bộ khách hàng -->
+                                            @php
+                                                $globalProductTotals = []; // Mảng tổng số lượng sản phẩm theo product_id cho toàn bộ khách hàng
+                                                $productNames = []; // Mảng lưu tên sản phẩm theo product_id
+                                            @endphp
+
+                                            <!-- Nhóm khách hàng: Không nhóm -->
                                             <tr>
-                                                <td colspan="10" class="border-bottom bold">Nhóm khách hàng:
-                                                    Chưa chọn nhóm</td>
+                                                <td colspan="10" class="border-bottom bold">Nhóm khách hàng: Chưa
+                                                    chọn nhóm</td>
                                             </tr>
                                             @foreach ($guest as $item)
                                                 @if ($item->group_id == 0)
@@ -226,7 +233,7 @@
                                                         $Remai = 0;
                                                         $totalPay = 0;
                                                         $totalRemai = 0;
-                                                        $stt = 1; // Initialize the STT variable
+                                                        $stt = 1;
                                                     @endphp
 
                                                     @foreach ($allDelivery as $itemDelivery)
@@ -257,6 +264,17 @@
                                                                     $totalPriceExport += $matchedItem->price_export;
                                                                     $totalProductTotalVat +=
                                                                         $matchedItem->product_total;
+
+                                                                    // Tính tổng số lượng theo product_id cho toàn bộ khách hàng
+                                                                    $productId = $matchedItem->product_id;
+                                                                    if (!isset($globalProductTotals[$productId])) {
+                                                                        $globalProductTotals[$productId] = 0;
+                                                                        // Lưu tên sản phẩm vào mảng theo product_id
+                                                                        $productNames[$productId] =
+                                                                            $matchedItem->product_name;
+                                                                    }
+                                                                    $globalProductTotals[$productId] +=
+                                                                        $matchedItem->product_qty;
                                                                 @endphp
                                                                 <tr class="position-relative relative main-row product-info"
                                                                     data-id="{{ $itemDelivery->guest_id }}">
@@ -274,26 +292,34 @@
                                                                             {{ $itemDelivery->nameUser }}
                                                                         </td>
                                                                     @endif
+                                                                    <td class="text-13-black height-52 border"
+                                                                        data-product="{{ $matchedItem->product_id }}">
+                                                                        {{ $matchedItem->product_code }}
+                                                                    </td>
                                                                     <td class="text-13-black height-52 border">
-                                                                        {{ $matchedItem->product_code }}</td>
+                                                                        {{ $matchedItem->product_name }}
+                                                                    </td>
                                                                     <td class="text-13-black height-52 border">
-                                                                        {{ $matchedItem->product_name }}</td>
-                                                                    <td class="text-13-black height-52 border">
-                                                                        {{ $matchedItem->product_unit }}</td>
+                                                                        {{ $matchedItem->product_unit }}
+                                                                    </td>
                                                                     <td class="text-13-black height-52 border">
                                                                         {{ number_format($matchedItem->product_qty) }}
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
-
-                                                            @php
-                                                                $stt++; // Increment STT after each invoice
-                                                            @endphp
                                                         @endif
                                                     @endforeach
+
+                                                    <!-- Hiển thị tổng cộng số lượng bán cho khách hàng này -->
+                                                    <tr>
+                                                        <td colspan="5" class="text-right border">Tổng cộng số
+                                                            lượng bán:</td>
+                                                        <td class="border">{{ number_format($totalDeliverQty) }}</td>
+                                                    </tr>
                                                 @endif
                                             @endforeach
 
+                                            <!-- Nhóm khách hàng: Có nhóm -->
                                             @foreach ($groupGuests as $value)
                                                 <tr>
                                                     <td colspan="10" class="border-bottom bold">Nhóm khách hàng:
@@ -315,7 +341,7 @@
                                                             $Remai = 0;
                                                             $totalPay = 0;
                                                             $totalRemai = 0;
-                                                            $stt = 1; // Initialize the STT variable
+                                                            $stt = 1;
                                                         @endphp
 
                                                         @foreach ($allDelivery as $itemDelivery)
@@ -346,6 +372,17 @@
                                                                         $totalPriceExport += $matchedItem->price_export;
                                                                         $totalProductTotalVat +=
                                                                             $matchedItem->product_total;
+
+                                                                        // Tính tổng số lượng theo product_id cho toàn bộ khách hàng
+                                                                        $productId = $matchedItem->product_id;
+                                                                        if (!isset($globalProductTotals[$productId])) {
+                                                                            $globalProductTotals[$productId] = 0;
+                                                                            // Lưu tên sản phẩm vào mảng theo product_id
+                                                                            $productNames[$productId] =
+                                                                                $matchedItem->product_name;
+                                                                        }
+                                                                        $globalProductTotals[$productId] +=
+                                                                            $matchedItem->product_qty;
                                                                     @endphp
                                                                     <tr class="position-relative relative main-row product-info"
                                                                         data-id="{{ $itemDelivery->guest_id }}">
@@ -363,27 +400,51 @@
                                                                                 {{ $itemDelivery->nameUser }}
                                                                             </td>
                                                                         @endif
+                                                                        <td class="text-13-black height-52 border"
+                                                                            data-product="{{ $matchedItem->product_id }}">
+                                                                            {{ $matchedItem->product_code }}
+                                                                        </td>
                                                                         <td class="text-13-black height-52 border">
-                                                                            {{ $matchedItem->product_code }}</td>
+                                                                            {{ $matchedItem->product_name }}
+                                                                        </td>
                                                                         <td class="text-13-black height-52 border">
-                                                                            {{ $matchedItem->product_name }}</td>
-                                                                        <td class="text-13-black height-52 border">
-                                                                            {{ $matchedItem->product_unit }}</td>
+                                                                            {{ $matchedItem->product_unit }}
+                                                                        </td>
                                                                         <td class="text-13-black height-52 border">
                                                                             {{ number_format($matchedItem->product_qty) }}
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
-
-                                                                @php
-                                                                    $stt++; // Increment STT after each invoice
-                                                                @endphp
                                                             @endif
                                                         @endforeach
+
+                                                        <!-- Hiển thị tổng cộng số lượng bán cho khách hàng này -->
+                                                        <tr>
+                                                            <td colspan="5" class="text-right border">Tổng cộng số
+                                                                lượng bán:</td>
+                                                            <td class="border">{{ number_format($totalDeliverQty) }}
+                                                            </td>
+                                                        </tr>
                                                     @endif
                                                 @endforeach
                                             @endforeach
+
+                                            <!-- Hiển thị tổng cộng số lượng theo product_id cho tất cả khách hàng -->
+                                            <tr style="background-color: #fddc99;">
+                                                <td colspan="5" class="text-center bold text-danger"
+                                                    style="font-size: 16px;">
+                                                    Tổng cộng theo sản phẩm cho tất cả khách hàng
+                                                </td>
+                                            </tr>
+                                            @foreach ($globalProductTotals as $productId => $totalQty)
+                                                <tr>
+                                                    <td colspan="5" class="text-right border">Sản
+                                                        phẩm: {{ $productNames[$productId] }}</td>
+                                                    <td class="border">{{ number_format($totalQty) }}</td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
+
                                     </table>
                                 </div>
                             </div>

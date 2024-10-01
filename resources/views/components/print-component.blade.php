@@ -16,14 +16,13 @@
     </div>
     {{ $slot }}
 </div>
-
 <script>
     function printContent(contentId, additionalContent, extraContent) {
         // Loại bỏ các lớp trước khi in
         $('.relative').removeClass('position-relative');
         $('.top-table.outer').removeClass('outer').addClass('outer-temp');
         $('.top-table.outer-4').removeClass('outer-4').addClass('outer-4-temp');
-
+        $('.sticky-footer').addClass('static-footer');
         var printContents = $('#' + contentId).html();
         var additionalContentHtml = $('#' + additionalContent).html();
         var originalContents = $('body').html();
@@ -42,6 +41,7 @@
         $('.relative').addClass('position-relative');
         $('.top-table.outer-temp').removeClass('outer-temp').addClass('outer');
         $('.top-table.outer-4-temp').removeClass('outer-4-temp').addClass('outer-4');
+        $('.sticky-footer').removeClass('static-footer');
     }
 
     function printContentCustom(contentId, tableElementId) {

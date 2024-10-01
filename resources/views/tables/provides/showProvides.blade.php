@@ -43,7 +43,46 @@
                             <span class="text-btnIner-primary ml-2">Trở về</span>
                         </button>
                     </a>
+                    <div class="history">
+                        <div class="d-flex content__heading--right">
+                            <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                onclick="printContentCustom('printContent', 'print-debt')">In trang
+                            </button>
+                            <form id="exportFormDebt" action="{{ route('exportDebtProvides', $provide->id) }}"
+                                method="GET" style="display: none;">
+                                @csrf
+                            </form>
 
+                            <a href="#" class="activity mr-2" data-name1="NCC" data-des="Export excel"
+                                onclick="event.preventDefault(); document.getElementById('exportFormDebt').submit();">
+                                <button type="button"
+                                    class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                    <i class="fa-regular fa-file-excel"></i>
+                                    <span class="m-0 ml-1">Xuất Excel</span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="detailImport">
+                        <div class="d-flex content__heading--right">
+                            <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                onclick="printContentCustom('printContent', 'print-detail')">In trang
+                            </button>
+                            <form id="exportFormDetail" action="{{ route('exportDetailProvide', $provide->id) }}"
+                                method="GET" style="display: none;">
+                                @csrf
+                            </form>
+
+                            <a href="#" class="activity mr-2" data-name1="NCC" data-des="Export excel"
+                                onclick="event.preventDefault(); document.getElementById('exportFormDetail').submit();">
+                                <button type="button"
+                                    class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                    <i class="fa-regular fa-file-excel"></i>
+                                    <span class="m-0 ml-1">Xuất Excel</span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
                     <a href="{{ route('provides.edit', ['workspace' => $workspacename, 'provide' => $provide->id]) }}"
                         class="user_flow mr-1" data-type="NCC" data-des="Chỉnh sửa nhà cung cấp">
                         <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
@@ -87,7 +126,8 @@
                         tin</a>
                 </li>
                 <li class="user_flow" data-type="NCC" data-des="Lịch sử mua hàng">
-                    <a id="history-tab" class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử
+                    <a id="history-tab" class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch
+                        sử
                         công nợ</a>
                 </li>
                 <li class="user_flow">
@@ -378,24 +418,6 @@
                                                     here</a>
                                             </div>
                                         </div>
-                                        <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                            onclick="printContentCustom('printContent', 'print-debt')">In trang
-                                        </button>
-                                        <form id="exportFormDebt"
-                                            action="{{ route('exportDebtProvides', $provide->id) }}" method="GET"
-                                            style="display: none;">
-                                            @csrf
-                                        </form>
-
-                                        <a href="#" class="activity mr-3" data-name1="NCC"
-                                            data-des="Export excel"
-                                            onclick="event.preventDefault(); document.getElementById('exportFormDebt').submit();">
-                                            <button type="button"
-                                                class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                                <i class="fa-regular fa-file-excel"></i>
-                                                <span class="m-0 ml-1">Xuất Excel</span>
-                                            </button>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -594,23 +616,6 @@
                                                 here</a>
                                         </div>
                                     </div>
-                                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                        onclick="printContentCustom('printContent', 'print-detail')">In trang
-                                    </button>
-                                    <form id="exportFormDetail"
-                                        action="{{ route('exportDetailProvide', $provide->id) }}" method="GET"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
-
-                                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
-                                        onclick="event.preventDefault(); document.getElementById('exportFormDetail').submit();">
-                                        <button type="button"
-                                            class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                            <i class="fa-regular fa-file-excel"></i>
-                                            <span class="m-0 ml-1">Xuất Excel</span>
-                                        </button>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -799,6 +804,14 @@
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script>
     $(document).ready(function() {
+        $('.history').hide();
+        $('.header-options--nav a[data-toggle="tab"]').click(function() {
+            var targetId = $(this).attr('href');
+            var content = '';
+            // Hiển thị hoặc ẩn các phần tử tương ứng với tab được chọn
+            $('.history').toggle(targetId === '#history');
+            $('.detailImport').toggle(targetId === '#detailImport');
+        });
         // Lấy giá trị của 'option' từ URL
         function getUrlParameter(name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');

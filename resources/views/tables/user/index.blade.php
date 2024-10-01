@@ -137,8 +137,12 @@
                                             </td>
                                             <td class="text-13-black border border-top-0">{{ $item->user_code }}
                                             </td>
-                                            <td class="text-13-black border border-top-0">
-                                                {{ $item->name }}</td>
+                                            <td class="py-2 text-13-black border-bottom border">
+                                                <a class="duongdan"
+                                                    href="{{ route('users.show', ['workspace' => $workspacename, 'user' => $item->id]) }}">
+                                                    {{ $item->name }}
+                                                </a>
+                                            </td>
                                             <td class="text-13-black border border-top-0">
                                                 {{ $item->address }}
                                             </td>

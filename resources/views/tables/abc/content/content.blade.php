@@ -138,8 +138,7 @@
                         <table id="example2" class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="border-top-0 bg-white pl-0 border-bottom"
-                                        style="width: 10%;">
+                                    <th scope="col" class="border bg-white pl-0" style="width: 10%;">
                                         <span class="d-flex justify-content-center">
                                             <a href="#" class="sort-link btn-submit text-center"
                                                 data-sort-by="product_code" data-sort-type="DESC">
@@ -151,7 +150,7 @@
                                             <div class="icon" id="icon-product_code"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white border-bottom">
+                                    <th scope="col" class="border bg-white">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
@@ -171,21 +170,22 @@
                                 @foreach ($contentGroups as $type => $contents)
                                     <tr>
                                         <td class="text-green" style="font-size: 16px; font-weight: 500"
-                                            colspan="3">Loại nội dung: {{ $contents->first()->nameType }}</td>
+                                            colspan="2">Loại nội dung: {{ $contents->first()->nameType }}</td>
                                     </tr>
                                     @foreach ($contents as $item)
                                         <tr class="position-relative product-info"
                                             onclick="handleRowClick('checkbox', event);">
                                             <input type="hidden" name="id-product" class="id-product"
                                                 id="id-product" value="{{ $item->id }}">
-                                            <td class="py-2 text-13-black text-center pl-0 border-bottom border-top-0">
+                                            <td class="py-2 text-13-black text-center pl-0 border">
                                                 {{ $stt }}
                                             </td>
-                                            <td class="p-2 text-13-black pl-0 border-bottom border-top-0">
-                                                <a href="{{ route('content.show', ['workspace' => $workspacename, 'content' => $item->id]) }}">{{ $item->name }}</a>
+                                            <td class="p-2 text-13-black pl-0 border">
+                                                <a
+                                                    href="{{ route('content.show', ['workspace' => $workspacename, 'content' => $item->id]) }}">{{ $item->name }}</a>
                                             </td>
-                                            <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0"
-                                                style="right: 10px; top: 7px;">
+                                            <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border"
+                                                style="right: 10px; top: 5px;">
                                                 <div class="d-flex w-100">
                                                     <a
                                                         href="{{ route('content.edit', ['workspace' => $workspacename, 'content' => $item->id]) }}">

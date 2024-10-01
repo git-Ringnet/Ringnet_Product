@@ -1395,6 +1395,42 @@ input[type="number"] {
     font-weight: 600 !important;
 }
 
+.static-footer {
+    position: static !important;
+    width: 100%;
+    background-color: white;
+    z-index: 1000;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    display: contents !important;
+    table-layout: fixed;
+}
+.sticky-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1000;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    display: table;
+    /* Giữ nguyên định dạng bảng */
+    table-layout: fixed;
+    /* Cố định chiều rộng cột */
+}
+
+.sticky-footer th {
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+.table-layout {
+    table-layout: fixed;
+    width: 100%;
+}
+.table-container {
+    margin-bottom: 60px;
+}
 .text-13-blue {
     font-size: 13px;
     color: #0052cc !important;

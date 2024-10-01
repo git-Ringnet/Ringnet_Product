@@ -248,7 +248,7 @@
                 <div id="buy" class="content tab-pane in active">
                     <div class="row p-0 m-0">
                         <div class="col-12 p-0 m-0">
-                            <div class="w-100">
+                            {{-- <div class="w-100">
                                 <ul class="header-options--nav-2 nav nav-tabs margin-left32 border-bottom-0 w-100 custom-nav"
                                     style="margin: 13px 0 13px 0 !important;">
                                     <li>
@@ -262,7 +262,7 @@
                                             hàng</a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> --}}
                             <div class="tab-content" id="example2">
                                 <div id="hanghoa" class="content tab-pane in active">
                                     <div class="outer-4 top-table table-responsive text-nowrap">
@@ -276,6 +276,30 @@
                                                                 data-sort-type="ASC">
                                                                 <button class="btn-sort text-13 bold" type="submit">
                                                                     Số chứng từ
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 border" style="width: 10%">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13 bold" type="submit">
+                                                                    Tên khách hàng
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 border" style="width: 10%">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13 bold" type="submit">
+                                                                    Nhân viên Sale
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-guest_name_display"></div>
@@ -422,6 +446,10 @@
                                                                 {{ $item->maPhieu }}
                                                             </td>
                                                             <td class="text-13-black border height-52">
+                                                                {{ $item->nameGuest }}</td>
+                                                            <td class="text-13-black border height-52">
+                                                                {{ $item->getSale->name ?? '' }}</td>
+                                                            <td class="text-13-black border height-52">
                                                                 {{ $item->product_code }}</td>
                                                             <td class="text-13-black border height-52">
                                                                 {{ $item->product_name }}</td>
@@ -505,6 +533,10 @@
                                                                 <td class="text-13-black border height-52">
                                                                     {{ $item->maPhieu }}</td>
                                                                 <td class="text-13-black border height-52">
+                                                                    {{ $item->nameGuest }}</td>
+                                                                <td class="text-13-black border height-52">
+                                                                    {{ $item->getSale->name ?? '' }}</td>
+                                                                <td class="text-13-black border height-52">
                                                                     {{ $item->product_code }}</td>
                                                                 <td class="text-13-black border height-52">
                                                                     {{ $item->product_name }}</td>
@@ -586,6 +618,18 @@
                                                                 data-sort-type="ASC">
                                                                 <button class="btn-sort text-13 bold" type="submit">
                                                                     Số chứng từ
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-guest_name_display"></div>
+                                                        </span>
+                                                    </th>
+                                                    <th scope="col" class="height-52 border" style="width: 10%">
+                                                        <span class="d-flex">
+                                                            <a href="#" class="sort-link"
+                                                                data-sort-by="guest_name_display"
+                                                                data-sort-type="ASC">
+                                                                <button class="btn-sort text-13 bold" type="submit">
+                                                                    Tên khách hàng
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-guest_name_display"></div>
@@ -731,6 +775,8 @@
                                                             <td class="text-13-black border height-52">
                                                                 {{ $item->maPhieu }}</td>
                                                             <td class="text-13-black border height-52">
+                                                                {{ $item->nameGuest }}</td>
+                                                            <td class="text-13-black border height-52">
                                                                 {{ $item->product_code }}</td>
                                                             <td class="text-13-black border height-52">
                                                                 {{ $item->product_name }}</td>
@@ -817,6 +863,8 @@
                                                                     class="khachhang-item">
                                                                 <td class="text-13-black border height-52">
                                                                     {{ $item->maPhieu }}</td>
+                                                                <td class="text-13-black border height-52">
+                                                                    {{ $item->nameGuest }}</td>
                                                                 <td class="text-13-black border height-52">
                                                                     {{ $item->product_code }}</td>
                                                                 <td class="text-13-black border height-52">

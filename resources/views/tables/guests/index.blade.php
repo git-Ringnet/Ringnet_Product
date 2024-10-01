@@ -140,11 +140,11 @@
                             <table id="example2" class="table table-hover bg-white rounded">
                                 <thead class="border-custom">
                                     <tr style="height: 44px;">
-                                        <th class="height-52" style="width:5%;padding-left: 2rem;">
+                                        <th class="height-52 border" style="width:5%;padding-left: 2rem;">
                                             <input type="checkbox" name="all" id="checkall"
                                                 class="checkall-btn">
                                         </th>
-                                        <th class="height-52" scope="col">
+                                        <th class="height-52 border" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_name_display" data-sort-type="DESC">
@@ -155,7 +155,7 @@
                                                 <div class="icon" id="icon-guest_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col">
+                                        <th class="height-52 border" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_name_display" data-sort-type="DESC">
@@ -166,7 +166,7 @@
                                                 <div class="icon" id="icon-guest_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col">
+                                        <th class="height-52 border" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_name_display" data-sort-type="DESC">
@@ -177,7 +177,7 @@
                                                 <div class="icon" id="icon-guest_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col">
+                                        <th class="height-52 border" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_name_display" data-sort-type="DESC">
@@ -188,7 +188,7 @@
                                                 <div class="icon" id="icon-guest_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col">
+                                        <th class="height-52 border" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_code" data-sort-type="DESC">
@@ -199,56 +199,23 @@
                                                 <div class="icon" id="icon-guest_code"></div>
                                             </span>
                                         </th>
-                                        {{-- <th class="height-52" scope="col">
+                                        <th class="height-52 border" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_code" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Loại giá</span>
+                                                        <span class="text-13">Công nợ</span>
                                                     </button>
                                                 </a>
                                                 <div class="icon" id="icon-guest_code"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Định mức nợ</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th> --}}
-                                        <th class="height-52" scope="col">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_code" data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Công nợ ban đầu</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-guest_code"></div>
-                                            </span>
-                                        </th>
-                                        {{-- <th class="height-52" scope="col">
-                                            <span class="d-flex justify-content-end">
-                                                <a href="#" class="sort-link btn-submit" data-sort-by="sumDebt"
-                                                    data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Dư nợ</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-sumDebt"></div>
-                                            </span>
-                                        </th> --}}
                                     </tr>
                                 </thead>
                                 <tbody class="tbody-guest">
                                     <tr>
                                         <td class="text-green border" style="font-size: 16px; font-weight: 500"
-                                            colspan="17">Khách hàng : Chưa chọn nhóm</td>
+                                            colspan="15">Khách hàng : Chưa chọn nhóm</td>
                                     </tr>
                                     @foreach ($guests as $item)
                                         @if ($item->group_id == 0)
@@ -420,17 +387,18 @@
                                                         {{ $item->guest_phone }}
                                                     </td>
                                                     <td class="text-13-black border border-bottom border-top-0">
-                                                        {{ $item->guest_email }}
-                                                    </td>
-                                                    {{-- <td class="text-13-black border border-bottom border-top-0">N/A
-                                                    </td>
-                                                    <td class="text-13-black border border-bottom border-top-0">
-                                                        {{ $item->debt_limit }}
-                                                    </td>
-                                                    <td class="text-13-black border border-bottom border-top-0">
-                                                        {{ $item->initial_debt }}
-                                                    </td> --}}
-                                                    <td class="text-13-black border text-right border-bottom border-top-0">
+                                                        {{ $item->guest_email }}</td>
+                                                    {{-- <td class="text-13-black border border-bottom border-top-0">
+                                                    {{ $item->price_type }} N/A
+                                                </td>
+                                                <td class="text-13-black border border-bottom border-top-0">
+                                                    {{ $item->debt_limit }}
+                                                </td>
+                                                <td class="text-13-black border border-bottom border-top-0">
+                                                    {{ $item->initial_debt }}
+                                                </td> --}}
+                                                    <td
+                                                        class="text-13-black border text-right border-bottom border-top-0">
                                                         {{ number_format($item->guest_debt) }}
                                                     </td>
                                                     <td

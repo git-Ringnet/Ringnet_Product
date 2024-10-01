@@ -49,6 +49,45 @@
                                 </button>
                             </a>
                         </div>
+                        <div class="history">
+                            <div class="d-flex content__heading--right">
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContentCustom('printContent', 'print-debt')">In trang
+                                </button>
+                                <form id="exportForm" action="{{ route('exportDebtGuest', $guest->id) }}" method="GET"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+
+                                <a href="#" class="activity mr-2" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="detailExport">
+                            <div class="d-flex content__heading--right">
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContentCustom('printContent', 'print-detail')">In trang
+                                </button>
+                                <form id="exportFormDetail" action="{{ route('exportDetailGuest', $guest->id) }}"
+                                    method="GET" style="display: none;">
+                                    @csrf
+                                </form>
+                                <a href="#" class="activity mr-2" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportFormDetail').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
                         <label class="custom-btn d-flex align-items-center h-100 m-0 mr-2">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -335,22 +374,6 @@
                                                 here</a>
                                         </div>
                                     </div>
-                                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                        onclick="printContentCustom('printContent', 'print-debt')">In trang
-                                    </button>
-                                    <form id="exportForm" action="{{ route('exportDebtGuest', $guest->id) }}"
-                                        method="GET" style="display: none;">
-                                        @csrf
-                                    </form>
-
-                                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
-                                        onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
-                                        <button type="button"
-                                            class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                            <i class="fa-regular fa-file-excel"></i>
-                                            <span class="m-0 ml-1">Xuất Excel</span>
-                                        </button>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -545,22 +568,6 @@
                                                 here</a>
                                         </div>
                                     </div>
-                                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                        onclick="printContentCustom('printContent', 'print-detail')">In trang
-                                    </button>
-                                    <form id="exportFormDetail" action="{{ route('exportDetailGuest', $guest->id) }}"
-                                        method="GET" style="display: none;">
-                                        @csrf
-                                    </form>
-
-                                    <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
-                                        onclick="event.preventDefault(); document.getElementById('exportFormDetail').submit();">
-                                        <button type="button"
-                                            class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                            <i class="fa-regular fa-file-excel"></i>
-                                            <span class="m-0 ml-1">Xuất Excel</span>
-                                        </button>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -773,6 +780,14 @@
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script>
     $(document).ready(function() {
+        $('.history').hide();
+        $('.header-options--nav a[data-toggle="tab"]').click(function() {
+            var targetId = $(this).attr('href');
+            var content = '';
+            // Hiển thị hoặc ẩn các phần tử tương ứng với tab được chọn
+            $('.history').toggle(targetId === '#history');
+            $('.detailExport').toggle(targetId === '#detailExport');
+        });
         // Lấy giá trị của 'option' từ URL
         function getUrlParameter(name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');

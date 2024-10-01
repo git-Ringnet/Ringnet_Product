@@ -38,6 +38,10 @@ class Guest extends Model
     {
         return $this->hasOne(PayExport::class, 'guest_id', 'id');
     }
+    public function group()
+    {
+        return $this->hasOne(Groups::class, 'id', 'group_id');
+    }
     public function representGuest()
     {
         return $this->belongsTo(representGuest::class, 'guest_id', 'id');

@@ -77,6 +77,13 @@ function sumElements(className = "", elementType = "td") {
         // Lấy data-id của phần tử
         let dataId = $(this).attr("data-id");
 
+        // Log ra giá trị của phần tử và data-id để kiểm tra
+        console.log(
+            `Phần tử: ${$(
+                this
+            ).text()}, data-id: ${dataId}, Giá trị sau xử lý: ${value}`
+        );
+
         // Kiểm tra nếu giá trị là số hợp lệ thì cộng vào tổng theo data-id và grand total
         if (!isNaN(value)) {
             // Cộng vào tổng cho từng data-id

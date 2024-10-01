@@ -374,7 +374,7 @@
                                 Phiếu nhập chuyển kho
                             </a>
                             <a class="dropdown-item text-13-black"
-                                href="{{ route('commissionSale', $workspacename) }}">Huê hồng Sale
+                                href="{{ route('commissionSale', $workspacename) }}">Hoa hồng Sale
                             </a>
                             <a class="dropdown-item text-13-black"
                                 href="{{ route('promotionGuest', $workspacename) }}">Chương trình khuyến mãi
@@ -571,7 +571,7 @@
                     <a href="{{ route('commissionSale', $workspacename) }}" class="height-36">
                         <button type="button"
                             class="h-100 border text-dark justify-content-center align-items-center p-1 px-2 text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'commission') active @endif">
-                            Huê hồng Sale
+                            Hoa hồng Sale
                         </button>
                     </a>
                     <a href="{{ route('promotionGuest', $workspacename) }}" class="height-36">

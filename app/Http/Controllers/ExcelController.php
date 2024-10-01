@@ -32,109 +32,298 @@ class ExcelController extends Controller
 {
     public function exportGuests(Request $request)
     {
-        $guests = Guest::leftJoin('users', 'guest.user_id', '=', 'users.id')
-            ->leftJoin('represent_guest', function ($join) {
-                $join->on('guest.id', '=', 'represent_guest.guest_id')
-                    ->whereRaw('represent_guest.id = (select min(id) from represent_guest where guest_id = guest.id)');
-            })
-            ->where('guest.workspace_id', Auth::user()->current_workspace)
-            ->orderBy('guest.id', 'DESC')
-            ->groupBy(
-                'guest.key',
-                'guest.guest_name_display',
-                'guest.guest_address',
-                'guest.guest_phone',
-                'guest.birthday',
-                'guest.guest_code',
-                'guest.guest_email',
-                'guest.fax',
-                'guest.debt_limit',
-                'guest.initial_debt',
-                'represent_guest.represent_name',
-                'represent_guest.represent_address',
-                'represent_guest.represent_phone',
-                'users.name',
-                'guest.group_id',
-            )
-            ->select(
-                'guest.key',
-                'guest.guest_name_display',
-                'guest.guest_address',
-                'guest.guest_phone',
-                'guest.guest_email',
-                'guest.debt_limit',
-                'guest.initial_debt',
-            )
+        // Lấy danh sách khách hàng
+        $guests = (new Guest)->getAllGuest();
+
+        // Lấy danh sách các nhóm
+        $groups = Groups::where('grouptype_id', 2)
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
-        $headings =
-            [
-                'Mã',
-                'Tên',
-                'Địa chỉ',
-                'Điện thoại',
-                'Email',
-                'Loại giá',
-                'Định mức nợ',
-                'Công nợ ban đầu',
-            ];
 
-        return Excel::download(new GenericExport($guests, $headings), 'guests.xlsx');
+        // Tạo Collection để lưu dữ liệu xuất ra Excel
+        $collection = collect();
+
+        // Thêm khách hàng "Chưa chọn nhóm" trước
+        $collection->push([
+            'Nhóm khách hàng' => 'Khách hàng: Chưa chọn nhóm',
+            'Mã' => '',
+            'Tên' => '',
+            'Địa chỉ' => '',
+            'Điện thoại' => '',
+            'Email' => '',
+            'Công nợ' => ''
+        ]);
+
+        // Thêm khách hàng không thuộc nhóm
+        foreach ($guests as $guest) {
+            if ($guest->group_id == 0) {
+                $collection->push([
+                    'Nhóm khách hàng' => '',
+                    'Mã' => $guest->key,
+                    'Tên' => $guest->guest_name_display,
+                    'Địa chỉ' => $guest->guest_address,
+                    'Điện thoại' => $guest->guest_phone,
+                    'Email' => $guest->guest_email,
+                    'Công nợ' => number_format($guest->guest_debt) // Sử dụng trường công nợ
+                ]);
+            }
+        }
+
+        // Thêm khách hàng theo từng nhóm
+        foreach ($groups as $group) {
+            // Thêm tiêu đề của mỗi nhóm
+            $collection->push([
+                'Nhóm khách hàng' => 'Khách hàng: ' . $group->name,
+                'Mã' => '',
+                'Tên' => '',
+                'Địa chỉ' => '',
+                'Điện thoại' => '',
+                'Email' => '',
+                'Công nợ' => ''
+            ]);
+
+            // Thêm khách hàng thuộc nhóm này
+            foreach ($guests as $guest) {
+                if ($guest->group_id == $group->id) {
+                    $collection->push([
+                        'Nhóm khách hàng' => '',
+                        'Mã' => $guest->key,
+                        'Tên' => $guest->guest_name_display,
+                        'Địa chỉ' => $guest->guest_address,
+                        'Điện thoại' => $guest->guest_phone,
+                        'Email' => $guest->guest_email,
+                        'Công nợ' => number_format($guest->guest_debt) // Sử dụng trường công nợ
+                    ]);
+                }
+            }
+
+            // Đếm số lượng khách hàng trong mỗi nhóm
+            $guestCount = $guests->where('group_id', $group->id)->count();
+            $collection->push([
+                'Nhóm khách hàng' => '',
+                'Mã' => '',
+                'Tên' => 'Có ' . $guestCount . ' khách hàng',
+                'Địa chỉ' => '',
+                'Điện thoại' => '',
+                'Email' => '',
+                'Công nợ' => ''
+            ]);
+        }
+
+        // Đặt tiêu đề cho các cột
+        $headings = [
+            'Nhóm khách hàng',
+            'Mã',
+            'Tên',
+            'Địa chỉ',
+            'Điện thoại',
+            'Email',
+            'Công nợ'
+        ];
+
+        // Xuất file Excel
+        return Excel::download(new GenericExport($collection, $headings), 'guests_grouped.xlsx');
     }
-
     public function exportProvides(Request $request)
     {
-        $provides = Provides::where('workspace_id', Auth::user()->current_workspace)
-            ->select(
-                'provides.key',
-                'provides.provide_name_display',
-                'provides.provide_address',
-                'provides.provide_phone',
-                'provides.provide_email',
-                'provides.quota_debt',
-                'provides.provide_debt',
-            )
+        // Lấy danh sách các nhóm
+        $groups = Groups::where('grouptype_id', 3)
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
-        $headings =
-            [
-                'Mã',
-                'Tên',
-                'Địa chỉ',
-                'Điện thoại',
-                'Email',
-                'Định mức nợ',
-                'Công nợ ban đầu',
-            ];
-        return Excel::download(new GenericExport($provides, $headings), 'provides.xlsx');
+
+        // Lấy nhà cung cấp không thuộc nhóm nào (Chưa chọn nhóm)
+        $provides = Provides::where('group_id', 0)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
+
+        // Tạo Collection để lưu dữ liệu xuất ra Excel
+        $collection = collect();
+
+        // Thêm nhóm "Chưa chọn nhóm" trước
+        $collection->push([
+            'Nhóm nhà cung cấp' => 'Nhà cung cấp: Chưa chọn nhóm',
+            'Mã' => '',
+            'Tên' => '',
+            'Địa chỉ' => '',
+            'Điện thoại' => '',
+            'Email' => '',
+            'Công nợ' => ''
+        ]);
+
+        // Thêm nhà cung cấp không thuộc nhóm
+        foreach ($provides as $provide) {
+            $collection->push([
+                'Nhóm nhà cung cấp' => '',
+                'Mã' => $provide->key,
+                'Tên' => $provide->provide_name_display,
+                'Địa chỉ' => $provide->provide_address,
+                'Điện thoại' => $provide->provide_phone,
+                'Email' => $provide->provide_email,
+                'Công nợ' => number_format($provide->provide_debt)
+            ]);
+        }
+
+        // Thêm nhà cung cấp theo từng nhóm
+        foreach ($groups as $group) {
+            // Thêm tiêu đề của mỗi nhóm
+            $collection->push([
+                'Nhóm nhà cung cấp' => 'Nhà cung cấp: ' . $group->name,
+                'Mã' => '',
+                'Tên' => '',
+                'Địa chỉ' => '',
+                'Điện thoại' => '',
+                'Email' => '',
+                'Công nợ' => ''
+            ]);
+
+            // Lấy các nhà cung cấp thuộc nhóm này
+            $providesInGroup = Provides::where('group_id', $group->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
+
+            // Thêm nhà cung cấp thuộc nhóm
+            foreach ($providesInGroup as $provide) {
+                $collection->push([
+                    'Nhóm nhà cung cấp' => '',
+                    'Mã' => $provide->key,
+                    'Tên' => $provide->provide_name_display,
+                    'Địa chỉ' => $provide->provide_address,
+                    'Điện thoại' => $provide->provide_phone,
+                    'Email' => $provide->provide_email,
+                    'Công nợ' => number_format($provide->provide_debt)
+                ]);
+            }
+
+            // Đếm số lượng nhà cung cấp trong mỗi nhóm
+            $providerCount = $providesInGroup->count();
+            $collection->push([
+                'Nhóm nhà cung cấp' => '',
+                'Mã' => '',
+                'Tên' => 'Có ' . $providerCount . ' nhà cung cấp',
+                'Địa chỉ' => '',
+                'Điện thoại' => '',
+                'Email' => '',
+                'Công nợ' => ''
+            ]);
+        }
+
+        // Đặt tiêu đề cho các cột
+        $headings = [
+            'Nhóm nhà cung cấp',
+            'Mã',
+            'Tên',
+            'Địa chỉ',
+            'Điện thoại',
+            'Email',
+            'Công nợ'
+        ];
+
+        // Xuất file Excel
+        return Excel::download(new GenericExport($collection, $headings), 'provides_grouped.xlsx');
     }
+
+
     public function exportProducts(Request $request)
     {
-        $products =  Products::where('workspace_id', Auth::user()->current_workspace)
-            ->select(
-                'product_code',
-                'product_name',
-                'product_unit',
-                'product_price_import',
-                'price_retail',
-                'price_wholesale',
-                'price_specialsale',
-                'product_weight',
-                'product_inventory'
-            )
+        // Lấy danh sách các nhóm
+        $groups = Groups::where('grouptype_id', 4)
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
-        $headings =
-            [
-                'Mã',
-                'Tên',
-                'ĐVT',
-                'Giá nhập',
-                'Giá bán lẻ',
-                'Giá bán sỉ',
-                'Giá đặc biệt',
-                'Trọng lượng',
-                'Số lượng tồn',
-            ];
-        return Excel::download(new GenericExport($products, $headings), 'products.xlsx');
+
+        // Lấy sản phẩm không thuộc nhóm nào (Chưa chọn nhóm)
+        $products = Products::where('group_id', 0)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
+
+        // Tạo Collection để lưu dữ liệu xuất ra Excel
+        $collection = collect();
+
+        // Thêm nhóm "Chưa chọn nhóm" trước
+        $collection->push([
+            'Nhóm hàng hóa' => 'Nhóm hàng hóa: Chưa chọn nhóm',
+            'Mã' => '',
+            'Tên' => '',
+            'ĐVT' => '',
+            'Giá nhập' => '',
+            'Giá bán lẻ' => '',
+            'Giá bán sỉ' => '',
+            'Giá đặc biệt' => '',
+            'Trọng lượng' => '',
+            'Số lượng tồn' => ''
+        ]);
+
+        // Thêm sản phẩm không thuộc nhóm
+        foreach ($products as $product) {
+            $collection->push([
+                'Nhóm hàng hóa' => '',
+                'Mã' => $product->product_code,
+                'Tên' => $product->product_name,
+                'ĐVT' => $product->product_unit,
+                'Giá nhập' => number_format($product->product_price_import),
+                'Giá bán lẻ' => number_format($product->price_retail),
+                'Giá bán sỉ' => number_format($product->price_wholesale),
+                'Giá đặc biệt' => number_format($product->price_specialsale),
+                'Trọng lượng' => number_format($product->product_weight),
+                'Số lượng tồn' => number_format($product->product_inventory)
+            ]);
+        }
+
+        // Thêm sản phẩm theo từng nhóm
+        foreach ($groups as $group) {
+            // Thêm tiêu đề của mỗi nhóm
+            $collection->push([
+                'Nhóm hàng hóa' => 'Nhóm hàng hóa: ' . $group->name,
+                'Mã' => '',
+                'Tên' => '',
+                'ĐVT' => '',
+                'Giá nhập' => '',
+                'Giá bán lẻ' => '',
+                'Giá bán sỉ' => '',
+                'Giá đặc biệt' => '',
+                'Trọng lượng' => '',
+                'Số lượng tồn' => ''
+            ]);
+
+            // Lấy các sản phẩm thuộc nhóm này
+            $productsInGroup = Products::where('group_id', $group->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
+
+            // Thêm sản phẩm thuộc nhóm
+            foreach ($productsInGroup as $product) {
+                $collection->push([
+                    'Nhóm hàng hóa' => '',
+                    'Mã' => $product->product_code,
+                    'Tên' => $product->product_name,
+                    'ĐVT' => $product->product_unit,
+                    'Giá nhập' => number_format($product->product_price_import),
+                    'Giá bán lẻ' => number_format($product->price_retail),
+                    'Giá bán sỉ' => number_format($product->price_wholesale),
+                    'Giá đặc biệt' => number_format($product->price_specialsale),
+                    'Trọng lượng' => number_format($product->product_weight),
+                    'Số lượng tồn' => number_format($product->product_inventory)
+                ]);
+            }
+        }
+
+        // Đặt tiêu đề cho các cột
+        $headings = [
+            'Nhóm hàng hóa',
+            'Mã',
+            'Tên',
+            'ĐVT',
+            'Giá nhập',
+            'Giá bán lẻ',
+            'Giá bán sỉ',
+            'Giá đặc biệt',
+            'Trọng lượng',
+            'Số lượng tồn'
+        ];
+
+        // Xuất file Excel
+        return Excel::download(new GenericExport($collection, $headings), 'products_grouped.xlsx');
     }
+
     public function exportFunds(Request $request)
     {
         $funds = Fund::where('workspace_id', Auth::user()->current_workspace)
@@ -150,18 +339,32 @@ class ExcelController extends Controller
     }
     public function exportUsers(Request $request)
     {
-        $users = User::select('user_code', 'name', 'address', 'phone_number', 'email')
-            ->get();
-        $headings =
-            [
-                'Mã',
-                'Tên',
-                'Địa chỉ',
-                'Điện thoại',
-                'Email',
-            ];
-        return Excel::download(new GenericExport($users, $headings), 'users.xlsx');
+        // Lấy dữ liệu người dùng
+        $users = User::all();
+        // Tạo một Collection để lưu dữ liệu xuất ra Excel
+        $collection = collect();
+        // Đặt dữ liệu vào Collection theo định dạng
+        foreach ($users as $user) {
+            $collection->push([
+                'Mã' => $user->user_code,
+                'Tên' => $user->name,
+                'Địa chỉ' => $user->address,
+                'Điện thoại' => $user->phone_number,
+                'Email' => $user->email
+            ]);
+        }
+        // Đặt tiêu đề cho các cột
+        $headings = [
+            'Mã',
+            'Tên',
+            'Địa chỉ',
+            'Điện thoại',
+            'Email',
+        ];
+        // Xuất file Excel
+        return Excel::download(new GenericExport($collection, $headings), 'users.xlsx');
     }
+
     public function exportWH(Request $request)
     {
         $warehouse = Warehouse::where('workspace_id', Auth::user()->current_workspace)
@@ -1666,7 +1869,7 @@ class ExcelController extends Controller
             [19, 'Tổng lợi nhuận khác*', 0, 'Đồng'],
 
             // Hoa hồng bán hàng và khuyến mãi
-            [20, 'Huê hồng sale', number_format($arrData['hoahongSale']), 'Đồng'],
+            [20, 'Hoa hồng sale', number_format($arrData['hoahongSale']), 'Đồng'],
             [21, 'Chương trình khuyến mãi khách hàng', 0, 'Đồng'],
 
             // Các tài khoản quỹ
