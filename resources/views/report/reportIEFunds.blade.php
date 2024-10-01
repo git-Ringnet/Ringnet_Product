@@ -254,7 +254,7 @@
                                                             </td>
                                                             <td class="text-13-black border height-52">
                                                                 {{ $item->payment_code }}</td>
-                                                            <td>
+                                                            <td class="text-13-black border height-52">
                                                                 @if ($item->getGuest)
                                                                     {{ $item->getGuest->guest_name_display }}
                                                                 @endif

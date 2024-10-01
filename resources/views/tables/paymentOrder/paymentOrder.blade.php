@@ -347,9 +347,11 @@
                                                 </td>
 
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">
-                                                    @if ($item->getGuest)
-                                                        {{ $item->getGuest->provide_name_display }}
-                                                    @endif
+                                                    {{ $item->getGuest
+                                                        ? $item->getGuest->guest_name_display
+                                                        : ($item->getProvide
+                                                            ? $item->getProvide->provide_name_display
+                                                            : $item->provide_guest_name ?? 'N/A') }}
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom max-width120">
                                                     {{ $item->payment_type }}

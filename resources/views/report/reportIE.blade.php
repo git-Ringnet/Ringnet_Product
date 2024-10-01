@@ -383,12 +383,12 @@
                                                             // $totalThu = 0;
                                                         @endphp
                                                     @endif
-                                                    <tr class="position-relative relative main-row thu-info"
+                                                    <tr class="main-row thu-info"
                                                         data-id="{{ $item->content_id }}">
                                                         <input type="hidden" value="{{ $item->id }}"
                                                             class="thu-item">
                                                         <td class="border">
-                                                            {{ date_format(new DateTime($item->date_created), 'd-m-Y') }}
+                                                            {{ date_format(new DateTime($item->date_created), 'd/m/Y') }}
                                                         </td>
                                                         <td class="border">{{ $item->receipt_code }}</td>
                                                         <td class="border">
@@ -541,12 +541,12 @@
                                                             // $totalChi = 0;
                                                         @endphp
                                                     @endif
-                                                    <tr class="position-relative relative main-row chi-info"
+                                                    <tr class="main-row chi-info"
                                                         data-id="{{ $item->content_pay }}">
                                                         <input type="hidden" value="{{ $item->id }}"
                                                             class="chi-item">
                                                         <td class="border">
-                                                            {{ date_format(new DateTime($item->payment_date), 'd-m-Y') }}
+                                                            {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}
                                                         </td>
                                                         <td class="border">{{ $item->payment_code }}</td>
                                                         <td class="border">

@@ -422,13 +422,16 @@
                                                     <td class="text-13-black border border-bottom border-top-0">
                                                         {{ $item->guest_email }}
                                                     </td>
-                                                    <td class="text-13-black border border-bottom border-top-0">N/A
+                                                    {{-- <td class="text-13-black border border-bottom border-top-0">N/A
                                                     </td>
                                                     <td class="text-13-black border border-bottom border-top-0">
                                                         {{ $item->debt_limit }}
                                                     </td>
                                                     <td class="text-13-black border border-bottom border-top-0">
                                                         {{ $item->initial_debt }}
+                                                    </td> --}}
+                                                    <td class="text-13-black border text-right border-bottom border-top-0">
+                                                        {{ number_format($item->guest_debt) }}
                                                     </td>
                                                     <td
                                                         class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">

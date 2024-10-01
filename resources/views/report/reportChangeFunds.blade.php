@@ -221,7 +221,7 @@
                                             $total = 0;
                                         @endphp
                                         @foreach ($content as $item)
-                                            <tr class="position-relative relative changefund-info main-row"
+                                            <tr class="changefund-info main-row"
                                                 onclick="handleRowClick('checkbox', event);"
                                                 data-id="{{ $item->id }}">
                                                 <input type="hidden" name="id-guest" class="changefund-item"

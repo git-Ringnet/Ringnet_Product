@@ -142,7 +142,7 @@
                                         <tr class="bg-white" style="height:80px;">
                                             <td
                                                 class="border-right border-top-0 p-2 text-13 align-top border-bottom position-relative">
-                                                <input type="text" placeholder="Chọn thông tin" id="myInput"
+                                                <input type="text" id="myInput"
                                                     value="{{ $cashReceipt->delivery ? $cashReceipt->delivery->quotation_number : null }}"
                                                     readonly disabled
                                                     class="border-0 text-13-black px-2 py-1 w-100 height-32 search_quotation"
@@ -187,7 +187,7 @@
                                             <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                                 <input
                                                     class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2"
-                                                    name="" placeholder="Chọn thông tin" style="flex:2;"
+                                                    name="" style="flex:2;"
                                                     id="datePicker" value="{{ $cashReceipt->date_created }}"
                                                     {{ $disabled }} />
                                                 <input type="hidden" name="payment_date" id="hiddenDateInput"
@@ -196,7 +196,7 @@
                                             <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                                 <div
                                                     class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
-                                                    <input type="text" placeholder="Chọn thông tin" id="myGuest"
+                                                    <input type="text" id="myGuest"
                                                         class="border-0 text-13-black px-2 py-1 w-100 height-32 search_guest"
                                                         style="background-color:#F0F4FF; border-radius:4px;"
                                                         autocomplete="off" readonly
@@ -252,7 +252,7 @@
                                             <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                                 <div
                                                     class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
-                                                    <input type="text" placeholder="Chọn thông tin" id="myContent"
+                                                    <input type="text" id="myContent"
                                                         class="border-0 text-13-black px-2 py-1 w-100 height-32 search_content"
                                                         style="background-color:#F0F4FF; border-radius:4px;"
                                                         autocomplete="off" readonly required="required" required
@@ -291,7 +291,7 @@
                                             <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                                 <div
                                                     class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative">
-                                                    <input type="text" placeholder="Chọn thông tin" id="fund"
+                                                    <input type="text" id="fund"
                                                         class="border-0 text-13-black px-2 py-1 w-100 height-32 search_funds"
                                                         style="background-color:#F0F4FF; border-radius:4px;"
                                                         name="search_funds" autocomplete="off" readonly
@@ -363,11 +363,11 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng - NCC</span>
                                 <div
                                     class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative w-100">
-                                    <input type="text" placeholder="Chọn thông tin" id="myGuest"
+                                    <input type="text" id="myGuest"
                                         class="border-0 text-13-black px-2 py-1 w-100 height-32 search_guest w-100"
                                         style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
                                         readonly
-                                        @if ($cashReceipt->guest_id != 0) value="{{ $cashReceipt->guest->guest_name_display }}" @elseif($cashReceipt->provide_id != 0) value="{{ $cashReceipt->provide->provide_name_display }}" @endif
+                                        @if ($cashReceipt->guest_id != 0) value="{{ $cashReceipt->guest->guest_name_display }}" @elseif($cashReceipt->provide_id != 0) value="{{ $cashReceipt->provide->provide_name_display }}" @else value="{{ $cashReceipt->provide_guest_name }}" @endif
                                         {{ $disabled }}>
                                     <input type="hidden" name="guest_id" id="guest_id"
                                         @if ($cashReceipt->guest_id != 0) value="{{ $cashReceipt->guest->id }}" @elseif($cashReceipt->provide_id != 0) value="{{ $cashReceipt->provide->id }}" @endif>
@@ -402,22 +402,26 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nộp</span>
-                                <select name="payer" required style="flex: 2;" disabled
-                                    class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
-                                    @foreach ($guest as $item_guest)
-                                        <option @if($item_guest->id == $value->user_id) selected @endif value="{{ $item_guest->guest_name_display }}">
-                                            {{ $item_guest->guest_name_display }}</option>
-                                    @endforeach
-                                </select>
+                                <div class="w-100">
+                                    <select name="payer" required style="flex: 2;" disabled
+                                        class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                        @foreach ($guest as $item_guest)
+                                            <option @if ($item_guest->id == $value->user_id) selected @endif
+                                                value="{{ $item_guest->guest_name_display }}">
+                                                {{ $item_guest->guest_name_display }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="d-flex w-100">
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày</span>
-                                <input class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2"
-                                    name="" placeholder="Chọn thông tin" style="flex:10;" id="datePicker"
-                                    value="{{ $cashReceipt->date_created }}" {{ $disabled }} />
+                                <input class="text-13-black w-100 border-0 bg-input-guest py-2 px-2" name=""
+                                 style="flex:10;"
+                                    value="{{ date_format(new DateTime($cashReceipt->date_created), 'd/m/Y') }}"
+                                    {{ $disabled }} />
                                 <input type="hidden" name="payment_date" id="hiddenDateInput"
                                     value="{{ $cashReceipt->date_created }}">
                             </div>
@@ -425,8 +429,7 @@
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tiền</span>
                                 <div class="w-100">
-                                    <input
-                                        class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2 price_export "
+                                    <input class="text-13-black w-100 border-0 bg-input-guest py-2 px-2 price_export "
                                         name="total" placeholder="Nhập số tiền" style="flex:2;" required
                                         {{ $disabled }} value="{{ number_format($cashReceipt->amount) }}" />
                                     <br>
@@ -442,7 +445,7 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nội dung</span>
                                 <div
                                     class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative w-100">
-                                    <input type="text" placeholder="Chọn thông tin" id="myContent"
+                                    <input type="text" id="myContent"
                                         class="border-0 text-13-black px-2 py-1 w-100 height-32 search_content"
                                         style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
                                         readonly required="required" required
@@ -482,7 +485,7 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Quỹ</span>
                                 <div
                                     class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative w-100">
-                                    <input type="text" placeholder="Chọn thông tin" id="fund"
+                                    <input type="text" id="fund"
                                         class="border-0 text-13-black px-2 py-1 w-100 height-32 search_funds"
                                         style="background-color:#F0F4FF; border-radius:4px;" name="search_funds"
                                         autocomplete="off" readonly value="{{ $cashReceipt->fund->name }}"

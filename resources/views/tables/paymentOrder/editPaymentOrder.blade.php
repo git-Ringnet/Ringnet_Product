@@ -207,15 +207,15 @@
             <section class="border-top" style="height:50px">
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
-                        <ul class="header-options--nav nav nav-tabs margin-left32">
+                        <ul class="header-options--nav-1 nav nav-tabs margin-left32">
                             <li class="user_flow" data-type="TTMH" data-des="Xem thông tin">
                                 <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông
                                     tin</a>
                             </li>
-                            <li class="user_flow" data-type="TTMH" data-des="Lịch sử thanh toán">
+                            {{-- <li class="user_flow" data-type="TTMH" data-des="Lịch sử thanh toán">
                                 <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử
                                     thanh toán</a>
-                            </li>
+                            </li> --}}
                             <li class="user_flow" data-type="TTMH" data-des="File đính kèm">
                                 <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
                             </li>
@@ -443,7 +443,7 @@
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
                                         <input readonly type="text"
                                             class="w-100 border-0 px-2 py-1 height-32 text-13-black" id="myGuest"
-                                            @if ($payment->getGuest) value="{{ $payment->getGuest->guest_name_display }}" @elseif ($payment->getProvide) value="{{ $payment->getProvide->provide_name_display }}" @endif>
+                                            @if ($payment->getGuest) value="{{ $payment->getGuest->guest_name_display }}" @elseif ($payment->getProvide) value="{{ $payment->getProvide->provide_name_display }}" @else value="{{ $payment->provide_guest_name }}" @endif>
                                         <input type="hidden" name="addr" id="addr"
                                             @if ($payment->getGuest) value="{{ $payment->getGuest->guest_address }}" @elseif ($payment->getProvide) value="{{ $payment->getProvide->provide_address }}" @endif>
                                     </div>
@@ -459,8 +459,8 @@
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày</span>
                                         <input readonly type="text"
-                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black" id="datePicker"
-                                            value="{{ date_format(new DateTime($payment->payment_date), 'd-m-Y') }}">
+                                            class="w-100 border-0 px-2 py-1 height-32 text-13-black"
+                                            value="{{ date_format(new DateTime($payment->payment_date), 'd/m/Y') }}">
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
@@ -520,7 +520,7 @@
                         </div> --}}
                             {{-- <x-formsynthetic :import="$import"></x-formsynthetic> --}}
                         </div>
-                        <div id="history" class="tab-pane fade">
+                        {{-- <div id="history" class="tab-pane fade">
                             <div class="bg-filter-search border-0 text-center">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">
                                     Lịch sử thanh toán
@@ -582,7 +582,7 @@
                                     </table>
                                 </div>
                             </section>
-                        </div>
+                        </div> --}}
 </form>
 <div id="files" class="tab-pane fade">
     <div class="bg-filter-search border-0 text-center">

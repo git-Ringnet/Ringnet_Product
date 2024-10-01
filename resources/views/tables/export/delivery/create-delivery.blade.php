@@ -439,7 +439,7 @@
                     </div>
                     <div class="container-fluided">
                         <section class="info-chung">
-                            <div class="content-info position-relative text-nowrap">
+                            <div class="content-info position-relative text-nowrap overflow-content-quote">
                                 <table class="table table-hover bg-white rounded" id="inputcontent">
                                     <thead>
                                         <tr style="height:44px;">
@@ -492,7 +492,7 @@
                                 </table>
                             </div>
                         </section>
-                        <section class="content">
+                        <section class="content my-3">
                             <div class="container-fluided">
                                 <div class="d-flex ml-3">
                                     <button type="button" data-toggle="dropdown" id="add-field-btn"

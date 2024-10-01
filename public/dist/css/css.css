@@ -52,12 +52,12 @@ li {
     min-height: 0 !important;
 }
 
-.btn.btn-outline-secondary,.row .btn-primary.rounded {
+.btn.btn-outline-secondary,
+.row .btn-primary.rounded {
     border-radius: 5px !important;
     padding: 7px 8px !important;
     font-weight: 500;
     font-size: 13px;
-    
 }
 
 .height-50 {
@@ -205,7 +205,7 @@ li {
     top: 0;
     position: sticky;
     background-color: white;
-    z-index: 999;
+    z-index: 9;
 }
 
 .outerImport {
@@ -978,7 +978,7 @@ td p {
     list-style: none;
     padding: 0;
 }
-.bold{
+.bold {
     font-weight: bold !important;
 }
 
@@ -1401,8 +1401,11 @@ input[type="number"] {
     font-weight: 500;
 }
 
-.text-13-black .number, .gold_value ,.product_quantity,.desc{
-    background-color: #F0F4FF;
+.text-13-black .number,
+.gold_value,
+.product_quantity,
+.desc {
+    background-color: #f0f4ff;
 }
 
 .text-long-special {
@@ -2570,7 +2573,7 @@ input[type="checkbox"]:checked {
 }
 
 .bg-input-guest-blue {
-    background-color: #f0f4ff;
+    background-color: #f0f4ff !important;
     border-radius: 4px;
 }
 .bg-input-guest:focus {
@@ -2888,11 +2891,11 @@ input[type="checkbox"]:checked {
 .flatpickr-current-month {
     font-size: initial !important;
 }
-.hover-tr-table tbody tr:hover{
+.hover-tr-table tbody tr:hover {
     background-color: #e9ecef;
 }
-.bg-blue-light{
-    background-color: #F0F4FF;
+.bg-blue-light {
+    background-color: #f0f4ff;
 }
 
 .header-fixed {
@@ -2910,34 +2913,57 @@ input[type="checkbox"]:checked {
     background-color: #f0f3f9 !important;
 }
 
-.margin-top-127{
+.margin-top-127 {
     margin-top: 12.7rem;
 }
 .margin-top-142 {
     margin-top: 14.2rem;
 }
 
-.margin-top-117{
+.margin-top-117 {
     margin-top: 11.7rem;
 }
 
-.height-44{
+.height-44 {
     height: 44px;
 }
 
-.menu{
+.menu {
     z-index: 999;
 }
 
-.outer-4{
+.outer-4 {
     width: 100%;
     overflow-x: auto;
     scrollbar-width: thin;
     max-height: calc(75vh - 125px);
 }
 
-.highlight-due-date td, .highlight-due-date td a{
+.outer-4 th{
+    top: 0;
+    position: sticky;
+    background-color: white;
+    z-index: 99;
+}
+
+.highlight-due-date td,
+.highlight-due-date td a {
     color: red !important;
     background: #ffff66 !important;
     font-weight: 700 !important;
+}
+
+.overflow-content-quote {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    max-height: calc(100vh - 400px);
+}
+
+.overflow-content-quote th {
+    width: 10%;
+    top: 0;
+    position: sticky;
+    background-color: white;
+    z-index: 99;
 }

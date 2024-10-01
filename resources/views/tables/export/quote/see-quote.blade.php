@@ -585,13 +585,11 @@
                                 </p>
                             </div>
                             <div class="container-fluided">
-                                <div class="content">
+                                <div class="content overflow-content-quote">
                                     <table id="inputcontent" class="table table-hover bg-white rounded m-0">
                                         <thead>
                                             <tr style="height:44px;">
                                                 <th class="border-right px-2 p-0" style="width: 10%">
-                                                    <input type='checkbox'
-                                                        class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
                                                     <span class="text-table text-secondary">Mã sản phẩm</span>
                                                 </th>
                                                 <th class="border-right px-2 p-0 text-left"
@@ -773,7 +771,7 @@
                                                     </td>
                                                     <td
                                                         class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
-                                                        <textarea placeholder="Nhập ghi chú" readonly class='border-0 py-1 w-100 text-left height-32' name='product_note[]'
+                                                        <textarea readonly class='border-0 py-1 w-100 text-left height-32' name='product_note[]'
                                                             rows='2' cols='50'>{{ $item_quote->product_note }}</textarea>
                                                     </td>
                                                     <td style="display:none;" class="">

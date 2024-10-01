@@ -354,8 +354,8 @@
                                 class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative w-100">
                                 <input type="text" placeholder="Chọn thông tin" id="myGuest"
                                     class="border-0 text-13-black py-1 w-100 height-32 search_guest"
-                                    style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" readonly
-                                    required="required">
+                                    name="guest_provide_text" style="background-color:#F0F4FF; border-radius:4px;"
+                                    autocomplete="off" required="required">
                                 <input type="hidden" name="guest_id" id="guest_id">
                                 <input type="hidden" name="provide_id" id="provide_id">
                                 <input type="hidden" name="addr" id="addr" value="">
@@ -397,31 +397,34 @@
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nhận</span>
-                            <select name="payment_type" required
-                                class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
-                                @foreach ($listUser as $item_user)
-                                    <option value="{{ $item_user->name }}">
-                                        {{ $item_user->name }}</option>
-                                @endforeach
-                            </select>
+                            <div class="w-100">
+                                <select name="payment_type" required
+                                    class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                    @foreach ($listUser as $item_user)
+                                        <option value="{{ $item_user->name }}">
+                                            {{ $item_user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="d-flex w-100">
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày</span>
-                            <input class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2"
-                                name="" placeholder="Chọn thông tin" style="flex:2;" id="datePicker"
-                                value="{{ date('Y-m-d') }}" />
-                            <input type="hidden" name="payment_date" id="hiddenDateInput"
-                                value="{{ date('Y-m-d') }}">
+                            <div class="d-flex w-100">
+                                <input class="text-13-black w-100 border-0 bg-input-guest py-2 bg-input-guest-blue"
+                                    name="" placeholder="Chọn thông tin" style="flex:2;" id="datePicker"
+                                    value="{{ date('Y-m-d') }}" />
+                                <input type="hidden" name="payment_date" id="hiddenDateInput"
+                                    value="{{ date('Y-m-d') }}">
+                            </div>
                         </div>
                         <div
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tiền</span>
                             <div class="w-100">
-                                <input
-                                    class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 price_export "
+                                <input class="text-13-black w-100 border-0 bg-input-guest py-2 price_export "
                                     name="total" placeholder="Nhập số tiền"
                                     style="flex:2;background-color:#F0F4FF; border-radius:4px;" id="prepayment"
                                     required />
@@ -450,7 +453,8 @@
                                     <div class="p-1">
                                         <div class="position-relative">
                                             <input type="text" placeholder="Nhập thông tin"
-                                                class="pr-4 w-100 input-search bg-input-guest text-13-black search_content" id="contentFilter">
+                                                class="pr-4 w-100 input-search bg-input-guest text-13-black search_content"
+                                                id="contentFilter">
                                             <span id="search-icon" class="search-icon"><i
                                                     class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
@@ -486,7 +490,8 @@
                                     <div class="p-1">
                                         <div class="position-relative">
                                             <input type="text" placeholder="Nhập thông tin"
-                                                class="pr-4 w-100 input-search bg-input-guest text-13-black search_funds" id="fundFilter">
+                                                class="pr-4 w-100 input-search bg-input-guest text-13-black search_funds"
+                                                id="fundFilter">
                                             <span id="search-icon" class="search-icon"><i
                                                     class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
@@ -905,6 +910,15 @@
     }
 
     $(document).ready(function() {
+        //change input guest - provide
+        $('#myGuest').on('change', function() {
+            $('#guest_id').val("");
+            $('#provide_id').val("");
+            $('#addr').val("");
+            $('.cash_reciept').attr('style', 'display:none;');
+            $('input[name="total"]').off('input');
+        });
+
         $('.search-return').on('click', function(event, detail_id) {
             if (detail_id) {
                 detail_id = detail_id

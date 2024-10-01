@@ -182,7 +182,7 @@
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
                                         <span class="mx-1 text-13" style="flex: 2;">
-                                            <input type="text" placeholder="Nhập thông tin"
+                                            <input type="text"
                                                 class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                                 style="flex:2;"
                                                 value="{{ date_format(new DateTime($receive->created_at), 'd/m/Y') }}"
@@ -230,7 +230,7 @@
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Họ và tên</span>
-                                        <input type="text" placeholder="Nhập thông tin" name="fullname"
+                                        <input type="text" name="fullname"
                                             value="{{ $receive->fullname }}"
                                             class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" readonly
                                             style="flex:2;">
@@ -240,7 +240,7 @@
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa chỉ</span>
-                                        <input type="text" placeholder="Chọn thông tin" name="address"
+                                        <input type="text" name="address"
                                             value="{{ $receive->address }}" readonly
                                             class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                             style="flex:2;">
@@ -248,7 +248,7 @@
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">SĐT</span>
-                                        <input type="number" placeholder="Nhập thông tin" name="phone"
+                                        <input type="number" name="phone"
                                             value="{{ $receive->phone }}" readonly
                                             class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                             style="flex:2;">
@@ -258,7 +258,7 @@
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người lập</span>
-                                        <input type="text" placeholder="Chọn thông tin" value="Admin"
+                                        <input type="text" value="Admin"
                                             class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" readonly
                                             style="flex:2;">
                                     </div>
@@ -298,7 +298,7 @@
                                 </p>
                             </div>
                             <section class="content">
-                                <div class="content-info position-relative table-responsive text-nowrap">
+                                <div class="content-info position-relative table-responsive text-nowrap overflow-content-quote">
                                     <table id="inputcontent" class="table table-hover bg-white rounded">
                                         <thead>
                                             <tr style="height:48px;">

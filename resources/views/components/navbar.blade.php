@@ -105,8 +105,8 @@
             </div>
         </div>
     @endif
-    <a id="live-chat" href="https://zalo.me/g/pcgrpw834" target="_blank"><img
-            src="{{ asset('dist/img/Icon_of_Zalo.svg.png') }}" alt=""></a>
+    {{-- <a id="live-chat" href="https://zalo.me/g/pcgrpw834" target="_blank"><img
+            src="{{ asset('dist/img/Icon_of_Zalo.svg.png') }}" alt=""></a> --}}
     <div id="dropdown-content" class="dropdown-content position-absolute setting-user-info">
         @if (Route::has('login'))
             @auth

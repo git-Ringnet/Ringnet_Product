@@ -58,6 +58,20 @@
                     <div class="info-chung">
                         <p class="font-weight-bold text-uppercase info-chung--heading border-custom">Thông tin chung</p>
                         <div class="content-info">
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
+                                    <p class="p-0 m-0 margin-left32 text-13">Nhóm</p>
+                                </div>
+                                <div
+                                    class="border border-top-0 w-100 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue">
+                                    <select name="category_id" class="form-control text-13-black bg-input-guest-blue border-0 p-0">
+                                        <option value="0">Chọn loại nhóm</option>
+                                        @foreach ($category as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="d-none align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 text-danger margin-left32 text-13">Danh mục sản phẩm</p>
@@ -187,20 +201,6 @@
                                     class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black bg-input-guest-blue">
                                     <input type="checkbox" placeholder="Nhập thông tin" name="check_seri"
                                         class="" checked>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
-                                    <p class="p-0 m-0 margin-left32 text-13">Nhóm</p>
-                                </div>
-                                <div
-                                    class="border border-top-0 w-100 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue">
-                                    <select name="category_id" class="form-control text-13-black bg-input-guest-blue border-0 p-0">
-                                        <option value="0">Chọn loại nhóm</option>
-                                        @foreach ($category as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
                                 </div>
                             </div>
                         </div>

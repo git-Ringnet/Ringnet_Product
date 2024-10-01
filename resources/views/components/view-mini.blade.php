@@ -9,10 +9,12 @@
             <div class="">
                 <p class="m-0 p-0 text-13-black">Từ ngày</p>
                 <input type="date" class="w-100 form-control mr-1 bg-input-guest-blue" id="fromDate">
+                <input type="hidden" id="hiddenInputDateFrom">
             </div>
-            <div class="mr-5">
+            <div class="mr-2">
                 <p class="m-0 p-0 text-13-black">Đến ngày</p>
                 <input type="date" class="w-100 form-control ml-1 bg-input-guest-blue" id="toDate">
+                <input type="hidden" id="hiddenInputDateTo">
             </div>
         </div>
         <div class="w-100 my-2">
@@ -518,6 +520,24 @@
 </div>
 <script src="{{ asset('/dist/js/viewMini.js') }}"></script>
 <script>
+    flatpickr("#fromDate", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenInputDateFrom").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
+    flatpickr("#toDate", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenInputDateTo").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
     $(document).ready(function() {
         // Menu ngữ cảnh cho PBH
         $('#PBH').on('contextmenu', 'tr', function(e) {
@@ -925,8 +945,8 @@
         $('#search-view-mini').on('click', function() {
             const status = this.dataset.status;
             const page = this.dataset.page;
-            var fromDate = $('#fromDate').val();
-            var toDate = $('#toDate').val();
+            var fromDate = $('#hiddenInputDateFrom').val();
+            var toDate = $('#hiddenInputDateTo').val();
             var idGuest = $('.idGuestMiniView').val();
             var creator = $('#creator').val();
             $.ajax({

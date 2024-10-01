@@ -60,9 +60,15 @@ class DetailExport extends Model
     {
         return $this->hasMany(QuoteExport::class, 'detailexport_id', 'id');
     }
+
     public function getGuest()
     {
         return $this->hasOne(Guest::class, 'id', 'guest_id');
+    }
+
+    public function getSale()
+    {
+        return $this->hasOne(User::class, 'id', 'id_sale');
     }
 
     public function getQuoteCount()

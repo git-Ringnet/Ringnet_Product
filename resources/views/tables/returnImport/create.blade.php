@@ -177,7 +177,7 @@
                     </div>
                     <div class="container-fluided" id="quickAction">
                         <section class="content">
-                            <div class="content-info position-relative text-nowrap">
+                            <div class="content-info position-relative text-nowrap overflow-content-quote">
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:47px;">

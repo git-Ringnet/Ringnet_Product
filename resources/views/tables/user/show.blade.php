@@ -96,6 +96,21 @@
                         <div class="info-chung">
                             <div class="content-info">
                                 <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 margin-left32 text-13-black">Chọn nhóm đối tượng</p>
+                                    </div>
+                                    <select name="grouptype_id" id="grouptypeSelect"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
+                                        disabled>
+                                        <option value="0">Chưa chọn nhóm</option>
+                                        @foreach ($groups as $item)
+                                            <option value="{{ $item->id }}"
+                                                @if ($user->group_id == $item->id) selected @endif>{{ $item->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="d-flex align-items-center height-60-mobile">
                                     <div class="title-info height-100 py-2 border border-left-0">
                                         <p class="p-0 m-0 required-label margin-left32 text-13-red">Mã nhân viên</p>
                                     </div>
@@ -160,22 +175,6 @@
                                         name="phone_number"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
                                         value="{{ $user->phone_number }}" disabled>
-                                </div>
-
-                                <div class="d-flex align-items-center height-60-mobile">
-                                    <div class="title-info height-100 py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 margin-left32 text-13-black">Chọn nhóm đối tượng</p>
-                                    </div>
-                                    <select name="grouptype_id" id="grouptypeSelect"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
-                                        disabled>
-                                        <option value="0">Chưa chọn nhóm</option>
-                                        @foreach ($groups as $item)
-                                            <option value="{{ $item->id }}"
-                                                @if ($user->group_id == $item->id) selected @endif>{{ $item->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
                                 </div>
                             </div>
                             {{-- @if ($errors->any())

@@ -266,7 +266,7 @@
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM
                         </p>
                     </div>
-                    <div class="content-info position-relative text-nowrap order_content">
+                    <div class="content-info position-relative text-nowrap order_content overflow-content-quote">
                         <table id="inputcontent" class="table table-hover bg-white rounded">
                             <thead>
                                 <tr style="height:44px;">

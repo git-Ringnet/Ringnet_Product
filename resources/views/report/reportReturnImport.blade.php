@@ -328,13 +328,13 @@
                                                             $totalAmount += $item->qtyReturn * $item->priceProduct;
                                                         @endphp
 
-                                                        <tr class="position-relative relative main-row product-info"
+                                                        <tr class="main-row product-info"
                                                             data-id="{{ $itemReturn->id }}">
                                                             <input type="hidden" value="{{ $itemReturn->id }}"
                                                                 class="return">
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">
-                                                                {{ $loop->first ? $itemReturn->created_at : '' }}
+                                                                {{ $loop->first ? date_format(new DateTime($itemReturn->created_at), 'd/m/Y') : '' }}
                                                             </td>
                                                             <td rowspan="{{ $count }}"
                                                                 class="text-13-black height-52 border {{ $loop->first ? '' : 'd-none' }}">

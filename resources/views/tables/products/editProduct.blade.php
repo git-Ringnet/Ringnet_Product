@@ -100,7 +100,26 @@
                                 <p class="font-weight-bold text-uppercase info-chung--heading border-custom">Thông tin
                                     chung</p>
                                 <div class="content-info">
-
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                            <p class="p-0 m-0 margin-left32 text-13">Nhóm</p>
+                                        </div>
+                                        <div
+                                            class="border border-top-0 w-100 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue">
+                                            <select name="group_id" id=""
+                                                class="form-control text-13-black bg-input-guest-blue border-0 p-0 w-100">
+                                                <option value="0"
+                                                    @if ($product->group_id == 0) selected @endif>Chọn loại
+                                                    nhóm
+                                                </option>
+                                                @foreach ($category as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        @if ($item->id == $product->group_id) selected @endif>
+                                                        {{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="d-none align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                             <p class="p-0 m-0 text-danger margin-left32 text-13">Danh mục sản phẩm</p>
@@ -112,8 +131,8 @@
                                                 style="margin-right:10px;">
                                             <label for="html" class="m-0">Hàng hóa</label>
                                             <input type="radio" id="dichvu" name="type_product" value="2"
-                                                class="py-2" @if ($product->type == 2) checked @endif disabled
-                                                style="margin-left:40px; margin-right:10px;">
+                                                class="py-2" @if ($product->type == 2) checked @endif
+                                                disabled style="margin-left:40px; margin-right:10px;">
                                             <label for="html" class="m-0">Dịch vụ</label>
                                         </div>
                                     </div>
@@ -267,26 +286,6 @@
                                                 </div>
                                             @endif
                                         @endif
-                                        <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
-                                                <p class="p-0 m-0 margin-left32 text-13">Nhóm</p>
-                                            </div>
-                                            <div
-                                                class="border border-top-0 w-100 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue">
-                                                <select name="group_id" id=""
-                                                    class="form-control text-13-black bg-input-guest-blue border-0 p-0 w-100">
-                                                    <option value="0"
-                                                        @if ($product->group_id == 0) selected @endif>Chọn loại
-                                                        nhóm
-                                                    </option>
-                                                    @foreach ($category as $item)
-                                                        <option value="{{ $item->id }}"
-                                                            @if ($item->id == $product->group_id) selected @endif>
-                                                            {{ $item->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
                                     @endif
                                 </div>
                             </div>

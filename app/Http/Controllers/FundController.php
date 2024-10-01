@@ -129,10 +129,11 @@ class FundController extends Controller
             'end_date' => 'nullable|date',
         ]);
 
-        // Xử lý amount để loại bỏ dấu phân cách hàng nghìn
+        // Process amount to remove thousand separators and convert to float
         $amount = str_replace(',', '', $request->amount);
+        $amount = floatval($amount);
 
-        // Kiểm tra xem tên quỹ có bị trùng lặp không
+        // Check if the fund name already exists
         $isNameDuplicate = DB::table('funds')
             ->where('name', $request->name)
             ->where('id', '!=', $fund->id)
@@ -142,7 +143,19 @@ class FundController extends Controller
             return redirect()->back()->with('warning', 'Tên quỹ đã tồn tại!');
         }
 
-        // Cập nhật dữ liệu quỹ
+        // Calculate total payments and receipts
+        $total_payments = DB::table('pay_order')
+            ->where('fund_id', $fund->id)
+            ->sum('payment');
+
+        $total_receipts = DB::table('cash_receipts')
+            ->where('fund_id', $fund->id)
+            ->sum('amount');
+
+        // Calculate the new initial amount
+        $initial_amount = $amount + $total_receipts - $total_payments;
+
+        // Update the fund record
         $fund->update([
             'name' => $request->name,
             'description' => $request->description,
@@ -152,25 +165,8 @@ class FundController extends Controller
             'bank_account_holder' => $request->bank_account_holder,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
+            'initial_amount' => $initial_amount,
         ]);
-
-        // Cập nhật tiền quỹ ban đầu
-        // Tính tổng số tiền đã chi từ phiếu chi
-        $total_payments = DB::table('pay_order')
-            ->where('fund_id', $fund->id)
-            ->sum('payment');
-
-        // Tính tổng số tiền đã nhận từ phiếu thu
-        $total_receipts = DB::table('cash_receipts')
-            ->where('fund_id', $fund->id)
-            ->sum('amount');
-
-        // Tính toán và cập nhật số tiền ban đầu
-        $fund->initial_amount = $request->amount + $total_receipts - $total_payments;
-
-        // Lưu các thay đổi
-        $fund->update($request->all());
-        $fund->save();
 
         return redirect()->route('funds.index')->with('msg', 'Cập nhật quỹ thành công!');
     }

@@ -514,7 +514,7 @@
                                     </p>
                                 </div>
                                 <section class="content">
-                                    <div class="table-responsive text-nowrap order_content">
+                                    <div class="table-responsive text-nowrap order_content overflow-content-quote">
                                         <table id="inputcontent" class="table table-hover bg-white rounded m-0">
                                             <thead>
                                                 <tr style="height:44px;">

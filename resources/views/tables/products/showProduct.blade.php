@@ -102,7 +102,15 @@
                             <div class="info-chung">
                                 <p class="font-weight-bold text-uppercase info-chung--heading">Thông tin chung</p>
                                 <div class="content-info">
-
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                            <p class="p-0 m-0 margin-left32 text-13">Nhóm</p>
+                                        </div>
+                                        <input readonly type="text"
+                                            name="product_guarantee"
+                                            value="@if ($product->getGroup) {{ $product->getGroup->name }} @endif"
+                                            class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                                    </div>
                                     <div class="d-none align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 height-100 border-bottom-0">
                                             <p class="p-0 m-0 text-danger margin-left32 text-13">Danh mục sản phẩm</p>
@@ -126,7 +134,7 @@
                                             <p class="p-0 m-0 required-label text-danger margin-left32 text-13">Tên sản
                                                 phẩm</p>
                                         </div>
-                                        <input readonly type="text" placeholder="Nhập thông tin"
+                                        <input readonly type="text"
                                             name="product_name"
                                             class="border w-100 height-100 py-2 border-left-0 border-right-0 px-3 text-13-black"
                                             autocomplete="off" required value="{{ $product->product_name }}" />
@@ -135,7 +143,7 @@
                                         <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                             <p class="p-0 m-0  margin-left32 text-13">Mã sản phẩm</p>
                                         </div>
-                                        <input readonly type="text" required="" placeholder="Nhập thông tin"
+                                        <input readonly type="text" required=""
                                             name="product_code" value="{{ $product->product_code }}"
                                             class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
                                     </div>
@@ -143,7 +151,7 @@
                                         <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                             <p class="p-0 m-0 margin-left32 text-13">Đơn vị tính</p>
                                         </div>
-                                        <input readonly type="text" placeholder="Nhập thông tin"
+                                        <input readonly type="text"
                                             name="product_unit" value="{{ $product->product_unit }}"
                                             class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
                                     </div>
@@ -227,7 +235,7 @@
                                             <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 margin-left32 text-13">Loại sản phẩm</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="product_type" value="{{ $product->product_type }}"
                                                 class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                                         </div>
@@ -235,7 +243,7 @@
                                             <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 margin-left32 text-13">Hãng</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="product_manufacturer"
                                                 value="{{ $product->product_manufacturer }}"
                                                 class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
@@ -244,7 +252,7 @@
                                             <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 margin-left32 text-13">Xuất xứ</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="product_origin" value="{{ $product->product_origin }}"
                                                 class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                                         </div>
@@ -252,7 +260,7 @@
                                             <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 margin-left32 text-13">Bảo hành</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                            <input readonly type="text"
                                                 name="product_guarantee" value="{{ $product->product_guarantee }}"
                                                 class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                                         </div>
@@ -267,15 +275,6 @@
                                                 <input disabled type="checkbox" name="check_seri"
                                                     @if ($product->check_seri == 1) checked @endif>
                                             </div>
-                                        </div>
-                                        <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
-                                                <p class="p-0 m-0 margin-left32 text-13">Nhóm</p>
-                                            </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin"
-                                                name="product_guarantee"
-                                                value="@if ($product->getGroup) {{ $product->getGroup->name }} @endif"
-                                                class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                                         </div>
                                     @endif
                                 </div>

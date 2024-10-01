@@ -286,7 +286,7 @@
                     </div>
                     <div class="container-fluided" id="quickAction">
                         <section class="content">
-                            <div class="content-info position-relative text-nowrap">
+                            <div class="content-info position-relative text-nowrap overflow-content-quote">
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:47px;">
@@ -404,7 +404,7 @@
                             </div>
                         </section>
                     </div>
-                    <div class="ml-4 mt-1">
+                    <div class="ml-4 mt-1 mb-5">
                         <span class="text-perpage">
                             <section class="content">
                                 <div class="container-fluided">

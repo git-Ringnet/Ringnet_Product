@@ -281,6 +281,15 @@
                                                     <div class="icon" id="icon-status_receive"></div>
                                                 </span>
                                             </th>
+                                            <th scope="col" class="height-52" style="width: 15%;">
+                                                <span class="d-flex justify-content-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="status_receive" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Nhân viên sale</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-status_receive"></div>
+                                                </span>
+                                            </th>
                                             {{-- <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -475,6 +484,9 @@
                                                         </svg>
                                                     @endif
                                                 </td> --}}
+                                                <td class="text-13-black text-center border-top-0 border-bottom">
+                                                    {{ $value_export->getSale->name }}
+                                                </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($value_export->total_price + $value_export->total_tax) }}
                                                 </td>

@@ -403,7 +403,6 @@
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhân viên Sale</span>
                             <select name="id_sale" style="flex: 2;"
                                 class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
-                                <option value=""></option>
                                 @foreach ($listUser as $listU)
                                     <option value="{{ $listU->id }}" <?php if ($listU->id === $detailExport->id_sale) {
                                         echo 'selected';
@@ -446,13 +445,11 @@
                 </div>
                 <div class="container-fluided">
                     <section class="content">
-                        <div class="content-info position-relative text-nowrap">
+                        <div class="content-info position-relative text-nowrap overflow-content-quote">
                             <table class="table table-hover bg-white rounded" id="inputcontent">
                                 <thead>
                                     <tr style="height:44px;">
                                         <th class="border-right px-2 p-0" style="width: 10%">
-                                            <input type='checkbox'
-                                                class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
                                         <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
@@ -492,25 +489,9 @@
                                         <tr class="bg-white addProduct" style="height:80px;">
                                             <td class='border-right p-2 text-13 align-top border-bottom border-top-0'
                                                 style="">
-                                                <span class="ml-1 mr-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="6"
-                                                        height="10" viewBox="0 0 6 10" fill="none">
-                                                        <g clip-path="url(#clip0_1710_10941)">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
-                                                                fill="#282A30" />
-                                                        </g>
-                                                        <defs>
-                                                            <clipPath id="clip0_1710_10941">
-                                                                <rect width="6" height="10" fill="white" />
-                                                            </clipPath>
-                                                        </defs>
-                                                    </svg>
-                                                </span>
-                                                <input type="checkbox" class="cb-element checkall-btn">
                                                 <input type="text" autocomplete="off" readonly
                                                     value="{{ $item_quote->product_code }}"
-                                                    class="border-0 px-2 py-1 w-75 product_code height-32 bg-input-guest-blue"
+                                                    class="border-0 px-2 py-1 w-100 product_code height-32 bg-input-guest-blue"
                                                     name="product_code[]">
                                             </td>
                                             <td
@@ -567,8 +548,8 @@
                                             <td class='border-right p-2 text-13 align-top border-bottom border-top-0'>
                                                 <input type='text' autocomplete='off'
                                                     value="{{ $item_quote->product_unit }}"
-                                                    class='border-0 px-2 py-1 w-100 product_unit height-32 bg-input-guest-blue' readonly
-                                                    name='product_unit[]'>
+                                                    class='border-0 px-2 py-1 w-100 product_unit height-32 bg-input-guest-blue'
+                                                    readonly name='product_unit[]'>
                                             </td>
 
                                             <td class='border-right p-2 text-13 align-top border-bottom border-top-0'>
@@ -700,8 +681,9 @@
                                                 class='border-right p-2 note text-13 align-top border-bottom border-top-0'>
                                                 <textarea placeholder="Nhập ghi chú" <?php if ($detailExport->tinhTrang != 1) {
                                                     echo 'readonly';
-                                                } ?> class='border-0 py-1 w-100 text-left height-32 bg-input-guest-blue'
-                                                    name='product_note[]' rows='2' cols='50'>{{ $item_quote->product_note }}</textarea>
+                                                } ?>
+                                                    class='border-0 py-1 w-100 text-left height-32 bg-input-guest-blue' name='product_note[]' rows='2'
+                                                    cols='50'>{{ $item_quote->product_note }}</textarea>
                                             </td>
                                             @if ($detailExport->tinhTrang == 1)
                                                 <td class='p-2 align-top border-bottom border-top-0'>
@@ -1627,20 +1609,7 @@
             });
             const maSanPham = $(
                 `<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>` +
-                `<span class='ml-1 mr-2'>` +
-                `<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>` +
-                `<g clip-path='url(#clip0_1710_10941)'>` +
-                `<path fill-rule='evenodd' clip-rule='evenodd' d='M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z' fill='#282A30'/>` +
-                `</g>` +
-                `<defs>` +
-                `<clipPath id='clip0_1710_10941'>` +
-                `<rect width='6' height='10' fill='white'/>` +
-                `</clipPath>` +
-                `</defs>` +
-                `</svg>` +
-                `</span>` +
-                `<input type='checkbox' class='cb-element checkall-btn ml-1 mr-1'>` +
-                `<input type='text' autocomplete='off' class='border-0 pl-1 pr-2 py-1 w-75 product_code height-32 bg-input-guest-blue' name='product_code[]'>` +
+                `<input type='text' autocomplete='off' class='border-0 pl-1 pr-2 py-1 w-100 product_code height-32 bg-input-guest-blue' name='product_code[]'>` +
                 `</td>`
             );
             const tenSanPham = $(

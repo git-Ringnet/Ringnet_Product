@@ -78,12 +78,14 @@
                                 <div
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-60-mobile">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thủ kho</span>
-                                    <select name="manager_warehouse"
-                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
-                                        @foreach ($users as $user_item)
-                                            <option value="{{ $user_item->id }}">{{ $user_item->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="w-100">
+                                        <select name="manager_warehouse"
+                                            class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                            @foreach ($users as $user_item)
+                                                <option value="{{ $user_item->id }}">{{ $user_item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 <div
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-60-mobile">

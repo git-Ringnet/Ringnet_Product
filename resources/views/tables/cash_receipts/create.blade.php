@@ -384,9 +384,9 @@
                                 <div
                                     class="border-0 d-flex justify-content-between border-bottom border-top align-items-center text-left text-nowrap position-relative w-100">
                                     <input type="text" placeholder="Chọn thông tin" id="myGuest"
+                                        name="guest_provide_text"
                                         class="border-0 text-13-black px-2 py-1 w-100 height-32 search_guest"
-                                        style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                                        readonly>
+                                        style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off">
                                     <input type="hidden" name="guest_id" id="guest_id">
                                     <input type="hidden" name="provide_id" id="provide_id">
                                     <input type="hidden" name="addr" id="addr" value="">
@@ -430,31 +430,36 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 2;">Người nộp</span>
-                                <select name="payer" required style="flex: 2;"
-                                    class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
-                                    @foreach ($guest as $item_guest)
-                                        <option value="{{ $item_guest->guest_name_display }}">
-                                            {{ $item_guest->guest_name_display }}</option>
-                                    @endforeach
-                                </select>
+                                <div class="w-100">
+                                    <select name="payer" required style="flex: 2;"
+                                        class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                        @foreach ($guest as $item_guest)
+                                            <option value="{{ $item_guest->guest_name_display }}">
+                                                {{ $item_guest->guest_name_display }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="d-flex w-100">
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày</span>
-                                <input class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2"
-                                    name="" placeholder="Chọn thông tin" style="flex:2;" id="datePicker"
-                                    value="{{ date('Y-m-d') }}" />
-                                <input type="hidden" name="payment_date" id="hiddenDateInput"
-                                    value="{{ date('Y-m-d') }}">
+                                <div class="d-flex w-100">
+                                    <input
+                                        class="text-13-black w-100 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue"
+                                        name="" placeholder="Chọn thông tin" style="flex:2;" id="datePicker"
+                                        value="{{ date('Y-m-d') }}" />
+                                    <input type="hidden" name="payment_date" id="hiddenDateInput"
+                                        value="{{ date('Y-m-d') }}">
+                                </div>
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tiền</span>
                                 <div class="w-100">
                                     <input type="text"
-                                        class="text-13-black w-100 border-0 bg-input-guest flatpickr-input py-2 px-2 price_export"
+                                        class="text-13-black w-100 border-0 bg-input-guest py-2 px-2 price_export"
                                         name="total" placeholder="Nhập số tiền"
                                         style="flex:8; background-color:#F0F4FF; border-radius:4px;" required
                                         autocomplete="off" />
@@ -720,7 +725,16 @@
                 }
             });
         });
-    })
+    });
+
+    //change input guest - provide
+    $('#myGuest').on('change', function() {
+        $('#guest_id').val("");
+        $('#provide_id').val("");
+        $('#addr').val("");
+        $('.cash_reciept').attr('style', 'display:none;');
+        $('input[name="total"]').off('input');
+    });
 
     function checkQty(value, odlQty) {
         var inputValue = parseFloat($(value).val().replace(/[^0-9.-]+/g, ""));

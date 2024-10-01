@@ -93,10 +93,13 @@
                                             <p class="p-0 m-0 required-label margin-left32 text-13-red">Ngày bắt đầu
                                             </p>
                                         </div>
-                                        <input type="date" placeholder="Nhập thông tin" name="start_date"
-                                            id="start_date" value="{{ $fund->start_date }}"
+                                        <input type="text" placeholder="Nhập thông tin" id="start_date"
+                                            value="{{ date_format(new DateTime($fund->start_date), 'd/m/Y') }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue"
                                             required>
+                                        <input type="hidden"
+                                            value="{{ date_format(new DateTime($fund->start_date), 'd/m/Y') }}"
+                                            name="start_date" id="hiddenDateInput">
                                     </div>
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info height-100 py-2 border border-top-0 border-left-0">
@@ -150,3 +153,31 @@
 </form>
 <x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/number.js') }}"></script>
+<script>
+    flatpickr("#start_date", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(
+                selectedDates[0],
+                "Y-m-d");
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+        },
+    });
+
+    function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+        // Lấy thời gian hiện tại
+        var currentTime = new Date();
+
+        // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+        var selectedDateTime = new Date(selectedDate);
+        selectedDateTime.setHours(currentTime.getHours());
+        selectedDateTime.setMinutes(currentTime.getMinutes());
+        selectedDateTime.setSeconds(currentTime.getSeconds());
+
+        document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
+    }
+</script>

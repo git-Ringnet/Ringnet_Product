@@ -86,7 +86,7 @@
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-60-mobile">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày lập</span>
-                                        <input type="text" placeholder="Chọn ngày" id="datePicker"
+                                        <input type="text" placeholder="Chọn ngày" id="datePicker" readonly
                                             value="{{ date_format(new DateTime($changeWarehouse->created_at), 'd/m/Y') }}"
                                             class="border-0 w-100 py-2 px-3 text-13-black height-100">
                                         <input type="hidden" name="created_at" id="hiddenDateInput">
@@ -94,15 +94,17 @@
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-60-mobile">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thủ kho</span>
-                                        <select name="manager_warehouse" disabled
-                                            class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
-                                            @foreach ($users as $user_item)
-                                                <option value="{{ $user_item->id }}"
-                                                    @if ($changeWarehouse->manager_warehouse == $user_item->id) selected @endif>
-                                                    {{ $user_item->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        <div class="w-100">
+                                            <select name="manager_warehouse" disabled
+                                                class="text-13-black w-100 border-0 bg-input-guest py-2 px-2">
+                                                @foreach ($users as $user_item)
+                                                    <option value="{{ $user_item->id }}"
+                                                        @if ($changeWarehouse->manager_warehouse == $user_item->id) selected @endif>
+                                                        {{ $user_item->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <div
                                         class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-60-mobile">

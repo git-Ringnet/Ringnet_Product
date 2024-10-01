@@ -169,8 +169,8 @@ class ReturnImport extends Model
                 }
                 //cập nhật công nợ NCC
                 if (isset($data['provide_id'])) {
-                    $provide = Provides::find($data['provide_id']);
-                    $provide->provide_debt = $provide->provide_debt - (isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0);
+                    $provide = Provides::where('id', $data['provide_id'])->first();
+                    $provide->provide_debt = ($provide->provide_debt == null ? 0 : $provide->provide_debt) - (isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0);
                     $provide->save();
                 } else {
                     $provide = Provides::leftJoin('receive_bill', 'receive_bill.provide_id', 'provides.id')

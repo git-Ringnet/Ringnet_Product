@@ -84,9 +84,10 @@
                                 <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                     <p class="p-0 m-0 required-label margin-left32 text-13-red">Ngày bắt đầu</p>
                                 </div>
-                                <input type="date" placeholder="Nhập thông tin" name="start_date" id="start_date"
+                                <input type="date" placeholder="Nhập thông tin" id="start_date"
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black bg-input-guest-blue"
                                     value="{{ now()->format('Y-m-d') }}" required>
+                                <input type="hidden" value="{{ now()->format('Y-m-d') }}" name="start_date" id="hiddenDateInput">
                             </div>
                             <div class="align-items-center height-60-mobile d-none">
                                 <div class="title-info height-100 py-2 border border-top-0 border-left-0">
@@ -137,3 +138,19 @@
 </form>
 <x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/number.js') }}"></script>
+<script>
+    flatpickr("#start_date", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        defaultDate: new Date(),
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+        }
+    });
+</script>

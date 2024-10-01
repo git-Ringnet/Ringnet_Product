@@ -26,7 +26,8 @@ class CashReceipt extends Model
         'workspace_id',
         'delivery_id',
         'returnImport_id',
-        'provide_id'
+        'provide_id',
+        'provide_guest_name',
     ];
     public function guest()
     {
@@ -137,6 +138,7 @@ class CashReceipt extends Model
                 'status' => $data['action'] == 1 ? 1 : 2,
                 'workspace_id' => Auth::user()->current_workspace,
                 'returnImport_id' => isset($data['returnImport_id']) ? $data['returnImport_id'] : 0,
+                'provide_guest_name' => $data['guest_provide_text'],
             ];
             $cashRC = CashReceipt::create($dataCashRC);
 
@@ -160,6 +162,7 @@ class CashReceipt extends Model
                 'note' => $data['note'],
                 'status' => $data['action'] == 1 ? 1 : 2,
                 'workspace_id' => Auth::user()->current_workspace,
+                'provide_guest_name' => $data['guest_provide_text'],
             ];
             $cashRC = CashReceipt::create($dataCashRC);
             //cập nhật công nợ

@@ -232,12 +232,11 @@
                                                     $totalAfterVatSum += $item->tongTien - $item->conLai;
                                                     $totalConlai += $item->conLai;
                                                 @endphp
-                                                <tr class="position-relative relative main-row product-info"
-                                                    data-id="{{ $item->id }}">
+                                                <tr class="main-row product-info" data-id="{{ $item->id }}">
                                                     <input type="hidden" value="{{ $item->id }}"
                                                         name="id-product" class="id-product" id="id-product">
                                                     <td class="text-13-black height-52 border">
-                                                        {{ $item->ngayTao }}
+                                                        {{ date_format(new DateTime($item->ngayTao), 'd/m/Y') }}
                                                     </td>
                                                     <td class="text-13-black height-52 border">
                                                         {{ $item->maPhieu }}
@@ -255,7 +254,7 @@
                                                         {{ number_format($item->conLai) }}
                                                     </td> --}}
                                                     <td class="text-13-black height-52 border">
-                                                        {{ $item->ngayGiao }}
+                                                        {{ date_format(new DateTime($item->ngayGiao), 'd/m/Y') }}
                                                     </td>
                                                     <td class="text-13-black height-52 border">
                                                         @if ($item->trangThai == 1)

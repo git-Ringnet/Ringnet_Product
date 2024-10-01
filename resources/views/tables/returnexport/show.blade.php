@@ -360,7 +360,7 @@
                     </div>
                     <div class="container-fluided">
                         <section class="info-chung">
-                            <div class="content-info position-relative text-nowrap">
+                            <div class="content-info position-relative text-nowrap overflow-content-quote">
                                 <table class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:44px;">

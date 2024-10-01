@@ -100,14 +100,6 @@
                                 value="{{ $fund->name }}"
                                 class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
-                        <div class="d-flex align-items-center height-60-mobile">
-                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
-                                <p class="p-0 m-0 margin-left32 text-13">Mô tả</p>
-                            </div>
-                            <input type="text" name="description" id="description" readonly
-                                value="{{ $fund->description }}"
-                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                        </div>
                         <div class="d-flex  align-items-center height-60-mobile ">
                             <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                 <p class="p-0 m-0 margin-left32 text-13">Tiền quỹ</p>
@@ -116,6 +108,22 @@
                                 value="{{ number_format($fund->amount) }}"
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100"
                                 placeholder="Nhập thông tin" required>
+                        </div>
+                        <div class="d-flex  align-items-center height-60-mobile ">
+                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                <p class="p-0 m-0 margin-left32 text-13">Ngày bắt đầu</p>
+                            </div>
+                            <input type="text" readonly name="start_date" id="start_date"
+                                value="{{ date_format(new DateTime($fund->start_date), 'd/m/Y') }}"
+                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                        </div>
+                        <div class="d-flex align-items-center height-60-mobile">
+                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                <p class="p-0 m-0 margin-left32 text-13">Mô tả</p>
+                            </div>
+                            <input type="text" name="description" id="description" readonly
+                                value="{{ $fund->description }}"
+                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
                         <div class="d-flex align-items-center height-60-mobile ">
                             <div class="title-info height-100 py-2 border border-top-0 border-left-0">
@@ -141,15 +149,7 @@
                                 value="{{ $fund->bank_account_holder }}"
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
-                        <div class="d-flex  align-items-center height-60-mobile ">
-                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
-                                <p class="p-0 m-0 margin-left32 text-13">Ngày bắt đầu</p>
-                            </div>
-                            <input type="date" readonly name="start_date" id="start_date"
-                                value="{{ $fund->start_date }}"
-                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
-                        </div>
-                        <div class="d-flex  align-items-center height-60-mobile ">
+                        <div class="align-items-center height-60-mobile d-none">
                             <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                 <p class="p-0 m-0 margin-left32 text-13">Ngày kết thúc</p>
                             </div>

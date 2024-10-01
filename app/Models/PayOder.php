@@ -428,7 +428,8 @@ class PayOder extends Model
                 'content_pay' => $data['content_pay'],
                 'fund_id' => $data['fund_id'],
                 'note' => $data['note'],
-                'usercreate_id' => Auth::user()->id
+                'usercreate_id' => Auth::user()->id,
+                'provide_guest_name' => $data['guest_provide_text'],
             ];
             $payment_id = DB::table($this->table)->insertGetId($dataReciept);
             // Lấy tất cả tiền đã thanh toán
@@ -455,7 +456,8 @@ class PayOder extends Model
                 'content_pay' => $data['content_pay'],
                 'fund_id' => $data['fund_id'],
                 'note' => $data['note'],
-                'usercreate_id' => Auth::user()->id
+                'usercreate_id' => Auth::user()->id,
+                'provide_guest_name' => $data['guest_provide_text'],
             ];
             $payment_id = DB::table($this->table)->insertGetId($dataReciept);
             //cập nhật công nợ

@@ -214,7 +214,7 @@
                                                     $totalSlNhap += $product['totalImportQty'];
                                                     $totalSlXuat += $product['totalExportQty'];
                                                 @endphp
-                                                <tr class="position-relative relative product-info"
+                                                <tr class="product-info"
                                                     onclick="handleRowClick('checkbox', event);">
                                                     <input type="hidden" name="id-product" class="id-product"
                                                         id="id-product" value="">

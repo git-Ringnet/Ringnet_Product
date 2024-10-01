@@ -230,7 +230,7 @@
                                     </p>
                                 </div>
                                 <section class="content">
-                                    <div class="content-info position-relative table-responsive text-nowrap">
+                                    <div class="content-info position-relative table-responsive text-nowrap overflow-content-quote">
                                         <table id="inputcontent" class="table table-hover bg-white rounded">
                                             <thead>
                                                 <tr style="height:48px;">

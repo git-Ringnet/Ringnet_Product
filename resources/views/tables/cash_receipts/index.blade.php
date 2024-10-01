@@ -320,7 +320,11 @@
                                                     {{ date_format(new DateTime($item->date_created), 'd/m/Y') }}
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom">
-                                                    {{ $item->guest->guest_name_display ?? 'N/A' }}
+                                                    {{ $item->guest
+                                                        ? $item->guest->guest_name_display
+                                                        : ($item->provide
+                                                            ? $item->provide->provide_name_display
+                                                            : $item->provide_guest_name ?? 'N/A') }}
                                                 </td>
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     {{ $item->payer }}
