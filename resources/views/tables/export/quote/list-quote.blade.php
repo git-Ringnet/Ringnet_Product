@@ -488,7 +488,7 @@
                                                     {{ $value_export->getSale->name }}
                                                 </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
-                                                    {{ number_format($value_export->total_price + $value_export->total_tax) }}
+                                                    {{ number_format($value_export->total_price + $value_export->total_tax + $value_export->shipping_fee) }}
                                                 </td>
                                                 <td
                                                     class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">

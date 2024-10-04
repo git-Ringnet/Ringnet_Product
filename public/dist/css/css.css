@@ -2985,7 +2985,7 @@ input[type="checkbox"]:checked {
 .highlight-due-date td,
 .highlight-due-date td a {
     color: red !important;
-    background: #ffff66 !important;
+    background: #FFF3CD !important;
     font-weight: 700 !important;
 }
 
@@ -3001,5 +3001,5 @@ input[type="checkbox"]:checked {
     top: 0;
     position: sticky;
     background-color: white;
-    z-index: 99;
+    z-index: 9;
 }

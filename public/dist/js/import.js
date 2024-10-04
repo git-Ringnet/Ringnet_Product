@@ -1,7 +1,7 @@
 // Format giá tiền
 $("body").on(
     "input",
-    '.price_export , .price_import ,.payment_input,.payment_input,input[name="delivery_charges"],.promotion,input[name="promotion-total"],input[name="payment"]',
+    '.price_export , .price_import ,.payment_input,.payment_input,input[name="delivery_charges"],.promotion,input[name="promotion-total"],input[name="payment"], .shipping_fee',
     function (event) {
         // Lấy giá trị đã nhập
         var value = event.target.value;
@@ -202,6 +202,11 @@ function calculateAll() {
         $("#product-tax")
             .text()
             .replace(/[^0-9.-]+/g, "") || 0;
+    var shipping_fee =
+        $(".shipping_fee")
+            .val()
+            .replace(/[^0-9.-]+/g, "") || 0;
+
     var total = parseFloat(total_amount) + parseFloat(product_tax);
     var option = $("[name^='promotion-option-total']").val();
     var promotion = $("input[name^='promotion-total']").val();
@@ -236,7 +241,8 @@ function calculateAll() {
                 );
 
                 // Tổng tiền
-                var cal = calpromotion + (calpromotion * taxAll) / 100;
+                var cal =
+                    calpromotion + (calpromotion * taxAll) / 100 + shipping_fee;
             } else {
                 updateTaxAmount();
                 calculateTotalTax();
@@ -244,7 +250,10 @@ function calculateAll() {
                     $("#product-tax")
                         .text()
                         .replace(/[^0-9.-]+/g, "") || 0;
-                var cal = parseFloat(total_amount) + parseFloat(product_tax);
+                var cal =
+                    parseFloat(total_amount) +
+                    parseFloat(product_tax) +
+                    parseFloat(shipping_fee);
             }
         } else {
             updateTaxAmount();
@@ -253,7 +262,10 @@ function calculateAll() {
                 $("#product-tax")
                     .text()
                     .replace(/[^0-9.-]+/g, "") || 0;
-            var cal = parseFloat(total_amount) + parseFloat(product_tax);
+            var cal =
+                parseFloat(total_amount) +
+                parseFloat(product_tax) +
+                parseFloat(shipping_fee);
         }
         $("#grand-total").text(formatCurrency(cal));
         $("#total_bill").val(cal);
@@ -421,7 +433,7 @@ function checkTaxAll() {
 
 $(document).on(
     "change",
-    ".product_tax, .promotion-option,.promotion-option-total",
+    ".product_tax, .promotion-option,.promotion-option-total, .shipping_fee",
     function () {
         if ($(this).hasClass("promotion-option")) {
             // Xóa dữ liệu trường Khuyến Mãi
@@ -439,6 +451,23 @@ $(document).on(
         calculateAll();
     }
 );
+
+$(document).on("input", ".shipping_fee", function () {
+    if ($(this).hasClass("promotion-option")) {
+        // Xóa dữ liệu trường Khuyến Mãi
+        $(this).closest("tr").find('input[name^="promotion"]').val("");
+
+        // Cập nhật lại thành tiền
+        updateTotalPrice($(this));
+    }
+    if ($(this).hasClass("promotion-option-total")) {
+        $('input[name^="promotion-total"]').val("");
+    }
+    updateTaxAmount($(this).closest("tr"));
+    calculateTotalAmount();
+    calculateTotalTax();
+    calculateAll();
+});
 
 // function changeValuePromotion(){
 //     if($(''))
@@ -491,7 +520,12 @@ function calculateGrandTotal() {
             .replace(/[^0-9.-]+/g, "")
     );
 
-    var grandTotal = totalAmount + totalTax;
+    var shipping_fee =
+        $(".shipping_fee")
+            .val()
+            .replace(/[^0-9.-]+/g, "") || 0;
+
+    var grandTotal = totalAmount + totalTax + shipping_fee;
     grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
     $("#grand-total").text(formatCurrency(grandTotal));
 

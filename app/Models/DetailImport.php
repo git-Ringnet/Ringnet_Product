@@ -42,6 +42,7 @@ class DetailImport extends Model
         'phone',
         'date_delivery',
         'id_sale',
+        'shipping_fee',
     ];
     public function getProvideName()
     {
@@ -182,6 +183,7 @@ class DetailImport extends Model
         $total_tax = round($total_tax) + round($total);
         $promotion['type'] = isset($data['promotion-option-total']) ? $data['promotion-option-total'] : 1;
         $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
+        $shipping_fee = isset($data['shipping_fee']) ? str_replace(',', '', $data['shipping_fee']) : 0;
 
         if (isset($data['promotion-total']) > 0) {
             if ($data['promotion-option-total'] == 1) {
@@ -221,6 +223,7 @@ class DetailImport extends Model
             'phone' => $data['phone'],
             'date_delivery' => $data['date_delivery'] == null ? now() : $data['date_delivery'],
             'id_sale' => $data['id_sale'],
+            'shipping_fee' => $shipping_fee,
         ];
         $total_bill = isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0;
         //cập nhật công nợ khách hàng
@@ -304,6 +307,7 @@ class DetailImport extends Model
                 $total_tax = round($total_tax) + round($total);
                 $promotion['type'] = isset($data['promotion-option-total']) ? $data['promotion-option-total'] : 1;
                 $promotion['value'] = isset($data['promotion-total']) ? str_replace(',', '', $data['promotion-total']) : 0;
+                $shipping_fee = isset($data['shipping_fee']) ? str_replace(',', '', $data['shipping_fee']) : 0;
 
                 if (isset($data['promotion-option-total'])) {
                     if ($data['promotion-option-total'] == 1 && $data['promotion-total'] > 0) {
@@ -348,6 +352,7 @@ class DetailImport extends Model
                     'phone' => $data['phone'],
                     'date_delivery' => $data['date_delivery'],
                     'id_sale' => $data['id_sale'],
+                    'shipping_fee' => $shipping_fee,
                 ];
                 $result = DB::table($this->table)->where('id', $id)->update($dataImport);
             } else {

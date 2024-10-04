@@ -253,6 +253,12 @@
                         <div class="d-flex w-100">
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
+                                <input placeholder="Nhập thông tin" name="shipping_fee"
+                                    class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2 rounded shipping_fee" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
                                     name="note" style="flex:10; background-color:#F0F4FF;border-radius:4px;"

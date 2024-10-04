@@ -279,6 +279,13 @@
                         <div class="d-flex w-100">
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
+                                <input placeholder="Nhập thông tin" name="shipping_fee"
+                                    value="{{ number_format($import->shipping_fee) }}"
+                                    class="text-13-black w-100 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue rounded shipping_fee" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
                                 <input tye="text"
                                     class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue"

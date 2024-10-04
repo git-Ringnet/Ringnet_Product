@@ -109,7 +109,7 @@
                             <input type="file" style="display: none;" id="file_restore" accept="*"
                                 name="file">
                         </label>
-                        <div class="dropdown">
+                        {{-- <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
                                 <svg class="mr-1" width="16" height="16" viewBox="0 0 16 16"
@@ -134,7 +134,7 @@
                                             </button>
                                         </a>
                                     </li>
-                                    {{-- <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
+                                    <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
                                         <a href="#" onclick="getAction(this)" id="btnHoaDon">
                                             <button name="action" value="action_3" type="submit"
                                                 style="background-color: transparent;"
@@ -144,7 +144,7 @@
                                                 </span>
                                             </button>
                                         </a>
-                                    </li> --}}
+                                    </li>
                                     <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
                                         <a href="#" onclick="getAction(this)" id="btnThanhToan">
                                             <button name="action" value="action_4" type="submit"
@@ -169,7 +169,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> --}}
                         <a href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $detailExport->maBG]) }}"
                             class="activity" data-name1="BG" data-des="Xem trang sửa">
                             <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
@@ -567,6 +567,13 @@
                         <div class="d-flex w-100">
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
+                                <input placeholder="Nhập thông tin" name="shipping_fee" disabled
+                                    value="{{ number_format($detailExport->shipping_fee) }}"
+                                    class="text-13-black w-100 border-0 bg-input-guest py-2 px-2 text-right rounded shipping_fee" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
                                 <input disabled="" style="flex:10;"
                                     class="text-13-black text-right w-50 border-0 bg-input-guest py-2 px-2 debt-old"
@@ -771,8 +778,8 @@
                                                     </td>
                                                     <td
                                                         class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
-                                                        <textarea readonly class='border-0 py-1 w-100 text-left height-32' name='product_note[]'
-                                                            rows='2' cols='50'>{{ $item_quote->product_note }}</textarea>
+                                                        <textarea readonly class='border-0 py-1 w-100 text-left height-32' name='product_note[]' rows='2'
+                                                            cols='50'>{{ $item_quote->product_note }}</textarea>
                                                     </td>
                                                     <td style="display:none;" class="">
                                                         <input type="text" class="product_tax1">
@@ -1426,13 +1433,14 @@
 
         var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
         var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
+        var shipping_fee = parseFloat($('.shipping_fee').val().replace(/[^0-9.-]+/g, "")) || 0;
 
         if (promotionOption == 1) {
             totalAmount -= promotionTotal;
         } else if (promotionOption == 2) {
             totalAmount -= (totalAmount * promotionTotal) / 100;
         }
-        var grandTotal = totalAmount + totalTax;
+        var grandTotal = totalAmount + totalTax + shipping_fee;
         grandTotal = Math.round(grandTotal);
         $('#grand-total').text(formatCurrency(grandTotal));
         $('#grand-total').attr('data-value', grandTotal);

@@ -49,6 +49,7 @@ class DetailExport extends Model
         'phone_receive',
         'date_delivery',
         'id_sale',
+        'shipping_fee'
     ];
     protected $table = 'detailexport';
 
@@ -253,8 +254,10 @@ class DetailExport extends Model
             $totalTax = ($totalBeforeTax * $taxfirst) / 100;
         }
         // dd($totalTax);
+        //Phí vận chuyển
+        $shipping_fee = isset($data['shipping_fee']) ? str_replace(',', '', $data['shipping_fee']) : 0;
         // Tính toán tổng số tiền cuối cùng
-        $grandTotal = $totalBeforeTax + $totalTax;
+        $grandTotal = $totalBeforeTax + $totalTax + $shipping_fee;
         // Làm tròn tổng số tiền
         $grandTotal = round($grandTotal);
         $dataExport = [
@@ -289,6 +292,7 @@ class DetailExport extends Model
             'phone_receive' => $data['phone_receive'],
             'date_delivery' => $data['date_delivery'] == null ? now() : $data['date_delivery'],
             'id_sale' => $data['id_sale'],
+            'shipping_fee' => $shipping_fee,
         ];
         $detailexport = new DetailExport($dataExport);
         $detailexport->save();
@@ -405,8 +409,10 @@ class DetailExport extends Model
                 $taxfirst = $productTaxes[0];
                 $totalTax = ($totalBeforeTax * $taxfirst) / 100;
             }
+            //Phí vận chuyển
+            $shipping_fee = isset($data['shipping_fee']) ? str_replace(',', '', $data['shipping_fee']) : 0;
             // Tính toán tổng số tiền cuối cùng
-            $grandTotal = $totalBeforeTax + $totalTax;
+            $grandTotal = $totalBeforeTax + $totalTax + $shipping_fee;
             // Làm tròn tổng số tiền
             $grandTotal = round($grandTotal);
 
@@ -449,6 +455,7 @@ class DetailExport extends Model
                 'phone_receive' => $data['phone_receive'],
                 'date_delivery' => $data['date_delivery'] == null ? now() : $data['date_delivery'],
                 'id_sale' => $data['id_sale'],
+                'shipping_fee' => $shipping_fee,
             ]);
         }
         return $detailExport->id;

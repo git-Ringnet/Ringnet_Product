@@ -449,18 +449,18 @@
                                                         <td class="text-13-black border border-bottom">
                                                             {{ $item->provide_phone }}
                                                         </td>
-                                                        <td class="text-13-black border border-bottom">
+                                                        {{-- <td class="text-13-black border border-bottom">
                                                             {{ $item->provide_code }}
-                                                        </td>
+                                                        </td> --}}
                                                         <td class="text-13-black border border-bottom">
                                                             {{ $item->provide_email }}
                                                         </td>
                                                         {{-- <td class="text-13-black border border-bottom">
                                                             {{ $item->provide_fax }}
                                                         </td> --}}
-                                                        <td class="text-13-black border border-bottom">
+                                                        {{-- <td class="text-13-black border border-bottom">
                                                             {{ number_format($item->quota_debt) }}
-                                                        </td>
+                                                        </td> --}}
                                                         <td class="text-13-black text-right border border-bottom">
                                                             {{ number_format($item->provide_debt) }}
                                                         </td>

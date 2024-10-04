@@ -81,7 +81,7 @@
                                 name="file">
                         </label>
 
-                        <div class="dropdown">
+                        {{-- <div class="dropdown">
                             <button type="button"
                                 class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2"
                                 id="btnCreateFast">
@@ -109,7 +109,7 @@
                                             </button>
                                         </a>
                                     </li>
-                                    {{-- <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
+                                    <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
                                         data-type="DMH" data-des="Tạo nhanh hóa đơn mua hàng">
                                         <a href="#" style="flex:2;" onclick="getAction(this)"
                                             name="search-info" class="search-info">
@@ -121,7 +121,7 @@
                                                     thành hóa đơn</span>
                                             </button>
                                         </a>
-                                    </li> --}}
+                                    </li>
                                     <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
                                         data-type="DMH" data-des="Tạo nhanh thanh toán mua hàng">
                                         <a href="#" style="flex:2;" onclick="getAction(this)"
@@ -137,7 +137,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> --}}
                         <a href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $import->id]) }}"
                             class="user_flow" data-type="DMH" data-des="Sửa đơn mua hàng">
                             <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
@@ -237,7 +237,7 @@
                                             fill="#858585" />
                                     </svg>
                                 </span>
-                                <span class="text-table">Giao hàng: Chưa giao</span>
+                                <span class="text-table">Nhận hàng: Chưa nhận</span>
                             </div>
                         @elseif($import->status_receive == 2)
                             <div class="border text-success p-1 rounded">
@@ -249,7 +249,7 @@
                                             fill="#08AA36" fill-opacity="0.75" />
                                     </svg>
                                 </span>
-                                <span class="text-table">Giao hàng: Đã giao</span>
+                                <span class="text-table">Nhận hàng: Đã nhận</span>
                             </div>
                         @else
                             <div class="border text-warning p-1 rounded">
@@ -271,7 +271,7 @@
                                         </defs>
                                     </svg>
                                 </span>
-                                <span class="text-table">Giao hàng: Một phần</span>
+                                <span class="text-table">Nhận hàng: Một phần</span>
                             </div>
                         @endif
                         {{-- <div class="line-vertical mx-2 my-1"></div>
@@ -498,6 +498,13 @@
                                 </div>
                             </div>
                             <div class="d-flex w-100">
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
+                                    <input placeholder="Nhập thông tin" name="shipping_fee" disabled
+                                        value="{{ number_format($import->shipping_fee) }}"
+                                        class="text-13-black w-100 border-0 bg-input-guest py-2 text-right px-2 rounded shipping_fee" />
+                                </div>
                                 <div
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>

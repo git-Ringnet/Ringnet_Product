@@ -326,6 +326,12 @@
                         <div class="d-flex w-100">
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
+                                <input placeholder="Nhập thông tin" name="shipping_fee"
+                                    class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2 rounded shipping_fee" />
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
                                 <input disabled
                                     class="text-13-black text-right w-50 border-0 bg-input-guest py-2 px-2 debt-old rounded"
@@ -2308,7 +2314,7 @@
         updateRow($row);
     });
     $(document).on('input',
-        '#promotion-total',
+        '#promotion-total, .shipping_fee',
         function(e) {
             calculateTotalTax();
         });
@@ -2411,6 +2417,7 @@
         // Lấy giá trị tổng tiền và thuế
         var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
         var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
+        var shipping_fee = parseFloat($('.shipping_fee').val().replace(/[^0-9.-]+/g, "")) || 0;
 
         // Lấy giá trị khuyến mãi
         var promotionOption = $('select[name="promotion-option-total"]').val();
@@ -2420,7 +2427,7 @@
         } else if (promotionOption == 2) {
             totalAmount -= (totalAmount * promotionTotal) / 100;
         }
-        var grandTotal = totalAmount + totalTax;
+        var grandTotal = totalAmount + totalTax + shipping_fee;
         grandTotal = Math.round(grandTotal);
         $('#grand-total').text(formatCurrency(grandTotal));
         $('#grand-total').attr('data-value', grandTotal);
@@ -2469,7 +2476,7 @@
     //format giá
     var inputElement = document.getElementById('product_price');
     $('body').on('input',
-        '.product_price, #transport_fee, .giaNhap, #voucher',
+        '.product_price, #transport_fee, .giaNhap, #voucher, .shipping_fee',
         function(event) {
             // Lấy giá trị đã nhập
             var value = event.target.value;
