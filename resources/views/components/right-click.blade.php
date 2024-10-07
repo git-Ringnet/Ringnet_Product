@@ -77,7 +77,7 @@
             if (fund === "thu") {
                 $('#thu').show();
                 $('#chi').hide();
-            } else {
+            } else if (fund === "chi") {
                 $('#chi').show();
                 $('#thu').hide();
             }

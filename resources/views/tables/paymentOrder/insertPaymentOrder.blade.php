@@ -398,13 +398,31 @@
                             class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người nhận</span>
                             <div class="w-100">
-                                <select name="payment_type" required
-                                    class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2">
+                                <input type="text" placeholder="Chọn thông tin" id="payment_type"
+                                    class="border-0 text-13-black py-1 w-100 height-32 search_guest bg-input-guest-blue"
+                                    name="payment_type" autocomplete="off" required="required">
+                                <ul id="listUser"
+                                    class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
+                                    style="z-index: 99;display: none; right:0; width:100%">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Chọn thông tin"
+                                                class="pr-4 w-100 input-search bg-input-guest text-13-black search_guest"
+                                                id="userFilter">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
                                     @foreach ($listUser as $item_user)
-                                        <option value="{{ $item_user->name }}">
-                                            {{ $item_user->name }}</option>
+                                        <li class="p-2 align-items-center"
+                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <a href="javascript:void(0)" id="{{ $value->id }}" name="search-user"
+                                                class="search-user" style="flex:2;" data-name="user">
+                                                <span class="text-13-black">{{ $item_user->name }}</span>
+                                            </a>
+                                        </li>
                                     @endforeach
-                                </select>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -894,6 +912,9 @@
         $("#myGuest"), $("#listGuest"), $("#provideFilter")
     );
     toggleListGuest(
+        $("#payment_type"), $("#listUser"), $("#userFilter")
+    );
+    toggleListGuest(
         $("#fund"), $("#listFunds"), $("#fundFilter")
     );
     toggleListGuest(
@@ -1014,6 +1035,10 @@
                     }
                 }
             });
+        });
+        $('.search-user').on('click', function() {
+            $('#payment_type').val($(this).find('span').text())
+            $('#listUser').hide();
         });
     })
 

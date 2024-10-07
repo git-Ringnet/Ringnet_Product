@@ -32,7 +32,7 @@
                         </svg>
                     </span>
                     <span class="last-span">{{ $payment->payment_code }} </span>
-                    @if ($payment->status == 1)
+                    {{-- @if ($payment->status == 1)
                         @if ($payment->payment > 0)
                             <span style="color: #858585; font-size:13px;" class="btn-status">Thanh toán một phần</span>
                         @else
@@ -48,7 +48,7 @@
                         <span style="color: #0052CC; font-size:13px;" class="btn-status">Đến hạn</span>
                     @else
                         <span style="color: #0052CC; font-size:13px;" class="btn-status">Đặt cọc</span>
-                    @endif
+                    @endif --}}
 
                 </div>
                 <div class="d-flex content__heading--right">

@@ -285,6 +285,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-receive">
+                                        @php $total = 0; @endphp
                                         @foreach ($cashReceipts as $item)
                                             <tr class="position-relative receive-info height-52">
                                                 <input type="hidden" name="id-receive" class="id-receive"
@@ -390,9 +391,20 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            @php $total += $item->amount; @endphp
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="w-100 bg-filter-search position-fixed"
+                                style="height: 30px;bottom: 0;left: 0;">
+                                <div class="position-relative margin-250">
+                                    <div class="position-absolute px-4 pt-1 border bg-white" style="right: 45%;">
+                                        <span class="text-danger font-weight-bold">
+                                            {{ number_format($total) }}
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

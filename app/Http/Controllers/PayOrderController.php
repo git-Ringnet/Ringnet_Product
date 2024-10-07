@@ -130,7 +130,7 @@ class PayOrderController extends Controller
 
         $listDetail = $listDetail->get();
         //danh sách nhân viên
-        $listUser = User::where('origin_workspace', Auth::user()->current_workspace)->get();
+        $listUser = User::all();
 
         return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename', 'funds', 'guest', 'provides', 'listUser', 'content', 'returnExport', 'getQuoteCount', 'listDetail'));
     }
@@ -323,7 +323,21 @@ class PayOrderController extends Controller
             }
         }
 
-        if ($status) {
+        if ($phieuChi->provide_id == 0 && $phieuChi->guest_id == 0 && $phieuChi->return_id == 0) {
+            HistoryPaymentOrder::where('payment_id', $id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->delete();
+            DB::table('products_import')->where('id', $id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->delete();
+            DB::table('pay_order')->where('id', $id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->delete();
+            $status = 1;
+        }
+
+
+        if (isset($status)) {
             $dataUserFlow = [
                 'user_id' => Auth::user()->id,
                 'activity_type' => "TTMH",

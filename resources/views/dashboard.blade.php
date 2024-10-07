@@ -101,12 +101,12 @@
                     <br>
                 @endif
 
-                <form action="{{ route('sendInvitation') }}" method="post">
+                {{-- <form action="{{ route('sendInvitation') }}" method="post">
                     @csrf
                     <label for="email">Email:</label>
                     <input type="email" name="email" required>
                     <button type="submit">Send Invitation</button>
-                </form>
+                </form> --}}
             </div>
         </div>
     </div>
