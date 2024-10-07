@@ -112,6 +112,8 @@ class GuestController extends Controller
         $workspacename = $workspacename->workspace_name;
         $guest = Guest::where('guest.id', $id)
             ->where('guest.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('groups', 'guest.group_id', 'groups.id')
+            ->select('guest.*','groups.name')
             ->first();
         if ($guest) {
             $title = $guest->guest_name_display;
