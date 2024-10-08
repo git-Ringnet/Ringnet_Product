@@ -8,6 +8,7 @@ use App\Models\DetailExport;
 use App\Models\Groups;
 use App\Models\Guest;
 use App\Models\PayExport;
+use App\Models\PayOder;
 use App\Models\Provides;
 use App\Models\QuoteExport;
 use App\Models\representGuest;
@@ -135,6 +136,7 @@ class GuestController extends Controller
         //Lịch sử giao dịch
         $historyGuest = $this->detailExport->historyGuest($id);
         $cash_receipts = $this->cash_receipts->cashReceiptByGuest($id);
+        $payOrder = PayOder::where('guest_id', $id)->get();
         // Get All đơn
         $productDelivered = $this->quoteE->sumProductsQuoteByGuest($id);
         $allDelivery = $this->detailExport->getSumDetailEByGuest($id);
@@ -152,6 +154,7 @@ class GuestController extends Controller
             'allDelivery',
             'productDelivered',
             'cash_receipts',
+            'payOrder'
         ));
     }
 

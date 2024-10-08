@@ -463,6 +463,15 @@
                                             </svg>
                                         </th>
                                         <th scope="col" class="text-13 text-nowrap text-right">
+                                            <span>Thu</span>
+                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                                                viewBox='0 0 16 16' fill='none'>
+                                                <path
+                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
+                                                    fill='#6B6F76' />
+                                            </svg>
+                                        </th>
+                                        <th scope="col" class="text-13 text-nowrap text-right">
                                             <span>Chi</span>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                                 viewBox='0 0 16 16' fill='none'>
@@ -484,9 +493,10 @@
                                 </thead>
                                 <tbody>
                                     @php
-                                        // Kết hợp hai mảng và sắp xếp theo ngày tạo (tăng dần)
+                                        // Kết hợp ba mảng và sắp xếp theo ngày tạo (tăng dần)
                                         $sortedCombined = $provide->getAllDetail
                                             ->concat($payOrder)
+                                            ->concat($cash_receipt)
                                             ->sortBy('created_at');
 
                                         // Khởi tạo biến để giữ giá trị còn nợ
@@ -501,26 +511,46 @@
                                                             href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}">
                                                             {{ $item->quotation_number }}
                                                         </a>
-                                                    @else
+                                                    @elseif(isset($item->payment_code))
                                                         <a
                                                             href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item->id]) }}">
                                                             {{ $item->payment_code }}
                                                         </a>
+                                                    @else
+                                                        <a
+                                                            href="{{ route('cash_receipts.edit', ['workspace' => $workspacename, 'cash_receipt' => $item->id]) }}">
+                                                            {{ $item->receipt_code }}
+                                                        </a>
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black padding-left35 border-bottom text-center">
-                                                    {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                    @if (isset($item->quotation_number))
+                                                        {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                    @elseif(isset($item->payment_code))
+                                                        {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}
+                                                    @else
+                                                        {{ date_format(new DateTime($item->date_created), 'd/m/Y') }}
+                                                    @endif
                                                 </td>
                                                 <td class="text-13-black max-width120 border-bottom">
                                                     @if (isset($item->quotation_number))
                                                         Phiếu đặt hàng
-                                                    @else
+                                                    @elseif(isset($item->payment_code))
                                                         Phiếu chi
+                                                    @else
+                                                        Phiếu thu
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-nowrap border-bottom text-right">
-                                                    @if (isset($item->total_price))
-                                                        {{ number_format($item->total_price) }}
+                                                    @if (isset($item->total_tax))
+                                                        {{ number_format($item->total_tax) }}
+                                                    @else
+                                                        0
+                                                    @endif
+                                                </td>
+                                                <td class="text-13-black text-nowrap border-bottom text-right">
+                                                    @if (isset($item->amount))
+                                                        {{ number_format($item->amount) }}
                                                     @else
                                                         0
                                                     @endif
@@ -533,13 +563,17 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-13-black text-nowrap border-bottom text-right">
-                                                    @if (isset($item->total_price))
+                                                    @if (isset($item->total_tax))
                                                         @php
-                                                            $currentDebt += $item->total_price;
+                                                            $currentDebt += $item->total_tax;
                                                         @endphp
                                                     @elseif (isset($item->total))
                                                         @php
                                                             $currentDebt -= $item->total;
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $currentDebt -= $item->amount;
                                                         @endphp
                                                     @endif
                                                     {{ number_format($currentDebt) }}
@@ -550,10 +584,13 @@
                                             <td colspan="2" class="border-bottom"></td>
                                             <td class="text-red text-nowrap border-bottom"><strong>Tổng</strong></td>
                                             <td class="text-red text-nowrap border-bottom text-right">
-                                                {{ number_format($sortedCombined->where('total_price', '!=', null)->sum('total_price')) }}
+                                                {{ number_format($sortedCombined->where('total_tax', '!=', null)->sum('total_tax')) }}
                                             </td>
                                             <td class="text-red text-nowrap border-bottom text-right">
                                                 {{ number_format($sortedCombined->where('amount', '!=', null)->sum('amount')) }}
+                                            </td>
+                                            <td class="text-red text-nowrap border-bottom text-right">
+                                                {{ number_format($sortedCombined->where('total', '!=', null)->sum('total')) }}
                                             </td>
                                             <td class="text-red text-nowrap border-bottom text-right">
                                                 {{ number_format($currentDebt) }}</td>

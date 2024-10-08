@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CashReceipt;
 use App\Models\DetailImport;
 use App\Models\Groups;
 use App\Models\PayOder;
@@ -107,12 +108,13 @@ class ProvidesController extends Controller
             $repesent = ProvideRepesent::where('provide_id', $provide->id)->get();
         }
         $getId = $id;
-        $payOrder = PayOder::where('guest_id', $id)->get();
+        $payOrder = PayOder::where('provide_id', $id)->get();
+        $cash_receipt = CashReceipt::where('provide_id', $id)->get();
         $productDelivered = $this->quoteImport->sumProductsQuoteByProvide($id);
         // Get All đơn
         $allDelivery = $this->detailImport->getSumDetailEByProvide($id);
 
-        return view('tables.provides.showProvides', compact('title', 'provide', 'repesent', 'workspacename', 'productDelivered', 'allDelivery', 'payOrder'));
+        return view('tables.provides.showProvides', compact('title', 'provide', 'repesent', 'workspacename', 'productDelivered', 'allDelivery', 'payOrder', 'cash_receipt'));
     }
 
     /**
