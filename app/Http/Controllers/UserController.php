@@ -201,10 +201,10 @@ class UserController extends Controller
         return redirect()->route('users.index', ['workspace' => $workspace])->with('msg', 'Cập nhật nhân viên thành công!');
     }
 
-    public function destroy($id)
+    public function destroy(string $workspace, $id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('users.index')->with('msg', 'User deleted successfully.');
+        return redirect()->route('users.index', ['workspace' => $workspace])->with('msg', 'Xóa nhân viên thành công!');
     }
 }

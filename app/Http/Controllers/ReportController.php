@@ -755,7 +755,11 @@ class ReportController extends Controller
         $thucThuBanHang = $this->cash_rc->getTotalAmount();
 
         //Tỷ lệ thu tiền so với doanh số
-        $tyLeThuTien = ($thucThuBanHang / $doanhsobanhang) * 100;
+        if ($doanhsobanhang > 0) {
+            $tyLeThuTien = ($thucThuBanHang / $doanhsobanhang) * 100;
+        } else {
+            $tyLeThuTien = 0;
+        }
 
         //Trả tiền hàng khách trả lại
         $traTienKhachTraHang = $this->payOrder->getTotalPaymentGuest();
