@@ -30,7 +30,8 @@ class HistoryImport extends Model
         'product_note',
         'product_guarantee',
         'version',
-        'workspace_id', 'created_at'
+        'workspace_id',
+        'created_at'
     ];
 
 
@@ -38,7 +39,8 @@ class HistoryImport extends Model
     {
         return $this->hasOne(QuoteExport::class, 'product_id', 'product_id');
     }
-    public function getDelivered(){
+    public function getDelivered()
+    {
         return $this->hasMany(QuoteExport::class, 'product_id', 'product_id');
     }
 
@@ -51,8 +53,9 @@ class HistoryImport extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
 
-            $price_export = str_replace(',', '', $data['price_export'][$i]);
-            $total_price = str_replace(',', '', $data['product_qty'][$i]) * $price_export;
+            $price_export = floatval(str_replace(',', '', $data['price_export'][$i])) ?? 0;
+            $product_qty = floatval(str_replace(',', '', $data['product_qty'][$i])) ?? 0;
+            $total_price = $product_qty * $price_export;
             $checkData = HistoryImport::where('product_code', $data['product_code'][$i])
                 ->where('product_name', $data['product_name'][$i])
                 ->where('product_unit', $data['product_unit'][$i])

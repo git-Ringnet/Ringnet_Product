@@ -77,6 +77,7 @@ class QuoteImport extends Model
 
             $dataQuote = [
                 'detailimport_id' => $id,
+                'product_id' => $data['product_id'][$i],
                 'product_code' => $data['product_code'][$i],
                 'product_name' => $data['product_name'][$i],
                 'product_unit' => $data['product_unit'][$i],
@@ -209,6 +210,7 @@ class QuoteImport extends Model
                 ) {
 
                     $dataQuoteUpdate = [
+                        'product_id' => $data['product_id'][$i],
                         'product_code' => $data['product_code'][$i],
                         'product_name' => $data['product_name'][$i],
                         'product_unit' => $data['product_unit'][$i],
@@ -226,6 +228,7 @@ class QuoteImport extends Model
             } else {
                 $dataQuote = [
                     'detailimport_id' => $id,
+                    'product_id' => $data['product_id'][$i],
                     'product_code' => $data['product_code'][$i],
                     'product_name' => $data['product_name'][$i],
                     'product_unit' => $data['product_unit'][$i],

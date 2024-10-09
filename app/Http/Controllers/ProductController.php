@@ -108,8 +108,8 @@ class ProductController extends Controller
         $quoteExport = $this->detailExport->getAllDetailExportByProduct($id);
         $import = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
-            // ->leftJoin('quoteimport', 'detailimport.id', 'quoteimport.detailimport_id')
-            // ->where('quoteimport.product_id', $id)
+            ->leftJoin('quoteimport', 'detailimport.id', 'quoteimport.detailimport_id')
+            ->where('quoteimport.product_id', $id)
             ->select('detailimport.*', 'provides.provide_name_display')
             ->orderBy('detailimport.id', 'desc');
         if (Auth::check()) {
