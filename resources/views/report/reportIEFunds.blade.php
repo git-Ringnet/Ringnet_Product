@@ -267,8 +267,8 @@
                                                                     {{ $item->getContentPay->name }}
                                                                 @endif
                                                             </td>
-                                                            <td class="text-13-black border height-52">0</td>
-                                                            <td class="text-13-black border height-52">
+                                                            <td class="text-13-black border height-52 text-right">0</td>
+                                                            <td class="text-13-black border height-52 text-right">
                                                                 {{ number_format($item->total) }}</td>
                                                             <td></td>
                                                         </tr>
