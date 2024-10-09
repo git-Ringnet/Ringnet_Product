@@ -311,6 +311,7 @@
                                                     <td colspan="11" class="border-bottom bold">Khách hàng:
                                                         {{ $item->guest_name_display }}</td>
                                                 </tr>
+
                                                 @php
                                                     $totalDeliverQty = 0;
                                                     $totalPriceExport = 0;
@@ -322,149 +323,12 @@
                                                     $totalRemai = 0;
                                                     $totalProductQuantity = 0;
                                                     $totalCashValue = 0;
-                                                    $goldValues = []; // Initialize an array to hold gold values
-                                                    $stt = 1; // Initialize the STT variable
+                                                    $goldValues = [];
+                                                    $stt = 1;
                                                 @endphp
 
-                                                @foreach ($allDelivery as $itemDelivery)
-                                                    @php
-                                                        $matchedItems = $productDelivered
-                                                            ->where('detailexport_id', $itemDelivery->id)
-                                                            ->where('guest_id', $item->id);
-                                                        $count = $matchedItems->count();
-                                                    @endphp
-
-                                                    @if ($matchedItems->isNotEmpty())
-                                                        @php
-                                                            $totalItemDeliveryTotalProductVat +=
-                                                                $itemDelivery->totalProductVat +
-                                                                $itemDelivery->total_tax;
-                                                            $Pay =
-                                                                $itemDelivery->totalProductVat +
-                                                                $itemDelivery->total_tax -
-                                                                $itemDelivery->amount_owed;
-                                                            $Remai = $itemDelivery->amount_owed;
-                                                            $totalPay += $Pay;
-                                                            $totalRemai += $Remai;
-                                                        @endphp
-
-                                                        @foreach ($matchedItems as $matchedItem)
-                                                            @php
-                                                                $totalDeliverQty += $matchedItem->product_qty;
-                                                                $totalPriceExport += $matchedItem->price_export;
-                                                                $totalProductTotalVat += $matchedItem->product_total;
-                                                                $totalProductQuantity += $matchedItem->product_quantity;
-                                                                $totalCashValue += $matchedItem->cash_value;
-                                                                if (!empty($matchedItem->gold_value)) {
-                                                                    $goldValues[] = $matchedItem->gold_value; // Collect non-empty gold values into the array
-                                                                }
-                                                            @endphp
-                                                            <tr class="position-relative relative sell-info">
-                                                                <input type="hidden" value="{{ $itemDelivery->id }}"
-                                                                    class="sell">
-                                                                @if ($loop->first)
-                                                                    <td rowspan="{{ $count }}"
-                                                                        class="text-13-black height-52 border">
-                                                                        {{ $itemDelivery->maPhieu }}</td>
-                                                                    <td rowspan="{{ $count }}"
-                                                                        class="text-13-black height-52 border">
-                                                                        {{ $itemDelivery->nameGuest }}</td>
-                                                                @endif
-                                                                <td class="text-13-black height-52 border">
-                                                                    {{ $matchedItem->nameGr }}</td>
-                                                                <td class="text-13-black height-52 border">
-                                                                    {{ $matchedItem->product_code }}</td>
-                                                                <td class="text-13-black height-52 border">
-                                                                    {{ $matchedItem->product_name }}</td>
-                                                                <td class="text-13-black height-52 border">
-                                                                    {{ $matchedItem->product_unit }}</td>
-                                                                <td class="text-13-black height-52 border">
-                                                                    {{ number_format($matchedItem->product_qty) }}</td>
-                                                                <td class="border"></td>
-                                                                <td class="border"></td>
-                                                                <td class="border"></td>
-                                                                <td class="border"></td>
-                                                            </tr>
-                                                        @endforeach
-                                                        @php
-                                                            $stt++; // Increment STT after each invoice
-                                                        @endphp
-                                                    @endif
-                                                @endforeach
-                                                <!-- Add total row for each guest -->
-                                                <tr>
-                                                    @php
-                                                        // Tìm promotion theo guest_id
-                                                        $promotion = $promotions->firstWhere('guest_id', $item->id);
-                                                    @endphp
-
-                                                    <td colspan="6" class="border bold text-right">Tổng
-                                                        cộng:</td>
-                                                    <td class="border text-13-black height-52 border">
-                                                        {{ number_format($totalDeliverQty) }}</td>
-                                                    <td class="text-13-black height-52 border">
-                                                        <input type="text" autocomplete="off"
-                                                            class="border-0 px-2 py-1 w-100 product_quantity height-32"
-                                                            data-type="quantity" data-guest="{{ $item->id }}"
-                                                            data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
-                                                            data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
-                                                            value="{{ $promotion ? $promotion->product_quantity : '' }}"
-                                                            name="product_quantity[]">
-                                                    </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        <input type="text" autocomplete="off"
-                                                            class="border-0 px-2 py-1 w-100 cash_value number height-32"
-                                                            data-type="cash" data-guest="{{ $item->id }}"
-                                                            data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
-                                                            data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
-                                                            value="{{ $promotion ? number_format($promotion->cash_value) : '' }}"
-                                                            name="cash_value[]">
-                                                    </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        <input type="text" autocomplete="off"
-                                                            class="border-0 px-2 py-1 w-100 gold_value height-32"
-                                                            data-type="gold" data-guest="{{ $item->id }}"
-                                                            data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
-                                                            data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
-                                                            value="{{ $promotion ? $promotion->gold_value : '' }}"
-                                                            name="gold_value[]">
-                                                    </td>
-                                                    <td class="text-13-black height-52 border">
-                                                        <input type="text" autocomplete="off"
-                                                            class="border-0 px-2 py-1 w-100 desc height-32"
-                                                            data-type="desc" data-guest="{{ $item->id }}"
-                                                            data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
-                                                            data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
-                                                            value="{{ $promotion ? $promotion->description : '' }}"
-                                                            name="desc[]">
-                                                    </td>
-                                                    <!-- Combine gold values into a comma-separated string -->
-                                                </tr>
-                                            @endif
-                                        @endforeach
-
-                                        @foreach ($groupGuests as $value)
-                                            <tr>
-                                                <td colspan="12" class="border-bottom bold">Nhóm khách hàng:
-                                                    {{ $value->name }}</td>
-                                            </tr>
-                                            @foreach ($guest as $item)
-                                                @if ($item->group_id == $value->id)
-                                                    <tr>
-                                                        <td class="border-bottom bold"></td>
-                                                        <td colspan="11" class="border-bottom bold">Khách hàng:
-                                                            {{ $item->guest_name_display }}</td>
-                                                    </tr>
-                                                    @php
-                                                        $totalDeliverQty = 0;
-                                                        $totalPriceExport = 0;
-                                                        $totalProductTotalVat = 0;
-                                                        $totalProductQuantity = 0;
-                                                        $totalCashValue = 0;
-                                                        $goldValues = []; // Initialize an array to hold gold values
-                                                        $stt = 1; // Initialize the STT variable
-                                                    @endphp
-
+                                                @if ($allDelivery->isNotEmpty())
+                                                    {{-- Check if $allDelivery is not empty --}}
                                                     @foreach ($allDelivery as $itemDelivery)
                                                         @php
                                                             $matchedItems = $productDelivered
@@ -497,10 +361,10 @@
                                                                         $matchedItem->product_quantity;
                                                                     $totalCashValue += $matchedItem->cash_value;
                                                                     if (!empty($matchedItem->gold_value)) {
-                                                                        $goldValues[] = $matchedItem->gold_value; // Collect non-empty gold values into the array
+                                                                        $goldValues[] = $matchedItem->gold_value;
                                                                     }
                                                                 @endphp
-                                                                <tr class="position-relative relative">
+                                                                <tr class="position-relative relative sell-info">
                                                                     <input type="hidden"
                                                                         value="{{ $itemDelivery->id }}"
                                                                         class="sell">
@@ -510,7 +374,7 @@
                                                                             {{ $itemDelivery->maPhieu }}</td>
                                                                         <td rowspan="{{ $count }}"
                                                                             class="text-13-black height-52 border">
-                                                                            {{ $itemDelivery->nameUser }}</td>
+                                                                            {{ $itemDelivery->nameGuest }}</td>
                                                                     @endif
                                                                     <td class="text-13-black height-52 border">
                                                                         {{ $matchedItem->nameGr }}</td>
@@ -530,10 +394,157 @@
                                                                 </tr>
                                                             @endforeach
                                                             @php
-                                                                $stt++; // Increment STT after each invoice
+                                                                $stt++;
                                                             @endphp
                                                         @endif
                                                     @endforeach
+                                                @endif
+                                                <!-- Add total row for each guest -->
+                                                <tr>
+                                                    @php
+                                                        $promotion = $promotions->firstWhere('guest_id', $item->id);
+                                                    @endphp
+                                                    <td colspan="6" class="border bold text-right">Tổng cộng:</td>
+                                                    <td class="border text-13-black height-52">
+                                                        {{ number_format($totalDeliverQty) }}</td>
+                                                    <td class="text-13-black height-52 border">
+                                                        <input type="text" autocomplete="off"
+                                                            class="border-0 px-2 py-1 w-100 product_quantity height-32"
+                                                            data-type="quantity" data-guest="{{ $item->id }}"
+                                                            data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('m') }}"
+                                                            data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('Y') }}"
+                                                            value="{{ $promotion ? $promotion->product_quantity : '' }}"
+                                                            name="product_quantity[]">
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        <input type="text" autocomplete="off"
+                                                            class="border-0 px-2 py-1 w-100 cash_value number height-32"
+                                                            data-type="cash" data-guest="{{ $item->id }}"
+                                                            data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('m') }}"
+                                                            data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('Y') }}"
+                                                            value="{{ $promotion ? number_format($promotion->cash_value) : '' }}"
+                                                            name="cash_value[]">
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        <input type="text" autocomplete="off"
+                                                            class="border-0 px-2 py-1 w-100 gold_value height-32"
+                                                            data-type="gold" data-guest="{{ $item->id }}"
+                                                            data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('m') }}"
+                                                            data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('Y') }}"
+                                                            value="{{ $promotion ? $promotion->gold_value : '' }}"
+                                                            name="gold_value[]">
+                                                    </td>
+                                                    <td class="text-13-black height-52 border">
+                                                        <input type="text" autocomplete="off"
+                                                            class="border-0 px-2 py-1 w-100 desc height-32"
+                                                            data-type="desc" data-guest="{{ $item->id }}"
+                                                            data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('m') }}"
+                                                            data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('Y') }}"
+                                                            value="{{ $promotion ? $promotion->description : '' }}"
+                                                            name="desc[]">
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+
+                                        @foreach ($groupGuests as $value)
+                                            <tr>
+                                                <td colspan="12" class="border-bottom bold">Nhóm khách hàng:
+                                                    {{ $value->name }}</td>
+                                            </tr>
+
+                                            @foreach ($guest as $item)
+                                                @if ($item->group_id == $value->id)
+                                                    <tr>
+                                                        <td class="border-bottom bold"></td>
+                                                        <td colspan="11" class="border-bottom bold">Khách hàng:
+                                                            {{ $item->guest_name_display }}</td>
+                                                    </tr>
+
+                                                    @php
+                                                        $totalDeliverQty = 0;
+                                                        $totalPriceExport = 0;
+                                                        $totalProductTotalVat = 0;
+                                                        $totalProductQuantity = 0;
+                                                        $totalCashValue = 0;
+                                                        $goldValues = []; // Initialize an array to hold gold values
+                                                        $stt = 1; // Initialize the STT variable
+                                                    @endphp
+
+                                                    @if ($allDelivery->isNotEmpty())
+                                                        {{-- Check if $allDelivery is not empty --}}
+                                                        @foreach ($allDelivery as $itemDelivery)
+                                                            @php
+                                                                $matchedItems = $productDelivered
+                                                                    ->where('detailexport_id', $itemDelivery->id)
+                                                                    ->where('guest_id', $item->id);
+                                                                $count = $matchedItems->count();
+                                                            @endphp
+
+                                                            @if ($matchedItems->isNotEmpty())
+                                                                @php
+                                                                    $totalItemDeliveryTotalProductVat +=
+                                                                        $itemDelivery->totalProductVat +
+                                                                        $itemDelivery->total_tax;
+                                                                    $Pay =
+                                                                        $itemDelivery->totalProductVat +
+                                                                        $itemDelivery->total_tax -
+                                                                        $itemDelivery->amount_owed;
+                                                                    $Remai = $itemDelivery->amount_owed;
+                                                                    $totalPay += $Pay;
+                                                                    $totalRemai += $Remai;
+                                                                @endphp
+
+                                                                @foreach ($matchedItems as $matchedItem)
+                                                                    @php
+                                                                        $totalDeliverQty += $matchedItem->product_qty;
+                                                                        $totalPriceExport += $matchedItem->price_export;
+                                                                        $totalProductTotalVat +=
+                                                                            $matchedItem->product_total;
+                                                                        $totalProductQuantity +=
+                                                                            $matchedItem->product_quantity;
+                                                                        $totalCashValue += $matchedItem->cash_value;
+                                                                        if (!empty($matchedItem->gold_value)) {
+                                                                            $goldValues[] = $matchedItem->gold_value; // Collect non-empty gold values into the array
+                                                                        }
+                                                                    @endphp
+                                                                    <tr class="position-relative relative">
+                                                                        <input type="hidden"
+                                                                            value="{{ $itemDelivery->id }}"
+                                                                            class="sell">
+                                                                        @if ($loop->first)
+                                                                            <td rowspan="{{ $count }}"
+                                                                                class="text-13-black height-52 border">
+                                                                                {{ $itemDelivery->maPhieu }}</td>
+                                                                            <td rowspan="{{ $count }}"
+                                                                                class="text-13-black height-52 border">
+                                                                                {{ $itemDelivery->nameUser }}</td>
+                                                                        @endif
+                                                                        <td class="text-13-black height-52 border">
+                                                                            {{ $matchedItem->nameGr }}</td>
+                                                                        <td class="text-13-black height-52 border">
+                                                                            {{ $matchedItem->product_code }}</td>
+                                                                        <td class="text-13-black height-52 border">
+                                                                            {{ $matchedItem->product_name }}</td>
+                                                                        <td class="text-13-black height-52 border">
+                                                                            {{ $matchedItem->product_unit }}</td>
+                                                                        <td class="text-13-black height-52 border">
+                                                                            {{ number_format($matchedItem->product_qty) }}
+                                                                        </td>
+                                                                        <td class="border"></td>
+                                                                        <td class="border"></td>
+                                                                        <td class="border"></td>
+                                                                        <td class="border"></td>
+                                                                    </tr>
+                                                                @endforeach
+
+                                                                @php
+                                                                    $stt++; // Increment STT after each invoice
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+
                                                     <!-- Add total row for each guest -->
                                                     <tr>
                                                         @php
@@ -541,16 +552,16 @@
                                                             $promotion = $promotions->firstWhere('guest_id', $item->id);
                                                         @endphp
 
-                                                        <td colspan="6" class="border bold text-right">Tổng
-                                                            cộng:</td>
-                                                        <td class="border text-13-black height-52 border">
+                                                        <td colspan="6" class="border bold text-right">Tổng cộng:
+                                                        </td>
+                                                        <td class="border text-13-black height-52">
                                                             {{ number_format($totalDeliverQty) }}</td>
                                                         <td class="text-13-black height-52 border">
                                                             <input type="text" autocomplete="off"
                                                                 class="border-0 px-2 py-1 w-100 product_quantity height-32"
                                                                 data-type="quantity" data-guest="{{ $item->id }}"
-                                                                data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
-                                                                data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
+                                                                data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('m') }}"
+                                                                data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('Y') }}"
                                                                 value="{{ $promotion ? $promotion->product_quantity : '' }}"
                                                                 name="product_quantity[]">
                                                         </td>
@@ -558,8 +569,8 @@
                                                             <input type="text" autocomplete="off"
                                                                 class="border-0 px-2 py-1 w-100 cash_value number height-32"
                                                                 data-type="cash" data-guest="{{ $item->id }}"
-                                                                data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
-                                                                data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
+                                                                data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('m') }}"
+                                                                data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('Y') }}"
                                                                 value="{{ $promotion ? number_format($promotion->cash_value) : '' }}"
                                                                 name="cash_value[]">
                                                         </td>
@@ -567,8 +578,8 @@
                                                             <input type="text" autocomplete="off"
                                                                 class="border-0 px-2 py-1 w-100 gold_value height-32"
                                                                 data-type="gold" data-guest="{{ $item->id }}"
-                                                                data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
-                                                                data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
+                                                                data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('m') }}"
+                                                                data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('Y') }}"
                                                                 value="{{ $promotion ? $promotion->gold_value : '' }}"
                                                                 name="gold_value[]">
                                                         </td>
@@ -576,12 +587,11 @@
                                                             <input type="text" autocomplete="off"
                                                                 class="border-0 px-2 py-1 w-100 desc height-32"
                                                                 data-type="desc" data-guest="{{ $item->id }}"
-                                                                data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('m') }}"
-                                                                data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao)->format('Y') }}"
+                                                                data-month="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('m') }}"
+                                                                data-year="{{ \Carbon\Carbon::parse($itemDelivery->ngayTao ?? now())->format('Y') }}"
                                                                 value="{{ $promotion ? $promotion->description : '' }}"
                                                                 name="desc[]">
                                                         </td>
-                                                        <!-- Combine gold values into a comma-separated string -->
                                                     </tr>
                                                 @endif
                                             @endforeach
