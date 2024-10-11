@@ -105,8 +105,8 @@
                                                 Mã khách hàng
                                             </p>
                                         </div>
-                                        <input type="text" required placeholder="Nhập thông tin"
-                                            name="key" value="{{ $guest->key }}" required
+                                        <input type="text" required placeholder="Nhập thông tin" name="key"
+                                            value="{{ $guest->key }}" required
                                             class="border w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black bg-input-guest-blue">
                                     </div>
                                     <div class="d-flex align-items-center height-60-mobile">
@@ -139,7 +139,8 @@
                                         <div class="title-info height-100 py-2 border border-top-0 border-left-0">
                                             <p class="p-0 m-0 margin-left32 text-13">Email</p>
                                         </div>
-                                        <input type="email" name="guest_email" value="{{ $guest->guest_email }}" placeholder="Nhập thông tin"
+                                        <input type="email" name="guest_email" value="{{ $guest->guest_email }}"
+                                            placeholder="Nhập thông tin"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue">
                                     </div>
                                     {{-- <div class="d-flex align-items-center height-60-mobile">
@@ -280,213 +281,6 @@
         input.value = input.value.replace(/-{2,}/g, '');
     }
     // Filter search
-    function filtername() {
-        filterButtons("myInput-name", "ks-cboxtags-name");
-    }
-
-    function filtercompany() {
-        filterButtons("myInput-company", "ks-cboxtags-company");
-    }
-    var filter = [];
-    $(document).ready(function() {
-        // get id check box name
-        var idName = [];
-        var idCompany = [];
-
-        function updateFilterResults() {
-            $('.filter-results').empty();
-            // Tạo và thêm các phần tử mới vào .filter-results
-            filter.forEach(function(item) {
-                // Kiểm tra nếu 'name' không phải là undefined
-                if (item.name !== undefined) {
-                    var filterItemElement = $(
-                        '<div class="filter-item">' +
-                        '<span class="filter-title">' + (item.name === 'debt' ? item.title : item
-                            .title + ':') + ' </span>' +
-                        '<span class="filter-value">' +
-                        (item.name === 'debt' ? item.value[0][0] + item.value[0][1] : " " + item
-                            .value) +
-                        '</span>' +
-                        '<button class="btn-delete" data-button-name="' + item.name +
-                        '"><i class="fa-solid fa-xmark"></i></button>' +
-                        '</div>'
-                    );
-
-                    // Xóa item filter
-                    filterItemElement.find('.btn-delete').on('click', function() {
-                        var nameToDelete = $(this).data('button-name');
-                        filter = filter.filter(function(item) {
-                            return item.name !== nameToDelete;
-                        });
-                        if (nameToDelete === 'name') {
-                            $('.deselect-all-name').click();
-                            idName = [];
-                        } else if (nameToDelete === 'email') {
-                            $('#email').val('');
-                        } else if (nameToDelete === 'phone') {
-                            $('#phone').val('');
-                        } else if (nameToDelete === 'company') {
-                            $('.deselect-all-company').click();
-                            company = [];
-                        } else if (nameToDelete === 'search') {
-                            search = '';
-                        } else if (nameToDelete === 'debt') {
-                            $('.debt-quantity').val('');
-                        }
-                        updateFilterResults();
-                        var email = $('#email').val();
-                        var phone = $('#phone').val();
-                        var search = $('#search').val();
-                        var debt_op = $('.debt-operator').val();
-                        var debt_val = $('.debt-quantity').val();
-                        var debt = [debt_op, debt_val];
-                        sendAjaxRequest(search, email, phone, debt_op, debt, idName, idCompany);
-                    });
-                    // Load filter results
-                    $('.filter-results').append(filterItemElement);
-                }
-            });
-        }
-        $('.btn-submit').click(function(event) {
-            event.preventDefault();
-            var buttonName = $(this).data('button-name');
-            var title = $(this).data('title');
-            $('#' + buttonName + '-options').hide();
-            $(".filter-btn").prop("disabled", false);
-
-            if (buttonName === 'company') {
-                $('.ks-cboxtags-company input[type="checkbox"]:checked').each(function() {
-                    idCompany.push($(this).val());
-                });
-            }
-            if (buttonName === 'name') {
-                $('.ks-cboxtags-name input[type="checkbox"]:checked').each(function() {
-                    idName.push($(this).val());
-                });
-            }
-
-            if (buttonName === 'email') {
-                $('.email-input').val(email)
-            }
-            var email = $('#email').val();
-            var phone = $('#phone').val();
-            var search = $('#search').val();
-            var debt_op = $('.debt-operator').val();
-            var debt_val = $('.debt-quantity').val();
-            var debt = [debt_op, debt_val];
-
-            $.ajax({
-                type: 'get',
-                url: '{{ URL::to('searchDetailGuest') }}',
-                data: {
-                    'search': search,
-                    'email': email,
-                    'phone': phone,
-                    'debt': debt,
-                    'idName': idName,
-                    'idCompany': idCompany,
-                },
-                success: function(data) {
-                    $('tbody').html(data.output);
-                    var dataValues = {
-                        name: data.name.join(', '),
-                        email: data.email,
-                        phone: data.phone,
-                        debt: data.debt,
-                        company: data.company.join(', ')
-                    };
-                    var value = dataValues[buttonName];
-                    if (value !== '' && value !== null) {
-                        var existingFilterItem = filter.find(item => item.name ===
-                            buttonName);
-                        existingFilterItem
-                            ?
-                            (existingFilterItem.title = title, existingFilterItem.value =
-                                value) :
-                            filter.push({
-                                name: buttonName,
-                                title: title,
-                                value: value
-                            });
-                    } else {
-                        // Xóa mục khỏi filter nếu tồn tại
-                        const existingFilterIndex = filter.findIndex(item => item.name ===
-                            buttonName);
-                        if (existingFilterIndex !== -1) {
-                            filter.splice(existingFilterIndex, 1);
-                        }
-                    }
-                    updateFilterResults();
-                }
-            });
-            $.ajaxSetup({
-                headers: {
-                    'csrftoken': '{{ csrf_token() }}'
-                }
-            });
-        });
-
-        function sendAjaxRequest(search, email, phone, debt_op, debt, idName, idCompany) {
-            $.ajax({
-                type: 'get',
-                url: '{{ URL::to('search') }}',
-                data: {
-                    'search': search,
-                    'email': email,
-                    'phone': phone,
-                    'debt_op': debt_op,
-                    'debt': debt,
-                    'idName': idName,
-                    'idCompany': idCompany,
-                },
-                success: function(data) {
-                    $('tbody').html(data.output);
-                }
-            });
-        }
-
-        $('.sort-link').on('click', function(event) {
-            event.preventDefault();
-            // Get dữ liệu
-            var email = $('#email').val();
-            var phone = $('#phone').val();
-            var search = $('#search').val();
-            var debt_op = $('.debt-operator').val();
-            var debt_val = $('.debt-quantity').val();
-            var debt = [debt_op, debt_val];
-            var sort_by = $(this).data('sort-by');
-            var sort_type = $(this).data('sort-type');
-
-            sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
-            $(this).data('sort-type', sort_type);
-            $('.icon').text('');
-            var iconId = 'icon-' + sort_by;
-            var iconDiv = $('#' + iconId);
-            var svgtop =
-                "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 19.0009C11.6332 19.0009 11.7604 18.9482 11.8542 18.8544C11.9480 18.7607 12.0006 18.6335 12.0006 18.5009V6.70789L15.1466 9.85489C15.2405 9.94878 15.3679 10.0015 15.5006 10.0015C15.6334 10.0015 15.7607 9.94878 15.8546 9.85489C15.9485 9.76101 16.0013 9.63367 16.0013 9.50089C16.0013 9.36812 15.9485 9.24078 15.8546 9.14689L11.8546 5.14689C11.8082 5.10033 11.7530 5.06339 11.6923 5.03818C11.6315 5.01297 11.5664 5 11.5006 5C11.4349 5 11.3697 5.01297 11.3090 5.03818C11.2483 5.06339 11.1931 5.10033 11.1466 5.14689L7.14663 9.14689C7.10014 9.19338 7.06327 9.24857 7.03811 9.30931C7.01295 9.37005 7 9.43515 7 9.50089C7 9.63367 7.05274 9.76101 7.14663 9.85489C7.24052 9.94878 7.36786 10.0015 7.50063 10.0015C7.63341 10.0015 7.76075 9.94878 7.85463 9.85489L11.0006 6.70789V18.5009C11.0006 18.6335 11.0533 18.7607 11.1471 18.8544C11.2408 18.9482 11.3680 19.0009 11.5006 19.0009Z' fill='#555555'/></svg>";
-            var svgbot =
-                "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
-            iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
-            // Gửi dữ liệu qua Ajax
-            $.ajax({
-                type: 'get',
-                url: '{{ URL::to('search') }}',
-                data: {
-                    'search': search,
-                    'email': email,
-                    'phone': phone,
-                    'debt': debt,
-                    'idName': idName,
-                    'idCompany': idCompany,
-                    'sort_by': sort_by,
-                    'sort_type': sort_type,
-                },
-                success: function(data) {
-                    $('tbody').html(data.output);
-                }
-            });
-        });
-    });
 
     //////////////////////////////////////////////////////////////// 
 

@@ -16,6 +16,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\userFlow;
 use App\Models\Workspace;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -114,7 +115,7 @@ class GuestController extends Controller
         $guest = Guest::where('guest.id', $id)
             ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('groups', 'guest.group_id', 'groups.id')
-            ->select('guest.*','groups.name')
+            ->select('guest.*', 'groups.name')
             ->first();
         if ($guest) {
             $title = $guest->guest_name_display;
@@ -134,9 +135,22 @@ class GuestController extends Controller
         //Dư nợ
         $sumDebt = $this->detailExport->sumDebt($id);
         //Lịch sử giao dịch
-        $historyGuest = $this->detailExport->historyGuest($id);
-        $cash_receipts = $this->cash_receipts->cashReceiptByGuest($id);
         $payOrder = PayOder::where('guest_id', $id)->get();
+        // Thêm trường 'source_id' vào từng phần tử của mảng $historyGuest
+        $historyGuest = collect($this->detailExport->historyGuest($id))->map(function ($item) {
+            $item->source_id = 'history';
+            $item->date_created = $item->created_at;
+            return $item;
+        });
+        // Thêm trường 'source_id' vào từng phần tử của mảng $cash_receipts
+        $cash_receipts = collect($this->cash_receipts->cashReceiptByGuest($id))->map(function ($item) {
+            $item->source_id = 'cash_receipt'; // Gán mã định danh cho mảng cash_receipts
+            return $item;
+        });
+
+        // Kết hợp hai mảng lại thành một mảng duy nhất
+        $combined = $historyGuest->concat($cash_receipts);
+
         // Get All đơn
         $productDelivered = $this->quoteE->sumProductsQuoteByGuest($id);
         $allDelivery = $this->detailExport->getSumDetailEByGuest($id);
@@ -247,24 +261,26 @@ class GuestController extends Controller
     {
         $data = $request->all();
         $filters = [];
-        if (isset($data['guest_code']) && $data['guest_code'] !== null) {
-            $filters[] = ['value' => 'Mã số thuế: ' . $data['guest_code'], 'name' => 'guest_code', 'icon' => 'po'];
+        if (isset($data['ma']) && $data['ma'] !== null) {
+            $filters[] = ['value' => 'Mã: ' . $data['ma'], 'name' => 'ma', 'icon' => 'po'];
         }
-        if (isset($data['guests']) && $data['guests'] !== null) {
-            $guest = $this->guests->guestNameById($data['guests']);
-            $guestString = implode(', ', $guest);
-            $filters[] = ['value' => 'Công ty: ' . count($data['guests']) . ' công ty', 'name' => 'guests', 'icon' => 'user'];
+        if (isset($data['ten']) && $data['ten'] !== null) {
+            $filters[] = ['value' => 'Tên: ' . $data['ten'], 'name' => 'ten', 'icon' => 'po'];
         }
-        if (isset($data['users']) && $data['users'] !== null) {
-            $users = $this->users->getNameUser($data['users']);
-            $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users', 'icon' => 'user'];
+        if (isset($data['diachi']) && $data['diachi'] !== null) {
+            $filters[] = ['value' => 'Địa chỉ: ' . $data['diachi'], 'name' => 'diachi', 'icon' => 'po'];
+        }
+        if (isset($data['phone']) && $data['phone'] !== null) {
+            $filters[] = ['value' => 'Điện thoại: ' . $data['phone'], 'name' => 'phone', 'icon' => 'po'];
+        }
+        if (isset($data['email']) && $data['email'] !== null) {
+            $filters[] = ['value' => 'Email: ' . $data['email'], 'name' => 'email', 'icon' => 'po'];
         }
         if (isset($data['debt']) && $data['debt'][1] !== null) {
-            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . ' ' . $data['debt'][1], 'name' => 'debt', 'icon' => 'money'];
+            $filters[] = ['value' => 'Công nợ: ' . $data['debt'][0] . ' ' . $data['debt'][1], 'name' => 'debt', 'icon' => 'money'];
         }
         if ($request->ajax()) {
-            $guests = $this->guests->ajax($data);
+            $guests = $this->guests->getAllGuest($data);
             return response()->json([
                 'data' => $guests,
                 'filters' => $filters,
@@ -272,130 +288,92 @@ class GuestController extends Controller
         }
         return false;
     }
+    public function searchHistory(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $historyGuest = collect($this->detailExport->historyGuest($data['data']))->map(function ($item) {
+                $item->source_id = 'history';
+                $item->date_created = $item->created_at;
+                return $item;
+            });
+
+            // Thêm trường 'source_id' vào từng phần tử của mảng $cash_receipts
+            $cash_receipts = collect($this->cash_receipts->cashReceiptByGuest($data['data']))->map(function ($item) {
+                $item->source_id = 'cash_receipt'; // Gán mã định danh cho mảng cash_receipts
+                return $item;
+            });
+            $combined = $historyGuest->concat($cash_receipts);
+
+            if (isset($data['search'])) {
+                $combined = $combined->filter(function ($item) use ($data) {
+                    return stripos($item->quotation_number ?? '', $data['search']) !== false
+                        || stripos($item->receipt_code ?? '', $data['search']) !== false;
+                });
+            }
+            if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+                $dateStart = Carbon::parse($data['date'][0]);
+                $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+
+                // Sử dụng filter để lọc theo khoảng ngày
+                $combined = $combined->filter(function ($item) use ($dateStart, $dateEnd) {
+                    $itemDate = Carbon::parse($item->date_created);
+                    return $itemDate->between($dateStart, $dateEnd);
+                });
+            }
+            $combined = $combined->sortBy('date_created')->values()->toArray();
+            return response()->json(data: [
+                'data' => $combined,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
+
 
     // Search filter trang edit
     public function searchDetailGuest(Request $request)
     {
         $data = $request->all();
-        $arrGuestName = [];
-        $arrCompanyName = [];
-        if ($request->ajax()) {
-            $output = '';
-            $guests = $this->detailExport->historyFilterGuest($data);
-            if (!empty($request->input('idName'))) {
-                $arrGuestName = $this->guests->getGuestbyName($data);
-            }
-            if (!empty($request->input('idCompany'))) {
-                $arrCompanyName = $this->guests->getGuestbyCompany($data);
-            }
-            if ($guests) {
-                foreach ($guests as $key => $itemGuest) {
-                    $output .= ' <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>' . $itemGuest->created_at . '</td>
-                                        <td>' . $itemGuest->quotation_number . '</td>
-                                        <td class="text-center">';
-                    if ($itemGuest->status === 1) {
-                        $output .= '<span class="text-secondary">Draft</span>';
-                    } elseif ($itemGuest->status === 2) {
-                        $output .= '<span class="text-primary">Approved</span>';
-                    } elseif ($itemGuest->status === 3) {
-                        $output .= '<span class="text-success">Close</span>';
-                    }
-                    $output .= '</td><td class="text-center">';
-                    if ($itemGuest->status_receive === 1) {
-                        $output .= '<svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                        fill="#D6D6D6" />
-                                                </svg>';
-                    } elseif ($itemGuest->status_receive === 3) {
-                        $output .= '<svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                        fill="#08AA36" />
-                                                    <path
-                                                        d="M9 -1.90735e-06C10.1819 -1.90735e-06 11.3522 0.23279 12.4442 0.685081C13.5361 1.13737 14.5282 1.80031 15.364 2.63604C16.1997 3.47176 16.8626 4.46392 17.3149 5.55585C17.7672 6.64778 18 7.8181 18 9C18 10.1819 17.7672 11.3522 17.3149 12.4442C16.8626 13.5361 16.1997 14.5282 15.364 15.364C14.5282 16.1997 13.5361 16.8626 12.4442 17.3149C11.3522 17.7672 10.1819 18 9 18L9 9V-1.90735e-06Z"
-                                                        fill="#D6D6D6" />
-                                                </svg>';
-                    } elseif ($itemGuest->status_receive === 2) {
-                        $output .= '<svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                        fill="#08AA36" />
-                                                </svg>';
-                    }
-                    $output .= ' </td><td class="text-center">
-                                            @if ($itemGuest->status_reciept === 1)
-                                                <svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                        fill="#D6D6D6" />
-                                                </svg>
-                                            @elseif ($itemGuest->status_reciept === 3)
-                                                <svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                        fill="#08AA36" />
-                                                    <path
-                                                        d="M9 -1.90735e-06C10.1819 -1.90735e-06 11.3522 0.23279 12.4442 0.685081C13.5361 1.13737 14.5282 1.80031 15.364 2.63604C16.1997 3.47176 16.8626 4.46392 17.3149 5.55585C17.7672 6.64778 18 7.8181 18 9C18 10.1819 17.7672 11.3522 17.3149 12.4442C16.8626 13.5361 16.1997 14.5282 15.364 15.364C14.5282 16.1997 13.5361 16.8626 12.4442 17.3149C11.3522 17.7672 10.1819 18 9 18L9 9V-1.90735e-06Z"
-                                                        fill="#D6D6D6" />
-                                                </svg>
-                                            @elseif($itemGuest->status_reciept === 2)
-                                                <svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                        fill="#08AA36" />
-                                                </svg>
-                                            @endif
-                                        </td>
-                                        <td class="text-center">
-                                            @if ($itemGuest->status_pay === 1)
-                                                <svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                        fill="#D6D6D6" />
-                                                </svg>
-                                            @elseif ($itemGuest->status_pay === 3)
-                                                <svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                        fill="#08AA36" />
-                                                    <path
-                                                        d="M9 -1.90735e-06C10.1819 -1.90735e-06 11.3522 0.23279 12.4442 0.685081C13.5361 1.13737 14.5282 1.80031 15.364 2.63604C16.1997 3.47176 16.8626 4.46392 17.3149 5.55585C17.7672 6.64778 18 7.8181 18 9C18 10.1819 17.7672 11.3522 17.3149 12.4442C16.8626 13.5361 16.1997 14.5282 15.364 15.364C14.5282 16.1997 13.5361 16.8626 12.4442 17.3149C11.3522 17.7672 10.1819 18 9 18L9 9V-1.90735e-06Z"
-                                                        fill="#D6D6D6" />
-                                                </svg>
-                                            @elseif($itemGuest->status_pay === 2)
-                                                <svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                        fill="#08AA36" />
-                                                </svg>
-                                            @endif
-                                        </td>
-                                        <td>{{ number_format($itemGuest->total_price + $itemGuest->total_tax) }}</td>
-                                        <td>{{ number_format($itemGuest->amount_owed) }}</td>
-                                    </tr>';
-                }
-            }
-            return [
-                'output' => $output,
-                'company' => $arrCompanyName,
-                'name' => $arrGuestName,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'debt' => [$request->input('debt'), $request->input('debt_op')],
-            ];
+        $filters = [];
+        if (isset($data['chungtu']) && $data['chungtu'] !== null) {
+            $filters[] = ['value' => 'Số chứng từ: ' . $data['chungtu'], 'name' => 'chungtu', 'icon' => 'po'];
         }
+        if (isset($data['ctvbanhang']) && $data['ctvbanhang'] !== null) {
+            $filters[] = ['value' => 'CTV bán hàng: ' . $data['ctvbanhang'], 'name' => 'ctvbanhang', 'icon' => 'user'];
+        }
+        if (isset($data['mahang']) && $data['mahang'] !== null) {
+            $filters[] = ['value' => 'Mã hàng: ' . $data['mahang'], 'name' => 'mahang', 'icon' => 'barcode'];
+        }
+        if (isset($data['tenhang']) && $data['tenhang'] !== null) {
+            $filters[] = ['value' => 'Tên hàng: ' . $data['tenhang'], 'name' => 'tenhang', 'icon' => 'box'];
+        }
+        if (isset($data['dvt']) && $data['dvt'] !== null) {
+            $filters[] = ['value' => 'ĐVT: ' . $data['dvt'], 'name' => 'dvt', 'icon' => 'balance-scale'];
+        }
+        if (isset($data['slban']) && $data['slban'][1] !== null) {
+            $filters[] = ['value' => 'Số lượng bán: ' . $data['slban'][0] . ' ' . $data['slban'][1], 'name' => 'slban', 'icon' => 'cart'];
+        }
+        if (isset($data['dongia']) && $data['dongia'][1] !== null) {
+            $filters[] = ['value' => 'Đơn giá: ' . $data['dongia'][0] . ' ' . $data['dongia'][1], 'name' => 'dongia', 'icon' => 'dollar-sign'];
+        }
+        if (isset($data['thanhtien']) && $data['thanhtien'][1] !== null) {
+            $filters[] = ['value' => 'Thành tiền: ' . $data['thanhtien'][0] . ' ' . $data['thanhtien'][1], 'name' => 'thanhtien', 'icon' => 'money-bill'];
+        }
+        if ($request->ajax()) {
+            $productDelivered = $this->quoteE->sumProductsQuoteByGuest($data['data'], $data);
+            return response()->json([
+                'data' => $productDelivered,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
     public function getDebtGuest(Request $request)
     {

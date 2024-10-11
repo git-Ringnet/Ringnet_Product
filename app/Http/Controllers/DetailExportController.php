@@ -417,7 +417,7 @@ class DetailExportController extends Controller
                 ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_bill_sale,0)'))
                 ->select('detailexport.quotation_number', 'detailexport.id')
                 ->distinct()
-                ->get();;
+                ->get();
             $product = $this->product->getAllProducts();
             $quoteExport = $this->quoteExport->getProductsbyId($request->product_id);
             $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);

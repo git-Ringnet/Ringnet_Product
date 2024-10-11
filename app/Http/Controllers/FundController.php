@@ -91,9 +91,16 @@ class FundController extends Controller
                 'funds.name as fund_name',
                 'cash_receipts.created_at',
                 'cash_receipts.amount',
+                'cash_receipts.date_created',
                 'cash_receipts.receipt_code',
+                'cash_receipts.id as id'
             )
-            ->where('cash_receipts.fund_id', $fund->id)->get();
+            ->where('cash_receipts.fund_id', $fund->id)
+            ->get()
+            ->map(function ($item) {
+                $item->source_id = 'cash_receipts';
+                return $item;
+            });
 
         $fundPayments = DB::table('pay_order')
             ->join('funds', 'pay_order.fund_id', '=', 'funds.id')
@@ -102,9 +109,17 @@ class FundController extends Controller
                 'funds.name as fund_name',
                 'pay_order.created_at',
                 'pay_order.payment',
+                'pay_order.payment_date',
                 'pay_order.payment_code',
+                'pay_order.id as id'
             )
-            ->where('pay_order.fund_id', $fund->id)->get();
+            ->where('pay_order.fund_id', $fund->id)
+            ->get()
+            ->map(function ($item) {
+                $item->source_id = 'pay_order';
+                $item->date_created = $item->payment_date;
+                return $item;
+            });
         return view('tables.funds.show', compact('fund', 'title', 'workspacename', 'fundReceipts', 'fundPayments'));
     }
 
@@ -185,5 +200,60 @@ class FundController extends Controller
             $fund->amount = $total;
             $fund->save();
         }
+    }
+    public function search(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['fundName']) && $data['fundName'] !== null) {
+            $filters[] = ['value' => 'Tên quỹ: ' . $data['fundName'], 'name' => 'tenquy', 'icon' => 'name'];
+        }
+        if (isset($data['fundAmount'][0]) && isset($data['fundAmount'][1])) {
+            $filters[] = ['value' => 'Tiền quỹ: ' . $data['fundAmount'][0] . $data['fundAmount'][1], 'name' => 'tienquy', 'icon' => 'money'];
+        }
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        $fund = new Fund();
+        if ($request->ajax()) {
+            $funds = $fund->searchFilter($data);
+            return response()->json([
+                'data' => $funds,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
+    public function searchDetailFund(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['chungtu']) && $data['chungtu'] !== null) {
+            $filters[] = ['value' => 'Chứng từ: ' . $data['chungtu'], 'name' => 'chungtu', 'icon' => 'document'];
+        }
+        if (isset($data['thu'][0]) && isset($data['thu'][1])) {
+            $filters[] = ['value' => 'Thu: ' . $data['thu'][0] . $data['thu'][1], 'name' => 'thu', 'icon' => 'money'];
+        }
+
+        if (isset($data['chi'][0]) && isset($data['chi'][1])) {
+            $filters[] = ['value' => 'Chi: ' . $data['chi'][0] . $data['chi'][1], 'name' => 'chi', 'icon' => 'money'];
+        }
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'calendar'];
+        }
+        $fund = new Fund();
+        if ($request->ajax()) {
+
+            $funds = $fund->searchDetailFilter($data);
+            return response()->json([
+                'data' => $funds,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
 }

@@ -333,23 +333,27 @@
                     </section> --}}
                 </div>
                 <div id="history" class="tab-pane fade">
+                    <div class="row result-filter-history margin-left30 my-1">
+                    </div>
                     <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed border-custom">
                         <div class="w-100">
                             <div class="row mr-0">
                                 <div class="col-md-5 d-flex align-items-center">
-                                    <form action="" method="get" id='search-filter' class="p-0 m-0">
+                                    <form action="" method="get" id="search-filter" class="p-0 m-0">
                                         <div class="position-relative ml-1">
-                                            <input type="text" placeholder="Tìm kiếm" name="keywords"
-                                                style="outline: none;" class="pr-4 w-100 input-search text-13"
-                                                value="{{ request()->keywords }}">
+                                            <input type="text" placeholder="Tìm kiếm" id="search"
+                                                name="keywords" style="outline: none;"
+                                                class="pr-4 w-100 input-search text-13"
+                                                value="{{ request()->keywords }}" />
                                             <span id="search-icon" class="search-icon">
-                                                <i class="fas fa-search"></i>
+                                                <i class="fas fa-search btn-submit"></i>
                                             </span>
+                                            <input class="btn-submit" type="submit" id="hidden-submit"
+                                                name="hidden-submit" style="display: none;" />
                                         </div>
                                     </form>
-                                    <div class="dropdown mx-2 d-none filter-all">
-                                        <button class="btn-filter_search" type="button" id="dropdownMenuButton"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div class="dropdown mx-2 filter-all">
+                                        <button class="btn-filter_search" data-toggle="dropdown">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 16 16" fill="none">
                                                 <path
@@ -372,14 +376,25 @@
                                                     d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
                                                     fill="#6B6F76" />
                                             </svg>
-                                            </span>
                                         </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item text-13-black" href="#">Action</a>
-                                            <a class="dropdown-item text-13-black" href="#">Another action</a>
-                                            <a class="dropdown-item text-13-black" href="#">Something else
-                                                here</a>
+                                        <div class="dropdown-menu" id="dropdown-menu"
+                                            aria-labelledby="dropdownMenuButton" style="z-index:">
+                                            <div class="search-container px-2">
+                                                <input type="text" placeholder="Tìm kiếm" id="myInput"
+                                                    class="text-13" onkeyup="filterFunction()"
+                                                    style="outline: none;">
+                                                <span class="search-icon mr-2">
+                                                    <i class="fas fa-search"></i>
+                                                </span>
+                                            </div>
+                                            <div class="scrollbar">
+                                                <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                    data-button="date" type="button">
+                                                    Ngày
+                                                </button>
+                                            </div>
                                         </div>
+                                        <x-filter-date-time name="date" title="Ngày" />
                                     </div>
                                 </div>
                             </div>
@@ -392,48 +407,18 @@
                                     <tr>
                                         <th scope="col" class="text-13 text-nowrap text-center">
                                             <span>Chứng từ</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
                                         </th>
                                         <th scope="col" class="text-13 text-nowrap text-center">
                                             <span>Ngày</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
                                         </th>
                                         <th scope="col" class="text-13 text-nowrap">
                                             <span>Diễn giải</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
                                         </th>
                                         <th scope="col" class="text-13 text-nowrap text-right">
                                             <span>Tiền toa</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
                                         </th>
                                         <th scope="col" class="text-13 text-nowrap text-right">
                                             <span>Thu</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
                                         </th>
                                         <th scope="col" class="text-13 text-nowrap text-right">
                                             <span>Chi</span>
@@ -446,28 +431,25 @@
                                         </th>
                                         <th scope="col" class="text-13 text-nowrap text-right">
                                             <span>Còn nợ</span>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                                                viewBox='0 0 16 16' fill='none'>
-                                                <path
-                                                    d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
-                                                    fill='#6B6F76' />
-                                            </svg>
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="tbody-history">
                                     @php
                                         // Kết hợp hai mảng
                                         $combined = $historyGuest->concat($cash_receipts)->concat($payOrder);
 
                                         // Sắp xếp mảng kết hợp theo ngày tạo (created_at) tăng dần
-                                        $sortedCombined = $combined->sortBy('created_at');
+                                        $sortedCombined = $combined->sortBy('date_created');
 
                                         $currentDebt = 0;
                                     @endphp
 
                                     @foreach ($sortedCombined as $item)
-                                        <tr>
+                                        <tr class="position-relative history-info height-52">
+                                            <input type="hidden" name="id-history" class="id-history"
+                                                id="id-history" value="{{ $item->id }}"
+                                                data-source="{{ $item->source_id }}">
                                             <td class="text-13-black max-width120 border-bottom text-center">
                                                 @if (isset($item->quotation_number))
                                                     <a href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $item->id]) }}"
@@ -563,23 +545,27 @@
                     </section>
                 </div>
                 <div id="detailExport" class="tab-pane fade">
+                    <div class="row result-filter-detail margin-left30 my-1">
+                    </div>
                     <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed border-custom">
                         <div class="w-100">
                             <div class="row mr-0">
                                 <div class="col-md-5 d-flex align-items-center">
-                                    <form action="" method="get" id='search-filter' class="p-0 m-0">
+                                    <form action="" method="get" id="search-filter" class="p-0 m-0">
                                         <div class="position-relative ml-1">
-                                            <input type="text" placeholder="Tìm kiếm" name="keywords"
-                                                style="outline: none;" class="pr-4 w-100 input-search text-13"
-                                                value="{{ request()->keywords }}">
+                                            <input type="text" placeholder="Tìm kiếm" id="search2"
+                                                name="keywords" style="outline: none;"
+                                                class="pr-4 w-100 input-search text-13"
+                                                value="{{ request()->keywords }}" autocomplete="off" />
                                             <span id="search-icon" class="search-icon">
-                                                <i class="fas fa-search"></i>
+                                                <i class="fas fa-search btn-submit"></i>
                                             </span>
+                                            <input class="btn-submit" type="submit" id="hidden-submit"
+                                                name="hidden-submit" style="display: none;" />
                                         </div>
                                     </form>
-                                    <div class="dropdown mx-2 d-none filter-all">
-                                        <button class="btn-filter_search" type="button" id="dropdownMenuButton"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div class="dropdown mx-2 filter-al">
+                                        <button class="btn-filter_search" data-toggle="dropdown">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 16 16" fill="none">
                                                 <path
@@ -602,13 +588,59 @@
                                                     d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
                                                     fill="#6B6F76" />
                                             </svg>
-                                            </span>
                                         </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item text-13-black" href="#">Action</a>
-                                            <a class="dropdown-item text-13-black" href="#">Another action</a>
-                                            <a class="dropdown-item text-13-black" href="#">Something else
-                                                here</a>
+                                        <div class="dropdown-menu" id="dropdown-menu"
+                                            aria-labelledby="dropdownMenuButton" style="z-index:">
+                                            <div class="search-container px-2">
+                                                <input type="text" placeholder="Tìm kiếm" id="myInput"
+                                                    class="text-13" onkeyup="filterFunction()" style="outline: none;"
+                                                    autocomplete="off">
+                                                <span class="search-icon mr-2">
+                                                    <i class="fas fa-search"></i>
+                                                </span>
+                                            </div>
+                                            <div class="scrollbar">
+                                                <button class="dropdown-item btndropdownn text-13-black"
+                                                    id="btn-chungtu" data-button="chungtu" type="button">
+                                                    Số chứng từ
+                                                </button>
+                                                <button class="dropdown-item btndropdownn text-13-black"
+                                                    id="btn-ctvbanhang" data-button="ctvbanhang" type="button">
+                                                    CTV bán hàng
+                                                </button>
+                                                <button class="dropdown-item btndropdownn text-13-black"
+                                                    id="btn-mahang" data-button="mahang" type="button">
+                                                    Mã hàng
+                                                </button>
+                                                <button class="dropdown-item btndropdownn text-13-black"
+                                                    id="btn-tenhang" data-button="tenhang" type="button">
+                                                    Tên hàng
+                                                </button>
+                                                <button class="dropdown-item btndropdownn text-13-black"
+                                                    id="btn-dvt" data-button="dvt" type="button">
+                                                    ĐVT
+                                                </button>
+                                                <button class="dropdown-item btndropdownn text-13-black"
+                                                    id="btn-slban" data-button="slban" type="button">
+                                                    SL bán
+                                                </button>
+                                                <button class="dropdown-item btndropdownn text-13-black"
+                                                    id="btn-dongia" data-button="dongia" type="button">
+                                                    Đơn giá
+                                                </button>
+                                                <button class="dropdown-item btndropdownn text-13-black"
+                                                    id="btn-thanhtien" data-button="thanhtien" type="button">
+                                                    Thành tiền
+                                                </button>
+                                            </div>
+                                            <x-filter-text name="chungtu" title="Số chứng từ" />
+                                            <x-filter-text name="ctvbanhang" title="CTV bán hàng" />
+                                            <x-filter-text name="mahang" title="Mã hàng" />
+                                            <x-filter-text name="tenhang" title="Tên hàng" />
+                                            <x-filter-text name="dvt" title="ĐVT" />
+                                            <x-filter-compare name="slban" title="SL bán" />
+                                            <x-filter-compare name="dongia" title="Đơn giá" />
+                                            <x-filter-compare name="thanhtien" title="Thành tiền" />
                                         </div>
                                     </div>
                                 </div>
@@ -718,7 +750,7 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-sell">
+                                <tbody class="table-detail">
                                     <tr>
                                         <td colspan="9" class="border-bottom bold">Khách hàng:
                                             {{ $guest->guest_name_display }}</td>
@@ -762,9 +794,12 @@
                                                     $totalPriceExport += $matchedItem->price_export;
                                                     $totalProductTotalVat += $matchedItem->product_total;
                                                 @endphp
-                                                <tr class="position-relative relative">
-                                                    <input type="hidden" value="{{ $itemDelivery->id }}"
-                                                        class="sell">
+
+                                                <tr class="position-relative detail-info height-52">
+                                                    <input type="hidden" name="id-deli" class="id-deli"
+                                                        value="{{ $itemDelivery->id }}">
+                                                    <input type="hidden" name="id-detail" class="id-detail"
+                                                        id="id-detail" value="{{ $itemDelivery->id }}">
                                                     @if ($loop->first)
                                                         <td rowspan="{{ $count }}"
                                                             class="text-13-black height-52 border">
@@ -821,23 +856,114 @@
 <x-print-component :contentId="$title" />
 <x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
-<script>
+<script src="{{ asset('/dist/js/filter.js') }}"></script>
+<script src="{{ asset('/dist/js/number.js') }}"></script>
+<script src="{{ asset('/dist/js/report.js') }}"></script>
+
+<script type="text/javascript">
+    $(document).on('click', '.btn-submit', function(e) {
+        if (!$(e.target).is('input[type="checkbox"]')) e.preventDefault();
+        var parentId = $(this).closest('#history, #detailExport').attr('id');
+
+        if (parentId === 'history') {
+            console.log('Parent is history');
+            // Xử lý logic cho history
+        } else if (parentId === 'detailExport') {
+            console.log('Parent is detailExport');
+            // Xử lý logic cho detailExport
+        } else {
+            console.log('Parent is neither history nor detailExport');
+            // Xử lý khi không phải cả hai
+        }
+
+        // Lịch sử công nợ
+        if (parentId === 'history') {
+            var buttonElement = this;
+            // Thu thập dữ liệu và reset nếu action delete được kích hoạt
+            var formData = {
+                data: {{ $guest->id }},
+                search: $('#search').val(),
+                date: retrieveDateData(this, 'date'),
+                sort: getSortData(buttonElement)
+            };
+
+            // AJAX request cho lịch sử công nợ
+            $.ajax({
+                type: 'get',
+                url: "{{ route('searchHistoryDebt') }}",
+                data: formData,
+                success: function(data) {
+                    console.log(data);
+
+                    updateFilters(data, filters, '.result-filter-history', '.tbody-history',
+                        '.history-info', '.id-history', $(this).data('button'));
+                }
+            });
+
+            // Đơn hàng
+        } else if (parentId === 'detailExport') {
+            var buttonElement = this;
+            // Thu thập dữ liệu và reset nếu action delete được kích hoạt
+            var formData = {
+                data: {{ $guest->id }},
+                search: $('#search2').val(),
+                chungtu: getData('#chungtu', this),
+                ctvbanhang: getData('#ctvbanhang', this),
+                mahang: getData('#mahang', this),
+                tenhang: getData('#tenhang', this),
+                dvt: getData('#dvt', this),
+                slban: retrieveComparisonData(this, "slban"),
+                dongia: retrieveComparisonData(this, "dongia"),
+                thanhtien: retrieveComparisonData(this, "thanhtien"),
+                sort: getSortData(buttonElement)
+            };
+            // AJAX request cho đơn hàng
+            $.ajax({
+                type: 'get',
+                url: "{{ route('searchDetailGuest') }}",
+                data: formData,
+                success: function(data) {
+                    console.log(data);
+                    updateFilters(data, filters, '.result-filter-detail', '.tbody-detail',
+                        '.detail-info', '.id-detail', $(this).data('button'));
+                }
+            });
+        }
+        // Ẩn các tùy chọn nếu cần
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + $(this).data('button-name') + '-options').hide();
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        addHighlightFunctionality(".table-detail", ".id-deli");
+    });
+
     $(document).ready(function() {
         $('.history').hide();
+        $('.detailExport').hide();
+
+        // Xử lý khi chọn tab
         $('.header-options--nav a[data-toggle="tab"]').click(function() {
             var targetId = $(this).attr('href');
-            var content = '';
             // Hiển thị hoặc ẩn các phần tử tương ứng với tab được chọn
             $('.history').toggle(targetId === '#history');
             $('.detailExport').toggle(targetId === '#detailExport');
         });
-        // Lấy giá trị của 'option' từ URL
+
+        // Hàm lấy giá trị của 'option' từ URL
         function getUrlParameter(name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
             var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
             var results = regex.exec(location.search);
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-        };
+        }
 
         var option = getUrlParameter('option');
 
@@ -854,14 +980,17 @@
                 break;
         }
     });
+
+    // Xử lý khi file được upload
     $('#file_restore').on('change', function(e) {
         e.preventDefault();
         $('#formSubmit').attr('action', '{{ route('addAttachment') }}');
-        // $('#formSubmit').attr('method', 'HEAD');
         $('input[name="_method"]').remove();
         $('#formSubmit')[0].submit();
+
         var name = 'KH';
         var des = 'Đính kèm file';
+
         $.ajax({
             url: '{{ route('addActivity') }}',
             type: 'GET',
@@ -871,7 +1000,10 @@
             },
             success: function(data) {}
         });
-    })
-    getKeyGuest($('input[name="guest_name_display"]'))
+    });
+
+    // Gọi hàm để xử lý với 'guest_name_display'
+    getKeyGuest($('input[name="guest_name_display"]'));
+
     let fieldCounter = 1;
 </script>

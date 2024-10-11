@@ -140,7 +140,7 @@ class DetailExport extends Model
     public function getAllDetailExportByUser($id)
     {
         $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->where('detailexport.user_id', $id)
+            ->where('detailexport.id_sale', $id)
             ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
             ->leftJoin('users', 'users.id', 'detailexport.user_id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id');

@@ -53,7 +53,7 @@ class Guest extends Model
         return $totalPayment;
     }
 
-    public function getAllGuest()
+    public function getAllGuest($data = null)
     {
         $guests = DB::table($this->table)
             ->leftJoin('users', 'guest.user_id', '=', 'users.id')
@@ -62,7 +62,6 @@ class Guest extends Model
                     ->whereRaw('represent_guest.id = (select min(id) from represent_guest where guest_id = guest.id)');
             })
             ->where('guest.workspace_id', Auth::user()->current_workspace)
-            ->orderBy('guest.id', 'DESC')
             ->groupBy(
                 'guest.id',
                 'guest.key',
@@ -101,8 +100,36 @@ class Guest extends Model
                 'guest.group_id',
                 'guest.guest_debt',
                 DB::raw('COALESCE((SELECT SUM(amount_owed) FROM detailexport WHERE guest_id = guest.id AND status = 2), 0) as sumDebt')
-            )
-            ->get();
+            );
+        if (isset($data['search'])) {
+            $guests = $guests->where(function ($query) use ($data) {
+                $query->orWhere('guest.key', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_name', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_email', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_address', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['ma'])) {
+            $guests = $guests->where('guest.key', 'like', '%' . $data['ma'] . '%');
+        }
+        if (isset($data['diachi'])) {
+            $guests = $guests->where('guest.guest_address', 'like', '%' . $data['diachi'] . '%');
+        }
+        if (isset($data['phone'])) {
+            $guests = $guests->where('guest.guest_phone', 'like', '%' . $data['phone'] . '%');
+        }
+        if (isset($data['email'])) {
+            $guests = $guests->where('guest.guest_email', 'like', '%' . $data['email'] . '%');
+        }
+        if (isset($data['debt'][0]) && isset($data['debt'][1])) {
+            $guests = $guests->having('sumDebt', $data['debt'][0], $data['debt'][1]);
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $guests = $guests->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+
+        $guests = $guests->get();
         // dd($guests);
         return $guests;
     }
@@ -177,7 +204,6 @@ class Guest extends Model
             $guests = $guests->where(function ($query) use ($data) {
                 $query->orWhere('guest_name', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('guest_name_display', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('guest_code', 'like', '%' . $data['search'] . '%');
             });
         }
         if (isset($data['guest_code'])) {

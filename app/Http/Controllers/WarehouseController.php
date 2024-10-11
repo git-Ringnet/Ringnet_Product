@@ -120,4 +120,62 @@ class WarehouseController extends Controller
     {
         //
     }
+    public function search(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['warehouseCode']) && $data['warehouseCode'] !== null) {
+            $filters[] = ['value' => 'Mã kho: ' . $data['warehouseCode'], 'name' => 'warehouseCode', 'icon' => 'code'];
+        }
+
+        if (isset($data['warehouseName']) && $data['warehouseName'] !== null) {
+            $filters[] = ['value' => 'Tên kho: ' . $data['warehouseName'], 'name' => 'warehouseName', 'icon' => 'name'];
+        }
+
+        if (isset($data['address']) && $data['address'] !== null) {
+            $filters[] = ['value' => 'Địa chỉ: ' . $data['address'], 'name' => 'address', 'icon' => 'location'];
+        }
+
+        if ($request->ajax()) {
+            // Truy vấn nội dung các nhóm
+            $data = $this->wareHouse->ajax($data);
+            // Trả về phản hồi JSON
+            return response()->json([
+                'data' => $data,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
+
+    public function searchDetailWH(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['ma']) && $data['ma'] !== null) {
+            $filters[] = ['value' => 'Mã hàng hóa: ' . $data['ma'], 'name' => 'ma', 'icon' => 'code'];
+        }
+
+        if (isset($data['ten']) && $data['ten'] !== null) {
+            $filters[] = ['value' => 'Tên hàng hóa: ' . $data['ten'], 'name' => 'ten', 'icon' => 'name'];
+        }
+
+        if (isset($data['dvt']) && $data['dvt'] !== null) {
+            $filters[] = ['value' => 'Đơn vị tính: ' . $data['dvt'], 'name' => 'dvt', 'icon' => 'unit'];
+        }
+
+        if (isset($data['soluongton'][0]) && isset($data['soluongton'][1])) {
+            $filters[] = ['value' => 'Số lượng tồn: ' . $data['soluongton'][0] . $data['soluongton'][1], 'name' => 'soluongton', 'icon' => 'quantity'];
+        }
+        if ($request->ajax()) {
+            // Truy vấn nội dung các nhóm
+            $data = $this->wareHouse->ajaxDetailWH($data);
+            // Trả về phản hồi JSON
+            return response()->json([
+                'data' => $data,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
 }

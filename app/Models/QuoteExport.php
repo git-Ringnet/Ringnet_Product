@@ -432,20 +432,86 @@ class QuoteExport extends Model
             ->get();
         return $quoteE;
     }
-    public function sumProductsQuoteByGuest($idGuest)
+    public function sumProductsQuoteByGuest($idGuest, $data = null)
     {
         $quoteE = QuoteExport::leftJoin('detailexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->leftJoin('users', 'users.id', 'detailexport.id_sale')
             ->where('detailexport.guest_id', $idGuest)
-            ->where('quoteexport.status', 1)
-            ->select(
+            ->where('quoteexport.status', 1);
+
+        if (isset($data)) {
+            $quoteE = $quoteE->select(
                 'detailexport.*',
+                'users.*',
+                'quoteexport.*',
+                'quoteexport.product_qty as slxuat',
+                'quoteexport.price_export as giaXuat',
+                'detailexport.id as id'
+            );
+        } else {
+            $quoteE = $quoteE->select(
+                'detailexport.*',
+                'users.*',
                 'quoteexport.*',
                 'quoteexport.product_qty as slxuat',
                 'quoteexport.price_export as giaXuat'
-            )
-            ->get();
-        return $quoteE;
+            );
+        }
+
+        // Tìm kiếm từ khóa
+        if (isset($data['search'])) {
+            $quoteE = $quoteE->where(function ($query) use ($data) {
+                $query->orWhere('detailexport.quotation_number', 'like', '%' . $data['search'] . '%')
+                    ->orWhere('users.name', 'like', '%' . $data['search'] . '%')
+                    ->orWhere('quoteexport.product_name', 'like', '%' . $data['search'] . '%')
+                    ->orWhere('quoteexport.product_code', 'like', '%' . $data['search'] . '%')
+                    ->orWhere('quoteexport.product_unit', 'like', '%' . $data['search'] . '%');
+            });
+        }
+
+        // Lọc theo các trường khác
+        if (isset($data['chungtu'])) {
+            $quoteE = $quoteE->where('detailexport.quotation_number', 'like', '%' . $data['chungtu'] . '%');
+        }
+
+        if (isset($data['ctvbanhang'])) {
+            $quoteE = $quoteE->where('users.name', 'like', '%' . $data['ctvbanhang'] . '%');
+        }
+
+        if (isset($data['mahang'])) {
+            $quoteE = $quoteE->where('quoteexport.product_code', 'like', '%' . $data['mahang'] . '%');
+        }
+
+        if (isset($data['tenhang'])) {
+            $quoteE = $quoteE->where('quoteexport.product_name', 'like', '%' . $data['tenhang'] . '%');
+        }
+
+        if (isset($data['dvt'])) {
+            $quoteE = $quoteE->where('quoteexport.product_unit', 'like', '%' . $data['dvt'] . '%');
+        }
+
+        if (isset($data['slban'][0]) && isset($data['slban'][1])) {
+            $quoteE = $quoteE->having('slxuat', $data['slban'][0], $data['slban'][1]);
+        }
+
+        // So sánh Đơn giá với operation
+        if (isset($data['dongia'][0]) && isset($data['dongia'][1])) {
+            $quoteE = $quoteE->having('giaXuat', $data['dongia'][0], $data['dongia'][1]);
+        }
+
+        // So sánh Thành tiền (tính dựa trên slxuat * giaXuat) với operation
+        if (isset($data['thanhtien'][0]) && isset($data['thanhtien'][1])) {
+            $quoteE = $quoteE->havingRaw('slxuat * giaXuat' . $data['thanhtien'][0] . ' ?', [$data['thanhtien'][1]]);
+        }
+
+        // Sắp xếp
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $quoteE = $quoteE->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+
+        return $quoteE->get();
     }
+
     public function getProductsbyId($id)
     {
         $products = DB::table('quoteexport')

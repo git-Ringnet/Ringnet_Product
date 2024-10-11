@@ -13,7 +13,7 @@
     <section class="content-header">
         <div class="container-fluided">
             <div class="d-flex">
-                <a href="{{ route('inventory.create',$workspacename) }}">
+                <a href="{{ route('inventory.create', $workspacename) }}">
                     <button class="btn btn-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
                             fill="none" style="&#10;">

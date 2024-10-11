@@ -108,13 +108,36 @@ class ProvidesController extends Controller
             $repesent = ProvideRepesent::where('provide_id', $provide->id)->get();
         }
         $getId = $id;
-        $payOrder = PayOder::where('provide_id', $id)->get();
-        $cash_receipt = CashReceipt::where('provide_id', $id)->get();
+
+        $payOrder = PayOder::where('guest_id', $id)->get()->map(function ($item) {
+            $item->source_id = 'history';
+            $item->date_created = $item->payment_date;
+            return $item;
+        });
+        $provideDetails = $provide->getAllDetail()->get()->map(function ($item) {
+            $item->source_id = 'detail'; // Gán giá trị cho source_id là 'detail'
+            $item->date_created = $item->created_at; // Gán giá trị của created_at vào date_created
+            return $item;
+        });
         $productDelivered = $this->quoteImport->sumProductsQuoteByProvide($id);
+
+        $cash_receipt = CashReceipt::where('provide_id', $id)->get()->map(function ($item) {
+            $item->source_id = 'cash_receipt'; // Gán mã định danh cho mảng cash_receipts
+            return $item;
+        });
         // Get All đơn
         $allDelivery = $this->detailImport->getSumDetailEByProvide($id);
-
-        return view('tables.provides.showProvides', compact('title', 'provide', 'repesent', 'workspacename', 'productDelivered', 'allDelivery', 'payOrder', 'cash_receipt'));
+        return view('tables.provides.showProvides', compact(
+            'title',
+            'provide',
+            'repesent',
+            'workspacename',
+            'productDelivered',
+            'allDelivery',
+            'payOrder',
+            'cash_receipt',
+            'provideDetails'
+        ));
     }
 
     /**
@@ -188,21 +211,23 @@ class ProvidesController extends Controller
     {
         $data = $request->all();
         $filters = [];
-        if (isset($data['provide_code']) && $data['provide_code'] !== null) {
-            $filters[] = ['value' => 'Mã số thuế: ' . $data['provide_code'], 'name' => 'provide_code'];
+        if (isset($data['ma']) && $data['ma'] !== null) {
+            $filters[] = ['value' => 'Mã: ' . $data['ma'], 'name' => 'ma'];
         }
-        if (isset($data['provides']) && $data['provides'] !== null) {
-            $provide = $this->provides->provideName($data['provides']);
-            $provideString = implode(', ', $provide);
-            $filters[] = ['value' => 'Tên hiển thị: ' . count($data['provides']) . ' nhà cung cấp', 'name' => 'provides'];
+        if (isset($data['ten']) && $data['ten'] !== null) {
+            $filters[] = ['value' => 'Tên: ' . $data['ten'], 'name' => 'ten'];
         }
-        if (isset($data['users']) && $data['users'] !== null) {
-            $users = $this->users->getNameUser($data['users']);
-            $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
+        if (isset($data['diachi']) && $data['diachi'] !== null) {
+            $filters[] = ['value' => 'Địa chỉ: ' . $data['diachi'], 'name' => 'diachi'];
+        }
+        if (isset($data['phone']) && $data['phone'] !== null) {
+            $filters[] = ['value' => 'Điện thoại: ' . $data['phone'], 'name' => 'phone'];
+        }
+        if (isset($data['email']) && $data['email'] !== null) {
+            $filters[] = ['value' => 'Email: ' . $data['email'], 'name' => 'email'];
         }
         if (isset($data['debt']) && $data['debt'][1] !== null) {
-            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt'];
+            $filters[] = ['value' => 'Công nợ: ' . $data['debt'][0] . ' ' . $data['debt'][1], 'name' => 'debt'];
         }
         if ($request->ajax()) {
             $provide = $this->provides->ajax($data);
@@ -339,5 +364,90 @@ class ProvidesController extends Controller
     {
         $getProvidebyId = $this->provides->getGuestbyId($request->provide_id, $request->dataName)->first();
         return response()->json($getProvidebyId);
+    }
+    public function searchHistory(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if ($request->ajax()) {
+            $payOrder = PayOder::where('guest_id', $data['data'])->get()->map(function ($item) {
+                $item->source_id = 'history';
+                $item->date_created = $item->payment_date;
+                return $item;
+            });
+
+            $provide = Provides::findOrFail($data['data']);
+            // Thêm trường 'source_id' vào từng phần tử của mảng $cash_receipts
+            $provideDetails = $provide->getAllDetail()->get()->map(function ($item) {
+                $item->source_id = 'detail'; // Gán giá trị cho source_id là 'detail'
+                $item->date_created = $item->created_at; // Gán giá trị của created_at vào date_created
+                return $item;
+            });
+            $combined = $provideDetails->concat($payOrder)->sortBy('date_created');
+            if (isset($data['search'])) {
+                $combined = $combined->filter(function ($item) use ($data) {
+                    return stripos($item->quotation_number ?? '', $data['search']) !== false
+                        || stripos($item->receipt_code ?? '', $data['search']) !== false;
+                });
+            }
+            if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+                $dateStart = Carbon::parse($data['date'][0]);
+                $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
+
+                // Sử dụng filter để lọc theo khoảng ngày
+                $combined = $combined->filter(function ($item) use ($dateStart, $dateEnd) {
+                    $itemDate = Carbon::parse($item->date_created);
+                    return $itemDate->between($dateStart, $dateEnd);
+                });
+            }
+            $combined = $combined->sortBy('date_created')->values()->toArray();
+            return response()->json(data: [
+                'data' => $combined,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
+    public function searchDetailProvides(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['chungtu']) && $data['chungtu'] !== null) {
+            $filters[] = ['value' => 'Số chứng từ: ' . $data['chungtu'], 'name' => 'chungtu', 'icon' => 'po'];
+        }
+        if (isset($data['ctvbanhang']) && $data['ctvbanhang'] !== null) {
+            $filters[] = ['value' => 'Nhân viên: ' . $data['ctvbanhang'], 'name' => 'ctvbanhang', 'icon' => 'user'];
+        }
+        if (isset($data['mahang']) && $data['mahang'] !== null) {
+            $filters[] = ['value' => 'Mã hàng: ' . $data['mahang'], 'name' => 'mahang', 'icon' => 'barcode'];
+        }
+        if (isset($data['tenhang']) && $data['tenhang'] !== null) {
+            $filters[] = ['value' => 'Tên hàng: ' . $data['tenhang'], 'name' => 'tenhang', 'icon' => 'box'];
+        }
+        if (isset($data['dvt']) && $data['dvt'] !== null) {
+            $filters[] = ['value' => 'ĐVT: ' . $data['dvt'], 'name' => 'dvt', 'icon' => 'balance-scale'];
+        }
+        if (isset($data['slban']) && $data['slban'][1] !== null) {
+            $filters[] = ['value' => 'Số lượng bán: ' . $data['slban'][0] . ' ' . $data['slban'][1], 'name' => 'slban', 'icon' => 'cart'];
+        }
+        if (isset($data['dongia']) && $data['dongia'][1] !== null) {
+            $filters[] = ['value' => 'Đơn giá: ' . $data['dongia'][0] . ' ' . $data['dongia'][1], 'name' => 'dongia', 'icon' => 'dollar-sign'];
+        }
+        if (isset($data['thanhtien']) && $data['thanhtien'][1] !== null) {
+            $filters[] = ['value' => 'Thành tiền: ' . $data['thanhtien'][0] . ' ' . $data['thanhtien'][1], 'name' => 'thanhtien', 'icon' => 'money-bill'];
+        }
+        if ($request->ajax()) {
+            $productDelivered = $this->quoteImport->sumProductsQuoteByProvide($data['data'], $data);
+            return response()->json([
+                'data' => $productDelivered,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
 }

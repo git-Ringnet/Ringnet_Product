@@ -40,6 +40,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserFlowController;
 use App\Http\Controllers\UserWorkspacesController;
 use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\WarehouseManagerController;
 use App\Http\Middleware\CheckLogin;
 use App\Models\Commission;
 use App\Models\ContentImportExport;
@@ -68,6 +69,14 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProductInventory'])->name('inventory.showProductInventory');
     Route::resource('{workspace}/warehouse', WarehouseController::class);
     Route::resource('{workspace}/content', ContentGroupsController::class);
+    Route::get('/searchFunds', [FundController::class, 'search'])->name('searchFunds');
+    Route::get('/searchDetailFund', [FundController::class, 'searchDetailFund'])->name('searchDetailFund');
+    Route::get('/searchContent', [ContentGroupsController::class, 'search'])->name('searchContent');
+    Route::get('/searchDetailContent', [ContentGroupsController::class, 'searchDetailContent'])->name('searchDetailContent');
+    Route::get('/searchWareHouse', [WarehouseController::class, 'search'])->name('searchWareHouse');
+    Route::get('/searchDetailWH', [WarehouseController::class, 'searchDetailWH'])->name('searchDetailWH');
+    Route::get('/searchUsers', [UserController::class, 'search'])->name('searchUsers');
+    Route::get('/searchDetailUser', [UserController::class, 'searchDetailUser'])->name('searchDetailUser');
 });
 
 Route::middleware([CheckLogin::class])->group(function () {
@@ -81,12 +90,15 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::resource('{workspace}/provides', ProvidesController::class)->middleware(CheckLogin::class);
     Route::get('/checkKeyProvide', [ProvidesController::class, 'checkKeyProvide'])->name('checkKeyProvide');
     Route::get('/searchProvides', [ProvidesController::class, 'search'])->name('searchProvides');
+    Route::get('/searchHistoryProvide', [ProvidesController::class, 'searchHistory'])->name('searchHistoryProvide');
+    Route::get('/searchDetailProvides', [ProvidesController::class, 'searchDetailProvides'])->name('searchDetailProvides');
 });
 
 // Khách hàng
 Route::middleware([CheckLogin::class])->group(function () {
     Route::resource('{workspace}/guests', GuestController::class);
     Route::get('/search', [GuestController::class, 'search'])->name('searchGuest');
+    Route::get('/searchHistoryDebt', [GuestController::class, 'searchHistory'])->name('searchHistoryDebt');
     Route::get('/searchDetailGuest', [GuestController::class, 'searchDetailGuest'])->name('searchDetailGuest');
 });
 
@@ -344,6 +356,9 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::post('import', [ProductController::class, 'import'])->name('import');
     Route::POST('/importDatabase', [ProductController::class, 'importDatabase'])->name('importDatabase');
     Route::get('/checkProductTax', [ProductController::class, 'checkProductTax'])->name('checkProductTax');
+    // 
+    Route::get('/searchProductDetailE', [ProductController::class, 'searchProductDetailE'])->name('searchProductDetailE');
+    Route::get('/searchProductDetailI', [ProductController::class, 'searchProductDetailI'])->name('searchProductDetailI');
 });
 
 

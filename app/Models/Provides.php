@@ -207,13 +207,23 @@ class Provides extends Model
             $provides = $provides->where(function ($query) use ($data) {
                 $query->orWhere('provide_code', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('key', 'like', '%' . $data['search'] . '%');
             });
         }
-        if (isset($data['provide_code'])) {
-            $provides = $provides->where('provide_code', 'like', '%' . $data['provide_code'] . '%');
+        if (isset($data['ma']) && !empty($data['ma'])) {
+            $provides = $provides->where('key', 'like', '%' . $data['ma'] . '%');
         }
-        if (isset($data['provides'])) {
-            $provides = $provides->whereIn('provides.id', $data['provides']);
+        if (isset($data['ten']) && !empty($data['ten'])) {
+            $provides = $provides->where('provide_name_display', 'like', '%' . $data['ten'] . '%');
+        }
+        if (isset($data['diachi']) && !empty($data['diachi'])) {
+            $provides = $provides->where('provide_address', 'like', '%' . $data['diachi'] . '%');
+        }
+        if (isset($data['phone']) && !empty($data['phone'])) {
+            $provides = $provides->where('provide_phone', 'like', '%' . $data['phone'] . '%');
+        }
+        if (isset($data['email']) && !empty($data['email'])) {
+            $provides = $provides->where('provide_email', 'like', '%' . $data['email'] . '%');
         }
         if (isset($data['debt'][0]) && isset($data['debt'][1])) {
             $provides = $provides->where('provide_debt', $data['debt'][0], $data['debt'][1]);

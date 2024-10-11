@@ -47,6 +47,25 @@
                                 </button>
                             </a>
                         </div>
+                        <div class="fund">
+                            <div class="d-flex content__heading--right">
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContentCustom('printContent', 'print-funds')">In trang
+                                </button>
+                                <form id="exportFormFund" action="{{ route('exportDetailFund', $fund->id) }}"
+                                    method="GET" style="display: none;">
+                                    @csrf
+                                </form>
+                                <a href="#" class="activity mr-2" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportFormFund').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
                         <a class="activity" data-name1="KH" data-des="Xem trang sửa"
                             href="{{ route('funds.edit', $fund->id) }}">
                             <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
@@ -96,8 +115,8 @@
                             <div class="title-info height-100 py-2 border border-left-0">
                                 <p class="p-0 m-0 margin-left32 text-13">Tên quỹ</p>
                             </div>
-                            <input type="text" name="name" id="name" placeholder="Nhập thông tin" readonly
-                                value="{{ $fund->name }}"
+                            <input type="text" name="name" id="name" placeholder="Nhập thông tin"
+                                readonly value="{{ $fund->name }}"
                                 class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
                         <div class="d-flex  align-items-center height-60-mobile ">
@@ -164,23 +183,27 @@
                         <p class="font-weight-bold text-uppercase info-chung--heading border-custom">
                             Quỹ
                         </p>
+                        <div class="row result-filter-fund margin-left30 my-1">
+                        </div>
                         <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed border-custom">
                             <div class="w-100">
                                 <div class="row mr-0">
                                     <div class="col-md-5 d-flex align-items-center">
-                                        <form action="" method="get" id='search-filter' class="p-0 m-0">
+                                        <form action="" method="get" id="search-filter" class="p-0 m-0">
                                             <div class="position-relative ml-1">
-                                                <input type="text" placeholder="Tìm kiếm" name="keywords"
-                                                    style="outline: none;" class="pr-4 w-100 input-search text-13"
-                                                    value="{{ request()->keywords }}">
+                                                <input type="text" placeholder="Tìm kiếm" id="search"
+                                                    name="keywords" style="outline: none;"
+                                                    class="pr-4 w-100 input-search text-13"
+                                                    value="{{ request()->keywords }}" />
                                                 <span id="search-icon" class="search-icon">
-                                                    <i class="fas fa-search"></i>
+                                                    <i class="fas fa-search btn-submit"></i>
                                                 </span>
+                                                <input class="btn-submit" type="submit" id="hidden-submit"
+                                                    name="hidden-submit" style="display: none;" />
                                             </div>
                                         </form>
-                                        <div class="dropdown mx-2 d-none filter-all">
-                                            <button class="btn-filter_search" type="button" id="dropdownMenuButton"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="dropdown mx-2 filter-all">
+                                            <button class="btn-filter_search" data-toggle="dropdown">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     viewBox="0 0 16 16" fill="none">
                                                     <path
@@ -203,33 +226,42 @@
                                                         d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
                                                         fill="#6B6F76" />
                                                 </svg>
-                                                </span>
                                             </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item text-13-black" href="#">Action</a>
-                                                <a class="dropdown-item text-13-black" href="#">Another
-                                                    action</a>
-                                                <a class="dropdown-item text-13-black" href="#">Something else
-                                                    here</a>
+                                            <div class="dropdown-menu" id="dropdown-menu"
+                                                aria-labelledby="dropdownMenuButton" style="z-index:">
+                                                <div class="search-container px-2">
+                                                    <input type="text" placeholder="Tìm kiếm" id="myInput"
+                                                        class="text-13" onkeyup="filterFunction()"
+                                                        style="outline: none;">
+                                                    <span class="search-icon mr-2">
+                                                        <i class="fas fa-search"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="scrollbar">
+                                                    <button class="dropdown-item btndropdown text-13-black"
+                                                        id="btn-date" data-button="date" type="button">
+                                                        Ngày
+                                                    </button>
+                                                    <button class="dropdown-item btndropdown text-13-black"
+                                                        id="btn-chungtu" data-button="chungtu" type="button">
+                                                        Chứng từ
+                                                    </button>
+                                                    <button class="dropdown-item btndropdown text-13-black"
+                                                        id="btn-thu" data-button="thu" type="button">
+                                                        Thu
+                                                    </button>
+                                                    <button class="dropdown-item btndropdown text-13-black"
+                                                        id="btn-chi" data-button="chi" type="button">
+                                                        Chi
+                                                    </button>
+                                                </div>
+                                                <!-- Input fields to filter for financial transactions -->
+                                                <x-filter-date-time name="date" title="Ngày" />
+                                                <x-filter-text name="chungtu" title="Chứng từ" />
+                                                <x-filter-compare name="thu" title="Thu" />
+                                                <x-filter-compare name="chi" title="Chi" />
                                             </div>
                                         </div>
-                                        <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                            onclick="printContentCustom('printContent', 'print-funds')">In trang
-                                        </button>
-                                        <form id="exportFormFund" action="{{ route('exportDetailFund', $fund->id) }}"
-                                            method="GET" style="display: none;">
-                                            @csrf
-                                        </form>
-
-                                        <a href="#" class="activity mr-3" data-name1="NCC"
-                                            data-des="Export excel"
-                                            onclick="event.preventDefault(); document.getElementById('exportFormFund').submit();">
-                                            <button type="button"
-                                                class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                                <i class="fa-regular fa-file-excel"></i>
-                                                <span class="m-0 ml-1">Xuất Excel</span>
-                                            </button>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -245,9 +277,6 @@
                                             Chứng từ
                                         </th>
                                         <th class="border-right height-52 padding-left35 text-13">
-                                            Tên quỹ
-                                        </th>
-                                        <th class="border-right height-52 padding-left35 text-13">
                                             Thu
                                         </th>
                                         <th class="border-right height-52 padding-left35 text-13">
@@ -255,20 +284,22 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="tbody-fund">
                                     @php
                                         // Kết hợp hai mảng
                                         $combined = $fundReceipts->concat($fundPayments);
 
-                                        // Sắp xếp mảng kết hợp theo ngày tạo (created_at) tăng dần
-                                        $sortedCombined = $combined->sortBy('created_at');
+                                        // Sắp xếp mảng kết hợp theo ngày tạo (date_created) tăng dần
+                                        $sortedCombined = $combined->sortBy('date_created');
 
                                         $currentDebt = 0;
                                     @endphp
                                     @foreach ($sortedCombined as $item)
-                                        <tr>
+                                        <tr class="fund-info">
+                                            <input type="hidden" name="id-fund" class="id-fund" id="id-fund"
+                                                value="{{ $item->id }}" data-source="{{ $item->source_id }}">
                                             <td class="text-13-black padding-left35 border-bottom">
-                                                {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                {{ date_format(new DateTime($item->date_created), 'd/m/Y') }}
                                             </td>
                                             <td class="text-13-black max-width120 border-bottom">
                                                 @if (isset($item->receipt_code))
@@ -276,9 +307,6 @@
                                                 @else
                                                     {{ $item->payment_code }}
                                                 @endif
-                                            </td>
-                                            <td class="text-13-black text-nowrap border-bottom">
-                                                {{ $item->fund_name }}
                                             </td>
                                             <td class="text-13-black text-nowrap border-bottom">
                                                 @if (isset($item->amount))
@@ -307,3 +335,52 @@
 </form>
 <x-print-component :contentId="$title" />
 <x-user-flow></x-user-flow>
+<script src="{{ asset('/dist/js/number.js') }}"></script>
+<script src="{{ asset('/dist/js/filter.js') }}"></script>
+<script>
+    $('.fund').hide();
+    $('.header-options--nav-1 a[data-toggle="tab"]').click(function() {
+        var targetId = $(this).attr('href');
+        var content = '';
+        // Hiển thị hoặc ẩn các phần tử tương ứng với tab được chọn
+        $('.fund').toggle(targetId === '#fund');
+    });
+
+    $(document).on('click', '.btn-submit', function(e) {
+        if (!$(e.target).is('input[type="checkbox"]')) e.preventDefault();
+        var buttonElement = this;
+        // Thu thập dữ liệu và reset nếu action delete được kích hoạt
+        var formData = {
+            data: {{ $fund->id }},
+            search: $('#search').val(),
+            // Lấy dữ liệu từ các trường tương ứng
+            chungtu: getData('#chungtu', this), // Chứng từ
+            date: retrieveDateData(this, 'date'), // Ngày
+            thu: retrieveComparisonData(this, 'thu'), // Thu
+            chi: retrieveComparisonData(this, 'chi'), // Chi
+            sort: getSortData(buttonElement) // Dữ liệu sắp xếp nếu có
+        };
+
+        // AJAX request cho lịch sử công nợ
+        $.ajax({
+            type: 'get',
+            url: "{{ route('searchDetailFund') }}",
+            data: formData,
+            success: function(data) {
+                console.log(data);
+
+                updateFilters(data, filters, '.result-filter-fund', '.tbody-fund',
+                    '.fund-info', '.id-fund', $(this).data('button'));
+            }
+        });
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + $(this).data('button-name') + '-options').hide();
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
+        });
+    });
+</script>

@@ -251,39 +251,39 @@
                                                             @endphp
 
                                                             @foreach ($matchedItems as $matchedItem)
-                                                                    @php
-                                                                        $totalDeliverQty += $matchedItem->product_qty;
-                                                                        $totalPriceExport += $matchedItem->price_export;
-                                                                        $totalProductTotalVat +=
-                                                                            $matchedItem->product_total;
-                                                                    @endphp
-                                                                    <tr class="position-relative relative main-row product-info"
-                                                                        data-id="{{ $itemDetail->guest_id }}">
-                                                                        <input type="hidden"
-                                                                            value="{{ $itemDetail->id }}"
-                                                                            name="id-product" class="sell id-product"
-                                                                            id="id-product">
-                                                                        @if ($loop->first)
-                                                                            <td rowspan="{{ $count }}"
-                                                                                class="text-13-black height-52 border">
-                                                                                {{ $itemDetail->maPhieu }}
-                                                                            </td>
-                                                                            <td rowspan="{{ $count }}"
-                                                                                class="text-13-black height-52 border">
-                                                                                {{ $itemDetail->nameUser }}
-                                                                            </td>
-                                                                        @endif
-                                                                        <td class="text-13-black height-52 border">
-                                                                            {{ $matchedItem->product_code }}</td>
-                                                                        <td class="text-13-black height-52 border">
-                                                                            {{ $matchedItem->product_name }}</td>
-                                                                        <td class="text-13-black height-52 border">
-                                                                            {{ $matchedItem->product_unit }}</td>
-                                                                        <td class="text-13-black height-52 border">
-                                                                            {{ number_format($matchedItem->product_qty) }}
+                                                                @php
+                                                                    $totalDeliverQty += $matchedItem->product_qty;
+                                                                    $totalPriceExport += $matchedItem->price_export;
+                                                                    $totalProductTotalVat +=
+                                                                        $matchedItem->product_total;
+                                                                @endphp
+                                                                <tr class="position-relative relative main-row product-info"
+                                                                    data-id="{{ $itemDetail->guest_id }}">
+                                                                    <input type="hidden"
+                                                                        value="{{ $itemDetail->id }}"
+                                                                        name="id-product" class="sell id-product"
+                                                                        id="id-product">
+                                                                    @if ($loop->first)
+                                                                        <td rowspan="{{ $count }}"
+                                                                            class="text-13-black height-52 border">
+                                                                            {{ $itemDetail->maPhieu }}
                                                                         </td>
-                                                                    </tr>
-                                                                @endforeach
+                                                                        <td rowspan="{{ $count }}"
+                                                                            class="text-13-black height-52 border">
+                                                                            {{ $itemDetail->nameUser }}
+                                                                        </td>
+                                                                    @endif
+                                                                    <td class="text-13-black height-52 border">
+                                                                        {{ $matchedItem->product_code }}</td>
+                                                                    <td class="text-13-black height-52 border">
+                                                                        {{ $matchedItem->product_name }}</td>
+                                                                    <td class="text-13-black height-52 border">
+                                                                        {{ $matchedItem->product_unit }}</td>
+                                                                    <td class="text-13-black height-52 border">
+                                                                        {{ number_format($matchedItem->product_qty) }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
 
                                                             @php
                                                                 $stt++; // Increment STT after each invoice
@@ -374,7 +374,6 @@
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
-
                                                                 @php
                                                                     $stt++; // Increment STT after each invoice
                                                                 @endphp

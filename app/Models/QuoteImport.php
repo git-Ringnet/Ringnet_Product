@@ -153,19 +153,86 @@ class QuoteImport extends Model
         return $quoteI;
     }
 
-    public function sumProductsQuoteByProvide($idProvide)
+    public function sumProductsQuoteByProvide($idProvide, $data = null)
     {
+        // Đặt biến truy vấn đúng là $quoteI (vì bạn đang sử dụng QuoteImport)
         $quoteI = QuoteImport::leftJoin('detailimport', 'quoteimport.detailimport_id', 'detailimport.id')
-            ->where('detailimport.provide_id', $idProvide)
-            ->select(
+            ->leftJoin('users', 'users.id', 'detailimport.id_sale')
+            ->where('detailimport.provide_id', $idProvide);
+
+        if (isset($data)) {
+            // Sử dụng $quoteI thay vì $quoteE
+            $quoteI = $quoteI->select(
                 'detailimport.*',
                 'quoteimport.*',
+                'users.*',
                 'quoteimport.product_qty as slxuat',
-            )
-            ->get();
-        return $quoteI;
-    }
+                'quoteimport.price_export as giaNhap',
+                'detailimport.id as id'
+            );
+        } else {
+            // Sử dụng $quoteI thay vì $quoteE
+            $quoteI = $quoteI->select(
+                'detailimport.*',
+                'quoteimport.*',
+                'users.*',
+                'quoteimport.product_qty as slxuat',
+                'quoteimport.price_export as giaNhap'
+            );
+        }
+        // Tìm kiếm từ khóa
+        if (isset($data['search'])) {
+            $quoteI = $quoteI->where(function ($query) use ($data) {
+                $query->orWhere('detailimport.quotation_number', 'like', '%' . $data['search'] . '%')
+                    ->orWhere('users.name', 'like', '%' . $data['search'] . '%')
+                    ->orWhere('quoteimport.product_name', 'like', '%' . $data['search'] . '%')
+                    ->orWhere('quoteimport.product_code', 'like', '%' . $data['search'] . '%')
+                    ->orWhere('quoteimport.product_unit', 'like', '%' . $data['search'] . '%');
+            });
+        }
 
+        // Lọc theo các trường khác
+        if (isset($data['chungtu'])) {
+            $quoteI = $quoteI->where('detailimport.quotation_number', 'like', '%' . $data['chungtu'] . '%');
+        }
+
+        if (isset($data['ctvbanhang'])) {
+            $quoteI = $quoteI->where('users.name', 'like', '%' . $data['ctvbanhang'] . '%');
+        }
+
+        if (isset($data['mahang'])) {
+            $quoteI = $quoteI->where('quoteimport.product_code', 'like', '%' . $data['mahang'] . '%');
+        }
+
+        if (isset($data['tenhang'])) {
+            $quoteI = $quoteI->where('quoteimport.product_name', 'like', '%' . $data['tenhang'] . '%');
+        }
+
+        if (isset($data['dvt'])) {
+            $quoteI = $quoteI->where('quoteimport.product_unit', 'like', '%' . $data['dvt'] . '%');
+        }
+
+        if (isset($data['slban'][0]) && isset($data['slban'][1])) {
+            $quoteI = $quoteI->having('slxuat', $data['slban'][0], $data['slban'][1]);
+        }
+
+        // So sánh Đơn giá với operation
+        if (isset($data['dongia'][0]) && isset($data['dongia'][1])) {
+            $quoteI = $quoteI->having('giaNhap', $data['dongia'][0], $data['dongia'][1]);
+        }
+
+        // So sánh Thành tiền (tính dựa trên slxuat * giaNhap) với operation
+        if (isset($data['thanhtien'][0]) && isset($data['thanhtien'][1])) {
+            $quoteI = $quoteI->havingRaw('slxuat * giaXuat' . $data['thanhtien'][0] . ' ?', [$data['thanhtien'][1]]);
+        }
+
+        // Sắp xếp
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $quoteI = $quoteI->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+
+        return $quoteI->get();
+    }
     public function updateImport($data, $id)
     {
         // Xóa sản phẩm khi chỉnh sửa đơn hàng

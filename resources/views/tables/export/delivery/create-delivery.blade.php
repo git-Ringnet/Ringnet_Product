@@ -3018,7 +3018,7 @@
                                     } catch (error) {
                                         console.error(error);
                                     }
-                                };;
+                                };
                                 var newRow = `
                                 <tr id="dynamic-row-${item.maSP}" class="bg-white addProduct">
                                     <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">
@@ -4755,7 +4755,7 @@
                                     } catch (error) {
                                         console.error(error);
                                     }
-                                };;
+                                };
                                 var newRow = `
                                 <tr id="dynamic-row-${item.maSP}" class="bg-white addProduct">
                                     <td class="border-right p-2 text-13 align-top border-bottom border-top-0 d-none">

@@ -64,7 +64,7 @@ function sumElements(className = "", elementType = "td") {
     // Duyệt qua tất cả các phần tử có selector
     $(selector).each(function () {
         // Kiểm tra xem phần tử có bị ẩn không
-        if ($(this).css("display") === "none") {
+        if ($(this).css("display") == "none") {
             return; // Bỏ qua phần tử này nếu bị ẩn
         }
 
@@ -104,4 +104,68 @@ function sumElements(className = "", elementType = "td") {
         grandTotal: grandTotal, // Tổng cộng của tất cả các phần tử
         totalsById: totalsById, // Tổng theo từng data-id
     };
+}
+function sumValuesByClassAndId(className, idAttribute, containerTag) {
+    var valueSums = {};
+
+    // Step 1: Collect all unique idAttribute values from the elements with the className
+    $("." + className).each(function () {
+        var id = $(this).data(idAttribute); // Get the id attribute
+        if (valueSums[id] === undefined) {
+            valueSums[id] = 0; // Initialize with 0
+        }
+    });
+
+    // Step 2: Iterate over each element with the provided class name and sum the values
+    $("." + className).each(function () {
+        // Check if the closest parent container (e.g., 'tr') is not hidden
+        if ($(this).closest(containerTag).css("display") !== "none") {
+            var id = $(this).data(idAttribute); // Get the id attribute (dynamic)
+            var value = parseFloat($(this).text().replace(/,/g, "")); // Get the text, remove commas, and convert to a number
+
+            // Add the value to the sum for this id
+            valueSums[id] += value;
+        }
+    });
+
+    return valueSums;
+}
+
+function updateValuesByClass(result, className) {
+    // Iterate over each element with the provided class name
+    $("." + className).each(function () {
+        var id = $(this).data("id"); // Get the data-id attribute
+
+        // Check if the result object has a sum for this id
+        if (result[id] !== undefined) {
+            // Set the text of the current element to the corresponding sum
+            $(this).text(result[id].toLocaleString()); // Convert number to a string with commas
+        } else {
+            // If no sum is found, set it to 0
+            $(this).text("0");
+        }
+    });
+}
+
+function countClassOccurrencesById(className, idAttribute, containerTag) {
+    var countOccurrences = {};
+    $("." + className).each(function () {
+        var id = $(this).data(idAttribute); // Get the id attribute
+        if (countOccurrences[id] === undefined) {
+            countOccurrences[id] = 0; // Initialize the count with 0
+        }
+    });
+
+    // Step 2: Iterate over each element with the provided class name and count occurrences
+    $("." + className).each(function () {
+        // Check if the closest parent container (e.g., 'tr') is not hidden
+        if ($(this).closest(containerTag).css("display") !== "none") {
+            var id = $(this).data(idAttribute); // Get the id attribute (dynamic)
+
+            // Increment the count for this id
+            countOccurrences[id] += 1;
+        }
+    });
+
+    return countOccurrences;
 }

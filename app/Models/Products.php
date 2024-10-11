@@ -328,16 +328,35 @@ class Products extends Model
             $products = $products->where(function ($query) use ($data) {
                 $query->orWhere('product_code', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('product_name', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('product_unit', 'like', '%' . $data['search'] . '%');
             });
         }
-        if (isset($data['idName'])) {
-            $products = $products->whereIn('products.id', $data['idName']);
+        if (isset($data['productCode']) && !empty($data['productCode'])) {
+            $products = $products->where('product_code', 'like', '%' . $data['productCode'] . '%');
         }
-        if (isset($data['code'])) {
-            $products = $products->where('product_code', 'like', '%' . $data['code'] . '%');
+        if (isset($data['productName']) && !empty($data['productName'])) {
+            $products = $products->where('product_name', 'like', '%' . $data['productName'] . '%');
         }
-        if (isset($data['inventory'][0]) && isset($data['inventory'][1])) {
-            $products = $products->where('product_inventory', $data['inventory'][0], $data['inventory'][1]);
+        if (isset($data['unit']) && !empty($data['unit'])) {
+            $products = $products->where('product_unit', 'like', '%' . $data['unit'] . '%');
+        }
+        if (isset($data['purchasePrice'][0]) && isset($data['purchasePrice'][1])) {
+            $products = $products->where('product_price_import', $data['purchasePrice'][0], $data['purchasePrice'][1]);
+        }
+        if (isset($data['retailPrice'][0]) && isset($data['retailPrice'][1])) {
+            $products = $products->where('price_retail', $data['retailPrice'][0], $data['retailPrice'][1]);
+        }
+        if (isset($data['wholesalePrice'][0]) && isset($data['wholesalePrice'][1])) {
+            $products = $products->where('price_wholesale', $data['wholesalePrice'][0], $data['wholesalePrice'][1]);
+        }
+        if (isset($data['specialPrice'][0]) && isset($data['specialPrice'][1])) {
+            $products = $products->where('price_specialsale', $data['specialPrice'][0], $data['specialPrice'][1]);
+        }
+        if (isset($data['weight'][0]) && isset($data['weight'][1])) {
+            $products = $products->where('product_weight', $data['weight'][0], $data['weight'][1]);
+        }
+        if (isset($data['stockQuantity'][0]) && isset($data['stockQuantity'][1])) {
+            $products = $products->where('product_inventory', $data['stockQuantity'][0], $data['stockQuantity'][1]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $products = $products->orderBy($data['sort'][0], $data['sort'][1]);
@@ -494,5 +513,88 @@ class Products extends Model
             ];
         }
         return $htrImport;
+    }
+
+    public function searchProductDetailE($data)
+    {
+        $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
+            ->leftJoin('users', 'users.id', 'detailexport.user_id')
+            ->leftJoin('quoteexport', 'detailexport.id', 'quoteexport.detailexport_id')
+            ->where('quoteexport.product_id', $data['data'])
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id');
+        if (isset($data['search'])) {
+            $detailExport = $detailExport->where(function ($query) use ($data) {
+                $query->orWhere('detailexport.quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['maphieuBanhang']) && !empty($data['maphieuBanhang'])) {
+            $detailExport = $detailExport->where('detailexport.quotation_number', 'like', '%' . $data['maphieuBanhang'] . '%');
+        }
+        if (isset($data['sophieuBanhang']) && !empty($data['sophieuBanhang'])) {
+            $detailExport = $detailExport->where('detailexport.reference_number', 'like', '%' . $data['sophieuBanhang'] . '%');
+        }
+        if (!empty($data['ngaylapBanhang'][0]) && !empty($data['ngaylapBanhang'][1])) {
+            $dateStart = Carbon::parse($data['ngaylapBanhang'][0]);
+            $dateEnd = Carbon::parse($data['ngaylapBanhang'][1])->endOfDay();
+            $detailExport = $detailExport->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
+        }
+        if (isset($data['khachhangBanhang']) && !empty($data['khachhangBanhang'])) {
+            $detailExport = $detailExport->where('guest.guest_name_display', 'like', '%' . $data['khachhangBanhang'] . '%');
+        }
+        if (isset($data['tongtienBanhang'][0]) && isset($data['tongtienBanhang'][1])) {
+            $detailExport = $detailExport->whereRaw(
+                'detailexport.total_tax + detailexport.total_price ' . $data['tongtienBanhang'][0] . ' ?',
+                [$data['tongtienBanhang'][1]]
+            );
+        }
+        if (isset($data['giaohangBanhang'])) {
+            $detailExport = $detailExport->whereIn('detailexport.status_receive', $data['giaohangBanhang']);
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $detailExport = $detailExport->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+        $detailExport = $detailExport->orderBy('detailexport.id', 'desc')->get();
+        return $detailExport;
+    }
+    public function searchProductDetailI($data)
+    {
+        $import = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->leftJoin('quoteimport', 'detailimport.id', 'quoteimport.detailimport_id')
+            ->where('quoteimport.product_id', $data['data'])
+            ->select('detailimport.*', 'provides.provide_name_display');
+        if (isset($data['search'])) {
+            $import = $import->where(function ($query) use ($data) {
+                $query->orWhere('detailimport.quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('provides.provide_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['maphieuDathang']) && !empty($data['maphieuDathang'])) {
+            $import = $import->where('detailimport.quotation_number', 'like', '%' . $data['maphieuDathang'] . '%');
+        }
+        if (isset($data['sophieuDathang']) && !empty($data['sophieuDathang'])) {
+            $import = $import->where('detailimport.reference_number', 'like', '%' . $data['sophieuDathang'] . '%');
+        }
+        if (!empty($data['ngaylapDathang'][0]) && !empty($data['ngaylapDathang'][1])) {
+            $dateStart = Carbon::parse($data['ngaylapDathang'][0]);
+            $dateEnd = Carbon::parse($data['ngaylapDathang'][1])->endOfDay();
+            $import = $import->whereBetween('detailimport.created_at', [$dateStart, $dateEnd]);
+        }
+        if (isset($data['khachhangDathang']) && !empty($data['khachhangDathang'])) {
+            $import = $import->where('provides.provide_name_display', 'like', '%' . $data['khachhangDathang'] . '%');
+        }
+        if (isset($data['tongtienDathang'][0]) && isset($data['tongtienDathang'][1])) {
+            $import = $import->where('detailimport.total_tax', $data['tongtienDathang'][0], $data['tongtienDathang'][1]);
+        }
+        if (isset($data['nhanhangDathang'])) {
+            $import = $import->whereIn('detailimport.status_receive', $data['nhanhangDathang']);
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $import = $import->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+        $import = $import->get();
+        return $import;
     }
 }

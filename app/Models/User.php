@@ -101,19 +101,33 @@ class User extends Authenticatable
         $users =  DB::table($this->table);
         if (isset($data['search'])) {
             $users = $users->where(function ($query) use ($data) {
-                $query->orWhere('guest_name', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('name', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('email', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('phone_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('address', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('user_code', 'like', '%' . $data['search'] . '%');
             });
         }
-        if (isset($data['idName'])) {
-            $users = $users->whereIn('guest.id', $data['idName']);
+        if (isset($data['code']) && !empty($data['code'])) {
+            $users = $users->where('user_code', 'like', '%' . $data['code'] . '%');
         }
-        if (isset($data['idCompany'])) {
-            $users = $users->whereIn('guest.id', $data['idCompany']);
+
+        if (isset($data['name']) && !empty($data['name'])) {
+            $users = $users->where('name', 'like', '%' . $data['name'] . '%');
         }
-        if (isset($data['email'])) {
-            $users = $users->where('guest_email', 'like', '%' . $data['email'] . '%');
+
+        if (isset($data['address']) && !empty($data['address'])) {
+            $users = $users->where('address', 'like', '%' . $data['address'] . '%');
         }
+
+        if (isset($data['phone']) && !empty($data['phone'])) {
+            $users = $users->where('phone_number', 'like', '%' . $data['phone'] . '%');
+        }
+
+        if (isset($data['email']) && !empty($data['email'])) {
+            $users = $users->where('email', 'like', '%' . $data['email'] . '%');
+        }
+
         if (isset($data['sort_by']) && $data['sort_type']) {
             $users = $users->orderBy($data['sort_by'], $data['sort_type']);
         }
@@ -128,6 +142,60 @@ class User extends Authenticatable
             $users = $users->whereIn('users.id', $data);
         }
         $users = $users->pluck('users.name')->all();
+        return $users;
+    }
+    public function ajaxDetailUser($data)
+    {
+        $detailExport = $this->detailExport->getAllDetailExportByUser($data['data'])->map(function ($item) {
+            $item->source_id = 'export';
+            return $item;
+        });
+        $detailImport = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->select('detailimport.*', 'provides.provide_name_display')
+            ->orderBy('detailimport.id', 'desc');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $detailImport->where('user_id', Auth::user()->id);
+            }
+        }
+        $detailImport = $detailImport->get()->map(function ($item) {
+            $item->source_id = 'import';
+            return $item;
+        });;
+        if (isset($data['search'])) {
+            $users = $users->where(function ($query) use ($data) {
+                $query->orWhere('name', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('email', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('phone_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('address', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('user_code', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['code']) && !empty($data['code'])) {
+            $users = $users->where('user_code', 'like', '%' . $data['code'] . '%');
+        }
+
+        if (isset($data['name']) && !empty($data['name'])) {
+            $users = $users->where('name', 'like', '%' . $data['name'] . '%');
+        }
+
+        if (isset($data['address']) && !empty($data['address'])) {
+            $users = $users->where('address', 'like', '%' . $data['address'] . '%');
+        }
+
+        if (isset($data['phone']) && !empty($data['phone'])) {
+            $users = $users->where('phone_number', 'like', '%' . $data['phone'] . '%');
+        }
+
+        if (isset($data['email']) && !empty($data['email'])) {
+            $users = $users->where('email', 'like', '%' . $data['email'] . '%');
+        }
+
+        if (isset($data['sort_by']) && $data['sort_type']) {
+            $users = $users->orderBy($data['sort_by'], $data['sort_type']);
+        }
+        $users = $users->get();
         return $users;
     }
 }

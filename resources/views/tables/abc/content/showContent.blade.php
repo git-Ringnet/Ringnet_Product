@@ -37,7 +37,27 @@
                         <span class="text-btnIner-primary ml-2">Hủy</span>
                     </button>
                 </a>
+                <div class="contentt">
+                    <div class="d-flex content__heading--right">
+                        <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                            onclick="printContentCustom('printContent', 'print-content')">In
+                            trang
+                        </button>
+                        <form id="exportForm" action="{{ route('exportDetailContent', $content->id) }}" method="GET"
+                            style="display: none;">
+                            @csrf
+                        </form>
 
+                        <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                            onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                            <button type="button"
+                                class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                <i class="fa-regular fa-file-excel"></i>
+                                <span class="m-0 ml-1">Xuất Excel</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
                 <button class="custom-btn d-flex align-items-center h-100" name="action" value="1"
                     style="margin-right:10px;">
                     <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
@@ -184,27 +204,30 @@
                                     <p class="font-weight-bold text-uppercase info-chung--heading border-custom">
                                         Nội dung
                                     </p>
+                                    <div class="row result-filter-content margin-left30 my-1">
+                                    </div>
                                     <div
                                         class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed border-custom">
                                         <div class="w-100">
                                             <div class="row mr-0">
                                                 <div class="col-md-5 d-flex align-items-center">
-                                                    <form action="" method="get" id='search-filter'
+                                                    <form action="" method="get" id="search-filter"
                                                         class="p-0 m-0">
                                                         <div class="position-relative ml-1">
                                                             <input type="text" placeholder="Tìm kiếm"
-                                                                name="keywords" style="outline: none;"
+                                                                id="search" name="keywords" style="outline: none;"
                                                                 class="pr-4 w-100 input-search text-13"
-                                                                value="{{ request()->keywords }}">
+                                                                value="{{ request()->keywords }}" />
                                                             <span id="search-icon" class="search-icon">
-                                                                <i class="fas fa-search"></i>
+                                                                <i class="fas fa-search btn-submit"></i>
                                                             </span>
+                                                            <input class="btn-submit" type="submit"
+                                                                id="hidden-submit" name="hidden-submit"
+                                                                style="display: none;" />
                                                         </div>
                                                     </form>
-                                                    <div class="dropdown mx-2 d-none filter-all">
-                                                        <button class="btn-filter_search" type="button"
-                                                            id="dropdownMenuButton" data-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
+                                                    <div class="dropdown mx-2 filter-all">
+                                                        <button class="btn-filter_search" data-toggle="dropdown">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                 height="16" viewBox="0 0 16 16" fill="none">
                                                                 <path
@@ -227,38 +250,50 @@
                                                                     d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
                                                                     fill="#6B6F76" />
                                                             </svg>
-                                                            </span>
                                                         </button>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item text-13-black"
-                                                                href="#">Action</a>
-                                                            <a class="dropdown-item text-13-black"
-                                                                href="#">Another
-                                                                action</a>
-                                                            <a class="dropdown-item text-13-black"
-                                                                href="#">Something else
-                                                                here</a>
+                                                        <div class="dropdown-menu" id="dropdown-menu"
+                                                            aria-labelledby="dropdownMenuButton" style="z-index:">
+                                                            <div class="search-container px-2">
+                                                                <input type="text" placeholder="Tìm kiếm"
+                                                                    id="myInput" class="text-13"
+                                                                    onkeyup="filterFunction()" style="outline: none;">
+                                                                <span class="search-icon mr-2">
+                                                                    <i class="fas fa-search"></i>
+                                                                </span>
+                                                            </div>
+                                                            <div class="scrollbar">
+                                                                <button class="dropdown-item btndropdown text-13-black"
+                                                                    id="btn-ma" data-button="ma" type="button">
+                                                                    Mã phiếu
+                                                                </button>
+                                                                <button class="dropdown-item btndropdown text-13-black"
+                                                                    id="btn-noidung" data-button="noidung"
+                                                                    type="button">
+                                                                    Nội dung
+                                                                </button>
+                                                                <button class="dropdown-item btndropdown text-13-black"
+                                                                    id="btn-total" data-button="total"
+                                                                    type="button">
+                                                                    Số tiền
+                                                                </button>
+                                                                <button class="dropdown-item btndropdown text-13-black"
+                                                                    id="btn-quy" data-button="quy" type="button">
+                                                                    Quỹ
+                                                                </button>
+                                                                <button class="dropdown-item btndropdown text-13-black"
+                                                                    id="btn-ghichu" data-button="ghichu"
+                                                                    type="button">
+                                                                    Ghi chú
+                                                                </button>
+                                                            </div>
+                                                            <!-- Input fields for filtering -->
+                                                            <x-filter-text name="ma" title="Mã phiếu" />
+                                                            <x-filter-text name="noidung" title="Nội dung" />
+                                                            <x-filter-compare name="total" title="Số tiền" />
+                                                            <x-filter-text name="quy" title="Quỹ" />
+                                                            <x-filter-text name="ghichu" title="Ghi chú" />
                                                         </div>
                                                     </div>
-                                                    <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                                        onclick="printContentCustom('printContent', 'print-content')">In
-                                                        trang
-                                                    </button>
-                                                    <form id="exportForm"
-                                                        action="{{ route('exportDetailContent', $content->id) }}"
-                                                        method="GET" style="display: none;">
-                                                        @csrf
-                                                    </form>
-
-                                                    <a href="#" class="activity mr-3" data-name1="NCC"
-                                                        data-des="Export excel"
-                                                        onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
-                                                        <button type="button"
-                                                            class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                                            <i class="fa-regular fa-file-excel"></i>
-                                                            <span class="m-0 ml-1">Xuất Excel</span>
-                                                        </button>
-                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -274,6 +309,9 @@
                                                         Nội dung
                                                     </th>
                                                     <th class="border-right height/-52 padding-left35 text-13">
+                                                        Số tiền
+                                                    </th>
+                                                    <th class="border-right height/-52 padding-left35 text-13">
                                                         Quỹ
                                                     </th>
                                                     <th class="border-right height/-52 padding-left35 text-13">
@@ -281,11 +319,15 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="tbody-content">
                                                 @if (isset($contentChi))
                                                     @foreach ($contentChi as $item_chi)
                                                         <tr id="dynamic-row-1"
-                                                            class="bg-white addWarehouse representative-row">
+                                                            class="bg-white addWarehouse representative-row content-info">
+                                                            <input type="hidden" name="id-content"
+                                                                class="id-content" id="id-content"
+                                                                value="{{ $item_chi->id }}"
+                                                                data-source="{{ $item_chi->source_id }}">
                                                             <td
                                                                 class="border border-top-0 border-left-0 padding-left35 text-13-black">
                                                                 <a
@@ -297,6 +339,12 @@
                                                                 class="border border-top-0 padding-left35 border-left-0">
                                                                 <input autocomplete="off" readonly
                                                                     value="{{ $item_chi->name }}"
+                                                                    class="border-0 px-2 py-1 w-100 text-13-black">
+                                                            </td>
+                                                            <td
+                                                                class="border border-top-0 padding-left35 border-left-0">
+                                                                <input autocomplete="off" readonly
+                                                                    value="{{ number_format($item_chi->total) }}"
                                                                     class="border-0 px-2 py-1 w-100 text-13-black">
                                                             </td>
                                                             <td
@@ -317,7 +365,11 @@
                                                 @if (isset($contentThu))
                                                     @foreach ($contentThu as $item_thu)
                                                         <tr id="dynamic-row-1"
-                                                            class="bg-white addWarehouse representative-row">
+                                                            class="bg-white addWarehouse representative-row content-info">
+                                                            <input type="hidden" name="id-content"
+                                                                class="id-content" id="id-content"
+                                                                value="{{ $item_thu->id }}"
+                                                                data-source="{{ $item_thu->source_id }}">
                                                             <td
                                                                 class="border border-top-0 border-left-0 padding-left35 text-13-black">
                                                                 <a
@@ -329,6 +381,12 @@
                                                                 class="border border-top-0 padding-left35 border-left-0">
                                                                 <input autocomplete="off" readonly
                                                                     value="{{ $item_thu->name }}"
+                                                                    class="border-0 px-2 py-1 w-100 text-13-black">
+                                                            </td>
+                                                            <td
+                                                                class="border border-top-0 padding-left35 border-left-0">
+                                                                <input autocomplete="off" readonly
+                                                                    value="{{ number_format($item_thu->amount) }}"
                                                                     class="border-0 px-2 py-1 w-100 text-13-black">
                                                             </td>
                                                             <td
@@ -359,6 +417,8 @@
     </div>
 </div>
 <x-print-component :contentId="$title" />
+<script src="{{ asset('/dist/js/number.js') }}"></script>
+<script src="{{ asset('/dist/js/filter.js') }}"></script>
 <script>
     flatpickr("#datePicker", {
         locale: "vn",
@@ -390,30 +450,49 @@
                 break;
         }
     });
-</script>
+    $('.contentt').hide();
+    $('.header-options--nav-1 a[data-toggle="tab"]').click(function() {
+        var targetId = $(this).attr('href');
+        var content = '';
+        // Hiển thị hoặc ẩn các phần tử tương ứng với tab được chọn
+        $('.contentt').toggle(targetId === '#content');
+    });
 
+    $(document).on('click', '.btn-submit', function(e) {
+        if (!$(e.target).is('input[type="checkbox"]')) e.preventDefault();
+        var buttonElement = this;
 
-{{-- <script src="{{ asset('/dist/js/products.js') }}"></script>
-<script>
-    $('form').on('submit', function(e) {
-        e.preventDefault();
-        var id = {{ $product->id }}
-        var name = $('input[name="product_name"]').val()
+        var formData = {
+            data: {{ $content->id }},
+            search: $('#search').val(),
+            // Lấy dữ liệu từ các trường tương ứng
+            ma: getData('#ma', this), // Mã phiếu
+            noidung: getData('#noidung', this), // Nội dung
+            total: retrieveComparisonData(this, 'total'), // Số tiền
+            quy: getData('#quy', this), // Quỹ
+            ghichu: getData('#ghichu', this), // Ghi chú
+            sort: getSortData(buttonElement) // Dữ liệu sắp xếp nếu có
+        };
+
+        // AJAX request cho lịch sử công nợ
         $.ajax({
-            url: "{{ route('checkProductName') }}",
-            type: "get",
-            data: {
-                name: name,
-                action: "edit",
-                id: id
-            },
+            type: 'get',
+            url: "{{ route('searchDetailContent') }}",
+            data: formData,
             success: function(data) {
-                if (data.status == false) {
-                    showNotification('warning', data.msg);
-                } else {
-                    $('form')[1].submit();
-                }
+                console.log(data);
+                updateFilters(data, filters, '.result-filter-content', '.tbody-content',
+                    '.content-info', '.id-content', $(this).data('button'));
             }
-        })
-    })
-</script> --}}
+        });
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + $(this).data('button-name') + '-options').hide();
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
+        });
+    });
+</script>

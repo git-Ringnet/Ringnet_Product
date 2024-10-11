@@ -47,6 +47,48 @@
                                 </button>
                             </a>
                         </div>
+                        <div class="detail">
+                            <div class="d-flex content__heading--right">
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContentCustom('printContent', 'print-order')">In
+                                    trang
+                                </button>
+                                <form id="exportForm" action="{{ route('exportDetailUser', $user->id) }}" method="GET"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+
+                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="history">
+                            <div class="d-flex content__heading--right">
+                                <button class="mx-1 d-flex align-items-center btn-primary rounded"
+                                    onclick="printContentCustom('printContent', 'print-sales')">In
+                                    trang
+                                </button>
+                                <form id="exportFormSales" action="{{ route('exportDetailUserSales', $user->id) }}"
+                                    method="GET" style="display: none;">
+                                    @csrf
+                                </form>
+
+                                <a href="#" class="activity mr-3" data-name1="NCC" data-des="Export excel"
+                                    onclick="event.preventDefault(); document.getElementById('exportFormSales').submit();">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
+                                        <i class="fa-regular fa-file-excel"></i>
+                                        <span class="m-0 ml-1">Xuất Excel</span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
                         <a class="activity" data-name1="KH" data-des="Xem trang sửa"
                             href="{{ route('users.edit', ['workspace' => $workspacename, 'user' => $user->id]) }}">
                             <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
@@ -75,7 +117,8 @@
                             data-des="Xem thông tin" data-toggle="tab" href="#info">Thông tin</a>
                     </li>
                     <li>
-                        <a id="detail-tab" class="text-secondary m-0 pl-3 activity" data-toggle="tab" href="#detail">Đơn
+                        <a id="detail-tab" class="text-secondary m-0 pl-3 activity" data-toggle="tab"
+                            href="#detail">Đơn
                             hàng</a>
                     </li>
                     <li>
@@ -91,7 +134,8 @@
                     <div id="info" class="content tab-pane in active">
                         {{-- THÔNG TIN CHUNG --}}
                         <div class="bg-filter-search border-0 text-left border-custom">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-left">THÔNG TIN CHUNG</p>
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-left">THÔNG TIN CHUNG
+                            </p>
                         </div>
                         <div class="info-chung">
                             <div class="content-info">
@@ -198,19 +242,21 @@
                             <div class="w-100">
                                 <div class="row mr-0">
                                     <div class="col-md-5 d-flex align-items-center">
-                                        <form action="" method="get" id='search-filter' class="p-0 m-0">
+                                        <form action="" method="get" id="search-filter" class="p-0 m-0">
                                             <div class="position-relative ml-1">
-                                                <input type="text" placeholder="Tìm kiếm" name="keywords"
-                                                    style="outline: none;" class="pr-4 w-100 input-search text-13"
-                                                    value="{{ request()->keywords }}">
+                                                <input type="text" placeholder="Tìm kiếm" id="search"
+                                                    name="keywords" style="outline: none;"
+                                                    class="pr-4 w-100 input-search text-13"
+                                                    value="{{ request()->keywords }}" />
                                                 <span id="search-icon" class="search-icon">
-                                                    <i class="fas fa-search"></i>
+                                                    <i class="fas fa-search btn-submit"></i>
                                                 </span>
+                                                <input class="btn-submit" type="submit" id="hidden-submit"
+                                                    name="hidden-submit" style="display: none;" />
                                             </div>
                                         </form>
-                                        <div class="dropdown mx-2 d-none filter-all">
-                                            <button class="btn-filter_search" type="button" id="dropdownMenuButton"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="dropdown mx-2 filter-all">
+                                            <button class="btn-filter_search" data-toggle="dropdown">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     viewBox="0 0 16 16" fill="none">
                                                     <path
@@ -233,34 +279,43 @@
                                                         d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
                                                         fill="#6B6F76" />
                                                 </svg>
-                                                </span>
                                             </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item text-13-black" href="#">Action</a>
-                                                <a class="dropdown-item text-13-black" href="#">Another
-                                                    action</a>
-                                                <a class="dropdown-item text-13-black" href="#">Something else
-                                                    here</a>
+                                            <div class="dropdown-menu" id="dropdown-menu"
+                                                aria-labelledby="dropdownMenuButton" style="z-index:">
+                                                <div class="search-container px-2">
+                                                    <input type="text" placeholder="Tìm kiếm" id="myInput"
+                                                        class="text-13" onkeyup="filterFunction()"
+                                                        style="outline: none;">
+                                                    <span class="search-icon mr-2">
+                                                        <i class="fas fa-search"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="scrollbar">
+                                                    <button class="dropdown-item btndropdown text-13-black"
+                                                        id="btn-ma" data-button="ma" type="button">
+                                                        Mã phiếu
+                                                    </button>
+                                                    <button class="dropdown-item btndropdown text-13-black"
+                                                        id="btn-date" data-button="date" type="button">
+                                                        Ngày lập
+                                                    </button>
+                                                    <button class="dropdown-item btndropdown text-13-black"
+                                                        id="btn-diengiai" data-button="diengiai" type="button">
+                                                        Diễn giải
+                                                    </button>
+                                                    <button class="dropdown-item btndropdown text-13-black"
+                                                        id="btn-khachhang-ncc" data-button="khachhang-ncc"
+                                                        type="button">
+                                                        Khách hàng / NCC
+                                                    </button>
+                                                </div>
                                             </div>
+                                            <!-- Input fields to filter -->
+                                            <x-filter-text name="ma" title="Mã phiếu" />
+                                            <x-filter-date-time name="date" title="Ngày lập" />
+                                            <x-filter-text name="diengiai" title="Diễn giải" />
+                                            <x-filter-text name="khachhang-ncc" title="Khách hàng / NCC" />
                                         </div>
-                                        <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                            onclick="printContentCustom('printContent', 'print-order')">In
-                                            trang
-                                        </button>
-                                        <form id="exportForm" action="{{ route('exportDetailUser', $user->id) }}"
-                                            method="GET" style="display: none;">
-                                            @csrf
-                                        </form>
-
-                                        <a href="#" class="activity mr-3" data-name1="NCC"
-                                            data-des="Export excel"
-                                            onclick="event.preventDefault(); document.getElementById('exportForm').submit();">
-                                            <button type="button"
-                                                class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                                <i class="fa-regular fa-file-excel"></i>
-                                                <span class="m-0 ml-1">Xuất Excel</span>
-                                            </button>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -319,7 +374,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="tbody-detail">
                                                 @php
                                                     // Kết hợp hai mảng
                                                     $combined = $detailExport->concat($detailImport);
@@ -331,9 +386,12 @@
 
                                                 @endphp
                                                 @foreach ($sortedCombined as $item)
-                                                    <tr>
+                                                    <tr class="detail-info">
                                                         <td
                                                             class="text-13-black max-width120 border-bottom border-right">
+                                                            <input type="hidden" name="id-detail" class="id-detail"
+                                                                id="id-detail" value="{{ $item->id }}"
+                                                                data-source="{{ $item->source_id }}">
                                                             @if (isset($item->guest_id))
                                                                 <a
                                                                     href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $item->maBG]) }}">
@@ -385,19 +443,21 @@
                             <div class="w-100">
                                 <div class="row mr-0">
                                     <div class="col-md-5 d-flex align-items-center">
-                                        <form action="" method="get" id='search-filter' class="p-0 m-0">
+                                        <form action="" method="get" id="search-filter" class="p-0 m-0">
                                             <div class="position-relative ml-1">
-                                                <input type="text" placeholder="Tìm kiếm" name="keywords"
-                                                    style="outline: none;" class="pr-4 w-100 input-search text-13"
-                                                    value="{{ request()->keywords }}">
+                                                <input type="text" placeholder="Tìm kiếm" id="search2"
+                                                    name="keywords" style="outline: none;"
+                                                    class="pr-4 w-100 input-search text-13"
+                                                    value="{{ request()->keywords }}" autocomplete="off" />
                                                 <span id="search-icon" class="search-icon">
-                                                    <i class="fas fa-search"></i>
+                                                    <i class="fas fa-search btn-submit"></i>
                                                 </span>
+                                                <input class="btn-submit" type="submit" id="hidden-submit"
+                                                    name="hidden-submit" style="display: none;" />
                                             </div>
                                         </form>
-                                        <div class="dropdown mx-2 d-none filter-all">
-                                            <button class="btn-filter_search" type="button" id="dropdownMenuButton"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="dropdown mx-2 filter-al">
+                                            <button class="btn-filter_search" data-toggle="dropdown">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     viewBox="0 0 16 16" fill="none">
                                                     <path
@@ -420,35 +480,61 @@
                                                         d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
                                                         fill="#6B6F76" />
                                                 </svg>
-                                                </span>
                                             </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item text-13-black" href="#">Action</a>
-                                                <a class="dropdown-item text-13-black" href="#">Another
-                                                    action</a>
-                                                <a class="dropdown-item text-13-black" href="#">Something else
-                                                    here</a>
+                                            <div class="dropdown-menu" id="dropdown-menu"
+                                                aria-labelledby="dropdownMenuButton" style="z-index:">
+                                                <div class="search-container px-2">
+                                                    <input type="text" placeholder="Tìm kiếm" id="myInput"
+                                                        class="text-13" onkeyup="filterFunction()"
+                                                        style="outline: none;" autocomplete="off">
+                                                    <span class="search-icon mr-2">
+                                                        <i class="fas fa-search"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="scrollbar">
+                                                    <button class="dropdown-item btndropdownn text-13-black"
+                                                        id="btn-chungtu" data-button="chungtu" type="button">
+                                                        Số chứng từ
+                                                    </button>
+                                                    <button class="dropdown-item btndropdownn text-13-black"
+                                                        id="btn-ctvbanhang" data-button="ctvbanhang" type="button">
+                                                        CTV bán hàng
+                                                    </button>
+                                                    <button class="dropdown-item btndropdownn text-13-black"
+                                                        id="btn-mahang" data-button="mahang" type="button">
+                                                        Mã hàng
+                                                    </button>
+                                                    <button class="dropdown-item btndropdownn text-13-black"
+                                                        id="btn-tenhang" data-button="tenhang" type="button">
+                                                        Tên hàng
+                                                    </button>
+                                                    <button class="dropdown-item btndropdownn text-13-black"
+                                                        id="btn-dvt" data-button="dvt" type="button">
+                                                        ĐVT
+                                                    </button>
+                                                    <button class="dropdown-item btndropdownn text-13-black"
+                                                        id="btn-slban" data-button="slban" type="button">
+                                                        SL bán
+                                                    </button>
+                                                    <button class="dropdown-item btndropdownn text-13-black"
+                                                        id="btn-dongia" data-button="dongia" type="button">
+                                                        Đơn giá
+                                                    </button>
+                                                    <button class="dropdown-item btndropdownn text-13-black"
+                                                        id="btn-thanhtien" data-button="thanhtien" type="button">
+                                                        Thành tiền
+                                                    </button>
+                                                </div>
+                                                <x-filter-text name="chungtu" title="Số chứng từ" />
+                                                <x-filter-text name="ctvbanhang" title="CTV bán hàng" />
+                                                <x-filter-text name="mahang" title="Mã hàng" />
+                                                <x-filter-text name="tenhang" title="Tên hàng" />
+                                                <x-filter-text name="dvt" title="ĐVT" />
+                                                <x-filter-compare name="slban" title="SL bán" />
+                                                <x-filter-compare name="dongia" title="Đơn giá" />
+                                                <x-filter-compare name="thanhtien" title="Thành tiền" />
                                             </div>
                                         </div>
-                                        <button class="mx-1 d-flex align-items-center btn-primary rounded"
-                                            onclick="printContentCustom('printContent', 'print-sales')">In
-                                            trang
-                                        </button>
-                                        <form id="exportFormSales"
-                                            action="{{ route('exportDetailUserSales', $user->id) }}" method="GET"
-                                            style="display: none;">
-                                            @csrf
-                                        </form>
-
-                                        <a href="#" class="activity mr-3" data-name1="NCC"
-                                            data-des="Export excel"
-                                            onclick="event.preventDefault(); document.getElementById('exportFormSales').submit();">
-                                            <button type="button"
-                                                class="btn btn-outline-secondary mx-1 d-flex align-items-center h-100">
-                                                <i class="fa-regular fa-file-excel"></i>
-                                                <span class="m-0 ml-1">Xuất Excel</span>
-                                            </button>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -656,3 +742,100 @@
     </div>
 </form>
 <x-print-component :contentId="$title" />
+<script src="{{ asset('/dist/js/filter.js') }}"></script>
+<script src="{{ asset('/dist/js/number.js') }}"></script>
+<script type="text/javascript">
+    $(document).on('click', '.btn-submit', function(e) {
+        if (!$(e.target).is('input[type="checkbox"]')) e.preventDefault();
+        var parentId = $(this).closest('#history, #detailExport').attr('id');
+
+        if (parentId === 'history') {
+            console.log('Parent is history');
+            // Xử lý logic cho history
+        } else if (parentId === 'detailExport') {
+            console.log('Parent is detailExport');
+            // Xử lý logic cho detailExport
+        } else {
+            console.log('Parent is neither history nor detailExport');
+            // Xử lý khi không phải cả hai
+        }
+
+        // Lịch sử công nợ
+        if (parentId === 'history') {
+            var buttonElement = this;
+            // Thu thập dữ liệu và reset nếu action delete được kích hoạt
+            var formData = {
+                data: {{ $user->id }},
+                search: $('#search').val(),
+                // Lấy dữ liệu từ các trường tương ứng
+                ma: getData('#ma', this),
+                date: retrieveDateData(this, 'date'),
+                diengiai: getData('#diengiai', this),
+                khachhang_ncc: getData('#khachhang-ncc', this),
+                sort: getSortData(buttonElement)
+            };
+            // AJAX request cho lịch sử công nợ
+            $.ajax({
+                type: 'get',
+                url: "{{ route('searchHistoryDebt') }}",
+                data: formData,
+                success: function(data) {
+                    updateFilters(data, filters, '.result-filter-history', '.tbody-history',
+                        '.history-info', '.id-history', $(this).data('button'));
+                }
+            });
+
+            // Đơn hàng
+        } else if (parentId === 'detailExport') {
+            var buttonElement = this;
+            // Thu thập dữ liệu và reset nếu action delete được kích hoạt
+            var formData = {
+                data: {{ $user->id }},
+                search: $('#search2').val(),
+                chungtu: getData('#chungtu', this),
+                ctvbanhang: getData('#ctvbanhang', this),
+                mahang: getData('#mahang', this),
+                tenhang: getData('#tenhang', this),
+                dvt: getData('#dvt', this),
+                slban: retrieveComparisonData(this, "slban"),
+                dongia: retrieveComparisonData(this, "dongia"),
+                thanhtien: retrieveComparisonData(this, "thanhtien"),
+                sort: getSortData(buttonElement)
+            };
+            // AJAX request cho đơn hàng
+            $.ajax({
+                type: 'get',
+                url: "{{ route('searchDetailGuest') }}",
+                data: formData,
+                success: function(data) {
+                    console.log(data);
+                    updateFilters(data, filters, '.result-filter-detail', '.tbody-detail',
+                        '.detail-info', '.id-detail', $(this).data('button'));
+                }
+            });
+        }
+        // Ẩn các tùy chọn nếu cần
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + $(this).data('button-name') + '-options').hide();
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('.history').hide();
+        $('.detail').hide();
+
+        // Xử lý khi chọn tab
+        $('.header-options--nav a[data-toggle="tab"]').click(function() {
+            var targetId = $(this).attr('href');
+            // Hiển thị hoặc ẩn các phần tử tương ứng với tab được chọn
+            $('.history').toggle(targetId === '#history');
+            $('.detail').toggle(targetId === '#detail');
+        });
+    });
+</script>

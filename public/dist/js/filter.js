@@ -2,11 +2,14 @@
 function handleFilterClick(btn, options, input) {
     btn.click(function (event) {
         event.preventDefault();
+        console.log("cascsad");
+
         // $(".btn-filter_search").prop("disabled", true);
         if (input) {
-            input.val("");
+            // input.val("");
         }
         options.toggle();
+        input.focus();
     });
 }
 // Hàm cho nút hủy
@@ -36,6 +39,13 @@ $(document).on("click", ".btndropdown", function (e) {
     var buttonName = $(this).data("button");
     var absoluteItem = $("#" + buttonName + "-options");
     $(".filter-all").append(absoluteItem);
+});
+
+$(document).on("click", ".btndropdownn", function (e) {
+    e.preventDefault();
+    var buttonName = $(this).data("button");
+    var absoluteItem = $("#" + buttonName + "-options");
+    $(".filter-al").append(absoluteItem);
 });
 
 $(document).on("click", ".item-icon, span", function (e) {
@@ -173,524 +183,768 @@ $(document).ready(function () {
 });
 
 // Xử lý click
-handleFilterClick($("#btn-email"), $("#email-options"), $(".email-input"));
-handleFilterClick($("#btn-debt"), $("#debt-options"), $(".debt-input"));
-handleFilterClick($("#btn-name"), $("#name-options"), $(".name-input"));
-handleFilterClick($("#btn-tensp"), $("#tensp-options"), $(".tensp-input"));
-handleFilterClick($("#btn-hdvao"), $("#hdvao-options"), $(".hdvao-input"));
-handleFilterClick($("#btn-hdra"), $("#hdra-options"), $(".hdra-input"));
-handleFilterClick($("#btn-users"), $("#users-options"), $(".users-input"));
-handleFilterClick($("#btn-status"), $("#status-options"), $(".status-input"));
-handleFilterClick($("#btn-pay"), $("#pay-options"), $(".pay-input"));
-handleFilterClick($("#btn-total"), $("#total-options"), $(".total-input"));
-handleFilterClick($("#btn-POnhap"), $("#POnhap-options"), $(".POnhap-input"));
-handleFilterClick($("#btn-BH"), $("#BH-options"), $(".BH-input"));
-handleFilterClick($("#btn-VATN"), $("#VATN-options"), $(".VATN-input"));
-handleFilterClick($("#btn-slnhap"), $("#slnhap-options"), $(".slnhap-input"));
-handleFilterClick($("#btn-POxuat"), $("#POxuat-options"), $(".POxuat-input"));
-handleFilterClick($("#btn-TTN"), $("#TTN-options"), $(".TTN-input"));
-handleFilterClick($("#btn-TTX"), $("#TTX-options"), $(".TTX-input"));
-handleFilterClick($("#btn-HTTTX"), $("#HTTTX-options"), $(".HTTTX-input"));
-handleFilterClick($("#btn-HTTTN"), $("#HTTTN-options"), $(".HTTTN-input"));
-handleFilterClick($("#btn-date"), $("#date-options"), $(".date-input"));
-handleFilterClick($("#btn-idName"), $("#idName-options"), $(".idName-input"));
-handleFilterClick(
+// Function to handle both filter and cancel clicks
+function handleFilterAndCancelClick(btn, options, input, cancelBtn = null) {
+    // Handle the filter button click
+    btn.click(function (event) {
+        event.preventDefault();
+        if (input) {
+        }
+        options.toggle(); // Toggle the visibility of the options
+        input.focus(); // Focus on the input
+    });
+
+    // Handle the cancel button click if provided
+    if (cancelBtn) {
+        cancelBtn.click(function (event) {
+            event.preventDefault();
+            if (input) {
+            }
+            options.hide(); // Hide the options
+        });
+    }
+}
+
+// Example of how to use the new function
+// Lọc và hủy cho Mã phiếu bán hàng
+handleFilterAndCancelClick(
+    $("#btn-maphieu-banhang"), // Nút Mã phiếu bán hàng
+    $("#maphieu-banhang-options"), // Tùy chọn lọc Mã phiếu bán hàng
+    $(".maphieu-banhang-input"), // Trường nhập Mã phiếu bán hàng
+    $("#cancel-maphieu-banhang") // Nút hủy Mã phiếu bán hàng
+);
+
+// Lọc và hủy cho Số phiếu bán hàng
+handleFilterAndCancelClick(
+    $("#btn-sophieu-banhang"), // Nút Số phiếu bán hàng
+    $("#sophieu-banhang-options"), // Tùy chọn lọc Số phiếu bán hàng
+    $(".sophieu-banhang-input"), // Trường nhập Số phiếu bán hàng
+    $("#cancel-sophieu-banhang") // Nút hủy Số phiếu bán hàng
+);
+
+// Lọc và hủy cho Ngày lập bán hàng
+handleFilterAndCancelClick(
+    $("#btn-ngaylap-banhang"), // Nút Ngày lập bán hàng
+    $("#ngaylap-banhang-options"), // Tùy chọn lọc Ngày lập bán hàng
+    $(".ngaylap-banhang-input"), // Trường nhập Ngày lập bán hàng
+    $("#cancel-ngaylap-banhang") // Nút hủy Ngày lập bán hàng
+);
+
+// Lọc và hủy cho Khách hàng bán hàng
+handleFilterAndCancelClick(
+    $("#btn-khachhang-banhang"), // Nút Khách hàng bán hàng
+    $("#khachhang-banhang-options"), // Tùy chọn lọc Khách hàng bán hàng
+    $(".khachhang-banhang-input"), // Trường nhập Khách hàng bán hàng
+    $("#cancel-khachhang-banhang") // Nút hủy Khách hàng bán hàng
+);
+
+// Lọc và hủy cho Trạng thái giao hàng
+handleFilterAndCancelClick(
+    $("#btn-giaohang-banhang"), // Nút Trạng thái giao hàng
+    $("#giaohang-banhang-options"), // Tùy chọn lọc Trạng thái giao hàng
+    $(".giaohang-banhang-input"), // Trường nhập Trạng thái giao hàng
+    $("#cancel-giaohang-banhang") // Nút hủy Trạng thái giao hàng
+);
+
+// Lọc và hủy cho Tổng tiền bán hàng
+handleFilterAndCancelClick(
+    $("#btn-tongtien-banhang"), // Nút Tổng tiền bán hàng
+    $("#tongtien-banhang-options"), // Tùy chọn lọc Tổng tiền bán hàng
+    $(".tongtien-banhang-input"), // Trường nhập Tổng tiền bán hàng
+    $("#cancel-tongtien-banhang") // Nút hủy Tổng tiền bán hàng
+);
+
+// Lọc và hủy cho Mã phiếu đặt hàng
+handleFilterAndCancelClick(
+    $("#btn-maphieu-dathang"), // Nút Mã phiếu đặt hàng
+    $("#maphieu-dathang-options"), // Tùy chọn lọc Mã phiếu đặt hàng
+    $(".maphieu-dathang-input"), // Trường nhập Mã phiếu đặt hàng
+    $("#cancel-maphieu-dathang") // Nút hủy Mã phiếu đặt hàng
+);
+
+// Lọc và hủy cho Số phiếu đặt hàng
+handleFilterAndCancelClick(
+    $("#btn-sophieu-dathang"), // Nút Số phiếu đặt hàng
+    $("#sophieu-dathang-options"), // Tùy chọn lọc Số phiếu đặt hàng
+    $(".sophieu-dathang-input"), // Trường nhập Số phiếu đặt hàng
+    $("#cancel-sophieu-dathang") // Nút hủy Số phiếu đặt hàng
+);
+
+// Lọc và hủy cho Ngày lập đặt hàng
+handleFilterAndCancelClick(
+    $("#btn-ngaylap-dathang"), // Nút Ngày lập đặt hàng
+    $("#ngaylap-dathang-options"), // Tùy chọn lọc Ngày lập đặt hàng
+    $(".ngaylap-dathang-input"), // Trường nhập Ngày lập đặt hàng
+    $("#cancel-ngaylap-dathang") // Nút hủy Ngày lập đặt hàng
+);
+
+// Lọc và hủy cho Khách hàng đặt hàng
+handleFilterAndCancelClick(
+    $("#btn-khachhang-dathang"), // Nút Khách hàng đặt hàng
+    $("#khachhang-dathang-options"), // Tùy chọn lọc Khách hàng đặt hàng
+    $(".khachhang-dathang-input"), // Trường nhập Khách hàng đặt hàng
+    $("#cancel-khachhang-dathang") // Nút hủy Khách hàng đặt hàng
+);
+
+// Lọc và hủy cho Trạng thái giao hàng
+handleFilterAndCancelClick(
+    $("#btn-nhanhang-dathang"), // Nút Trạng thái giao hàng
+    $("#nhanhang-dathang-options"), // Tùy chọn lọc Trạng thái giao hàng
+    $(".nhanhang-dathang-input"), // Trường nhập Trạng thái giao hàng
+    $("#cancel-nhanhang-dathang") // Nút hủy Trạng thái giao hàng
+);
+
+// Lọc và hủy cho Tổng tiền đặt hàng
+handleFilterAndCancelClick(
+    $("#btn-tongtien-dathang"), // Nút Tổng tiền đặt hàng
+    $("#tongtien-dathang-options"), // Tùy chọn lọc Tổng tiền đặt hàng
+    $(".tongtien-dathang-input"), // Trường nhập Tổng tiền đặt hàng
+    $("#cancel-tongtien-dathang") // Nút hủy Tổng tiền đặt hàng
+);
+
+handleFilterAndCancelClick(
+    $("#btn-code"), // Nút Mã kho
+    $("#code-options"), // Tùy chọn lọc Mã kho
+    $(".code-input"), // Trường nhập Mã kho
+    $("#cancel-code") // Nút hủy Mã kho
+);
+
+handleFilterAndCancelClick(
+    $("#btn-warehouseCode"), // Nút Mã kho
+    $("#warehouseCode-options"), // Tùy chọn lọc Mã kho
+    $(".warehouseCode-input"), // Trường nhập Mã kho
+    $("#cancel-warehouseCode") // Nút hủy Mã kho
+);
+
+handleFilterAndCancelClick(
+    $("#btn-warehouseName"), // Nút Tên kho
+    $("#warehouseName-options"), // Tùy chọn lọc Tên kho
+    $(".warehouseName-input"), // Trường nhập Tên kho
+    $("#cancel-warehouseName") // Nút hủy Tên kho
+);
+
+handleFilterAndCancelClick(
+    $("#btn-address"), // Nút Địa chỉ
+    $("#address-options"), // Tùy chọn lọc Địa chỉ
+    $(".address-input"), // Trường nhập Địa chỉ
+    $("#cancel-address") // Nút hủy Địa chỉ
+);
+handleFilterAndCancelClick(
+    $("#btn-tenquy"), // Nút Tên quỹ
+    $("#tenquy-options"), // Tùy chọn lọc Tên quỹ
+    $(".tenquy-input"), // Trường nhập Tên quỹ
+    $("#cancel-tenquy") // Nút hủy Tên quỹ
+);
+
+handleFilterAndCancelClick(
+    $("#btn-tienquy"), // Nút Tiền quỹ
+    $("#tienquy-options"), // Tùy chọn lọc Tiền quỹ
+    $(".tienquy-input"), // Trường nhập Tiền quỹ
+    $("#cancel-tienquy") // Nút hủy Tiền quỹ
+);
+
+handleFilterAndCancelClick(
+    $("#btn-ngaybatdau"), // Nút Ngày bắt đầu
+    $("#ngaybatdau-options"), // Tùy chọn lọc Ngày bắt đầu
+    $(".ngaybatdau-input"), // Trường nhập Ngày bắt đầu
+    $("#cancel-ngaybatdau") // Nút hủy Ngày bắt đầu
+);
+
+handleFilterAndCancelClick(
+    $("#btn-gianhap"), // Nút Giá nhập
+    $("#gianhap-options"), // Tùy chọn lọc Giá nhập
+    $(".gianhap-input"), // Trường nhập Giá nhập
+    $("#cancel-gianhap") // Nút hủy Giá nhập
+);
+
+handleFilterAndCancelClick(
+    $("#btn-giabanle"), // Nút Giá bán lẻ
+    $("#giabanle-options"), // Tùy chọn lọc Giá bán lẻ
+    $(".giabanle-input"), // Trường nhập Giá bán lẻ
+    $("#cancel-giabanle") // Nút hủy Giá bán lẻ
+);
+
+handleFilterAndCancelClick(
+    $("#btn-giabansi"), // Nút Giá bán sỉ
+    $("#giabansi-options"), // Tùy chọn lọc Giá bán sỉ
+    $(".giabansi-input"), // Trường nhập Giá bán sỉ
+    $("#cancel-giabansi") // Nút hủy Giá bán sỉ
+);
+
+handleFilterAndCancelClick(
+    $("#btn-giadacbiet"), // Nút Giá đặc biệt
+    $("#giadacbiet-options"), // Tùy chọn lọc Giá đặc biệt
+    $(".giadacbiet-input"), // Trường nhập Giá đặc biệt
+    $("#cancel-giadacbiet") // Nút hủy Giá đặc biệt
+);
+
+handleFilterAndCancelClick(
+    $("#btn-trongluong"), // Nút Trọng lượng
+    $("#trongluong-options"), // Tùy chọn lọc Trọng lượng
+    $(".trongluong-input"), // Trường nhập Trọng lượng
+    $("#cancel-trongluong") // Nút hủy Trọng lượng
+);
+
+handleFilterAndCancelClick(
+    $("#btn-soluongton"), // Nút Số lượng tồn
+    $("#soluongton-options"), // Tùy chọn lọc Số lượng tồn
+    $(".soluongton-input"), // Trường nhập Số lượng tồn
+    $("#cancel-soluongton") // Nút hủy Số lượng tồn
+);
+handleFilterAndCancelClick(
+    $("#btn-ctvbanhang"),
+    $("#ctvbanhang-options"),
+    $(".ctvbanhang-input"),
+    $("#cancel-ctvbanhang")
+);
+
+handleFilterAndCancelClick(
+    $("#btn-mahang"),
+    $("#mahang-options"),
+    $(".mahang-input"),
+    $("#cancel-mahang")
+);
+
+handleFilterAndCancelClick(
+    $("#btn-tenhang"),
+    $("#tenhang-options"),
+    $(".tenhang-input"),
+    $("#cancel-tenhang")
+);
+
+handleFilterAndCancelClick(
+    $("#btn-dvt"),
+    $("#dvt-options"),
+    $(".dvt-input"),
+    $("#cancel-dvt")
+);
+
+handleFilterAndCancelClick(
+    $("#btn-slban"),
+    $("#slban-options"),
+    $(".slban-input"),
+    $("#cancel-slban")
+);
+
+handleFilterAndCancelClick(
+    $("#btn-dongia"),
+    $("#dongia-options"),
+    $(".dongia-input"),
+    $("#cancel-dongia")
+);
+
+handleFilterAndCancelClick(
+    $("#btn-thanhtien"),
+    $("#thanhtien-options"),
+    $(".thanhtien-input"),
+    $("#cancel-thanhtien")
+);
+
+handleFilterAndCancelClick(
+    $("#btn-email"),
+    $("#email-options"),
+    $(".email-input"),
+    $("#cancel-email")
+);
+handleFilterAndCancelClick(
+    $("#btn-ma"),
+    $("#ma-options"),
+    $(".ma-input"),
+    $("#cancel-ma")
+);
+handleFilterAndCancelClick(
+    $("#btn-ten"),
+    $("#ten-options"),
+    $(".ten-input"),
+    $("#cancel-ten")
+);
+handleFilterAndCancelClick(
+    $("#btn-diachi"),
+    $("#diachi-options"),
+    $(".diachi-input"),
+    $("#cancel-diachi")
+);
+handleFilterAndCancelClick(
+    $("#btn-dienthoai"),
+    $("#dienthoai-options"),
+    $(".dienthoai-input"),
+    $("#cancel-dienthoai")
+);
+handleFilterAndCancelClick(
+    $("#btn-debt"),
+    $("#debt-options"),
+    $(".debt-input"),
+    $("#cancel-debt")
+);
+handleFilterAndCancelClick(
+    $("#btn-name"),
+    $("#name-options"),
+    $(".name-input"),
+    $("#cancel-name")
+);
+handleFilterAndCancelClick(
+    $("#btn-tensp"),
+    $("#tensp-options"),
+    $(".tensp-input"),
+    $("#cancel-tensp")
+);
+handleFilterAndCancelClick(
+    $("#btn-hdvao"),
+    $("#hdvao-options"),
+    $(".hdvao-input"),
+    $("#cancel-hdvao")
+);
+handleFilterAndCancelClick(
+    $("#btn-hdra"),
+    $("#hdra-options"),
+    $(".hdra-input"),
+    $("#cancel-hdra")
+);
+handleFilterAndCancelClick(
+    $("#btn-users"),
+    $("#users-options"),
+    $(".users-input"),
+    $("#cancel-users")
+);
+handleFilterAndCancelClick(
+    $("#btn-status"),
+    $("#status-options"),
+    $(".status-input"),
+    $("#cancel-status")
+);
+handleFilterAndCancelClick(
+    $("#btn-pay"),
+    $("#pay-options"),
+    $(".pay-input"),
+    $("#cancel-pay")
+);
+handleFilterAndCancelClick(
+    $("#btn-total"),
+    $("#total-options"),
+    $(".total-input"),
+    $("#cancel-total")
+);
+handleFilterAndCancelClick(
+    $("#btn-POnhap"),
+    $("#POnhap-options"),
+    $(".POnhap-input"),
+    $("#cancel-POnhap")
+);
+handleFilterAndCancelClick(
+    $("#btn-BH"),
+    $("#BH-options"),
+    $(".BH-input"),
+    $("#cancel-BH")
+);
+handleFilterAndCancelClick(
+    $("#btn-VATN"),
+    $("#VATN-options"),
+    $(".VATN-input"),
+    $("#cancel-VATN")
+);
+handleFilterAndCancelClick(
+    $("#btn-slnhap"),
+    $("#slnhap-options"),
+    $(".slnhap-input"),
+    $("#cancel-slnhap")
+);
+handleFilterAndCancelClick(
+    $("#btn-POxuat"),
+    $("#POxuat-options"),
+    $(".POxuat-input"),
+    $("#cancel-POxuat")
+);
+handleFilterAndCancelClick(
+    $("#btn-TTN"),
+    $("#TTN-options"),
+    $(".TTN-input"),
+    $("#cancel-TTN")
+);
+handleFilterAndCancelClick(
+    $("#btn-TTX"),
+    $("#TTX-options"),
+    $(".TTX-input"),
+    $("#cancel-TTX")
+);
+handleFilterAndCancelClick(
+    $("#btn-HTTTX"),
+    $("#HTTTX-options"),
+    $(".HTTTX-input"),
+    $("#cancel-HTTTX")
+);
+handleFilterAndCancelClick(
+    $("#btn-HTTTN"),
+    $("#HTTTN-options"),
+    $(".HTTTN-input"),
+    $("#cancel-HTTTN")
+);
+handleFilterAndCancelClick(
+    $("#btn-date"),
+    $("#date-options"),
+    $(".date-input"),
+    $("#cancel-date")
+);
+handleFilterAndCancelClick(
+    $("#btn-date2"),
+    $("#date2-options"),
+    $(".date2-input"),
+    $("#cancel-date2")
+);
+handleFilterAndCancelClick(
+    $("#btn-idName"),
+    $("#idName-options"),
+    $(".idName-input"),
+    $("#cancel-idName")
+);
+handleFilterAndCancelClick(
     $("#btn-dateHDX"),
     $("#dateHDX-options"),
-    $(".dateHDX-input")
+    $(".dateHDX-input"),
+    $("#cancel-dateHDX")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-dateHDN"),
     $("#dateHDN-options"),
-    $(".dateHDN-input")
+    $(".dateHDN-input"),
+    $("#cancel-dateHDN")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-dateTTN"),
     $("#dateTTN-options"),
-    $(".dateTTN-input")
+    $(".dateTTN-input"),
+    $("#cancel-dateTTN")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-dateTTX"),
     $("#dateTTX-options"),
-    $(".dateTTX-input")
+    $(".dateTTX-input"),
+    $("#cancel-dateTTX")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-provide_code"),
     $("#provide_code-options"),
-    $(".provide_code-input")
+    $(".provide_code-input"),
+    $("#cancel-provide_code")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-trcVATX"),
     $("#trcVATX-options"),
-    $(".trcVATX-input")
+    $(".trcVATX-input"),
+    $("#cancel-trcVATX")
 );
-handleFilterClick($("#btn-VATX"), $("#VATX-options"), $(".VATX-input"));
-handleFilterClick(
+handleFilterAndCancelClick(
+    $("#btn-VATX"),
+    $("#VATX-options"),
+    $(".VATX-input"),
+    $("#cancel-VATX")
+);
+handleFilterAndCancelClick(
     $("#btn-sauVATX"),
     $("#sauVATX-options"),
-    $(".sauVATX-input")
+    $(".sauVATX-input"),
+    $("#cancel-sauVATX")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-sauVATN"),
     $("#sauVATN-options"),
-    $(".sauVATN-input")
+    $(".sauVATN-input"),
+    $("#cancel-sauVATN")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-trcVATN"),
     $("#trcVATN-options"),
-    $(".trcVATN-input")
+    $(".trcVATN-input"),
+    $("#cancel-trcVATN")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-payment_code"),
     $("#payment_code-options"),
-    $(".payment_code-input")
+    $(".payment_code-input"),
+    $("#cancel-payment_code")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-delivery_code"),
     $("#delivery_code-options"),
-    $(".delivery_code-input")
+    $(".delivery_code-input"),
+    $("#cancel-delivery_code")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-guest_code"),
     $("#guest_code-options"),
-    $(".guest_code-input")
+    $(".guest_code-input"),
+    $("#cancel-guest_code")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-code_payment"),
     $("#code_payment-options"),
-    $(".code_payment-input")
+    $(".code_payment-input"),
+    $("#cancel-code_payment")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-payment"),
     $("#payment-options"),
-    $(".payment-input")
+    $(".payment-input"),
+    $("#cancel-payment")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-number_bill"),
     $("#number_bill-options"),
-    $(".number_bill-input")
+    $(".number_bill-input"),
+    $("#cancel-number_bill")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-shipping_fee"),
     $("#shipping_fee-options"),
-    $(".shipping_fee-input")
+    $(".shipping_fee-input"),
+    $("#cancel-shipping_fee")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-shipping_unit"),
     $("#shipping_unit-options"),
-    $(".shipping_unit-input")
+    $(".shipping_unit-input"),
+    $("#cancel-shipping_unit")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-code_delivery"),
     $("#code_delivery-options"),
-    $(".code_delivery-input")
+    $(".code_delivery-input"),
+    $("#cancel-code_delivery")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-reciept"),
     $("#reciept-options"),
-    $(".reciept-input")
+    $(".reciept-input"),
+    $("#cancel-reciept")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-receive"),
     $("#receive-options"),
-    $(".receive-input")
+    $(".receive-input"),
+    $("#cancel-receive")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-reference_number"),
     $("#reference_number-options"),
-    $(".reference_number-input")
+    $(".reference_number-input"),
+    $("#cancel-reference_number")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-quotenumber"),
     $("#quotenumber-options"),
-    $(".quotenumber-input")
+    $(".quotenumber-input"),
+    $("#cancel-quotenumber")
 );
-handleFilterClick($("#btn-slxuat"), $("#slxuat-options"), $(".slxuat-input"));
-handleFilterClick(
+handleFilterAndCancelClick(
+    $("#btn-slxuat"),
+    $("#slxuat-options"),
+    $(".slxuat-input"),
+    $("#cancel-slxuat")
+);
+handleFilterAndCancelClick(
     $("#btn-product_unit"),
     $("#product_unit-options"),
-    $(".product_unit-input")
+    $(".product_unit-input"),
+    $("#cancel-product_unit")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-price_export"),
     $("#price_export-options"),
-    $(".price_export-input")
+    $(".price_export-input"),
+    $("#cancel-price_export")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-total_export"),
     $("#total_export-options"),
-    $(".total_export-input")
+    $(".total_export-input"),
+    $("#cancel-total_export")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-total_import"),
     $("#total_import-options"),
-    $(".total_import-input")
+    $(".total_import-input"),
+    $("#cancel-total_import")
 );
-// Báo cáo
-handleFilterClick(
-    $("#btn-date-guest"),
-    $("#date-guest-options"),
-    $(".date-guest-input")
-);
-handleFilterClick(
-    $("#btn-date-product"),
-    $("#date-product-options"),
-    $(".date-product-input")
-);
-handleFilterClick(
-    $("#btn-date-thu"),
-    $("#date-thu-options"),
-    $(".date-thu-input")
-);
-handleFilterClick(
-    $("#btn-date-chi"),
-    $("#date-chi-options"),
-    $(".date-chi-input")
-);
-handleFilterClick(
-    $("#btn-code-import"),
-    $("#code-import-options"),
-    $(".code-import-input")
-);
-handleFilterClick(
-    $("#btn-name-import"),
-    $("#name-import-options"),
-    $(".name-import-input")
-);
-handleFilterClick(
-    $("#btn-total-import"),
-    $("#total-import-options"),
-    $(".total-import-input")
-);
-handleFilterClick(
-    $("#btn-debt-import"),
-    $("#debt-import-options"),
-    $(".debt-import-input")
-);
-//
-handleFilterClick(
-    $("#btn-code-export"),
-    $("#code-export-options"),
-    $(".code-export-input")
-);
-handleFilterClick(
-    $("#btn-name-export"),
-    $("#name-export-options"),
-    $(".name-export-input")
-);
-handleFilterClick(
-    $("#btn-total-export"),
-    $("#total-export-options"),
-    $(".total-export-input")
-);
-handleFilterClick(
-    $("#btn-debt-export"),
-    $("#debt-export-options"),
-    $(".debt-export-input")
-);
-//
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-price_import"),
     $("#price_import-options"),
-    $(".price_import-input")
+    $(".price_import-input"),
+    $("#cancel-price_import")
 );
-
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-product_qty"),
     $("#product_qty-options"),
-    $(".product_qty-input")
+    $(".product_qty-input"),
+    $("#cancel-product_qty")
 );
-handleFilterClick($("#btn-code"), $("#code-options"), $(".code-input"));
-handleFilterClick($("#btn-guests"), $("#guests-options"), $(".guests-input"));
-handleFilterClick(
+handleFilterAndCancelClick(
+    $("#btn-guests"),
+    $("#guests-options"),
+    $(".guests-input"),
+    $("#cancel-guests")
+);
+handleFilterAndCancelClick(
     $("#btn-provides"),
     $("#provides-options"),
-    $(".provides-input")
+    $(".provides-input"),
+    $("#cancel-provides")
 );
-handleFilterClick(
+handleFilterAndCancelClick(
     $("#btn-inventory"),
     $("#inventory-options"),
-    $(".inventory-input")
+    $(".inventory-input"),
+    $("#cancel-inventory")
 );
-handleFilterClick($("#btn-phone"), $("#phone-options"), $(".phone-input"));
-handleFilterClick(
+handleFilterAndCancelClick(
+    $("#btn-phone"),
+    $("#phone-options"),
+    $(".phone-input"),
+    $("#cancel-phone")
+);
+handleFilterAndCancelClick(
     $("#btn-company"),
     $("#company-options"),
-    $(".company-input")
+    $(".company-input"),
+    $("#cancel-company")
 );
 
-// Xử lí out
-handleCancelClick($("#cancel-email"), $(".email-input"), $("#email-options"));
-handleCancelClick($("#cancel-debt"), $(".debt-input"), $("#debt-options"));
-handleCancelClick($("#cancel-phone"), $(".phone-input"), $("#phone-options"));
-handleCancelClick($("#cancel-code"), $(".code-input"), $("#code-options"));
-handleCancelClick($("#cancel-hdvao"), $(".hdvao-input"), $("#hdvao-options"));
-handleCancelClick($("#cancel-hdra"), $(".hdra-input"), $("#hdra-options"));
-handleCancelClick($("#cancel-users"), $(".users-input"), $("#users-options"));
-handleCancelClick($("#cancel-pay"), $(".pay-input"), $("#pay-options"));
-handleCancelClick($("#cancel-TTN"), $(".TTN-input"), $("#TTN-options"));
-handleCancelClick($("#cancel-TTX"), $(".TTX-input"), $("#TTX-options"));
-handleCancelClick($("#cancel-HTTTX"), $(".HTTTX-input"), $("#HTTTX-options"));
-handleCancelClick($("#cancel-HTTTN"), $(".HTTTN-input"), $("#HTTTN-options"));
-handleCancelClick($("#cancel-date"), $(".date-input"), $("#date-options"));
-handleCancelClick($("#cancel-total"), $(".total-input"), $("#total-options"));
-handleCancelClick(
-    $("#cancel-idName"),
-    $(".idName-input"),
-    $("#idName-options")
-);
-handleCancelClick(
-    $("#cancel-dateTTX"),
-    $(".dateTTX-input"),
-    $("#dateTTX-options")
-);
-handleCancelClick(
-    $("#cancel-dateTTN"),
-    $(".dateTTN-input"),
-    $("#dateTTN-options")
-);
-handleCancelClick(
-    $("#cancel-dateHDN"),
-    $(".dateHDN-input"),
-    $("#dateHDN-options")
-);
-handleCancelClick(
-    $("#cancel-dateHDX"),
-    $(".dateHDX-input"),
-    $("#dateHDX-options")
-);
-handleCancelClick(
-    $("#cancel-provide_code"),
-    $(".provide_code-input"),
-    $("#provide_code-options")
-);
-handleCancelClick(
-    $("#cancel-sauVATN"),
-    $(".sauVATN-input"),
-    $("#sauVATN-options")
-);
-handleCancelClick(
-    $("#cancel-slnhap"),
-    $(".slnhap-input"),
-    $("#slnhap-options")
-);
-handleCancelClick(
-    $("#cancel-trcVATX"),
-    $(".trcVATX-input"),
-    $("#trcVATX-options")
-);
-handleCancelClick($("#cancel-VATX"), $(".VATX-input"), $("#VATX-options"));
-handleCancelClick(
-    $("#cancel-sauVATX"),
-    $(".sauVATX-input"),
-    $("#sauVATX-options")
-);
-handleCancelClick(
-    $("#cancel-POnhap"),
-    $(".POnhap-input"),
-    $("#POnhap-options")
-);
-handleCancelClick(
-    $("#cancel-POxuat"),
-    $(".POxuat-input"),
-    $("#POxuat-options")
-);
-handleCancelClick($("#cancel-BH"), $(".BH-input"), $("#BH-options"));
-handleCancelClick(
-    $("#cancel-trcVATN"),
-    $(".trcVATN-input"),
-    $("#trcVATN-options")
-);
-handleCancelClick($("#cancel-VATN"), $(".VATN-input"), $("#VATN-options"));
-handleCancelClick(
-    $("#cancel-payment_code"),
-    $(".payment_code-input"),
-    $("#payment_code-options")
-);
-handleCancelClick(
-    $("#cancel-delivery_code"),
-    $(".delivery_code-input"),
-    $("#delivery_code-options")
-);
-handleCancelClick(
-    $("#cancel-guest_code"),
-    $(".guest_code-input"),
-    $("#guest_code-options")
-);
-handleCancelClick(
-    $("#cancel-code_payment"),
-    $(".code_payment-input"),
-    $("#code_payment-options")
-);
-handleCancelClick(
-    $("#cancel-payment"),
-    $(".payment-input"),
-    $("#payment-options")
-);
-handleCancelClick(
-    $("#cancel-number_bill"),
-    $(".number_bill-input"),
-    $("#number_bill-options")
-);
-handleCancelClick(
-    $("#cancel-shipping_fee"),
-    $(".shipping_fee-input"),
-    $("#shipping_fee-options")
-);
-handleCancelClick(
-    $("#cancel-shipping_unit"),
-    $(".shipping_unit-input"),
-    $("#shipping_unit-options")
-);
-handleCancelClick(
-    $("#cancel-code_delivery"),
-    $(".code_delivery-input"),
-    $("#code_delivery-options")
-);
-handleCancelClick(
-    $("#cancel-reciept"),
-    $(".reciept-input"),
-    $("#reciept-options")
-);
-handleCancelClick(
-    $("#cancel-receive"),
-    $(".receive-input"),
-    $("#receive-options")
-);
-handleCancelClick(
-    $("#cancel-status"),
-    $(".status-input"),
-    $("#status-options")
-);
-handleCancelClick(
-    $("#cancel-reference_number"),
-    $(".reference_number-input"),
-    $("#reference_number-options")
-);
-handleCancelClick(
-    $("#cancel-quotenumber"),
-    $(".quotenumber-input"),
-    $("#quotenumber-options")
-);
-handleCancelClick(
-    $("#cancel-product_unit"),
-    $(".product_unit-input"),
-    $("#product_unit-options")
-);
-handleCancelClick(
-    $("#cancel-slxuat"),
-    $(".slxuat-input"),
-    $("#slxuat-options")
-);
-handleCancelClick(
-    $("#cancel-price_export"),
-    $(".price_export-input"),
-    $("#price_export-options")
-);
-handleCancelClick(
-    $("#cancel-total_export"),
-    $(".total_export-input"),
-    $("#total_export-options")
-);
-handleCancelClick(
-    $("#cancel-total_import"),
-    $(".total_import-input"),
-    $("#total_import-options")
-);
-handleCancelClick(
-    $("#cancel-price_import"),
-    $(".price_import-input"),
-    $("#price_import-options")
-);
-handleCancelClick(
-    $("#cancel-product_qty"),
-    $(".product_qty-input"),
-    $("#product_qty-options")
-);
-handleCancelClick(
-    $("#cancel-guests"),
-    $(".guests-input"),
-    $("#guests-options")
-);
-handleCancelClick(
-    $("#cancel-provides"),
-    $(".provides-input"),
-    $("#provides-options")
-);
-handleCancelClick($("#cancel-name"), $(".name-input"), $("#name-options"));
-handleCancelClick($("#cancel-tensp"), $(".tensp-input"), $("#tensp-options"));
-handleCancelClick(
-    $("#cancel-inventory"),
-    $(".inventory-input"),
-    $("#inventory-options")
-);
-handleCancelClick(
-    $("#cancel-company"),
-    $(".company-input"),
-    $("#company-options")
-);
 // Báo cáo
-handleCancelClick(
-    $("#cancel-date-product"),
+handleFilterAndCancelClick(
+    $("#btn-date-product"),
+    $("#date-product-options"),
     $(".date-product-input"),
-    $("#date-product-options")
+    $("#cancel-date-product")
 );
-handleCancelClick(
-    $("#cancel-date-guest"),
+handleFilterAndCancelClick(
+    $("#btn-date-guest"),
+    $("#date-guest-options"),
     $(".date-guest-input"),
-    $("#date-guest-options")
+    $("#cancel-date-guest")
 );
-handleCancelClick(
-    $("#cancel-date-thu"),
+handleFilterAndCancelClick(
+    $("#btn-date-thu"),
+    $("#date-thu-options"),
     $(".date-thu-input"),
-    $("#date-thu-options")
+    $("#cancel-date-thu")
 );
-handleCancelClick(
-    $("#cancel-date-chi"),
+handleFilterAndCancelClick(
+    $("#btn-date-chi"),
+    $("#date-chi-options"),
     $(".date-chi-input"),
-    $("#date-chi-options")
+    $("#cancel-date-chi")
 );
-handleCancelClick(
-    $("#cancel-code-import"),
+handleFilterAndCancelClick(
+    $("#btn-code-import"),
+    $("#code-import-options"),
     $(".code-import-input"),
-    $("#code-import-options")
+    $("#cancel-code-import")
 );
-handleCancelClick(
-    $("#cancel-name-import"),
+handleFilterAndCancelClick(
+    $("#btn-name-import"),
+    $("#name-import-options"),
     $(".name-import-input"),
-    $("#name-import-options")
+    $("#cancel-name-import")
 );
-handleCancelClick(
-    $("#cancel-total-import"),
+handleFilterAndCancelClick(
+    $("#btn-total-import"),
+    $("#total-import-options"),
     $(".total-import-input"),
-    $("#total-import-options")
+    $("#cancel-total-import")
 );
-handleCancelClick(
-    $("#cancel-debt-import"),
+handleFilterAndCancelClick(
+    $("#btn-debt-import"),
+    $("#debt-import-options"),
     $(".debt-import-input"),
-    $("#debt-import-options")
+    $("#cancel-debt-import")
 );
-//
-handleCancelClick(
-    $("#cancel-code-export"),
+handleFilterAndCancelClick(
+    $("#btn-code-export"),
+    $("#code-export-options"),
     $(".code-export-input"),
-    $("#code-export-options")
+    $("#cancel-code-export")
 );
-handleCancelClick(
-    $("#cancel-name-export"),
+handleFilterAndCancelClick(
+    $("#btn-name-export"),
+    $("#name-export-options"),
     $(".name-export-input"),
-    $("#name-export-options")
+    $("#cancel-name-export")
 );
-handleCancelClick(
-    $("#cancel-total-export"),
+handleFilterAndCancelClick(
+    $("#btn-total-export"),
+    $("#total-export-options"),
     $(".total-export-input"),
-    $("#total-export-options")
+    $("#cancel-total-export")
 );
-handleCancelClick(
-    $("#cancel-debt-export"),
+handleFilterAndCancelClick(
+    $("#btn-debt-export"),
+    $("#debt-export-options"),
     $(".debt-export-input"),
-    $("#debt-export-options")
+    $("#cancel-debt-export")
 );
+handleFilterAndCancelClick(
+    $("#btn-chungtu"),
+    $("#chungtu-options"),
+    $(".chungtu-input"),
+    $("#cancel-chungtu")
+);
+handleFilterAndCancelClick(
+    $("#btn-diengiai"),
+    $("#diengiai-options"),
+    $(".diengiai-input"),
+    $("#cancel-diengiai")
+);
+handleFilterAndCancelClick(
+    $("#btn-tientoa"),
+    $("#tientoa-options"),
+    $(".tientoa-input"),
+    $("#cancel-tientoa")
+);
+handleFilterAndCancelClick(
+    $("#btn-thu"),
+    $("#thu-options"),
+    $(".thu-input"),
+    $("#cancel-thu")
+);
+handleFilterAndCancelClick(
+    $("#btn-chi"),
+    $("#chi-options"),
+    $(".chi-input"),
+    $("#cancel-chi")
+);
+handleFilterAndCancelClick(
+    $("#btn-congno"),
+    $("#congno-options"),
+    $(".congno-input"),
+    $("#cancel-congno")
+);
+// Lọc và hủy cho Nội dung
+handleFilterAndCancelClick(
+    $("#btn-noidung"), // Nút Nội dung
+    $("#noidung-options"), // Tùy chọn lọc Nội dung
+    $(".noidung-input"), // Trường nhập Nội dung
+    $("#cancel-noidung") // Nút hủy Nội dung
+);
+// Lọc và hủy cho Quỹ
+handleFilterAndCancelClick(
+    $("#btn-quy"), // Nút Quỹ
+    $("#quy-options"), // Tùy chọn lọc Quỹ
+    $(".quy-input"), // Trường nhập Quỹ
+    $("#cancel-quy") // Nút hủy Quỹ
+);
+
+// Lọc và hủy cho Ghi chú
+handleFilterAndCancelClick(
+    $("#btn-ghichu"), // Nút Ghi chú
+    $("#ghichu-options"), // Tùy chọn lọc Ghi chú
+    $(".ghichu-input"), // Trường nhập Ghi chú
+    $("#cancel-ghichu") // Nút hủy Ghi chú
+);
+handleFilterAndCancelClick(
+    $("#btn-khachhang-ncc"), // Nút Ghi chú
+    $("#khachhang-ncc-options"), // Tùy chọn lọc Ghi chú
+    $(".khachhang-ncc-input"), // Trường nhập Ghi chú
+    $("#cancel-khachhang-ncc") // Nút hủy Ghi chú
+);
+
 //
 
 function filterFunction() {
@@ -722,6 +976,13 @@ function filterButtons(inputId, containerClass) {
         }
     });
 }
+
+var filters = [];
+var sort = [];
+var svgtop =
+    "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 19.0009C11.6332 19.0009 11.7604 18.9482 11.8542 18.8544C11.9480 18.7607 12.0006 18.6335 12.0006 18.5009V6.70789L15.1466 9.85489C15.2405 9.94878 15.3679 10.0015 15.5006 10.0015C15.6334 10.0015 15.7607 9.94878 15.8546 9.85489C15.9485 9.76101 16.0013 9.63367 16.0013 9.50089C16.0013 9.36812 15.9485 9.24078 15.8546 9.14689L11.8546 5.14689C11.8082 5.10033 11.7530 5.06339 11.6923 5.03818C11.6315 5.01297 11.5664 5 11.5006 5C11.4349 5 11.3697 5.01297 11.3090 5.03818C11.2483 5.06339 11.1931 5.10033 11.1466 5.14689L7.14663 9.14689C7.10014 9.19338 7.06327 9.24857 7.03811 9.30931C7.01295 9.37005 7 9.43515 7 9.50089C7 9.63367 7.05274 9.76101 7.14663 9.85489C7.24052 9.94878 7.36786 10.0015 7.50063 10.0015C7.63341 10.0015 7.76075 9.94878 7.85463 9.85489L11.0006 6.70789V18.5009C11.0006 18.6335 11.0533 18.7607 11.1471 18.8544C11.2408 18.9482 11.3680 19.0009 11.5006 19.0009Z' fill='#555555'/></svg>";
+var svgbot =
+    "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>";
 
 function updateFilters(
     data,
@@ -778,18 +1039,26 @@ function updateFilters(
         $(resultFilterClass).append(itemFilter);
     });
 
-    // Hide and show relevant elements
+    // Hide and show relevant elements based on id and optionally data-source
     var ids = [];
-    data.data.forEach(function (item) {
-        ids.push(item.id);
+    Object.values(data.data).forEach(function (item) {
+        ids.push({ id: item.id, source: item.source_id || null });
     });
-
     $(elementClass).each(function () {
         var value = parseInt($(this).find(idClass).val());
-        var index = ids.indexOf(value);
-        if (index !== -1) {
+        var source = $(this).find(idClass).data("source") || null;
+
+        // Match based on id and optionally source_id if it exists
+        var match = ids.find(function (obj) {
+            return (
+                obj.id === value &&
+                (obj.source === null || obj.source === source)
+            );
+        });
+
+        if (match) {
             $(this).show();
-            $(this).attr("data-position", index + 1);
+            $(this).attr("data-position", ids.indexOf(match) + 1);
         } else {
             $(this).hide();
         }
@@ -1235,4 +1504,88 @@ function updateFiltersReport2(
         return $(a).data("position") - $(b).data("position");
     });
     $(tbodyClass).empty().append(sortedElements);
+}
+
+// Helper functions
+function getData(selector, element) {
+    return $(element).data("delete") === selector.replace("#", "")
+        ? ($(selector).val(""), null)
+        : $(selector).val();
+}
+
+function retrieveComparisonData(element, field) {
+    const operatorClass = `.${field}-operator`;
+    const quantityClass = `.${field}-quantity`;
+
+    return $(element).data("delete") === field
+        ? ($(quantityClass).val(""), null)
+        : [$(operatorClass).val(), $(quantityClass).val()];
+}
+
+function retrieveDateData(element, field) {
+    const dateStartId = `#date_start_${field}`; // Lấy theo ID
+    const dateEndId = `#date_end_${field}`; // Lấy theo ID
+    const hiddenInputId = `#${field}_datavalue`; // ID của input ẩn
+
+    if ($(element).data("delete") === field) {
+        // Reset giá trị nếu 'delete' được kích hoạt
+        $(dateStartId).val("");
+        $(dateEndId).val("");
+        $(hiddenInputId).val("");
+        return null;
+    } else {
+        // Lấy giá trị của ngày bắt đầu và ngày kết thúc
+        var dateStart = $(dateStartId).val();
+        var dateEnd = $(dateEndId).val();
+        var dateArray = [dateStart, dateEnd];
+
+        // Lưu mảng ngày vào input ẩn dưới dạng chuỗi JSON
+        $(hiddenInputId).val(
+            JSON.stringify([
+                {
+                    key: field,
+                    value: dateArray,
+                },
+            ])
+        );
+        return dateArray;
+    }
+}
+
+function getSortData(element) {
+    var sort_by = $(element).data("sort-by") || "";
+    var sort_type = $(element).data("sort-type") === "ASC" ? "DESC" : "ASC";
+    $(element).data("sort-type", sort_type);
+    $(".icon").text(""); // Clear icons
+    $("#icon-" + sort_by).html(sort_type === "ASC" ? svgtop : svgbot);
+    var sort = [sort_by, sort_type];
+    return sort;
+}
+
+function getStatusData(element, field) {
+    var statusValues = [];
+    var statusFieldClass = `.ks-cboxtags-${field} input[type="checkbox"]`;
+
+    if ($(element).data("delete") === field) {
+        // Xử lý reset khi 'delete' được kích hoạt
+        statusValues = [];
+        $(statusFieldClass).prop("checked", false);
+    } else {
+        // Lấy tất cả các giá trị checkbox đã chọn
+        $(statusFieldClass).each(function () {
+            const value = $(this).val();
+            if ($(this).is(":checked")) {
+                if (statusValues.indexOf(value) === -1) {
+                    statusValues.push(value);
+                }
+            } else {
+                const index = statusValues.indexOf(value);
+                if (index !== -1) {
+                    statusValues.splice(index, 1);
+                }
+            }
+        });
+    }
+
+    return statusValues;
 }

@@ -475,7 +475,6 @@
             $('#date_start_date').val('');
             $('#date_end_date').val('');
             $('.datavalue').val('');
-
         }
         $.ajax({
             type: 'get',

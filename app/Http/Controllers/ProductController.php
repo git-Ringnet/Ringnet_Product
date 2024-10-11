@@ -112,11 +112,6 @@ class ProductController extends Controller
             ->where('quoteimport.product_id', $id)
             ->select('detailimport.*', 'provides.provide_name_display')
             ->orderBy('detailimport.id', 'desc');
-        if (Auth::check()) {
-            if (Auth::user()->getRoleUser->roleid == 4) {
-                $import->where('user_id', Auth::user()->id);
-            }
-        }
         $import = $import->get();
         return view('tables.products.showProduct', compact('product', 'title', 'display', 'history', 'workspacename', 'quoteExport', 'import'));
     }
@@ -185,21 +180,38 @@ class ProductController extends Controller
     {
         $data = $request->all();
         $filters = [];
-        if (isset($data['idName']) && $data['idName'] !== null) {
-            $products = $this->products->getProductsbyName($data['idName']);
-            $productsString = implode(', ', $products);
-            $filters[] = ['value' => 'Tên sản phẩm: ' . count($data['idName']) . ' được chọn', 'name' => 'idName', 'icon' => 'po'];
+        if (isset($data['productCode']) && $data['productCode'] !== null) {
+            $filters[] = ['value' => 'Mã hàng hoá: ' . $data['productCode'], 'name' => 'ma', 'icon' => 'status'];
         }
-        if (isset($data['code']) && $data['code'] !== null) {
-            $filters[] = ['value' => 'Mã hàng hoá: ' . $data['code'], 'name' => 'code', 'icon' => 'status'];
+        if (isset($data['productName']) && $data['productName'] !== null) {
+            $filters[] = ['value' => 'Tên hàng hoá: ' . $data['productName'], 'name' => 'tenhang', 'icon' => 'name'];
         }
-        if (isset($data['inventory']) && $data['inventory'][1] !== null) {
-            $filters[] = ['value' => 'Số lượng tồn: ' . $data['inventory'][0] . $data['inventory'][1], 'name' => 'inventory', 'icon' => 'sl'];
+        if (isset($data['unit']) && $data['unit'] !== null) {
+            $filters[] = ['value' => 'Đơn vị tính: ' . $data['unit'], 'name' => 'dvt', 'icon' => 'unit'];
         }
+        if (isset($data['purchasePrice'][0]) && isset($data['purchasePrice'][1])) {
+            $filters[] = ['value' => 'Giá nhập: ' . $data['purchasePrice'][0] . ' - ' . $data['purchasePrice'][1], 'name' => 'gianhap', 'icon' => 'money'];
+        }
+        if (isset($data['retailPrice'][0]) && isset($data['retailPrice'][1])) {
+            $filters[] = ['value' => 'Giá bán lẻ: ' . $data['retailPrice'][0] . ' - ' . $data['retailPrice'][1], 'name' => 'giabanle', 'icon' => 'money'];
+        }
+        if (isset($data['wholesalePrice'][0]) && isset($data['wholesalePrice'][1])) {
+            $filters[] = ['value' => 'Giá bán sỉ: ' . $data['wholesalePrice'][0] . ' - ' . $data['wholesalePrice'][1], 'name' => 'giabansi', 'icon' => 'money'];
+        }
+        if (isset($data['specialPrice'][0]) && isset($data['specialPrice'][1])) {
+            $filters[] = ['value' => 'Giá đặc biệt: ' . $data['specialPrice'][0] . ' - ' . $data['specialPrice'][1], 'name' => 'giadacbiet', 'icon' => 'money'];
+        }
+        if (isset($data['weight'][0]) && isset($data['weight'][1])) {
+            $filters[] = ['value' => 'Trọng lượng: ' . $data['weight'][0] . ' - ' . $data['weight'][1], 'name' => 'trongluong', 'icon' => 'money'];
+        }
+        if (isset($data['stockQuantity']) && $data['stockQuantity'][1] !== null) {
+            $filters[] = ['value' => 'Số lượng tồn: ' . $data['stockQuantity'][0] . ' - ' . $data['stockQuantity'][1], 'name' => 'soluongton', 'icon' => 'sl'];
+        }
+
         if ($request->ajax()) {
             $products = $this->products->ajax($data);
             return response()->json([
-                'products' => $products,
+                'data' => $products,
                 'filters' => $filters,
             ]);
         }
@@ -303,5 +315,106 @@ class ProductController extends Controller
     {
         $data = $this->products->checkProductName($request->all());
         return $data;
+    }
+    // Đặt hàng
+    public function searchProductDetailI(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['maphieuDathang']) && $data['maphieuDathang'] !== null) {
+            $filters[] = ['value' => 'Mã phiếu: ' . $data['maphieuDathang'], 'name' => 'maphieu-dathang', 'icon' => 'code'];
+        }
+        if (isset($data['sophieuDathang']) && $data['sophieuDathang'] !== null) {
+            $filters[] = ['value' => 'Số phiếu: ' . $data['sophieuDathang'], 'name' => 'sophieu-dathang', 'icon' => 'number'];
+        }
+        if (isset($data['ngaylapDathang']) && $data['ngaylapDathang'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['ngaylapDathang'][0]));
+            $date_end = date("d/m/Y", strtotime($data['ngaylapDathang'][1]));
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if (isset($data['khachhangDathang']) && $data['khachhangDathang'] !== null) {
+            $filters[] = ['value' => 'Khách hàng: ' . $data['khachhangDathang'], 'name' => 'khachhang-dathang', 'icon' => 'customer'];
+        }
+
+        $statusTextPay = '';
+        if (isset($data['nhanhangDathang']) && $data['nhanhangDathang'] !== null) {
+            $statusValues = [];
+            if (in_array(0, $data['nhanhangDathang'])) {
+                $statusValues[] = '<span style="color: #858585;">Chưa nhận</span>';
+            }
+            if (in_array(1, $data['nhanhangDathang'])) {
+                $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
+            }
+            if (in_array(2, $data['nhanhangDathang'])) {
+                $statusValues[] = '<span style="color: #08AA36BF;">Đã nhận</span>';
+            }
+            $statusTextPay = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Giao hàng: ' . $statusTextPay, 'name' => 'nhanhang-dathang'];
+        }
+
+        // Lọc theo tổng tiền
+        if (isset($data['tongtienDathang']) && $data['tongtienDathang'][1] !== null) {
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['tongtienDathang'][0] . ' ' . $data['tongtienDathang'][1], 'name' => 'tongtien-dathang', 'icon' => 'money-bill'];
+        }
+        if ($request->ajax()) {
+            $products = $this->products->searchProductDetailI($data);
+            return response()->json([
+                'data' => $products,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
+    // Bán hàng
+    public function searchProductDetailE(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['maphieuBanhang']) && $data['maphieuBanhang'] !== null) {
+            $filters[] = ['value' => 'Mã phiếu: ' . $data['maphieuBanhang'], 'name' => 'maphieu-banhang', 'icon' => 'code'];
+        }
+
+        if (isset($data['sophieuBanhang']) && $data['sophieuBanhang'] !== null) {
+            $filters[] = ['value' => 'Số phiếu: ' . $data['sophieuBanhang'], 'name' => 'sophieu-banhang', 'icon' => 'number'];
+        }
+
+        if (isset($data['ngaylapBanhang']) && $data['ngaylapBanhang'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['ngaylapBanhang'][0]));
+            $date_end = date("d/m/Y", strtotime($data['ngaylapBanhang'][1]));
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date2', 'icon' => 'date'];
+        }
+
+        if (isset($data['khachhangBanhang']) && $data['khachhangBanhang'] !== null) {
+            $filters[] = ['value' => 'Khách hàng: ' . $data['khachhangBanhang'], 'name' => 'khachhang-banhang', 'icon' => 'customer'];
+        }
+        $statusTextPay = '';
+        if (isset($data['giaohangBanhang']) && $data['giaohangBanhang'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['giaohangBanhang'])) {
+                $statusValues[] = '<span style="color: #858585;">Chưa giao</span>';
+            }
+            if (in_array(3, $data['giaohangBanhang'])) {
+                $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
+            }
+            if (in_array(2, $data['giaohangBanhang'])) {
+                $statusValues[] = '<span style="color: #08AA36BF;">Đã giao</span>';
+            }
+            $statusTextPay = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Giao hàng: ' . $statusTextPay, 'name' => 'giaohang-banhang'];
+        }
+
+        // Lọc theo tổng tiền
+        if (isset($data['tongtienBanhang']) && $data['tongtienBanhang'][1] !== null) {
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['tongtienBanhang'][0] . ' ' . $data['tongtienBanhang'][1], 'name' => 'tongtien-banhang', 'icon' => 'money-bill'];
+        }
+
+        if ($request->ajax()) {
+            $products = $this->products->searchProductDetailE($data);
+            return response()->json([
+                'data' => $products,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
 }

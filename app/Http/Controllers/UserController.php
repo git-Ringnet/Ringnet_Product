@@ -106,9 +106,13 @@ class UserController extends Controller
         $groupGuests = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
         //Đơn hàng
-        $detailExport = $this->detailExport->getAllDetailExportByUser($id);
+        $detailExport = $this->detailExport->getAllDetailExportByUser($id)->map(function ($item) {
+            $item->source_id = 'export';
+            return $item;
+        });
         $detailImport = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->where('detailimport.id_sale', $id)
             ->select('detailimport.*', 'provides.provide_name_display')
             ->orderBy('detailimport.id', 'desc');
         if (Auth::check()) {
@@ -116,7 +120,10 @@ class UserController extends Controller
                 $detailImport->where('user_id', Auth::user()->id);
             }
         }
-        $detailImport = $detailImport->get();
+        $detailImport = $detailImport->get()->map(function ($item) {
+            $item->source_id = 'import';
+            return $item;
+        });;
 
         return view('tables.user.show', compact(
             'title',
@@ -206,5 +213,71 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return redirect()->route('users.index', ['workspace' => $workspace])->with('msg', 'Xóa nhân viên thành công!');
+    }
+    public function search(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['code']) && $data['code'] !== null) {
+            $filters[] = ['value' => 'Mã: ' . $data['code'], 'name' => 'code', 'icon' => 'code'];
+        }
+
+        if (isset($data['name']) && $data['name'] !== null) {
+            $filters[] = ['value' => 'Tên: ' . $data['name'], 'name' => 'name', 'icon' => 'name'];
+        }
+
+        if (isset($data['address']) && $data['address'] !== null) {
+            $filters[] = ['value' => 'Địa chỉ: ' . $data['address'], 'name' => 'address', 'icon' => 'location'];
+        }
+
+        if (isset($data['phone']) && $data['phone'] !== null) {
+            $filters[] = ['value' => 'Điện thoại: ' . $data['phone'], 'name' => 'phone', 'icon' => 'phone'];
+        }
+
+        if (isset($data['email']) && $data['email'] !== null) {
+            $filters[] = ['value' => 'Email: ' . $data['email'], 'name' => 'email', 'icon' => 'email'];
+        }
+        $users = new User();
+        if ($request->ajax()) {
+            // Truy vấn nội dung các nhóm
+            $data = $users->ajax($data);
+            // Trả về phản hồi JSON
+            return response()->json([
+                'data' => $data,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
+    public function searchDetailUser(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['ma']) && $data['ma'] !== null) {
+            $filters[] = ['value' => 'Mã phiếu: ' . $data['ma'], 'name' => 'ma', 'icon' => 'code'];
+        }
+
+        if (isset($data['date']) && $data['date'] !== null) {
+            $filters[] = ['value' => 'Ngày lập: ' . $data['date'], 'name' => 'date', 'icon' => 'calendar'];
+        }
+
+        if (isset($data['diengiai']) && $data['diengiai'] !== null) {
+            $filters[] = ['value' => 'Diễn giải: ' . $data['diengiai'], 'name' => 'diengiai', 'icon' => 'description'];
+        }
+
+        if (isset($data['khachhang_ncc']) && $data['khachhang_ncc'] !== null) {
+            $filters[] = ['value' => 'Khách hàng / NCC: ' . $data['khachhang_ncc'], 'name' => 'khachhang_ncc', 'icon' => 'user'];
+        }
+        $users = new User();
+        if ($request->ajax()) {
+            // Truy vấn nội dung các nhóm
+            $data = $users->ajax($data);
+            // Trả về phản hồi JSON
+            return response()->json([
+                'data' => $data,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
 }
