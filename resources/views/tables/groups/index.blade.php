@@ -2,7 +2,7 @@
 <div class="content-wrapper m-0 min-height--none">
     <div class="content-header-fixed p-0">
         <div class="content__header--inner">
-            <div class="content__heading--left">
+            <div class="content__heading--left opacity-0">
                 <span class="ml-4">Thiết lập ban đầu</span>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -132,35 +132,35 @@
                         <div class="outer2 table-responsive text-nowrap">
                             <table id="example2" class="table table-hover bg-white rounded">
                                 <thead class="border-custom">
-                                    <tr style="height: 44px;">
-                                        <th class="height-52" scope="col" style="">
+                                    <tr>
+                                        <th class="height-30 py-0 border-right" scope="col" style="">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="group_name_display" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Mã đối tượng</span>
+                                                        <span class="text-14">Mã đối tượng</span>
                                                     </button>
                                                 </a>
                                                 <div class="icon" id="icon-group_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="">
+                                        <th class="height-30 py-0 border-right" scope="col" style="">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="group_name_display" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Tên nhóm đối tượng</span>
+                                                        <span class="text-14">Tên nhóm đối tượng</span>
                                                     </button>
                                                 </a>
                                                 <div class="icon" id="icon-group_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52" scope="col" style="">
+                                        <th class="height-30 py-0 border-right" scope="col" style="">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="group_type"
                                                     data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Loại nhóm đối tượng</span>
+                                                        <span class="text-14">Loại nhóm đối tượng</span>
                                                     </button>
                                                 </a>
                                                 <div class="icon" id="icon-group_code"></div>
@@ -171,21 +171,21 @@
                                 <tbody class="tbody-group">
                                     @foreach ($groupedGroups as $groupType => $groups)
                                         <tr>
-                                            <td class="text-green" style="font-size: 16px; font-weight: 500"
+                                            <td class="text-purble font-weight-bold border-bottom py-1" style="font-size: 16px;"
                                                 colspan="3">Nhóm đối tượng : {{ $groupType }}
                                             </td>
                                         </tr>
                                         @foreach ($groups as $item)
-                                            <tr class="position-relative group-info height-52">
+                                            <tr class="position-relative group-info height-30">
                                                 <input type="hidden" name="id-group" class="id-group" id="id-group"
                                                     value="{{ $item->id }}">
-                                                <td class="text-13-black text-left border-bottom border-top-0">
+                                                <td class="text-13-black text-left border-bottom border-top-0 py-0 border-right">
                                                     {{ $item->group_code }}
                                                 </td>
-                                                <td class="text-13-black text-left border-bottom border-top-0">
+                                                <td class="text-13-black text-left border-bottom border-top-0 py-0 border-right">
                                                     {{ $item->name }}
                                                 </td>
-                                                <td class="text-13-black border-bottom border-top-0">
+                                                <td class="text-13-black border-bottom border-top-0 py-0 border-right">
                                                     {{ $item->groupType->name }}
                                                 </td>
                                                 <td
@@ -213,9 +213,9 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        <tr>
-                                            <td colspan="3" class="text-red">Tổng cộng: {{ $groups->count() }}
-                                            </td>
+                                        <tr class="position-relative group-info height-30">
+                                            <td class="text-red height-30 py-0 border-bottom border-right text-right">Tổng cộng: {{ $groups->count() }}</td>
+                                            <td colspan="2" class="height-30 py-0 border-bottom"></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

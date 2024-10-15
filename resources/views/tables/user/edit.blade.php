@@ -5,7 +5,7 @@
     <div class="content-wrapper m-0">
         <div class="content-header-fixed p-0">
             <div class="content__header--inner">
-                <div class="content__heading--left text-long-special">
+                <div class="content__heading--left text-long-special opacity-0">
                     <span class="ml-4">Thiết lập ban đầu</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"

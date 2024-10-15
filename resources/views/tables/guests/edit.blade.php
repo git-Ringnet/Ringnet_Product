@@ -6,7 +6,7 @@
     <div class="content-wrapper m-0">
         <div class="content-header-fixed p-0">
             <div class="content__header--inner">
-                <div class="content__heading--left text-long-special">
+                <div class="content__heading--left text-long-special opacity-0">
                     <span class="ml-4">Thiết lập ban đầu</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -33,16 +33,17 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <div class="dropdown">
-                            <a href="{{ route('guests.index', ['workspace' => $workspacename]) }}">
-                                <button type="button" class="btn-save-print d-flex align-items-center h-100 rounded"
-                                    style="margin-right:10px;">
-                                    <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
-                                            fill="#6D7075"></path>
+                            <a href="{{ route('guests.index', $workspacename) }}" class="activity" data-name1="KH"
+                                data-des="Hủy">
+                                <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100"
+                                    type="button">
+                                    <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                        viewBox="0 0 14 14" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z"
+                                            fill="#6D7075" />
                                     </svg>
-                                    <span class="text-button">Hủy</span>
+                                    <p class="m-0 p-0 text-btnIner-primary">Hủy</p>
                                 </button>
                             </a>
                         </div>
@@ -74,14 +75,11 @@
                 </div>
             </div>
         </div>
-        <div class="content editGuest" style="margin-top:10rem">
+        <div class="content editGuest" style="margin-top: 8.7rem">
             <section class="">
                 <div id="info" class="content tab-pane in active">
                     <section class="content">
                         <div class="container-fluided">
-                            <div class="bg-filter-search border-top-0 text-left border-custom">
-                                <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN CHUNG</p>
-                            </div>
                             <div class="info-chung">
                                 <div class="content-info">
                                     <div class="d-flex align-items-center height-60-mobile">

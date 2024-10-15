@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <div class="content-header-fixed p-0 border-bottom-0">
         <div class="content__header--inner">
-            <div class="content__heading--left">
+            <div class="content__heading--left opacity-0">
                 <span class="ml-4">Thiết lập ban đầu</span>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -158,7 +158,7 @@
                                                 <a
                                                     href="{{ route('content.show', ['workspace' => $workspacename, 'content' => $item->id]) }}">{{ $item->name }}</a>
                                             </td>
-                                            <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border"
+                                            <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom"
                                                 style="right: 10px; top: 5px;">
                                                 <div class="d-flex w-100">
                                                     <a

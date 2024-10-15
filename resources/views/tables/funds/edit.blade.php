@@ -5,7 +5,7 @@
     <div class="content-wrapper m-0">
         <div class="content-header-fixed p-0">
             <div class="content__header--inner">
-                <div class="content__heading--left text-long-special">
+                <div class="content__heading--left text-long-special opacity-0">
                     <span class="ml-4">
                         Thiết lập ban đầu
                     </span>

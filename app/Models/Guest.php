@@ -266,7 +266,7 @@ class Guest extends Model
             }
             $dataguest = [
                 'guest_name_display' => $data['guest_name_display'],
-                'guest_name' => $data['guest_name'],
+                'guest_name' => isset($data['guest_name']) ? $data['guest_name'] : null,
                 'guest_address' => $data['guest_address'],
                 'guest_code' => isset($data['guest_code']) ? $data['guest_code'] : null,
                 'guest_phone' => isset($data['guest_phone']) ? $data['guest_phone'] : null,

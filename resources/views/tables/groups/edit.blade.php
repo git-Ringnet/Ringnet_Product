@@ -6,7 +6,7 @@
     <div class="content-wrapper m-0">
         <div class="content-header-fixed p-0">
             <div class="content__header--inner">
-                <div class="content__heading--left text-long-special">
+                <div class="content__heading--left text-long-special opacity-0">
                     <span class="ml-4">Thiết lập ban đầu</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -33,20 +33,18 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <div class="dropdown">
-                            <a href="{{ route('groups.index', ['workspace' => $workspacename]) }}">
-                                <button type="button" class="btn-save-print d-flex align-items-center h-100 rounded"
-                                    style="margin-right:10px;">
-                                    <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
-                                            fill="#6D7075"></path>
-                                    </svg>
-                                    <span class="text-button">Hủy</span>
-                                </button>
-                            </a>
-                        </div>
+                        <a href="{{ route('groups.index', $workspacename) }}" class="activity" data-name1="KH"
+                            data-des="Hủy">
+                            <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <p class="p-0 m-0">Hủy</p>
+                            </button>
+                        </a>
                         <button type="submit" class="custom-btn d-flex align-items-center h-100"
                             style="margin-right:10px">
                             <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
@@ -55,25 +53,22 @@
                                     d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                     fill="white" />
                             </svg>
-                            <p class="p-0 m-0">Lưu nhóm đối tượng</p>
+                            <p class="p-0 m-0">Cập nhật nhóm đối tượng</p>
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="content editgroup" style="margin-top:10rem">
+        <div class="content editgroup" style="margin-top:8.7rem">
             <section class="">
                 <div id="info" class="content tab-pane in active">
                     <section class="content">
                         <div class="container-fluided">
-                            <div class="bg-filter-search border-top-0 text-left border-custom">
-                                <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN CHUNG</p>
-                            </div>
                             <div class="info-chung">
                                 <div class="content-info">
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                            <p class="p-0 m-0 margin-left32 text-13-red required-label">Loại đối tượng
+                                            <p class="p-0 m-0 margin-left32 text-14 text-13-red required-label">Loại đối tượng
                                             </p>
                                         </div>
                                         <select name="grouptype_id" id="grouptypeSelect" disabled required
@@ -88,7 +83,7 @@
                                     </div>
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 height-100">
-                                            <p class="p-0 m-0 required-label text-danger margin-left32 text-13-red">
+                                            <p class="p-0 m-0 required-label margin-left32 text-14 text-13-red">
                                                 Mã đối tượng
                                             </p>
                                         </div>
@@ -98,7 +93,7 @@
                                     </div>
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info py-2 border border-left-0 height-100">
-                                            <p class="p-0 m-0 required-label text-danger margin-left32 text-13-red">
+                                            <p class="p-0 m-0 required-label margin-left32 text-14 text-13-red">
                                                 Tên nhóm đối tượng
                                             </p>
                                         </div>
@@ -114,17 +109,6 @@
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100 bg-input-guest-blue"
                                             value="{{ $group->description }}">
                                     </div>
-                                    <button type="button" data-toggle="modal" data-target="#listModal"
-                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 my-2 ml-4 rounded addGuestNew"
-                                        style="margin-right:10px">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            class="mr-2" viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                fill="#282A30" />
-                                        </svg>
-                                        <span class="text-table">Thêm</span>
-                                    </button>
                                     {{-- <a type="button"
                                         class="d-flex align-items-center p-2 position-sticky addGuestNew my-2"
                                         data-toggle="modal" data-target="#listModal"
@@ -140,74 +124,64 @@
                                         <span class="text-13-black pl-3 pt-1 title-gr"
                                             style="font-weight: 600 !important;">Thêm</span>
                                     </a> --}}
-                                    <p class="font-weight-bold text-uppercase info-chung--heading">Danh sách trong nhóm
+                                    <p class="font-weight-bold text-uppercase info-chung--heading bg-white text-purble">
+                                        <span class="ml-4 pl-2">Danh sách trong nhóm</span> 
                                     </p>
-                                    <table id="example2" class="table table-hover bg-white rounded">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" style="width:5%;padding-left: 2rem;"
-                                                    class="height-52">
-                                                    <input type="checkbox" name="all" id="checkall">
-                                                </th>
-                                                <th scope="col" class="height-52" style="width: 14%;">
-                                                    <span class="d-flex justify-content-start">
-                                                        <a href="#" class="sort-link btn-submit"
-                                                            data-sort-by="quotation_number" data-sort-type="DESC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Mã
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-quotation_number"></div>
-                                                    </span>
-                                                </th>
-                                                <th scope="col" class="height-52" style="width: 14%;">
-                                                    <span class="d-flex justify-content-start">
-                                                        <a href="#" class="sort-link btn-submit"
-                                                            data-sort-by="quotation_number" data-sort-type="DESC">
-                                                            <button class="btn-sort text-13" type="submit">
-                                                                Tên
-                                                            </button>
-                                                        </a>
-                                                        <div class="icon" id="icon-quotation_number"></div>
-                                                    </span>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbody-data-group">
-                                            @foreach ($dataGroup['results'] as $item)
-                                                <tr class="position-relative height-52">
-                                                    <td class="text-13-black border-top-0 border-bottom">
-                                                        <span class="margin-Right10">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="6"
-                                                                height="10" viewBox="0 0 6 10" fill="none">
-                                                                <g clip-path="url(#clip0_1710_10941)">
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                        d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
-                                                                        fill="#282A30" />
-                                                                </g>
-                                                                <defs>
-                                                                    <clipPath id="clip0_1710_10941">
-                                                                        <rect width="6" height="10"
-                                                                            fill="white" />
-                                                                    </clipPath>
-                                                                </defs>
-                                                            </svg>
+                                    <div class="overflow-content-quote">
+                                        <table id="example2" class="table table-hover bg-white rounded">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="height-52" style="width: 14%;">
+                                                        <span class="d-flex justify-content-start ml-4">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="quotation_number" data-sort-type="DESC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Mã
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-quotation_number"></div>
                                                         </span>
-                                                        <input type="checkbox" class="checkall-btn p-0 m-0"
-                                                            name="ids[]" id="checkbox" value="">
-                                                    </td>
-                                                    <td
-                                                        class="text-13-black max-width180 text-left border-top-0 border-bottom">
-                                                        {{ $item->id }}
-                                                    </td>
-                                                    <td
-                                                        class="text-13-black max-width180 text-left border-top-0 border-bottom">
-                                                        {{ $item->name }}
-                                                    </td>
+                                                    </th>
+                                                    <th scope="col" class="height-52" style="width: 14%;">
+                                                        <span class="d-flex justify-content-start">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-sort-by="quotation_number" data-sort-type="DESC">
+                                                                <button class="btn-sort text-13" type="submit">
+                                                                    Tên
+                                                                </button>
+                                                            </a>
+                                                            <div class="icon" id="icon-quotation_number"></div>
+                                                        </span>
+                                                    </th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody id="tbody-data-group">
+                                                @foreach ($dataGroup['results'] as $item)
+                                                    <tr class="position-relative height-52">
+                                                        <td
+                                                            class="text-13-black max-width180 text-left border-top-0 border-bottom pl-4">
+                                                            {{ $item->id }}
+                                                        </td>
+                                                        <td
+                                                            class="text-13-black max-width180 text-left border-top-0 border-bottom">
+                                                            {{ $item->name }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <button type="button" data-toggle="modal" data-target="#listModal"
+                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 ml-4 rounded addGuestNew"
+                                        style="margin-right:10px">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            class="mr-2" viewBox="0 0 16 16" fill="none">
+                                            <path
+                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                fill="#282A30" />
+                                        </svg>
+                                        <span class="text-table">Thêm</span>
+                                    </button>
                                 </div>
                             </div>
                             {{-- <div class="bg-filter-search border-top-0 text-left border-custom">

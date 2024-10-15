@@ -12,7 +12,7 @@
     <div class="content-wrapper--2Column m-0">
         <div class="content-header-fixed p-0 border-bottom-0">
             <div class="content__header--inner">
-                <div class="content__heading--left">
+                <div class="content__heading--left opacity-0">
                     <span class="ml-4">Quản lý nghiệp vụ</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"

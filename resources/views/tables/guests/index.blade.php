@@ -2,7 +2,7 @@
 <div class="content-wrapper m-0 min-height--none">
     <div class="content-header-fixed p-0 border-0">
         <div class="content__header--inner">
-            <div class="content__heading--left">
+            {{-- <div class="content__heading--left opacity-0">
                 <span class="ml-4">Thiết lập ban đầu</span>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -13,6 +13,88 @@
                     </svg>
                 </span>
                 <span class="font-weight-bold">Khách hàng</span>
+            </div> --}}
+            <div class="d-flex align-items-center ml-3">
+                <form action="" method="get" id="search-filter" class="p-0 m-0">
+                    <div class="position-relative ml-1">
+                        <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
+                            style="outline: none;" class="pr-4 w-100 input-search text-13"
+                            value="{{ request()->keywords }}" />
+                        <span id="search-icon" class="search-icon">
+                            <i class="fas fa-search btn-submit"></i>
+                        </span>
+                        <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
+                            style="display: none;" />
+                    </div>
+                </form>
+                <div class="dropdown mx-2 filter-all">
+                    <button class="btn-filter_search" data-toggle="dropdown">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 16 16" fill="none">
+                            <path
+                                d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
+                                fill="#6D7075" />
+                            <path
+                                d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
+                                fill="#6D7075" />
+                            <path
+                                d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
+                                fill="#6D7075" />
+                            <path
+                                d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
+                                fill="#6D7075" />
+                        </svg>
+                        <span class="text-btnIner">Bộ lọc</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                fill="#6B6F76" />
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                        style="z-index:">
+                        <div class="search-container px-2">
+                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
+                                onkeyup="filterFunction()" style="outline: none;">
+                            <span class="search-icon mr-2">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                        <div class="scrollbar">
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-ma"
+                                data-button="ma" type="button">
+                                Mã
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-ten"
+                                data-button="ten" type="button">
+                                Tên
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-diachi"
+                                data-button="diachi" type="button">
+                                Địa chỉ
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-phone"
+                                data-button="phone" type="button">
+                                Điện thoại
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-email"
+                                data-button="email" type="button">
+                                Email
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-debt"
+                                data-button="debt" type="button">
+                                Công nợ
+                            </button>
+                        </div>
+                    </div>
+                    <x-filter-text name="ma" title="Mã" />
+                    <x-filter-text name="ten" title="Tên" />
+                    <x-filter-text name="diachi" title="Địa chỉ" />
+                    <x-filter-text name="phone" title="Điện thoại" />
+                    <x-filter-text name="email" title="Email" />
+                    <x-filter-compare name="debt" title="Công nợ" />
+                </div>
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
@@ -47,100 +129,6 @@
             </div>
         </div>
     </div>
-    <div class="content-filter-all">
-        <div class="bg-filter-search pl-4 border-bottom-0">
-            <div class="content-wrapper1 py-2">
-                <div class="row m-auto filter p-0">
-                    <div class="w-100">
-                        <div class="row mr-0">
-                            <div class="col-md-5 d-flex align-items-center">
-                                <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
-                                        <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
-                                            style="outline: none;" class="pr-4 w-100 input-search text-13"
-                                            value="{{ request()->keywords }}" />
-                                        <span id="search-icon" class="search-icon">
-                                            <i class="fas fa-search btn-submit"></i>
-                                        </span>
-                                        <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
-                                            style="display: none;" />
-                                    </div>
-                                </form>
-                                <div class="dropdown mx-2 filter-all">
-                                    <button class="btn-filter_search" data-toggle="dropdown">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
-                                                fill="#6D7075" />
-                                        </svg>
-                                        <span class="text-btnIner">Bộ lọc</span>
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                                fill="#6B6F76" />
-                                        </svg>
-                                    </button>
-                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                        style="z-index:">
-                                        <div class="search-container px-2">
-                                            <input type="text" placeholder="Tìm kiếm" id="myInput"
-                                                class="text-13" onkeyup="filterFunction()" style="outline: none;">
-                                            <span class="search-icon mr-2">
-                                                <i class="fas fa-search"></i>
-                                            </span>
-                                        </div>
-                                        <div class="scrollbar">
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-ma"
-                                                data-button="ma" type="button">
-                                                Mã
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-ten"
-                                                data-button="ten" type="button">
-                                                Tên
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-diachi"
-                                                data-button="diachi" type="button">
-                                                Địa chỉ
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-phone"
-                                                data-button="phone" type="button">
-                                                Điện thoại
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-email"
-                                                data-button="email" type="button">
-                                                Email
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-debt"
-                                                data-button="debt" type="button">
-                                                Công nợ
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <x-filter-text name="ma" title="Mã" />
-                                    <x-filter-text name="ten" title="Tên" />
-                                    <x-filter-text name="diachi" title="Địa chỉ" />
-                                    <x-filter-text name="phone" title="Điện thoại" />
-                                    <x-filter-text name="email" title="Email" />
-                                    <x-filter-compare name="debt" title="Công nợ" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="content margin-top-127">
         <section class="content">
             <div class="container-fluided">
@@ -152,72 +140,68 @@
                         <div class="outer2 table-responsive text-nowrap">
                             <table id="example2" class="table table-hover bg-white rounded">
                                 <thead class="border-custom">
-                                    <tr style="height: 44px;">
-                                        <th class="height-52 border" style="width:5%;padding-left: 2rem;">
-                                            <input type="checkbox" name="all" id="checkall"
-                                                class="checkall-btn">
-                                        </th>
-                                        <th class="height-52 border" scope="col">
+                                    <tr>
+                                        <th class="height-30 py-0 border" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="key"
                                                     data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Mã</span>
+                                                        <span class="text-14">Mã khách hàng</span>
                                                     </button>
                                                 </a>
                                                 <div class="icon" id="icon-key"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52 border" scope="col">
+                                        <th class="height-30 py-0 border" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_name_display" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Tên</span>
+                                                        <span class="text-14">Tên khách hàng</span>
                                                     </button>
                                                 </a>
                                                 <div class="icon" id="icon-guest_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52 border" scope="col">
+                                        <th class="height-30 py-0 border" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_name_display" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Địa chỉ</span>
+                                                        <span class="text-14">Địa chỉ</span>
                                                     </button>
                                                 </a>
                                                 <div class="icon" id="icon-guest_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52 border" scope="col">
+                                        <th class="height-30 py-0 border" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_name_display" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Điện thoại</span>
+                                                        <span class="text-14">Điện thoại</span>
                                                     </button>
                                                 </a>
                                                 <div class="icon" id="icon-guest_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52 border" scope="col">
+                                        <th class="height-30 py-0 border" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_code" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Email</span>
+                                                        <span class="text-14">Email</span>
                                                     </button>
                                                 </a>
                                                 <div class="icon" id="icon-guest_code"></div>
                                             </span>
                                         </th>
-                                        <th class="height-52 border" scope="col">
+                                        <th class="height-30 py-0 border" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_code" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Công nợ</span>
+                                                        <span class="text-14">Công nợ</span>
                                                     </button>
                                                 </a>
                                                 <div class="icon" id="icon-guest_code"></div>
@@ -227,49 +211,28 @@
                                 </thead>
                                 <tbody class="tbody-guest">
                                     <tr>
-                                        <td class="text-green border" style="font-size: 16px; font-weight: 500"
-                                            colspan="15">Khách hàng : Chưa chọn nhóm</td>
+                                        <td class="text-purble font-weight-bold border-bottom py-1" style="font-size: 16px;"
+                                            colspan="6">Khách hàng : Chưa chọn nhóm</td>
                                     </tr>
                                     @foreach ($guests as $item)
                                         @if ($item->group_id == 0)
-                                            <tr class="position-relative guest-info height-52">
+                                            <tr class="position-relative guest-info height-30">
                                                 <input type="hidden" name="id-guest" class="id-guest"
                                                     id="id-guest" value="{{ $item->id }}">
-                                                <td class="text-13-black border border-bottom border-top-0">
-                                                    <span class="margin-Right10">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="6"
-                                                            height="10" viewBox="0 0 6 10" fill="none">
-                                                            <g clip-path="url(#clip0_1710_10941)">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
-                                                                    fill="#282A30" />
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_1710_10941">
-                                                                    <rect width="6" height="10"
-                                                                        fill="white" />
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    </span>
-                                                    <input type="checkbox" class="cb-element checkall-btn"
-                                                        name="ids[]" id="checkbox" value=""
-                                                        onclick="event.stopPropagation();">
-                                                </td>
-                                                <td class="text-13-black border border-bottom border-top-0">
+                                                <td class="text-13-black border-right border-bottom border-top-0 py-0">
                                                     {{ $item->key }}
                                                 </td>
-                                                <td class="text-13-black border text-left border-bottom border-top-0">
-                                                    <a
+                                                <td class="text-13-black border border-left-0 text-left border-bottom border-top-0 py-0">
+                                                    <a class="text-purble"
                                                         href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                                 </td>
-                                                <td class="text-13-black border border-bottom border-top-0">
+                                                <td class="text-13-black border border-left-0 border-bottom border-top-0 py-0">
                                                     {{ $item->guest_address }}
                                                 </td>
-                                                <td class="text-13-black border border-bottom border-top-0">
+                                                <td class="text-13-black border border-left-0 border-bottom border-top-0 py-0">
                                                     {{ $item->guest_phone }}
                                                 </td>
-                                                <td class="text-13-black border border-bottom border-top-0">
+                                                <td class="text-13-black border border-left-0 border-bottom border-top-0 py-0">
                                                     {{ $item->guest_email }}</td>
                                                 {{-- <td class="text-13-black border border-bottom border-top-0">
                                                     {{ $item->price_type }} N/A
@@ -280,7 +243,7 @@
                                                 <td class="text-13-black border border-bottom border-top-0">
                                                     {{ $item->initial_debt }}
                                                 </td> --}}
-                                                <td class="text-13-black border text-right guest_debt border-bottom border-top-0"
+                                                <td class="text-13-black border border-left-0 text-right guest_debt border-bottom border-top-0 py-0"
                                                     data-id="0">
                                                     {{ number_format($item->guest_debt) }}
                                                 </td>
@@ -343,69 +306,48 @@
                                             </tr>
                                         @endif
                                     @endforeach
-                                    <tr>
-                                        <td></td>
-                                        <td class="text-right d-flex align-items-baseline" data-id="0"
+                                    <tr class="height-30">
+                                        <td class="border-right border-top-0"></td>
+                                        <td class="text-right py-0 border-top-0 border-right" data-id="0"
                                             style="color: red">Có
                                             <strong class="total_guest mx-1" data-id="0">
                                                 {{ $count }}
                                             </strong> khách hàng
                                         </td>
-                                        <td colspan="4"></td>
-                                        <td class="text-right guest_debt_total" data-id="0">
+                                        <td class="border-top-0" colspan="3"></td>
+                                        <td class="text-right guest_debt_total border-top-0" data-id="0">
                                     </tr>
                                     @foreach ($groups as $value)
                                         @php
                                             $total = 0;
                                         @endphp
                                         <tr>
-                                            <td class="text-green border" style="font-size: 16px; font-weight: 500"
-                                                colspan="17">Khách hàng : {{ $value->name }}</td>
+                                            <td class="text-purble font-weight-bold border-bottom py-1" style="font-size: 16px;"
+                                                colspan="6">Khách hàng : {{ $value->name }}</td>
                                         </tr>
                                         @foreach ($guests as $item)
                                             @if ($item->group_id == $value->id)
                                                 @php
                                                     $total++;
                                                 @endphp
-                                                <tr class="position-relative guest-info height-52">
+                                                <tr class="position-relative guest-info height-30">
                                                     <input type="hidden" name="id-guest" class="id-guest"
                                                         id="id-guest" value="{{ $item->id }}">
-                                                    <td class="text-13-black border border-bottom border-top-0">
-                                                        <span class="margin-Right10">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="6"
-                                                                height="10" viewBox="0 0 6 10" fill="none">
-                                                                <g clip-path="url(#clip0_1710_10941)">
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                        d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
-                                                                        fill="#282A30" />
-                                                                </g>
-                                                                <defs>
-                                                                    <clipPath id="clip0_1710_10941">
-                                                                        <rect width="6" height="10"
-                                                                            fill="white" />
-                                                                    </clipPath>
-                                                                </defs>
-                                                            </svg>
-                                                        </span>
-                                                        <input type="checkbox" class="cb-element checkall-btn"
-                                                            name="ids[]" id="checkbox" value=""
-                                                            onclick="event.stopPropagation();">
-                                                    </td>
-                                                    <td class="text-13-black border border-bottom border-top-0">
+                                                    <td class="text-13-black border border-bottom border-top-0 py-0">
                                                         {{ $item->key }}
                                                     </td>
                                                     <td
-                                                        class="text-13-black border text-left border-bottom border-top-0">
-                                                        <a
+                                                        class="text-13-black border text-left border-bottom border-top-0 py-0">
+                                                        <a class="text-purble"
                                                             href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                                     </td>
-                                                    <td class="text-13-black border border-bottom border-top-0">
+                                                    <td class="text-13-black border border-bottom border-top-0 py-0">
                                                         {{ $item->guest_address }}
                                                     </td>
-                                                    <td class="text-13-black border border-bottom border-top-0">
+                                                    <td class="text-13-black border border-bottom border-top-0 py-0">
                                                         {{ $item->guest_phone }}
                                                     </td>
-                                                    <td class="text-13-black border border-bottom border-top-0">
+                                                    <td class="text-13-black border border-bottom border-top-0 py-0">
                                                         {{ $item->guest_email }}</td>
                                                     {{-- <td class="text-13-black border border-bottom border-top-0">
                                                     {{ $item->price_type }} N/A
@@ -416,7 +358,7 @@
                                                 <td class="text-13-black border border-bottom border-top-0">
                                                     {{ $item->initial_debt }}
                                                 </td> --}}
-                                                    <td class="text-13-black border text-right guest_debt border-bottom border-top-0"
+                                                    <td class="text-13-black border text-right guest_debt border-bottom border-top-0 py-0"
                                                         data-id="{{ $value->id }}">
                                                         {{ number_format($item->guest_debt) }}
                                                     </td>
@@ -480,13 +422,13 @@
                                             @endif
                                         @endforeach
                                         <tr>
-                                            <td></td>
-                                            <td class="text-right d-flex align-items-baseline" style="color: red">Có
+                                            <td class="border-top-0 border-right"></td>
+                                            <td class="text-right py-0 border-top-0 border-right" style="color: red">Có
                                                 <strong class="total_guest mx-1" data-id="{{ $value->id }}">
                                                     {{ $total }}
                                                 </strong>khách hàng
                                             </td>
-                                            <td colspan="4"></td>
+                                            <td colspan="3"></td>
                                             <td class="text-right guest_debt_total" data-id="{{ $value->id }}">
                                             </td>
                                         </tr>

@@ -7,7 +7,7 @@
     <div class="content editGuest min-height--none">
         <div class="content-header-fixed p-0">
             <div class="content__header--inner">
-                <div class="content__heading--left">
+                <div class="content__heading--left opacity-0">
                     <span class="ml-4">Thiết lập ban đầu</span>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -34,21 +34,19 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <div class="dropdown">
-                            <a href="{{ route('guests.index', ['workspace' => $workspacename]) }}" class="activity"
-                                data-name1="KH" data-des="Trở về">
-                                <button type="button" class="btn-save-print d-flex align-items-center h-100 rounded"
-                                    style="margin-right:10px;">
-                                    <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none">
-                                        <path
-                                            d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
-                                            fill="#6D7075" />
-                                    </svg>
-                                    <span class="text-button">Trở về</span>
-                                </button>
-                            </a>
-                        </div>
+                        <a href="{{ route('guests.index', ['workspace' => $workspacename]) }}" class="activity"
+                            data-name1="KH" data-des="Trở về">
+                            <button type="button" class="btn-save-print d-flex align-items-center h-100 rounded"
+                                style="margin-right:10px;">
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 16 16" fill="none">
+                                    <path
+                                        d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <p class="m-0 p-0 text-13-black">Trở về</p>
+                            </button>
+                        </a>
                         <div class="history">
                             <div class="d-flex content__heading--right">
                                 <button class="mx-1 d-flex align-items-center btn-primary rounded"
@@ -95,14 +93,14 @@
                                     d="M9.30639 10.2061C9.57305 10.4727 9.59528 10.8913 9.37306 11.1832L9.30639 11.2595L6.84832 13.7176C5.58773 14.9782 3.54392 14.9782 2.28333 13.7176C1.06621 12.5005 1.02425 10.5532 2.15742 9.28574L2.28333 9.15261L4.7414 6.69453C5.03231 6.40363 5.50396 6.40363 5.79486 6.69453C6.06152 6.9612 6.08375 7.37973 5.86153 7.67171L5.79486 7.74799L3.33679 10.2061C2.65801 10.8848 2.65801 11.9854 3.33679 12.6641C3.98163 13.309 5.00709 13.3412 5.68999 12.7609L5.79486 12.6641L8.25293 10.2061C8.54384 9.91516 9.01549 9.91516 9.30639 10.2061ZM9.83063 6.17029C10.1215 6.46119 10.1215 6.93284 9.83063 7.22375L7.35002 9.70437C7.05911 9.99528 6.58746 9.99528 6.29656 9.70437C6.00565 9.41347 6.00565 8.94182 6.29656 8.65091L8.77718 6.17029C9.06808 5.87938 9.53973 5.87938 9.83063 6.17029ZM13.7183 2.2826C14.9354 3.49972 14.9774 5.44698 13.8442 6.71446L13.7183 6.84759L11.2602 9.30567C10.9693 9.59657 10.4977 9.59657 10.2068 9.30567C9.94012 9.03901 9.9179 8.62047 10.1401 8.32849L10.2068 8.25221L12.6648 5.79413C13.3436 5.11535 13.3436 4.01484 12.6648 3.33606C12.02 2.69122 10.9946 2.65898 10.3117 3.23933L10.2068 3.33606L7.74872 5.79413C7.45781 6.08504 6.98616 6.08504 6.69526 5.79413C6.4286 5.52747 6.40637 5.10893 6.62859 4.81696L6.69526 4.74067L9.15333 2.2826C10.4139 1.02201 12.4577 1.02201 13.7183 2.2826Z"
                                     fill="white" />
                             </svg>
-                            <span>Đính kèm file</span>
+                            <p class="p-0 m-0">Đính kèm file</p>
                             <input type="file" style="display: none;" id="file_restore" accept="*"
                                 name="file">
                         </label>
                         <a class="activity" data-name1="KH" data-des="Xem trang sửa"
                             href="{{ route('guests.edit', ['workspace' => $workspacename, 'guest' => $guest->id]) }}">
                             <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
                                     <path
                                         d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
@@ -114,7 +112,7 @@
                                         d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
                                         fill="white" />
                                 </svg>
-                                <span class="text-btnIner-primary ml-2">Sửa</span>
+                                <p class="p-0 m-0">Sửa</p>
                             </button>
                         </a>
                     </div>
@@ -141,13 +139,9 @@
                 </ul>
             </section>
         </div>
-        <div class="content editGuest" style="margin-top: 13.7rem;">
+        <div class="content editGuest" style="margin-top: 12.4rem;">
             <div class="tab-content mt-3">
                 <div id="info" class="content tab-pane in active">
-                    {{-- THÔNG TIN CHUNG --}}
-                    <div class="bg-filter-search border-0 text-left border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-left">THÔNG TIN CHUNG</p>
-                    </div>
                     <div class="content-info">
                         <div class="d-flex align-items-center height-60-mobile">
                             <div class="title-info py-2 border border-left-0 height-100">
@@ -158,14 +152,14 @@
                         </div>
                         <div class="d-flex align-items-center height-60-mobile">
                             <div class="title-info py-2 border border-left-0 height-100">
-                                <p class="p-0 m-0 required-label margin-left32 text-13-red">Mã khách hàng</p>
+                                <p class="p-0 m-0 margin-left32 text-13">Mã khách hàng</p>
                             </div>
                             <input type="text" required readonly value="{{ $guest->key }}"
                                 class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
                         <div class="d-flex align-items-center height-60-mobile">
                             <div class="title-info py-2 border border-left-0 height-100">
-                                <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên khách hàng</p>
+                                <p class="p-0 m-0 margin-left32 text-13">Tên khách hàng</p>
                             </div>
                             <input type="text" required readonly name="guest_name_display"
                                 value="{{ $guest->guest_name_display }}"
@@ -193,6 +187,13 @@
                             <input type="text" name="guest_email" value="{{ $guest->guest_email }}" readonly
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div>
+                        <div class="d-flex align-items-center height-60-mobile">
+                            <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                <p class="p-0 m-0 margin-left32 text-13">Mã số thuế</p>
+                            </div>
+                            <input type="text" value="{{ $guest->guest_code }}" name="guest_code" readonly
+                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                        </div>
                         {{-- <div class="d-flex align-items-center height-60-mobile">
                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                 <p class="p-0 m-0  margin-left32 text-13">Tên viết tắt</p>
@@ -200,14 +201,14 @@
                             <input type="text" name="key" value="{{ $guest->key }}" readonly
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                         </div> --}}
-                        <div class="d-flex align-items-center height-60-mobile">
+                        {{-- <div class="d-flex align-items-center height-60-mobile">
                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                 <p class="p-0 m-0  margin-left32 text-13">Tên đầy đủ</p>
                             </div>
                             <input type="text" required name="guest_email" value="{{ $guest->guest_name }}"
                                 readonly
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
-                        </div>
+                        </div> --}}
                     </div>
                     {{-- THÔNG TIN NGƯỜI ĐẠI DIỆN --}}
                     {{-- <div class="bg-filter-search border-0 text-left border-custom">
@@ -333,7 +334,7 @@
                     </section> --}}
                 </div>
                 <div id="history" class="tab-pane fade">
-                    <div class="row result-filter-history margin-left30 my-1">
+                    <div class="row result-filter-history margin-left30">
                     </div>
                     <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed border-custom">
                         <div class="w-100">
@@ -545,7 +546,7 @@
                     </section>
                 </div>
                 <div id="detailExport" class="tab-pane fade">
-                    <div class="row result-filter-detail margin-left30 my-1">
+                    <div class="row result-filter-detail margin-left30">
                     </div>
                     <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed border-custom">
                         <div class="w-100">
