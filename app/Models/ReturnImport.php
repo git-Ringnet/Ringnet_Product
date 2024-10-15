@@ -297,11 +297,35 @@ class ReturnImport extends Model
     }
     public function ajax($data)
     {
-        $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace);
+        $returnImport = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->with('getReceive');
         if (isset($data['search'])) {
             $returnImport = $returnImport->where(function ($query) use ($data) {
+                // Tìm kiếm trong các trường từ bảng ReturnImport
                 $query->orWhere('return_code', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('description', 'like', '%' . $data['search'] . '%');
+                // Tìm kiếm trong trường delivery_code từ quan hệ getReceive
+                $query->orWhereHas('getReceive', function ($subQuery) use ($data) {
+                    $subQuery->where('delivery_code', 'like', '%' . $data['search'] . '%');
+                });
             });
+        }
+
+        if (isset($data['return_code'])) {
+            $returnImport = $returnImport->where('return_code', 'like', '%' . $data['return_code'] . '%');
+        }
+        if (isset($data['warehouse_receipt'])) {
+            $returnImport = $returnImport->whereHas('getReceive', function ($query) use ($data) {
+                $query->where('delivery_code', 'like', '%' . $data['warehouse_receipt'] . '%');
+            });
+        }
+        if (isset($data['return_content'])) {
+            $returnImport = $returnImport->where('description', 'like', '%' . $data['return_content'] . '%');
+        }
+        if (isset($data['users'])) {
+            $returnImport = $returnImport->whereIn('user_id', $data['users']);
+        }
+        if (isset($data['status'])) {
+            $returnImport = $returnImport->whereIn('status', $data['status']);
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);

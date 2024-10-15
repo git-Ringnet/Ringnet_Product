@@ -440,11 +440,41 @@ class ReturnExport extends Model
     }
     public function ajax($data)
     {
-        $returnExport = ReturnExport::where('workspace_id', Auth::user()->current_workspace);
+        $returnExport = ReturnExport::where('workspace_id', Auth::user()->current_workspace)->with(['getDelivery', 'getUser', 'getGuest']);
         if (isset($data['search'])) {
             $returnExport = $returnExport->where(function ($query) use ($data) {
-                $query->orWhere('return_code', 'like', '%' . $data['search'] . '%');
+                // Tìm kiếm trong các trường từ bảng returnExport
+                $query->orWhere('code_return', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('description', 'like', '%' . $data['search'] . '%');
+                // Tìm kiếm trong trường delivery_code từ quan hệ getReceive
+                $query->orWhereHas('getDelivery', function ($subQuery) use ($data) {
+                    $subQuery->where('code_delivery', 'like', '%' . $data['search'] . '%');
+                });
+                $query->orWhereHas('getGuest', function ($subQuery) use ($data) {
+                    $subQuery->where('guest_name_display', 'like', '%' . $data['search'] . '%');
+                });
             });
+        }
+
+        if (isset($data['return_code'])) {
+            $returnExport = $returnExport->where('code_return', 'like', '%' . $data['return_code'] . '%');
+        }
+        if (isset($data['customers'])) {
+            $returnExport = $returnExport->where('customers', 'like', '%' . $data['customers'] . '%');
+        }
+        if (isset($data['quotenumber'])) {
+            $returnExport = $returnExport->whereHas('getDelivery', function ($query) use ($data) {
+                $query->where('code_delivery', 'like', '%' . $data['quotenumber'] . '%');
+            });
+        }
+        if (isset($data['return_content'])) {
+            $returnExport = $returnExport->where('description', 'like', '%' . $data['return_content'] . '%');
+        }
+        if (isset($data['users'])) {
+            $returnExport = $returnExport->whereIn('user_id', $data['users']);
+        }
+        if (isset($data['status'])) {
+            $returnExport = $returnExport->whereIn('status', $data['status']);
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);

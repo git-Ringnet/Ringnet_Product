@@ -144,13 +144,6 @@ class DetailExport extends Model
             ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
             ->leftJoin('users', 'users.id', 'detailexport.user_id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id');
-
-        if (Auth::check()) {
-            if (Auth::user()->getRoleUser->roleid == 4) {
-                $detailExport->where('user_id', Auth::user()->id);
-            }
-        }
-
         $detailExport = $detailExport->orderBy('detailexport.id', 'desc')->get();
 
         // Ngày hiện tại
@@ -541,34 +534,24 @@ class DetailExport extends Model
                 $query->orWhere('detailexport.guest_name', 'like', '%' . $data['search'] . '%');
             });
         }
+        if (isset($data['quotenumber'])) {
+            $detailExport = $detailExport->where('quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        }
         if (isset($data['reference_number'])) {
             $detailExport = $detailExport->where('reference_number', 'like', '%' . $data['reference_number'] . '%');
         }
         if (isset($data['guests'])) {
             $detailExport = $detailExport->where('guest.guest_name_display', 'like', '%' . $data['guests'] . '%');
         }
-        if (isset($data['quotenumber'])) {
-            $detailExport = $detailExport->whereIn('detailexport.id', $data['quotenumber']);
-        }
         if (isset($data['users'])) {
-            $detailExport = $detailExport->whereIn('detailexport.user_id', $data['users']);
-        }
-        if (isset($data['status'])) {
-            $detailExport = $detailExport->whereIn('detailexport.status', $data['status']);
+            $detailExport = $detailExport->whereIn('detailexport.id_sale', $data['users']);
         }
         if (isset($data['receive'])) {
             $detailExport = $detailExport->whereIn('detailexport.status_receive', $data['receive']);
         }
-        if (isset($data['reciept'])) {
-            $detailExport = $detailExport->whereIn('detailexport.status_reciept', $data['reciept']);
-        }
-        if (isset($data['pay'])) {
-            $detailExport = $detailExport->whereIn('detailexport.status_pay', $data['pay']);
-        }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
             $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
-
             $detailExport = $detailExport->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
         }
         if ($data && isset($data['monthYear']) && is_array($data['monthYear'])) {

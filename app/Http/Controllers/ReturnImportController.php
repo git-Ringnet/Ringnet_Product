@@ -9,6 +9,7 @@ use App\Models\Receive_bill;
 use App\Models\ReturnImport;
 use App\Models\ReturnProduct;
 use App\Models\Serialnumber;
+use App\Models\User;
 use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,11 +33,14 @@ class ReturnImportController extends Controller
     public function index()
     {
         $data = ReturnImport::where('workspace_id', Auth::user()->current_workspace)->get();
+        $userIds = $data->pluck('user_id')->toArray();
+
+        // Truy vấn thông tin người dùng dựa trên user_id
+        $users = User::whereIn('id', $userIds)->get();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $title = "Trả hàng NCC";
-        // $users = $this->receive->getUserInReceive();
-        return view('tables.returnImport.index', compact('data', 'title', 'workspacename'));
+        return view('tables.returnImport.index', compact('data', 'users', 'title', 'workspacename'));
     }
 
     /**
@@ -219,6 +223,35 @@ class ReturnImportController extends Controller
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
             $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
+        if (isset($data['return_code']) && $data['return_code'] !== null) {
+            $filters[] = ['value' => 'Phiếu trả hàng: ' . $data['return_code'], 'name' => 'return_code', 'icon' => 'document'];
+        }
+
+        if (isset($data['warehouse_receipt']) && $data['warehouse_receipt'] !== null) {
+            $filters[] = ['value' => 'Phiếu nhập kho#: ' . $data['warehouse_receipt'], 'name' => 'warehouse_receipt', 'icon' => 'warehouse'];
+        }
+        if (isset($data['users']) && $data['users'] !== null) {
+            $user = new User();
+            $users = $user->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users', 'icon' => 'user'];
+        }
+
+        if (isset($data['status']) && $data['status'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['status'])) {
+                $statusValues[] = '<span style="color: #858585;">Nháp</span>';
+            }
+            if (in_array(2, $data['status'])) {
+                $statusValues[] = '<span style="color: #08AA36BF;">Đã trả</span>';
+            }
+            $filters[] = ['value' => 'Trạng thái: ' . implode(', ', $statusValues), 'name' => 'status', 'icon' => 'status'];
+        }
+
+        if (isset($data['return_content']) && $data['return_content'] !== null) {
+            $filters[] = ['value' => 'Nội dung trả hàng: ' . $data['return_content'], 'name' => 'return_content', 'icon' => 'content'];
+        }
+
         if ($request->ajax()) {
             $returnImport = $this->returnImport->ajax($data);
             return response()->json([

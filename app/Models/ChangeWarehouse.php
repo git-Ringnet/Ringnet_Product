@@ -137,10 +137,33 @@ class ChangeWarehouse extends Model
     }
     public function ajax($data)
     {
-        $changeWarehouse = ChangeWarehouse::where('workspace_id', Auth::user()->current_workspace);
+        $changeWarehouse = ChangeWarehouse::where('workspace_id', Auth::user()->current_workspace)
+            ->with(['getFromWarehouse', 'getToWarehouse', 'getUser']);
         if (isset($data['search'])) {
             $changeWarehouse = $changeWarehouse->where(function ($query) use ($data) {
-                $query->orWhere('form_code', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('change_warehouse_code', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('note', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['return_code'])) {
+            $changeWarehouse = $changeWarehouse->where('change_warehouse_code', 'like', '%' . $data['return_code'] . '%');
+        }
+        if (isset($data['note'])) {
+            $changeWarehouse = $changeWarehouse->where('note', 'like', '%' . $data['note'] . '%');
+        }
+        if (isset($data['wh_from'])) {
+            $changeWarehouse = $changeWarehouse->whereHas('getFromWarehouse', function ($query) use ($data) {
+                $query->where('warehouse_name', 'like', '%' . $data['wh_from'] . '%');
+            });
+        }
+        if (isset($data['wh_to'])) {
+            $changeWarehouse = $changeWarehouse->whereHas('getToWarehouse', function ($query) use ($data) {
+                $query->where('warehouse_name', 'like', '%' . $data['wh_to'] . '%');
+            });
+        }
+        if (isset($data['users'])) {
+            $changeWarehouse = $changeWarehouse->whereHas('getUser', function ($query) use ($data) {
+                $query->whereIn('id', $data['users']);
             });
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {

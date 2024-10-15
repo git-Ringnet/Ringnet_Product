@@ -41,8 +41,11 @@ class CashReceiptController extends Controller
         $cashReceipts = CashReceipt::with(['guest', 'fund', 'user', 'workspace'])->where('workspace_id', Auth::user()->current_workspace)
             ->orderby('id', 'DESC')
             ->get();
-        // dd($cashReceipts);
-        return view('tables.cash_receipts.index', compact('cashReceipts', 'title', 'workspacename'));
+        $content = ContentGroups::where('contenttype_id', 1)->get();
+        $userIds = $cashReceipts->pluck('user_id')->toArray();
+        // Truy vấn thông tin người dùng dựa trên user_id
+        $users = User::whereIn('id', $userIds)->get();
+        return view('tables.cash_receipts.index', compact('cashReceipts', 'title', 'users', 'content', 'workspacename'));
     }
 
     public function create()
@@ -250,11 +253,61 @@ class CashReceiptController extends Controller
     {
         $data = $request->all();
         $filters = [];
-        if (isset($data['date']) && $data['date'][1] !== null) {
+        if (isset($data['date']) && isset($data['date'][1])) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
-            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+            $filters[] = ['value' => 'Ngày lập: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
+
+        if (isset($data['return_code']) && $data['return_code'] !== null) {
+            $filters[] = ['value' => 'Mã số phiếu: ' . $data['return_code'], 'name' => 'return_code', 'icon' => 'document'];
+        }
+
+        if (isset($data['customers']) && $data['customers'] !== null) {
+            $filters[] = ['value' => 'Khách hàng: ' . $data['customers'], 'name' => 'customers', 'icon' => 'user'];
+        }
+
+        if (isset($data['guests']) && $data['guests'] !== null) {
+            $filters[] = ['value' => 'Người nộp: ' . $data['guests'], 'name' => 'guests', 'icon' => 'user'];
+        }
+
+        if (isset($data['content']) && $data['content'] !== null) {
+            $contents = new ContentGroups();
+            $content = $contents->getNameContent($data['content']);
+            $contenttring = implode(', ', $content);
+            $filters[] = ['value' => 'Nội dung: ' . count($data['content']) . ' đã chọn', 'name' => 'content', 'icon' => 'user'];
+        }
+
+        if (isset($data['amount']) && $data['amount'][1] !== null) {
+            $filters[] = ['value' => 'Số tiền: ' . $data['amount'][0] . ' ' . $data['amount'][1], 'name' => 'amount', 'icon' => 'money'];
+        }
+
+        if (isset($data['fund']) && $data['fund'] !== null) {
+            $filters[] = ['value' => 'Quỹ: ' . $data['fund'], 'name' => 'fund', 'icon' => 'fund'];
+        }
+        if (isset($data['users']) && $data['users'] !== null) {
+            $user = new User();
+            $users = $user->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users', 'icon' => 'user'];
+        }
+
+        if (isset($data['note']) && $data['note'] !== null) {
+            $filters[] = ['value' => 'Ghi chú: ' . $data['note'], 'name' => 'note', 'icon' => 'note'];
+        }
+
+        if (isset($data['status']) && $data['status'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['status'])) {
+                $statusValues[] = '<span style="color: #858585;">Nháp</span>';
+            }
+            if (in_array(2, $data['status'])) {
+                $statusValues[] = '<span style="color: #08AA36BF;">Đã thu</span>';
+            }
+            $statusText = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
+        }
+
         if ($request->ajax()) {
             $cash_receipts = $this->cash_receipts->ajax($data);
             return response()->json([

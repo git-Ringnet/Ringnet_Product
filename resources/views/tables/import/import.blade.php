@@ -112,62 +112,36 @@
                                         </div>
                                         <div class="scrollbar">
                                             <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-quotenumber" data-button="quotenumber" type="button">Đơn mua
-                                                hàng
+                                                id="btn-quotenumber" data-button="quotenumber" type="button">Mã
+                                                phiếu
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-reference_number" data-button="reference_number"
-                                                type="button">Số tham chiếu
+                                                type="button">Số phiếu
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                data-button="date" type="button">Ngày lập
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-provides"
                                                 data-button="provides" type="button">Nhà cung cấp
                                             </button>
-                                            @can('isAdmin')
-                                                <button class="dropdown-item btndropdown text-13-black" id="btn-users"
-                                                    data-button="users" type="button">Người tạo
-                                                </button>
-                                            @endcan
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-status"
-                                                data-button="status" type="button">Trạng thái
-                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-receive"
                                                 data-button="receive" type="button">Nhận hàng
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
-                                                data-button="date" type="button">Ngày báo giá
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-reciept"
-                                                data-button="reciept" type="button">Hoá đơn
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-pay"
-                                                data-button="pay" type="button">Thanh toán
-                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-total"
-                                                data-button="total" type="button">
-                                                Tổng tiền
+                                                data-button="total" type="button">Tổng tiền
                                             </button>
                                         </div>
                                     </div>
-                                    <x-filter-text name="reference_number" title="Số tham chiếu" />
-                                    <x-filter-checkbox :dataa='$import' name="quotenumber" title="Đơn mua hàng"
-                                        namedisplay="quotation_number" />
+                                    <!-- Input fields for filtering -->
+                                    <x-filter-text name="quotenumber" title="Mã phiếu" />
+                                    <x-filter-text name="reference_number" title="Số phiếu" />
+                                    <x-filter-date-time name="date" title="Ngày lập" />
                                     <x-filter-text name="provides" title="Nhà cung cấp" />
-                                    <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
-                                        namedisplay="name" />
-                                    <x-filter-status name="status" key1="1" value1="Draft" key2="0"
-                                        value2="Approved" key3="2" value3="Close" color1="#858585"
-                                        color3="#08AA36BF" color2="#E8B600" title="Trạng thái" />
                                     <x-filter-status name="receive" key1="0" value1="Chưa giao" key2="2"
                                         value2="Đã nhận" key3="1" value3="Một phần" color1="#858585"
-                                        color2="#08AA36BF" color3="#E8B600" title="Nhận hàng hàng" />
-                                    <x-filter-status name="reciept" key1="0" value1="Chưa tạo" key2="2"
-                                        value2="Chính thức" key3="1" value3="Một phần" color1="#858585"
-                                        color2="#08AA36BF" color3="#E8B600" title="Hoá đơn" />
-                                    <x-filter-status name="pay" key1="0" value1="Chưa thanh toán"
-                                        key2="2" value2="Thanh toán đủ" key3="1" value3="Một phần"
-                                        color1="#858585" color2="#08AA36BF" color3="#E8B600" title="Thanh toán" />
+                                        color2="#08AA36BF" color3="#E8B600" title="Nhận hàng" />
                                     <x-filter-compare name="total" title="Tổng tiền" />
-                                    <x-filter-date-time name="date" title="Ngày báo giá" />
                                 </div>
                             </div>
                         </div>
@@ -287,7 +261,8 @@
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_tax" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Tổng tiền</button>
+                                                            class="btn-sort text-13" type="submit">Tổng
+                                                            tiền</button>
                                                     </a>
                                                     <div class="icon" id="icon-total_tax"></div>
                                                 </span>
@@ -861,301 +836,40 @@
     $(document).on('click', '.btn-destroy.btn-light.mx-2.d-flex.align-items-center.h-100', function() {
         $('#list_modal').empty()
     })
-    var quotenumber = [];
-    var users = [];
-    var statusDe = [];
-    var receive = [];
-    var reciept = [];
-    var pay = [];
-
-    function filterquotenumber() {
-        filterButtons("myInput-quotenumber", "ks-cboxtags-quotenumber");
-    }
-
-    function filterprovides() {
-        filterButtons("myInput-provides", "ks-cboxtags-provides");
-    }
-
-    function filterstatus() {
-        filterButtons("myInput-status", "ks-cboxtags-status");
-    }
-
-    function filterreceive() {
-        filterButtons("myInput-receive", "ks-cboxtags-receive");
-    }
-
-    function filterreciept() {
-        filterButtons("myInput-reciept", "ks-cboxtags-reciept");
-    }
-
-    function filterpay() {
-        filterButtons("myInput-pay", "ks-cboxtags-pay");
-    }
-
-    function filterusers() {
-        filterButtons("myInput-users", "ks-cboxtags-users");
-    }
-
+    // 
     $(document).on('click', '.btn-submit', function(e) {
-        if (!$(e.target).is('input[type="checkbox"]')) {
-            e.preventDefault();
+        if (!$(e.target).is('input[type="checkbox"]')) e.preventDefault();
+        var buttonElement = this;
+        var formData = {
+            search: $('#search').val(),
+            quotenumber: getData('#quotenumber', this), // Mã phiếu
+            reference_number: getData('#reference_number', this), // Số phiếu
+            date: retrieveDateData(this, 'date'), // Ngày lập
+            provides: getData('#provides', this), // Nhà cung cấp
+            receive: getStatusData(this, 'receive'), // Nhận hàng
+            total: retrieveComparisonData(this, "total"), // Tổng tiền
+            sort: getSortData(buttonElement) // Dữ liệu sắp xếp nếu có
+        };
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + $(this).data('button-name') + '-options').hide();
         }
-        var buttonName = $(this).data('button');
-        var btn_submit = $(this).data('button-name');
-        var search = $('#search').val();
-        var reference_number = $('#reference_number').val();
-        var provides = $('#provides').val();
-        var operator_total = $('.total-operator').val();
-        var val_total = $('.total-quantity').val();
-        var total = [operator_total, val_total];
-        var date_start = $('#date_start_date').val();
-        var date_end = $('#date_end_date').val();
-        var date = [date_start, date_end];
-
+        // Để lọc filter khi xuất Excel
+        var date = formData.date;
         var dataArray = [{
             key: 'date',
             value: date
-        }, ];
-
+        }];
         // Chuyển đổi mảng thành chuỗi JSON và lưu vào input hidden
         $('.datavalue').val(JSON.stringify(dataArray));
-
-        if ($(this).data('button-name') === 'quotenumber') {
-            $('.ks-cboxtags-quotenumber input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && quotenumber.indexOf(value) === -1) {
-                    quotenumber.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = quotenumber.indexOf(value);
-                    if (index !== -1) {
-                        quotenumber.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'users') {
-            $('.ks-cboxtags-users input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && users.indexOf(value) === -1) {
-                    users.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = users.indexOf(value);
-                    if (index !== -1) {
-                        users.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'status') {
-            $('.ks-cboxtags-status input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked')) {
-                    if (status.indexOf(value) === -1 && statusDe.indexOf(value) === -1) {
-                        statusDe.push(value);
-                    }
-                } else {
-                    const index = statusDe.indexOf(value);
-                    if (index !== -1) {
-                        statusDe.splice(index, 1);
-                    }
-                }
-            });
-        }
-
-        if ($(this).data('button-name') === 'receive') {
-            $('.ks-cboxtags-receive input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && receive.indexOf(value) === -1) {
-                    receive.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = receive.indexOf(value);
-                    if (index !== -1) {
-                        receive.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'reciept') {
-            $('.ks-cboxtags-reciept input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && reciept.indexOf(value) === -1) {
-                    reciept.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = reciept.indexOf(value);
-                    if (index !== -1) {
-                        reciept.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'pay') {
-            $('.ks-cboxtags-pay input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && pay.indexOf(value) === -1) {
-                    pay.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = pay.indexOf(value);
-                    if (index !== -1) {
-                        pay.splice(index, 1);
-                    }
-                }
-            });
-        }
-        var sort_by = '';
-        if (typeof $(this).data('sort-by') !== 'undefined') {
-            sort_by = $(this).data('sort-by');
-        }
-        var sort_type = $(this).data('sort-type');
-        sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
-        $(this).data('sort-type', sort_type);
-        $('.icon').text('');
-        var iconId = 'icon-' + sort_by;
-        var iconDiv = $('#' + iconId);
-        iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
-        sort = [
-            sort_by, sort_type
-        ];
-        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
-            $('#' + btn_submit + '-options').hide();
-        }
-        $(".btn-filter_search").prop("disabled", false);
-        // Xoá phần tử trong mảng filters
-        if ($(this).data('delete') === 'reference_number') {
-            reference_number = null;
-            $('#reference_number').val('');
-        }
-        if ($(this).data('delete') === 'quotenumber') {
-            quotenumber = [];
-            // $('.deselect-all-quotenumber').click();
-            $('.ks-cboxtags-quotenumber input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'provides') {
-            provides = null;
-            $('#provides').val('');
-        }
-        if ($(this).data('delete') === 'users') {
-            users = [];
-            $('.ks-cboxtags-users input[type="checkbox"]').prop('checked', false);
-
-        }
-        if ($(this).data('delete') === 'status') {
-            statusDe = [];
-            $('.ks-cboxtags-status input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'receive') {
-            receive = [];
-            // $('.deselect-all-receive').click();
-            $('.ks-cboxtags-receive input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'reciept') {
-            reciept = [];
-            // $('.deselect-all-reciept').click();
-            $('.ks-cboxtags-reciept input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'pay') {
-            pay = [];
-            // $('.deselect-all-pay').click();
-            $('.ks-cboxtags-pay input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'total') {
-            total = null;
-            $('.total-quantity').val('');
-        }
-        if ($(this).data('delete') === 'date') {
-            date = null;
-            $('#date_start_date').val('');
-            $('#date_end_date').val('');
-        }
+        // 
         $.ajax({
             type: 'get',
             url: "{{ route('searchImport') }}",
-            data: {
-                search: search,
-                quotenumber: quotenumber,
-                reference_number: reference_number,
-                provides: provides,
-                users: users,
-                status: statusDe,
-                receive: receive,
-                reciept: reciept,
-                total: total,
-                pay: pay,
-                date: date,
-                sort: sort,
-            },
+            data: formData,
             success: function(data) {
-                // Hiển thị label dữ liệu tìm kiếm ...
-                var existingNames = [];
-                data.filters.forEach(function(item) {
-                    // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
-                    if (filters.indexOf(item.name) === -1) {
-                        filters.push(item.name);
-                    }
-                    existingNames.push(item.name);
-                });
-
-                filters = filters.filter(function(name) {
-                    return existingNames.includes(name);
-                });
-                $('.result-filter-import').empty();
-                if (data.filters.length > 0) {
-                    $('.result-filter-import').addClass('has-filters');
-                } else {
-                    $('.result-filter-import').removeClass('has-filters');
-                }
-                // Lặp qua mảng filters để tạo và render các phần tử
-                data.filters.forEach(function(item) {
-                    var index = filters.indexOf(item.name);
-                    // Tạo thẻ item-filter
-                    var itemFilter = $('<div>').addClass(
-                        'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
-                    ).attr({
-                        'data-icon': item.icon,
-                        'data-button': item.name
-                    });
-                    itemFilter.css('order', index);
-                    // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                    itemFilter.append(
-                        '<span class="text text-13-black m-0" style="flex:2;">' +
-                        item.value +
-                        '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
-                        item.name + '" data-button="' + buttonName +
-                        '"></i>');
-                    // Thêm thẻ item-filter vào 
-                    $('.result-filter-import').append(itemFilter);
-                });
-
-                // Ẩn hiện dữ liệu khi đã filters
-                var importIds = [];
-                // Lặp qua mảng provides và thu thập các deleveryIds
-                data.data.forEach(function(item) {
-                    var deleveryId = item.id;
-                    importIds.push(deleveryId);
-                });
-                // Ẩn tất cả các phần tử .detailExport-info
-                // $('.detailExport-info').hide();
-                // Lặp qua từng phần tử .detailExport-info để hiển thị và cập nhật data-position
-                $('.import-info').each(function() {
-                    var value = parseInt($(this).find('.id-import')
-                        .val());
-                    var index = importIds.indexOf(value);
-                    if (index !== -1) {
-                        $(this).show();
-                        // Cập nhật data-position
-                        $(this).attr('data-position', index + 1);
-                    } else {
-                        $(this).hide();
-                    }
-                });
-                // Tạo một bản sao của mảng phần tử .import-info
-                var clonedElements = $('.import-info').clone();
-                // Sắp xếp các phần tử trong bản sao theo data-position
-                var sortedElements = clonedElements.sort(function(a, b) {
-                    return $(a).data('position') - $(b).data('position');
-                });
-                // Thay thế các phần tử trong .tbody-import bằng các phần tử đã sắp xếp
-                $('.tbody-import').empty().append(sortedElements);
-
+                updateFilters(data, filters, '.result-filter-import', '.tbody-import',
+                    '.import-info',
+                    '.id-import', $(this).data('button'));
             }
         });
         $.ajaxSetup({

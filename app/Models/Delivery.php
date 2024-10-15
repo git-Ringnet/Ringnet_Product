@@ -1421,6 +1421,7 @@ class Delivery extends Model
                 DB::raw('(SELECT COALESCE(SUM(product_total_vat), 0) FROM delivered WHERE delivery_id = delivery.id) as totalProductVat')
             )
             ->leftJoin('users', 'users.id', 'delivery.user_id')
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->where('delivery.workspace_id', Auth::user()->current_workspace)
             ->groupBy(
                 'delivery.id',
@@ -1430,6 +1431,7 @@ class Delivery extends Model
                 'delivery.shipping_unit',
                 'delivery.shipping_fee',
                 'users.name',
+                'guest.guest_name_display',
                 'delivery.created_at',
                 'delivery.status',
                 'detailexport.guest_name'
@@ -1437,40 +1439,27 @@ class Delivery extends Model
         if (isset($data['search'])) {
             $delivery = $delivery->where(function ($query) use ($data) {
                 $query->orWhere('code_delivery', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('delivery.quotation_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('detailexport.guest_name', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
             });
         }
-        if (isset($data['quotenumber'])) {
-            $delivery = $delivery->where('delivery.quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        if (isset($data['return_code'])) {
+            $delivery = $delivery->where('delivery.code_delivery', 'like', '%' . $data['return_code'] . '%'); // Mã phiếu
         }
+
         if (isset($data['guests'])) {
-            $delivery = $delivery->where('detailexport.guest_name', 'like', '%' . $data['guests'] . '%');
+            $delivery = $delivery->where('guest.guest_name_display', 'like', '%' . $data['guests'] . '%'); // Khách hàng
         }
-        if (isset($data['shipping_unit'])) {
-            $delivery = $delivery->where('delivery.shipping_unit', 'like', '%' . $data['shipping_unit'] . '%');
-        }
-        if (isset($data['code_delivery'])) {
-            $delivery = $delivery->whereIn('delivery.id', $data['code_delivery']);
-        }
-        if (isset($data['users'])) {
-            $delivery = $delivery->whereIn('delivery.user_id', $data['users']);
-        }
+
         if (isset($data['status'])) {
-            $delivery = $delivery->whereIn('delivery.status', $data['status']);
+            $delivery = $delivery->whereIn('delivery.status', $data['status']); // Trạng thái
         }
+
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
             $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
-            $delivery = $delivery->whereBetween('delivery.created_at', [$dateStart, $dateEnd]);
+            $delivery = $delivery->whereBetween('delivery.created_at', [$dateStart, $dateEnd]); // Ngày lập
         }
-        if (isset($data['shipping_fee'][0]) && isset($data['shipping_fee'][1])) {
-            $delivery = $delivery->where('delivery.shipping_fee', $data['shipping_fee'][0], $data['shipping_fee'][1]);
-        }
-        if (isset($data['total'][0]) && isset($data['total'][1])) {
-            $delivery = $delivery->having('totalProductVat', $data['total'][0], $data['total'][1]);
-        }
-
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $delivery = $delivery->orderBy($data['sort'][0], $data['sort'][1]);
         }

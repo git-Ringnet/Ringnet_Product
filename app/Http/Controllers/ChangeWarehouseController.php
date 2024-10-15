@@ -45,10 +45,12 @@ class ChangeWarehouseController extends Controller
             ->get();
 
         $title = "Phiếu xuất chuyển kho";
-
+        $userIds = $changeWarehouse->pluck('user_id')->toArray();
+        // Truy vấn thông tin người dùng dựa trên user_id
+        $users = User::whereIn('id', $userIds)->get();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.abc.changeWarehouse.index', compact('title', 'workspacename', 'changeWarehouse'));
+        return view('tables.abc.changeWarehouse.index', compact('title', 'users', 'workspacename', 'changeWarehouse'));
     }
 
     /**
@@ -216,6 +218,29 @@ class ChangeWarehouseController extends Controller
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
             $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+
+        if (isset($data['return_code']) && $data['return_code'] !== null) {
+            $filters[] = ['value' => 'Mã phiếu: ' . $data['return_code'], 'name' => 'return_code', 'icon' => 'document'];
+        }
+
+        if (isset($data['users']) && $data['users'] !== null) {
+            $user = new User();
+            $users = $user->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Người lập: ' . $userstring, 'name' => 'users', 'icon' => 'user'];
+        }
+
+        if (isset($data['wh_from']) && $data['wh_from'] !== null) {
+            $filters[] = ['value' => 'Từ kho: ' . $data['wh_from'], 'name' => 'wh_from', 'icon' => 'wh'];
+        }
+
+        if (isset($data['wh_to']) && $data['wh_to'] !== null) {
+            $filters[] = ['value' => 'Đến kho: ' . $data['wh_to'], 'name' => 'wh_to', 'icon' => 'wh'];
+        }
+
+        if (isset($data['note']) && $data['note'] !== null) {
+            $filters[] = ['value' => 'Ghi chú: ' . $data['note'], 'name' => 'note', 'icon' => 'note'];
         }
         if ($request->ajax()) {
             $changeWarehouse = $this->changeWarehouse->ajax($data);

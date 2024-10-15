@@ -121,54 +121,23 @@
                                             </span>
                                         </div>
                                         <div class="scrollbar">
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-return_code" data-button="return_code" type="button">Mã
+                                                phiếu</button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-date"
-                                                data-button="date" type="button">Ngày lập phiếu
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-code_delivery" data-button="code_delivery" type="button">Mã
-                                                giao hàng
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-quotenumber" data-button="quotenumber" type="button">Số báo
-                                                giá
-                                            </button>
-                                            @can('isAdmin')
-                                                <button class="dropdown-item btndropdown text-13-black" id="btn-guests"
-                                                    data-button="guests" type="button">Khách hàng
-                                                </button>
-                                            @endcan
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-users"
-                                                data-button="users" type="button">Người tạo
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-shipping_unit" data-button="shipping_unit" type="button">Đơn
-                                                vị vận chuyển
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-shipping_fee" data-button="shipping_fee" type="button">
-                                                Phí giao hàng
-                                            </button>
+                                                data-button="date" type="button">Ngày lập</button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-guests"
+                                                data-button="guests" type="button">Khách hàng</button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
-                                                data-button="status" type="button">Trạng thái
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-total"
-                                                data-button="total" type="button">
-                                                Tổng tiền
-                                            </button>
+                                                data-button="status" type="button">Trạng thái</button>
                                         </div>
                                     </div>
-                                    <x-filter-text name="quotenumber" title="Số báo giá" />
-                                    <x-filter-checkbox :dataa='$deliveries' name="code_delivery" title="Mã giao hàng"
-                                        namedisplay="code_delivery" />
+                                    <!-- Input fields for filtering -->
+                                    <x-filter-text name="return_code" title="Mã phiếu" />
+                                    <x-filter-date-time name="date" title="Ngày lập" />
                                     <x-filter-text name="guests" title="Khách hàng" />
-                                    <x-filter-text name="shipping_unit" title="Đơn vị vận chuyển" />
-                                    <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
-                                        namedisplay="name" />
-                                    <x-filter-status name="status" key1="1" value1="Chưa giao" key2="2"
+                                    <x-filter-status name="status" key1="1" value1="Nháp" key2="2"
                                         value2="Đã giao" color1="#858585" color2="#08AA36BF" title="Trạng thái" />
-                                    <x-filter-compare name="total" title="Tổng tiền" />
-                                    <x-filter-compare name="shipping_fee" title="Phí giao hàng" />
-                                    <x-filter-date-time name="date" title="Ngày giao hàng" />
                                 </div>
                             </div>
                         </div>
@@ -356,190 +325,48 @@
 <x-print-component :contentId="$title" />
 
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
+<script src="{{ asset('/dist/js/number.js') }}"></script>
 
 <script>
-    var filters = [];
-    var sort = [];
-    var svgtop =
-        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 19.0009C11.6332 19.0009 11.7604 18.9482 11.8542 18.8544C11.9480 18.7607 12.0006 18.6335 12.0006 18.5009V6.70789L15.1466 9.85489C15.2405 9.94878 15.3679 10.0015 15.5006 10.0015C15.6334 10.0015 15.7607 9.94878 15.8546 9.85489C15.9485 9.76101 16.0013 9.63367 16.0013 9.50089C16.0013 9.36812 15.9485 9.24078 15.8546 9.14689L11.8546 5.14689C11.8082 5.10033 11.7530 5.06339 11.6923 5.03818C11.6315 5.01297 11.5664 5 11.5006 5C11.4349 5 11.3697 5.01297 11.3090 5.03818C11.2483 5.06339 11.1931 5.10033 11.1466 5.14689L7.14663 9.14689C7.10014 9.19338 7.06327 9.24857 7.03811 9.30931C7.01295 9.37005 7 9.43515 7 9.50089C7 9.63367 7.05274 9.76101 7.14663 9.85489C7.24052 9.94878 7.36786 10.0015 7.50063 10.0015C7.63341 10.0015 7.76075 9.94878 7.85463 9.85489L11.0006 6.70789V18.5009C11.0006 18.6335 11.0533 18.7607 11.1471 18.8544C11.2408 18.9482 11.3680 19.0009 11.5006 19.0009Z' fill='#555555'/></svg>";
-    var svgbot =
-        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
-
-    var code_delivery = [];
-    var users = [];
-    var statusDe = [];
-
-    function filterstatus() {
-        filterButtons("myInput-status", "ks-cboxtags-status");
-    }
-
-    function filterusers() {
-        filterButtons("myInput-users", "ks-cboxtags-users");
-    }
-
-    function filtercode_delivery() {
-        filterButtons("myInput-code_delivery", "ks-cboxtags-code_delivery");
-    }
-
-    // get id check box name
     $(document).on('click', '.btn-submit', function(e) {
-        if (!$(e.target).is('input[type="checkbox"]')) {
-            e.preventDefault();
+        if (!$(e.target).is('input[type="checkbox"]')) e.preventDefault();
+        var buttonElement = this;
+        var formData = {
+            search: $('#search').val(), // Dữ liệu tìm kiếm
+            return_code: getData('#return_code', this), // Mã phiếu
+            date: retrieveDateData(this, 'date'), // Ngày lập
+            guests: getData('#guests', this), // Khách hàng
+            status: getStatusData(this, 'status'), // Trạng thái
+            sort: getSortData(buttonElement) // Dữ liệu sắp xếp nếu có
+        };
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + $(this).data('button-name') + '-options').hide();
         }
-        var buttonName = $(this).data('button');
-        var btn_submit = $(this).data('button-name');
-        var search = $('#search').val();
-        var quotenumber = $('#quotenumber').val();
-        var guests = $('#guests').val();
-        var shipping_unit = $('#shipping_unit').val();
-        var operator_total = $('.total-operator').val();
-        var val_total = $('.total-quantity').val();
-        var total = [operator_total, val_total];
-        var operator_shipping_fee = $('.shipping_fee-operator').val();
-        var val_shipping_fee = $('.shipping_fee-quantity').val();
-        var shipping_fee = [operator_shipping_fee, val_shipping_fee];
-        var date_start = $('#date_start_date').val();
-        var date_end = $('#date_end_date').val();
-        var date = [date_start, date_end];
-
+        // Để lọc filter khi xuất Excel
+        var date = formData.date;
         var dataArray = [{
             key: 'date',
             value: date
-        }, ];
-
+        }];
         // Chuyển đổi mảng thành chuỗi JSON và lưu vào input hidden
         $('.datavalue').val(JSON.stringify(dataArray));
-
-        if ($(this).data('button-name') === 'status') {
-            $('.ks-cboxtags-status input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked')) {
-                    if (status.indexOf(value) === -1 && statusDe.indexOf(value) === -1) {
-                        statusDe.push(value);
-                    }
-                } else {
-                    const index = statusDe.indexOf(value);
-                    if (index !== -1) {
-                        statusDe.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'code_delivery') {
-            $('.ks-cboxtags-code_delivery input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && code_delivery.indexOf(value) === -1) {
-                    code_delivery.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = code_delivery.indexOf(value);
-                    if (index !== -1) {
-                        code_delivery.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'users') {
-            $('.ks-cboxtags-users input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && users.indexOf(value) === -1) {
-                    users.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = users.indexOf(value);
-                    if (index !== -1) {
-                        users.splice(index, 1);
-                    }
-                }
-            });
-        }
-        var sort_by = '';
-        if (typeof $(this).data('sort-by') !== 'undefined') {
-            sort_by = $(this).data('sort-by');
-        }
-        var sort_type = $(this).data('sort-type');
-        sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
-        $(this).data('sort-type', sort_type);
-        $('.icon').text('');
-        var iconId = 'icon-' + sort_by;
-        var iconDiv = $('#' + iconId);
-        iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
-        sort = [
-            sort_by, sort_type
-        ];
-        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
-            $('#' + btn_submit + '-options').hide();
-        }
-        $(".btn-filter_search").prop("disabled", false);
-
-        if ($(this).data('delete') === 'quotenumber') {
-            quotenumber = null;
-            $('#quotenumber').val('');
-        }
-        if ($(this).data('delete') === 'shipping_unit') {
-            shipping_unit = null;
-            $('#shipping_unit').val('');
-        }
-        if ($(this).data('delete') === 'code_delivery') {
-            code_delivery = [];
-            // $('.deselect-all-code_delivery').click();
-            $('.ks-cboxtags-code_delivery input[type="checkbox"]').prop('checked', false);
-
-        }
-        if ($(this).data('delete') === 'guests') {
-            guests = null;
-            $('#guests').val('');
-        }
-        if ($(this).data('delete') === 'users') {
-            users = [];
-            $('.ks-cboxtags-users input[type="checkbox"]').prop('checked', false);
-
-        }
-        if ($(this).data('delete') === 'status') {
-            statusDe = [];
-            $('.ks-cboxtags-status input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'total') {
-            total = null;
-            $('.total-quantity').val('');
-        }
-        if ($(this).data('delete') === 'shipping_fee') {
-            shipping_fee = null;
-            $('.shipping_fee-quantity').val('');
-        }
-        if ($(this).data('delete') === 'date') {
-            date = null;
-            $('#date_start_date').val('');
-            $('#date_end_date').val('');
-            $('.datavalue').val('');
-
-        }
+        // 
         $.ajax({
             type: 'get',
             url: "{{ route('searchDelivery') }}",
-            data: {
-                search: search,
-                quotenumber: quotenumber,
-                shipping_unit: shipping_unit,
-                shipping_fee: shipping_fee,
-                users: users,
-                guests: guests,
-                code_delivery: code_delivery,
-                status: statusDe,
-                date: date,
-                total: total,
-                sort: sort,
-            },
+            data: formData,
             success: function(data) {
                 updateFilters(data, filters, '.result-filter-delivery', '.tbody-delivery',
-                    '.delivery-info', '.id-delivery', buttonName);
+                    '.delivery-info',
+                    '.id-delivery', $(this).data('button'));
             }
-        })
+        });
         $.ajaxSetup({
             headers: {
                 'csrftoken': '{{ csrf_token() }}'
             }
         });
     });
-
     @php
         $pdfSession = session('pdf_info1');
     @endphp

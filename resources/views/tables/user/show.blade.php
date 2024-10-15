@@ -238,6 +238,8 @@
                             <p class="font-weight-bold text-uppercase info-chung--heading text-left">DOANH SỐ BÁN HÀNG
                             </p>
                         </div>
+                        <div class="row result-filter-detail margin-left30 my-1">
+                        </div>
                         <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed border-custom">
                             <div class="w-100">
                                 <div class="row mr-0">
@@ -313,7 +315,9 @@
                                             <!-- Input fields to filter -->
                                             <x-filter-text name="ma" title="Mã phiếu" />
                                             <x-filter-date-time name="date" title="Ngày lập" />
-                                            <x-filter-text name="diengiai" title="Diễn giải" />
+                                            <x-filter-status name="diengiai" key1="1" value1="Phiếu bán hàng"
+                                                key2="2" value2="Phiếu đặt hàng" color1="#28a745"
+                                                color2="#007bff" title="Trạng thái" />
                                             <x-filter-text name="khachhang-ncc" title="Khách hàng / NCC" />
                                         </div>
                                     </div>
@@ -493,12 +497,16 @@
                                                 </div>
                                                 <div class="scrollbar">
                                                     <button class="dropdown-item btndropdownn text-13-black"
-                                                        id="btn-chungtu" data-button="chungtu" type="button">
-                                                        Số chứng từ
+                                                        id="btn-maphieu" data-button="maphieu" type="button">
+                                                        Mã phiếu
                                                     </button>
                                                     <button class="dropdown-item btndropdownn text-13-black"
-                                                        id="btn-ctvbanhang" data-button="ctvbanhang" type="button">
-                                                        CTV bán hàng
+                                                        id="btn-khachhang" data-button="khachhang" type="button">
+                                                        Khách hàng
+                                                    </button>
+                                                    <button class="dropdown-item btndropdownn text-13-black"
+                                                        id="btn-nhomhang" data-button="nhomhang" type="button">
+                                                        Nhóm hàng
                                                     </button>
                                                     <button class="dropdown-item btndropdownn text-13-black"
                                                         id="btn-mahang" data-button="mahang" type="button">
@@ -510,11 +518,11 @@
                                                     </button>
                                                     <button class="dropdown-item btndropdownn text-13-black"
                                                         id="btn-dvt" data-button="dvt" type="button">
-                                                        ĐVT
+                                                        Đơn vị tính
                                                     </button>
                                                     <button class="dropdown-item btndropdownn text-13-black"
-                                                        id="btn-slban" data-button="slban" type="button">
-                                                        SL bán
+                                                        id="btn-soluong" data-button="soluong" type="button">
+                                                        Số lượng
                                                     </button>
                                                     <button class="dropdown-item btndropdownn text-13-black"
                                                         id="btn-dongia" data-button="dongia" type="button">
@@ -525,12 +533,15 @@
                                                         Thành tiền
                                                     </button>
                                                 </div>
-                                                <x-filter-text name="chungtu" title="Số chứng từ" />
-                                                <x-filter-text name="ctvbanhang" title="CTV bán hàng" />
+
+                                                <!-- Input fields to filter with new titles -->
+                                                <x-filter-text name="maphieu" title="Mã phiếu" />
+                                                <x-filter-text name="khachhang" title="Khách hàng" />
+                                                <x-filter-text name="nhomhang" title="Nhóm hàng" />
                                                 <x-filter-text name="mahang" title="Mã hàng" />
                                                 <x-filter-text name="tenhang" title="Tên hàng" />
-                                                <x-filter-text name="dvt" title="ĐVT" />
-                                                <x-filter-compare name="slban" title="SL bán" />
+                                                <x-filter-text name="dvt" title="Đơn vị tính" />
+                                                <x-filter-compare name="soluong" title="Số lượng" />
                                                 <x-filter-compare name="dongia" title="Đơn giá" />
                                                 <x-filter-compare name="thanhtien" title="Thành tiền" />
                                             </div>
@@ -649,7 +660,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="tbody-history">
                                                 @php
                                                     $totalDeliverQty = 0;
                                                     $totalPriceExport = 0;
@@ -690,9 +701,9 @@
                                                                 $totalPriceExport += $matchedItem->price_export;
                                                                 $totalProductTotalVat += $matchedItem->product_total;
                                                             @endphp
-                                                            <tr class="position-relative relative">
+                                                            <tr class="position-relative relative history-info">
                                                                 <input type="hidden" value="{{ $itemDelivery->id }}"
-                                                                    class="sell">
+                                                                    class="id-history">
                                                                 @if ($loop->first)
                                                                     <td rowspan="{{ $count }}"
                                                                         class="text-13-black height-52 border">
@@ -747,21 +758,20 @@
 <script type="text/javascript">
     $(document).on('click', '.btn-submit', function(e) {
         if (!$(e.target).is('input[type="checkbox"]')) e.preventDefault();
-        var parentId = $(this).closest('#history, #detailExport').attr('id');
+        var parentId = $(this).closest('#history, #detail').attr('id');
 
         if (parentId === 'history') {
             console.log('Parent is history');
             // Xử lý logic cho history
-        } else if (parentId === 'detailExport') {
+        } else if (parentId === 'detail') {
             console.log('Parent is detailExport');
             // Xử lý logic cho detailExport
         } else {
             console.log('Parent is neither history nor detailExport');
             // Xử lý khi không phải cả hai
         }
-
         // Lịch sử công nợ
-        if (parentId === 'history') {
+        if (parentId === 'detail') {
             var buttonElement = this;
             // Thu thập dữ liệu và reset nếu action delete được kích hoạt
             var formData = {
@@ -770,47 +780,48 @@
                 // Lấy dữ liệu từ các trường tương ứng
                 ma: getData('#ma', this),
                 date: retrieveDateData(this, 'date'),
-                diengiai: getData('#diengiai', this),
+                diengiai: getStatusData(this, 'diengiai'),
                 khachhang_ncc: getData('#khachhang-ncc', this),
                 sort: getSortData(buttonElement)
             };
             // AJAX request cho lịch sử công nợ
             $.ajax({
                 type: 'get',
-                url: "{{ route('searchHistoryDebt') }}",
+                url: "{{ route('searchDetailUser') }}",
                 data: formData,
                 success: function(data) {
-                    updateFilters(data, filters, '.result-filter-history', '.tbody-history',
-                        '.history-info', '.id-history', $(this).data('button'));
+                    updateFilters(data, filters, '.result-filter-detail', '.tbody-detail',
+                        '.detail-info', '.id-detail', $(this).data('button'));
                 }
             });
 
             // Đơn hàng
-        } else if (parentId === 'detailExport') {
+        } else if (parentId === 'history') {
             var buttonElement = this;
             // Thu thập dữ liệu và reset nếu action delete được kích hoạt
             var formData = {
                 data: {{ $user->id }},
                 search: $('#search2').val(),
-                chungtu: getData('#chungtu', this),
-                ctvbanhang: getData('#ctvbanhang', this),
-                mahang: getData('#mahang', this),
-                tenhang: getData('#tenhang', this),
-                dvt: getData('#dvt', this),
-                slban: retrieveComparisonData(this, "slban"),
-                dongia: retrieveComparisonData(this, "dongia"),
-                thanhtien: retrieveComparisonData(this, "thanhtien"),
-                sort: getSortData(buttonElement)
+                maphieu: getData('#maphieu', this), // Mã phiếu
+                khachhang: getData('#khachhang', this), // Khách hàng
+                nhomhang: getData('#nhomhang', this), // Nhóm hàng
+                mahang: getData('#mahang', this), // Mã hàng
+                tenhang: getData('#tenhang', this), // Tên hàng
+                dvt: getData('#dvt', this), // Đơn vị tính
+                soluong: retrieveComparisonData(this, "soluong"), // Số lượng
+                dongia: retrieveComparisonData(this, "dongia"), // Đơn giá
+                thanhtien: retrieveComparisonData(this, "thanhtien"), // Thành tiền
+                sort: getSortData(buttonElement) // Dữ liệu sắp xếp nếu có
             };
             // AJAX request cho đơn hàng
             $.ajax({
                 type: 'get',
-                url: "{{ route('searchDetailGuest') }}",
+                url: "{{ route('searchHistoryUser') }}",
                 data: formData,
                 success: function(data) {
                     console.log(data);
-                    updateFilters(data, filters, '.result-filter-detail', '.tbody-detail',
-                        '.detail-info', '.id-detail', $(this).data('button'));
+                    updateFilters(data, filters, '.result-filter-history', '.tbody-history',
+                        '.history-info', '.id-history', $(this).data('button'));
                 }
             });
         }

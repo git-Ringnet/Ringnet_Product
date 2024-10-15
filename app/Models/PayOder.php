@@ -891,62 +891,50 @@ class PayOder extends Model
     {
         $payment = DB::table($this->table)
             ->leftJoin('detailimport', 'pay_order.detailimport_id', 'detailimport.id')
-            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
-            ->select('provides.provide_name_display as provide_name_display', 'pay_order.*', 'detailimport.quotation_number as quotation_number')
+            ->leftJoin('provides', 'provides.id', 'pay_order.provide_id')
+            ->leftJoin('guest', 'guest.id', 'pay_order.guest_id')
+            ->leftJoin('users', 'users.id', 'pay_order.user_id')
+            ->leftJoin('funds', 'funds.id', 'pay_order.fund_id')
+            ->select('provides.provide_name_display as provide_name_display', 'funds.name', 'users.id as users_id', 'guest.guest_name_display', 'pay_order.*', 'detailimport.quotation_number as quotation_number')
             ->where('pay_order.workspace_id', Auth::user()->current_workspace);
 
         if (isset($data['search'])) {
             $payment = $payment->where(function ($query) use ($data) {
                 $query->orWhere('pay_order.payment_code', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('pay_order.note', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('provides.provide_name_display', 'like', '%' . $data['search'] . '%');
             });
         }
-        if (isset($data['quotenumber'])) {
-            $payment = $payment->where('quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        if (isset($data['return_code'])) {
+            $payment = $payment->where('payment_code', 'like', '%' . $data['return_code'] . '%');
         }
-        if (isset($data['provides'])) {
-            $payment = $payment->where('detailimport.provide_name', 'like', '%' . $data['provides'] . '%');
-        }
-        if (isset($data['payment_code'])) {
-            $payment = $payment->whereIn('pay_order.id', $data['payment_code']);
+        if (isset($data['customers'])) {
+            $payment = $payment->where(function ($query) use ($data) {
+                $query->orWhere('provides.provide_name_display', 'like', '%' . $data['customers'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['customers'] . '%');
+            });
         }
         if (isset($data['users'])) {
-            $payment = $payment->whereIn('pay_order.user_id', $data['users']);
+            $payment = $payment->having('users_id', $data['users']);
         }
-        if (isset($data['status']) && is_array($data['status'])) {
-            if (in_array(7, $data['status'])) {
-                $payment = $payment->where(function ($query) {
-                    $query->where('pay_order.status', 1)
-                        ->where('pay_order.payment', '>', 0);
-                });
-                $payment = $payment->orWhere(function ($query) use ($data) {
-                    $dataWithout7 = array_diff($data['status'], [7]);
-                    $query->orWhereIn('pay_order.status', $dataWithout7);
-                });
-            } else {
-                if (in_array(1, $data['status'])) {
-                    $payment = $payment->where(function ($query) {
-                        $query->where('pay_order.status', 1)
-                            ->where('pay_order.payment', '<=', 0);
-                    });
-                    $payment = $payment->orWhere(function ($query) use ($data) {
-                        $dataWithout7 = array_diff($data['status'], [1]);
-                        $query->orWhereIn('pay_order.status', $dataWithout7);
-                    });
-                } else {
-                    $payment = $payment->whereIn('pay_order.status', $data['status']);
-                }
-            }
+        if (isset($data['content'])) {
+            $payment = $payment->whereIn('content_pay', $data['content']);
         }
-        if (isset($data['payment'][0]) && isset($data['payment'][1])) {
-            $payment = $payment->where('pay_order.payment', $data['payment'][0], $data['payment'][1]);
+        if (isset($data['guests'])) {
+            $payment = $payment->where('payment_type', 'like', '%' . $data['guests'] . '%');
         }
-        if (isset($data['debt'][0]) && isset($data['debt'][1])) {
-            $payment = $payment->where('pay_order.debt', $data['debt'][0], $data['debt'][1]);
+        if (isset($data['amount'][0]) && isset($data['amount'][1])) {
+            $payment = $payment->where('total', $data['amount'][0], $data['amount'][1]);
         }
-        if (isset($data['total'][0]) && isset($data['total'][1])) {
-            $payment = $payment->where('pay_order.total', $data['total'][0], $data['total'][1]);
+        if (isset($data['fund'])) {
+            $payment = $payment->where('funds.name', 'like', '%' . $data['fund'] . '%');
+        }
+        if (isset($data['note'])) {
+            $payment = $payment->where('pay_order.note', 'like', '%' . $data['note'] . '%');
+        }
+        if (isset($data['status'])) {
+            $payment = $payment->whereIn('pay_order.status', $data['status']);
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);

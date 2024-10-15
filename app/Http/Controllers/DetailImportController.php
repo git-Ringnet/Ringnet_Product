@@ -119,7 +119,7 @@ class DetailImportController extends Controller
         $listDetail = $listDetail->get();
         //
         $invoiceAuto = $this->detailImport->getQuoteCount();
-        return view('tables.import.insertImport', compact('title', 'provides', 'project', 'workspacename', 'listUser', 'listDetail','invoiceAuto'));
+        return view('tables.import.insertImport', compact('title', 'provides', 'project', 'workspacename', 'listUser', 'listDetail', 'invoiceAuto'));
     }
 
     /**
@@ -1278,7 +1278,7 @@ class DetailImportController extends Controller
         $data = $request->all();
         $filters = [];
         if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
-            $filters[] = ['value' => 'Đơn mua hàng: ' . count($data['quotenumber']) . ' số báo giá', 'name' => 'quotenumber', 'icon' => 'po'];
+            $filters[] = ['value' => 'Mã phiếu: ' . $data['quotenumber'], 'name' => 'quotenumber', 'icon' => 'user'];
         }
         if (isset($data['provides']) && $data['provides'] !== null) {
             $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides', 'icon' => 'user'];
@@ -1286,24 +1286,7 @@ class DetailImportController extends Controller
         if (isset($data['reference_number']) && $data['reference_number'] !== null) {
             $filters[] = ['value' => 'Số tham chiếu: ' . $data['reference_number'], 'name' => 'reference_number', 'icon' => 'po'];
         }
-        if (isset($data['users']) && $data['users'] !== null) {
-            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users', 'icon' => 'user'];
-        }
-        $statusText = '';
-        if (isset($data['status']) && $data['status'] !== null) {
-            $statusValues = [];
-            if (in_array(1, $data['status'])) {
-                $statusValues[] = '<span style="color: #858585;">Draft</span>';
-            }
-            if (in_array(2, $data['status'])) {
-                $statusValues[] = '<span style="color: #08AA36BF;">Close</span>';
-            }
-            if (in_array(0, $data['status'])) {
-                $statusValues[] = '<span style="color: #E8B600;">Approve</span>';
-            }
-            $statusText = implode(', ', $statusValues);
-            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
-        }
+
         $statusTextReceive = '';
         if (isset($data['receive']) && $data['receive'] !== null) {
             $statusValues = [];
@@ -1318,36 +1301,6 @@ class DetailImportController extends Controller
             }
             $statusTextReceive = implode(', ', $statusValues);
             $filters[] = ['value' => 'Nhận hàng: ' . $statusTextReceive, 'name' => 'receive', 'icon' => 'status'];
-        }
-        $statusTextReceipt = '';
-        if (isset($data['reciept']) && $data['reciept'] !== null) {
-            $statusValues = [];
-            if (in_array(0, $data['reciept'])) {
-                $statusValues[] = '<span style="color: #858585;">Chưa tạo</span>';
-            }
-            if (in_array(2, $data['reciept'])) {
-                $statusValues[] = '<span style="color: #08AA36BF;">Chính thức</span>';
-            }
-            if (in_array(1, $data['reciept'])) {
-                $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
-            }
-            $statusTextReceipt = implode(', ', $statusValues);
-            $filters[] = ['value' => 'Hoá đơn: ' . $statusTextReceipt, 'name' => 'reciept', 'icon' => 'status'];
-        }
-        $statusTextPay = '';
-        if (isset($data['pay']) && $data['pay'] !== null) {
-            $statusValues = [];
-            if (in_array(0, $data['pay'])) {
-                $statusValues[] = '<span style="color: #858585;">Chưa thanh toán</span>';
-            }
-            if (in_array(2, $data['pay'])) {
-                $statusValues[] = '<span style="color: #08AA36BF;">Thanh toán đủ</span>';
-            }
-            if (in_array(1, $data['pay'])) {
-                $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
-            }
-            $statusTextPay = implode(', ', $statusValues);
-            $filters[] = ['value' => 'Thanh toán: ' . $statusTextPay, 'name' => 'pay'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
             $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . ' ' . $data['total'][1], 'name' => 'total', 'icon' => 'money'];

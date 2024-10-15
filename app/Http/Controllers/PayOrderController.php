@@ -75,8 +75,9 @@ class PayOrderController extends Controller
 
         // $payment = $payment->get();
         $users = $this->payment->getUserInPayOrder();
+        $content = ContentGroups::where('contenttype_id', 2)->get();
         $today = Carbon::now();
-        return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'users', 'today', 'workspacename'));
+        return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'content', 'users', 'today', 'workspacename'));
     }
 
     /**
@@ -375,62 +376,60 @@ class PayOrderController extends Controller
     {
         $data = $request->all();
         $filters = [];
-        if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
-            $filters[] = ['value' => 'Đơn mua hàng: ' . $data['quotenumber'], 'name' => 'quotenumber', 'icon' => 'po'];
-        }
-        if (isset($data['provides']) && $data['provides'] !== null) {
-            $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides', 'icon' => 'user'];
-        }
-        if (isset($data['payment_code']) && $data['payment_code'] !== null) {
-            $payOrder = $this->payment->code_paymentById($data['payment_code']);
-            $payOrderString = implode(', ', $payOrder);
-            $filters[] = ['value' => 'Mã thanh toán: ' . count($data['payment_code']) . ' mã thanh toán', 'name' => 'payment_code', 'icon' => 'po'];
-        }
-        if (isset($data['users']) && $data['users'] !== null) {
-            $users = $this->users->getNameUser($data['users']);
-            $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users', 'icon' => 'user'];
-        }
-        if (isset($data['date']) && $data['date'][1] !== null) {
+        if (isset($data['date']) && isset($data['date'][1])) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
-            $filters[] = ['value' => 'Hạn thanh toán: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
-        $statusText = '';
+
+        if (isset($data['return_code']) && $data['return_code'] !== null) {
+            $filters[] = ['value' => 'Mã phiếu chi: ' . $data['return_code'], 'name' => 'return_code', 'icon' => 'document'];
+        }
+
+        if (isset($data['customers']) && $data['customers'] !== null) {
+            $filters[] = ['value' => 'Khách hàng: ' . $data['customers'], 'name' => 'customers', 'icon' => 'user'];
+        }
+
+        if (isset($data['guests']) && $data['guests'] !== null) {
+            $filters[] = ['value' => 'Người nhận: ' . $data['guests'], 'name' => 'guests', 'icon' => 'user'];
+        }
+
+        if (isset($data['content']) && $data['content'] !== null) {
+            $contents = new ContentGroups();
+            $content = $contents->getNameContent($data['content']);
+            $contenttring = implode(', ', $content);
+            $filters[] = ['value' => 'Nội dung: ' . count($data['content']) . ' đã chọn', 'name' => 'content', 'icon' => 'content'];
+        }
+
+        if (isset($data['amount']) && $data['amount'][1] !== null) {
+            $filters[] = ['value' => 'Số tiền: ' . $data['amount'][0] . ' ' . $data['amount'][1], 'name' => 'amount', 'icon' => 'money'];
+        }
+
+        if (isset($data['fund']) && $data['fund'] !== null) {
+            $filters[] = ['value' => 'Quỹ: ' . $data['fund'], 'name' => 'fund', 'icon' => 'fund'];
+        }
+
+        if (isset($data['users']) && $data['users'] !== null) {
+            $user = new User();
+            $users = $user->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Nhân viên: ' . $userstring, 'name' => 'users', 'icon' => 'user'];
+        }
+
+        if (isset($data['note']) && $data['note'] !== null) {
+            $filters[] = ['value' => 'Ghi chú: ' . $data['note'], 'name' => 'note', 'icon' => 'note'];
+        }
+
         if (isset($data['status']) && $data['status'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['status'])) {
-                $statusValues[] = '<span style="color: #858585;">Chưa thanh toán</span>';
+                $statusValues[] = '<span style="color: #858585;">Nháp</span>';
             }
             if (in_array(2, $data['status'])) {
-                $statusValues[] = '<span style="color: #08AA36BF;">Thanh toán đủ</span>';
-            }
-            if (in_array(3, $data['status'])) {
-                $statusValues[] = '<span style="color: #0052CC;">Gần đến hạn</span>';
-            }
-            if (in_array(4, $data['status'])) {
-                $statusValues[] = '<span style="color: #EC212D;">Quá hạn</span>';
-            }
-            if (in_array(6, $data['status'])) {
-                $statusValues[] = '<span style="color: #08AA36BF;">Đặt cọc</span>';
-            }
-            if (in_array(5, $data['status'])) {
-                $statusValues[] = '<span style="color: #08AA36BF;">Đến hạn</span>';
-            }
-            if (in_array(7, $data['status'])) {
-                $statusValues[] = '<span style="color: #08AA36BF;">Thanh toán 1 phần</span>';
+                $statusValues[] = '<span style="color: #08AA36BF;">Đã thu</span>';
             }
             $statusText = implode(', ', $statusValues);
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
-        }
-        if (isset($data['total']) && $data['total'][1] !== null) {
-            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . ' ' . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
-        }
-        if (isset($data['payment']) && $data['payment'][1] !== null) {
-            $filters[] = ['value' => 'Đã nhận: ' . $data['payment'][0] . ' ' . $data['payment'][1], 'name' => 'payment', 'icon' => 'money'];
-        }
-        if (isset($data['debt']) && $data['debt'][1] !== null) {
-            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . ' ' . $data['debt'][1], 'name' => 'debt', 'icon' => 'money'];
         }
         if ($request->ajax()) {
             $payment = $this->payment->ajax1($data);

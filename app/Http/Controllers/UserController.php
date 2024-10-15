@@ -256,22 +256,75 @@ class UserController extends Controller
         if (isset($data['ma']) && $data['ma'] !== null) {
             $filters[] = ['value' => 'Mã phiếu: ' . $data['ma'], 'name' => 'ma', 'icon' => 'code'];
         }
-
-        if (isset($data['date']) && $data['date'] !== null) {
-            $filters[] = ['value' => 'Ngày lập: ' . $data['date'], 'name' => 'date', 'icon' => 'calendar'];
-        }
-
+        $statusText = '';
         if (isset($data['diengiai']) && $data['diengiai'] !== null) {
-            $filters[] = ['value' => 'Diễn giải: ' . $data['diengiai'], 'name' => 'diengiai', 'icon' => 'description'];
+            $statusValues = [];
+            if (in_array(1, $data['diengiai'])) {
+                $statusValues[] = '<span style="color: #28a745;">Phiếu bán hàng</span>';
+            }
+            if (in_array(2, $data['diengiai'])) {
+                $statusValues[] = '<span style="color: #007bff;">Phiếu đặt hàng</span>';
+            }
+            $statusText = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Diễn giải: ' . $statusText, 'name' => 'diengiai'];
         }
 
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
         if (isset($data['khachhang_ncc']) && $data['khachhang_ncc'] !== null) {
-            $filters[] = ['value' => 'Khách hàng / NCC: ' . $data['khachhang_ncc'], 'name' => 'khachhang_ncc', 'icon' => 'user'];
+            $filters[] = ['value' => 'Khách hàng / NCC: ' . $data['khachhang_ncc'], 'name' => 'khachhang-ncc', 'icon' => 'user'];
         }
         $users = new User();
         if ($request->ajax()) {
             // Truy vấn nội dung các nhóm
-            $data = $users->ajax($data);
+            $data = $users->ajaxDetailUser($data);
+            // Trả về phản hồi JSON
+            return response()->json([
+                'data' => $data,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
+
+    public function searchHistoryUser(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if (isset($data['maphieu']) && $data['maphieu'] !== null) {
+            $filters[] = ['value' => 'Mã phiếu: ' . $data['maphieu'], 'name' => 'maphieu', 'icon' => 'code'];
+        }
+        if (isset($data['khachhang']) && $data['khachhang'] !== null) {
+            $filters[] = ['value' => 'Khách hàng: ' . $data['khachhang'], 'name' => 'khachhang', 'icon' => 'user'];
+        }
+        if (isset($data['nhomhang']) && $data['nhomhang'] !== null) {
+            $filters[] = ['value' => 'Nhóm hàng: ' . $data['nhomhang'], 'name' => 'nhomhang', 'icon' => 'box'];
+        }
+        if (isset($data['mahang']) && $data['mahang'] !== null) {
+            $filters[] = ['value' => 'Mã hàng: ' . $data['mahang'], 'name' => 'mahang', 'icon' => 'barcode'];
+        }
+        if (isset($data['tenhang']) && $data['tenhang'] !== null) {
+            $filters[] = ['value' => 'Tên hàng: ' . $data['tenhang'], 'name' => 'tenhang', 'icon' => 'tag'];
+        }
+        if (isset($data['dvt']) && $data['dvt'] !== null) {
+            $filters[] = ['value' => 'Đơn vị tính: ' . $data['dvt'], 'name' => 'dvt', 'icon' => 'ruler'];
+        }
+        if (isset($data['soluong'][0]) && isset($data['soluong'][1])) {
+            $filters[] = ['value' => 'Số lượng: ' . $data['soluong'][0] . $data['soluong'][1], 'name' => 'soluong', 'icon' => 'quantity'];
+        }
+        if (isset($data['dongia'][0]) && isset($data['dongia'][1])) {
+            $filters[] = ['value' => 'Đơn giá: ' . $data['dongia'][0] . $data['dongia'][1], 'name' => 'dongia', 'icon' => 'money'];
+        }
+        if (isset($data['thanhtien'][0]) && isset($data['thanhtien'][1])) {
+            $filters[] = ['value' => 'Thành tiền: ' . $data['thanhtien'][0] . $data['thanhtien'][1], 'name' => 'thanhtien', 'icon' => 'money-bill'];
+        }
+        $users = new User();
+        if ($request->ajax()) {
+            // Truy vấn nội dung các nhóm
+            $data = $users->ajaxHistoryUser($data);
             // Trả về phản hồi JSON
             return response()->json([
                 'data' => $data,

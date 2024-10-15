@@ -718,29 +718,16 @@ class Receive_bill extends Model
                 $query->orWhere('detailimport.provide_name', 'like', '%' . $data['search'] . '%');
             });
         }
-        if (isset($data['quotenumber'])) {
-            $receive = $receive->where('quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        if (isset($data['return_code'])) {
+            $receive = $receive->where('receive_bill.delivery_code', 'like', '%' . $data['return_code'] . '%');
         }
+
         if (isset($data['provides'])) {
-            $receive = $receive->where('detailimport.provide_name', 'like', '%' . $data['provides'] . '%');
+            $receive = $receive->where('provides.provide_name_display', 'like', '%' . $data['provides'] . '%');
         }
-        if (isset($data['shipping_unit'])) {
-            $receive = $receive->where('receive_bill.shipping_unit', 'like', '%' . $data['shipping_unit'] . '%');
-        }
-        if (isset($data['delivery_code'])) {
-            $receive = $receive->whereIn('receive_bill.id', $data['delivery_code']);
-        }
-        if (isset($data['users'])) {
-            $receive = $receive->whereIn('receive_bill.user_id', $data['users']);
-        }
+
         if (isset($data['status'])) {
             $receive = $receive->whereIn('receive_bill.status', $data['status']);
-        }
-        if (isset($data['shipping_fee'][0]) && isset($data['shipping_fee'][1])) {
-            $receive = $receive->where('receive_bill.delivery_charges', $data['shipping_fee'][0], $data['shipping_fee'][1]);
-        }
-        if (isset($data['total'][0]) && isset($data['total'][1])) {
-            $receive = $receive->where('receive_bill.total_tax', $data['total'][0], $data['total'][1]);
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);

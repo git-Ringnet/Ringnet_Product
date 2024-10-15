@@ -944,7 +944,114 @@ handleFilterAndCancelClick(
     $(".khachhang-ncc-input"), // Trường nhập Ghi chú
     $("#cancel-khachhang-ncc") // Nút hủy Ghi chú
 );
+// Lọc và hủy cho Mã phiếu
+handleFilterAndCancelClick(
+    $("#btn-maphieu"), // Nút Mã phiếu
+    $("#maphieu-options"), // Tùy chọn lọc Mã phiếu
+    $(".maphieu-input"), // Trường nhập Mã phiếu
+    $("#cancel-maphieu") // Nút hủy Mã phiếu
+);
 
+// Lọc và hủy cho Khách hàng
+handleFilterAndCancelClick(
+    $("#btn-khachhang"), // Nút Khách hàng
+    $("#khachhang-options"), // Tùy chọn lọc Khách hàng
+    $(".khachhang-input"), // Trường nhập Khách hàng
+    $("#cancel-khachhang") // Nút hủy Khách hàng
+);
+
+// Lọc và hủy cho Nhóm hàng
+handleFilterAndCancelClick(
+    $("#btn-nhomhang"), // Nút Nhóm hàng
+    $("#nhomhang-options"), // Tùy chọn lọc Nhóm hàng
+    $(".nhomhang-input"), // Trường nhập Nhóm hàng
+    $("#cancel-nhomhang") // Nút hủy Nhóm hàng
+);
+
+// Lọc và hủy cho Số lượng
+handleFilterAndCancelClick(
+    $("#btn-soluong"), // Nút Số lượng
+    $("#soluong-options"), // Tùy chọn lọc Số lượng
+    $(".soluong-input"), // Trường nhập Số lượng
+    $("#cancel-soluong") // Nút hủy Số lượng
+);
+// Lọc và hủy cho Phiếu trả hàng
+handleFilterAndCancelClick(
+    $("#btn-return_code"), // Nút Phiếu trả hàng
+    $("#return_code-options"), // Tùy chọn lọc Phiếu trả hàng
+    $(".return_code-input"), // Trường nhập Phiếu trả hàng
+    $("#cancel-return_code") // Nút hủy Phiếu trả hàng
+);
+
+// Lọc và hủy cho Phiếu nhập kho#
+handleFilterAndCancelClick(
+    $("#btn-warehouse_receipt"), // Nút Phiếu nhập kho#
+    $("#warehouse_receipt-options"), // Tùy chọn lọc Phiếu nhập kho#
+    $(".warehouse_receipt-input"), // Trường nhập Phiếu nhập kho#
+    $("#cancel-warehouse_receipt") // Nút hủy Phiếu nhập kho#
+);
+
+// Lọc và hủy cho Nội dung trả hàng
+handleFilterAndCancelClick(
+    $("#btn-return_content"), // Nút Nội dung trả hàng
+    $("#return_content-options"), // Tùy chọn lọc Nội dung trả hàng
+    $(".return_content-input"), // Trường nhập Nội dung trả hàng
+    $("#cancel-return_content") // Nút hủy Nội dung trả hàng
+);
+handleFilterAndCancelClick(
+    $("#btn-customers"),
+    $("#customers-options"),
+    $(".customers-input"),
+    $("#cancel-customers")
+);
+handleFilterAndCancelClick(
+    $("#btn-content"), // Nút Nội dung
+    $("#content-options"), // Tùy chọn lọc Nội dung
+    $(".content-input"), // Trường nhập Nội dung
+    $("#cancel-content") // Nút hủy Nội dung
+);
+handleFilterAndCancelClick(
+    $("#btn-amount"), // Nút Số tiền
+    $("#amount-options"), // Tùy chọn lọc Số tiền
+    $(".amount-input"), // Trường nhập Số tiền
+    $("#cancel-amount") // Nút hủy Số tiền
+);
+handleFilterAndCancelClick(
+    $("#btn-fund"), // Nút Quỹ
+    $("#fund-options"), // Tùy chọn lọc Quỹ
+    $(".fund-input"), // Trường nhập Quỹ
+    $("#cancel-fund") // Nút hủy Quỹ
+);
+handleFilterAndCancelClick(
+    $("#btn-note"), // Nút Ghi chú
+    $("#note-options"), // Tùy chọn lọc Ghi chú
+    $(".note-input"), // Trường nhập Ghi chú
+    $("#cancel-note") // Nút hủy Ghi chú
+);
+handleFilterAndCancelClick(
+    $("#btn-fund_from"), // Nút Ghi chú
+    $("#fund_from-options"), // Tùy chọn lọc Ghi chú
+    $(".fund_from-input"), // Trường nhập Ghi chú
+    $("#cancel-fund_from") // Nút hủy Ghi chú
+);
+handleFilterAndCancelClick(
+    $("#btn-fund_to"), // Nút Ghi chú
+    $("#fund_to-options"), // Tùy chọn lọc Ghi chú
+    $(".fund_to-input"), // Trường nhập Ghi chú
+    $("#cancel-fund_to") // Nút hủy Ghi chú
+);
+handleFilterAndCancelClick(
+    $("#btn-wh_to"), // Nút Ghi chú
+    $("#wh_to-options"), // Tùy chọn lọc Ghi chú
+    $(".wh_to-input"), // Trường nhập Ghi chú
+    $("#cancel-wh_to") // Nút hủy Ghi chú
+);
+handleFilterAndCancelClick(
+    $("#btn-wh_from"), // Nút Ghi chú
+    $("#wh_from-options"), // Tùy chọn lọc Ghi chú
+    $(".wh_from-input"), // Trường nhập Ghi chú
+    $("#cancel-wh_from") // Nút hủy Ghi chú
+);
 //
 
 function filterFunction() {

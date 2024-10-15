@@ -272,12 +272,35 @@ class ContentImportExport extends Model
     }
     public function ajax($data)
     {
-        $content = ContentImportExport::where('workspace_id', Auth::user()->current_workspace);
+        $content = ContentImportExport::where('workspace_id', Auth::user()->current_workspace)->with(['getFromFund', 'getToFund', 'getUser']);
         if (isset($data['search'])) {
             $content = $content->where(function ($query) use ($data) {
                 $query->orWhere('form_code', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('notes', 'like', '%' . $data['search'] . '%');
             });
         }
+        if (isset($data['return_code'])) {
+            $content = $content->where('form_code', 'like', '%' . $data['return_code'] . '%');
+        }
+        if (isset($data['note'])) {
+            $content = $content->where('notes', 'like', '%' . $data['note'] . '%');
+        }
+        if (isset($data['fund_from'])) {
+            $content = $content->whereHas('getFromFund', function ($query) use ($data) {
+                $query->where('name', 'like', '%' . $data['fund_from'] . '%');
+            });
+        }
+        if (isset($data['fund_to'])) {
+            $content = $content->whereHas('getToFund', function ($query) use ($data) {
+                $query->where('name', 'like', '%' . $data['fund_to'] . '%');
+            });
+        }
+        if (isset($data['users'])) {
+            $content = $content->whereHas('getUser', function ($query) use ($data) {
+                $query->whereIn('id', $data['users']);
+            });
+        }
+
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
             $dateEnd = Carbon::parse($data['date'][1])->endOfDay();

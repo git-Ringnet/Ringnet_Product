@@ -493,31 +493,20 @@ class DetailImport extends Model
                 $query->orWhere('detailimport.quotation_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('detailimport.reference_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('detailimport.provide_name', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('provides.provide_name_display', 'like', '%' . $data['search'] . '%');
             });
+        }
+        if (isset($data['quotenumber'])) {
+            $import = $import->where('detailimport.quotation_number', 'like', '%' . $data['quotenumber'] . '%');
         }
         if (isset($data['reference_number'])) {
             $import = $import->where('detailimport.reference_number', 'like', '%' . $data['reference_number'] . '%');
         }
         if (isset($data['provides'])) {
-            $import = $import->where('detailimport.provide_name', 'like', '%' . $data['provides'] . '%');
-        }
-        if (isset($data['quotenumber'])) {
-            $import = $import->whereIn('detailimport.id', $data['quotenumber']);
-        }
-        if (isset($data['users'])) {
-            $import = $import->whereIn('detailimport.user_id', $data['users']);
-        }
-        if (isset($data['status'])) {
-            $import = $import->whereIn('detailimport.status', $data['status']);
+            $import = $import->where('provides.provide_name_display', 'like', '%' . $data['provides'] . '%');
         }
         if (isset($data['receive'])) {
             $import = $import->whereIn('detailimport.status_receive', $data['receive']);
-        }
-        if (isset($data['reciept'])) {
-            $import = $import->whereIn('detailimport.status_reciept', $data['reciept']);
-        }
-        if (isset($data['pay'])) {
-            $import = $import->whereIn('detailimport.status_pay', $data['pay']);
         }
         if (isset($data['total'][0]) && isset($data['total'][1])) {
             $import = $import->where('detailimport.total_tax', $data['total'][0], $data['total'][1]);

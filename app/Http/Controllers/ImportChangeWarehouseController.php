@@ -39,12 +39,14 @@ class ImportChangeWarehouseController extends Controller
             ->where('type_change_warehouse', 2)
             ->orderBy('id', 'desc')
             ->get();
-
+        $userIds = $changeWarehouse->pluck('user_id')->toArray();
+        // Truy vấn thông tin người dùng dựa trên user_id
+        $users = User::whereIn('id', $userIds)->get();
         $title = "Phiếu nhập chuyển kho";
 
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.abc.changeWarehouse.indexImport', compact('title', 'workspacename', 'changeWarehouse'));
+        return view('tables.abc.changeWarehouse.indexImport', compact('title', 'users', 'workspacename', 'changeWarehouse'));
     }
 
     /**

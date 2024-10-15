@@ -101,6 +101,15 @@ class ContentGroups extends Model
         }
         return $status;
     }
+    public function getNameContent($data)
+    {
+        $users = DB::table($this->table);
+        if (isset($data)) {
+            $users = $users->whereIn('id', $data);
+        }
+        $users = $users->pluck('name')->all();
+        return $users;
+    }
     public function ajax($data)
     {
         $contentGroups = ContentGroups::where('workspace_id', Auth::user()->current_workspace)

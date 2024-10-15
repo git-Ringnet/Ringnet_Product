@@ -235,8 +235,42 @@ class CashReceipt extends Model
         $returnImport = CashReceipt::with(['guest', 'fund', 'user', 'workspace'])->where('workspace_id', Auth::user()->current_workspace);
         if (isset($data['search'])) {
             $returnImport = $returnImport->where(function ($query) use ($data) {
-                $query->orWhere('return_code', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('receipt_code', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('note', 'like', '%' . $data['search'] . '%');
             });
+        }
+        if (isset($data['return_code'])) {
+            $returnImport = $returnImport->where('receipt_code', 'like', '%' . $data['return_code'] . '%');
+        }
+        if (isset($data['customers'])) {
+            $returnImport = $returnImport->whereHas('guest', function ($query) use ($data) {
+                $query->where('guest_name_display', 'like', '%' . $data['customers'] . '%');
+            });
+        }
+        if (isset($data['users'])) {
+            $returnImport = $returnImport->whereHas('user', function ($query) use ($data) {
+                $query->whereIn('id', $data['users']);
+            });
+        }
+        if (isset($data['content'])) {
+            $returnImport = $returnImport->whereIn('content_id', $data['content']);
+        }
+        if (isset($data['guests'])) {
+            $returnImport = $returnImport->where('payer', 'like', '%' . $data['guests'] . '%');
+        }
+        if (isset($data['amount'][0]) && isset($data['amount'][1])) {
+            $returnImport = $returnImport->where('amount', $data['amount'][0], $data['amount'][1]);
+        }
+        if (isset($data['fund'])) {
+            $returnImport = $returnImport->whereHas('fund', function ($query) use ($data) {
+                $query->where('name', 'like', '%' . $data['fund'] . '%');
+            });
+        }
+        if (isset($data['note'])) {
+            $returnImport = $returnImport->where('note', 'like', '%' . $data['note'] . '%');
+        }
+        if (isset($data['status'])) {
+            $returnImport = $returnImport->whereIn('status', $data['status']);
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);

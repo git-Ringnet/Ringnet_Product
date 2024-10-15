@@ -77,6 +77,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/searchDetailWH', [WarehouseController::class, 'searchDetailWH'])->name('searchDetailWH');
     Route::get('/searchUsers', [UserController::class, 'search'])->name('searchUsers');
     Route::get('/searchDetailUser', [UserController::class, 'searchDetailUser'])->name('searchDetailUser');
+    Route::get('/searchHistoryUser', [UserController::class, 'searchHistoryUser'])->name('searchHistoryUser');
 });
 
 Route::middleware([CheckLogin::class])->group(function () {

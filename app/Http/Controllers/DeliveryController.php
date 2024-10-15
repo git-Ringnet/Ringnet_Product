@@ -526,48 +526,29 @@ class DeliveryController extends Controller
     {
         $data = $request->all();
         $filters = [];
-        if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
-            $filters[] = ['value' => 'Số báo giá: ' . $data['quotenumber'], 'name' => 'quotenumber', 'icon' => 'po'];
+        if (isset($data['return_code']) && $data['return_code'] !== null) {
+            $filters[] = ['value' => 'Mã phiếu: ' . $data['return_code'], 'name' => 'return_code', 'icon' => 'po'];
         }
+
         if (isset($data['guests']) && $data['guests'] !== null) {
             $filters[] = ['value' => 'Khách hàng: ' . $data['guests'], 'name' => 'guests', 'icon' => 'user'];
         }
-        if (isset($data['shipping_unit']) && $data['shipping_unit'] !== null) {
-            $filters[] = ['value' => 'Đơn vị vận chuyển: ' . $data['shipping_unit'], 'name' => 'shipping_unit', 'icon' => 'po'];
-        }
-        if (isset($data['code_delivery']) && $data['code_delivery'] !== null) {
-            $delivery = $this->delivery->code_deliveryById($data['code_delivery']);
-            $deliveryString = implode(', ', $delivery);
-            $filters[] = ['value' => 'Mã giao hàng: ' . count($data['code_delivery']) . ' mã giao hàng', 'name' => 'code_delivery', 'icon' => 'po'];
-        }
-        if (isset($data['users']) && $data['users'] !== null) {
-            $users = $this->users->getNameUser($data['users']);
-            $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users', 'icon' => 'user'];
-        }
-        $statusText = '';
-        $statusColor = '';
+
         if (isset($data['status']) && $data['status'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['status'])) {
-                $statusValues[] = '<span style="color: #858585;">Chưa giao</span>';
+                $statusValues[] = '<span style="color: #858585;">Nháp</span>';
             }
             if (in_array(2, $data['status'])) {
-                $statusValues[] = '<span style="color: #08AA36BF;">Đã giao</span>';
+                $statusValues[] = '<span style="color: #08AA36BF;">Đã trả</span>';
             }
-            $statusText = implode(', ', $statusValues);
-            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
+            $filters[] = ['value' => 'Trạng thái: ' . implode(', ', $statusValues), 'name' => 'status', 'icon' => 'status'];
         }
-        if (isset($data['shipping_fee']) && $data['shipping_fee'][1] !== null) {
-            $filters[] = ['value' => 'Phí giao hàng: ' . $data['shipping_fee'][0] . ' ' . $data['shipping_fee'][1], 'name' => 'shipping_fee', 'icon' => 'money'];
-        }
+
         if (isset($data['date']) && $data['date'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
-            $filters[] = ['value' => 'Ngày giao hàng: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
-        }
-        if (isset($data['total']) && $data['total'][1] !== null) {
-            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . ' ' . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
+            $filters[] = ['value' => 'Ngày lập: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
         if ($request->ajax()) {
             $delivery = $this->delivery->ajax($data);

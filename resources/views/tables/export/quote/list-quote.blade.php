@@ -121,36 +121,30 @@
                                             </span>
                                         </div>
                                         <div class="scrollbar">
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
-                                                data-button="date" type="button">Ngày báo giá
-                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-quotenumber" data-button="quotenumber" type="button">Số báo
-                                                giá
+                                                id="btn-quotenumber" data-button="quotenumber" type="button">
+                                                Mã phiếu
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-reference_number" data-button="reference_number"
-                                                type="button">Số tham chiếu
+                                                type="button">
+                                                Số phiếu
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                data-button="date" type="button">
+                                                Ngày lập
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-guests"
-                                                data-button="guests" type="button">Khách hàng
-                                            </button>
-                                            @can('isAdmin')
-                                                <button class="dropdown-item btndropdown text-13-black" id="btn-users"
-                                                    data-button="users" type="button">Người tạo
-                                                </button>
-                                            @endcan
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-status"
-                                                data-button="status" type="button">Trạng thái
+                                                data-button="guests" type="button">
+                                                Khách hàng
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-receive"
-                                                data-button="receive" type="button">Giao hàng
+                                                data-button="receive" type="button">
+                                                Giao hàng
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-reciept"
-                                                data-button="reciept" type="button">Hoá đơn
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-pay"
-                                                data-button="pay" type="button">Thanh toán
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-users"
+                                                data-button="users" type="button">
+                                                Nhân viên sale
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-total"
                                                 data-button="total" type="button">
@@ -158,31 +152,16 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <x-filter-text name="reference_number" title="Số tham chiếu" />
-                                    {{-- <x-filter-checkbox :dataa='$quoteExport' name="reference_number" title="Số tham chiếu"
-                                        namedisplay="reference_number" /> --}}
-                                    <x-filter-checkbox :dataa='$quoteExport' name="quotenumber" title="Số báo giá"
-                                        namedisplay="quotation_number" />
-                                    {{-- <x-filter-checkbox :dataa='$guests' name="guests" title="Khách hàng"
-                                        namedisplay="guest_name_display" /> --}}
+                                    <x-filter-text name="quotenumber" title="Mã phiếu" />
+                                    <x-filter-text name="reference_number" title="Số phiếu" />
+                                    <x-filter-date-time name="date" title="Ngày lập" />
                                     <x-filter-text name="guests" title="Khách hàng" />
-                                    <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
-                                        namedisplay="name" />
-                                    <x-filter-status name="status" key1="1" value1="Draft" color1="#858585"
-                                        key2="2" value2="Approved" color2="#E8B600" key3="3"
-                                        value3="Close" color3="#08AA36BF" title="Trạng thái" />
                                     <x-filter-status name="receive" key1="1" value1="Chưa giao"
                                         color1="#858585" key2="2" value2="Đã giao" color2="#08AA36BF"
                                         key3="3" value3="Một phần" color3="#E8B600" title="Giao hàng" />
-                                    <x-filter-status name="reciept" key1="1" value1="Chưa tạo"
-                                        color1="#858585" key2="2" value2="Chính thức" color2="#08AA36BF"
-                                        key3="3" color3="#E8B600" value3="Một phần" title="Hoá đơn" />
-                                    <x-filter-status name="pay" key1="1" value1="Chưa thanh toán"
-                                        color1="#858585" color2="#08AA36BF" color3="#E8B600" key2="2"
-                                        value2="Thanh toán đủ" key3="3" value3="Một phần"
-                                        title="Thanh toán" />
+                                    <x-filter-checkbox :dataa='$users' name="users" title="Nhân viên sale"
+                                        namedisplay="name" />
                                     <x-filter-compare name="total" title="Tổng tiền" />
-                                    <x-filter-date-time name="date" title="Ngày báo giá" />
                                 </div>
                             </div>
                         </div>
@@ -2219,311 +2198,43 @@
     }
 
     //
-    var filters = [];
-    var sort = [];
-    var quotenumber = [];
-    var users = [];
-    var statusDe = [];
-    var receive = [];
-    var reciept = [];
-    var pay = [];
-    var svgtop =
-        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 19.0009C11.6332 19.0009 11.7604 18.9482 11.8542 18.8544C11.9480 18.7607 12.0006 18.6335 12.0006 18.5009V6.70789L15.1466 9.85489C15.2405 9.94878 15.3679 10.0015 15.5006 10.0015C15.6334 10.0015 15.7607 9.94878 15.8546 9.85489C15.9485 9.76101 16.0013 9.63367 16.0013 9.50089C16.0013 9.36812 15.9485 9.24078 15.8546 9.14689L11.8546 5.14689C11.8082 5.10033 11.7530 5.06339 11.6923 5.03818C11.6315 5.01297 11.5664 5 11.5006 5C11.4349 5 11.3697 5.01297 11.3090 5.03818C11.2483 5.06339 11.1931 5.10033 11.1466 5.14689L7.14663 9.14689C7.10014 9.19338 7.06327 9.24857 7.03811 9.30931C7.01295 9.37005 7 9.43515 7 9.50089C7 9.63367 7.05274 9.76101 7.14663 9.85489C7.24052 9.94878 7.36786 10.0015 7.50063 10.0015C7.63341 10.0015 7.76075 9.94878 7.85463 9.85489L11.0006 6.70789V18.5009C11.0006 18.6335 11.0533 18.7607 11.1471 18.8544C11.2408 18.9482 11.3680 19.0009 11.5006 19.0009Z' fill='#555555'/></svg>";
-    var svgbot =
-        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
-
-    function filterquotenumber() {
-        filterButtons("myInput-quotenumber", "ks-cboxtags-quotenumber");
-    }
-
-    function filterguests() {
-        filterButtons("myInput-guests", "ks-cboxtags-guests");
-    }
-
-    function filterstatus() {
-        filterButtons("myInput-status", "ks-cboxtags-status");
-    }
-
-    function filterreceive() {
-        filterButtons("myInput-receive", "ks-cboxtags-receive");
-    }
-
-    function filterreciept() {
-        filterButtons("myInput-reciept", "ks-cboxtags-reciept");
-    }
-
-    function filterpay() {
-        filterButtons("myInput-pay", "ks-cboxtags-pay");
-    }
-
-    function filterusers() {
-        filterButtons("myInput-users", "ks-cboxtags-users");
-    }
-
-    // get id check box name
     $(document).on('click', '.btn-submit', function(e) {
-        if (!$(e.target).is('input[type="checkbox"]')) {
-            e.preventDefault();
-        }
-        var buttonName = $(this).data('button');
-        var btn_submit = $(this).data('button-name');
-        var search = $('#search').val();
-        var reference_number = $('#reference_number').val();
-        var guests = $('#guests').val();
-        var operator_total = $('.total-operator').val();
-        var val_total = $('.total-quantity').val();
-        var total = [operator_total, val_total];
-        var date_start = $('#date_start_date').val();
-        var date_end = $('#date_end_date').val();
-        var date = [date_start, date_end];
+        if (!$(e.target).is('input[type="checkbox"]')) e.preventDefault();
+        var buttonElement = this;
 
+        var formData = {
+            search: $('#search').val(),
+            quotenumber: getData('#quotenumber', this), // Mã phiếu
+            reference_number: getData('#reference_number', this), // Số phiếu
+            date: retrieveDateData(this, 'date'), // Ngày lập
+            guests: getData('#guests', this), // Khách hàng
+            receive: getStatusData(this, 'receive'), // Giao hàng
+            users: getStatusData(this, 'users'), // Nhân viên sale
+            total: retrieveComparisonData(this, "total"), // Tổng tiền
+            sort: getSortData(buttonElement) // Dữ liệu sắp xếp nếu có
+        };
+
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + $(this).data('button-name') + '-options').hide();
+        }
+
+        // Để lọc filter khi xuất Excel
+        var date = formData.date;
         var dataArray = [{
             key: 'date',
             value: date
-        }, ];
-
+        }];
         // Chuyển đổi mảng thành chuỗi JSON và lưu vào input hidden
         $('.datavalue').val(JSON.stringify(dataArray));
-
-
-        if ($(this).data('button-name') === 'quotenumber') {
-            $('.ks-cboxtags-quotenumber input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && quotenumber.indexOf(value) === -1) {
-                    quotenumber.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = quotenumber.indexOf(value);
-                    if (index !== -1) {
-                        quotenumber.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'users') {
-            $('.ks-cboxtags-users input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && users.indexOf(value) === -1) {
-                    users.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = users.indexOf(value);
-                    if (index !== -1) {
-                        users.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'status') {
-            $('.ks-cboxtags-status input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked')) {
-                    if (status.indexOf(value) === -1 && statusDe.indexOf(value) === -1) {
-                        statusDe.push(value);
-                    }
-                } else {
-                    const index = statusDe.indexOf(value);
-                    if (index !== -1) {
-                        statusDe.splice(index, 1);
-                    }
-                }
-            });
-        }
-
-        if ($(this).data('button-name') === 'receive') {
-            $('.ks-cboxtags-receive input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && receive.indexOf(value) === -1) {
-                    receive.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = receive.indexOf(value);
-                    if (index !== -1) {
-                        receive.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'reciept') {
-            $('.ks-cboxtags-reciept input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && reciept.indexOf(value) === -1) {
-                    reciept.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = reciept.indexOf(value);
-                    if (index !== -1) {
-                        reciept.splice(index, 1);
-                    }
-                }
-            });
-        }
-        if ($(this).data('button-name') === 'pay') {
-            $('.ks-cboxtags-pay input[type="checkbox"]').each(function() {
-                const value = $(this).val();
-                if ($(this).is(':checked') && pay.indexOf(value) === -1) {
-                    pay.push(value);
-                } else if (!$(this).is(':checked')) {
-                    const index = pay.indexOf(value);
-                    if (index !== -1) {
-                        pay.splice(index, 1);
-                    }
-                }
-            });
-        }
-        var sort_by = '';
-        if (typeof $(this).data('sort-by') !== 'undefined') {
-            sort_by = $(this).data('sort-by');
-        }
-        var sort_type = $(this).data('sort-type');
-        sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
-        $(this).data('sort-type', sort_type);
-        $('.icon').text('');
-        var iconId = 'icon-' + sort_by;
-        var iconDiv = $('#' + iconId);
-        iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
-        sort = [
-            sort_by, sort_type
-        ];
-        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
-            $('#' + btn_submit + '-options').hide();
-        }
-        $(".btn-filter_search").prop("disabled", false);
-
-        // Xoá phần tử trong mảng filters
-        if ($(this).data('delete') === 'reference_number') {
-            reference_number = null;
-            $('#reference_number').val('');
-        }
-        if ($(this).data('delete') === 'quotenumber') {
-            quotenumber = [];
-            // $('.deselect-all-quotenumber').click();
-            $('.ks-cboxtags-quotenumber input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'guests') {
-            guests = null;
-            $('#guests').val('');
-        }
-        if ($(this).data('delete') === 'users') {
-            users = [];
-            $('.ks-cboxtags-users input[type="checkbox"]').prop('checked', false);
-
-        }
-        if ($(this).data('delete') === 'status') {
-            statusDe = [];
-            $('.ks-cboxtags-status input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'receive') {
-            receive = [];
-            // $('.deselect-all-receive').click();
-            $('.ks-cboxtags-receive input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'reciept') {
-            reciept = [];
-            // $('.deselect-all-reciept').click();
-            $('.ks-cboxtags-reciept input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'pay') {
-            pay = [];
-            // $('.deselect-all-pay').click();
-            $('.ks-cboxtags-pay input[type="checkbox"]').prop('checked', false);
-        }
-        if ($(this).data('delete') === 'total') {
-            total = null;
-            $('.total-quantity').val('');
-        }
-        if ($(this).data('delete') === 'date') {
-            date = null;
-            $('#date_start_date').val('');
-            $('#date_end_date').val('');
-            $('.datavalue').val('');
-
-        }
+        // 
         $.ajax({
             type: 'get',
             url: "{{ route('searchDetailExport') }}",
-            data: {
-                search: search,
-                quotenumber: quotenumber,
-                reference_number: reference_number,
-                guests: guests,
-                users: users,
-                status: statusDe,
-                receive: receive,
-                reciept: reciept,
-                total: total,
-                pay: pay,
-                date: date,
-                sort: sort,
-            },
+            data: formData,
             success: function(data) {
-                // Hiển thị label dữ liệu tìm kiếm ...
-                var existingNames = [];
-                data.filters.forEach(function(item) {
-                    // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
-                    if (filters.indexOf(item.name) === -1) {
-                        filters.push(item.name);
-                    }
-                    existingNames.push(item.name);
-                });
-
-                filters = filters.filter(function(name) {
-                    return existingNames.includes(name);
-                });
-                $('.result-filter-detailExport').empty();
-                if (data.filters.length > 0) {
-                    $('.result-filter-detailExport').addClass('has-filters');
-                } else {
-                    $('.result-filter-detailExport').removeClass('has-filters');
-                }
-                // Lặp qua mảng filters để tạo và render các phần tử
-                data.filters.forEach(function(item) {
-                    var index = filters.indexOf(item.name);
-                    // Tạo thẻ item-filter
-                    var itemFilter = $('<div>').addClass(
-                        'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
-                    ).attr({
-                        'data-icon': item.icon,
-                        'data-button': item.name
-                    });
-                    itemFilter.css('order', index);
-                    // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                    itemFilter.append(
-                        '<span class="text text-13-black m-0" style="flex:2;">' +
-                        item.value +
-                        '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
-                        item.name + '" data-button="' + buttonName +
-                        '"></i>');
-                    // Thêm thẻ item-filter vào 
-                    $('.result-filter-detailExport').append(itemFilter);
-                });
-                // Ẩn hiện dữ liệu khi đã filters
-                var detailExportIds = [];
-                // Lặp qua mảng provides và thu thập các detailExportIds
-                data.detailExport.forEach(function(item) {
-                    var detailExportId = item.maBG;
-                    detailExportIds.push(detailExportId);
-                });
-                // console.log(detailExportIds);
-                // Ẩn tất cả các phần tử .detailExport-info
-                // $('.detailExport-info').hide();
-                // Lặp qua từng phần tử .detailExport-info để hiển thị và cập nhật data-position
-                $('.detailExport-info').each(function() {
-                    var value = parseInt($(this).find('.id-detailExport')
-                        .val());
-                    var index = detailExportIds.indexOf(value);
-                    if (index !== -1) {
-                        $(this).show();
-                        // Cập nhật data-position
-                        $(this).attr('data-position', index + 1);
-                    } else {
-                        $(this).hide();
-                    }
-                });
-                // Tạo một bản sao của mảng phần tử .detailExport-info
-                var clonedElements = $('.detailExport-info').clone();
-                // Sắp xếp các phần tử trong bản sao theo data-position
-                var sortedElements = clonedElements.sort(function(a, b) {
-                    return $(a).data('position') - $(b).data('position');
-                });
-                // Thay thế các phần tử trong .tbody-detailExport bằng các phần tử đã sắp xếp
-                $('.tbody-detailExport').empty().append(sortedElements);
+                updateFilters(data, filters, '.result-filter-detailExport', '.tbody-detailExport',
+                    '.detailExport-info',
+                    '.id-detailExport', $(this).data('button'));
             }
         });
         $.ajaxSetup({
