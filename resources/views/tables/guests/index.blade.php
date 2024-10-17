@@ -223,7 +223,7 @@
                                                     {{ $item->key }}
                                                 </td>
                                                 <td class="text-13-black border border-left-0 text-left border-bottom border-top-0 py-0">
-                                                    <a class="text-purble"
+                                                    <a
                                                         href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                                 </td>
                                                 <td class="text-13-black border border-left-0 border-bottom border-top-0 py-0">
@@ -338,7 +338,7 @@
                                                     </td>
                                                     <td
                                                         class="text-13-black border text-left border-bottom border-top-0 py-0">
-                                                        <a class="text-purble"
+                                                        <a
                                                             href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                                     </td>
                                                     <td class="text-13-black border border-bottom border-top-0 py-0">

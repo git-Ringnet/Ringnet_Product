@@ -252,7 +252,7 @@
                                     </thead>
                                     <tbody class="tbody-provide">
                                         <tr>
-                                            <td class="text-purble font-weight-bold border-bottom py-1"
+                                            <td class="text-purble font-weight-bold border-bottom py-1 border-right"
                                                 style="font-size: 16px;" colspan="13">Nhà cung cấp : Chưa chọn nhóm
                                             </td>
                                         </tr>
@@ -268,8 +268,7 @@
                                                 </td>
                                                 <td
                                                     class="text-13-black border border-bottom text-wrap py-0 border-top-0 border-left-0">
-                                                    <a class="text-purble"
-                                                        href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
+                                                    <a href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
                                                         class="user_flow" data-type="NCC"
                                                         data-des="Xem nhà cung cấp">
                                                         {{ $item->provide_name_display }}
@@ -378,11 +377,11 @@
                                                 Có
                                                 <strong>{{ $total }}</strong> nhà cung cấp
                                             </td>
-                                            <td class="border-top-0" colspan="13"></td>
+                                            <td class="border-top-0 border-right" colspan="13"></td>
                                         </tr>
                                         @foreach ($groups as $value)
                                             <tr>
-                                                <td class="text-purble font-weight-bold border-bottom py-1"
+                                                <td class="text-purble font-weight-bold border-bottom py-1 border-right"
                                                     style="font-size: 16px;" colspan="13">Nhà cung cấp :
                                                     {{ $value->name }}</td>
                                             </tr>
@@ -498,12 +497,12 @@
                                                     @endphp
                                                 @endforeach
                                             @endif
-                                            <tr>
-                                                <td></td>
-                                                <td class="text-right" style="color: red">
+                                            <tr class="height-30">
+                                                <td class="border-right border-bottom py-0"></td>
+                                                <td class="text-right border-right border-bottom py-0" style="color: red">
                                                     Có <strong>{{ $total }}</strong> nhà cung cấp
                                                 </td>
-                                                <td colspan="13"></td>
+                                                <td class="border-bottom border-right py-0" colspan="13"></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

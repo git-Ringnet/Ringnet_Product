@@ -28,13 +28,13 @@
             <div class="d-flex content__heading--right">
                 <a href="{{ route('inventory.index', $workspacename) }}">
                     <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 rounded">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                        <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                             fill="none">
                             <path
                                 d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
                                 fill="#6D7075" />
                         </svg>
-                        <span class="text-btnIner-primary ml-2">Trở về</span>
+                        <p class="m-0 p-0">Trở về</p>
                     </button>
                 </a>
                 <div class="dathang">
@@ -81,7 +81,7 @@
                     <a
                         href="{{ route('inventory.edit', ['workspace' => $workspacename, 'inventory' => $product->id]) }}">
                         <button type="button" class="custom-btn d-flex mx-1 align-items-center h-100">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
+                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
                                 fill="none">
                                 <path
                                     d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
@@ -93,54 +93,33 @@
                                     d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
                                     fill="white" />
                             </svg>
-                            <span class="text-btnIner-primary ml-2">Sửa</span>
+                            <p class="m-0 p-0">Sửa</p>
                         </button>
                     </a>
                 @endif
-                <div class="btn-option" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                            fill="#42526E">
-                        </path>
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                            fill="#42526E">
-                        </path>
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                            fill="#42526E">
-                        </path>
-                    </svg>
-                </div>
             </div>
         </div>
         <section class="content-header--options p-0">
-            <ul class="header-options--nav nav nav-tabs margin-left32"
+            <ul class="header-options--nav-1 nav nav-tabs margin-left32"
                 @if ($product->type == 2) style="width:100px;" @endif>
                 <li>
                     <a class="text-secondary pl-3 active" data-toggle="tab" href="#info">Thông tin</a>
                 </li>
                 @if ($product->type == 1)
                     <li>
-                        <a class="text-secondary" data-toggle="tab" href="#history">Hàng hóa</a>
-                    </li>
-                    <li>
-                        <a class="text-secondary pr-3" data-toggle="tab" href="#serialnumber">Serial Number</a>
+                        <a class="text-secondary pr-3" data-toggle="tab" href="#history">Hàng hóa</a>
                     </li>
                 @endif
             </ul>
         </section>
     </div>
-    <div class="tab-content editGuest" style="margin-top: 13.5rem;">
+    <div class="tab-content editGuest" style="margin-top: 12.4rem;">
         <div id="info" class="content tab-pane in active">
             <section class="content">
                 <div class="container-fluided">
                     <div class="row">
                         <div class="col-12 p-0">
                             <div class="info-chung">
-                                <p class="font-weight-bold text-uppercase info-chung--heading">Thông tin chung</p>
                                 <div class="content-info">
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info height-100 py-2 border border-top-0 border-left-0">
@@ -167,23 +146,21 @@
                                         </div>
                                     </div>
 
-
-                                    <div class="d-flex align-items-center height-60-mobile">
-                                        <div class="title-info py-2 border border-left-0 height-100">
-                                            <p class="p-0 m-0 required-label text-danger margin-left32 text-13">Tên sản
-                                                phẩm</p>
-                                        </div>
-                                        <input readonly type="text" name="product_name"
-                                            class="border w-100 height-100 py-2 border-left-0 border-right-0 px-3 text-13-black"
-                                            autocomplete="off" required value="{{ $product->product_name }}" />
-                                    </div>
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info height-100 py-2 border border-top-0 border-left-0">
-                                            <p class="p-0 m-0  margin-left32 text-13">Mã sản phẩm</p>
+                                            <p class="p-0 m-0  margin-left32 text-13">Mã hàng hóa</p>
                                         </div>
                                         <input readonly type="text" required="" name="product_code"
                                             value="{{ $product->product_code }}"
                                             class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                    </div>
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-left-0 height-100">
+                                            <p class="p-0 m-0 text-danger margin-left32 text-13">Tên hàng hóa</p>
+                                        </div>
+                                        <input readonly type="text" name="product_name"
+                                            class="border w-100 height-100 py-2 border-left-0 border-right-0 px-3 text-13-black"
+                                            autocomplete="off" required value="{{ $product->product_name }}" />
                                     </div>
                                     <div class="d-flex align-items-center height-60-mobile">
                                         <div class="title-info height-100 py-2 border border-top-0 border-left-0">

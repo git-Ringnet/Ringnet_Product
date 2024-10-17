@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <div class="content-header-fixed p-0 border-bottom-0">
         <div class="content__header--inner">
-            <div class="content__heading--left opacity-0">
+            {{-- <div class="content__heading--left opacity-0">
                 <span class="ml-4">Thiết lập ban đầu</span>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -15,6 +15,98 @@
                     </svg>
                 </span>
                 <span class="font-weight-bold text-secondary">Hàng hóa</span>
+            </div> --}}
+            <div class="d-flex align-items-center ml-3">
+                <form action="" method="get" id="search-filter" class="p-0 m-0">
+                    <div class="position-relative ml-1">
+                        <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
+                            style="outline: none;" class="pr-4 w-100 input-search text-13"
+                            value="{{ request()->keywords }}" />
+                        <span id="search-icon" class="search-icon">
+                            <i class="fas fa-search btn-submit"></i>
+                        </span>
+                        <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
+                            style="display: none;" />
+                    </div>
+                </form>
+                <div class="dropdown mx-2 filter-all">
+                    <button class="btn-filter_search" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                            fill="none">
+                            <path
+                                d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
+                                fill="#6D7075" />
+                            <path
+                                d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
+                                fill="#6D7075" />
+                            <path
+                                d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
+                                fill="#6D7075" />
+                            <path
+                                d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
+                                fill="#6D7075" />
+                        </svg>
+                        <span class="text-btnIner">Bộ lọc</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                fill="#6B6F76" />
+                        </svg>
+                        </span>
+                    </button>
+                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="search-container px-2">
+                            <input type="text" placeholder="Tìm kiếm" id="myInput" onkeyup="filterFunction()"
+                                class="text-13">
+                            <span class="search-icon mr-2">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                        <div class="scrollbar">
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-ma" data-button="ma"
+                                type="button">Mã hàng hóa
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-tenhang"
+                                data-button="tenhang" type="button">Tên hàng hóa
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-dvt" data-button="dvt"
+                                type="button">ĐVT
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-gianhap"
+                                data-button="gianhap" type="button">Giá nhập
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-giabanle"
+                                data-button="giabanle" type="button">Giá bán lẻ
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-giabansi"
+                                data-button="giabansi" type="button">Giá bán sỉ
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-giadacbiet"
+                                data-button="giadacbiet" type="button">Giá đặc
+                                biệt
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-trongluong"
+                                data-button="trongluong" type="button">Trọng
+                                lượng
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-soluongton"
+                                data-button="soluongton" type="button">Số lượng
+                                tồn
+                            </button>
+                        </div>
+                    </div>
+                    <x-filter-text name="ma" title="Mã hàng hóa" />
+                    <x-filter-text name="tenhang" title="Tên hàng hóa" />
+                    <x-filter-text name="dvt" title="ĐVT" />
+                    <x-filter-compare name="gianhap" button="gianhap" title="Giá nhập" />
+                    <x-filter-compare name="giabanle" button="giabanle" title="Giá bán lẻ" />
+                    <x-filter-compare name="giabansi" button="giabansi" title="Giá bán sỉ" />
+                    <x-filter-compare name="giadacbiet" button="giadacbiet" title="Giá đặc biệt" />
+                    <x-filter-compare name="trongluong" button="soluongton" title="Trọng lượng" />
+                    <x-filter-compare name="soluongton" button="soluongton" title="Số lượng tồn" />
+                </div>
             </div>
             <div class="d-flex content__heading--right">
                 <form id="exportForm" action="{{ route('exportProducts') }}" method="GET" style="display: none;">
@@ -28,7 +120,7 @@
                         <span class="m-0 ml-1">Xuất Excel</span>
                     </button>
                 </a>
-                <a href="{{ route('inventory.create', $workspacename) }}" class="mr-1">
+                <a href="{{ route('inventory.create', $workspacename) }}" class="mr-3">
                     <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                         <svg width="12" height="12" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -42,111 +134,6 @@
                         <p class="m-0 ml-1">Tạo mới</p>
                     </button>
                 </a>
-            </div>
-        </div>
-    </div>
-    <div class="content-filter-all">
-        <div class="bg-filter-search pl-4 border-bottom-0">
-            <div class="content-wrapper1 py-2">
-                <div class="row m-auto filter p-0">
-                    <div class="w-100">
-                        <div class="row mr-0">
-                            <div class="col-md-5 d-flex align-items-center">
-                                <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
-                                        <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
-                                            style="outline: none;" class="pr-4 w-100 input-search text-13"
-                                            value="{{ request()->keywords }}" />
-                                        <span id="search-icon" class="search-icon">
-                                            <i class="fas fa-search btn-submit"></i>
-                                        </span>
-                                        <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
-                                            style="display: none;" />
-                                    </div>
-                                </form>
-                                <div class="dropdown mx-2 filter-all">
-                                    <button class="btn-filter_search" type="button" id="dropdownMenuButton"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
-                                                fill="#6D7075" />
-                                        </svg>
-                                        <span class="text-btnIner">Bộ lọc</span>
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                                fill="#6B6F76" />
-                                        </svg>
-                                        </span>
-                                    </button>
-                                    <div class="dropdown-menu" id="dropdown-menu"
-                                        aria-labelledby="dropdownMenuButton">
-                                        <div class="search-container px-2">
-                                            <input type="text" placeholder="Tìm kiếm" id="myInput"
-                                                onkeyup="filterFunction()" class="text-13">
-                                            <span class="search-icon mr-2">
-                                                <i class="fas fa-search"></i>
-                                            </span>
-                                        </div>
-                                        <div class="scrollbar">
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-ma"
-                                                data-button="ma" type="button">Mã hàng hóa
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-tenhang"
-                                                data-button="tenhang" type="button">Tên hàng hóa
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-dvt"
-                                                data-button="dvt" type="button">ĐVT
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-gianhap"
-                                                data-button="gianhap" type="button">Giá nhập
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-giabanle"
-                                                data-button="giabanle" type="button">Giá bán lẻ
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-giabansi"
-                                                data-button="giabansi" type="button">Giá bán sỉ
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-giadacbiet" data-button="giadacbiet" type="button">Giá đặc
-                                                biệt
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-trongluong" data-button="trongluong" type="button">Trọng
-                                                lượng
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-soluongton" data-button="soluongton" type="button">Số lượng
-                                                tồn
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <x-filter-text name="ma" title="Mã hàng hóa" />
-                                    <x-filter-text name="tenhang" title="Tên hàng hóa" />
-                                    <x-filter-text name="dvt" title="ĐVT" />
-                                    <x-filter-compare name="gianhap" button="gianhap" title="Giá nhập" />
-                                    <x-filter-compare name="giabanle" button="giabanle" title="Giá bán lẻ" />
-                                    <x-filter-compare name="giabansi" button="giabansi" title="Giá bán sỉ" />
-                                    <x-filter-compare name="giadacbiet" button="giadacbiet" title="Giá đặc biệt" />
-                                    <x-filter-compare name="trongluong" button="soluongton" title="Trọng lượng" />
-                                    <x-filter-compare name="soluongton" button="soluongton" title="Số lượng tồn" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -166,107 +153,104 @@
                     <div class="outer2">
                         <table id="example2" class="table table-hover">
                             <thead class="sticky-head">
-                                <tr>
-                                    <th scope="col" class="border-bottom border"
-                                        style="width:5%;padding-left: 2rem;" class="border bg-white">
-                                        <input type="checkbox" name="all" id="checkall" class="checkall-btn">
-                                    </th>
-                                    <th scope="col" class="border bg-white pl-0 border-bottom"
+                                <tr class="height-30">
+                                    <th scope="col" class="border bg-white pl-0 border-bottom py-0"
                                         style="width: 10%;">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_code" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Mã hàng hóa
+                                                    <span class="text-14">Mã hàng hóa
                                                     </span>
                                                 </button>
                                             </a>
                                             <div class="icon" id="icon-product_code"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom py-0">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Tên hàng hóa</span>
+                                                    <span class="text-14">Tên hàng hóa</span>
                                                 </button>
                                             </a>
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom py-0">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">ĐVT</span>
+                                                    <span class="text-14">ĐVT</span>
                                                 </button>
                                             </a>
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom py-0">
                                         <span class="d-flex justify-content-end">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Giá nhập</span>
+                                                    <span class="text-14">Giá nhập</span>
                                                 </button>
                                             </a>
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom py-0">
                                         <span class="d-flex justify-content-end">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Giá bán lẻ</span>
+                                                    <span class="text-14">Giá bán lẻ</span>
                                                 </button>
                                             </a>
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom py-0">
                                         <span class="d-flex justify-content-end">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Giá bán sỉ</span>
+                                                    <span class="text-14">Giá bán sỉ</span>
                                                 </button>
                                             </a>
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom py-0">
                                         <span class="d-flex justify-content-end">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Giá đặc biệt</span>
+                                                    <span class="text-14">Giá đặc biệt</span>
                                                 </button>
                                             </a>
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border bg-white border-bottom">
+                                    <th scope="col" class="border bg-white border-bottom py-0">
                                         <span class="d-flex justify-content-end">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_name" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Trọng lượng</span>
+                                                    <span class="text-14">Trọng lượng</span>
                                                 </button>
                                             </a>
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border bg-white border-bottom" style="width: 14%;">
+                                    <th scope="col" class="border bg-white border-bottom py-0"
+                                        style="width: 14%;">
                                         <span class="d-flex justify-content-end">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_inventory" data-sort-type="DESC">
                                                 <button class="btn-sort" type="submit">
-                                                    <span class="text-13">Số lượng tồn</span>
+                                                    <span class="text-14">Số lượng tồn</span>
                                                 </button>
                                             </a>
                                             <div class="icon" id="icon-product_inventory"></div>
@@ -276,69 +260,50 @@
                             </thead>
                             <tbody class="tbody-product">
                                 <tr>
-                                    <td class="text-green" style="font-size: 16px; font-weight: 500" colspan="10"
-                                        class="border-bottom">Nhóm hàng hóa : Chưa chọn nhóm
+                                    <td class="text-purble font-weight-bold border-bottom py-1 border-right"
+                                        style="font-size: 16px;" colspan="10" class="border-bottom">Nhóm hàng hóa :
+                                        Chưa chọn nhóm
                                     </td>
                                 </tr>
                                 @php
                                     $total = 0;
                                 @endphp
                                 @foreach ($product as $item)
-                                    <tr class="position-relative product-info"
+                                    <tr class="position-relative product-info height-30"
                                         onclick="handleRowClick('checkbox', event);">
                                         <input type="hidden" name="id-product" class="id-product" id="id-product"
                                             value="{{ $item->id }}">
-                                        <td class="border-bottom border">
-                                            <span class="margin-Right10">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10"
-                                                    viewBox="0 0 6 10" fill="none">
-                                                    <g clip-path="url(#clip0_1710_10941)">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
-                                                            fill="#282A30" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_1710_10941">
-                                                            <rect width="6" height="10" fill="white" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-                                            </span>
-                                            <input type="checkbox" class="checkall-btn" name="ids[]"
-                                                id="checkbox" value="" onclick="event.stopPropagation();">
-                                        </td>
-                                        <td class="py-2 text-13-black pl-0 border-bottom border">
+                                        <td class="text-13-black pl-0 border-bottom border py-0">
                                             {{ $item->product_code }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border">
+                                        <td class="text-13-black border-bottom border py-0">
                                             <a class="duongdan"
                                                 href="{{ route('inventory.show', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
                                                 {{ $item->product_name }}
                                             </a>
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border">
+                                        <td class="text-13-black border-bottom border py-0">
                                             {{ $item->product_unit }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border text-right">
+                                        <td class="text-13-black border-bottom border text-right py-0">
                                             {{ number_format($item->product_price_import) }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border text-right">
+                                        <td class="text-13-black border-bottom border text-right py-0">
                                             {{ number_format($item->price_retail) }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border text-right">
+                                        <td class="text-13-black border-bottom border text-right py-0">
                                             {{ number_format($item->price_wholesale) }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border text-right">
+                                        <td class="text-13-black border-bottom border text-right py-0">
                                             {{ number_format($item->price_specialsale) }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border text-right">
+                                        <td class="text-13-black border-bottom border text-right py-0">
                                             {{ number_format($item->product_weight) }}
                                         </td>
-                                        <td class="py-2 text-13-black border-bottom border text-right">
+                                        <td class="text-13-black border-bottom border text-right py-0">
                                             {{ number_format($item->product_inventory) }}
                                         </td>
-                                        <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom"
-                                            style="right: 10px; top: 7px;">
+                                        <td class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                             <div class="d-flex w-100">
                                                 <a
                                                     href="{{ route('inventory.edit', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
@@ -363,16 +328,18 @@
                                         $total++;
                                     @endphp
                                 @endforeach
-                                <tr>
-                                    <td colspan="2" class="bg-light"></td>
-                                    <td class="bg-light" style="color: #dc3545!important">Có {{ $total }}
-                                        hàng hóa</td>
-                                    <td colspan="7" class="bg-light "></td>
+                                <tr class="height-30">
+                                    <td colspan="1" class="py-0 border-right"></td>
+                                    <td class="py-0 border-right text-right" style="color: #dc3545!important">Có
+                                        <strong>{{ $total }}</strong> hàng hóa
+                                    </td>
+                                    <td colspan="7"></td>
                                 </tr>
                                 @foreach ($groups as $value)
                                     <tr>
-                                        <td class="text-green" style="font-size: 16px; font-weight: 500"
-                                            colspan="10" class="border-bottom">Nhóm hàng hóa :{{ $value->name }}
+                                        <td class="text-purble font-weight-bold border-bottom py-1 border-right"
+                                            style="font-size: 16px;" colspan="10" class="border-bottom">Nhóm hàng
+                                            hóa :{{ $value->name }}
                                         </td>
                                     </tr>
                                     @if ($value->getAllProducts)
@@ -380,63 +347,42 @@
                                             $total = 0;
                                         @endphp
                                         @foreach ($value->getAllProducts as $item)
-                                            <tr class="position-relative product-info"
+                                            <tr class="position-relative product-info height-30"
                                                 onclick="handleRowClick('checkbox', event);">
                                                 <input type="hidden" name="id-product" class="id-product"
                                                     id="id-product" value="{{ $item->id }}">
-                                                <td class="border-bottom border">
-                                                    <span class="margin-Right10">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="6"
-                                                            height="10" viewBox="0 0 6 10" fill="none">
-                                                            <g clip-path="url(#clip0_1710_10941)">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
-                                                                    fill="#282A30" />
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_1710_10941">
-                                                                    <rect width="6" height="10"
-                                                                        fill="white" />
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    </span>
-                                                    <input type="checkbox" class="checkall-btn" name="ids[]"
-                                                        id="checkbox" value=""
-                                                        onclick="event.stopPropagation();">
-                                                </td>
-                                                <td class="py-2 text-13-black pl-0 border-bottom border">
+                                                <td class="text-13-black pl-0 border-bottom border py-0">
                                                     {{ $item->product_code }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border">
+                                                <td class="text-13-black border-bottom border py-0">
                                                     <a class="duongdan"
                                                         href="{{ route('inventory.show', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
                                                         {{ $item->product_name }}
                                                     </a>
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border">
+                                                <td class="text-13-black border-bottom border py-0">
                                                     {{ $item->product_unit }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border text-right">
+                                                <td class="text-13-black border-bottom border text-right py-0">
                                                     {{ number_format($item->product_price_import) }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border text-right">
+                                                <td class="text-13-black border-bottom border text-right py-0">
                                                     {{ number_format($item->price_retail) }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border text-right">
+                                                <td class="text-13-black border-bottom border text-right py-0">
                                                     {{ number_format($item->price_wholesale) }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border text-right">
+                                                <td class="text-13-black border-bottom border text-right py-0">
                                                     {{ number_format($item->price_specialsale) }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border text-right">
+                                                <td class="text-13-black border-bottom border text-right py-0">
                                                     {{ number_format($item->product_weight) }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border text-right">
+                                                <td class="text-13-black border-bottom border text-right py-0">
                                                     {{ number_format($item->product_inventory) }}
                                                 </td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom"
-                                                    style="right: 10px; top: 7px;">
+                                                <td
+                                                    class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">
                                                         <a
                                                             href="{{ route('inventory.edit', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
@@ -464,10 +410,10 @@
                                         @endforeach
                                     @endif
                                     <tr>
-                                        <td colspan="2" class="bg-light"></td>
-                                        <td class="bg-light" style="color: #dc3545!important">Có {{ $total }}
+                                        <td colspan="1" class="border-right border-bottom"></td>
+                                        <td class="border-right text-right border-bottom" style="color: #dc3545!important">Có <strong>{{ $total }}</strong> 
                                             hàng hóa</td>
-                                        <td colspan="7" class="bg-light "></td>
+                                        <td colspan="7" class="border-bottom"></td>
                                     </tr>
                                 @endforeach
                                 {{-- @foreach ($product as $item)
