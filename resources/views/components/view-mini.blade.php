@@ -99,8 +99,10 @@
             <div class="">
                 <p class="m-0 p-0 text-13-black"></p>
             </div>
-            <a href="#" class="btn btn-primary" id="search-view-mini" data-status="{{ $status }}"
-                data-page="{{ $page }}">Tìm kiếm</a>
+            <a href="#" class="custom-btn" id="search-view-mini" data-status="{{ $status }}"
+                data-page="{{ $page }}">
+                <i class="fas fa-search btn-submit" aria-hidden="true"></i> Tìm kiếm
+            </a>
         </div>
         <div class="outerViewMini text-nowrap">
             @if ($page == 'PBH')
@@ -146,7 +148,7 @@
                                     {{ date_format(new DateTime($detail->ngayBG), 'd/m/Y') }}
                                 </td>
                                 <td class="text-13-black max-width180 text-left border-top-0 border-bottom">
-                                    {{ $detail->guest_name }}
+                                    {{ $detail->guest_name_display }}
                                 </td>
                             </tr>
                         @endforeach

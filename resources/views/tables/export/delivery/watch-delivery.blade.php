@@ -37,6 +37,18 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
+                        <a href="{{ route('delivery.index', ['workspace' => $workspacename]) }}" class="activity"
+                            data-name1="GH" data-des="Trở về">
+                            <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 16 16" fill="none">
+                                    <path
+                                        d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <p class="m-0 p-0 text-13">Trở về</p>
+                            </button>
+                        </a>
                         <div class="dropdown">
                             <button type="submit" data-toggle="dropdown"
                                 class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
@@ -54,20 +66,6 @@
                                     kho</a>
                             </div>
                         </div>
-                        <a href="{{ route('delivery.index', ['workspace' => $workspacename]) }}" class="activity"
-                            data-name1="GH" data-des="Trở về">
-                            <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none">
-                                        <path
-                                            d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
-                                            fill="#6D7075" />
-                                    </svg>
-                                </span>
-                                <span class="text-btnIner-primary ml-2">Trở về</span>
-                            </button>
-                        </a>
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 dropdown-toggle">
@@ -77,7 +75,7 @@
                                         d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                         fill="#6D7075"></path>
                                 </svg>
-                                <span class="text-btnIner-primary ml-1">In</span>
+                                <p class="m-0 p-0">In</p>
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
                                 <a class="dropdown-item text-13-black activity" data-name1="GH" data-des="Xuất file pdf"
@@ -91,7 +89,7 @@
                                     d="M9.30639 10.2061C9.57305 10.4727 9.59528 10.8913 9.37306 11.1832L9.30639 11.2595L6.84832 13.7176C5.58773 14.9782 3.54392 14.9782 2.28333 13.7176C1.06621 12.5005 1.02425 10.5532 2.15742 9.28574L2.28333 9.15261L4.7414 6.69453C5.03231 6.40363 5.50396 6.40363 5.79486 6.69453C6.06152 6.9612 6.08375 7.37973 5.86153 7.67171L5.79486 7.74799L3.33679 10.2061C2.65801 10.8848 2.65801 11.9854 3.33679 12.6641C3.98163 13.309 5.00709 13.3412 5.68999 12.7609L5.79486 12.6641L8.25293 10.2061C8.54384 9.91516 9.01549 9.91516 9.30639 10.2061ZM9.83063 6.17029C10.1215 6.46119 10.1215 6.93284 9.83063 7.22375L7.35002 9.70437C7.05911 9.99528 6.58746 9.99528 6.29656 9.70437C6.00565 9.41347 6.00565 8.94182 6.29656 8.65091L8.77718 6.17029C9.06808 5.87938 9.53973 5.87938 9.83063 6.17029ZM13.7183 2.2826C14.9354 3.49972 14.9774 5.44698 13.8442 6.71446L13.7183 6.84759L11.2602 9.30567C10.9693 9.59657 10.4977 9.59657 10.2068 9.30567C9.94012 9.03901 9.9179 8.62047 10.1401 8.32849L10.2068 8.25221L12.6648 5.79413C13.3436 5.11535 13.3436 4.01484 12.6648 3.33606C12.02 2.69122 10.9946 2.65898 10.3117 3.23933L10.2068 3.33606L7.74872 5.79413C7.45781 6.08504 6.98616 6.08504 6.69526 5.79413C6.4286 5.52747 6.40637 5.10893 6.62859 4.81696L6.69526 4.74067L9.15333 2.2826C10.4139 1.02201 12.4577 1.02201 13.7183 2.2826Z"
                                     fill="#6D7075"></path>
                             </svg>
-                            <span>Đính kèm</span>
+                            <p class="m-0 p-0">Đính kèm</p>
                             <input type="file" style="display: none;" id="file_restore" accept="*"
                                 name="file">
                         </label>
@@ -281,7 +279,8 @@
                                         <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">
                                             Ghi chú
                                         </span>
-                                        <textarea name="note" style="flex: 5.5;" placeholder="Nhập thông tin" class="text-13-black w-50 border-0 bg-input-guest" readonly>{{ $delivery->ghiChu }}</textarea>
+                                        <textarea name="note" style="flex: 5.5;" placeholder="Nhập thông tin"
+                                            class="text-13-black w-50 border-0 bg-input-guest" readonly>{{ $delivery->ghiChu }}</textarea>
                                     </div>
                                 </div>
                             </div>

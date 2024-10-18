@@ -33,6 +33,18 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
+                        <a href="{{ route('receive.index', $workspacename) }}" class="user_flow" data-type="DNH"
+                            data-des="Hủy">
+                            <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <p class="m-0 p-0 text-13">Hủy</p>
+                            </button>
+                        </a>
                         <div class="dropdown">
                             <button type="submit" data-toggle="dropdown"
                                 class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
@@ -49,29 +61,16 @@
                                     onclick="printContentImportWH('printContent')">Phiếu nhập kho</a>
                             </div>
                         </div>
-                        <a href="{{ route('receive.index', $workspacename) }}" class="user_flow" data-type="DNH"
-                            data-des="Hủy">
-                            <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                    viewBox="0 0 14 14" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z"
-                                        fill="#6D7075" />
-                                </svg>
-                                <span class="text-btnIner-primary ml-2">Hủy</span>
-                            </button>
-                        </a>
-
                         <a href="#" onclick="getAction(this)">
                             <button name="action" value="action_1" type="submit"
                                 class="btn-destroy btn-light d-flex align-items-center h-100 mx-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14"
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="12" height="14"
                                     viewBox="0 0 12 14" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M4.75 0V5.75C4.75 6.5297 5.34489 7.17045 6.10554 7.24313L6.25 7.25H12V12C12 13.1046 11.1046 14 10 14H2C0.89543 14 0 13.1046 0 12V2C0 0.89543 0.89543 0 2 0H4.75ZM6 0L12 6.03022H7C6.44772 6.03022 6 5.5825 6 5.03022V0Z"
                                         fill="#6D7075" />
                                 </svg>
-                                <span class="text-btnIner-primary ml-2">Lưu nháp</span>
+                                <p class="m-0 p-0">Lưu nháp</p>
                             </button>
                         </a>
 

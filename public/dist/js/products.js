@@ -382,24 +382,8 @@ function addRowTable(status) {
         (status == 3 ? "d-none" : "") +
         '">' +
         '<input type="hidden" name="listProduct[]" value="0">';
-    if (status != 3) {
-        tr +=
-            "<span class='ml-1 mr-2'>" +
-            "<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>" +
-            "<g clip-path='url(#clip0_1710_10941)'>" +
-            "<path fill-rule='evenodd' clip-rule='evenodd' d='M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z' fill='#282A30'/>" +
-            "</g>" +
-            "<defs>" +
-            "<clipPath id='clip0_1710_10941'>" +
-            "<rect width='6' height='10' fill='white'/>" +
-            "</clipPath>" +
-            "</defs>" +
-            "</svg>" +
-            "</span>" +
-            '<input type="checkbox" class="cb-element checkall-btn ml-1 mr-1">';
-    }
     tr +=
-        '<input type="text" id="searchProduct" class="border-0 pl-1 pr-2 py-1 w-50 height-32 searchProduct" name="product_code[]" autocomplete="off" ' +
+        '<input type="text" id="searchProduct" class="border-0 pl-1 pr-2 py-1 w-100 height-32 searchProduct" placeholder="Nhập thông tin" name="product_code[]" autocomplete="off" ' +
         (status == 2 ? "readonly" : "") +
         " >" +
         '<ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 60%;"> ' +
@@ -407,17 +391,17 @@ function addRowTable(status) {
         "</td>" +
         '<td class="border-right p-2 text-13 align-top position-relative border-bottom border-top-0"> ' +
         '<input type="hidden" class="product_id" autocomplete="off" name="product_id[]" value="">' +
-        '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-2 py-1 w-100 height-32 product_name" name="product_name[]">' +
+        '<input autocomplete="off" required type="text" id="searchProductName" placeholder="Nhập thông tin" class="searchProductName border-0 px-2 py-1 w-100 height-32 product_name" name="product_name[]">' +
         '<ul id="listProductName" class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
         "</ul>" +
         "</td>" +
         '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
-        '<input type="text" required class="border-0 px-2 py-1 w-100 product_unit height-32" name="product_unit[]" ' +
+        '<input type="text" required class="border-0 px-2 py-1 w-100 product_unit height-32" placeholder="Nhập thông tin" name="product_unit[]" ' +
         (status == 2 ? "readonly" : "") +
         " >" +
         "</td>" +
         '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
-        '<div class="d-flex"><input type="text" required oninput="validateQtyInput1(this)" class="border-0 px-2 py-1 w-100 quantity-input text-right height-32" name="product_qty[]">';
+        '<div class="d-flex"><input type="text" required oninput="validateQtyInput1(this)" placeholder="Nhập thông tin" class="border-0 px-2 py-1 w-100 quantity-input text-right height-32" name="product_qty[]">';
     if (status == 2) {
         tr +=
             '<button type="button" class="btn btn-primary" data-toggle="modal" ' +
@@ -454,7 +438,7 @@ function addRowTable(status) {
         "<div>" +
         '<input type="text" ' +
         (status == 3 ? "" : "required") +
-        ' class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]" ' +
+        ' class="border-0 px-2 py-1 w-100 price_export text-right height-32" placeholder="Nhập thông tin" name="price_export[]" ' +
         (status == 3 ? "value='0'" : "") +
         ">" +
         "</div>" +
@@ -464,7 +448,7 @@ function addRowTable(status) {
         (status == 3 ? "d-none" : "") +
         '">' +
         "<div>" +
-        '<input type="text" class="border-0 px-2 py-1 w-100 text-right height-32 promotion" name="promotion[]">' +
+        '<input type="text" class="border-0 px-2 py-1 w-100 text-right height-32 promotion" placeholder="Nhập thông tin" name="promotion[]">' +
         "</div>" +
         "<div class='mt-3 text-13-blue text-right'> " +
         "<select class='border-0 promotion-option' name='promotion-option[]'> <option value='1'>Nhập tiền </opion> <option value='2'>Nhập %</option> </select> " +

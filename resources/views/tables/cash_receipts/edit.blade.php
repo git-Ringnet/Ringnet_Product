@@ -35,6 +35,18 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
+                        <a href="{{ route('cash_receipts.index', $workspacename) }}" class="user_flow" data-type="TTMH"
+                            data-des="Hủy">
+                            <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <p class="m-0 p-0 text-13">Hủy</p>
+                            </button>
+                        </a>
                         <div class="dropdown">
                             <button type="submit" data-toggle="dropdown"
                                 class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
@@ -51,18 +63,6 @@
                                     onclick="printCashRC('printContent','PHIẾU THU')">Phiếu thu</a>
                             </div>
                         </div>
-                        <a href="{{ route('cash_receipts.index', $workspacename) }}" class="user_flow" data-type="TTMH"
-                            data-des="Hủy">
-                            <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                    viewBox="0 0 14 14" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z"
-                                        fill="#6D7075" />
-                                </svg>
-                                <span class="text-btnIner-primary ml-2">Hủy</span>
-                            </button>
-                        </a>
                         @if ($cashReceipt->status != 2)
                             <button name="action" value="payment" type="submit" id="xacNhan"
                                 class="custom-btn mx-1 d-flex align-items-center h-100">

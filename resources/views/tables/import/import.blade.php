@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <div class="content-header-fixed p-0 border-bottom-0">
         <div class="content__header--inner">
-            <div class="content__heading--left opacity-0">
+            {{-- <div class="content__heading--left opacity-0">
                 <span class="ml-4">Quản lý nghiệp vụ</span>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -15,6 +15,85 @@
                     </svg>
                 </span>
                 <span class="font-weight-bold text-secondary">Đặt hàng NCC</span>
+            </div> --}}
+            <div class="pl-3 d-flex align-items-center">
+                <form action="" method="get" id="search-filter" class="p-0 m-0">
+                    <div class="position-relative ml-1">
+                        <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
+                            style="outline: none;" class="pr-4 w-100 input-search text-13"
+                            value="{{ request()->keywords }}" />
+                        <span id="search-icon" class="search-icon">
+                            <i class="fas fa-search btn-submit"></i>
+                        </span>
+                        <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
+                            style="display: none;" />
+                    </div>
+                </form>
+                <div class="dropdown mx-2 filter-all">
+                    <button class="btn-filter_search" data-toggle="dropdown">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                            fill="none">
+                            <path
+                                d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
+                                fill="#6D7075" />
+                            <path
+                                d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
+                                fill="#6D7075" />
+                            <path
+                                d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
+                                fill="#6D7075" />
+                            <path
+                                d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
+                                fill="#6D7075" />
+                        </svg>
+                        <span class="text-btnIner">Bộ lọc</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                fill="#6B6F76" />
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton" style="z-index:">
+                        <div class="search-container px-2">
+                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
+                                onkeyup="filterFunction()" style="outline: none;">
+                            <span class="search-icon mr-2">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                        <div class="scrollbar">
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-quotenumber"
+                                data-button="quotenumber" type="button">Mã
+                                phiếu
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-reference_number"
+                                data-button="reference_number" type="button">Số phiếu
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-date" data-button="date"
+                                type="button">Ngày lập
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-provides"
+                                data-button="provides" type="button">Nhà cung cấp
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-receive"
+                                data-button="receive" type="button">Nhận hàng
+                            </button>
+                            <button class="dropdown-item btndropdown text-13-black" id="btn-total" data-button="total"
+                                type="button">Tổng tiền
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Input fields for filtering -->
+                    <x-filter-text name="quotenumber" title="Mã phiếu" />
+                    <x-filter-text name="reference_number" title="Số phiếu" />
+                    <x-filter-date-time name="date" title="Ngày lập" />
+                    <x-filter-text name="provides" title="Nhà cung cấp" />
+                    <x-filter-status name="receive" key1="0" value1="Chưa giao" key2="2" value2="Đã nhận"
+                        key3="1" value3="Một phần" color1="#858585" color2="#08AA36BF" color3="#E8B600"
+                        title="Nhận hàng" />
+                    <x-filter-compare name="total" title="Tổng tiền" />
+                </div>
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
@@ -23,7 +102,8 @@
                         onclick="printContentCustom('printContent', 'print-import')">In
                         trang
                     </button>
-                    <form id="exportForm" action="{{ route('exportImport') }}" method="GET" style="display: none;">
+                    <form id="exportForm" action="{{ route('exportImport') }}" method="GET"
+                        style="display: none;">
                         @csrf
                         <input class="datavalue" type="hidden" name="data[]">
                     </form>
@@ -57,99 +137,6 @@
             </div>
         </div>
     </div>
-    <div class="content-filter-all">
-        <div class="bg-filter-search pl-4 border-bottom-0">
-            <div class="content-wrapper1 py-2">
-                <div class="row m-auto filter p-0">
-                    <div class="w-100">
-                        <div class="row mr-0">
-                            <div class="col-md-5 d-flex align-items-center">
-                                <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
-                                        <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
-                                            style="outline: none;" class="pr-4 w-100 input-search text-13"
-                                            value="{{ request()->keywords }}" />
-                                        <span id="search-icon" class="search-icon">
-                                            <i class="fas fa-search btn-submit"></i>
-                                        </span>
-                                        <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
-                                            style="display: none;" />
-                                    </div>
-                                </form>
-                                <div class="dropdown mx-2 filter-all">
-                                    <button class="btn-filter_search" data-toggle="dropdown">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
-                                                fill="#6D7075" />
-                                        </svg>
-                                        <span class="text-btnIner">Bộ lọc</span>
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                                fill="#6B6F76" />
-                                        </svg>
-                                    </button>
-                                    <div class="dropdown-menu" id="dropdown-menu"
-                                        aria-labelledby="dropdownMenuButton" style="z-index:">
-                                        <div class="search-container px-2">
-                                            <input type="text" placeholder="Tìm kiếm" id="myInput"
-                                                class="text-13" onkeyup="filterFunction()" style="outline: none;">
-                                            <span class="search-icon mr-2">
-                                                <i class="fas fa-search"></i>
-                                            </span>
-                                        </div>
-                                        <div class="scrollbar">
-                                            <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-quotenumber" data-button="quotenumber" type="button">Mã
-                                                phiếu
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-reference_number" data-button="reference_number"
-                                                type="button">Số phiếu
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
-                                                data-button="date" type="button">Ngày lập
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-provides"
-                                                data-button="provides" type="button">Nhà cung cấp
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-receive"
-                                                data-button="receive" type="button">Nhận hàng
-                                            </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-total"
-                                                data-button="total" type="button">Tổng tiền
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- Input fields for filtering -->
-                                    <x-filter-text name="quotenumber" title="Mã phiếu" />
-                                    <x-filter-text name="reference_number" title="Số phiếu" />
-                                    <x-filter-date-time name="date" title="Ngày lập" />
-                                    <x-filter-text name="provides" title="Nhà cung cấp" />
-                                    <x-filter-status name="receive" key1="0" value1="Chưa giao" key2="2"
-                                        value2="Đã nhận" key3="1" value3="Một phần" color1="#858585"
-                                        color2="#08AA36BF" color3="#E8B600" title="Nhận hàng" />
-                                    <x-filter-compare name="total" title="Tổng tiền" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="content margin-top-127">
         {{-- Content --}}
         <section class="content">
@@ -163,56 +150,51 @@
                             <div class="outer2 text-nowrap" id="print-import">
                                 <table id="example2" class="table table-hover">
                                     <thead>
-                                        <tr class="height-52">
-                                            <th scope="col" style="width:5%;padding-left: 2rem;"
-                                                class="height-52 border-bottom">
-                                                <input type="checkbox" name="all" id="checkall"
-                                                    class="checkall-btn">
-                                            </th>
-                                            <th scope="col" class="border-bottom" style="width: 15%;">
+                                        <tr class="height-30">
+                                            <th scope="col" class="border-bottom py-0" style="width: 15%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Mã
+                                                        <button class="btn-sort text-14" type="submit">Mã
                                                             phiếu</button>
                                                     </a>
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width: 15%;">
+                                            <th scope="col" class="border-bottom py-0" style="width: 15%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="reference_number" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Số phiếu</button>
+                                                            class="btn-sort text-14" type="submit">Số phiếu</button>
                                                     </a>
                                                     <div class="icon" id="icon-reference_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width: 15%;">
+                                            <th scope="col" class="border-bottom py-0" style="width: 15%;">
                                                 <span class="justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="created_at" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Ngày
+                                                        <button class="btn-sort text-14" type="submit">Ngày
                                                             lập</button>
                                                     </a>
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border-bottom" style="width: 15%;">
+                                            <th scope="col" class="border-bottom py-0" style="width: 15%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Nhà cung
+                                                            class="btn-sort text-14" type="submit">Nhà cung
                                                             cấp</button>
                                                     </a>
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
                                             @can('isAdmin')
-                                                <th scope="col" class="border-bottom" style="width: 15%;">
+                                                <th scope="col" class="border-bottom py-0" style="width: 15%;">
                                                     <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                            data-sort-type=""><button class="btn-sort text-14"
                                                                 type="submit">Người tạo</button>
                                                         </a>
                                                         <div class="icon" id="icon-total"></div>
@@ -223,17 +205,17 @@
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Trạng
+                                                            class="btn-sort text-14" type="submit">Trạng
                                                             thái</button>
                                                     </a>
                                                     <div class="icon" id="icon-status"></div>
                                                 </span>
                                             </th> --}}
-                                            <th scope="col" class="border-bottom" style="width: 15%;">
+                                            <th scope="col" class="border-bottom py-0" style="width: 15%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_receive" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Nhận hàng</button>
+                                                            class="btn-sort text-14" type="submit">Nhận hàng</button>
                                                     </a>
                                                     <div class="icon" id="icon-status_receive"></div>
                                                 </span>
@@ -242,7 +224,7 @@
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_reciept" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Hóa đơn</button>
+                                                            class="btn-sort text-14" type="submit">Hóa đơn</button>
                                                     </a>
                                                     <div class="icon" id="icon-status_reciept"></div>
                                                 </span>
@@ -251,17 +233,17 @@
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_pay" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Thanh
+                                                            class="btn-sort text-14" type="submit">Thanh
                                                             toán</button>
                                                     </a>
                                                     <div class="icon" id="icon-status_pay"></div>
                                                 </span>
                                             </th> --}}
-                                            <th scope="col" class="border-bottom">
+                                            <th scope="col" class="border-bottom py-0">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_tax" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Tổng
+                                                            class="btn-sort text-14" type="submit">Tổng
                                                             tiền</button>
                                                     </a>
                                                     <div class="icon" id="icon-total_tax"></div>
@@ -274,32 +256,11 @@
                                             $total = 0;
                                         @endphp
                                         @foreach ($import as $item)
-                                            <tr class="position-relative import-info height-52"
+                                            <tr class="position-relative import-info height-30"
                                                 data-id="{{ $item->id }}">
                                                 <input type="hidden" name="id-import" class="id-import"
                                                     id="id-import" value="{{ $item->id }}">
-                                                <td class="text-13-black border-bottom border-top-0">
-                                                    <span class="margin-Right10">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="6"
-                                                            height="10" viewBox="0 0 6 10" fill="none">
-                                                            <g clip-path="url(#clip0_1710_10941)">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
-                                                                    fill="#282A30"></path>
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_1710_10941">
-                                                                    <rect width="6" height="10"
-                                                                        fill="white"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    </span>
-                                                    <input type="checkbox" class="checkall-btn p-0 m-0"
-                                                        name="ids[]" id="checkbox" value=""
-                                                        onclick="event.stopPropagation();">
-                                                </td>
-                                                <td class="text-13-black border-bottom border-top-0 text-wrap">
+                                                <td class="text-13-black border-bottom border-top-0 text-wrap py-0">
                                                     <div class="user_flow" data-type="DMH"
                                                         data-des="Xem đơn mua hàng">
                                                         <a href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}"
@@ -308,19 +269,19 @@
                                                         </a>
                                                     </div>
                                                 </td>
-                                                <td class="text-13-black border-bottom border-top-0 text-wrap">
+                                                <td class="text-13-black border-bottom border-top-0 text-wrap py-0">
                                                     {{ $item->reference_number }}
                                                 </td>
-                                                <td class="text-13-black border-bottom border-top-0">
+                                                <td class="text-13-black border-bottom border-top-0 py-0">
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
                                                 {{-- <td class="border-bottom border-top-0">
                                                 </td> --}}
-                                                <td class="text-13-black border-bottom border-top-0 text-wrap">
+                                                <td class="text-13-black border-bottom border-top-0 text-wrap py-0">
                                                     {{ $item->provide_name_display }}
                                                 </td>
                                                 @can('isAdmin')
-                                                    <td class="text-13-black border-bottom border-top-0">
+                                                    <td class="text-13-black border-bottom border-top-0 py-0">
                                                         @if ($item->getNameUser)
                                                             {{ $item->getNameUser->name }}
                                                         @endif
@@ -335,7 +296,7 @@
                                                         <span style="color: #08AA36">Close</span>
                                                     @endif
                                                 </td> --}}
-                                                <td class="text-center py-2 border-bottom border-top-0">
+                                                <td class="text-center border-bottom border-top-0 py-0">
                                                     @if ($item->status_receive == 0)
                                                     @elseif ($item->status_receive == 1)
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -419,10 +380,10 @@
                                                         </svg>
                                                     @endif
                                                 </td> --}}
-                                                <td class="text-13-black text-right border-bottom border-top-0">
+                                                <td class="text-13-black text-right border-bottom border-top-0 py-0">
                                                     {{ number_format($item->total_tax) }}</td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0 align-items-center"
-                                                    style="right: 10px; top: 0px; bottom:0;">
+                                                <td
+                                                    class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">
                                                         <a class="user_flow" data-type="DMH"
                                                             data-des="Xem đơn mua hàng"

@@ -41,6 +41,18 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
+                        <a href="{{ route('returnImport.index', $workspacename) }}" class="user_flow" data-type="DNH"
+                            data-des="Trở về">
+                            <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 16 16" fill="none">
+                                    <path
+                                        d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <p class="m-0 p-0 text-13">Trở về</p>
+                            </button>
+                        </a>
                         <div class="dropdown">
                             <button type="submit" data-toggle="dropdown"
                                 class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
@@ -57,29 +69,14 @@
                                     onclick="printContentImport('printContent')">Phiếu trả hàng</a>
                             </div>
                         </div>
-                        <a href="{{ route('returnImport.index', $workspacename) }}" class="user_flow" data-type="DNH"
-                            data-des="Trở về">
-                            <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none">
-                                        <path
-                                            d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
-                                            fill="#6D7075" />
-                                    </svg>
-                                </span>
-                                <span class="text-btnIner-primary ml-2">Trở về</span>
-                            </button>
-                        </a>
-
                         <label class="btn-destroy btn-light d-flex align-items-center h-100 m-0 mx-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 fill="none">
                                 <path
                                     d="M9.30639 10.2059C9.57305 10.4725 9.59528 10.8911 9.37306 11.183L9.30639 11.2593L6.84832 13.7174C5.58773 14.978 3.54392 14.978 2.28333 13.7174C1.06621 12.5003 1.02425 10.553 2.15742 9.2855L2.28333 9.15237L4.7414 6.69429C5.03231 6.40339 5.50396 6.40339 5.79486 6.69429C6.06152 6.96096 6.08375 7.37949 5.86153 7.67147L5.79486 7.74775L3.33679 10.2059C2.65801 10.8846 2.65801 11.9852 3.33679 12.6639C3.98163 13.3088 5.00709 13.341 5.68999 12.7607L5.79486 12.6639L8.25293 10.2059C8.54384 9.91492 9.01549 9.91492 9.30639 10.2059ZM9.83063 6.17005C10.1215 6.46095 10.1215 6.9326 9.83063 7.22351L7.35002 9.70413C7.05911 9.99504 6.58746 9.99504 6.29656 9.70413C6.00565 9.41323 6.00565 8.94158 6.29656 8.65067L8.77718 6.17005C9.06808 5.87914 9.53973 5.87914 9.83063 6.17005ZM13.7183 2.28236C14.9354 3.49948 14.9774 5.44674 13.8442 6.71422L13.7183 6.84735L11.2602 9.30543C10.9693 9.59633 10.4977 9.59633 10.2068 9.30543C9.94012 9.03877 9.9179 8.62023 10.1401 8.32825L10.2068 8.25197L12.6648 5.79389C13.3436 5.11511 13.3436 4.0146 12.6648 3.33582C12.02 2.69098 10.9946 2.65874 10.3117 3.23909L10.2068 3.33582L7.74872 5.79389C7.45781 6.0848 6.98616 6.0848 6.69526 5.79389C6.4286 5.52723 6.40637 5.10869 6.62859 4.81672L6.69526 4.74043L9.15333 2.28236C10.4139 1.02177 12.4577 1.02177 13.7183 2.28236Z"
                                     fill="#6D7075"></path>
                             </svg>
-                            <span class="text-btnIner-primary ml-2">Đính kèm</span>
+                            <p class="m-0 p-0 text-13">Đính kèm</p>
                             <input type="file" style="display: none;" id="file_restore" accept="*"
                                 name="file">
                         </label>
@@ -142,21 +139,10 @@
                                 </ul>
                             </div>
                         </div>
-                        <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5"
-                                    transform="rotate(90 16 0)" fill="#ECEEFA"></rect>
-                                <path
-                                    d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
-                                    fill="#26273B" fill-opacity="0.8"></path>
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>
-
-            <section class="border-top" style="height:50px">
+            {{-- <section class="border-top" style="height:50px">
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav-1 nav nav-tabs margin-left32">
@@ -171,7 +157,7 @@
                         </ul>
                     </div>
                 </div>
-            </section>
+            </section> --}}
         </div>
         <div class="content margin-top-127">
             <div>
@@ -206,7 +192,8 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày trả hàng</span>
                                 <input type="text" placeholder="Nhập thông tin" readonly
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
-                                    style="flex:2;" value="{{ date_format(new DateTime($returnImport->created_at), 'd/m/Y') }}" />
+                                    style="flex:2;"
+                                    value="{{ date_format(new DateTime($returnImport->created_at), 'd/m/Y') }}" />
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
@@ -230,7 +217,8 @@
                                     </p>
                                 </div>
                                 <section class="content">
-                                    <div class="content-info position-relative table-responsive text-nowrap overflow-content-quote">
+                                    <div
+                                        class="content-info position-relative table-responsive text-nowrap overflow-content-quote">
                                         <table id="inputcontent" class="table table-hover bg-white rounded">
                                             <thead>
                                                 <tr style="height:48px;">

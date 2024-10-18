@@ -202,10 +202,8 @@ function calculateAll() {
         $("#product-tax")
             .text()
             .replace(/[^0-9.-]+/g, "") || 0;
-    var shipping_fee =
-        $(".shipping_fee")
-            .val()
-            .replace(/[^0-9.-]+/g, "") || 0;
+    var shipping_fee = $(".shipping_fee").val();
+    shipping_fee = shipping_fee ? shipping_fee.replace(/[^0-9.-]+/g, "") : 0;
 
     var total = parseFloat(total_amount) + parseFloat(product_tax);
     var option = $("[name^='promotion-option-total']").val();
@@ -520,10 +518,8 @@ function calculateGrandTotal() {
             .replace(/[^0-9.-]+/g, "")
     );
 
-    var shipping_fee =
-        $(".shipping_fee")
-            .val()
-            .replace(/[^0-9.-]+/g, "") || 0;
+    var shipping_fee = $(".shipping_fee").val();
+    shipping_fee = shipping_fee ? shipping_fee.replace(/[^0-9.-]+/g, "") : 0;
 
     var grandTotal = totalAmount + totalTax + shipping_fee;
     grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên

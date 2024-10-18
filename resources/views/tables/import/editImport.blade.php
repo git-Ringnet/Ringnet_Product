@@ -40,13 +40,13 @@
                     <div class="row m-0">
                         <a href="{{ route('import.index', $workspacename) }}">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                     viewBox="0 0 14 14" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z"
                                         fill="#6D7075" />
                                 </svg>
-                                <span class="text-btnIner-primary ml-2">Hủy</span>
+                                <p class="m-0 p-0 text-13">Hủy</p>
                             </button>
                         </a>
 
@@ -54,14 +54,14 @@
                             <button name="action" value="action_1" type="submit"
                                 class="custom-btn d-flex align-items-center h-100">
                                 <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                             d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                             fill="white" />
                                     </svg>
                                 </span>
-                                <span class="text-btnIner-primary ml-2">Lưu</span>
+                                <p class="m-0 p-0">Lưu</p>
                             </button>
                         </a>
                     </div>
@@ -281,7 +281,7 @@
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
                                 <input placeholder="Nhập thông tin" name="shipping_fee"
-                                    value="{{ number_format($import->shipping_fee) }}"
+                                    value="{{ number_format($import->shipping_fee) }}" style="flex:2;"
                                     class="text-13-black w-100 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue rounded shipping_fee" />
                             </div>
                             <div
@@ -290,7 +290,10 @@
                                 <input tye="text"
                                     class="text-13-black w-50 border-0 bg-input-guest py-2 px-2 bg-input-guest-blue"
                                     placeholder="Nhập thông tin" value="{{ $import->note }}" name="note"
-                                    style="flex:10;">
+                                    style="flex:2;">
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             </div>
                         </div>
                     </div>
@@ -307,8 +310,6 @@
                                 <thead>
                                     <tr style="height:44px;">
                                         <th class="border-right px-2 p-0" style="width: 10%">
-                                            <input type='checkbox'
-                                                class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
                                         <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
@@ -347,23 +348,6 @@
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                 <input type="hidden" readonly value="{{ $item->id }}"
                                                     name="listProduct[]">
-                                                <span class="ml-1 mr-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="6"
-                                                        height="10" viewBox="0 0 6 10" fill="none">
-                                                        <g clip-path="url(#clip0_1710_10941)">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
-                                                                fill="#282A30"></path>
-                                                        </g>
-                                                        <defs>
-                                                            <clipPath id="clip0_1710_10941">
-                                                                <rect width="6" height="10" fill="white">
-                                                                </rect>
-                                                            </clipPath>
-                                                        </defs>
-                                                    </svg>
-                                                </span>
-                                                <input type="checkbox" class="cb-element checkall-btn">
                                                 <input type="text" name="product_code[]"
                                                     class="border-0 w-75 px-2 py-1 w-75 searchProduct height-32"
                                                     value="{{ $item->product_code }}"
@@ -384,30 +368,6 @@
                                                     <input type="hidden" class="product_id" autocomplete="off"
                                                         value="{{ $item->product_id }}" name="product_id[]"
                                                         value="">
-                                                    <div class="info-product" data-toggle="modal"
-                                                        data-target="#productModal">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                            height="14" viewBox="0 0 14 14" fill="none">
-                                                            <g clip-path="url(#clip0_2559_39956)">
-                                                                <path
-                                                                    d="M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z"
-                                                                    fill="#282A30"></path>
-                                                                <path
-                                                                    d="M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z"
-                                                                    fill="#282A30"></path>
-                                                                <path
-                                                                    d="M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z"
-                                                                    fill="#282A30"></path>
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_2559_39956">
-                                                                    <rect width="14" height="14"
-                                                                        fill="white">
-                                                                    </rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    </div>
                                                 </div>
                                                 <ul id="listProductName"
                                                     class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"

@@ -40,6 +40,18 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
+                        <a href="{{ route('import.index', $workspacename) }}" class="user_flow" data-type="DMH"
+                            data-des="Trở về">
+                            <button class="btn-destroy rounded mx-1 d-flex align-items-center" type="button">
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 16 16" fill="none">
+                                    <path
+                                        d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <p class="m-0 p-0 text-13">Trở về</p>
+                            </button>
+                        </a>
                         <div class="dropdown">
                             <button type="submit" data-toggle="dropdown"
                                 class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
@@ -56,19 +68,6 @@
                                     onclick="printContentImport('printContent')">Phiếu đặt hàng</a>
                             </div>
                         </div>
-                        <a href="{{ route('import.index', $workspacename) }}" class="user_flow" data-type="DMH"
-                            data-des="Trở về">
-                            <button class="btn-destroy rounded mx-1 d-flex align-items-center" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 16 16" fill="none">
-                                    <path
-                                        d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
-                                        fill="#6D7075" />
-                                </svg>
-                                <span class="text-button ml-2">Trở về</span>
-                            </button>
-                        </a>
-
                         <label class="btn-destroy btn-light d-flex align-items-center h-100 m-0 mx-1">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -153,7 +152,7 @@
                                         d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
                                         fill="white"></path>
                                 </svg>
-                                <span class="text-btnIner-primary ml-1">Sửa</span>
+                                <p class="m-0 p-0">Sửa</p>
                             </button>
                         </a>
                         <div class="dropdown">
@@ -374,7 +373,7 @@
                 </div>
             </section>
         </div>
-        <div class="content margin-top-75">
+        <div class="content margin-top-114">
             <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'DHNCC'" :status="'2'" :guest="$provides"
                 :listUser="$listUser" />
             <div id="contextMenuDHNCC" class="dropdown-menu"
@@ -502,14 +501,17 @@
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
                                     <input placeholder="Nhập thông tin" name="shipping_fee" disabled
-                                        value="{{ number_format($import->shipping_fee) }}"
+                                        value="{{ number_format($import->shipping_fee) }}" style="flex: 2;"
                                         class="text-13-black w-100 border-0 bg-input-guest py-2 text-right px-2 rounded shipping_fee" />
                                 </div>
                                 <div
                                     class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
                                     <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                        readonly value="{{ $import->note }}" name="note" style="flex:10;">
+                                        readonly value="{{ $import->note }}" name="note" style="flex: 2;">
+                                </div>
+                                <div
+                                    class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 </div>
                             </div>
                         </div>
@@ -526,8 +528,6 @@
                                             <thead>
                                                 <tr style="height:44px;">
                                                     <th class="border-right px-2 p-0" style="width: 10%">
-                                                        <input type='checkbox'
-                                                            class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
                                                         <span class="text-table text-secondary">Mã sản phẩm</span>
                                                     </th>
                                                     <th class="border-right px-2 p-0 text-left"
@@ -795,6 +795,12 @@
                                                             <div class="icon" id="icon-total"></div>
                                                         </span>
                                                     </th>
+                                                    <th scope="col" class="border-bottom border-left">
+                                                        <span class="d-flex text-13">
+                                                            Thời gian chỉnh sửa
+                                                            <div class="icon" id="icon-total"></div>
+                                                        </span>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -848,9 +854,13 @@
                                                         </td>
                                                         <td
                                                             class="border-left p-2 text-13 align-top border-bottom border-top-0">
-                                                            <input placeholder="Nhập ghi chú" type="text"
-                                                                class="border-0 px-2 py-1 w-100" readonly
-                                                                value="{{ $item->product_note }}">
+                                                            <input type="text" class="border-0 px-2 py-1 w-100"
+                                                                readonly value="{{ $item->product_note }}">
+                                                        </td>
+                                                        <td
+                                                            class="border-left p-2 text-13 align-top border-bottom border-top-0">
+                                                            <input type="text" class="border-0 px-2 py-1 w-100"
+                                                                readonly value="{{ $item->created_at }}">
                                                         </td>
                                                         <!-- <td class="border border-top-0 border ">
                                                         <input type="text" class="border-0 px-2 py-1 w-100" readonly

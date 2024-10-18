@@ -36,26 +36,26 @@
                             <button type="button"
                                 class="btn-destroy btn-light d-flex align-items-center h-100 user_flow mx-1"
                                 data-type="DMH" data-des="Hủy đơn mua hàng">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM6.03033 4.96967C5.73744 4.67678 5.26256 4.67678 4.96967 4.96967C4.67678 5.26256 4.67678 5.73744 4.96967 6.03033L6.93934 8L4.96967 9.96967C4.67678 10.2626 4.67678 10.7374 4.96967 11.0303C5.26256 11.3232 5.73744 11.3232 6.03033 11.0303L8 9.06066L9.96967 11.0303C10.2626 11.3232 10.7374 11.3232 11.0303 11.0303C11.3232 10.7374 11.3232 10.2626 11.0303 9.96967L9.06066 8L11.0303 6.03033C11.3232 5.73744 11.3232 5.26256 11.0303 4.96967C10.7374 4.67678 10.2626 4.67678 9.96967 4.96967L8 6.93934L6.03033 4.96967Z"
                                         fill="#6D7075"></path>
                                 </svg>
-                                <span class="text-btnIner-primary ml-2">Hủy</span>
+                                <p class="m-0 p-0 text-13">Hủy</p>
                             </button>
                         </a>
 
                         <button type="submit" class="custom-btn d-flex align-items-center h-100 mx-1">
                             <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                         fill="white"></path>
                                 </svg>
                             </span>
-                            <span class="text-btnIner-primary ml-2">Lưu nháp</span>
+                            <p class="m-0 p-0">Lưu nháp</p>
                         </button>
 
                         <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
@@ -254,15 +254,18 @@
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
-                                <input placeholder="Nhập thông tin" name="shipping_fee"
+                                <input placeholder="Nhập thông tin" name="shipping_fee" style="flex: 2;"
                                     class="text-13-black w-100 border-0 bg-input-guest bg-input-guest-blue py-2 px-2 rounded shipping_fee" />
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ghi chú</span>
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                    name="note" style="flex:10; background-color:#F0F4FF;border-radius:4px;"
+                                    name="note" style="flex: 2; background-color:#F0F4FF;border-radius:4px;"
                                     placeholder="Nhập thông tin">
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             </div>
                         </div>
                     </div>
@@ -277,8 +280,6 @@
                             <thead>
                                 <tr style="height:44px;">
                                     <th class="border-right px-2 p-0" style="width: 10%">
-                                        <input type='checkbox'
-                                            class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
                                         <span class="text-table text-secondary">Mã sản phẩm</span>
                                     </th>
                                     <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
@@ -366,7 +367,6 @@
                                                         </defs>
                                                     </svg>
                                                 </span>
-                                                <input type="checkbox" class="cb-element checkall-btn ml-1 mr-1">
                                                 <input type="text" id="searchProduct"
                                                     class="border-0 pl-1 pr-2 py-1 w-50 height-32 searchProduct"
                                                     name="product_code[]" autocomplete="off">

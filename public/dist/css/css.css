@@ -196,7 +196,7 @@ li {
     width: 100%;
     overflow-x: auto;
     scrollbar-width: thin;
-    max-height: calc(100vh - 350px);
+    max-height: calc(100vh - 465px);
     z-index: 9;
 }
 
@@ -3034,4 +3034,7 @@ input[type="checkbox"]:checked {
 }
 .text-purble{
     color: #6E79D6 !important;
+}
+.margin-top-114{
+    margin-top: 11.4rem;
 }

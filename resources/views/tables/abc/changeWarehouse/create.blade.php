@@ -35,36 +35,33 @@
                         <a href="{{ route('changeWarehouse.index', $workspacename) }}" class="user_flow" data-type="NCC"
                             data-des="Hủy thêm nhà cung cấp">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                     viewBox="0 0 14 14" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z"
                                         fill="#6D7075" />
                                 </svg>
-                                <span class="text-btnIner-primary ml-2">Hủy</span>
+                                <p class="m-0 p-0 text-13">Hủy</p>
                             </button>
                         </a>
 
                         <button type="submit" class="custom-btn d-flex align-items-center h-100"
                             style="margin-right:10px">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                     fill="white" />
                             </svg>
-                            <span class="text-btnIner-primary ml-2">Xác nhận chuyển kho</span>
+                            <p class="m-0 p-0">Xác nhận chuyển kho</p>
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="content" style="margin-top:10rem;">
+        <div class="content" style="margin-top: 8.7rem;">
             <section class="content">
                 <div class="container-fluided">
-                    <div class="bg-filter-search border-top-0 text-left border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN CHUNG</p>
-                    </div>
                     <div class="info-chung">
                         <div class="content-info">
                             <div class="d-flex w-100">

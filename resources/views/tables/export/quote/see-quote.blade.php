@@ -38,6 +38,20 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <div class="dropdown">
+                            <a href="{{ route('detailExport.index', $workspacename) }}" class="activity" data-name1="BG"
+                                data-des="Hủy xem đơn báo giá">
+                                <button type="button" class="btn-destroy rounded mx-1 d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        viewBox="0 0 16 16" fill="none">
+                                        <path
+                                            d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
+                                            fill="#6D7075" />
+                                    </svg>
+                                    <span class="text-button ml-2">Trở về</span>
+                                </button>
+                            </a>
+                        </div>
+                        <div class="dropdown">
                             <button type="submit" data-toggle="dropdown"
                                 class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -61,20 +75,6 @@
                                     onclick="printWH('printContent')">Phiếu xuất
                                     kho</a>
                             </div>
-                        </div>
-                        <div class="dropdown">
-                            <a href="{{ route('detailExport.index', $workspacename) }}" class="activity" data-name1="BG"
-                                data-des="Hủy xem đơn báo giá">
-                                <button type="button" class="btn-destroy rounded mx-1 d-flex align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none">
-                                        <path
-                                            d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
-                                            fill="#6D7075" />
-                                    </svg>
-                                    <span class="text-button ml-2">Trở về</span>
-                                </button>
-                            </a>
                         </div>
                         {{-- <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
@@ -414,7 +414,7 @@
                 </div>
             </section>
         </div>
-        <div class="content margin-top-127">
+        <div class="content margin-top-114">
             <x-view-mini :listDetail="$listDetail" :workspacename="$workspacename" :page="'PBH'" :status="'2'" :guest="$guest"
                 :listUser="$listUser" />
             <div id="contextMenuPBH" class="dropdown-menu"
@@ -569,15 +569,18 @@
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
                                 <input placeholder="Nhập thông tin" name="shipping_fee" disabled
-                                    value="{{ number_format($detailExport->shipping_fee) }}"
+                                    value="{{ number_format($detailExport->shipping_fee) }}" style="flex:2;"
                                     class="text-13-black w-100 border-0 bg-input-guest py-2 px-2 text-right rounded shipping_fee" />
                             </div>
                             <div
                                 class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng nợ cũ</span>
-                                <input disabled="" style="flex:10;"
+                                <input disabled="" style="flex: 2;"
                                     class="text-13-black text-right w-50 border-0 bg-input-guest py-2 px-2 debt-old"
-                                    value="{{ number_format($detailExport->guest_debt) }}" style="flex:5.5;">
+                                    value="{{ number_format($detailExport->guest_debt) }}">
+                            </div>
+                            <div
+                                class="d-flex w-100 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative height-44">
                             </div>
                         </div>
                     </div>

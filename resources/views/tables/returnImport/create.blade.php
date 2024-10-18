@@ -37,26 +37,26 @@
                         <a href="{{ route('returnImport.index', $workspacename) }}" class="user_flow" data-type="DNH"
                             data-des="Hủy">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                     viewBox="0 0 14 14" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z"
                                         fill="#6D7075" />
                                 </svg>
-                                <span class="text-btnIner-primary ml-2">Hủy</span>
+                                <p class="m-0 p-0 text-13">Hủy</p>
                             </button>
                         </a>
 
                         <a href="#" onclick="getAction(this)">
                             <button name="action" value="action_1" type="submit"
                                 class="btn-destroy btn-light d-flex align-items-center h-100 mx-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14"
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="12" height="14"
                                     viewBox="0 0 12 14" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M4.75 0V5.75C4.75 6.5297 5.34489 7.17045 6.10554 7.24313L6.25 7.25H12V12C12 13.1046 11.1046 14 10 14H2C0.89543 14 0 13.1046 0 12V2C0 0.89543 0.89543 0 2 0H4.75ZM6 0L12 6.03022H7C6.44772 6.03022 6 5.5825 6 5.03022V0Z"
                                         fill="#6D7075" />
                                 </svg>
-                                <span class="text-btnIner-primary ml-2">Lưu nháp</span>
+                                <p class="m-0 p-0">Lưu nháp</p>
                             </button>
                         </a>
 
@@ -77,7 +77,7 @@
             </div>
         </div>
         {{-- Thông tin sản phẩm --}}
-        <div class="content margin-top-117">
+        <div class="content margin-top-127">
             <div class="content-wrapper2 px-0 py-0">
                 <div class="border">
                     <div>
@@ -118,22 +118,6 @@
                                                 class="search-receive" style="flex:2;">
                                                 <span
                                                     class="text-13-black">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
-                                            </a>
-                                            <a type="button" data-toggle="modal" data-target="#">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                        height="14" viewBox="0 0 14 14" fill="none">
-                                                        <path
-                                                            d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                            fill="black" />
-                                                        <path
-                                                            d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                            fill="black" />
-                                                        <path
-                                                            d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                            fill="black" />
-                                                    </svg>
-                                                </span>
                                             </a>
                                         </li>
                                     @endforeach
