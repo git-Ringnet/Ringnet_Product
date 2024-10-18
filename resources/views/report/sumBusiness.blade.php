@@ -112,7 +112,7 @@
             </div>
         </div>
     </div>
-    <div class="content" style="margin-top: 14.5rem;">
+    <div class="content" style="margin-top: 12.9rem;">
         <section class="container-fluided">
             <div class="tab-content">
                 <div id="buy" class="content tab-pane in active">

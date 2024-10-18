@@ -236,7 +236,7 @@
             </div>
         </div>
     </div>
-    <div class="content" style="margin-top: 14.5rem;">
+    <div class="content" style="margin-top: 12.9rem;">
         <section class="container-fluided">
             <div class="row result-filter-thu thu margin-left30 my-1">
             </div>
