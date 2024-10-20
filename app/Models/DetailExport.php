@@ -733,15 +733,59 @@ class DetailExport extends Model
                 DB::raw('AVG(quoteimport.price_export) as giaNhap')
             )
             ->where('detailexport.workspace_id', Auth::user()->current_workspace);
-        if (!empty($data['date_guest'][0]) && !empty($data['date_guest'][1])) {
-            $dateStart = Carbon::parse($data['date_guest'][0]);
-            $dateEnd = Carbon::parse($data['date_guest'][1])->endOfDay();
+        // Lọc theo ngày
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
             $detaiExport = $detaiExport->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
         }
-        if (!empty($data['date_product'][0]) && !empty($data['date_product'][1])) {
-            $dateStart = Carbon::parse($data['date_product'][0]);
-            $dateEnd = Carbon::parse($data['date_product'][1])->endOfDay();
-            $detaiExport = $detaiExport->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
+        // Lọc theo số chứng từ (maphieu)
+        if (isset($data['maphieu']) && !empty($data['maphieu'])) {
+            $detaiExport = $detaiExport->where('detailexport.quotation_number', 'like', '%' . $data['maphieu'] . '%');
+        }
+        // Lọc theo tên khách hàng
+        if (isset($data['customers']) && !empty($data['customers'])) {
+            $detaiExport = $detaiExport->where('guest.guest_name_display', 'like', '%' . $data['customers'] . '%');
+        }
+        // Lọc theo mã hàng (code)
+        if (isset($data['code']) && !empty($data['code'])) {
+            $detaiExport = $detaiExport->where('products.product_code', 'like', '%' . $data['code'] . '%');
+        }
+        // Nhân viên
+        if (isset($data['sales']) && !empty($data['sales'])) {
+            $detaiExport = $detaiExport->where('products.product_code', 'like', '%' . $data['code'] . '%');
+        }
+        // Lọc theo tên hàng (name)
+        if (isset($data['name']) && !empty($data['name'])) {
+            $detaiExport = $detaiExport->where('products.product_name', 'like', '%' . $data['name'] . '%');
+        }
+        // Lọc theo đơn vị tính (ĐVT)
+        if (isset($data['dvt']) && !empty($data['dvt'])) {
+            $detaiExport = $detaiExport->where('products.product_unit', 'like', '%' . $data['dvt'] . '%');
+        }
+        // Lọc theo số lượng bán (slban)
+        if (isset($data['slban'][0]) && isset($data['slban'][1])) {
+            $detaiExport = $detaiExport->where('quoteexport.product_qty', $data['slban'][0], $data['slban'][1]);
+        }
+        // Lọc theo đơn giá vốn (unit_price_cost)
+        if (isset($data['unit_price_cost'][0]) && isset($data['unit_price_cost'][1])) {
+            $detaiExport = $detaiExport->where('quoteimport.price_export', $data['unit_price_cost'][0], $data['unit_price_cost'][1]);
+        }
+        // Lọc theo giá trị vốn (value_cost)
+        if (isset($data['value_cost'][0]) && isset($data['value_cost'][1])) {
+            $detaiExport = $detaiExport->where(DB::raw('quoteexport.product_qty * quoteimport.price_export'), $data['value_cost'][0], $data['value_cost'][1]);
+        }
+        // Lọc theo giá xuất (unit_price_sell)
+        if (isset($data['unit_price_sell'][0]) && isset($data['unit_price_sell'][1])) {
+            $detaiExport = $detaiExport->where('quoteexport.price_export', $data['unit_price_sell'][0], $data['unit_price_sell'][1]);
+        }
+        // Lọc theo doanh số (sales_value)
+        if (isset($data['sales_value'][0]) && isset($data['sales_value'][1])) {
+            $detaiExport = $detaiExport->where(DB::raw('quoteexport.product_qty * quoteexport.price_export'), $data['sales_value'][0], $data['sales_value'][1]);
+        }
+        // Lọc theo chênh lệch (difference)
+        if (isset($data['difference'][0]) && isset($data['difference'][1])) {
+            $detaiExport = $detaiExport->where(DB::raw('(quoteexport.product_total - quoteexport.product_qty * quoteimport.price_export)'), $data['difference'][0], $data['difference'][1]);
         }
         $detaiExport = $detaiExport->groupBy(
             'detailexport.id',
@@ -761,7 +805,6 @@ class DetailExport extends Model
             'quoteexport.product_total'
         )
             ->get();
-
         return $detaiExport;
     }
 }

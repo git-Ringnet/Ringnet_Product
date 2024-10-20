@@ -425,7 +425,7 @@
                                 href="{{ route('viewReportImport', $workspacename) }}">Tổng kết mua hàng
                             </a> --}}
                             <a class="dropdown-item text-13-black"
-                                href="{{ route('viewReportProvides', $workspacename) }}">Thống kê công nợ NCC
+                                href="{{ route('viewReportProvides', $workspacename) }}">Công nợ NCC
                             </a>
                             <a class="dropdown-item text-13-black"
                                 href="{{ route('viewReportReturnImport', $workspacename) }}">Trả hàng NCC
@@ -461,7 +461,11 @@
                     </svg>
                 </div>
             </div>
-            <div class="px-3 py-2 border-bottom border-top bg-grey @if (!empty($activeGroup) && $activeGroup == 'systemFirst' || !empty($activeGroup) && $activeGroup == 'manageProfess' || !empty($activeGroup) && $activeGroup == 'statistic') d-flex @else d-none @endif">
+            <div
+                class="px-3 py-2 border-bottom border-top bg-grey @if (
+                    (!empty($activeGroup) && $activeGroup == 'systemFirst') ||
+                        (!empty($activeGroup) && $activeGroup == 'manageProfess') ||
+                        (!empty($activeGroup) && $activeGroup == 'statistic')) d-flex @else d-none @endif">
                 <div class="@if (!empty($activeGroup) && $activeGroup == 'systemFirst') d-flex @else d-none @endif">
                     <a href="{{ route('groups.index', $workspacename) }}" class="height-36">
                         <button type="button"
@@ -644,7 +648,7 @@
                     <a href="{{ route('viewReportProvides', $workspacename) }}" class="height-36">
                         <button type="button"
                             class="h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportProvides') active @endif">
-                            Thống kê công nợ NCC
+                            Công nợ NCC
                         </button>
                     </a>
                     <a href="{{ route('viewReportReturnImport', $workspacename) }}" class="height-36">

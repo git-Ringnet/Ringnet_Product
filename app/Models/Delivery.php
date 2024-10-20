@@ -1551,15 +1551,47 @@ class Delivery extends Model
                 'guest.guest_name_display as nameGuest',
                 'delivery.promotion',
                 'delivery.totalVat as totalVat',
-                'groups.name as nhomKH',
+                'groups.name as nhomKH'
             )
             ->leftJoin('users', 'users.id', 'delivery.user_id')
             ->where('delivery.workspace_id', Auth::user()->current_workspace);
+
+        if (isset($data['search'])) {
+            $deliveries = $deliveries->where(function ($query) use ($data) {
+                $query->orWhere('delivery.code_delivery', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        // Lọc theo ngày
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
             $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
             $deliveries = $deliveries->whereBetween('delivery.created_at', [$dateStart, $dateEnd]);
         }
+
+        // Lọc theo mã phiếu
+        if (!empty($data['maphieu'])) {
+            $deliveries = $deliveries->where('delivery.code_delivery', 'like', '%' . $data['maphieu'] . '%');
+        }
+
+        // Lọc theo tên khách hàng
+        if (!empty($data['customers'])) {
+            $deliveries = $deliveries->where('guest.guest_name_display', 'like', '%' . $data['customers'] . '%');
+        }
+
+        // Lọc theo ngày giao hàng
+        if (!empty($data['delivery_date'][0]) && !empty($data['delivery_date'][1])) {
+            $deliveryDateStart = Carbon::parse($data['delivery_date'][0]);
+            $deliveryDateEnd = Carbon::parse($data['delivery_date'][1])->endOfDay();
+            $deliveries = $deliveries->whereBetween('delivery.updated_at', [$deliveryDateStart, $deliveryDateEnd]);
+        }
+
+        // Lọc theo trạng thái giao hàng
+        if (!empty($data['status'])) {
+            $deliveries = $deliveries->whereIn('delivery.status', $data['status']);
+        }
+
+        // Nhóm theo các trường cần thiết và sắp xếp
         $deliveries = $deliveries->groupBy(
             'delivery.id',
             'delivery.guest_id',
@@ -1574,10 +1606,11 @@ class Delivery extends Model
             'guest.guest_name_display',
             'delivery.promotion',
             'delivery.totalVat',
-            'groups.name',
+            'groups.name'
         )
-            ->orderBy('delivery.id', 'desc');
-        $deliveries = $deliveries->get();
+            ->orderBy('delivery.id', 'desc')
+            ->get();
+
         return $deliveries;
     }
 }

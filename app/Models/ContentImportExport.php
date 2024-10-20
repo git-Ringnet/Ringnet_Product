@@ -295,6 +295,9 @@ class ContentImportExport extends Model
                 $query->where('name', 'like', '%' . $data['fund_to'] . '%');
             });
         }
+        if (!empty($data['amount'][0]) && !empty($data['amount'][1])) {
+            $content = $content->where('qty_money', $data['amount'][0], $data['amount'][1]);
+        }
         if (isset($data['users'])) {
             $content = $content->whereHas('getUser', function ($query) use ($data) {
                 $query->whereIn('id', $data['users']);

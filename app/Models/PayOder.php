@@ -949,20 +949,61 @@ class PayOder extends Model
     }
     public function ajaxContentI($data)
     {
-        $contentImport = PayOder::where('workspace_id', Auth::user()->current_workspace)
-            ->select('id', 'payment_code', 'workspace_id', 'total', 'payment_date', 'content_pay', 'guest_id', 'fund_id', 'note')
-            ->orderBy('content_pay', 'asc');
+        $contentImport = DB::table($this->table)->leftJoin('detailimport', 'pay_order.detailimport_id', 'detailimport.id')
+            ->leftJoin('provides', 'provides.id', 'pay_order.provide_id')
+            ->leftJoin('guest', 'guest.id', 'pay_order.guest_id')
+            ->leftJoin('users', 'users.id', 'pay_order.user_id')
+            ->leftJoin('funds', 'funds.id', 'pay_order.fund_id')
+            ->select('provides.provide_name_display as provide_name_display', 'funds.name', 'pay_order.note', 'users.id as users_id', 'guest.guest_name_display', 'pay_order.*', 'detailimport.quotation_number as quotation_number');
+        // Lọc theo ngày chi
         if (!empty($data['date_chi'][0]) && !empty($data['date_chi'][1])) {
             $dateStart = Carbon::parse($data['date_chi'][0]);
             $dateEnd = Carbon::parse($data['date_chi'][1])->endOfDay();
-            $contentImport = $contentImport->whereBetween('payment_date', [$dateStart, $dateEnd]);
+            $contentImport = $contentImport->whereBetween('pay_order.payment_date', [$dateStart, $dateEnd]);
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
             $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
-            $contentImport = $contentImport->whereBetween('payment_date', [$dateStart, $dateEnd]);
+            $contentImport = $contentImport->whereBetween('pay_order.payment_date', [$dateStart, $dateEnd]);
         }
+        if (isset($data['search'])) {
+            $contentImport = $contentImport->where(function ($query) use ($data) {
+                $query->orWhere('pay_order.payment_code', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('pay_order.note', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('provides.provide_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        // Lọc theo chứng từ chi
+        if (!empty($data['chungtu_chi'])) {
+            $contentImport = $contentImport->where('pay_order.payment_code', 'LIKE', '%' . $data['chungtu_chi'] . '%');
+        }
+        // Lọc theo tên người nhận hoặc khách hàng
+        if (!empty($data['name_chi'])) {
+            $contentImport = $contentImport->where(function ($query) use ($data) {
+                $query->orWhere('provides.provide_name_display', 'like', '%' . $data['name_chi'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['name_chi'] . '%');
+            });
+        }
+        // Lọc theo nội dung chi
+        if (isset($data['content_chi'])) {
+            $contentImport = $contentImport->whereIn('content_pay', $data['content_chi']);
+        }
+        // Lọc theo số tiền chi
+        if (!empty($data['total_chi'][0]) && !empty($data['total_chi'][1])) {
+            $contentImport = $contentImport->where('total', $data['total_chi'][0], $data['total_chi'][1]);
+        }
+        // Lọc theo quỹ
+        if (isset($data['fund_chi'])) {
+            $contentImport = $contentImport->where('funds.name', 'like', '%' . $data['fund_chi'] . '%');
+        }
+        // Lọc theo ghi chú
+        if (!empty($data['note_chi'])) {
+            $contentImport = $contentImport->where('pay_order.note', 'LIKE', '%' . $data['note_chi'] . '%');
+        }
+        // Lấy dữ liệu cuối cùng sau khi lọc
         $contentImport = $contentImport->get();
+
         return $contentImport;
     }
 }

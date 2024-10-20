@@ -821,16 +821,16 @@ handleFilterAndCancelClick(
     $("#cancel-date-guest")
 );
 handleFilterAndCancelClick(
-    $("#btn-date-thu"),
-    $("#date-thu-options"),
-    $(".date-thu-input"),
-    $("#cancel-date-thu")
+    $("#btn-date_thu"),
+    $("#date_thu-options"),
+    $(".date_thu-input"),
+    $("#cancel-date_thu")
 );
 handleFilterAndCancelClick(
-    $("#btn-date-chi"),
-    $("#date-chi-options"),
-    $(".date-chi-input"),
-    $("#cancel-date-chi")
+    $("#btn-date_chi"),
+    $("#date_chi-options"),
+    $(".date_chi-input"),
+    $("#cancel-date_chi")
 );
 handleFilterAndCancelClick(
     $("#btn-code-import"),
@@ -1052,7 +1052,198 @@ handleFilterAndCancelClick(
     $(".wh_from-input"), // Trường nhập Ghi chú
     $("#cancel-wh_from") // Nút hủy Ghi chú
 );
-//
+handleFilterAndCancelClick(
+    $("#btn-sales"), // Nút Bán hàng
+    $("#sales-options"), // Tùy chọn lọc Bán hàng
+    $(".sales-input"), // Trường nhập Bán hàng
+    $("#cancel-sales") // Nút hủy Bán hàng
+);
+
+// Xử lý nút "Khách trả hàng"
+handleFilterAndCancelClick(
+    $("#btn-customer_return"), // Nút Khách trả hàng
+    $("#customer_return-options"), // Tùy chọn lọc Khách trả hàng
+    $(".customer_return-input"), // Trường nhập Khách trả hàng
+    $("#cancel-customer_return") // Nút hủy Khách trả hàng
+);
+
+// Xử lý nút "Nợ cuối kỳ"
+handleFilterAndCancelClick(
+    $("#btn-ending-debt"), // Nút Nợ cuối kỳ
+    $("#ending_debt-options"), // Tùy chọn lọc Nợ cuối kỳ
+    $(".ending_debt-input"), // Trường nhập Nợ cuối kỳ
+    $("#cancel-ending-debt") // Nút hủy Nợ cuối kỳ
+);
+handleFilterAndCancelClick(
+    $("#btn-delivery_date"), // Nút Nợ cuối kỳ
+    $("#delivery_date-options"), // Tùy chọn lọc Nợ cuối kỳ
+    $(".delivery_date-input"), // Trường nhập Nợ cuối kỳ
+    $("#cancel-delivery_date") // Nút hủy Nợ cuối kỳ
+);
+handleFilterAndCancelClick(
+    $("#btn-quantity"), // Nút Nợ cuối kỳ
+    $("#quantity-options"), // Tùy chọn lọc Nợ cuối kỳ
+    $(".quantity-input"), // Trường nhập Nợ cuối kỳ
+    $("#cancel-quantity") // Nút hủy Nợ cuối kỳ
+);
+handleFilterAndCancelClick(
+    $("#btn-unit_price"), // Nút Nợ cuối kỳ
+    $("#unit_price-options"), // Tùy chọn lọc Nợ cuối kỳ
+    $(".unit_price-input"), // Trường nhập Nợ cuối kỳ
+    $("#cancel-unit_price") // Nút hủy Nợ cuối kỳ
+);
+handleFilterAndCancelClick(
+    $("#btn-remaining"), // Nút Nợ cuối kỳ
+    $("#remaining-options"), // Tùy chọn lọc Nợ cuối kỳ
+    $(".remaining-input"), // Trường nhập Nợ cuối kỳ
+    $("#cancel-remaining") // Nút hủy Nợ cuối kỳ
+);
+handleFilterAndCancelClick(
+    $("#btn-price"), // Nút Nợ cuối kỳ
+    $("#price-options"), // Tùy chọn lọc Nợ cuối kỳ
+    $(".price-input"), // Trường nhập Nợ cuối kỳ
+    $("#cancel-price") // Nút hủy Nợ cuối kỳ
+);
+// JS xử lý bộ lọc cho Đơn giá vốn
+handleFilterAndCancelClick(
+    $("#btn-unit_price_cost"), // Nút Đơn giá vốn
+    $("#unit_price_cost-options"), // Tùy chọn lọc Đơn giá vốn
+    $(".unit_price_cost-input"), // Trường nhập Đơn giá vốn
+    $("#cancel-unit_price_cost") // Nút hủy Đơn giá vốn
+);
+
+// JS xử lý bộ lọc cho Giá trị vốn
+handleFilterAndCancelClick(
+    $("#btn-value_cost"), // Nút Giá trị vốn
+    $("#value_cost-options"), // Tùy chọn lọc Giá trị vốn
+    $(".value_cost-input"), // Trường nhập Giá trị vốn
+    $("#cancel-value_cost") // Nút hủy Giá trị vốn
+);
+
+// JS xử lý bộ lọc cho Giá xuất
+handleFilterAndCancelClick(
+    $("#btn-unit_price_sell"), // Nút Giá xuất
+    $("#unit_price_sell-options"), // Tùy chọn lọc Giá xuất
+    $(".unit_price_sell-input"), // Trường nhập Giá xuất
+    $("#cancel-unit_price_sell") // Nút hủy Giá xuất
+);
+
+// JS xử lý bộ lọc cho Doanh số
+handleFilterAndCancelClick(
+    $("#btn-sales_value"), // Nút Doanh số
+    $("#sales_value-options"), // Tùy chọn lọc Doanh số
+    $(".sales_value-input"), // Trường nhập Doanh số
+    $("#cancel-sales_value") // Nút hủy Doanh số
+);
+
+// JS xử lý bộ lọc cho Chênh lệch
+handleFilterAndCancelClick(
+    $("#btn-difference"), // Nút Chênh lệch
+    $("#difference-options"), // Tùy chọn lọc Chênh lệch
+    $(".difference-input"), // Trường nhập Chênh lệch
+    $("#cancel-difference") // Nút hủy Chênh lệch
+);
+
+handleFilterAndCancelClick(
+    $("#btn-chungtu_thu"), // Nút Chênh lệch
+    $("#chungtu_thu-options"), // Tùy chọn lọc Chênh lệch
+    $(".chungtu_thu-input"), // Trường nhập Chênh lệch
+    $("#cancel-chungtu_thu") // Nút hủy Chênh lệch
+);
+
+// Xử lý sự kiện cho 'Tên' trong phần Thu
+handleFilterAndCancelClick(
+    $("#btn-name_thu"), // Nút Tên
+    $("#name_thu-options"), // Tùy chọn lọc Tên
+    $(".name_thu-input"), // Trường nhập Tên
+    $("#cancel-name_thu") // Nút hủy Tên
+);
+
+// Xử lý sự kiện cho 'Nội dung thu chi' trong phần Thu
+handleFilterAndCancelClick(
+    $("#btn-content_thu"), // Nút Nội dung thu chi
+    $("#content_thu-options"), // Tùy chọn lọc Nội dung thu chi
+    $(".content_thu-input"), // Trường nhập Nội dung thu chi
+    $("#cancel-content_thu") // Nút hủy Nội dung thu chi
+);
+
+// Xử lý sự kiện cho 'Số tiền' trong phần Thu
+handleFilterAndCancelClick(
+    $("#btn-total_thu"), // Nút Số tiền
+    $("#total_thu-options"), // Tùy chọn lọc Số tiền
+    $(".total_thu-input"), // Trường nhập Số tiền
+    $("#cancel-total_thu") // Nút hủy Số tiền
+);
+
+// Xử lý sự kiện cho 'Quỹ' trong phần Thu
+handleFilterAndCancelClick(
+    $("#btn-fund_thu"), // Nút Quỹ
+    $("#fund_thu-options"), // Tùy chọn lọc Quỹ
+    $(".fund_thu-input"), // Trường nhập Quỹ
+    $("#cancel-fund_thu") // Nút hủy Quỹ
+);
+
+// Xử lý sự kiện cho 'Ghi chú' trong phần Thu
+handleFilterAndCancelClick(
+    $("#btn-note_thu"), // Nút Ghi chú
+    $("#note_thu-options"), // Tùy chọn lọc Ghi chú
+    $(".note_thu-input"), // Trường nhập Ghi chú
+    $("#cancel-note_thu") // Nút hủy Ghi chú
+);
+
+// Xử lý khi nhấn nút "Chứng từ - Chi"
+handleFilterAndCancelClick(
+    $("#btn-chungtu_chi"), // Nút Chứng từ
+    $("#chungtu_chi-options"), // Tùy chọn lọc Chứng từ
+    $(".chungtu_chi-input"), // Trường nhập Chứng từ
+    $("#cancel-chungtu_chi") // Nút hủy Chứng từ
+);
+
+// Xử lý khi nhấn nút "Tên - Chi"
+handleFilterAndCancelClick(
+    $("#btn-name_chi"), // Nút Tên
+    $("#name_chi-options"), // Tùy chọn lọc Tên
+    $(".name_chi-input"), // Trường nhập Tên
+    $("#cancel-name_chi") // Nút hủy Tên
+);
+
+// Xử lý khi nhấn nút "Nội dung chi - Chi"
+handleFilterAndCancelClick(
+    $("#btn-content_chi"), // Nút Nội dung chi
+    $("#content_chi-options"), // Tùy chọn lọc Nội dung chi
+    $(".content_chi-input"), // Trường nhập Nội dung chi
+    $("#cancel-content_chi") // Nút hủy Nội dung chi
+);
+
+// Xử lý khi nhấn nút "Số tiền - Chi"
+handleFilterAndCancelClick(
+    $("#btn-total_chi"), // Nút Số tiền
+    $("#total_chi-options"), // Tùy chọn lọc Số tiền
+    $(".total_chi-input"), // Trường nhập Số tiền
+    $("#cancel-total_chi") // Nút hủy Số tiền
+);
+
+// Xử lý khi nhấn nút "Quỹ - Chi"
+handleFilterAndCancelClick(
+    $("#btn-fund_chi"), // Nút Quỹ
+    $("#fund_chi-options"), // Tùy chọn lọc Quỹ
+    $(".fund_chi-input"), // Trường nhập Quỹ
+    $("#cancel-fund_chi") // Nút hủy Quỹ
+);
+
+// Xử lý khi nhấn nút "Ghi chú - Chi"
+handleFilterAndCancelClick(
+    $("#btn-note_chi"), // Nút Ghi chú
+    $("#note_chi-options"), // Tùy chọn lọc Ghi chú
+    $(".note_chi-input"), // Trường nhập Ghi chú
+    $("#cancel-note_chi") // Nút hủy Ghi chú
+);
+handleFilterAndCancelClick(
+    $("#btn-document_code"), // Nút Ghi chú
+    $("#document_code-options"), // Tùy chọn lọc Ghi chú
+    $(".document_code-input"), // Trường nhập Ghi chú
+    $("#cancel-document_code") // Nút hủy Ghi chú
+);
 
 function filterFunction() {
     var input = $("#myInput");

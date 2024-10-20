@@ -492,8 +492,25 @@ class Guest extends Model
 
     public function ajaxReportDebtGuest($data)
     {
-        // Tìm tất cả các khách hàng thuộc workspace hiện tại
-        $guests = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
+        // Tạo query để lấy danh sách khách hàng thuộc workspace hiện tại
+        $guestsQuery = Guest::where('workspace_id', Auth::user()->current_workspace);
+
+        // Áp dụng điều kiện tìm kiếm nếu có
+        if (isset($data['search'])) {
+            $guestsQuery = $guestsQuery->where(function ($query) use ($data) {
+                $query->orWhere('guest_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+
+        // Áp dụng điều kiện lọc theo tên khách hàng nếu có
+        if (isset($data['customers'])) {
+            $guestsQuery = $guestsQuery->where(function ($query) use ($data) {
+                $query->orWhere('guest_name_display', 'like', '%' . $data['customers'] . '%');
+            });
+        }
+
+        // Lấy danh sách khách hàng sau khi áp dụng các điều kiện lọc
+        $guests = $guestsQuery->get();
 
         // Mảng chứa kết quả
         $results = [];
@@ -504,8 +521,8 @@ class Guest extends Model
             $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
         } else {
             // Nếu không có ngày tháng, sử dụng khoảng thời gian mặc định hoặc xử lý khác
-            $dateStart = Carbon::minValue(); // Hoặc một giá trị mặc định
-            $dateEnd = Carbon::maxValue();   // Hoặc một giá trị mặc định
+            $dateStart = Carbon::minValue(); // Giá trị mặc định
+            $dateEnd = Carbon::maxValue();   // Giá trị mặc định
         }
 
         // Lặp qua từng khách hàng
@@ -548,6 +565,41 @@ class Guest extends Model
             // Tính giá trị theo công thức và lưu vào mảng kết quả
             $calculatedValue = $totalProductVat - $totalCashReciept - ($totalReturn - $chiKH);
 
+            if (isset($data['sales'][0]) && isset($data['sales'][1])) {
+                $operator = $data['sales'][0];
+                $value = $data['sales'][1];
+                if (!eval("return \$totalProductVat $operator \$value;")) {
+                    continue;
+                }
+            }
+            if (isset($data['customer_return'][0]) && isset($data['customer_return'][1])) {
+                $operator = $data['customer_return'][0];
+                $value = $data['customer_return'][1];
+                if (!eval("return \$totalReturn $operator \$value;")) {
+                    continue;
+                }
+            }
+            if (isset($data['receive'][0]) && isset($data['receive'][1])) {
+                $operator = $data['receive'][0];
+                $value = $data['receive'][1];
+                if (!eval("return \$totalCashReciept $operator \$value;")) {
+                    continue;
+                }
+            }
+            if (isset($data['pay'][0]) && isset($data['pay'][1])) {
+                $operator = $data['pay'][0];
+                $value = $data['pay'][1];
+                if (!eval("return \$chiKH $operator \$value;")) {
+                    continue;
+                }
+            }
+            if (isset($data['ending_debt'][0]) && isset($data['ending_debt'][1])) {
+                $operator = $data['ending_debt'][0];
+                $value = $data['ending_debt'][1];
+                if (!eval("return \$calculatedValue $operator \$value;")) {
+                    continue;
+                }
+            }
             // Lưu kết quả cho khách hàng hiện tại vào mảng
             $results[] = [
                 'id' => $guest->id,

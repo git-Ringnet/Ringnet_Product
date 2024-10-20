@@ -27,6 +27,7 @@ use App\Models\QuoteImport;
 use App\Models\ReturnExport;
 use App\Models\ReturnImport;
 use App\Models\ReturnProduct;
+use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -451,6 +452,28 @@ class ReportController extends Controller
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
             $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
+        if (isset($data['maphieu']) && !empty($data['maphieu'])) {
+            $filters[] = ['value' => 'Mã phiếu: ' . $data['maphieu'], 'name' => 'maphieu', 'icon' => 'document'];
+        }
+        if (isset($data['customers']) && !empty($data['customers'])) {
+            $filters[] = ['value' => 'Tên khách hàng: ' . $data['customers'], 'name' => 'customers', 'icon' => 'user'];
+        }
+        if (isset($data['delivery_date']) && $data['delivery_date'][1] !== null) {
+            $delivery_start = date("d/m/Y", strtotime($data['delivery_date'][0]));
+            $delivery_end = date("d/m/Y", strtotime($data['delivery_date'][1]));
+            $filters[] = ['value' => 'Ngày giao hàng: từ ' . $delivery_start . ' đến ' . $delivery_end, 'name' => 'delivery_date', 'icon' => 'calendar'];
+        }
+        if (isset($data['status']) && !empty($data['status'])) {
+            $statusValues = [];
+            if (in_array(1, $data['status'])) {
+                $statusValues[] = '<span style="color: #858585;">Nháp</span>';
+            }
+            if (in_array(2, $data['status'])) {
+                $statusValues[] = '<span style="color: #08AA36BF;">Đã giao</span>';
+            }
+            $statusText = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Trạng thái giao: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
+        }
         if ($request->ajax()) {
             $sumDelivery = $this->delivery->AjaxGetSumDelivery($data);
             return response()->json([
@@ -478,8 +501,54 @@ class ReportController extends Controller
         if (isset($data['date']) && $data['date'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
-            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
+        if (isset($data['maphieu']) && $data['maphieu'] !== null) {
+            $filters[] = ['value' => 'Mã phiếu: ' . $data['maphieu'], 'name' => 'maphieu', 'icon' => 'document'];
+        }
+        if (isset($data['customers']) && $data['customers'] !== null) {
+            $filters[] = ['value' => 'Tên khách hàng: ' . $data['customers'], 'name' => 'customers', 'icon' => 'user'];
+        }
+        if (isset($data['name']) && $data['name'] !== null) {
+            $filters[] = ['value' => 'Tên hàng hoá: ' . $data['name'], 'name' => 'name', 'icon' => 'product'];
+        }
+        if (isset($data['dvt']) && $data['dvt'] !== null) {
+            $filters[] = ['value' => 'ĐVT: ' . $data['dvt'], 'name' => 'dvt', 'icon' => 'unit'];
+        }
+
+        if (isset($data['quantity'][0]) && isset($data['quantity'][1])) {
+            $filters[] = ['value' => 'Số lượng:' . $data['quantity'][0] . ' ' . $data['quantity'][1], 'name' => 'quantity', 'icon' => 'quantity'];
+        }
+        if (isset($data['unit_price'][0]) && isset($data['unit_price'][1])) {
+            $filters[] = ['value' => 'Đơn giá:' . $data['unit_price'][0] . ' ' . $data['unit_price'][1], 'name' => 'unit_price', 'icon' => 'price'];
+        }
+        if (isset($data['price'][0]) && isset($data['price'][1])) {
+            $filters[] = ['value' => 'Thành tiền:' . $data['price'][0] . ' ' . $data['price'][1], 'name' => 'price', 'icon' => 'money'];
+        }
+        if (isset($data['total'][0]) && isset($data['total'][1])) {
+            $filters[] = ['value' => 'Tổng cộng:' . $data['total'][0] . ' ' . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
+        }
+        if (isset($data['payment'][0]) && isset($data['payment'][1])) {
+            $filters[] = ['value' => 'Thanh toán:' . $data['payment'][0] . ' ' . $data['payment'][1], 'name' => 'payment', 'icon' => 'payment'];
+        }
+        if (isset($data['remaining'][0]) && isset($data['remaining'][1])) {
+            $filters[] = ['value' => 'Còn lại:' . $data['remaining'][0] . ' ' . $data['remaining'][1], 'name' => 'remaining', 'icon' => 'remaining'];
+        }
+        if (isset($data['note']) && $data['note'] !== null) {
+            $filters[] = ['value' => 'Ghi chú: ' . $data['note'], 'name' => 'note', 'icon' => 'note'];
+        }
+        if (isset($data['status']) && $data['status'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['status'])) {
+                $statusValues[] = '<span style="color: #858585;">Nháp</span>';
+            }
+            if (in_array(2, $data['status'])) {
+                $statusValues[] = '<span style="color: #08AA36BF;">Đã giao</span>';
+            }
+            $statusText = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
+        }
+
         if ($request->ajax()) {
             $sumReturnExport = $this->product_returnE->AjaxSumReturnExport($data);
             return response()->json([
@@ -511,8 +580,53 @@ class ReportController extends Controller
         if (isset($data['date']) && $data['date'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
-            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
+        if (isset($data['maphieu']) && $data['maphieu'] !== null) {
+            $filters[] = ['value' => 'Số phiếu: ' . $data['maphieu'], 'name' => 'maphieu', 'icon' => 'document'];
+        }
+        if (isset($data['provides']) && $data['provides'] !== null) {
+            $filters[] = ['value' => 'Tên nhà cung cấp: ' . $data['provides'], 'name' => 'provides', 'icon' => 'provides'];
+        }
+        if (isset($data['name']) && $data['name'] !== null) {
+            $filters[] = ['value' => 'Tên hàng hóa: ' . $data['name'], 'name' => 'name', 'icon' => 'product'];
+        }
+        if (isset($data['dvt']) && $data['dvt'] !== null) {
+            $filters[] = ['value' => 'ĐVT: ' . $data['dvt'], 'name' => 'dvt', 'icon' => 'unit'];
+        }
+        if (isset($data['quantity'][0]) && isset($data['quantity'][1])) {
+            $filters[] = ['value' => 'Số lượng: ' . $data['quantity'][0] . ' ' . $data['quantity'][1], 'name' => 'quantity', 'icon' => 'quantity'];
+        }
+        if (isset($data['unit_price'][0]) && isset($data['unit_price'][1])) {
+            $filters[] = ['value' => 'Đơn giá: ' . $data['unit_price'][0] . ' ' . $data['unit_price'][1], 'name' => 'unit_price', 'icon' => 'price'];
+        }
+        if (isset($data['price'][0]) && isset($data['price'][1])) {
+            $filters[] = ['value' => 'Thành tiền: ' . $data['price'][0] . ' ' . $data['price'][1], 'name' => 'price', 'icon' => 'money'];
+        }
+        if (isset($data['total'][0]) && isset($data['total'][1])) {
+            $filters[] = ['value' => 'Tổng cộng: ' . $data['total'][0] . ' ' . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
+        }
+        if (isset($data['payment'][0]) && isset($data['payment'][1])) {
+            $filters[] = ['value' => 'Thanh toán: ' . $data['payment'][0] . ' ' . $data['payment'][1], 'name' => 'payment', 'icon' => 'payment'];
+        }
+        if (isset($data['remaining'][0]) && isset($data['remaining'][1])) {
+            $filters[] = ['value' => 'Còn lại: ' . $data['remaining'][0] . ' ' . $data['remaining'][1], 'name' => 'remaining', 'icon' => 'remaining'];
+        }
+        if (isset($data['note']) && $data['note'] !== null) {
+            $filters[] = ['value' => 'Ghi chú: ' . $data['note'], 'name' => 'note', 'icon' => 'note'];
+        }
+        if (isset($data['status']) && $data['status'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['status'])) {
+                $statusValues[] = '<span style="color: #858585;">Nháp</span>';
+            }
+            if (in_array(2, $data['status'])) {
+                $statusValues[] = '<span style="color: #08AA36BF;">Đã giao</span>';
+            }
+            $statusText = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
+        }
+
         if ($request->ajax()) {
             $sumReturnImport = $this->product_returnI->AjaxSumReturnImport($data);
             return response()->json([
@@ -545,10 +659,13 @@ class ReportController extends Controller
         $productDelivered = $this->quoteE->sumProductsQuote();
         // // Get All đơn
         $allDelivery = $this->detailExport->getSumDetailE();
+        $userIds = $allDelivery->pluck('user_id')->toArray();
+        // Truy vấn thông tin người dùng dựa trên user_id
+        $users = User::whereIn('id', $userIds)->get();
         $groupGuests = Groups::where('grouptype_id', 2)->where('workspace_id', Auth::user()->current_workspace)->get();
         $guest = Guest::where('workspace_id', Auth::user()->current_workspace)->get();
 
-        return view('report.reportSumSales', compact('title', 'groupGuests', 'guest', 'productDelivered', 'allDelivery', 'workspacename'));
+        return view('report.reportSumSales', compact('title', 'groupGuests', 'users', 'guest', 'productDelivered', 'allDelivery', 'workspacename'));
     }
     // Ajax debt guests
     public function searchSale(Request $request)
@@ -558,8 +675,30 @@ class ReportController extends Controller
         if (isset($data['date']) && $data['date'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
-            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+            $filters[] = ['value' => 'Ngày lập: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
+        if (isset($data['maphieu']) && !empty($data['maphieu'])) {
+            $filters[] = ['value' => 'Số chứng từ: ' . $data['maphieu'], 'name' => 'maphieu', 'icon' => 'document'];
+        }
+        if (isset($data['sales']) && $data['sales'] !== null) {
+            $user = new User();
+            $sales = $user->getNameUser($data['sales']);
+            $salestring = implode(', ', $sales);
+            $filters[] = ['value' => 'CTV bán hàng: ' . $salestring, 'name' => 'sales', 'icon' => 'user'];
+        }
+        if (isset($data['code']) && !empty($data['code'])) {
+            $filters[] = ['value' => 'Mã hàng: ' . $data['code'], 'name' => 'code', 'icon' => 'barcode'];
+        }
+        if (isset($data['name']) && !empty($data['name'])) {
+            $filters[] = ['value' => 'Tên hàng: ' . $data['name'], 'name' => 'name', 'icon' => 'tag'];
+        }
+        if (isset($data['dvt']) && !empty($data['dvt'])) {
+            $filters[] = ['value' => 'ĐVT: ' . $data['dvt'], 'name' => 'dvt', 'icon' => 'unit'];
+        }
+        if (isset($data['slban'][0]) && isset($data['slban'][1])) {
+            $filters[] = ['value' => 'SL bán: ' . $data['slban'][0] . ' ' . $data['slban'][1], 'name' => 'slban', 'icon' => 'box'];
+        }
+
         if ($request->ajax()) {
             $productDelivered = $this->quoteE->AjaxSumProductsQuote($data);
             return response()->json([
@@ -594,8 +733,11 @@ class ReportController extends Controller
             ->get();
         $groupProvides = Groups::where('grouptype_id', 3)->where('workspace_id', Auth::user()->current_workspace)->get();
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+        $userIds = $allImport->pluck('user_id')->toArray();
+        // Truy vấn thông tin người dùng dựa trên user_id
+        $users = User::whereIn('id', $userIds)->get();
 
-        return view('report.reportSumBuy', compact('title', 'groupProvides', 'provides', 'productsQuoteI', 'allImport', 'workspacename'));
+        return view('report.reportSumBuy', compact('title', 'users', 'groupProvides', 'provides', 'productsQuoteI', 'allImport', 'workspacename'));
     }
     // Ajax debt guests
     public function searchBuy(Request $request)
@@ -606,6 +748,27 @@ class ReportController extends Controller
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
             $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if (isset($data['maphieu']) && !empty($data['maphieu'])) {
+            $filters[] = ['value' => 'Số chứng từ: ' . $data['maphieu'], 'name' => 'maphieu', 'icon' => 'document'];
+        }
+        if (isset($data['sales']) && $data['sales'] !== null) {
+            $user = new User();
+            $sales = $user->getNameUser($data['sales']);
+            $salestring = implode(', ', $sales);
+            $filters[] = ['value' => 'Người đặt hàng: ' . $salestring, 'name' => 'sales', 'icon' => 'user'];
+        }
+        if (isset($data['code']) && !empty($data['code'])) {
+            $filters[] = ['value' => 'Mã hàng: ' . $data['code'], 'name' => 'code', 'icon' => 'barcode'];
+        }
+        if (isset($data['name']) && !empty($data['name'])) {
+            $filters[] = ['value' => 'Tên hàng: ' . $data['name'], 'name' => 'name', 'icon' => 'tag'];
+        }
+        if (isset($data['dvt']) && !empty($data['dvt'])) {
+            $filters[] = ['value' => 'ĐVT: ' . $data['dvt'], 'name' => 'dvt', 'icon' => 'unit'];
+        }
+        if (isset($data['slban'][0]) && isset($data['slban'][1])) {
+            $filters[] = ['value' => 'SL bán: ' . $data['slban'][0] . ' ' . $data['slban'][1], 'name' => 'slban', 'icon' => 'box'];
         }
         if ($request->ajax()) {
             $productsQuoteI = $this->quoteI->AjaxSumProductsQuote($data);
@@ -658,15 +821,59 @@ class ReportController extends Controller
     {
         $data = $request->all();
         $filters = [];
-        if (isset($data['date_guest']) && $data['date_guest'][1] !== null) {
-            $date_start = date("d/m/Y", strtotime($data['date_guest'][0]));
-            $date_end = date("d/m/Y", strtotime($data['date_guest'][1]));
-            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date_guest', 'icon' => 'date_guest'];
+        // Xử lý lọc theo ngày
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
-        if (isset($data['date_product']) && $data['date_product'][1] !== null) {
-            $date_start = date("d/m/Y", strtotime($data['date_product'][0]));
-            $date_end = date("d/m/Y", strtotime($data['date_product'][1]));
-            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date_product', 'icon' => 'date_product'];
+        // Điều kiện lọc theo số chứng từ (maphieu)
+        if (isset($data['maphieu']) && !empty($data['maphieu'])) {
+            $filters[] = ['value' => 'Số chứng từ: ' . $data['maphieu'], 'name' => 'maphieu', 'icon' => 'document'];
+        }
+        // Điều kiện lọc theo tên khách hàng
+        if (isset($data['customers']) && !empty($data['customers'])) {
+            $filters[] = ['value' => 'Tên khách hàng: ' . $data['customers'], 'name' => 'customers', 'icon' => 'user'];
+        }
+        // Điều kiện lọc theo nhân viên Sale
+        if (isset($data['sales']) && !empty($data['sales'])) {
+            $filters[] = ['value' => 'Nhân viên Sale: ' . $data['sales'], 'name' => 'sales', 'icon' => 'sales'];
+        }
+        // Điều kiện lọc theo mã hàng (code)
+        if (isset($data['code']) && !empty($data['code'])) {
+            $filters[] = ['value' => 'Mã hàng: ' . $data['code'], 'name' => 'code', 'icon' => 'product'];
+        }
+        // Điều kiện lọc theo tên hàng hóa (name)
+        if (isset($data['name']) && !empty($data['name'])) {
+            $filters[] = ['value' => 'Tên hàng: ' . $data['name'], 'name' => 'name', 'icon' => 'product'];
+        }
+        // Điều kiện lọc theo đơn vị tính (ĐVT)
+        if (isset($data['dvt']) && !empty($data['dvt'])) {
+            $filters[] = ['value' => 'ĐVT: ' . $data['dvt'], 'name' => 'dvt', 'icon' => 'unit'];
+        }
+        // Điều kiện lọc theo số lượng bán (slban)
+        if (isset($data['slban'][0]) && isset($data['slban'][1])) {
+            $filters[] = ['value' => 'Số lượng bán:' . $data['slban'][0] . ' ' . $data['slban'][1], 'name' => 'slban', 'icon' => 'quantity'];
+        }
+        // Điều kiện lọc theo đơn giá vốn (unit_price_cost)
+        if (isset($data['unit_price_cost'][0]) && isset($data['unit_price_cost'][1])) {
+            $filters[] = ['value' => 'Đơn giá vốn:' . $data['unit_price_cost'][0] . ' ' . $data['unit_price_cost'][1], 'name' => 'unit_price_cost', 'icon' => 'price'];
+        }
+        // Điều kiện lọc theo giá trị vốn (value_cost)
+        if (isset($data['value_cost'][0]) && isset($data['value_cost'][1])) {
+            $filters[] = ['value' => 'Giá trị vốn:' . $data['value_cost'][0] . ' ' . $data['value_cost'][1], 'name' => 'value_cost', 'icon' => 'value'];
+        }
+        // Điều kiện lọc theo giá xuất (unit_price_sell)
+        if (isset($data['unit_price_sell'][0]) && isset($data['unit_price_sell'][1])) {
+            $filters[] = ['value' => 'Giá xuất:' . $data['unit_price_sell'][0] . ' ' . $data['unit_price_sell'][1], 'name' => 'unit_price_sell', 'icon' => 'sell_price'];
+        }
+        // Điều kiện lọc theo doanh số (sales_value)
+        if (isset($data['sales_value'][0]) && isset($data['sales_value'][1])) {
+            $filters[] = ['value' => 'Doanh số:' . $data['sales_value'][0] . ' ' . $data['sales_value'][1], 'name' => 'sales_value', 'icon' => 'sales'];
+        }
+        // Điều kiện lọc theo chênh lệch (difference)
+        if (isset($data['difference'][0]) && isset($data['difference'][1])) {
+            $filters[] = ['value' => 'Chênh lệch:' . $data['difference'][0] . ' ' . $data['difference'][1], 'name' => 'difference', 'icon' => 'difference'];
         }
         if ($request->ajax()) {
             $allDeliveries = $this->detailExport->AjaxAllProductsSell($data);
@@ -696,6 +903,24 @@ class ReportController extends Controller
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
             $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+        }
+        if (isset($data['customers']) && $data['customers'] !== null) {
+            $filters[] = ['value' => 'Tên khách hàng: ' . $data['customers'], 'name' => 'customers', 'icon' => 'user'];
+        }
+        if (isset($data['sales']) && $data['sales'][1] !== null) {
+            $filters[] = ['value' => 'Bán hàng: ' . $data['sales'][0] . ' ' . $data['sales'][1], 'name' => 'sales', 'icon' => 'money'];
+        }
+        if (isset($data['customer_return']) && $data['customer_return'][1] !== null) {
+            $filters[] = ['value' => 'Khách trả hàng: ' . $data['customer_return'][0] . ' ' . $data['customer_return'][1], 'name' => 'customer_return', 'icon' => 'return'];
+        }
+        if (isset($data['receive']) && $data['receive'][1] !== null) {
+            $filters[] = ['value' => 'Thu: ' . $data['receive'][0] . ' ' . $data['receive'][1], 'name' => 'receive', 'icon' => 'receive'];
+        }
+        if (isset($data['pay']) && $data['pay'][1] !== null) {
+            $filters[] = ['value' => 'Chi: ' . $data['pay'][0] . ' ' . $data['pay'][1], 'name' => 'pay', 'icon' => 'pay'];
+        }
+        if (isset($data['ending_debt']) && $data['ending_debt'][1] !== null) {
+            $filters[] = ['value' => 'Nợ cuối kỳ: ' . $data['ending_debt'][0] . ' ' . $data['ending_debt'][1], 'name' => 'ending_debt', 'icon' => 'debt'];
         }
         if ($request->ajax()) {
             $changeWarehouse = $this->guest->ajaxReportDebtGuest($data);
@@ -837,11 +1062,19 @@ class ReportController extends Controller
         foreach ($contetnType as $va) {
             array_push($listIDContent, $va->id);
         }
-        $contentImport = PayOder::whereIn('content_pay', $listIDContent)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->select('id', 'payment_code', 'workspace_id', 'total', 'payment_date', 'content_pay', 'guest_id', 'fund_id', 'note')
-            ->orderBy('content_pay', 'asc')
-            ->get();
+        // $contentImport = PayOder::whereIn('content_pay', $listIDContent)
+        //     ->where('workspace_id', Auth::user()->current_workspace)->with('getProvide')
+        //     ->select('id', 'payment_code', 'workspace_id', 'total', 'payment_date', 'content_pay', 'guest_id', 'fund_id', 'note')
+        //     ->orderBy('content_pay', 'asc')
+        //     ->get();
+        $payment = PayOder::where('pay_order.workspace_id', Auth::user()->current_workspace)->orderBy('pay_order.id', 'desc');
+        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+            $payment->join('detailimport', 'detailimport.id', 'pay_order.detailimport_id')
+                ->where('detailimport.user_id', Auth::user()->id);
+        }
+        $payment->select('pay_order.*');
+
+        $contentImport = $payment->get();
 
         $contetnType1 = ContentGroups::where('contenttype_id', 1)
             ->where('workspace_id', Auth::user()->current_workspace)->get();
@@ -854,8 +1087,10 @@ class ReportController extends Controller
             ->select('id', 'receipt_code', 'workspace_id', 'amount', 'date_created', 'content_id', 'guest_id', 'fund_id', 'note')
             ->orderBy('content_id', 'asc')
             ->get();
+        $content = ContentGroups::where('contenttype_id', 1)->get();
+        $content_chi = ContentGroups::where('contenttype_id', 2)->get();
 
-        return view('report.reportIE', compact('title', 'contentImport', 'contentExport', 'workspacename'));
+        return view('report.reportIE', compact('title', 'contentImport', 'content_chi', 'content', 'contentExport', 'workspacename'));
     }
     // Ajax nội dung thu chi
     // Thu
@@ -866,8 +1101,30 @@ class ReportController extends Controller
         if (isset($data['date_thu']) && $data['date_thu'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date_thu'][0]));
             $date_end = date("d/m/Y", strtotime($data['date_thu'][1]));
-            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date_thu', 'icon' => 'date_thu'];
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date_thu', 'icon' => 'date'];
         }
+        if (isset($data['return_code']) && $data['return_code'] !== null) {
+            $filters[] = ['value' => 'Chứng từ: ' . $data['return_code'], 'name' => 'return_code', 'icon' => 'barcode'];
+        }
+        if (isset($data['customers']) && $data['customers'] !== null) {
+            $filters[] = ['value' => 'Tên: ' . $data['customers'], 'name' => 'customers', 'icon' => 'person'];
+        }
+        if (isset($data['content']) && $data['content'] !== null) {
+            $contents = new ContentGroups();
+            $content = $contents->getNameContent($data['content']);
+            $contenttring = implode(', ', $content);
+            $filters[] = ['value' => 'Nội dung: ' . count($data['content']) . ' đã chọn', 'name' => 'content', 'icon' => 'user'];
+        }
+        if (isset($data['amount']) && $data['amount'][1] !== null) {
+            $filters[] = ['value' => 'Số tiền: ' . $data['amount'][0] . ' ' . $data['amount'][1], 'name' => 'amount', 'icon' => 'cart'];
+        }
+        if (isset($data['fund']) && $data['fund'] !== null) {
+            $filters[] = ['value' => 'Quỹ: ' . $data['fund'], 'name' => 'fund', 'icon' => 'bank'];
+        }
+        if (isset($data['note']) && $data['note'] !== null) {
+            $filters[] = ['value' => 'Ghi chú: ' . $data['note'], 'name' => 'note', 'icon' => 'note'];
+        }
+
         if ($request->ajax()) {
             $contentExport = $this->cash_rc->ajax($data);
             return response()->json([
@@ -885,7 +1142,28 @@ class ReportController extends Controller
         if (isset($data['date_chi']) && $data['date_chi'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date_chi'][0]));
             $date_end = date("d/m/Y", strtotime($data['date_chi'][1]));
-            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date_chi', 'icon' => 'date_chi'];
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date_chi', 'icon' => 'date'];
+        }
+        if (isset($data['chungtu_chi']) && $data['chungtu_chi'] !== null) {
+            $filters[] = ['value' => 'Chứng từ: ' . $data['chungtu_chi'], 'name' => 'chungtu_chi', 'icon' => 'barcode'];
+        }
+        if (isset($data['name_chi']) && $data['name_chi'] !== null) {
+            $filters[] = ['value' => 'Tên: ' . $data['name_chi'], 'name' => 'name_chi', 'icon' => 'person'];
+        }
+        if (isset($data['content_chi']) && $data['content_chi'] !== null) {
+            $contents = new ContentGroups();
+            $content = $contents->getNameContent($data['content_chi']);
+            $contenttring = implode(', ', $content);
+            $filters[] = ['value' => 'Nội dung: ' . count($data['content_chi']) . ' đã chọn', 'name' => 'content_chi', 'icon' => 'user'];
+        }
+        if (isset($data['fund_chi']) && $data['fund_chi'] !== null) {
+            $filters[] = ['value' => 'Quỹ: ' . $data['fund_chi'], 'name' => 'fund_chi', 'icon' => 'bank'];
+        }
+        if (isset($data['note_chi']) && $data['note_chi'] !== null) {
+            $filters[] = ['value' => 'Ghi chú: ' . $data['note_chi'], 'name' => 'note_chi', 'icon' => 'note'];
+        }
+        if (isset($data['total_chi']) && $data['total_chi'][1] !== null) {
+            $filters[] = ['value' => 'Số tiền: ' . $data['total_chi'][0] . ' ' . $data['total_chi'][1], 'name' => 'total_chi', 'icon' => 'cart'];
         }
         if ($request->ajax()) {
             $contentImport = $this->payOrder->ajaxContentI($data);
@@ -903,7 +1181,10 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $content = ContentImportExport::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('report.reportChangeFunds', compact('title', 'content', 'workspacename'));
+        $userIds = $content->pluck('user_id')->toArray();
+        // Truy vấn thông tin người dùng dựa trên user_id
+        $users = User::whereIn('id', $userIds)->get();
+        return view('report.reportChangeFunds', compact('title', 'users', 'content', 'workspacename'));
     }
     // ajax chuyển tiền nội bộ
     public function searchRPChangeFunds(Request $request)
@@ -930,7 +1211,8 @@ class ReportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $inventoryDebt = Fund::where('workspace_id', Auth::user()->current_workspace)->get();
-        return view('report.reportIEFunds', compact('title', 'inventoryDebt', 'workspacename'));
+        $content = ContentGroups::get();
+        return view('report.reportIEFunds', compact('title', 'inventoryDebt', 'content', 'workspacename'));
     }
     // ajax thống kê thu chi tồn quỹ
     public function searchRPIEFunds(Request $request)
@@ -940,11 +1222,46 @@ class ReportController extends Controller
         if (isset($data['date']) && $data['date'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
-            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
+        if (isset($data['document_code']) && $data['document_code'] !== null) {
+            $filters[] = ['value' => 'Chứng từ: ' . $data['document_code'], 'name' => 'document_code', 'icon' => 'document'];
+        }
+        if (isset($data['customers']) && $data['customers'] !== null) {
+            $filters[] = ['value' => 'Tên: ' . $data['customers'], 'name' => 'customers', 'icon' => 'person'];
+        }
+        if (isset($data['content']) && $data['content'] !== null) {
+            $contents = new ContentGroups();
+            $content = $contents->getNameContent($data['content']);
+            $contenttring = implode(', ', $content);
+            $filters[] = ['value' => 'Nội dung: ' . count($data['content']) . ' đã chọn', 'name' => 'content', 'icon' => 'user'];
+        }
+        if (isset($data['receive']) && $data['receive'][1] !== null) {
+            $filters[] = ['value' => 'Thu: ' . $data['receive'][0] . ' ' . $data['receive'][1], 'name' => 'receive', 'icon' => 'receive'];
+        }
+        if (isset($data['pay']) && $data['pay'][1] !== null) {
+            $filters[] = ['value' => 'Chi: ' . $data['pay'][0] . ' ' . $data['pay'][1], 'name' => 'pay', 'icon' => 'pay'];
+        }
+        $dataThu = [
+            'search' => isset($data['search']) ? $data['search'] : null,
+            'date' => isset($data['date']) ? $data['date'] : null,
+            'return_code' => isset($data['document_code']) ? $data['document_code'] : null,
+            'customers' => isset($data['customers']) ? $data['customers'] : null,
+            'content' => isset($data['content']) ? $data['content'] : null,
+            'amount' => isset($data['receive']) ? $data['receive'] : null,
+        ];
+        $dataChi = [
+            'search' => isset($data['search']) ? $data['search'] : null,
+            'date' => isset($data['date']) ? $data['date'] : null,
+            'chungtu_chi' => isset($data['document_code']) ? $data['document_code'] : null,
+            'name_chi' => isset($data['customers']) ? $data['customers'] : null,
+            'content_chi' => isset($data['content']) ? $data['content'] : null,
+            'total_chi' => isset($data['pay']) ? $data['pay'] : null,
+        ];
+
         if ($request->ajax()) {
-            $contentExport = $this->cash_rc->ajax($data);
-            $contentImport = $this->payOrder->ajaxContentI($data);
+            $contentExport = $this->cash_rc->ajax($dataThu);
+            $contentImport = $this->payOrder->ajaxContentI($dataChi);
             return response()->json([
                 'contentExport' => $contentExport,
                 'contentImport' => $contentImport,

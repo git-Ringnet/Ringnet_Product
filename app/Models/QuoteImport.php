@@ -144,11 +144,36 @@ class QuoteImport extends Model
                 'detailimport.id as id',
                 'quoteimport.product_qty as slxuat',
             );
+        if (isset($data['search'])) {
+            $quoteI = $quoteI->where(function ($query) use ($data) {
+                $query->orWhere('detailimport.quotation_number', 'like', '%' . $data['search'] . '%');
+            });
+        }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
             $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
             $quoteI = $quoteI->whereBetween('detailimport.created_at', [$dateStart, $dateEnd]);
-        };
+        }
+        if (!empty($data['code'])) {
+            $quoteI = $quoteI->where('quoteimport.product_code', 'like', '%' . $data['code'] . '%');
+        }
+        if (!empty($data['name'])) {
+            $quoteI = $quoteI->where('quoteimport.product_name', 'like', '%' . $data['name'] . '%');
+        }
+        if (isset($data['sales'])) {
+            $quoteI = $quoteI->whereIn('detailimport.user_id', $data['sales']);
+        }
+        if (!empty($data['dvt'])) {
+            $quoteI = $quoteI->where('quoteimport.product_unit', 'like', '%' . $data['dvt'] . '%');
+        }
+        if (!empty($data['slban'][0]) && !empty($data['slban'][1])) {
+            $operator = $data['slban'][0];
+            $value = $data['slban'][1];
+            $quoteI = $quoteI->having('slxuat', $operator, $value);
+        }
+        if (!empty($data['maphieu'])) {
+            $quoteI = $quoteI->where('detailimport.quotation_number', 'like', '%' . $data['maphieu'] . '%');
+        }
         $quoteI = $quoteI->get();
         return $quoteI;
     }

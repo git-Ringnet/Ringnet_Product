@@ -214,8 +214,7 @@
                                                     $totalSlNhap += $product['totalImportQty'];
                                                     $totalSlXuat += $product['totalExportQty'];
                                                 @endphp
-                                                <tr class="product-info"
-                                                    onclick="handleRowClick('checkbox', event);">
+                                                <tr class="product-info" onclick="handleRowClick('checkbox', event);">
                                                     <input type="hidden" name="id-product" class="id-product"
                                                         id="id-product" value="">
                                                     <td class="text-13-black height-52 border">
@@ -325,7 +324,6 @@
                 sort: sort,
             },
             success: function(data) {
-
                 updateFiltersReport(data, filters, '.result-filter-product', '.tbody-product',
                     '.product-info', '.id-product', buttonName);
             }

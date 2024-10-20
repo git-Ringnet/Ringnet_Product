@@ -394,18 +394,42 @@ class QuoteExport extends Model
             ->leftJoin('groups', 'groups.id', 'products.group_id')
             ->where('quoteexport.status', 1)
             ->select(
-                'detailexport.*',
                 'quoteexport.*',
+                'detailexport.*',
                 'groups.name as nameGr',
                 'quoteexport.product_qty as slxuat',
             );
+        if (isset($data['search'])) {
+            $quoteE = $quoteE->where(function ($query) use ($data) {
+                $query->orWhere('detailexport.quotation_number', 'like', '%' . $data['search'] . '%');
+            });
+        }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
             $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
             $quoteE = $quoteE->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
         }
+        if (!empty($data['code'])) {
+            $quoteE = $quoteE->where('products.product_code', 'like', '%' . $data['code'] . '%');
+        }
+        if (!empty($data['name'])) {
+            $quoteE = $quoteE->where('products.product_name', 'like', '%' . $data['name'] . '%');
+        }
+        if (isset($data['sales'])) {
+            $quoteE = $quoteE->whereIn('detailexport.id_sale', $data['sales']);
+        }
+        if (!empty($data['dvt'])) {
+            $quoteE = $quoteE->where('products.product_unit', 'like', '%' . $data['dvt'] . '%');
+        }
+        if (!empty($data['slban'][0]) && !empty($data['slban'][1])) {
+            $operator = $data['slban'][0];
+            $value = $data['slban'][1];
+            $quoteE = $quoteE->having('slxuat', $operator, $value);
+        }
+        if (!empty($data['maphieu'])) {
+            $quoteE = $quoteE->where('detailexport.quotation_number', 'like', '%' . $data['maphieu'] . '%');
+        }
         $quoteE = $quoteE->get();
-
         return $quoteE;
     }
     public function sumProductsQuoteSale()
