@@ -1291,7 +1291,7 @@ class DetailExportController extends Controller
                     return $query->where('guest_id', $idGuest);
                 })
                 ->when($request->creator, function ($query, $creator) {
-                    return $query->where('detailexport.user_id', $creator);
+                    return $query->where('detailexport.id_sale', $creator);
                 })
                 ->whereBetween(DB::raw("DATE(detailexport.created_at)"), [$fromDate, $toDate])
                 ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
@@ -1318,7 +1318,7 @@ class DetailExportController extends Controller
                     return $query->where('provide_id', $idGuest);
                 })
                 ->when($request->creator, function ($query, $creator) {
-                    return $query->where('detailimport.user_id', $creator);
+                    return $query->where('detailimport.id_sale', $creator);
                 })
                 ->whereBetween(DB::raw("DATE(detailimport.created_at)"), [$fromDate, $toDate])
                 ->leftJoin('provides', 'detailimport.provide_id', 'provides.id')

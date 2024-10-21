@@ -267,8 +267,9 @@
                                             class="text-13-black w-50 border-0 bg-input-guest py-2 px-2">
                                             @foreach ($users as $user_name)
                                                 <option value="{{ $user_name->id }}"
-                                                    @if ($delivery->manager_warehouse) selected @endif>
-                                                    {{ $user_name->name }}</option>
+                                                    @if ($delivery->manager_warehouse == $user_name->id) selected @endif>
+                                                    {{ $user_name->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>

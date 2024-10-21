@@ -702,6 +702,8 @@
                         $("#datePicker").val(formatDate(data.delivery
                             .ngayGiao));
                         $("#hiddenDateInput").val(data.delivery.ngayGiao);
+                        $("select[name='manager_warehouse']").val(data.delivery
+                            .manager_warehouse);
                         //
                         if (data.product && data.product.length > 0) {
                             $("#inputcontent tbody").children().not(
@@ -774,6 +776,8 @@
                             .ngayNH));
                         $("#hiddenDateInput").val(formatDate1(data.receive
                             .ngayNH));
+                        $("select[name='manager_warehouse']").val(data.receive
+                            .manager_warehouse);
                         //
                         if (data.product && data.product.length > 0) {
                             $("#inputcontent tbody").children().not(

@@ -168,7 +168,7 @@ class DeliveryController extends Controller
         //
         $listDetail = $this->delivery->listDelivery();
         //danh sách nhân viên
-        $users = User::where('origin_workspace', Auth::user()->origin_workspace)->get();
+        $users = User::all();
         return view('tables.export.delivery.create-delivery', compact('title', 'users', 'convert', 'guest', 'invoice', 'numberQuote', 'product', 'workspacename', 'listDetail'));
     }
 
@@ -312,7 +312,7 @@ class DeliveryController extends Controller
         $listDetail = $this->delivery->listDelivery();
         $guest = $this->guest->getAllGuest();
         //danh sách nhân viên
-        $users = User::where('origin_workspace', Auth::user()->origin_workspace)->get();
+        $users = User::all();
         return view('tables.export.delivery.watch-delivery', compact('title', 'quoteExport', 'delivery', 'product', 'serinumber', 'workspacename', 'listDetail', 'guest', 'users'));
     }
 

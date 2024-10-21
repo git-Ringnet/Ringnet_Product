@@ -70,9 +70,9 @@
                         <span class="m-0 ml-1">Xuất Excel</span>
                     </button>
                 </a>
-                <a href="{{ route('content.create', $workspacename) }}" class="mr-1">
+                <a href="{{ route('content.create', $workspacename) }}" class="mr-3">
                     <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
-                        <svg width="12" height="12" viewBox="0 0 18 18" fill="none"
+                        <svg class="mx-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
