@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="statistic" activeName="sumBusiness"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
-    <div class="content-header-fixed p-0">
+    <div class="content-header-fixed-report p-0">
         <div class="content__header--inner">
             {{-- <div class="content__heading--left ">
                 <span class="ml-4">Báo cáo</span>
@@ -102,7 +102,7 @@
             </div>
         </div>
     </div>
-    <div class="content" style="margin-top: 8.4rem;">
+    <div class="content margin-top-118">
         <section class="container-fluided">
             <div class="tab-content">
                 <div id="buy" class="content tab-pane in active">

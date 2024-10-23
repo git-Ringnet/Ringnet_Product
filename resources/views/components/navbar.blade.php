@@ -465,7 +465,7 @@
                 class="px-3 py-2 border-bottom border-top bg-grey @if (
                     (!empty($activeGroup) && $activeGroup == 'systemFirst') ||
                         (!empty($activeGroup) && $activeGroup == 'manageProfess') ||
-                        (!empty($activeGroup) && $activeGroup == 'statistic')) d-flex @else d-none @endif">
+                        (!empty($activeGroup) && $activeGroup == 'statistic')) d-block @else d-none @endif">
                 <div class="@if (!empty($activeGroup) && $activeGroup == 'systemFirst') d-flex @else d-none @endif">
                     <a href="{{ route('groups.index', $workspacename) }}" class="height-36">
                         <button type="button"
@@ -596,10 +596,10 @@
                         </button>
                     </a>
                 </div>
-                <div class="@if (!empty($activeGroup) && $activeGroup == 'statistic') d-flex @else d-none @endif">
+                <div class="@if (!empty($activeGroup) && $activeGroup == 'statistic') d-block @else d-none @endif">
                     <a href="{{ route('viewReportDebtGuests', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'debtGuests') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'debtGuests') active @endif">
                             Công nợ khách hàng
                         </button>
                     </a>
@@ -611,79 +611,79 @@
                     </a> --}}
                     <a href="{{ route('viewReportSales', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumSales') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumSales') active @endif">
                             Doanh số bán hàng
                         </button>
                     </a>
                     <a href="{{ route('viewReportBuy', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumBuy') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumBuy') active @endif">
                             Doanh số mua hàng
                         </button>
                     </a>
                     <a href="{{ route('viewReportDelivery', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumDelivery') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumDelivery') active @endif">
                             Tổng kết giao hàng
                         </button>
                     </a>
                     <a href="{{ route('viewReportSumReturnExport', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumReturnExport') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumReturnExport') active @endif">
                             Tổng kết khách trả hàng
                         </button>
                     </a>
                     <a href="{{ route('viewReportSumSellProfit', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'reportSumSellProfit') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'reportSumSellProfit') active @endif">
                             Báo cáo lợi nhuận bán hàng
                         </button>
                     </a>
                     {{-- <a href="{{ route('viewReportImport', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportImport') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportImport') active @endif">
                             Tổng kết mua hàng
                         </button>
                     </a> --}}
                     <a href="{{ route('viewReportProvides', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportProvides') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportProvides') active @endif">
                             Công nợ NCC
                         </button>
                     </a>
                     <a href="{{ route('viewReportReturnImport', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportReturnImport') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportReturnImport') active @endif">
                             Trả hàng NCC
                         </button>
                     </a>
                     <a href="{{ route('viewReportIE', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportIE') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportIE') active @endif">
                             Tổng hợp nội dung thu chi
                         </button>
                     </a>
                     <a href="{{ route('viewReportChangeFunds', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportChangeFunds') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportChangeFunds') active @endif">
                             Chuyển tiền nội bộ
                         </button>
                     </a>
                     <a href="{{ route('viewReportIEFunds', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportIEFunds') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportIEFunds') active @endif">
                             Thống kê thu chi tồn quỹ
                         </button>
                     </a>
                     <a href="{{ route('viewReportIEEnventory', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportIEEnventory') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'viewReportIEEnventory') active @endif">
                             Xuất - nhập - tồn kho
                         </button>
                     </a>
                     <a href="{{ route('viewReportSumBusiness', $workspacename) }}" class="height-36">
                         <button type="button"
-                            class="p-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumBusiness') active @endif">
+                            class="p-1 my-1 h-100 border text-dark justify-content-center align-items-center text-13-black rounded bg-white ml-2 @if (!empty($activeName) && $activeName == 'sumBusiness') active @endif">
                             Tổng hợp kết quả kinh doanh
                         </button>
                     </a>

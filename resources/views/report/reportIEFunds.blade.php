@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="statistic" activeName="viewReportIEFunds"></x-navbar>
 <div class="content-wrapper m-0 min-height--none p-0">
-    <div class="content-header-fixed p-0">
+    <div class="content-header-fixed-report p-0">
         <div class="content__header--inner">
             {{-- <div class="content__heading--left ">
                 <span class="ml-4">Báo cáo</span>
@@ -14,7 +14,7 @@
                 </span>
                 <span class="font-weight-bold">{{ $title }}</span>
             </div> --}}
-            <div class="col-md-5 d-flex align-items-center">
+            <div class="pl-3 d-flex align-items-center">
                 <form action="" method="get" id="search-filter" class="p-0 m-0">
                     <div class="position-relative ml-1">
                         <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
@@ -122,7 +122,7 @@
             </div>
         </div>
     </div>
-    <div class="content" style="margin-top: 8.4rem;">
+    <div class="content margin-top-118">
         <section class="container-fluided">
             <div class="row result-filter-product margin-left30 my-1">
             </div>

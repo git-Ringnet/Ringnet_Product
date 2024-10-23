@@ -687,11 +687,11 @@ td p {
 }
 
 * {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
 }
 .font-TNR {
-    font-family: 'Times New Roman', Times, serif !important;
+    font-family: "Times New Roman", Times, serif !important;
 }
 .nav-item p {
     font-weight: 500;
@@ -921,6 +921,35 @@ td p {
     z-index: 99;
     border-bottom: 1px solid #dfe1e4;
     background-color: white;
+}
+
+.content-header-fixed-report {
+    position: fixed;
+    top: 145px;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-bottom: 1px solid #dfe1e4;
+    background-color: white;
+}
+
+.margin-top-118{
+    margin-top: 11.8rem;
+}
+
+@media (min-width: 1921px) {
+    .content-header-fixed-report {
+        position: fixed;
+        top: 100px;
+        left: 0;
+        right: 0;
+        z-index: 99;
+        border-bottom: 1px solid #dfe1e4;
+        background-color: white;
+    }
+    .margin-top-118{
+        margin-top: 8.8rem;
+    }
 }
 
 .content-header-fixed1 {
@@ -2977,7 +3006,7 @@ input[type="checkbox"]:checked {
     max-height: calc(75vh - 125px);
 }
 
-.outer-4 th{
+.outer-4 th {
     top: 0;
     position: sticky;
     background-color: white;
@@ -2987,7 +3016,7 @@ input[type="checkbox"]:checked {
 .highlight-due-date td,
 .highlight-due-date td a {
     color: red !important;
-    background: #FFF3CD !important;
+    background: #fff3cd !important;
     font-weight: 700 !important;
 }
 
@@ -3006,21 +3035,21 @@ input[type="checkbox"]:checked {
     z-index: 9;
 }
 /*UPDATE UI*/
-.height-47{
+.height-47 {
     height: 47px !important;
 }
-.height-30{
+.height-30 {
     height: 30px !important;
 }
-.font-weight-600{
+.font-weight-600 {
     font-weight: 600 !important;
 }
-.content__heading--right .navbar-head:hover{
+.content__heading--right .navbar-head:hover {
     color: #6e79d6 !important;
     border-bottom: 3px solid #6e79d6 !important;
     padding-bottom: 11px !important;
 }
-.active-navbar{
+.active-navbar {
     color: #6e79d6 !important;
     font-weight: 600 !important;
     font-size: 16px !important;
@@ -3028,15 +3057,15 @@ input[type="checkbox"]:checked {
     border-bottom: 3px solid #6e79d6 !important;
     padding-bottom: 11px !important;
 }
-.text-14{
+.text-14 {
     font-size: 14px !important;
 }
-.text-13-fs{
+.text-13-fs {
     font-size: 13px !important;
 }
-.text-purble{
-    color: #6E79D6 !important;
+.text-purble {
+    color: #6e79d6 !important;
 }
-.margin-top-114{
+.margin-top-114 {
     margin-top: 11.4rem;
 }

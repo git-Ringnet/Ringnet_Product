@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="statistic" activeName="sumDelivery"></x-navbar>
 <div class="content-wrapper m-0 min-height--none">
-    <div class="content-header-fixed p-0">
+    <div class="content-header-fixed-report p-0">
         <div class="content__header--inner">
             {{-- <div class="content__heading--left">
                 <span class="ml-4">Báo cáo</span>
@@ -112,7 +112,7 @@
             </div>
         </div>
     </div>
-    <div class="content" style="margin-top: 8.4rem;">
+    <div class="content margin-top-118">
         <section class="container-fluided">
             <div class="row result-filter-product margin-left30 my-1">
             </div>
