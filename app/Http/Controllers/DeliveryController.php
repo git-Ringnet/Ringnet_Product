@@ -293,7 +293,6 @@ class DeliveryController extends Controller
 
     public function watchDelivery(string $workspace, string $id)
     {
-
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $title = 'Chỉnh sửa phiếu xuất kho';
@@ -372,10 +371,10 @@ class DeliveryController extends Controller
         } else {
             $warningMessage = 'Không thể xóa đơn giao hàng vì: ';
             if (!is_null($returnEx)) {
-                $warningMessage .= 'đơn giao hàng liên kết với trả hàng. ';
+                $warningMessage .= 'Đơn giao hàng liên kết với trả hàng. ';
             }
             if (!is_null($cashReciept)) {
-                $warningMessage .= 'đơn giao hàng liên kết với phiếu thu.';
+                $warningMessage .= 'Đơn giao hàng liên kết với phiếu thu.';
             }
             return redirect()->route('delivery.index', ['workspace' => $workspace])->with('warning', $warningMessage);
         }

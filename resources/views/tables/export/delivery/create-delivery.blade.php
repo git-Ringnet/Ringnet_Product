@@ -479,9 +479,9 @@
                                                 style="">
                                                 Thành tiền
                                             </th>
-                                            <th class="border-right p-0 px-2 text-left note text-13">Ghi chú sản
-                                                phẩm
+                                            <th class="border-right p-0 px-2 text-left note text-13">Ghi chú
                                             </th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1179,7 +1179,7 @@
             );
             // Gắn các phần tử vào hàng mới
             newRow.append(tenSanPham, dvTinh, soLuong, km, kho,
-                ghiChu);
+                ghiChu, option);
             $("#dynamic-fields").before(newRow);
             checkProductTaxValues();
             if (!checkProductTaxValues()) {
@@ -1197,8 +1197,9 @@
             //Xóa sản phẩm
             option.click(function() {
                 var deletedRow = $(this).closest("tr");
-                var deletedProductAmount = parseFloat(deletedRow.find('.total-amount').val()
-                    .replace(/,/g, '')) || 0;
+                var totalAmountValue = deletedRow.find('.total-amount').val();
+                var deletedProductAmount = totalAmountValue ? parseFloat(totalAmountValue
+                    .replace(/,/g, '')) || 0 : 0;
                 var deletedProductTax = parseFloat(deletedRow.find('.product_tax1').val()
                     .replace(/,/g, ''));
 

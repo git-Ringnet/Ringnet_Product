@@ -168,18 +168,22 @@ class ReturnImport extends Model
                     }
                 }
                 //cập nhật công nợ NCC
-                if (isset($data['provide_id'])) {
+                if (!empty($data['provide_id'])) {
                     $provide = Provides::where('id', $data['provide_id'])->first();
-                    $provide->provide_debt = ($provide->provide_debt == null ? 0 : $provide->provide_debt) - (isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0);
-                    $provide->save();
+                    if ($provide) {
+                        $provide->provide_debt = ($provide->provide_debt == null ? 0 : $provide->provide_debt) - (isset($data['total_bill']) ? str_replace(',', '', $data['total_bill']) : 0);
+                        $provide->save();
+                    }
                 } else {
                     $provide = Provides::leftJoin('receive_bill', 'receive_bill.provide_id', 'provides.id')
                         ->leftJoin('returnimport', 'returnimport.receive_id', 'receive_bill.id')
                         ->where('returnimport.id', $id)
                         ->select('provides.id', 'provides.provide_debt')
                         ->first();
-                    $provide->provide_debt = $provide->provide_debt - $returnImport->total;
-                    $provide->save();
+                    if ($provide) {
+                        $provide->provide_debt = $provide->provide_debt - $returnImport->total;
+                        $provide->save();
+                    }
                 }
                 // Cập nhật trạng thái đơn hàng
                 $returnImport->status = 2;
@@ -259,12 +263,9 @@ class ReturnImport extends Model
                             $productWarehouse->save();
                         }
                     }
-
-
+                    // Xóa thông tin sản phẩm trả hàng
                     $item->delete();
                 }
-                // Xóa thông tin sản phẩm trả hàng
-                ReturnProduct::where('id', $item->id)->delete();
             }
             //cập nhật công nợ NCC
             $provide = Provides::leftJoin('receive_bill', 'receive_bill.provide_id', 'provides.id')
@@ -272,8 +273,10 @@ class ReturnImport extends Model
                 ->where('returnimport.id', $id)
                 ->select('provides.id', 'provides.provide_debt')
                 ->first();
-            $provide->provide_debt = $provide->provide_debt + $returnImport->total;
-            $provide->save();
+            if ($provide) {
+                $provide->provide_debt = $provide->provide_debt + $returnImport->total;
+                $provide->save();
+            }
             // Xóa đơn trả hàng
             ReturnImport::where('id', $returnImport->id)->delete();
             $status['status'] = true;

@@ -733,6 +733,20 @@ class Delivery extends Model
                     'status_receive' => 0,
                 ]);
         }
+        //Cập nhật kho hàng
+        $warehouse = QuoteExport::leftJoin('delivery', 'product_delivery', 'delivery.id')->where('delivery.id', $id)->get();
+        foreach ($warehouse as $item) {
+            $product_id = $item->product_id;
+            $warehouse_id = $item->warehouse_id;
+            $productWarehouse = ProductWarehouse::where('product_id', $product_id)
+                ->where('warehouse_id', $warehouse_id)
+                ->first();
+            if ($productWarehouse) {
+                $productWarehouse->qty += $item->product_qty;
+                $productWarehouse->save();
+            }
+        }
+        //
         QuoteExport::where('product_delivery', $id)->delete();
         Delivery::find($id)->delete();
     }
@@ -873,6 +887,20 @@ class Delivery extends Model
                     'status_receive' => 0,
                 ]);
         }
+        //Cập nhật kho hàng
+        $warehouse = QuoteExport::leftJoin('delivery', 'product_delivery', 'delivery.id')->where('delivery.id', $id)->get();
+        foreach ($warehouse as $item) {
+            $product_id = $item->product_id;
+            $warehouse_id = $item->warehouse_id;
+            $productWarehouse = ProductWarehouse::where('product_id', $product_id)
+                ->where('warehouse_id', $warehouse_id)
+                ->first();
+            if ($productWarehouse) {
+                $productWarehouse->qty += $item->product_qty;
+                $productWarehouse->save();
+            }
+        }
+        //
         QuoteExport::where('product_delivery', $id)->where('status', 1)->delete();
         Delivery::find($id)->delete();
     }

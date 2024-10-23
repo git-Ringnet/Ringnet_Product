@@ -294,7 +294,6 @@ $(document).ready(function () {
         } else {
             detail_id = parseInt($(this).attr("id"), 10);
         }
-        console.log(detail_id);
 
         $("#fund_id").val(detail_id);
         $("#fund").val($(this).find("span").text());
