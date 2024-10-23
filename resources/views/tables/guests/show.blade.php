@@ -856,7 +856,6 @@
 </form>
 <x-print-component :contentId="$title" />
 <x-user-flow></x-user-flow>
-<script src="{{ asset('/dist/js/export.js') }}"></script>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 <script src="{{ asset('/dist/js/number.js') }}"></script>
 <script src="{{ asset('/dist/js/report.js') }}"></script>
@@ -1005,6 +1004,4 @@
 
     // Gọi hàm để xử lý với 'guest_name_display'
     getKeyGuest($('input[name="guest_name_display"]'));
-
-    let fieldCounter = 1;
 </script>

@@ -398,7 +398,6 @@
 <script>
     $(document).on('click', '.btn-submit', function(e) {
         e.preventDefault(); // Ngăn sự kiện mặc định
-
         var buttonElement = this;
         var formData = {
             search: $('#search').val(),

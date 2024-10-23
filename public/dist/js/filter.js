@@ -1230,19 +1230,30 @@ handleFilterAndCancelClick(
     $(".fund_chi-input"), // Trường nhập Quỹ
     $("#cancel-fund_chi") // Nút hủy Quỹ
 );
-
 // Xử lý khi nhấn nút "Ghi chú - Chi"
 handleFilterAndCancelClick(
-    $("#btn-note_chi"), // Nút Ghi chú
-    $("#note_chi-options"), // Tùy chọn lọc Ghi chú
-    $(".note_chi-input"), // Trường nhập Ghi chú
-    $("#cancel-note_chi") // Nút hủy Ghi chú
+    $("#btn-note_chi"),
+    $("#note_chi-options"),
+    $(".note_chi-input"),
+    $("#cancel-note_chi")
 );
 handleFilterAndCancelClick(
-    $("#btn-document_code"), // Nút Ghi chú
-    $("#document_code-options"), // Tùy chọn lọc Ghi chú
-    $(".document_code-input"), // Trường nhập Ghi chú
-    $("#cancel-document_code") // Nút hủy Ghi chú
+    $("#btn-document_code"),
+    $("#document_code-options"),
+    $(".document_code-input"),
+    $("#cancel-document_code")
+);
+handleFilterAndCancelClick(
+    $("#btn-import"),
+    $("#import-options"),
+    $(".import-input"),
+    $("#cancel-import")
+);
+handleFilterAndCancelClick(
+    $("#btn-export"),
+    $("#export-options"),
+    $(".export-input"),
+    $("#cancel-export")
 );
 
 function filterFunction() {

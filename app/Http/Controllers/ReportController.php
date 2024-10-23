@@ -1278,41 +1278,42 @@ class ReportController extends Controller
         $workspacename = $workspacename->workspace_name;
 
         $delivery = Delivered::leftJoin('products', 'products.id', '=', 'delivered.product_id')
-            ->select(DB::raw('SUM(delivered.deliver_qty) as totalExportQty'), 'products.product_code', 'products.product_name', 'products.product_unit')
+            ->select(DB::raw('SUM(delivered.deliver_qty) as totalExportQty'), 'products.product_code', 'products.product_name', 'products.product_unit', 'delivered.product_id as product_id')
             ->groupBy('delivered.product_id', 'products.product_code', 'products.product_name', 'products.product_unit')
             ->get();
-
         $receive = ProductImport::leftJoin('products', 'products.id', '=', 'products_import.product_id')
-            ->select(DB::raw('SUM(products_import.product_qty) as totalImportQty'), 'products.product_code', 'products.product_name', 'products.product_unit')
+            ->select(DB::raw('SUM(products_import.product_qty) as totalImportQty'), 'products.product_code', 'products.product_name', 'products.product_unit', 'products_import.product_id as product_id')
             ->groupBy('products_import.product_id', 'products.product_code', 'products.product_name', 'products.product_unit')
             ->get();
 
         // Combine the data
-        $products = $receive->map(function ($item) use ($delivery) {
-            $product = $delivery->firstWhere('id', $item->id);
-            return [
+        $productsData = ProductImport::leftJoin('products', 'products.id', '=', 'products_import.product_id')
+            ->leftJoin('delivered', 'delivered.product_id', '=', 'products.id')
+            ->select(
+                DB::raw('SUM(products_import.product_qty) as totalImportQty'), // Không cần DISTINCT
+                DB::raw('SUM(delivered.deliver_qty) as totalExportQty'), // Không cần DISTINCT
+                'products.product_code',
+                'products.product_name',
+                'products.product_unit',
+                'products_import.product_id as id'
+            )
+            ->groupBy('products_import.product_id', 'products.product_code', 'products.product_name', 'products.product_unit')
+            ->get();
+
+        $results = [];
+
+        foreach ($productsData as $item) {
+            $results[] = [
+                'product_id' => $item->id,
                 'product_code' => $item->product_code,
                 'product_name' => $item->product_name,
                 'product_unit' => $item->product_unit,
                 'totalImportQty' => $item->totalImportQty,
-                'totalExportQty' => $product ? $product->totalExportQty : 0,
-                'finalQty' => $item->totalImportQty - ($product ? $product->totalExportQty : 0),
+                'totalExportQty' => $item->totalExportQty ?? 0,
+                'finalQty' => $item->totalImportQty - ($item->totalExportQty ?? 0)
             ];
-        });
-
-        // Add remaining products from the delivery list that are not in the import list
-        $delivery->each(function ($item) use (&$products) {
-            if (!$products->firstWhere('product_code', $item->product_code)) {
-                $products->push([
-                    'product_code' => $item->product_code,
-                    'product_name' => $item->product_name,
-                    'product_unit' => $item->product_unit,
-                    'totalImportQty' => 0,
-                    'totalExportQty' => $item->totalExportQty,
-                    'finalQty' => -$item->totalExportQty,
-                ]);
-            }
-        });
+        }
+        $products = $results;
 
         return view('report.reportIEEnventory', compact('title', 'workspacename', 'products'));
     }
@@ -1324,8 +1325,27 @@ class ReportController extends Controller
         if (isset($data['date']) && $data['date'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
             $date_end = date("d/m/Y", strtotime($data['date'][1]));
-            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
+            $filters[] = ['value' => 'Ngày: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
+        if (isset($data['code']) && $data['code'] !== null) {
+            $filters[] = ['value' => 'Mã hàng: ' . $data['code'], 'name' => 'code', 'icon' => 'code'];
+        }
+        if (isset($data['name']) && $data['name'] !== null) {
+            $filters[] = ['value' => 'Tên hàng: ' . $data['name'], 'name' => 'name', 'icon' => 'name'];
+        }
+        if (isset($data['dvt']) && $data['dvt'] !== null) {
+            $filters[] = ['value' => 'ĐVT: ' . $data['dvt'], 'name' => 'dvt', 'icon' => 'dvt'];
+        }
+        if (isset($data['import']) && $data['import'][1] !== null) {
+            $filters[] = ['value' => 'Nhập: ' . $data['import'][0] . ' ' . $data['import'][1], 'name' => 'import', 'icon' => 'import'];
+        }
+        if (isset($data['export']) && $data['export'][1] !== null) {
+            $filters[] = ['value' => 'Xuất: ' . $data['export'][0] . ' ' . $data['export'][1], 'name' => 'export', 'icon' => 'export'];
+        }
+        if (isset($data['debt']) && $data['debt'][1] !== null) {
+            $filters[] = ['value' => 'Tồn cuối: ' . $data['debt'][0] . ' ' . $data['debt'][1], 'name' => 'debt', 'icon' => 'debt'];
+        }
+
         if ($request->ajax()) {
             $products = $this->product->ajaxEnventory($data);
             return response()->json([

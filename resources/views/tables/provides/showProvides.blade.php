@@ -34,8 +34,8 @@
                     <a href="{{ route('provides.index', $workspacename) }}" class="user_flow" data-type="NCC"
                         data-des="Trở về">
                         <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
-                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                fill="none">
+                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 16 16" fill="none">
                                 <path
                                     d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
                                     fill="#6D7075" />
@@ -86,8 +86,8 @@
                     <a href="{{ route('provides.edit', ['workspace' => $workspacename, 'provide' => $provide->id]) }}"
                         class="user_flow mr-1" data-type="NCC" data-des="Chỉnh sửa nhà cung cấp">
                         <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
-                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                fill="none">
+                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 16 16" fill="none">
                                 <path
                                     d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
                                     fill="white" />
@@ -870,6 +870,7 @@
 <script>
     $(document).ready(function() {
         $('.history').hide();
+        $('.detailImport').hide();
         $('.header-options--nav a[data-toggle="tab"]').click(function() {
             var targetId = $(this).attr('href');
             var content = '';

@@ -690,7 +690,9 @@ td p {
     font-family: 'Inter';
     font-style: normal;
 }
-
+.font-TNR {
+    font-family: 'Times New Roman', Times, serif !important;
+}
 .nav-item p {
     font-weight: 500;
 }
